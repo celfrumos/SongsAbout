@@ -244,6 +244,9 @@ paket-files/
 # FAKE - F# Make
 .fake/
 
+# Access database lock Files
+.laccdb
+
 # JetBrains Rider
 .idea/
 *.sln.iml
