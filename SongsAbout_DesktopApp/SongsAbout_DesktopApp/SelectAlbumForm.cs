@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace SongsAbout_DesktopApp
 {
-    public partial class AddArtistForm : Form
+    public partial class SelectAlbumForm : Form
     {
-        public AddArtistForm()
+        public SelectAlbumForm()
         {
             InitializeComponent();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -27,7 +22,18 @@ namespace SongsAbout_DesktopApp
 
         }
 
-        private void btnOpenFile_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
+
+        private void btnNewArtist_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGetArtist_Click(object sender, EventArgs e)
         {
 
         }

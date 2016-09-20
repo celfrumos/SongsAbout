@@ -70,10 +70,10 @@ namespace SongsAbout_DesktopApp
 
         }
 
-        private void btnAddInfo_Click(object sender, EventArgs e)
+        private void btnAddTrack_Click(object sender, EventArgs e)
         {
-            AddTrackForm addInfo = new AddTrackForm();
-            addInfo.Show();
+            AddTrackForm addTrack = new AddTrackForm();
+            addTrack.ShowDialog();
         }
     }
 }

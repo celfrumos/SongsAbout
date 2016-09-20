@@ -155,9 +155,9 @@
             this.btnAddInfo.Name = "btnAddInfo";
             this.btnAddInfo.Size = new System.Drawing.Size(193, 54);
             this.btnAddInfo.TabIndex = 13;
-            this.btnAddInfo.Text = "Add New Info";
+            this.btnAddInfo.Text = "Add New Track";
             this.btnAddInfo.UseVisualStyleBackColor = true;
-            this.btnAddInfo.Click += new System.EventHandler(this.btnAddInfo_Click);
+            this.btnAddInfo.Click += new System.EventHandler(this.btnAddTrack_Click);
             // 
             // MainForm
             // 

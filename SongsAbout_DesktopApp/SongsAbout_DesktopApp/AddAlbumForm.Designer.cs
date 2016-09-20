@@ -28,48 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button4 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnOpenFile = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtBoxYear = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBoxArtist = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtBoxKeywords = new System.Windows.Forms.TextBox();
+            this.txtBoxTitle = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSelectArtist = new System.Windows.Forms.Button();
+            this.btnAddArtist = new System.Windows.Forms.Button();
+            this.picBoxProfilePic = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
-            // button4
+            // btnSave
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button4.Location = new System.Drawing.Point(275, 110);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 30;
-            this.button4.Text = "Save";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSave.Location = new System.Drawing.Point(171, 262);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(74, 23);
+            this.btnSave.TabIndex = 30;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // button1
+            // btnOpenFile
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(275, 81);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Open File";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(105, 81);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(163, 20);
-            this.textBox3.TabIndex = 27;
+            this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenFile.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnOpenFile.Location = new System.Drawing.Point(15, 42);
+            this.btnOpenFile.Name = "btnOpenFile";
+            this.btnOpenFile.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenFile.TabIndex = 28;
+            this.btnOpenFile.Text = "Open File";
+            this.btnOpenFile.UseVisualStyleBackColor = true;
+            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
             // label6
             // 
@@ -77,20 +74,20 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label6.Location = new System.Drawing.Point(11, 81);
+            this.label6.Location = new System.Drawing.Point(11, 11);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 19);
             this.label6.TabIndex = 26;
             this.label6.Text = "Cover Art";
             // 
-            // textBox2
+            // txtBoxYear
             // 
-            this.textBox2.Location = new System.Drawing.Point(105, 57);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(163, 20);
-            this.textBox2.TabIndex = 27;
+            this.txtBoxYear.Location = new System.Drawing.Point(105, 231);
+            this.txtBoxYear.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBoxYear.Name = "txtBoxYear";
+            this.txtBoxYear.Size = new System.Drawing.Size(163, 20);
+            this.txtBoxYear.TabIndex = 27;
             // 
             // label5
             // 
@@ -98,20 +95,21 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label5.Location = new System.Drawing.Point(11, 57);
+            this.label5.Location = new System.Drawing.Point(11, 233);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 19);
             this.label5.TabIndex = 26;
             this.label5.Text = "Year";
             // 
-            // textBox1
+            // txtBoxArtist
             // 
-            this.textBox1.Location = new System.Drawing.Point(105, 33);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(163, 20);
-            this.textBox1.TabIndex = 27;
+            this.txtBoxArtist.Location = new System.Drawing.Point(105, 180);
+            this.txtBoxArtist.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBoxArtist.Name = "txtBoxArtist";
+            this.txtBoxArtist.ReadOnly = true;
+            this.txtBoxArtist.Size = new System.Drawing.Size(163, 20);
+            this.txtBoxArtist.TabIndex = 27;
             // 
             // label4
             // 
@@ -119,20 +117,20 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label4.Location = new System.Drawing.Point(11, 33);
+            this.label4.Location = new System.Drawing.Point(11, 180);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(87, 19);
             this.label4.TabIndex = 26;
             this.label4.Text = "Main Artist";
             // 
-            // txtBoxKeywords
+            // txtBoxTitle
             // 
-            this.txtBoxKeywords.Location = new System.Drawing.Point(105, 9);
-            this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(2);
-            this.txtBoxKeywords.Name = "txtBoxKeywords";
-            this.txtBoxKeywords.Size = new System.Drawing.Size(163, 20);
-            this.txtBoxKeywords.TabIndex = 27;
+            this.txtBoxTitle.Location = new System.Drawing.Point(105, 156);
+            this.txtBoxTitle.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBoxTitle.Name = "txtBoxTitle";
+            this.txtBoxTitle.Size = new System.Drawing.Size(163, 20);
+            this.txtBoxTitle.TabIndex = 27;
             // 
             // label3
             // 
@@ -140,62 +138,100 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(11, 9);
+            this.label3.Location = new System.Drawing.Point(11, 156);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 19);
             this.label3.TabIndex = 26;
             this.label3.Text = "Title";
             // 
-            // button2
+            // btnCancel
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button2.Location = new System.Drawing.Point(15, 110);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 28;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnCancel.Location = new System.Drawing.Point(36, 262);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(74, 23);
+            this.btnCancel.TabIndex = 28;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnSelectArtist
+            // 
+            this.btnSelectArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSelectArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSelectArtist.Location = new System.Drawing.Point(105, 204);
+            this.btnSelectArtist.Name = "btnSelectArtist";
+            this.btnSelectArtist.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectArtist.TabIndex = 28;
+            this.btnSelectArtist.Text = "Select Artist";
+            this.btnSelectArtist.UseVisualStyleBackColor = true;
+            this.btnSelectArtist.Click += new System.EventHandler(this.btnSelectArtist_Click);
+            // 
+            // btnAddArtist
+            // 
+            this.btnAddArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnAddArtist.Location = new System.Drawing.Point(193, 204);
+            this.btnAddArtist.Name = "btnAddArtist";
+            this.btnAddArtist.Size = new System.Drawing.Size(75, 23);
+            this.btnAddArtist.TabIndex = 30;
+            this.btnAddArtist.Text = "Add New";
+            this.btnAddArtist.UseVisualStyleBackColor = true;
+            this.btnAddArtist.Click += new System.EventHandler(this.btnAddArtist_Click);
+            // 
+            // picBoxProfilePic
+            // 
+            this.picBoxProfilePic.Location = new System.Drawing.Point(105, 12);
+            this.picBoxProfilePic.Name = "picBoxProfilePic";
+            this.picBoxProfilePic.Size = new System.Drawing.Size(163, 133);
+            this.picBoxProfilePic.TabIndex = 33;
+            this.picBoxProfilePic.TabStop = false;
             // 
             // AddAlbumForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(362, 143);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(283, 296);
+            this.Controls.Add(this.picBoxProfilePic);
+            this.Controls.Add(this.btnAddArtist);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSelectArtist);
+            this.Controls.Add(this.btnOpenFile);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.txtBoxKeywords);
+            this.Controls.Add(this.txtBoxTitle);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBoxYear);
+            this.Controls.Add(this.txtBoxArtist);
             this.Controls.Add(this.label5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddAlbumForm";
             this.Text = "AddAlbumForm";
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtBoxYear;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBoxArtist;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtBoxKeywords;
+        private System.Windows.Forms.TextBox txtBoxTitle;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSelectArtist;
+        private System.Windows.Forms.Button btnAddArtist;
+        private System.Windows.Forms.PictureBox picBoxProfilePic;
     }
 }
