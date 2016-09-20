@@ -22,9 +22,9 @@ namespace SongsAbout_DesktopApp
         private void btnSearch_Click(object sender, EventArgs e)
         {
 
-            string uri = "spotify:track:6C7RJEIUDqKkJRZVWdkfkH";
-            MakeRequest(uri).Wait();
-            GetResults();
+            //string uri = "spotify:track:6C7RJEIUDqKkJRZVWdkfkH";
+            //MakeRequest(uri).Wait();
+            //GetResults();
         }
 
         private void GetResults()
@@ -68,6 +68,12 @@ namespace SongsAbout_DesktopApp
         private void btnSavedLists_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAddInfo_Click(object sender, EventArgs e)
+        {
+            AddTrackForm addInfo = new AddTrackForm();
+            addInfo.Show();
         }
     }
 }

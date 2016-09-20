@@ -11,7 +11,7 @@ namespace SongsAbout_DesktopApp
         public string Id { get; set; }
         public string Name { get; set; }
         public string Bio { get; set; }
-        public string WebSite { get; set; }
+        public string Website { get; set; }
         public string SpotifyId { get; set; }
         public string ProfilePic { get; set; }
         public Artist()

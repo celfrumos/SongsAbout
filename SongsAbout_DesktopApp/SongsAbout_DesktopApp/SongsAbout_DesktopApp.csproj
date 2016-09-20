@@ -66,8 +66,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddAlbumForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddAlbumForm.Designer.cs">
+      <DependentUpon>AddAlbumForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddArtistForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddArtistForm.Designer.cs">
+      <DependentUpon>AddArtistForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddTrackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddTrackForm.Designer.cs">
+      <DependentUpon>AddTrackForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Album.cs" />
     <Compile Include="Artist.cs" />
+    <Compile Include="SelectArtistForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectArtistForm.Designer.cs">
+      <DependentUpon>SelectArtistForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +107,18 @@
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Track.cs" />
+    <EmbeddedResource Include="AddAlbumForm.resx">
+      <DependentUpon>AddAlbumForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddArtistForm.resx">
+      <DependentUpon>AddArtistForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddTrackForm.resx">
+      <DependentUpon>AddTrackForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectArtistForm.resx">
+      <DependentUpon>SelectArtistForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
