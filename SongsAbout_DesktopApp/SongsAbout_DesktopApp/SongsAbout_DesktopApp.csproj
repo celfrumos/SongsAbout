@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="Album.cs" />
     <Compile Include="Artist.cs" />
+    <Compile Include="LoadArtists.cs" />
     <Compile Include="SelectAlbumForm.cs">
       <SubType>Form</SubType>
     </Compile>

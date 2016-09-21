@@ -21,17 +21,13 @@ namespace SongsAbout_DesktopApp
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             artist.Name = txtBoxName.Text;
             artist.Bio = txtBoxBio.Text;
             artist.Website = txtBoxWebsite.Text;
             artist.Save();
+            this.Close();
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -46,6 +42,12 @@ namespace SongsAbout_DesktopApp
             picture = Image.FromFile(fileName);
             picBoxProfilePic.Image = picture;
             artist.ProfilePic = picture;
+            artist.ProfPicSource = fileName;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

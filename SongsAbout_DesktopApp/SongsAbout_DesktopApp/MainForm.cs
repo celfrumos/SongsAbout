@@ -14,14 +14,16 @@ namespace SongsAbout_DesktopApp
 {
     public partial class MainForm : Form
     {
+        LoadArtists artists = new LoadArtists();
+        public Dictionary<string, Artist> ArtistDictionary;// = new Dictionary<string, Artist>();
         public MainForm()
         {
             InitializeComponent();
+            ArtistDictionary = artists.Load();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
             //string uri = "spotify:track:6C7RJEIUDqKkJRZVWdkfkH";
             //MakeRequest(uri).Wait();
             //GetResults();
