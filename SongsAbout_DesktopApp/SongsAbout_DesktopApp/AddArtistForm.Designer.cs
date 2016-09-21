@@ -39,6 +39,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.picBoxProfilePic = new System.Windows.Forms.PictureBox();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,9 +47,10 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSave.Location = new System.Drawing.Point(181, 294);
+            this.btnSave.Location = new System.Drawing.Point(241, 362);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(81, 23);
+            this.btnSave.Size = new System.Drawing.Size(108, 28);
             this.btnSave.TabIndex = 30;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -56,9 +58,10 @@
             // 
             // txtBoxBio
             // 
-            this.txtBoxBio.Location = new System.Drawing.Point(103, 189);
+            this.txtBoxBio.Location = new System.Drawing.Point(137, 233);
+            this.txtBoxBio.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxBio.Name = "txtBoxBio";
-            this.txtBoxBio.Size = new System.Drawing.Size(163, 64);
+            this.txtBoxBio.Size = new System.Drawing.Size(216, 78);
             this.txtBoxBio.TabIndex = 29;
             this.txtBoxBio.Text = "";
             // 
@@ -66,9 +69,10 @@
             // 
             this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFile.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnOpenFile.Location = new System.Drawing.Point(12, 34);
+            this.btnOpenFile.Location = new System.Drawing.Point(16, 42);
+            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(81, 23);
+            this.btnOpenFile.Size = new System.Drawing.Size(108, 28);
             this.btnOpenFile.TabIndex = 28;
             this.btnOpenFile.Text = "Open File";
             this.btnOpenFile.UseVisualStyleBackColor = true;
@@ -80,19 +84,18 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label7.Location = new System.Drawing.Point(10, 12);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(13, 15);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 19);
+            this.label7.Size = new System.Drawing.Size(95, 23);
             this.label7.TabIndex = 26;
             this.label7.Text = "Profile Pic";
             // 
             // txtBoxWebsite
             // 
-            this.txtBoxWebsite.Location = new System.Drawing.Point(103, 260);
-            this.txtBoxWebsite.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBoxWebsite.Location = new System.Drawing.Point(137, 320);
+            this.txtBoxWebsite.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxWebsite.Name = "txtBoxWebsite";
-            this.txtBoxWebsite.Size = new System.Drawing.Size(163, 20);
+            this.txtBoxWebsite.Size = new System.Drawing.Size(216, 22);
             this.txtBoxWebsite.TabIndex = 27;
             // 
             // label8
@@ -101,10 +104,9 @@
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(8, 259);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Location = new System.Drawing.Point(11, 319);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 19);
+            this.label8.Size = new System.Drawing.Size(77, 23);
             this.label8.TabIndex = 26;
             this.label8.Text = "Website";
             // 
@@ -114,19 +116,18 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label9.Location = new System.Drawing.Point(11, 188);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(15, 231);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(32, 19);
+            this.label9.Size = new System.Drawing.Size(36, 23);
             this.label9.TabIndex = 26;
             this.label9.Text = "Bio";
             // 
             // txtBoxName
             // 
-            this.txtBoxName.Location = new System.Drawing.Point(103, 162);
-            this.txtBoxName.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBoxName.Location = new System.Drawing.Point(137, 199);
+            this.txtBoxName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxName.Name = "txtBoxName";
-            this.txtBoxName.Size = new System.Drawing.Size(163, 20);
+            this.txtBoxName.Size = new System.Drawing.Size(216, 22);
             this.txtBoxName.TabIndex = 27;
             // 
             // label10
@@ -135,19 +136,19 @@
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label10.Location = new System.Drawing.Point(10, 161);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Location = new System.Drawing.Point(13, 198);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(50, 19);
+            this.label10.Size = new System.Drawing.Size(58, 23);
             this.label10.TabIndex = 26;
             this.label10.Text = "Name";
             // 
             // btnCancel
             // 
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnCancel.Location = new System.Drawing.Point(22, 293);
+            this.btnCancel.Location = new System.Drawing.Point(29, 361);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(81, 23);
+            this.btnCancel.Size = new System.Drawing.Size(108, 28);
             this.btnCancel.TabIndex = 31;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -155,18 +156,24 @@
             // 
             // picBoxProfilePic
             // 
-            this.picBoxProfilePic.Location = new System.Drawing.Point(104, 12);
+            this.picBoxProfilePic.Location = new System.Drawing.Point(139, 15);
+            this.picBoxProfilePic.Margin = new System.Windows.Forms.Padding(4);
             this.picBoxProfilePic.Name = "picBoxProfilePic";
-            this.picBoxProfilePic.Size = new System.Drawing.Size(162, 143);
+            this.picBoxProfilePic.Size = new System.Drawing.Size(216, 176);
             this.picBoxProfilePic.TabIndex = 32;
             this.picBoxProfilePic.TabStop = false;
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
+            // 
             // AddArtistForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(285, 328);
+            this.ClientSize = new System.Drawing.Size(380, 404);
             this.Controls.Add(this.picBoxProfilePic);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -180,6 +187,7 @@
             this.Controls.Add(this.txtBoxWebsite);
             this.ForeColor = System.Drawing.SystemColors.Control;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddArtistForm";
@@ -202,5 +210,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox picBoxProfilePic;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
