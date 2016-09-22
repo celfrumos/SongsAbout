@@ -32,7 +32,6 @@ namespace SongsAbout_DesktopApp
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
             openFileDialog.ShowDialog();
-
         }
 
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)

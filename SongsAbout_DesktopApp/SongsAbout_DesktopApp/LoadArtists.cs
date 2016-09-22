@@ -9,11 +9,11 @@ using System.Drawing;
 
 namespace SongsAbout_DesktopApp
 {
-    public class LoadArtists
+    public class Loader
     {
         private Dictionary<string, Artist> dictArtists = new Dictionary<string, Artist>();
         const string FILE_NAME = "Artists.txt";
-        public LoadArtists() { }
+        public Loader() { }
 
         public Dictionary<string, Artist> Load()
         {

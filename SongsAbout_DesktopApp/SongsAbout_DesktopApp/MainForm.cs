@@ -14,7 +14,7 @@ namespace SongsAbout_DesktopApp
 {
     public partial class MainForm : Form
     {
-        LoadArtists artists = new LoadArtists();
+        Loader artists = new Loader();
         Dictionary<string, Artist> ArtistDictionary;
 
         public MainForm()

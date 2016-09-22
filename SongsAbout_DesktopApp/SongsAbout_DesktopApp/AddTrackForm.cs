@@ -12,7 +12,7 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddTrackForm : Form
     {
-        LoadArtists ArtistLoader = new LoadArtists();
+        Loader ArtistLoader = new Loader();
         Dictionary<string, Artist> ArtistDictionary;
         string ArtistName = "";
 

@@ -14,7 +14,7 @@ namespace SongsAbout_DesktopApp
         private Image _profilePic;
         private string _profPicSource;
 
-        const string FILE_NAME = "Artists.txt";
+        const string ARTISTS_FILENAME = "Artists.txt";
         public string Id { get; set; }
         public string Name { get; set; }
         public string Bio { get; set; }
@@ -59,28 +59,18 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                StreamWriter outputFile;// = new StreamWriter(fileName);
+                StreamWriter outputFile;
 
-                outputFile = File.AppendText(FILE_NAME);
+                outputFile = File.AppendText(ARTISTS_FILENAME);
 
-                //  outputFile.WriteLine(DELIMITER);
-                string artistData = this.Name + "," + this.Bio + "," + this.Website + "," + this.SpotifyId + "," + this.ProfPicSource;
+                string artistData = this.Name + "," + this.Bio + "," + this.Website + "," + this.SpotifyId + "," + _profPicSource;
                 outputFile.WriteLine(artistData);
-                //List<string> line = new List<string> { this.Name, this.Bio, this.Website, this.SpotifyId, this.ProfPicSource };
-                //string outPutLine = string.Join(",", string);
-                //outputFile.WriteLine(line);
-                //outputFile.WriteLine("Name:" + this.Name);
-                //outputFile.WriteLine("Bio:" + this.Bio);
-                //outputFile.WriteLine("Website:" + this.Website);
-                //outputFile.WriteLine("SpotifyId:" + this.SpotifyId);
-                //outputFile.WriteLine("ProfilePic:" + this.ProfPicSource);
-
                 outputFile.Close();
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error Saving Artist:" + this.Name + " to File");
+                throw new Exception("Error Saving Artist:" + this.Name + " to File", ex);
             }
         }
 
@@ -88,7 +78,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                StreamReader inputFile = new StreamReader(FILE_NAME);
+                StreamReader inputFile = new StreamReader(ARTISTS_FILENAME);
             }
             catch (Exception)
             {
