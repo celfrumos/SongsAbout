@@ -12,25 +12,25 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddAlbumForm : Form
     {
-        Loader ArtistLoader = new Loader();
         Dictionary<string, Artist> ArtistDictionary;
-        Artist SelectedArtist = new Artist();
         string ArtistName = "";
 
         Album album = new Album();
         public AddAlbumForm()
         {
             InitializeComponent();
-            LoadArtists();
+            //LoadArtists();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void LoadArtists()
         {
-            ArtistDictionary = ArtistLoader.LoadArtists();
+            Loader loader = new Loader();
+            ArtistDictionary = loader.LoadArtists();
         }
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
@@ -47,6 +47,7 @@ namespace SongsAbout_DesktopApp
         private void btnSelectArtist_Click(object sender, EventArgs e)
         {
             SelectArtistForm selectArtist = new SelectArtistForm();
+            Artist SelectedArtist = new Artist();
             selectArtist.ShowDialog();
             if (selectArtist.DialogResult == DialogResult.OK)
             {

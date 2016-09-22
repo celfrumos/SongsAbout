@@ -18,6 +18,7 @@ namespace SongsAbout_DesktopApp
         public AddArtistForm()
         {
             InitializeComponent();
+            NewArtist = new Artist();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

@@ -12,7 +12,6 @@ namespace SongsAbout_DesktopApp
 {
     public partial class SelectArtistForm : Form
     {
-        Loader ArtistLoader = new Loader();
         Dictionary<string, Artist> DictArtists;
 
         public string SelectedArtist { get; set; }
@@ -21,19 +20,22 @@ namespace SongsAbout_DesktopApp
         {
             DictArtists = ArtistDictionary;
             InitializeComponent();
-            PopulateLstBox();
+            LoadArtists();
             this.DialogResult = DialogResult.None;
         }
 
         public SelectArtistForm()
         {
             InitializeComponent();
-            PopulateLstBox();
+            LoadArtists();
             this.DialogResult = DialogResult.None;
         }
-       private void PopulateLstBox()
+
+        private void LoadArtists()
         {
-           DictArtists = ArtistLoader.LoadArtists();
+            Loader loader = new Loader();
+            DictArtists = loader.LoadArtists();
+            lstBoxSelectArtist.Items.Clear();
             foreach (KeyValuePair<string, Artist> artist in DictArtists)
             {
                 lstBoxSelectArtist.Items.Add(artist.Key);
@@ -65,6 +67,7 @@ namespace SongsAbout_DesktopApp
         {
             AddArtistForm addArtist = new AddArtistForm();
             addArtist.ShowDialog();
+            LoadArtists();
         }
     }
 }
