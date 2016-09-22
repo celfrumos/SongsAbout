@@ -74,7 +74,7 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        public void Load(string name)
+        public void Load(string aName)
         {
             try
             {

@@ -30,11 +30,11 @@
         {
             this.btnGetArtist = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBoxSelectedArtist = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.lstBoxSelectAlbum = new System.Windows.Forms.ListBox();
-            this.btnNewArtist = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnNewAlbum = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGetArtist
@@ -62,18 +62,18 @@
             this.label4.TabIndex = 34;
             this.label4.Text = "Filter by Artist:";
             // 
-            // textBox1
+            // txtBoxSelectedArtist
             // 
-            this.textBox1.Location = new System.Drawing.Point(132, 10);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(136, 20);
-            this.textBox1.TabIndex = 35;
+            this.txtBoxSelectedArtist.Location = new System.Drawing.Point(132, 10);
+            this.txtBoxSelectedArtist.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBoxSelectedArtist.Name = "txtBoxSelectedArtist";
+            this.txtBoxSelectedArtist.Size = new System.Drawing.Size(136, 20);
+            this.txtBoxSelectedArtist.TabIndex = 35;
             // 
             // btnClose
             // 
             this.btnClose.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnClose.Location = new System.Drawing.Point(274, 171);
+            this.btnClose.Location = new System.Drawing.Point(15, 194);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 38;
@@ -89,42 +89,42 @@
             this.lstBoxSelectAlbum.Size = new System.Drawing.Size(253, 147);
             this.lstBoxSelectAlbum.TabIndex = 37;
             // 
-            // btnNewArtist
-            // 
-            this.btnNewArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNewArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnNewArtist.Location = new System.Drawing.Point(274, 39);
-            this.btnNewArtist.Name = "btnNewArtist";
-            this.btnNewArtist.Size = new System.Drawing.Size(75, 23);
-            this.btnNewArtist.TabIndex = 36;
-            this.btnNewArtist.Text = "New Artist";
-            this.btnNewArtist.UseVisualStyleBackColor = true;
-            this.btnNewArtist.Click += new System.EventHandler(this.btnNewArtist_Click);
-            // 
             // btnSave
             // 
             this.btnSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSave.Location = new System.Drawing.Point(274, 69);
+            this.btnSave.Location = new System.Drawing.Point(273, 193);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 95);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 38;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnNewAlbum
+            // 
+            this.btnNewAlbum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewAlbum.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnNewAlbum.Location = new System.Drawing.Point(274, 41);
+            this.btnNewAlbum.Name = "btnNewAlbum";
+            this.btnNewAlbum.Size = new System.Drawing.Size(75, 147);
+            this.btnNewAlbum.TabIndex = 39;
+            this.btnNewAlbum.Text = "New Album";
+            this.btnNewAlbum.UseVisualStyleBackColor = true;
+            this.btnNewAlbum.Click += new System.EventHandler(this.btnNewAlbum_Click);
             // 
             // SelectAlbumForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(359, 201);
+            this.ClientSize = new System.Drawing.Size(359, 227);
+            this.Controls.Add(this.btnNewAlbum);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lstBoxSelectAlbum);
-            this.Controls.Add(this.btnNewArtist);
             this.Controls.Add(this.btnGetArtist);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBoxSelectedArtist);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -139,10 +139,10 @@
 
         private System.Windows.Forms.Button btnGetArtist;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBoxSelectedArtist;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ListBox lstBoxSelectAlbum;
-        private System.Windows.Forms.Button btnNewArtist;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnNewAlbum;
     }
 }

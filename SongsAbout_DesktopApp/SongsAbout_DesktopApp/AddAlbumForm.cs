@@ -30,7 +30,7 @@ namespace SongsAbout_DesktopApp
         }
         private void LoadArtists()
         {
-            ArtistDictionary = ArtistLoader.Load();
+            ArtistDictionary = ArtistLoader.LoadArtists();
         }
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
@@ -41,7 +41,6 @@ namespace SongsAbout_DesktopApp
         {
             string fileName = openFileDialog.FileName;
             album.SetAlbumCoverArt(fileName);
-            //artist.SetProfilePic(fileName);
             picBoxProfilePic.Image = album.CoverArt;
         }
 

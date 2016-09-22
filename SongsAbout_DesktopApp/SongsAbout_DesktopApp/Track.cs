@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SongsAbout_DesktopApp
 {
-    class Track
+    public class Track
     {
         public string Id { get; set; }
         public string Name { get; set; }

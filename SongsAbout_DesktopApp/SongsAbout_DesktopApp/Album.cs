@@ -9,7 +9,7 @@ using System.Drawing;
 
 namespace SongsAbout_DesktopApp
 {
-    class Album
+    public class Album
     {
         const string ALBUM_FILE_NAME = "Albums.txt";
         private string _coverArtSource = "";
@@ -44,6 +44,14 @@ namespace SongsAbout_DesktopApp
             this.MainArtist = mainArtist;
             SetAlbumCoverArt(coverFileName);
         }
+        public Album(string title, string year, string mainArtistName, string coverFileName)
+        {
+            this.Title = title;
+            this.Year = year;
+            // TODO load this artist
+            this.MainArtist.Name = mainArtistName;
+            SetAlbumCoverArt(coverFileName);
+        }
 
         public void Save()
         {
@@ -52,7 +60,7 @@ namespace SongsAbout_DesktopApp
                 StreamWriter outputFile;
 
                 outputFile = File.AppendText(ALBUM_FILE_NAME);
-                
+
                 string artistData = this.Title + "," + this.Year + "," + this.MainArtist.Name + "," + this.SpotifyId + "," + _coverArtSource;
                 outputFile.WriteLine(artistData);
 

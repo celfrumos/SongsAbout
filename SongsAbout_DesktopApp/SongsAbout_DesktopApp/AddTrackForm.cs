@@ -26,7 +26,7 @@ namespace SongsAbout_DesktopApp
         public AddTrackForm()
         {
             InitializeComponent();
-            ArtistDictionary = ArtistLoader.Load();
+            ArtistDictionary = ArtistLoader.LoadArtists();
         }
 
         private void btnAddArtist_Click(object sender, EventArgs e)

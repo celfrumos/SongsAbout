@@ -13,8 +13,8 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddArtistForm : Form
     {
-        Artist artist = new Artist();
-        
+        public Artist NewArtist { get; set; }
+
         public AddArtistForm()
         {
             InitializeComponent();
@@ -22,11 +22,18 @@ namespace SongsAbout_DesktopApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            artist.Name = txtBoxName.Text;
-            artist.Bio = txtBoxBio.Text;
-            artist.Website = txtBoxWebsite.Text;
-            artist.Save();
-            this.Close();
+            if (txtBoxName.Text != "")
+            {
+                NewArtist.Name = txtBoxName.Text;
+                NewArtist.Bio = txtBoxBio.Text;
+                NewArtist.Website = txtBoxWebsite.Text;
+                NewArtist.Save();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("New Artist must at least have a name.");
+            }
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -36,9 +43,9 @@ namespace SongsAbout_DesktopApp
 
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            string fileName = openFileDialog.FileName;        
-            artist.SetProfilePic(fileName);
-            picBoxProfilePic.Image = artist.ProfilePic;
+            string fileName = openFileDialog.FileName;
+            NewArtist.SetProfilePic(fileName);
+            picBoxProfilePic.Image = NewArtist.ProfilePic;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

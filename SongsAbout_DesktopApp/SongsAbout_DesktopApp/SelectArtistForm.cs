@@ -13,12 +13,13 @@ namespace SongsAbout_DesktopApp
     public partial class SelectArtistForm : Form
     {
         Loader ArtistLoader = new Loader();
-        Dictionary<string, Artist> ArtistDictionary;
+        Dictionary<string, Artist> DictArtists;
 
         public string SelectedArtist { get; set; }
 
         public SelectArtistForm(ref Dictionary<string, Artist> ArtistDictionary)
         {
+            DictArtists = ArtistDictionary;
             InitializeComponent();
             PopulateLstBox();
             this.DialogResult = DialogResult.None;
@@ -32,8 +33,8 @@ namespace SongsAbout_DesktopApp
         }
        private void PopulateLstBox()
         {
-           ArtistDictionary = ArtistLoader.Load();
-            foreach (KeyValuePair<string, Artist> artist in ArtistDictionary)
+           DictArtists = ArtistLoader.LoadArtists();
+            foreach (KeyValuePair<string, Artist> artist in DictArtists)
             {
                 lstBoxSelectArtist.Items.Add(artist.Key);
             }
@@ -58,6 +59,12 @@ namespace SongsAbout_DesktopApp
                 this.DialogResult = DialogResult.Abort;
             }
             this.Close();
+        }
+
+        private void btnNewArtist_Click(object sender, EventArgs e)
+        {
+            AddArtistForm addArtist = new AddArtistForm();
+            addArtist.ShowDialog();
         }
     }
 }

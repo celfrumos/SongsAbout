@@ -31,6 +31,7 @@
             this.lstBoxSelectArtist = new System.Windows.Forms.ListBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnNewArtist = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstBoxSelectArtist
@@ -55,7 +56,7 @@
             // btnSave
             // 
             this.btnSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSave.Location = new System.Drawing.Point(197, 125);
+            this.btnSave.Location = new System.Drawing.Point(278, 125);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 1;
@@ -63,12 +64,25 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // btnNewArtist
+            // 
+            this.btnNewArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnNewArtist.Location = new System.Drawing.Point(278, 12);
+            this.btnNewArtist.Name = "btnNewArtist";
+            this.btnNewArtist.Size = new System.Drawing.Size(75, 102);
+            this.btnNewArtist.TabIndex = 40;
+            this.btnNewArtist.Text = "New Artist";
+            this.btnNewArtist.UseVisualStyleBackColor = true;
+            this.btnNewArtist.Click += new System.EventHandler(this.btnNewArtist_Click);
+            // 
             // SelectArtistForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(280, 159);
+            this.ClientSize = new System.Drawing.Size(361, 159);
+            this.Controls.Add(this.btnNewArtist);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lstBoxSelectArtist);
@@ -87,5 +101,6 @@
         private System.Windows.Forms.ListBox lstBoxSelectArtist;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnNewArtist;
     }
 }
