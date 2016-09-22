@@ -14,7 +14,7 @@ namespace SongsAbout_DesktopApp
     {
         LoadArtists ArtistLoader = new LoadArtists();
         Dictionary<string, Artist> ArtistDictionary;
-        string artistName = "";
+        string ArtistName = "";
 
         Artist SelectedArtist = new Artist();
 
@@ -47,8 +47,9 @@ namespace SongsAbout_DesktopApp
             selectArtist.ShowDialog();
             if (selectArtist.DialogResult == DialogResult.OK)
             {
-                artistName = selectArtist.SelectedArtist;
-                SelectedArtist = ArtistDictionary[artistName];
+                ArtistName = selectArtist.SelectedArtist;
+                SelectedArtist = ArtistDictionary[ArtistName];
+                txtBoxMainArtist.Text = ArtistName;
             }
         }
 

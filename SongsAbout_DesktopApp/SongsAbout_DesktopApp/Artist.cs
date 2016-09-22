@@ -99,8 +99,18 @@ namespace SongsAbout_DesktopApp
 
         public void SetProfilePic(string fileName)
         {
-            _profilePic = Image.FromFile(fileName);
-            _profPicSource = fileName;
+            if (fileName != "")
+            {
+                try
+                {
+                    _profilePic = Image.FromFile(fileName);
+                    _profPicSource = fileName;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error occured while setting artist profile picture.", ex);
+                }
+            }
         }
     }
 }
