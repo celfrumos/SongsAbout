@@ -15,11 +15,11 @@ namespace SongsAbout_DesktopApp
     public partial class MainForm : Form
     {
         LoadArtists artists = new LoadArtists();
-        public Dictionary<string, Artist> ArtistDictionary;// = new Dictionary<string, Artist>();
+        Dictionary<string, Artist> ArtistDictionary;
+
         public MainForm()
         {
             InitializeComponent();
-            ArtistDictionary = artists.Load();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -41,7 +41,6 @@ namespace SongsAbout_DesktopApp
 
         static async Task MakeRequest(string request)
         {
-
             try
             {
                 // Set parameters
@@ -76,6 +75,11 @@ namespace SongsAbout_DesktopApp
         {
             AddTrackForm addTrack = new AddTrackForm();
             addTrack.ShowDialog();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+           // ArtistDictionary = artists.Load();
         }
     }
 }

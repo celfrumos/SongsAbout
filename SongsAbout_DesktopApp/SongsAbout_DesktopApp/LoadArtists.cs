@@ -32,12 +32,13 @@ namespace SongsAbout_DesktopApp
                     artist.Bio = artistData[1];
                     artist.Website = artistData[2];
                     artist.SpotifyId = artistData[3];
-                    artist.ProfPicSource = artistData[4];
+                    artist.SetProfilePic(artistData[4]);
 
                     dictArtists.Add(artist.Name, artist);
 
                 }
                 inputFile.Close();
+
                 return dictArtists;
             }
             catch (Exception ex)

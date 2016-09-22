@@ -30,6 +30,7 @@ namespace SongsAbout_DesktopApp
         private void btnSelectArtist_Click(object sender, EventArgs e)
         {
             SelectArtistForm selectArtist = new SelectArtistForm();
+        
             selectArtist.ShowDialog();
         }
 

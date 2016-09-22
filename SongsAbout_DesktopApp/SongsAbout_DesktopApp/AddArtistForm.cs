@@ -14,8 +14,7 @@ namespace SongsAbout_DesktopApp
     public partial class AddArtistForm : Form
     {
         Artist artist = new Artist();
-
-        Image picture;
+        
         public AddArtistForm()
         {
             InitializeComponent();
@@ -38,11 +37,9 @@ namespace SongsAbout_DesktopApp
 
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            string fileName = openFileDialog.FileName;
-            picture = Image.FromFile(fileName);
-            picBoxProfilePic.Image = picture;
-            artist.ProfilePic = picture;
-            artist.ProfPicSource = fileName;
+            string fileName = openFileDialog.FileName;        
+            artist.SetProfilePic(fileName);
+            picBoxProfilePic.Image = artist.ProfilePic;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

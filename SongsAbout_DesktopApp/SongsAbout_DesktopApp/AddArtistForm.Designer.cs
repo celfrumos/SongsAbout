@@ -51,7 +51,7 @@
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(108, 28);
-            this.btnSave.TabIndex = 30;
+            this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -62,7 +62,7 @@
             this.txtBoxBio.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxBio.Name = "txtBoxBio";
             this.txtBoxBio.Size = new System.Drawing.Size(216, 78);
-            this.txtBoxBio.TabIndex = 29;
+            this.txtBoxBio.TabIndex = 1;
             this.txtBoxBio.Text = "";
             // 
             // btnOpenFile
@@ -73,7 +73,7 @@
             this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(108, 28);
-            this.btnOpenFile.TabIndex = 28;
+            this.btnOpenFile.TabIndex = 3;
             this.btnOpenFile.Text = "Open File";
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
@@ -96,7 +96,7 @@
             this.txtBoxWebsite.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxWebsite.Name = "txtBoxWebsite";
             this.txtBoxWebsite.Size = new System.Drawing.Size(216, 22);
-            this.txtBoxWebsite.TabIndex = 27;
+            this.txtBoxWebsite.TabIndex = 2;
             // 
             // label8
             // 
@@ -107,7 +107,7 @@
             this.label8.Location = new System.Drawing.Point(11, 319);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(77, 23);
-            this.label8.TabIndex = 26;
+            this.label8.TabIndex = 6;
             this.label8.Text = "Website";
             // 
             // label9
@@ -128,7 +128,7 @@
             this.txtBoxName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxName.Name = "txtBoxName";
             this.txtBoxName.Size = new System.Drawing.Size(216, 22);
-            this.txtBoxName.TabIndex = 27;
+            this.txtBoxName.TabIndex = 0;
             // 
             // label10
             // 
@@ -149,7 +149,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(108, 28);
-            this.btnCancel.TabIndex = 31;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -160,6 +160,7 @@
             this.picBoxProfilePic.Margin = new System.Windows.Forms.Padding(4);
             this.picBoxProfilePic.Name = "picBoxProfilePic";
             this.picBoxProfilePic.Size = new System.Drawing.Size(216, 176);
+            this.picBoxProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBoxProfilePic.TabIndex = 32;
             this.picBoxProfilePic.TabStop = false;
             // 

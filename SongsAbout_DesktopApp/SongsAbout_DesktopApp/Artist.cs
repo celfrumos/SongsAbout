@@ -11,23 +11,33 @@ namespace SongsAbout_DesktopApp
 {
     public class Artist
     {
-        const string DELIMITER = "%@%";
+        private Image _profilePic;
+        private string _profPicSource;
+
         const string FILE_NAME = "Artists.txt";
         public string Id { get; set; }
         public string Name { get; set; }
         public string Bio { get; set; }
         public string Website { get; set; }
         public string SpotifyId { get; set; }
-        public Image ProfilePic { get; set; }
-        public string ProfPicSource { get; set; }
+
+        public Image ProfilePic
+        {
+            get { return _profilePic; }
+        }
+        public string ProfPicSource
+        {
+            get { return _profPicSource; }
+        }
 
         public Artist()
         {
+            this.Id = "";
             this.Name = "";
             this.Bio = "";
             this.Website = "";
             this.SpotifyId = "";
-            this.ProfPicSource = "";
+            _profPicSource = "";
         }
         public Artist(string name, string bio, string website, string spotifyId, string profPicSource)
         {
@@ -35,7 +45,7 @@ namespace SongsAbout_DesktopApp
             this.Bio = bio;
             this.Website = website;
             this.SpotifyId = spotifyId;
-            this.ProfPicSource = profPicSource;
+            SetProfilePic(profPicSource);
         }
 
         /// <summary>
@@ -87,5 +97,10 @@ namespace SongsAbout_DesktopApp
             }
         }
 
+        public void SetProfilePic(string fileName)
+        {
+            _profilePic = Image.FromFile(fileName);
+            _profPicSource = fileName;
+        }
     }
 }

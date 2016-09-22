@@ -12,9 +12,21 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddTrackForm : Form
     {
+        LoadArtists ArtistLoader = new LoadArtists();
+        Dictionary<string, Artist> ArtistDictionary;
+        string artistName = "";
+
+        Artist SelectedArtist = new Artist();
+
+        public AddTrackForm(ref Dictionary<string, Artist> artistDictionary)
+        {
+            InitializeComponent();
+            ArtistDictionary = artistDictionary;
+        }
         public AddTrackForm()
         {
             InitializeComponent();
+            ArtistDictionary = ArtistLoader.Load();
         }
 
         private void btnAddArtist_Click(object sender, EventArgs e)
@@ -33,6 +45,11 @@ namespace SongsAbout_DesktopApp
         {
             SelectArtistForm selectArtist = new SelectArtistForm();
             selectArtist.ShowDialog();
+            if (selectArtist.DialogResult == DialogResult.OK)
+            {
+                artistName = selectArtist.SelectedArtist;
+                SelectedArtist = ArtistDictionary[artistName];
+            }
         }
 
         private void btnSelectAlbum_Click(object sender, EventArgs e)
