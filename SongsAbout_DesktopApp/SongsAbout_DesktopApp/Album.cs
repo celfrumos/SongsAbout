@@ -66,9 +66,17 @@ namespace SongsAbout_DesktopApp
 
         }
 
-        public void Load()
+        public void Load(string name)
         {
+            try
+            {
+                StreamReader inputFile = new StreamReader(ALBUM_FILE_NAME);
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
 
         public void SetAlbumCoverArt(string fileName)

@@ -166,7 +166,6 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog";
             this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
             // 
             // AddArtistForm
