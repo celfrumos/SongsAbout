@@ -12,11 +12,8 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddAlbumForm : Form
     {
-        Dictionary<string, Artist> ArtistDictionary;
-        string ArtistName = "";
-
-        Album album = new Album();
-
+        Album SelectedAlbum = new Album();
+        private Artist _albumArtist;
         public AddAlbumForm()
         {
             InitializeComponent();
@@ -27,18 +24,6 @@ namespace SongsAbout_DesktopApp
             this.Close();
         }
 
-        private void LoadArtists()
-        {
-            try
-            {
-                Loader loader = new Loader();
-                ArtistDictionary = loader.LoadArtists();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error Populating artist list.");
-            }
-        }
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
             openFileDialog.ShowDialog();
@@ -47,23 +32,23 @@ namespace SongsAbout_DesktopApp
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             string fileName = openFileDialog.FileName;
-            album.SetAlbumCoverArt(fileName);
-            picBoxProfilePic.Image = album.CoverArt;
+            SelectedAlbum.SetAlbumCoverArt(fileName);
+            picBoxProfilePic.Image = SelectedAlbum.CoverArt;
         }
 
         private void btnSelectArtist_Click(object sender, EventArgs e)
         {
             SelectArtistForm selectArtist = new SelectArtistForm();
-            Artist SelectedArtist = new Artist();
+            _albumArtist = new Artist();
             selectArtist.ShowDialog();
             if (selectArtist.DialogResult == DialogResult.OK)
             {
                 try
                 {
-                    LoadArtists();
-                    ArtistName = selectArtist.SelectedArtist;
-                    SelectedArtist = ArtistDictionary[ArtistName];
-                    txtBoxMainArtist.Text = ArtistName;
+                    //LoadArtists();
+
+                    _albumArtist = selectArtist.SelectedArtist;
+                    txtBoxMainArtist.Text = _albumArtist.Name;
 
                 }
                 catch (Exception ex)
@@ -74,15 +59,14 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private void btnAddArtist_Click(object sender, EventArgs e)
-        {
-            AddArtistForm addArtist = new AddArtistForm();
-            addArtist.ShowDialog();
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-            album.Save();
+            SelectedAlbum.Title = txtBoxTitle.Text;
+            SelectedAlbum.Year = txtBoxYear.Text;
+            SelectedAlbum.MainArtist = _albumArtist;
+
+
+            SelectedAlbum.Save();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

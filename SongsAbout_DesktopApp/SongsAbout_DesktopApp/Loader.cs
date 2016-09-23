@@ -54,7 +54,7 @@ namespace SongsAbout_DesktopApp
             {
                 if (File.Exists(ARTIST_FILENAME))
                 {
-                    MessageBox.Show(ex.Message, "Error loading Artist File");
+                    throw new Exception("Error reading Artist File in Loader.cs. " + ex.Message);
                 }
                 return new Dictionary<string, Artist>();
 
@@ -77,10 +77,12 @@ namespace SongsAbout_DesktopApp
 
                     string title = artistData[0];
                     string year = artistData[1];
-                    string mainArtistName = artistData[2];
+                    Artist mainArtist = new Artist(artistData[2]);
+
                     string coverFileName = artistData[3];
-                    string profilePicFile = artistData[4];
-                    Artist mainArtist = _dictArtists[mainArtistName];
+
+                    //string profilePicFile = artistData[4];
+                    //   Artist mainArtist = _dictArtists[mainArtistName];
 
                     // Just sets album Artist Name right now
                     Album newAlbum = new Album(title, year, mainArtist, coverFileName);
@@ -96,7 +98,7 @@ namespace SongsAbout_DesktopApp
             {
                 if (File.Exists(ALBUM_FILENAME))
                 {
-                    throw new Exception("Error reading Album File in Loader.cs" + ex.Message);
+                    throw new Exception("Error reading Album File in Loader.cs. " + ex.Message);
                 }
                 else
                 {
@@ -104,5 +106,6 @@ namespace SongsAbout_DesktopApp
                 }
             }
         }
+
     }
 }

@@ -30,7 +30,6 @@ namespace SongsAbout_DesktopApp
             get { return _coverArtSource; }
         }
 
-        public List<Artist> FeatArtists { get; set; }
 
         /// <summary>
         /// Default Album constructor
@@ -66,13 +65,15 @@ namespace SongsAbout_DesktopApp
         /// <param name="year"></param>
         /// <param name="mainArtistName"></param>
         /// <param name="coverFileName"></param>
-        public Album(string title, string year, string mainArtistName, string coverFileName)
+        public Album(string AlbumString)
         {
-            this.Title = title;
-            this.Year = year;
-            // TODO load an individual artist
-            this.MainArtist.Name = mainArtistName;
-            SetAlbumCoverArt(coverFileName);
+            string[] albumData = AlbumString.Split(ALBUM_DELIM);
+
+            this.Title = albumData[0];
+            this.Year = albumData[1];
+            this.MainArtist = new Artist(albumData[2]);
+            this.SpotifyId = albumData[3];
+            SetAlbumCoverArt(albumData[4]);
         }
 
         /// <summary>
@@ -121,13 +122,13 @@ namespace SongsAbout_DesktopApp
             try
             {
                 string line = inputFile.ReadLine();
-                string[] artistData = line.Split(ALBUM_DELIM);
+                string[] albumData = line.Split(ALBUM_DELIM);
 
-                this.Title = artistData[0];
-                this.Year = artistData[1];
-                this.MainArtist = new Artist(artistData[2]);
-                this.SpotifyId = artistData[3];
-                SetAlbumCoverArt(artistData[4]);
+                this.Title = albumData[0];
+                this.Year = albumData[1];
+                this.MainArtist = new Artist(albumData[2]);
+                this.SpotifyId = albumData[3];
+                SetAlbumCoverArt(albumData[4]);
 
             }
             catch (Exception ex)

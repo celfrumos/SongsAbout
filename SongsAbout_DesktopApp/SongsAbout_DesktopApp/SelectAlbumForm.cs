@@ -12,11 +12,10 @@ namespace SongsAbout_DesktopApp
 {
     public partial class SelectAlbumForm : Form
     {
-        string ArtistName = "";
         // Loader loader = new Loader();
         Dictionary<string, Artist> DictArtists;
         Dictionary<string, Album> DictAlbums;
-        Artist AlbumArtist;
+        private Artist _albumArtist;
 
         //  string SelectedArtistName { get; set; }
         public Album SelectedAlbum { get; set; }
@@ -31,6 +30,7 @@ namespace SongsAbout_DesktopApp
         public SelectAlbumForm()
         {
             InitializeComponent();
+            LoadAlbums();
             this.DialogResult = DialogResult.None;
         }
 
@@ -50,42 +50,30 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception)
             {
-                AlbumArtist.Name = "";
+                _albumArtist.Name = "";
                 this.DialogResult = DialogResult.Abort;
             }
             this.Close();
-        }
-
-        private void btnNewArtist_Click(object sender, EventArgs e)
-        {
-            AddArtistForm addArtist = new AddArtistForm();
-            addArtist.ShowDialog();
-            if (addArtist.DialogResult == DialogResult.OK)
-            {
-                LoadArtists();
-                AlbumArtist = addArtist.NewArtist;
-                txtBoxSelectedArtist.Text = AlbumArtist.Name;
-            }
         }
 
         private void btnGetArtist_Click(object sender, EventArgs e)
         {
             SelectArtistForm selectArtist = new SelectArtistForm();
             selectArtist.ShowDialog();
-            LoadArtists();
             if (selectArtist.DialogResult == DialogResult.OK)
             {
-                ArtistName = selectArtist.SelectedArtist;
-                AlbumArtist = DictArtists[ArtistName];
-                FilterByArtist(AlbumArtist);
+                try
+                {
+                    _albumArtist = selectArtist.SelectedArtist;
+                    FilterByArtist(_albumArtist);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error Getting Artist.");
+                }
             }
 
-        }
-
-        private void LoadArtists()
-        {
-            Loader loader = new Loader();
-            DictArtists = loader.LoadArtists();
         }
 
         private void LoadAlbums()
@@ -95,14 +83,15 @@ namespace SongsAbout_DesktopApp
 
             foreach (KeyValuePair<string, Album> album in DictAlbums)
             {
-                lstBoxSelectAlbum.Items.Add(album);
+                Album a = album.Value;
+                lstBoxSelectAlbum.Items.Add(a.Title);
             }
         }
 
 
         private void FilterByArtist(Artist albumArtist)
         {
-            txtBoxSelectedArtist.Text = AlbumArtist.Name;
+            txtBoxSelectedArtist.Text = _albumArtist.Name;
         }
 
         private void btnNewAlbum_Click(object sender, EventArgs e)

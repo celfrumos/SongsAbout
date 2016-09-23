@@ -12,39 +12,22 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddTrackForm : Form
     {
-        Dictionary<string, Artist> ArtistDictionary;
-        string ArtistName = "";
-
-        Artist SelectedArtist = new Artist();
-
-        public AddTrackForm(ref Dictionary<string, Artist> artistDictionary)
-        {
-            InitializeComponent();
-            ArtistDictionary = artistDictionary;
-        }
+        private Artist _trackArtist = new Artist();
+        private Album _trackAlbum = new Album();
+        public Track NewTrack { get; set; }
 
         public AddTrackForm()
         {
             InitializeComponent();
+            NewTrack = new Track();
         }
 
-        private void btnAddArtist_Click(object sender, EventArgs e)
-        {
-            AddArtistForm addArtist = new AddArtistForm();
-            addArtist.ShowDialog();
-        }
+        //private void LoadArtists()
+        //{
+        //    Loader loader = new Loader();
+        //    ArtistDictionary = loader.LoadArtists();
 
-        private void LoadArtists()
-        {
-            Loader loader = new Loader();
-            ArtistDictionary = loader.LoadArtists();
-
-        }
-        private void btnAddAlbum_Click(object sender, EventArgs e)
-        {
-            AddAlbumForm addAlbum = new AddAlbumForm();
-            addAlbum.ShowDialog();
-        }
+        //}
 
         private void btnSelectArtist_Click(object sender, EventArgs e)
         {
@@ -52,7 +35,8 @@ namespace SongsAbout_DesktopApp
             selectArtist.ShowDialog();
             if (selectArtist.DialogResult == DialogResult.OK)
             {
-                txtBoxMainArtist.Text = ArtistName;
+                _trackArtist = selectArtist.SelectedArtist;
+                txtBoxMainArtist.Text = _trackArtist.Name;
             }
         }
 
@@ -70,7 +54,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Something went wrong opening albums Form");
+                MessageBox.Show(ex.Message, "Something went wrong opening SelectAlbumForm");
             }
         }
 
@@ -81,7 +65,13 @@ namespace SongsAbout_DesktopApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // NewTrack.
+            NewTrack.Album = _trackAlbum;
+            NewTrack.Album.MainArtist = _trackArtist;
+            NewTrack.Name = txtBoxName.Text;
 
+            NewTrack.Save();
+            this.Close();
         }
     }
 }

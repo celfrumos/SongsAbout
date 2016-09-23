@@ -49,6 +49,11 @@ namespace SongsAbout_DesktopApp
             this.Close();
         }
 
+        /// <summary>
+        /// Choose the Artist to be used in the form that launched this one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -56,7 +61,6 @@ namespace SongsAbout_DesktopApp
                 SelectedArtist = DictArtists[lstBoxSelectArtist.SelectedItem.ToString()];
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-
             }
             catch (Exception)
             {

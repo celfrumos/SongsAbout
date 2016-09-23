@@ -179,6 +179,10 @@
             this.picBoxProfilePic.TabIndex = 33;
             this.picBoxProfilePic.TabStop = false;
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
+            // 
             // AddAlbumForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);

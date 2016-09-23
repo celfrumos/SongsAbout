@@ -95,9 +95,7 @@ namespace SongsAbout_DesktopApp
                 StreamWriter outputFile;
 
                 outputFile = File.AppendText(ARTISTS_FILENAME);
-
-                string artistData = this.Name + ARTIST_DELIM + this.Bio + ARTIST_DELIM + this.Website + ARTIST_DELIM + this.SpotifyId + ARTIST_DELIM + _profPicSource;
-                outputFile.WriteLine(artistData);
+                outputFile.WriteLine(this.ToString());
                 outputFile.Close();
 
             }
