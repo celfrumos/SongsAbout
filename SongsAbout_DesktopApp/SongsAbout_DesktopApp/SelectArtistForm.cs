@@ -14,13 +14,14 @@ namespace SongsAbout_DesktopApp
     {
         Dictionary<string, Artist> DictArtists;
 
-        public string SelectedArtist { get; set; }
+        public Artist SelectedArtist { get; set; }
 
         public SelectArtistForm(ref Dictionary<string, Artist> ArtistDictionary)
         {
             DictArtists = ArtistDictionary;
             InitializeComponent();
             LoadArtists();
+            lstBoxSelectArtist.SelectedIndex = 0;
             this.DialogResult = DialogResult.None;
         }
 
@@ -28,6 +29,7 @@ namespace SongsAbout_DesktopApp
         {
             InitializeComponent();
             LoadArtists();
+            lstBoxSelectArtist.SelectedIndex = 0;
             this.DialogResult = DialogResult.None;
         }
 
@@ -51,16 +53,24 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                SelectedArtist = lstBoxSelectArtist.SelectedItem.ToString();
+                SelectedArtist = DictArtists[lstBoxSelectArtist.SelectedItem.ToString()];
                 this.DialogResult = DialogResult.OK;
+                this.Close();
 
             }
             catch (Exception)
             {
-                SelectedArtist = "";
-                this.DialogResult = DialogResult.Abort;
+                if (lstBoxSelectArtist.Items.Count != 0)
+                {
+                    this.DialogResult = DialogResult.Abort;
+                    throw new Exception();
+
+                }
+                else
+                {
+                    MessageBox.Show("No Artists loaded yet. Press close button to cancel selection.");
+                }
             }
-            this.Close();
         }
 
         private void btnNewArtist_Click(object sender, EventArgs e)

@@ -52,8 +52,6 @@ namespace SongsAbout_DesktopApp
             selectArtist.ShowDialog();
             if (selectArtist.DialogResult == DialogResult.OK)
             {
-                ArtistName = selectArtist.SelectedArtist;
-                SelectedArtist = ArtistDictionary[ArtistName];
                 txtBoxMainArtist.Text = ArtistName;
             }
         }

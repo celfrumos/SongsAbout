@@ -11,12 +11,17 @@ namespace SongsAbout_DesktopApp
 {
     public class Loader
     {
-        private Dictionary<string, Artist> dictArtists = new Dictionary<string, Artist>();
-        Dictionary<string, Album> dictAlbums = new Dictionary<string, Album>();
+        private Dictionary<string, Artist> _dictArtists;
+        private Dictionary<string, Album> _dictAlbums;
         const string ARTIST_FILENAME = "Artists.txt";
         const string ALBUM_FILENAME = "Albums.txt";
+        const char ARTIST_DELIM = '&';
+        const char ALBUM_DELIM = '@';
 
-        public Loader() { }
+        public Loader()
+        {
+            _dictArtists = new Dictionary<string, Artist>();
+        }
 
         public Dictionary<string, Artist> LoadArtists()
         {
@@ -28,7 +33,7 @@ namespace SongsAbout_DesktopApp
                 while (!inputFile.EndOfStream)
                 {
                     string line = inputFile.ReadLine();
-                    string[] artistData = line.Split(',');
+                    string[] artistData = line.Split(ARTIST_DELIM);
 
                     string name = artistData[0];
                     string bio = artistData[1];
@@ -38,12 +43,12 @@ namespace SongsAbout_DesktopApp
 
                     Artist newArtist = new Artist(name, bio, website, spotifyId, profilePicFile);
 
-                    dictArtists.Add(name, newArtist);
+                    _dictArtists.Add(name, newArtist);
 
                 }
                 inputFile.Close();
 
-                return dictArtists;
+                return _dictArtists;
             }
             catch (Exception ex)
             {
@@ -58,6 +63,8 @@ namespace SongsAbout_DesktopApp
 
         public Dictionary<string, Album> LoadAlbums()
         {
+            LoadArtists();
+            _dictAlbums = new Dictionary<string, Album>();
             StreamReader inputFile;
             try
             {
@@ -66,22 +73,23 @@ namespace SongsAbout_DesktopApp
                 while (!inputFile.EndOfStream)
                 {
                     string line = inputFile.ReadLine();
-                    string[] artistData = line.Split(',');
+                    string[] artistData = line.Split(ALBUM_DELIM);
 
                     string title = artistData[0];
                     string year = artistData[1];
-                    string mainArtist = artistData[2];
+                    string mainArtistName = artistData[2];
                     string coverFileName = artistData[3];
                     string profilePicFile = artistData[4];
+                    Artist mainArtist = _dictArtists[mainArtistName];
 
                     // Just sets album Artist Name right now
                     Album newAlbum = new Album(title, year, mainArtist, coverFileName);
 
-                    dictAlbums.Add(title, newAlbum);
+                    _dictAlbums.Add(title, newAlbum);
                 }
                 inputFile.Close();
 
-                return dictAlbums;
+                return _dictAlbums;
 
             }
             catch (Exception ex)

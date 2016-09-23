@@ -14,7 +14,8 @@ namespace SongsAbout_DesktopApp
         const string ALBUM_FILE_NAME = "Albums.txt";
         private string _coverArtSource = "";
         private Image _coverArt;
-        private string id;
+        const char ALBUM_DELIM = '@';
+        // private string id;
 
         public Artist MainArtist { get; set; }
         public string Year { get; set; }
@@ -31,13 +32,25 @@ namespace SongsAbout_DesktopApp
 
         public List<Artist> FeatArtists { get; set; }
 
+        /// <summary>
+        /// Default Album constructor
+        /// </summary>
         public Album()
         {
             this.Title = "";
             this.Year = "";
             this.SpotifyId = "";
             this.MainArtist = new Artist();
+            // no album cover art set
         }
+
+        /// <summary>
+        /// Album constructor with artist object, will actually set this.MainArtist 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="year"></param>
+        /// <param name="mainArtist"></param>
+        /// <param name="coverFileName"></param>
         public Album(string title, string year, Artist mainArtist, string coverFileName)
         {
             this.Title = title;
@@ -45,15 +58,26 @@ namespace SongsAbout_DesktopApp
             this.MainArtist = mainArtist;
             SetAlbumCoverArt(coverFileName);
         }
+
+        /// <summary>
+        /// Album constructor with string mainArtistName, will only set the artist name, not this.MainArtist object
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="year"></param>
+        /// <param name="mainArtistName"></param>
+        /// <param name="coverFileName"></param>
         public Album(string title, string year, string mainArtistName, string coverFileName)
         {
             this.Title = title;
             this.Year = year;
-            // TODO load this artist
+            // TODO load an individual artist
             this.MainArtist.Name = mainArtistName;
             SetAlbumCoverArt(coverFileName);
         }
 
+        /// <summary>
+        /// Save one album to Albums.txt
+        /// </summary>
         public void Save()
         {
             try
@@ -61,9 +85,7 @@ namespace SongsAbout_DesktopApp
                 StreamWriter outputFile;
 
                 outputFile = File.AppendText(ALBUM_FILE_NAME);
-
-                string artistData = this.Title + "," + this.Year + "," + this.MainArtist.Name + "," + this.SpotifyId + "," + _coverArtSource;
-                outputFile.WriteLine(artistData);
+                outputFile.WriteLine(this.ToString());
 
                 outputFile.Close();
 
@@ -72,22 +94,53 @@ namespace SongsAbout_DesktopApp
             {
                 throw new Exception("Error Saving Album\n" + ex.Message);
             }
-
         }
 
-        //public void Load(string name)
-        //{
-        //    try
-        //    {
-        //        StreamReader inputFile = new StreamReader(ALBUM_FILE_NAME);
-        //    }
-        //    catch (Exception)
-        //    {
+        /// <summary>
+        /// Save one album to an existing StreamWriter object
+        /// </summary>
+        public void Save(ref StreamWriter outputFile)
+        {
+            try
+            {
+                outputFile = File.AppendText(ALBUM_FILE_NAME);
+                outputFile.WriteLine(this.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error Saving Album\n" + ex.Message);
+            }
+        }
 
-        //        throw;
-        //    }
-        //}
+        /// <summary>
+        /// Load one artist from an existing StreamReader
+        /// </summary>
+        /// <param name="inputFile"></param>
+        public void Load(ref StreamReader inputFile)
+        {
+            try
+            {
+                string line = inputFile.ReadLine();
+                string[] artistData = line.Split(ALBUM_DELIM);
 
+                this.Title = artistData[0];
+                this.Year = artistData[1];
+                this.MainArtist = new Artist(artistData[2]);
+                this.SpotifyId = artistData[3];
+                SetAlbumCoverArt(artistData[4]);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error loading album from file." + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Set the album cover art from the fileName string param
+        /// </summary>
+        /// <param name="fileName"></param>
         public void SetAlbumCoverArt(string fileName)
         {
             if (fileName != "")
@@ -105,5 +158,14 @@ namespace SongsAbout_DesktopApp
 
         }
 
+        /// <summary>
+        /// Returns a string representation of this Album object
+        /// </summary>
+        /// <returns></returns>
+        new public string ToString()
+        {
+            return this.Title + ALBUM_DELIM + this.Year + ALBUM_DELIM + this.MainArtist.ToString() + ALBUM_DELIM + _coverArtSource;
+
+        }
     }
 }
