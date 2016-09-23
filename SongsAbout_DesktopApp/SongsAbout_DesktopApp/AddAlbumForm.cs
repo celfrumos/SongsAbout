@@ -65,7 +65,6 @@ namespace SongsAbout_DesktopApp
             SelectedAlbum.Year = txtBoxYear.Text;
             SelectedAlbum.MainArtist = _albumArtist;
 
-
             SelectedAlbum.Save();
             this.DialogResult = DialogResult.OK;
             this.Close();

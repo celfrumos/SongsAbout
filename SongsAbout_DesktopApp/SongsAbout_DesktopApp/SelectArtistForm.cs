@@ -16,33 +16,29 @@ namespace SongsAbout_DesktopApp
 
         public Artist SelectedArtist { get; set; }
 
-        public SelectArtistForm(ref Dictionary<string, Artist> ArtistDictionary)
-        {
-            DictArtists = ArtistDictionary;
-            InitializeComponent();
-            LoadArtists();
-            lstBoxSelectArtist.SelectedIndex = 0;
-            this.DialogResult = DialogResult.None;
-        }
-
         public SelectArtistForm()
         {
             InitializeComponent();
             LoadArtists();
-            lstBoxSelectArtist.SelectedIndex = 0;
             this.DialogResult = DialogResult.None;
         }
 
         private void LoadArtists()
         {
+            lstBoxSelectArtist.Items.Clear();
             Loader loader = new Loader();
             DictArtists = loader.LoadArtists();
-            lstBoxSelectArtist.Items.Clear();
+
             foreach (KeyValuePair<string, Artist> artist in DictArtists)
             {
                 lstBoxSelectArtist.Items.Add(artist.Key);
             }
+            if (lstBoxSelectArtist.Items.Count > 0)
+            {
+                lstBoxSelectArtist.SelectedIndex = 0;
+            }
         }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

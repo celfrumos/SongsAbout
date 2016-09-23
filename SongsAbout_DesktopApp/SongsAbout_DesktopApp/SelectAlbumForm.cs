@@ -12,21 +12,12 @@ namespace SongsAbout_DesktopApp
 {
     public partial class SelectAlbumForm : Form
     {
-        // Loader loader = new Loader();
         Dictionary<string, Artist> DictArtists;
         Dictionary<string, Album> DictAlbums;
-        private Artist _albumArtist;
+        private Artist _albumArtist { get; set; }
 
-        //  string SelectedArtistName { get; set; }
         public Album SelectedAlbum { get; set; }
 
-        public SelectAlbumForm(ref Dictionary<string, Artist> ArtistDictionary)
-        {
-            DictArtists = ArtistDictionary;
-            LoadAlbums();
-            InitializeComponent();
-            this.DialogResult = DialogResult.None;
-        }
         public SelectAlbumForm()
         {
             InitializeComponent();
@@ -44,16 +35,16 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                SelectedAlbum.MainArtist.Name = lstBoxSelectAlbum.SelectedItem.ToString();
+                LoadAlbums();
+                SelectedAlbum = DictAlbums[lstBoxSelectAlbum.SelectedItem.ToString()];
                 this.DialogResult = DialogResult.OK;
 
             }
             catch (Exception)
             {
-                _albumArtist.Name = "";
+                this.Close();
                 this.DialogResult = DialogResult.Abort;
             }
-            this.Close();
         }
 
         private void btnGetArtist_Click(object sender, EventArgs e)
@@ -83,11 +74,13 @@ namespace SongsAbout_DesktopApp
 
             foreach (KeyValuePair<string, Album> album in DictAlbums)
             {
-                Album a = album.Value;
-                lstBoxSelectAlbum.Items.Add(a.Title);
+                lstBoxSelectAlbum.Items.Add(album.Key);
+            }
+            if (lstBoxSelectAlbum.Items.Count > 0)
+            {
+                lstBoxSelectAlbum.SelectedIndex = 0;
             }
         }
-
 
         private void FilterByArtist(Artist albumArtist)
         {
@@ -101,7 +94,6 @@ namespace SongsAbout_DesktopApp
             if (addAlbum.DialogResult == DialogResult.OK)
             {
                 LoadAlbums();
-
             }
         }
     }

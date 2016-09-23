@@ -52,15 +52,13 @@ namespace SongsAbout_DesktopApp
             this.Length = double.Parse(trackInfo[1]);
             SetGenres(trackInfo[2]);
             this.Album = new Album(trackInfo[3]);
-
-
-
         }
         public void Save()
         {
             try
             {
                 StreamWriter outFile = File.AppendText(TRACK_FILE_NAME);
+
                 outFile.WriteLine(this.ToString());
                 outFile.Close();
             }

@@ -165,7 +165,8 @@ namespace SongsAbout_DesktopApp
         /// <returns></returns>
         new public string ToString()
         {
-            return this.Title + ALBUM_DELIM + this.Year + ALBUM_DELIM + this.MainArtist.ToString() + ALBUM_DELIM + _coverArtSource;
+            string artistString = this.MainArtist.ToString();
+            return this.Title + ALBUM_DELIM + this.Year + ALBUM_DELIM + artistString + ALBUM_DELIM + _coverArtSource;
 
         }
     }

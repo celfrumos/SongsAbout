@@ -12,6 +12,7 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddTrackForm : Form
     {
+        const char GENRE_DELIM = '~';
         private Artist _trackArtist = new Artist();
         private Album _trackAlbum = new Album();
         public Track NewTrack { get; set; }
@@ -48,13 +49,17 @@ namespace SongsAbout_DesktopApp
                 selectAlbum.ShowDialog();
                 if (selectAlbum.DialogResult == DialogResult.OK)
                 {
-                    txtBoxAlbum.Text = selectAlbum.SelectedAlbum.Title;
+                    NewTrack.Album = selectAlbum.SelectedAlbum;
+                    txtBoxAlbum.Text = NewTrack.Album.Title;
+
+                    txtBoxMainArtist.Text = NewTrack.Artist.Name;
+
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Something went wrong opening SelectAlbumForm");
+                MessageBox.Show(ex.Message, "Something went wrong getting");
             }
         }
 
@@ -64,14 +69,25 @@ namespace SongsAbout_DesktopApp
         }
 
         private void btnSave_Click(object sender, EventArgs e)
-        {
-            // NewTrack.
+        {            
             NewTrack.Album = _trackAlbum;
             NewTrack.Album.MainArtist = _trackArtist;
             NewTrack.Name = txtBoxName.Text;
-
+            NewTrack.Length = double.Parse(txtBoxLength.Text);
+            NewTrack.SetGenres(GetGenres());
             NewTrack.Save();
             this.Close();
+        }
+
+        public string GetGenres()
+        {
+            string genres = "";
+            foreach (var item in lstBxGenres.SelectedItems)
+            {
+                genres += item.ToString() + GENRE_DELIM;
+            }
+
+            return genres;
         }
     }
 }

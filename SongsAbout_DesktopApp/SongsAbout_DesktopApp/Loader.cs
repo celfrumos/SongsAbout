@@ -28,27 +28,33 @@ namespace SongsAbout_DesktopApp
             StreamReader inputFile;
             try
             {
-                inputFile = File.OpenText(ARTIST_FILENAME);
-
-                while (!inputFile.EndOfStream)
+                if (File.Exists(ARTIST_FILENAME))
                 {
-                    string line = inputFile.ReadLine();
-                    string[] artistData = line.Split(ARTIST_DELIM);
+                    inputFile = File.OpenText(ARTIST_FILENAME);
 
-                    string name = artistData[0];
-                    string bio = artistData[1];
-                    string website = artistData[2];
-                    string spotifyId = artistData[3];
-                    string profilePicFile = artistData[4];
+                    while (!inputFile.EndOfStream)
+                    {
+                        string line = inputFile.ReadLine();
+                        string[] artistData = line.Split(ARTIST_DELIM);
 
-                    Artist newArtist = new Artist(name, bio, website, spotifyId, profilePicFile);
+                        string name = artistData[0];
+                        string bio = artistData[1];
+                        string website = artistData[2];
+                        string spotifyId = artistData[3];
+                        string profilePicFile = artistData[4];
 
-                    _dictArtists.Add(name, newArtist);
+                        Artist newArtist = new Artist(name, bio, website, spotifyId, profilePicFile);
 
+                        _dictArtists.Add(name, newArtist);
+
+                    }
+                    inputFile.Close();
+                    return _dictArtists;
                 }
-                inputFile.Close();
-
-                return _dictArtists;
+                else
+                {
+                    return new Dictionary<string, Artist>();
+                }
             }
             catch (Exception ex)
             {
@@ -57,7 +63,6 @@ namespace SongsAbout_DesktopApp
                     throw new Exception("Error reading Artist File in Loader.cs. " + ex.Message);
                 }
                 return new Dictionary<string, Artist>();
-
             }
         }
 
@@ -68,31 +73,33 @@ namespace SongsAbout_DesktopApp
             StreamReader inputFile;
             try
             {
-                inputFile = File.OpenText(ALBUM_FILENAME);
-
-                while (!inputFile.EndOfStream)
+                if (File.Exists(ALBUM_FILENAME))
                 {
-                    string line = inputFile.ReadLine();
-                    string[] artistData = line.Split(ALBUM_DELIM);
+                    inputFile = File.OpenText(ALBUM_FILENAME);
 
-                    string title = artistData[0];
-                    string year = artistData[1];
-                    Artist mainArtist = new Artist(artistData[2]);
+                    while (!inputFile.EndOfStream)
+                    {
+                        string line = inputFile.ReadLine();
+                        string[] artistData = line.Split(ALBUM_DELIM);
 
-                    string coverFileName = artistData[3];
+                        string title = artistData[0];
+                        string year = artistData[1];
+                        Artist mainArtist = new Artist(artistData[2]);
 
-                    //string profilePicFile = artistData[4];
-                    //   Artist mainArtist = _dictArtists[mainArtistName];
+                        string coverFileName = artistData[3];
 
-                    // Just sets album Artist Name right now
-                    Album newAlbum = new Album(title, year, mainArtist, coverFileName);
+                        Album newAlbum = new Album(title, year, mainArtist, coverFileName);
 
-                    _dictAlbums.Add(title, newAlbum);
+                        _dictAlbums.Add(title, newAlbum);
+                    }
+                    inputFile.Close();
+
+                    return _dictAlbums;
                 }
-                inputFile.Close();
-
-                return _dictAlbums;
-
+                else
+                {
+                    return new Dictionary<string, Album>();
+                }
             }
             catch (Exception ex)
             {

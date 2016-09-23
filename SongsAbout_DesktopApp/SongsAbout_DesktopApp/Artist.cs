@@ -101,26 +101,25 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Saving Artist:" + this.Name + " to File", ex);
+                throw new Exception("Artist.Save Error" + ex.Message);
             }
         }
 
-        /// <summary>
-        /// Save the artist to an existing stream
-        /// </summary>
-        public void Save(ref StreamWriter outputFile)
-        {
-            try
-            {
-                string artistData = this.Name + ARTIST_DELIM + this.Bio + ARTIST_DELIM + this.Website + ARTIST_DELIM + this.SpotifyId + ARTIST_DELIM + _profPicSource;
-                outputFile.WriteLine(artistData);
+        ///// <summary>
+        ///// Save the artist to an existing stream
+        ///// </summary>
+        //public void Save(ref StreamWriter outputFile)
+        //{
+        //    try
+        //    {
+        //        outputFile.WriteLine(this.ToString());
 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error Saving Artist: " + this.Name + " to File" + ex.Message);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Artist.Save Error" + ex.Message);
+        //    }
+        //}
 
         /// <summary>
         /// Return a string representation of this Artist object, which can be used for file I/O
