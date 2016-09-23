@@ -16,10 +16,10 @@ namespace SongsAbout_DesktopApp
         string ArtistName = "";
 
         Album album = new Album();
+
         public AddAlbumForm()
         {
             InitializeComponent();
-            //LoadArtists();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -29,8 +29,15 @@ namespace SongsAbout_DesktopApp
 
         private void LoadArtists()
         {
-            Loader loader = new Loader();
-            ArtistDictionary = loader.LoadArtists();
+            try
+            {
+                Loader loader = new Loader();
+                ArtistDictionary = loader.LoadArtists();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Populating artist list.");
+            }
         }
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
@@ -61,7 +68,8 @@ namespace SongsAbout_DesktopApp
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error getting artist.");
+                    // MessageBox.Show(ex.Message, "Error getting artist.");
+                    throw new Exception("Error Getting Artist", ex);
                 }
             }
         }
@@ -75,6 +83,8 @@ namespace SongsAbout_DesktopApp
         private void btnSave_Click(object sender, EventArgs e)
         {
             album.Save();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

@@ -39,7 +39,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSelectArtist = new System.Windows.Forms.Button();
-            this.btnAddArtist = new System.Windows.Forms.Button();
             this.picBoxProfilePic = new System.Windows.Forms.PictureBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).BeginInit();
@@ -49,8 +48,8 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSave.Location = new System.Drawing.Point(228, 322);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Location = new System.Drawing.Point(199, 322);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 28);
             this.btnSave.TabIndex = 30;
@@ -63,7 +62,7 @@
             this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFile.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnOpenFile.Location = new System.Drawing.Point(20, 52);
-            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(100, 28);
             this.btnOpenFile.TabIndex = 28;
@@ -149,7 +148,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnCancel.Location = new System.Drawing.Point(48, 322);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(99, 28);
             this.btnCancel.TabIndex = 28;
@@ -161,8 +160,8 @@
             // 
             this.btnSelectArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSelectArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSelectArtist.Location = new System.Drawing.Point(140, 251);
-            this.btnSelectArtist.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelectArtist.Location = new System.Drawing.Point(198, 250);
+            this.btnSelectArtist.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectArtist.Name = "btnSelectArtist";
             this.btnSelectArtist.Size = new System.Drawing.Size(100, 28);
             this.btnSelectArtist.TabIndex = 28;
@@ -170,23 +169,10 @@
             this.btnSelectArtist.UseVisualStyleBackColor = true;
             this.btnSelectArtist.Click += new System.EventHandler(this.btnSelectArtist_Click);
             // 
-            // btnAddArtist
-            // 
-            this.btnAddArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAddArtist.Location = new System.Drawing.Point(257, 251);
-            this.btnAddArtist.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnAddArtist.Name = "btnAddArtist";
-            this.btnAddArtist.Size = new System.Drawing.Size(100, 28);
-            this.btnAddArtist.TabIndex = 30;
-            this.btnAddArtist.Text = "Add New";
-            this.btnAddArtist.UseVisualStyleBackColor = true;
-            this.btnAddArtist.Click += new System.EventHandler(this.btnAddArtist_Click);
-            // 
             // picBoxProfilePic
             // 
             this.picBoxProfilePic.Location = new System.Drawing.Point(140, 15);
-            this.picBoxProfilePic.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.picBoxProfilePic.Margin = new System.Windows.Forms.Padding(4);
             this.picBoxProfilePic.Name = "picBoxProfilePic";
             this.picBoxProfilePic.Size = new System.Drawing.Size(217, 164);
             this.picBoxProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -200,7 +186,6 @@
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(377, 364);
             this.Controls.Add(this.picBoxProfilePic);
-            this.Controls.Add(this.btnAddArtist);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSelectArtist);
@@ -213,7 +198,7 @@
             this.Controls.Add(this.txtBoxMainArtist);
             this.Controls.Add(this.label5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddAlbumForm";
@@ -236,7 +221,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSelectArtist;
-        private System.Windows.Forms.Button btnAddArtist;
         private System.Windows.Forms.PictureBox picBoxProfilePic;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
     }

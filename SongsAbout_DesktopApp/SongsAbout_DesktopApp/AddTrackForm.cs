@@ -60,8 +60,20 @@ namespace SongsAbout_DesktopApp
 
         private void btnSelectAlbum_Click(object sender, EventArgs e)
         {
-            SelectAlbumForm selectAlbum = new SelectAlbumForm();
-            selectAlbum.ShowDialog();
+            try
+            {
+                SelectAlbumForm selectAlbum = new SelectAlbumForm();
+                selectAlbum.ShowDialog();
+                if (selectAlbum.DialogResult == DialogResult.OK)
+                {
+                    txtBoxAlbum.Text = selectAlbum.SelectedAlbum.Title;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Something went wrong opening albums Form");
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)

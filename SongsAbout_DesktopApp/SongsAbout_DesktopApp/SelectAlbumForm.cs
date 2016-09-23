@@ -16,10 +16,10 @@ namespace SongsAbout_DesktopApp
         // Loader loader = new Loader();
         Dictionary<string, Artist> DictArtists;
         Dictionary<string, Album> DictAlbums;
-        string AlbumArtistName = "";
         Artist AlbumArtist;
 
-        public string SelectedArtistName { get; set; }
+        //  string SelectedArtistName { get; set; }
+        public Album SelectedAlbum { get; set; }
 
         public SelectAlbumForm(ref Dictionary<string, Artist> ArtistDictionary)
         {
@@ -30,8 +30,6 @@ namespace SongsAbout_DesktopApp
         }
         public SelectAlbumForm()
         {
-            LoadArtists();
-            LoadAlbums();
             InitializeComponent();
             this.DialogResult = DialogResult.None;
         }
@@ -46,13 +44,13 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                SelectedArtistName = lstBoxSelectAlbum.SelectedItem.ToString();
+                SelectedAlbum.MainArtist.Name = lstBoxSelectAlbum.SelectedItem.ToString();
                 this.DialogResult = DialogResult.OK;
 
             }
             catch (Exception)
             {
-                SelectedArtistName = "";
+                AlbumArtist.Name = "";
                 this.DialogResult = DialogResult.Abort;
             }
             this.Close();
@@ -74,6 +72,7 @@ namespace SongsAbout_DesktopApp
         {
             SelectArtistForm selectArtist = new SelectArtistForm();
             selectArtist.ShowDialog();
+            LoadArtists();
             if (selectArtist.DialogResult == DialogResult.OK)
             {
                 ArtistName = selectArtist.SelectedArtist;
@@ -110,7 +109,11 @@ namespace SongsAbout_DesktopApp
         {
             AddAlbumForm addAlbum = new AddAlbumForm();
             addAlbum.ShowDialog();
-            LoadAlbums();
+            if (addAlbum.DialogResult == DialogResult.OK)
+            {
+                LoadAlbums();
+
+            }
         }
     }
 }

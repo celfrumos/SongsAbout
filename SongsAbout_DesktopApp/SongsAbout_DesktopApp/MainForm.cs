@@ -14,9 +14,6 @@ namespace SongsAbout_DesktopApp
 {
     public partial class MainForm : Form
     {
-        Loader artists = new Loader();
-        Dictionary<string, Artist> ArtistDictionary;
-
         public MainForm()
         {
             InitializeComponent();
@@ -73,13 +70,29 @@ namespace SongsAbout_DesktopApp
 
         private void btnAddTrack_Click(object sender, EventArgs e)
         {
+            try
+            {
             AddTrackForm addTrack = new AddTrackForm();
-            addTrack.ShowDialog();
+                addTrack.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    MessageBox.Show(ex.Message + ex.InnerException.Message, "Something went wrong.");
+
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Something went wrong.");
+
+                }
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-           // ArtistDictionary = artists.Load();
+            // ArtistDictionary = artists.Load();
         }
     }
 }

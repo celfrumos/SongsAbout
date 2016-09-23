@@ -35,6 +35,7 @@ namespace SongsAbout_DesktopApp
         {
             this.Title = "";
             this.Year = "";
+            this.SpotifyId = "";
             this.MainArtist = new Artist();
         }
         public Album(string title, string year, Artist mainArtist, string coverFileName)
@@ -69,23 +70,23 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Saving Album:" + this.Title + " to File", ex);
+                throw new Exception("Error Saving Album\n" + ex.Message);
             }
 
         }
 
-        public void Load(string name)
-        {
-            try
-            {
-                StreamReader inputFile = new StreamReader(ALBUM_FILE_NAME);
-            }
-            catch (Exception)
-            {
+        //public void Load(string name)
+        //{
+        //    try
+        //    {
+        //        StreamReader inputFile = new StreamReader(ALBUM_FILE_NAME);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
         public void SetAlbumCoverArt(string fileName)
         {

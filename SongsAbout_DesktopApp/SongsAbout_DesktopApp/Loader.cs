@@ -82,15 +82,18 @@ namespace SongsAbout_DesktopApp
                 inputFile.Close();
 
                 return dictAlbums;
+
             }
             catch (Exception ex)
             {
                 if (File.Exists(ALBUM_FILENAME))
                 {
-                    MessageBox.Show(ex.Message, "Error loading Album File");
+                    throw new Exception("Error reading Album File in Loader.cs" + ex.Message);
                 }
-                return new Dictionary<string, Album>();
-
+                else
+                {
+                    throw new Exception();
+                }
             }
         }
     }
