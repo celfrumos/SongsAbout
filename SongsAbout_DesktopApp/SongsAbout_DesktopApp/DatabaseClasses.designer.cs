@@ -23,7 +23,7 @@ namespace SongsAbout_DesktopApp
 
 
     [global::System.Data.Linq.Mapping.DatabaseAttribute(Name = "SongsAboutSQLDB")]
-    public partial class DataClasses1DataContext : System.Data.Linq.DataContext
+    public partial class DatabaseContext : System.Data.Linq.DataContext
     {
 
         private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -47,31 +47,31 @@ namespace SongsAbout_DesktopApp
         partial void DeleteTrack(Track instance);
         #endregion
 
-        public DataClasses1DataContext() :
+        public DatabaseContext() :
                 base(global::SongsAbout_DesktopApp.Properties.Settings.Default.SongsAboutSQLDBConnectionString, mappingSource)
         {
             OnCreated();
         }
 
-        public DataClasses1DataContext(string connection) :
+        public DatabaseContext(string connection) :
                 base(connection, mappingSource)
         {
             OnCreated();
         }
 
-        public DataClasses1DataContext(System.Data.IDbConnection connection) :
+        public DatabaseContext(System.Data.IDbConnection connection) :
                 base(connection, mappingSource)
         {
             OnCreated();
         }
 
-        public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
+        public DatabaseContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
                 base(connection, mappingSource)
         {
             OnCreated();
         }
 
-        public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
+        public DatabaseContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
                 base(connection, mappingSource)
         {
             OnCreated();

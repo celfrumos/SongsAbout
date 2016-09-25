@@ -61,13 +61,20 @@ namespace SongsAbout_DesktopApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SelectedAlbum.al_title = txtBoxTitle.Text;
-            SelectedAlbum.al_year = txtBoxYear.Text;
-            SelectedAlbum.Artist = _albumArtist;
+            using (DatabaseContext context = new DatabaseContext()) {
+                SelectedAlbum.al_title = txtBoxTitle.Text;
+                SelectedAlbum.al_year = txtBoxYear.Text;
+                SelectedAlbum.Artist = _albumArtist;
+                context.Albums.InsertOnSubmit(SelectedAlbum);
 
-           // SelectedAlbum.Save();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                if ()
+                {
+
+                }
+                context.Artists.InsertOnSubmit(_albumArtist);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }
