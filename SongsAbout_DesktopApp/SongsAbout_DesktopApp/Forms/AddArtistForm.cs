@@ -52,8 +52,8 @@ namespace SongsAbout_DesktopApp
 
             string fileName = openFileDialog.FileName;
 
-            NewArtist.a_profile_pic = picBoxProfilePic.Image;
-            NewArtist.SetProfilePic(fileName);
+           // NewArtist.a_profile_pic = picBoxProfilePic.Image;
+           // NewArtist.SetProfilePic(fileName);
             picBoxProfilePic.Image = picBoxProfilePic.Image;
         }
 
@@ -64,16 +64,7 @@ namespace SongsAbout_DesktopApp
 
         private void SaveArtist()
         {
-            using (DatabaseContext context = new DatabaseContext())
-            {
-                DataSet artistData = new DataSet();
-                NewArtist.a_name = txtBoxName.Text;
-                NewArtist.a_bio = txtBoxBio.Text;
-                NewArtist.a_website = txtBoxWebsite.Text;
-
-                context.Artists.InsertOnSubmit(NewArtist);
-                context.SubmitChanges();
-            }
+            NewArtist.Save();
         }
     }
 }

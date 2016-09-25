@@ -49,17 +49,19 @@ namespace SongsAbout_DesktopApp
                 selectAlbum.ShowDialog();
                 if (selectAlbum.DialogResult == DialogResult.OK)
                 {
-                    NewTrack.Album = selectAlbum.SelectedAlbum;
-                    txtBoxAlbum.Text = NewTrack.Album.al_title;
+                    Album selectedAlbum = new Album();
+                    selectedAlbum = selectAlbum.SelectedAlbum;
+                    NewTrack.Album = selectedAlbum;
+                    txtBoxAlbum.Text = selectedAlbum.al_title;
 
-                    txtBoxMainArtist.Text = NewTrack.Album.Artist.a_name;
+                    // txtBoxMainArtist.Text = selectedAlbum.GetArtistName();
 
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Something went wrong getting");
+                MessageBox.Show(ex.Message, "Something went wrong getting the chosen album");
             }
         }
 
@@ -71,23 +73,23 @@ namespace SongsAbout_DesktopApp
         private void btnSave_Click(object sender, EventArgs e)
         {
             NewTrack.Album = _trackAlbum;
-            NewTrack.Album.Artist = _trackArtist;
+            // NewTrack.Album.Artist = _trackArtist;
             NewTrack.track_name = txtBoxName.Text;
             NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
-            //  NewTrack.SetGenres(GetGenres());
-            // NewTrack.Save();
+            NewTrack.Save();
+            NewTrack.SaveGenres(GetGenres());
             this.Close();
         }
 
-        public string GetGenres()
+        public List<string> GetGenres()
         {
-            string genres = "";
+            List<string> genList = new List<string>();
             foreach (var item in lstBxGenres.SelectedItems)
             {
-                genres += item.ToString() + GENRE_DELIM;
+                genList.Add(item.ToString());
             }
 
-            return genres;
+            return genList;
         }
     }
 }

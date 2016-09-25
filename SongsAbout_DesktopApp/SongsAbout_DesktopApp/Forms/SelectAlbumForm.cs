@@ -38,12 +38,12 @@ namespace SongsAbout_DesktopApp
                 LoadAlbums();
                 SelectedAlbum = DictAlbums[lstBoxSelectAlbum.SelectedItem.ToString()];
                 this.DialogResult = DialogResult.OK;
-
-            }
-            catch (Exception)
-            {
                 this.Close();
+            }
+            catch (Exception ex)
+            {
                 this.DialogResult = DialogResult.Abort;
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 
@@ -69,17 +69,17 @@ namespace SongsAbout_DesktopApp
 
         private void LoadAlbums()
         {
-            //    Loader loader = new Loader();
-            //DictAlbums = loader.LoadAlbums();
+            lstBoxSelectAlbum.Items.Clear();
+            DictAlbums = Loader.LoadAlbums();
+            foreach (KeyValuePair<string, Album> al in DictAlbums)
+            {
+                lstBoxSelectAlbum.Items.Add(al.Key);
+            }
 
-            //foreach (KeyValuePair<string, Album> album in DictAlbums)
-            //{
-            //    lstBoxSelectAlbum.Items.Add(album.Key);
-            //}
-            //if (lstBoxSelectAlbum.Items.Count > 0)
-            //{
-            //    lstBoxSelectAlbum.SelectedIndex = 0;
-            //}
+            if (lstBoxSelectAlbum.Items.Count > 0)
+            {
+                lstBoxSelectAlbum.SelectedIndex = 0;
+            }
         }
 
         private void FilterByArtist(Artist albumArtist)
@@ -96,5 +96,6 @@ namespace SongsAbout_DesktopApp
                 LoadAlbums();
             }
         }
+
     }
 }

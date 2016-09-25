@@ -12,8 +12,10 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddAlbumForm : Form
     {
+        bool isNewArtist = false;
         Album NewAlbum = new Album();
         private Artist _albumArtist;
+
         public AddAlbumForm()
         {
             InitializeComponent();
@@ -33,9 +35,15 @@ namespace SongsAbout_DesktopApp
         {
             string fileName = openFileDialog.FileName;
             picBoxProfilePic.Image = Image.FromFile(fileName);
-            NewAlbum.SetAlbumCoverArt(fileName);
+           // NewAlbum.SetAlbumCoverArt(fileName);
         }
 
+
+        /// <summary>
+        /// On click, show a dialog to select an artist for the album
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSelectArtist_Click(object sender, EventArgs e)
         {
             SelectArtistForm selectArtist = new SelectArtistForm();
@@ -45,8 +53,6 @@ namespace SongsAbout_DesktopApp
             {
                 try
                 {
-                    //LoadArtists();
-
                     _albumArtist = selectArtist.SelectedArtist;
                     txtBoxMainArtist.Text = _albumArtist.a_name;
 
@@ -59,38 +65,34 @@ namespace SongsAbout_DesktopApp
             }
         }
 
+
+        /// <summary>
+        /// On click, save the newly entered artist to the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            try
+            if (txtBoxTitle.Text != "")
             {
-                SaveAlbum();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                this.DialogResult = DialogResult.Abort;
-                throw new Exception("Error Submitting data to database" + ex.Message);
-            }
-        }
-
-        private void SaveAlbum()
-        {
-            using (DatabaseContext context = new DatabaseContext())
-            {
-                DataSet artistData = new DataSet();
-                NewAlbum.al_title = txtBoxTitle.Text;
-                NewAlbum.al_year = txtBoxYear.Text;
-                NewAlbum.Artist = _albumArtist;
-                
-                context.Albums.InsertOnSubmit(NewAlbum);
-
-                if (artistData.Artists.FindByartist_id(_albumArtist.artist_id) != null)
+                try
                 {
-                    context.Artists.InsertOnSubmit(_albumArtist);
+                    NewAlbum.Save();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
-                context.SubmitChanges();
+                catch (Exception ex)
+                {
+                    this.DialogResult = DialogResult.Abort;
+                    MessageBox.Show(ex.Message, "Something went Wrong Saving New Artist");
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Please enter at least a tilte for the New album.");
             }
         }
+
     }
 }

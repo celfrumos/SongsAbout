@@ -78,24 +78,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddAlbumForm.cs">
+    <Compile Include="Forms\AddAlbumForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddAlbumForm.Designer.cs">
+    <Compile Include="Forms\AddAlbumForm.Designer.cs">
       <DependentUpon>AddAlbumForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddArtistForm.cs">
+    <Compile Include="Forms\AddArtistForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddArtistForm.Designer.cs">
+    <Compile Include="Forms\AddArtistForm.Designer.cs">
       <DependentUpon>AddArtistForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddTrackForm.cs">
+    <Compile Include="Forms\AddTrackForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddTrackForm.Designer.cs">
+    <Compile Include="Forms\AddTrackForm.Designer.cs">
       <DependentUpon>AddTrackForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Album.cs" />
+    <Compile Include="Classes\Artist.cs" />
     <Compile Include="DatabaseClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -106,52 +108,53 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Loader.cs" />
-    <Compile Include="SelectAlbumForm.cs">
+    <Compile Include="Classes\Loader.cs" />
+    <Compile Include="Forms\SelectAlbumForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SelectAlbumForm.Designer.cs">
+    <Compile Include="Forms\SelectAlbumForm.Designer.cs">
       <DependentUpon>SelectAlbumForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectArtistForm.cs">
+    <Compile Include="Forms\SelectArtistForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SelectArtistForm.Designer.cs">
+    <Compile Include="Forms\SelectArtistForm.Designer.cs">
       <DependentUpon>SelectArtistForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Classes\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultsForm.cs">
+    <Compile Include="Forms\ResultsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ResultsForm.Designer.cs">
+    <Compile Include="Forms\ResultsForm.Designer.cs">
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddAlbumForm.resx">
+    <Compile Include="Classes\Track.cs" />
+    <EmbeddedResource Include="Forms\AddAlbumForm.resx">
       <DependentUpon>AddAlbumForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddArtistForm.resx">
+    <EmbeddedResource Include="Forms\AddArtistForm.resx">
       <DependentUpon>AddArtistForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddTrackForm.resx">
+    <EmbeddedResource Include="Forms\AddTrackForm.resx">
       <DependentUpon>AddTrackForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DatabaseClasses.dbml.layout">
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="SelectAlbumForm.resx">
+    <EmbeddedResource Include="Forms\SelectAlbumForm.resx">
       <DependentUpon>SelectAlbumForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SelectArtistForm.resx">
+    <EmbeddedResource Include="Forms\SelectArtistForm.resx">
       <DependentUpon>SelectArtistForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -163,7 +166,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ResultsForm.resx">
+    <EmbeddedResource Include="Forms\ResultsForm.resx">
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DatabaseClasses.dbml">
