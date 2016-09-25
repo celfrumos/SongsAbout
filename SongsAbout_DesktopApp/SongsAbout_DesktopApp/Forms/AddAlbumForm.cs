@@ -13,7 +13,7 @@ namespace SongsAbout_DesktopApp
     public partial class AddAlbumForm : Form
     {
         bool isNewArtist = false;
-        Album NewAlbum = new Album();
+        public Album NewAlbum = new Album();
         private Artist _albumArtist;
 
         public AddAlbumForm()

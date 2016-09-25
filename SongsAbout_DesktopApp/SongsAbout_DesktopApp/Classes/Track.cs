@@ -10,7 +10,7 @@ namespace SongsAbout_DesktopApp
     {
         public void Save()
         {
-            this.track_artist_id = this.Album.artist_id;
+            //this.track_artist_id = this.Album.artist_id;
             using (DataClasses1DataContext context = new DataClasses1DataContext())
             {
                 context.Tracks.InsertOnSubmit(this);
@@ -18,7 +18,7 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        public void SaveGenres(List<string> genres)
+        public void SaveGenres(ref List<string> genres)
         {
             using (DataClasses1DataContext context = new DataClasses1DataContext())
             {

@@ -12,9 +12,8 @@ namespace SongsAbout_DesktopApp
 {
     public partial class SelectAlbumForm : Form
     {
-        Dictionary<string, Artist> DictArtists;
         Dictionary<string, Album> DictAlbums;
-        private Artist _albumArtist { get; set; }
+        private Artist _albumArtist;
 
         public Album SelectedAlbum { get; set; }
 
@@ -56,7 +55,7 @@ namespace SongsAbout_DesktopApp
                 try
                 {
                     _albumArtist = selectArtist.SelectedArtist;
-                    FilterByArtist(_albumArtist);
+                    FilterByArtist(ref _albumArtist);
 
                 }
                 catch (Exception ex)
@@ -90,7 +89,7 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private void FilterByArtist(Artist albumArtist)
+        private void FilterByArtist(ref Artist albumArtist)
         {
             txtBoxSelectedArtist.Text = _albumArtist.a_name;
         }
@@ -101,7 +100,9 @@ namespace SongsAbout_DesktopApp
             addAlbum.ShowDialog();
             if (addAlbum.DialogResult == DialogResult.OK)
             {
-                LoadAlbums();
+                // LoadAlbums();
+                lstBoxSelectAlbum.Items.Add(addAlbum.NewAlbum.al_title);
+                lstBoxSelectAlbum.SelectedIndex = lstBoxSelectAlbum.Items.Count - 1;
             }
         }
 

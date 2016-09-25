@@ -22,14 +22,7 @@ namespace SongsAbout_DesktopApp
             InitializeComponent();
             NewTrack = new Track();
         }
-
-        //private void LoadArtists()
-        //{
-        //    Loader loader = new Loader();
-        //    ArtistDictionary = loader.LoadArtists();
-
-        //}
-
+        
         private void btnSelectArtist_Click(object sender, EventArgs e)
         {
             SelectArtistForm selectArtist = new SelectArtistForm();
@@ -53,7 +46,7 @@ namespace SongsAbout_DesktopApp
                     selectedAlbum = selectAlbum.SelectedAlbum;
                     NewTrack.Album = selectedAlbum;
                     txtBoxAlbum.Text = selectedAlbum.al_title;
-
+                    txtBoxMainArtist.Text = selectedAlbum.artist_id.ToString();
                     // txtBoxMainArtist.Text = selectedAlbum.GetArtistName();
 
                 }
@@ -73,12 +66,14 @@ namespace SongsAbout_DesktopApp
         private void btnSave_Click(object sender, EventArgs e)
         {
             NewTrack.Album = _trackAlbum;
-            
+            NewTrack.album_id = _trackAlbum.album_id;
+            NewTrack.track_artist_id = _trackAlbum.artist_id;
             // NewTrack.Album.Artist = _trackArtist;
             NewTrack.track_name = txtBoxName.Text;
             NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
             NewTrack.Save();
-            NewTrack.SaveGenres(GetGenres());
+            List<string> genres = GetGenres();
+            NewTrack.SaveGenres(ref genres);
             this.Close();
         }
 
