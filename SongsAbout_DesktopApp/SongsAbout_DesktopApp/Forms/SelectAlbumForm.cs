@@ -70,15 +70,23 @@ namespace SongsAbout_DesktopApp
         private void LoadAlbums()
         {
             lstBoxSelectAlbum.Items.Clear();
-            DictAlbums = Loader.LoadAlbums();
-            foreach (KeyValuePair<string, Album> al in DictAlbums)
+            try
             {
-                lstBoxSelectAlbum.Items.Add(al.Key);
-            }
+                DictAlbums = Loader.LoadAlbums();
+                foreach (KeyValuePair<string, Album> al in DictAlbums)
+                {
+                    lstBoxSelectAlbum.Items.Add(al.Key);
+                }
 
-            if (lstBoxSelectAlbum.Items.Count > 0)
+                if (lstBoxSelectAlbum.Items.Count > 0)
+                {
+                    lstBoxSelectAlbum.SelectedIndex = 0;
+                }
+
+            }
+            catch (Exception ex)
             {
-                lstBoxSelectAlbum.SelectedIndex = 0;
+                MessageBox.Show(ex.Message, "Error Loading Albums.");
             }
         }
 

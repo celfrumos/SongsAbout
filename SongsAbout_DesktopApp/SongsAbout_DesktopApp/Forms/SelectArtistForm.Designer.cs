@@ -37,17 +37,21 @@
             // lstBoxSelectArtist
             // 
             this.lstBoxSelectArtist.FormattingEnabled = true;
-            this.lstBoxSelectArtist.Location = new System.Drawing.Point(8, 11);
+            this.lstBoxSelectArtist.ItemHeight = 16;
+            this.lstBoxSelectArtist.Location = new System.Drawing.Point(11, 14);
+            this.lstBoxSelectArtist.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstBoxSelectArtist.Name = "lstBoxSelectArtist";
-            this.lstBoxSelectArtist.Size = new System.Drawing.Size(264, 108);
+            this.lstBoxSelectArtist.Size = new System.Drawing.Size(351, 132);
             this.lstBoxSelectArtist.TabIndex = 0;
+            this.lstBoxSelectArtist.SelectedIndexChanged += new System.EventHandler(this.lstBoxSelectArtist_SelectedIndexChanged);
             // 
             // btnClose
             // 
             this.btnClose.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnClose.Location = new System.Drawing.Point(8, 125);
+            this.btnClose.Location = new System.Drawing.Point(11, 154);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(100, 28);
             this.btnClose.TabIndex = 1;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -56,9 +60,10 @@
             // btnSave
             // 
             this.btnSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSave.Location = new System.Drawing.Point(278, 125);
+            this.btnSave.Location = new System.Drawing.Point(371, 154);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(100, 28);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -68,9 +73,10 @@
             // 
             this.btnNewArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnNewArtist.Location = new System.Drawing.Point(278, 12);
+            this.btnNewArtist.Location = new System.Drawing.Point(371, 15);
+            this.btnNewArtist.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnNewArtist.Name = "btnNewArtist";
-            this.btnNewArtist.Size = new System.Drawing.Size(75, 102);
+            this.btnNewArtist.Size = new System.Drawing.Size(100, 126);
             this.btnNewArtist.TabIndex = 40;
             this.btnNewArtist.Text = "New Artist";
             this.btnNewArtist.UseVisualStyleBackColor = true;
@@ -78,16 +84,17 @@
             // 
             // SelectArtistForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(361, 159);
+            this.ClientSize = new System.Drawing.Size(481, 196);
             this.Controls.Add(this.btnNewArtist);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lstBoxSelectArtist);
             this.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SelectArtistForm";

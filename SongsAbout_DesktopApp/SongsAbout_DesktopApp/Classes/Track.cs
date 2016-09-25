@@ -10,6 +10,7 @@ namespace SongsAbout_DesktopApp
     {
         public void Save()
         {
+            this.track_artist_id = this.Album.artist_id;
             using (DataClasses1DataContext context = new DataClasses1DataContext())
             {
                 context.Tracks.InsertOnSubmit(this);

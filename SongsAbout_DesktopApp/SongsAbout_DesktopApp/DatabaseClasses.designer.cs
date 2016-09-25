@@ -109,19 +109,19 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		public System.Data.Linq.Table<Track> Tracks
-		{
-			get
-			{
-				return this.GetTable<Track>();
-			}
-		}
-		
 		public System.Data.Linq.Table<TrackView> TrackViews
 		{
 			get
 			{
 				return this.GetTable<TrackView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Track> Tracks
+		{
+			get
+			{
+				return this.GetTable<Track>();
 			}
 		}
 	}
@@ -778,220 +778,6 @@ namespace SongsAbout_DesktopApp
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tracks")]
-	public partial class Track : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _track_id = default(int);
-		
-		private int _album_id;
-		
-		private string _track_name;
-		
-		private string _track_spotify_uri;
-		
-		private System.Nullable<double> _track_length_minutes;
-		
-		private EntitySet<TrackGenre> _TrackGenres;
-		
-		private EntityRef<Album> _Album;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onalbum_idChanging(int value);
-    partial void Onalbum_idChanged();
-    partial void Ontrack_nameChanging(string value);
-    partial void Ontrack_nameChanged();
-    partial void Ontrack_spotify_uriChanging(string value);
-    partial void Ontrack_spotify_uriChanged();
-    partial void Ontrack_length_minutesChanging(System.Nullable<double> value);
-    partial void Ontrack_length_minutesChanged();
-    #endregion
-		
-		public Track()
-		{
-			this._TrackGenres = new EntitySet<TrackGenre>(new Action<TrackGenre>(this.attach_TrackGenres), new Action<TrackGenre>(this.detach_TrackGenres));
-			this._Album = default(EntityRef<Album>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		public int track_id
-		{
-			get
-			{
-				return this._track_id;
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_album_id", DbType="Int NOT NULL")]
-		public int album_id
-		{
-			get
-			{
-				return this._album_id;
-			}
-			set
-			{
-				if ((this._album_id != value))
-				{
-					if (this._Album.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onalbum_idChanging(value);
-					this.SendPropertyChanging();
-					this._album_id = value;
-					this.SendPropertyChanged("album_id");
-					this.Onalbum_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_name", DbType="NVarChar(255)")]
-		public string track_name
-		{
-			get
-			{
-				return this._track_name;
-			}
-			set
-			{
-				if ((this._track_name != value))
-				{
-					this.Ontrack_nameChanging(value);
-					this.SendPropertyChanging();
-					this._track_name = value;
-					this.SendPropertyChanged("track_name");
-					this.Ontrack_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_spotify_uri", DbType="NVarChar(255)")]
-		public string track_spotify_uri
-		{
-			get
-			{
-				return this._track_spotify_uri;
-			}
-			set
-			{
-				if ((this._track_spotify_uri != value))
-				{
-					this.Ontrack_spotify_uriChanging(value);
-					this.SendPropertyChanging();
-					this._track_spotify_uri = value;
-					this.SendPropertyChanged("track_spotify_uri");
-					this.Ontrack_spotify_uriChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_length_minutes", DbType="Float")]
-		public System.Nullable<double> track_length_minutes
-		{
-			get
-			{
-				return this._track_length_minutes;
-			}
-			set
-			{
-				if ((this._track_length_minutes != value))
-				{
-					this.Ontrack_length_minutesChanging(value);
-					this.SendPropertyChanging();
-					this._track_length_minutes = value;
-					this.SendPropertyChanged("track_length_minutes");
-					this.Ontrack_length_minutesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_TrackGenre", Storage="_TrackGenres", ThisKey="track_id", OtherKey="track_id")]
-		public EntitySet<TrackGenre> TrackGenres
-		{
-			get
-			{
-				return this._TrackGenres;
-			}
-			set
-			{
-				this._TrackGenres.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track", Storage="_Album", ThisKey="album_id", OtherKey="album_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Album Album
-		{
-			get
-			{
-				return this._Album.Entity;
-			}
-			set
-			{
-				Album previousValue = this._Album.Entity;
-				if (((previousValue != value) 
-							|| (this._Album.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Album.Entity = null;
-						previousValue.Tracks.Remove(this);
-					}
-					this._Album.Entity = value;
-					if ((value != null))
-					{
-						value.Tracks.Add(this);
-						this._album_id = value.album_id;
-					}
-					else
-					{
-						this._album_id = default(int);
-					}
-					this.SendPropertyChanged("Album");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_TrackGenres(TrackGenre entity)
-		{
-			this.SendPropertyChanging();
-			entity.Track = this;
-		}
-		
-		private void detach_TrackGenres(TrackGenre entity)
-		{
-			this.SendPropertyChanging();
-			entity.Track = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TrackView")]
 	public partial class TrackView
 	{
@@ -1088,6 +874,257 @@ namespace SongsAbout_DesktopApp
 					this._track_spotify_uri = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tracks")]
+	public partial class Track : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _track_id;
+		
+		private int _album_id;
+		
+		private string _track_name;
+		
+		private string _track_spotify_uri;
+		
+		private System.Nullable<double> _track_length_minutes;
+		
+		private System.Nullable<int> _track_artist_id;
+		
+		private EntitySet<TrackGenre> _TrackGenres;
+		
+		private EntityRef<Album> _Album;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Ontrack_idChanging(int value);
+    partial void Ontrack_idChanged();
+    partial void Onalbum_idChanging(int value);
+    partial void Onalbum_idChanged();
+    partial void Ontrack_nameChanging(string value);
+    partial void Ontrack_nameChanged();
+    partial void Ontrack_spotify_uriChanging(string value);
+    partial void Ontrack_spotify_uriChanged();
+    partial void Ontrack_length_minutesChanging(System.Nullable<double> value);
+    partial void Ontrack_length_minutesChanged();
+    partial void Ontrack_artist_idChanging(System.Nullable<int> value);
+    partial void Ontrack_artist_idChanged();
+    #endregion
+		
+		public Track()
+		{
+			this._TrackGenres = new EntitySet<TrackGenre>(new Action<TrackGenre>(this.attach_TrackGenres), new Action<TrackGenre>(this.detach_TrackGenres));
+			this._Album = default(EntityRef<Album>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int track_id
+		{
+			get
+			{
+				return this._track_id;
+			}
+			set
+			{
+				if ((this._track_id != value))
+				{
+					this.Ontrack_idChanging(value);
+					this.SendPropertyChanging();
+					this._track_id = value;
+					this.SendPropertyChanged("track_id");
+					this.Ontrack_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_album_id", DbType="Int NOT NULL")]
+		public int album_id
+		{
+			get
+			{
+				return this._album_id;
+			}
+			set
+			{
+				if ((this._album_id != value))
+				{
+					if (this._Album.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onalbum_idChanging(value);
+					this.SendPropertyChanging();
+					this._album_id = value;
+					this.SendPropertyChanged("album_id");
+					this.Onalbum_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_name", DbType="NVarChar(255)")]
+		public string track_name
+		{
+			get
+			{
+				return this._track_name;
+			}
+			set
+			{
+				if ((this._track_name != value))
+				{
+					this.Ontrack_nameChanging(value);
+					this.SendPropertyChanging();
+					this._track_name = value;
+					this.SendPropertyChanged("track_name");
+					this.Ontrack_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_spotify_uri", DbType="NVarChar(255)")]
+		public string track_spotify_uri
+		{
+			get
+			{
+				return this._track_spotify_uri;
+			}
+			set
+			{
+				if ((this._track_spotify_uri != value))
+				{
+					this.Ontrack_spotify_uriChanging(value);
+					this.SendPropertyChanging();
+					this._track_spotify_uri = value;
+					this.SendPropertyChanged("track_spotify_uri");
+					this.Ontrack_spotify_uriChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_length_minutes", DbType="Float")]
+		public System.Nullable<double> track_length_minutes
+		{
+			get
+			{
+				return this._track_length_minutes;
+			}
+			set
+			{
+				if ((this._track_length_minutes != value))
+				{
+					this.Ontrack_length_minutesChanging(value);
+					this.SendPropertyChanging();
+					this._track_length_minutes = value;
+					this.SendPropertyChanged("track_length_minutes");
+					this.Ontrack_length_minutesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_track_artist_id", DbType="Int")]
+		public System.Nullable<int> track_artist_id
+		{
+			get
+			{
+				return this._track_artist_id;
+			}
+			set
+			{
+				if ((this._track_artist_id != value))
+				{
+					this.Ontrack_artist_idChanging(value);
+					this.SendPropertyChanging();
+					this._track_artist_id = value;
+					this.SendPropertyChanged("track_artist_id");
+					this.Ontrack_artist_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_TrackGenre", Storage="_TrackGenres", ThisKey="track_id", OtherKey="track_id")]
+		public EntitySet<TrackGenre> TrackGenres
+		{
+			get
+			{
+				return this._TrackGenres;
+			}
+			set
+			{
+				this._TrackGenres.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track", Storage="_Album", ThisKey="album_id", OtherKey="album_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Album Album
+		{
+			get
+			{
+				return this._Album.Entity;
+			}
+			set
+			{
+				Album previousValue = this._Album.Entity;
+				if (((previousValue != value) 
+							|| (this._Album.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Album.Entity = null;
+						previousValue.Tracks.Remove(this);
+					}
+					this._Album.Entity = value;
+					if ((value != null))
+					{
+						value.Tracks.Add(this);
+						this._album_id = value.album_id;
+					}
+					else
+					{
+						this._album_id = default(int);
+					}
+					this.SendPropertyChanged("Album");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_TrackGenres(TrackGenre entity)
+		{
+			this.SendPropertyChanging();
+			entity.Track = this;
+		}
+		
+		private void detach_TrackGenres(TrackGenre entity)
+		{
+			this.SendPropertyChanging();
+			entity.Track = null;
 		}
 	}
 }

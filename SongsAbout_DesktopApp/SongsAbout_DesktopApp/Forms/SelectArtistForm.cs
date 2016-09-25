@@ -56,7 +56,6 @@ namespace SongsAbout_DesktopApp
             {
                 string newName = addArtist.NewArtist.a_name;
                 LoadArtists(newName);
-
             }
         }
 
@@ -119,5 +118,18 @@ namespace SongsAbout_DesktopApp
             }
         }
 
+        private void lstBoxSelectArtist_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                SelectedArtist = DictArtists[lstBoxSelectArtist.SelectedItem.ToString()];
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+
+        }
     }
 }

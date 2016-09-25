@@ -27,8 +27,8 @@ namespace SongsAbout_DesktopApp
                 try
                 {
                     Dictionary<string, Artist> _dictArtists = new Dictionary<string, Artist>();
-                    var artists = context.Artists.Context.GetTable<Artist>();
-                    foreach (var artist in artists)
+                    Table<Artist> artists = context.Artists.Context.GetTable<Artist>();
+                    foreach (Artist artist in artists)
                     {
                         _dictArtists.Add(artist.a_name, artist);
                     }
@@ -37,7 +37,7 @@ namespace SongsAbout_DesktopApp
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error loading Artists: " + ex.Message);
+                    throw new Exception("Error loading Artists. Msg: " + ex.Message);
                 }
             }
         }
@@ -53,8 +53,8 @@ namespace SongsAbout_DesktopApp
                 Dictionary<string, Album> _dictAlbums = new Dictionary<string, Album>();
                 try
                 {
-                    var albumTable = context.Albums.Context.GetTable<Album>();
-                    foreach (var album in albumTable)
+                    Table<Album> albumTable = context.Albums.Context.GetTable<Album>();
+                    foreach (Album album in albumTable)
                     {
                         _dictAlbums.Add(album.al_title, album);
                     }
@@ -63,7 +63,7 @@ namespace SongsAbout_DesktopApp
 
                 catch (Exception ex)
                 {
-                    throw new Exception("Error loading Albums: " + ex.Message);
+                    throw new Exception("Error loading Albums. Msg: " + ex.Message);
                 }
             }
         }

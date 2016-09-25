@@ -73,6 +73,7 @@ namespace SongsAbout_DesktopApp
         private void btnSave_Click(object sender, EventArgs e)
         {
             NewTrack.Album = _trackAlbum;
+            
             // NewTrack.Album.Artist = _trackArtist;
             NewTrack.track_name = txtBoxName.Text;
             NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);

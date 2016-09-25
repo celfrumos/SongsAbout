@@ -36,17 +36,6 @@
       <Association Name="Track_TrackGenre" Member="Track" ThisKey="track_id" OtherKey="track_id" Type="Track" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Tracks" Member="Tracks">
-    <Type Name="Track">
-      <Column Name="track_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="album_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="track_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="track_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="track_length_minutes" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Association Name="Track_TrackGenre" Member="TrackGenres" ThisKey="track_id" OtherKey="track_id" Type="TrackGenre" />
-      <Association Name="Album_Track" Member="Album" ThisKey="album_id" OtherKey="album_id" Type="Album" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.TrackView" Member="TrackViews">
     <Type Name="TrackView">
       <Column Name="track_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
@@ -54,6 +43,18 @@
       <Column Name="al_title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="track_length_minutes" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="track_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tracks" Member="Tracks">
+    <Type Name="Track">
+      <Column Name="track_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="album_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="track_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="track_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="track_length_minutes" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="track_artist_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Track_TrackGenre" Member="TrackGenres" ThisKey="track_id" OtherKey="track_id" Type="TrackGenre" />
+      <Association Name="Album_Track" Member="Album" ThisKey="album_id" OtherKey="album_id" Type="Album" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>
