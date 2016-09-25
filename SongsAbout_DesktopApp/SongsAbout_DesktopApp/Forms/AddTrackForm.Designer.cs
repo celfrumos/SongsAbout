@@ -186,6 +186,7 @@
             // 
             // cBoxAlbum
             // 
+            this.cBoxAlbum.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.albumsBindingSource, "album_id", true));
             this.cBoxAlbum.DataSource = this.albumsBindingSource;
             this.cBoxAlbum.DisplayMember = "al_title";
             this.cBoxAlbum.FormattingEnabled = true;
@@ -235,6 +236,7 @@
             this.btnNewAlbum.TabIndex = 8;
             this.btnNewAlbum.Text = "New A&lbum";
             this.btnNewAlbum.UseVisualStyleBackColor = true;
+            this.btnNewAlbum.Click += new System.EventHandler(this.btnNewAlbum_Click);
             // 
             // btnNewArtist
             // 
@@ -247,6 +249,7 @@
             this.btnNewArtist.TabIndex = 7;
             this.btnNewArtist.Text = "New &Artist";
             this.btnNewArtist.UseVisualStyleBackColor = true;
+            this.btnNewArtist.Click += new System.EventHandler(this.btnNewArtist_Click);
             // 
             // genresTableAdapter
             // 

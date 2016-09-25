@@ -119,12 +119,6 @@
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Classes\Loader.cs" />
-    <Compile Include="Forms\SelectArtistForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SelectArtistForm.Designer.cs">
-      <DependentUpon>SelectArtistForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,9 +149,6 @@
     <None Include="DatabaseClasses.dbml.layout">
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="Forms\SelectArtistForm.resx">
-      <DependentUpon>SelectArtistForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

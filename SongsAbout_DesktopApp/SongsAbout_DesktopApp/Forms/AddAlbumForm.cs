@@ -13,13 +13,20 @@ namespace SongsAbout_DesktopApp
     public partial class AddAlbumForm : Form
     {
         bool isNewArtist = false;
-        public Album NewAlbum { get; set; }
-        private Artist _albumArtist;
+        private ComboBox cBoxAlbum;
+
+        private Album _newAlbum = new Album();//{ get; set; }
 
         public AddAlbumForm()
         {
             InitializeComponent();
-            NewAlbum = new Album();
+            _newAlbum = new Album();
+        }
+
+        public AddAlbumForm(out Album newAlbum) //: this(ref cBoxAlbum)
+        {
+            InitializeComponent();
+            newAlbum = _newAlbum;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -39,32 +46,6 @@ namespace SongsAbout_DesktopApp
             // NewAlbum.SetAlbumCoverArt(fileName);
         }
 
-        /// <summary>
-        /// On click, show a dialog to select an artist for the album
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSelectArtist_Click(object sender, EventArgs e)
-        {
-            SelectArtistForm selectArtist = new SelectArtistForm();
-            _albumArtist = new Artist();
-            selectArtist.ShowDialog();
-            if (selectArtist.DialogResult == DialogResult.OK)
-            {
-                try
-                {
-                    _albumArtist = selectArtist.SelectedArtist;
-                    txtBoxMainArtist.Text = _albumArtist.a_name;
-
-                }
-                catch (Exception ex)
-                {
-                    // MessageBox.Show(ex.Message, "Error getting artist.");
-                    throw new Exception("Error Getting Artist", ex);
-                }
-            }
-        }
-
 
         /// <summary>
         /// On click, save the newly entered artist to the database
@@ -79,8 +60,12 @@ namespace SongsAbout_DesktopApp
                 {
                     try
                     {
-                        NewAlbum.artist_id = _albumArtist.artist_id;
-                        NewAlbum.Save();
+                        string newArtistId = cBoxMainArtist.SelectedValue.ToString();
+                        _newAlbum.al_title = txtBoxTitle.Text;
+                        _newAlbum.al_year = txtBoxYear.Text;
+                        _newAlbum.artist_id = int.Parse(newArtistId);
+
+                        _newAlbum.Save();
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
@@ -99,5 +84,18 @@ namespace SongsAbout_DesktopApp
             }
         }
 
+        private void btnNewArtist_Click(object sender, EventArgs e)
+        {
+            AddArtistForm artistForm = new AddArtistForm();
+            artistForm.ShowDialog();
+            cBoxMainArtist.Refresh();
+        }
+
+        private void AddAlbumForm_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+            this.artistsTableAdapter.Fill(this.dataSet.Artists);
+
+        }
     }
 }

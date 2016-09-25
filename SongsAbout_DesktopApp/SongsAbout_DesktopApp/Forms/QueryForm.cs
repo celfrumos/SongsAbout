@@ -32,45 +32,48 @@ namespace SongsAbout_DesktopApp
 
         }
 
-        private void btnArtistAdd_Click(object sender, EventArgs e)
-        {
-            //artistsDataGridView.Rows.Add();
-        }
-
         private void artistsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void btnArtistSaveItem_Click(object sender, EventArgs e)
-        {
-            SaveChanges();
 
-        }
-
-        private void SaveChanges()
+        private bool SaveChanges()
         {
             try
             {
                 this.Validate();
                 this.artistsBindingSource.EndEdit();
                 this.tableAdapterMngr.UpdateAll(this.dataSet);
-
+                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error Saving Artist table");
+                return false;
             }
         }
         private void btnSaveContinue_Click(object sender, EventArgs e)
         {
-            SaveChanges();
+            bool saveSucceeded = SaveChanges();
+            if (saveSucceeded)
+            {
+                MessageBox.Show("Success");
+            }
         }
 
         private void btnSaveClose_Click(object sender, EventArgs e)
         {
-            SaveChanges();
-            this.Close();
+            bool saveSucceeded = SaveChanges();
+            if (saveSucceeded)
+            {
+                MessageBox.Show("Success. Now closing form.");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Nothing was saved. Try again or press cancel to exit.");
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

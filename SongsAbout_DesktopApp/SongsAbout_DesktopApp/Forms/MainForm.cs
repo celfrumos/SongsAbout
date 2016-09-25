@@ -74,6 +74,11 @@ namespace SongsAbout_DesktopApp
             {
                 AddTrackForm addTrack = new AddTrackForm();
                 addTrack.ShowDialog();
+
+                if (addTrack.DialogResult == DialogResult.OK)
+                {
+                    MessageBox.Show("Successfully saved " + addTrack.NewTrack.track_name, "Success!");
+                }
             }
             catch (Exception ex)
             {

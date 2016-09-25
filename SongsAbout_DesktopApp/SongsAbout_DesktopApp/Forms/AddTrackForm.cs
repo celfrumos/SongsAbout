@@ -18,48 +18,7 @@ namespace SongsAbout_DesktopApp
         {
             InitializeComponent();
             NewTrack = new Track();
-        }
-
-        private void btnSelectArtist_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                SelectArtistForm selectArtist = new SelectArtistForm();
-                selectArtist.ShowDialog();
-                if (selectArtist.DialogResult == DialogResult.OK)
-                {
-                    NewTrack.track_artist_id = selectArtist.SelectedArtist.artist_id;
-                    cBoxMainArtist.Text = selectArtist.SelectedArtist.a_name;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
-        }
-
-        private void btnSelectAlbum_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    SelectAlbumForm selectAlbum = new SelectAlbumForm();
-            //    selectAlbum.ShowDialog();
-            //    if (selectAlbum.DialogResult == DialogResult.OK)
-            //    {
-            //        NewTrack.Album = selectAlbum.SelectedAlbum;
-
-            //        txtBoxAlbum.Text = NewTrack.Album.al_title;
-            //        txtBoxMainArtist.Text = NewTrack.Album.artist_id.ToString();
-            //        // txtBoxMainArtist.Text = selectedAlbum.GetArtistName();
-
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Something went wrong getting the chosen album");
-            //}
+            this.DialogResult = DialogResult.None;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -71,33 +30,26 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                // NewTrack.Album = _trackAlbum;
-                //  NewTrack.album_id = _trackAlbum.album_id;
-                NewTrack.track_artist_id = NewTrack.Album.artist_id;
-                // NewTrack.Album.Artist = _trackArtist;
                 NewTrack.track_name = txtBoxName.Text;
                 NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
+
+                string newAlbumId = cBoxAlbum.SelectedValue.ToString();
+                NewTrack.album_id = int.Parse(newAlbumId);
+
+                string newArtistId = cBoxAlbum.SelectedValue.ToString();
+                NewTrack.track_artist_id = int.Parse(newArtistId);
+
                 NewTrack.Save();
 
                 //List<string> genres = GetGenres();
                 // NewTrack.SaveGenres(ref genres);
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }
-        }
-
-        public List<string> GetGenres()
-        {
-            List<string> genList = new List<string>();
-            foreach (var item in lstBxGenres.SelectedItems)
-            {
-                genList.Add(item.ToString());
-            }
-
-            return genList;
         }
 
         private void AddTrackForm_Load(object sender, EventArgs e)
@@ -109,6 +61,30 @@ namespace SongsAbout_DesktopApp
             // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
             this.albumsTableAdapter.Fill(this.dataSet.Albums);
 
+        }
+
+        private void btnNewArtist_Click(object sender, EventArgs e)
+        {
+            AddArtistForm artistForm = new AddArtistForm();
+            artistForm.ShowDialog();
+
+            if (artistForm.DialogResult == DialogResult.OK)
+            {
+                cBoxMainArtist.Refresh();
+            }
+        }
+        
+        private void btnNewAlbum_Click(object sender, EventArgs e)
+        {
+            Album newAlbum = new Album();
+            AddAlbumForm albumForm = new AddAlbumForm(out newAlbum);
+            albumForm.ShowDialog();
+            if (albumForm.DialogResult == DialogResult.OK)
+            {
+
+                //cBoxAlbum.Items.Add(albumForm.NewAlbum);
+                // cBoxAlbum.Refresh();
+            }
         }
     }
 }

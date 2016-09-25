@@ -47,32 +47,32 @@
             this.artistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabAlbums = new System.Windows.Forms.TabPage();
             this.albumsDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.albumsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabTracks = new System.Windows.Forms.TabPage();
             this.tracksDataGridView = new System.Windows.Forms.DataGridView();
             this.tracksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabGenres = new System.Windows.Forms.TabPage();
             this.genresDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.genresBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabTrackGenres = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.trackidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.genreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.trackGenresBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fKAlbumsArtistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnSaveClose = new System.Windows.Forms.Button();
             this.btnSaveContinue = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.albumsTableAdapter1 = new SongsAbout_DesktopApp.DataSetTableAdapters.AlbumsTableAdapter();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trackidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.genreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.tabArtists.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -236,6 +236,43 @@
             this.albumsDataGridView.Size = new System.Drawing.Size(1008, 444);
             this.albumsDataGridView.TabIndex = 1;
             // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "artist_id";
+            this.dataGridViewTextBoxColumn8.DataSource = this.artistsBindingSource;
+            this.dataGridViewTextBoxColumn8.DisplayMember = "a_name";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Artist";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn8.ValueMember = "artist_id";
+            this.dataGridViewTextBoxColumn8.Width = 69;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "al_title";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Title";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 64;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "al_year";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Year";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.Width = 67;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "al_spotify_uri";
+            this.dataGridViewTextBoxColumn11.HeaderText = "Spotify URI";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.Width = 107;
+            // 
             // albumsBindingSource
             // 
             this.albumsBindingSource.DataMember = "Albums";
@@ -299,6 +336,14 @@
             this.genresDataGridView.Size = new System.Drawing.Size(1008, 444);
             this.genresDataGridView.TabIndex = 1;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "genre";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Genre";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 77;
+            // 
             // genresBindingSource
             // 
             this.genresBindingSource.DataMember = "Genres";
@@ -329,6 +374,32 @@
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.Size = new System.Drawing.Size(1008, 444);
             this.dataGridView2.TabIndex = 2;
+            // 
+            // trackidDataGridViewTextBoxColumn
+            // 
+            this.trackidDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.trackidDataGridViewTextBoxColumn.DataPropertyName = "track_id";
+            this.trackidDataGridViewTextBoxColumn.DataSource = this.tracksBindingSource;
+            this.trackidDataGridViewTextBoxColumn.DisplayMember = "track_name";
+            this.trackidDataGridViewTextBoxColumn.HeaderText = "Track";
+            this.trackidDataGridViewTextBoxColumn.Name = "trackidDataGridViewTextBoxColumn";
+            this.trackidDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.trackidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.trackidDataGridViewTextBoxColumn.ValueMember = "track_id";
+            this.trackidDataGridViewTextBoxColumn.Width = 73;
+            // 
+            // genreDataGridViewTextBoxColumn
+            // 
+            this.genreDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.genreDataGridViewTextBoxColumn.DataPropertyName = "genre";
+            this.genreDataGridViewTextBoxColumn.DataSource = this.genresBindingSource;
+            this.genreDataGridViewTextBoxColumn.DisplayMember = "genre";
+            this.genreDataGridViewTextBoxColumn.HeaderText = "Genre";
+            this.genreDataGridViewTextBoxColumn.Name = "genreDataGridViewTextBoxColumn";
+            this.genreDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.genreDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.genreDataGridViewTextBoxColumn.ValueMember = "genre";
+            this.genreDataGridViewTextBoxColumn.Width = 77;
             // 
             // trackGenresBindingSource
             // 
@@ -374,43 +445,6 @@
             // 
             this.albumsTableAdapter1.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "artist_id";
-            this.dataGridViewTextBoxColumn8.DataSource = this.artistsBindingSource;
-            this.dataGridViewTextBoxColumn8.DisplayMember = "a_name";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Artist";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn8.ValueMember = "artist_id";
-            this.dataGridViewTextBoxColumn8.Width = 69;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "al_title";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Title";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Width = 64;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "al_year";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Year";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.Width = 67;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "al_spotify_uri";
-            this.dataGridViewTextBoxColumn11.HeaderText = "Spotify URI";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.Width = 107;
-            // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -430,7 +464,7 @@
             this.dataGridViewTextBoxColumn4.DataPropertyName = "track_name";
             this.dataGridViewTextBoxColumn4.HeaderText = "Track Name";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 105;
+            this.dataGridViewTextBoxColumn4.Width = 114;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -438,7 +472,7 @@
             this.dataGridViewTextBoxColumn5.DataPropertyName = "track_spotify_uri";
             this.dataGridViewTextBoxColumn5.HeaderText = "Spotify URI";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 99;
+            this.dataGridViewTextBoxColumn5.Width = 107;
             // 
             // dataGridViewTextBoxColumn6
             // 
@@ -447,40 +481,6 @@
             this.dataGridViewTextBoxColumn6.HeaderText = "Length (minutes)";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.Width = 132;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "genre";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Genre";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 77;
-            // 
-            // trackidDataGridViewTextBoxColumn
-            // 
-            this.trackidDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.trackidDataGridViewTextBoxColumn.DataPropertyName = "track_id";
-            this.trackidDataGridViewTextBoxColumn.DataSource = this.tracksBindingSource;
-            this.trackidDataGridViewTextBoxColumn.DisplayMember = "track_name";
-            this.trackidDataGridViewTextBoxColumn.HeaderText = "Track";
-            this.trackidDataGridViewTextBoxColumn.Name = "trackidDataGridViewTextBoxColumn";
-            this.trackidDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.trackidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.trackidDataGridViewTextBoxColumn.ValueMember = "track_id";
-            this.trackidDataGridViewTextBoxColumn.Width = 73;
-            // 
-            // genreDataGridViewTextBoxColumn
-            // 
-            this.genreDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.genreDataGridViewTextBoxColumn.DataPropertyName = "genre";
-            this.genreDataGridViewTextBoxColumn.DataSource = this.genresBindingSource;
-            this.genreDataGridViewTextBoxColumn.DisplayMember = "genre";
-            this.genreDataGridViewTextBoxColumn.HeaderText = "Genre";
-            this.genreDataGridViewTextBoxColumn.Name = "genreDataGridViewTextBoxColumn";
-            this.genreDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.genreDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.genreDataGridViewTextBoxColumn.ValueMember = "genre";
-            this.genreDataGridViewTextBoxColumn.Width = 77;
             // 
             // QueryForm
             // 
@@ -553,13 +553,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewComboBoxColumn trackidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn genreDataGridViewTextBoxColumn;
         private DataSetTableAdapters.AlbumsTableAdapter albumsTableAdapter1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
     }
 }
