@@ -72,7 +72,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-            AddTrackForm addTrack = new AddTrackForm();
+                AddTrackForm addTrack = new AddTrackForm();
                 addTrack.ShowDialog();
             }
             catch (Exception ex)
@@ -93,6 +93,12 @@ namespace SongsAbout_DesktopApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             // ArtistDictionary = artists.Load();
+        }
+
+        private void btnViewData_Click(object sender, EventArgs e)
+        {
+            QueryForm queryForm = new QueryForm();
+            queryForm.ShowDialog();
         }
     }
 }

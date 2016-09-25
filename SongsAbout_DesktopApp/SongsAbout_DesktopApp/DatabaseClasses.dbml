@@ -19,6 +19,7 @@
       <Column Name="a_website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="a_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Association Name="Artist_Album" Member="Albums" ThisKey="artist_id" OtherKey="artist_id" Type="Album" />
+      <Association Name="Artist_Track" Member="Tracks" ThisKey="artist_id" OtherKey="track_artist_id" Type="Track" />
     </Type>
   </Table>
   <Table Name="dbo.Genres" Member="Genres">
@@ -55,6 +56,7 @@
       <Column Name="track_artist_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Track_TrackGenre" Member="TrackGenres" ThisKey="track_id" OtherKey="track_id" Type="TrackGenre" />
       <Association Name="Album_Track" Member="Album" ThisKey="album_id" OtherKey="album_id" Type="Album" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Artist_Track" Member="Artist" ThisKey="track_artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

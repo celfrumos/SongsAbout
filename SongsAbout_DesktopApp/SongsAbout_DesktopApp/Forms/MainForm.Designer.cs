@@ -38,6 +38,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnSavedLists = new System.Windows.Forms.Button();
             this.btnAddInfo = new System.Windows.Forms.Button();
+            this.btnViewData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -159,12 +160,23 @@
             this.btnAddInfo.UseVisualStyleBackColor = true;
             this.btnAddInfo.Click += new System.EventHandler(this.btnAddTrack_Click);
             // 
+            // btnViewData
+            // 
+            this.btnViewData.Location = new System.Drawing.Point(77, 367);
+            this.btnViewData.Name = "btnViewData";
+            this.btnViewData.Size = new System.Drawing.Size(130, 31);
+            this.btnViewData.TabIndex = 14;
+            this.btnViewData.Text = "View Data";
+            this.btnViewData.UseVisualStyleBackColor = true;
+            this.btnViewData.Click += new System.EventHandler(this.btnViewData_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(547, 625);
+            this.Controls.Add(this.btnViewData);
             this.Controls.Add(this.btnAddInfo);
             this.Controls.Add(this.btnSavedLists);
             this.Controls.Add(this.btnSearch);
@@ -198,6 +210,7 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnSavedLists;
         private System.Windows.Forms.Button btnAddInfo;
+        private System.Windows.Forms.Button btnViewData;
     }
 }
 

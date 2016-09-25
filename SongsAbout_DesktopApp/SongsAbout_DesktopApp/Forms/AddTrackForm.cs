@@ -30,7 +30,7 @@ namespace SongsAbout_DesktopApp
                 if (selectArtist.DialogResult == DialogResult.OK)
                 {
                     NewTrack.track_artist_id = selectArtist.SelectedArtist.artist_id;
-                    txtBoxMainArtist.Text = selectArtist.SelectedArtist.a_name;
+                    cBoxMainArtist.Text = selectArtist.SelectedArtist.a_name;
                 }
             }
             catch (Exception ex)
@@ -41,25 +41,25 @@ namespace SongsAbout_DesktopApp
 
         private void btnSelectAlbum_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SelectAlbumForm selectAlbum = new SelectAlbumForm();
-                selectAlbum.ShowDialog();
-                if (selectAlbum.DialogResult == DialogResult.OK)
-                {
-                    NewTrack.Album = selectAlbum.SelectedAlbum;
+            //try
+            //{
+            //    SelectAlbumForm selectAlbum = new SelectAlbumForm();
+            //    selectAlbum.ShowDialog();
+            //    if (selectAlbum.DialogResult == DialogResult.OK)
+            //    {
+            //        NewTrack.Album = selectAlbum.SelectedAlbum;
 
-                    txtBoxAlbum.Text = NewTrack.Album.al_title;
-                    txtBoxMainArtist.Text = NewTrack.Album.artist_id.ToString();
-                    // txtBoxMainArtist.Text = selectedAlbum.GetArtistName();
+            //        txtBoxAlbum.Text = NewTrack.Album.al_title;
+            //        txtBoxMainArtist.Text = NewTrack.Album.artist_id.ToString();
+            //        // txtBoxMainArtist.Text = selectedAlbum.GetArtistName();
 
-                }
+            //    }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Something went wrong getting the chosen album");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Something went wrong getting the chosen album");
+            //}
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -98,6 +98,17 @@ namespace SongsAbout_DesktopApp
             }
 
             return genList;
+        }
+
+        private void AddTrackForm_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'dataSet.Genres' table. You can move, or remove it, as needed.
+            this.genresTableAdapter.Fill(this.dataSet.Genres);
+            // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+            this.artistsTableAdapter.Fill(this.dataSet.Artists);
+            // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
+            this.albumsTableAdapter.Fill(this.dataSet.Albums);
+
         }
     }
 }

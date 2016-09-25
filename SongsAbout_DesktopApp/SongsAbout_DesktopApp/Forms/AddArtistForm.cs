@@ -64,6 +64,9 @@ namespace SongsAbout_DesktopApp
 
         private void SaveArtist()
         {
+            NewArtist.a_name = txtBoxName.Text;
+            NewArtist.a_bio = txtBoxBio.Text;
+            NewArtist.a_website = txtBoxWebsite.Text;
             NewArtist.Save();
         }
     }

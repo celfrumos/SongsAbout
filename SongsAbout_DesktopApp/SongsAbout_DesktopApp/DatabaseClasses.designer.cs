@@ -358,6 +358,8 @@ namespace SongsAbout_DesktopApp
 		
 		private EntitySet<Album> _Albums;
 		
+		private EntitySet<Track> _Tracks;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -375,6 +377,7 @@ namespace SongsAbout_DesktopApp
 		public Artist()
 		{
 			this._Albums = new EntitySet<Album>(new Action<Album>(this.attach_Albums), new Action<Album>(this.detach_Albums));
+			this._Tracks = new EntitySet<Track>(new Action<Track>(this.attach_Tracks), new Action<Track>(this.detach_Tracks));
 			OnCreated();
 		}
 		
@@ -480,6 +483,19 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track", Storage="_Tracks", ThisKey="artist_id", OtherKey="track_artist_id")]
+		public EntitySet<Track> Tracks
+		{
+			get
+			{
+				return this._Tracks;
+			}
+			set
+			{
+				this._Tracks.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -507,6 +523,18 @@ namespace SongsAbout_DesktopApp
 		}
 		
 		private void detach_Albums(Album entity)
+		{
+			this.SendPropertyChanging();
+			entity.Artist = null;
+		}
+		
+		private void attach_Tracks(Track entity)
+		{
+			this.SendPropertyChanging();
+			entity.Artist = this;
+		}
+		
+		private void detach_Tracks(Track entity)
 		{
 			this.SendPropertyChanging();
 			entity.Artist = null;
@@ -899,6 +927,8 @@ namespace SongsAbout_DesktopApp
 		
 		private EntityRef<Album> _Album;
 		
+		private EntityRef<Artist> _Artist;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -921,6 +951,7 @@ namespace SongsAbout_DesktopApp
 		{
 			this._TrackGenres = new EntitySet<TrackGenre>(new Action<TrackGenre>(this.attach_TrackGenres), new Action<TrackGenre>(this.detach_TrackGenres));
 			this._Album = default(EntityRef<Album>);
+			this._Artist = default(EntityRef<Artist>);
 			OnCreated();
 		}
 		
@@ -1039,6 +1070,10 @@ namespace SongsAbout_DesktopApp
 			{
 				if ((this._track_artist_id != value))
 				{
+					if (this._Artist.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Ontrack_artist_idChanging(value);
 					this.SendPropertyChanging();
 					this._track_artist_id = value;
@@ -1091,6 +1126,40 @@ namespace SongsAbout_DesktopApp
 						this._album_id = default(int);
 					}
 					this.SendPropertyChanged("Album");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track", Storage="_Artist", ThisKey="track_artist_id", OtherKey="artist_id", IsForeignKey=true)]
+		public Artist Artist
+		{
+			get
+			{
+				return this._Artist.Entity;
+			}
+			set
+			{
+				Artist previousValue = this._Artist.Entity;
+				if (((previousValue != value) 
+							|| (this._Artist.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Artist.Entity = null;
+						previousValue.Tracks.Remove(this);
+					}
+					this._Artist.Entity = value;
+					if ((value != null))
+					{
+						value.Tracks.Add(this);
+						this._track_artist_id = value.artist_id;
+					}
+					else
+					{
+						this._track_artist_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Artist");
 				}
 			}
 		}

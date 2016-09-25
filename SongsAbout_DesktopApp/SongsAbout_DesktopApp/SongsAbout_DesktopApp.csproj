@@ -65,6 +65,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -78,6 +79,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\QueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QueryForm.Designer.cs">
+      <DependentUpon>QueryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet.cs">
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddAlbumForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,12 +119,6 @@
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Classes\Loader.cs" />
-    <Compile Include="Forms\SelectAlbumForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SelectAlbumForm.Designer.cs">
-      <DependentUpon>SelectAlbumForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\SelectArtistForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +140,9 @@
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Track.cs" />
+    <EmbeddedResource Include="Forms\QueryForm.resx">
+      <DependentUpon>QueryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddAlbumForm.resx">
       <DependentUpon>AddAlbumForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,9 +155,6 @@
     <None Include="DatabaseClasses.dbml.layout">
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="Forms\SelectAlbumForm.resx">
-      <DependentUpon>SelectAlbumForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectArtistForm.resx">
       <DependentUpon>SelectArtistForm.cs</DependentUpon>
     </EmbeddedResource>
