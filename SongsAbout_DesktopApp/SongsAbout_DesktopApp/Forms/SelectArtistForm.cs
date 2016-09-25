@@ -15,7 +15,7 @@ namespace SongsAbout_DesktopApp
         private bool _isNewArtist = false;
 
         public bool isNewArtist { get { return _isNewArtist; } }
-
+        private string selectedArtistName = "";
         int indexOfNewArtist = -1;
         Dictionary<string, Artist> DictArtists;
 
@@ -49,13 +49,22 @@ namespace SongsAbout_DesktopApp
 
         private void btnNewArtist_Click(object sender, EventArgs e)
         {
-            _isNewArtist = true;
-            AddArtistForm addArtist = new AddArtistForm();
-            addArtist.ShowDialog();
-            if (addArtist.DialogResult == DialogResult.OK)
+            try
             {
-                string newName = addArtist.NewArtist.a_name;
-                LoadArtists(newName);
+                _isNewArtist = true;
+                AddArtistForm addArtist = new AddArtistForm();
+                addArtist.ShowDialog();
+
+                if (addArtist.DialogResult == DialogResult.OK)
+                {
+                    SelectedArtist = addArtist.NewArtist;
+                    selectedArtistName = SelectedArtist.a_name;
+                    LoadArtists(selectedArtistName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error getting new Artist");
             }
         }
 
@@ -108,7 +117,7 @@ namespace SongsAbout_DesktopApp
                 if (lstBoxSelectArtist.Items.Count != 0)
                 {
                     this.DialogResult = DialogResult.Abort;
-                    throw new Exception();
+                    MessageBox.Show(ex.Message, "Error selecting artist");
 
                 }
                 else
@@ -122,8 +131,8 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                SelectedArtist = DictArtists[lstBoxSelectArtist.SelectedItem.ToString()];
-
+                selectedArtistName = lstBoxSelectArtist.SelectedItem.ToString();
+                SelectedArtist = DictArtists[selectedArtistName];
             }
             catch (Exception ex)
             {

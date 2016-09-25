@@ -12,9 +12,6 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddTrackForm : Form
     {
-        const char GENRE_DELIM = '~';
-        private Artist _trackArtist = new Artist();
-        private Album _trackAlbum = new Album();
         public Track NewTrack { get; set; }
 
         public AddTrackForm()
@@ -22,15 +19,23 @@ namespace SongsAbout_DesktopApp
             InitializeComponent();
             NewTrack = new Track();
         }
-        
+
         private void btnSelectArtist_Click(object sender, EventArgs e)
         {
-            SelectArtistForm selectArtist = new SelectArtistForm();
-            selectArtist.ShowDialog();
-            if (selectArtist.DialogResult == DialogResult.OK)
+            try
             {
-                _trackArtist = selectArtist.SelectedArtist;
-                txtBoxMainArtist.Text = _trackArtist.a_name;
+
+                SelectArtistForm selectArtist = new SelectArtistForm();
+                selectArtist.ShowDialog();
+                if (selectArtist.DialogResult == DialogResult.OK)
+                {
+                    NewTrack.track_artist_id = selectArtist.SelectedArtist.artist_id;
+                    txtBoxMainArtist.Text = selectArtist.SelectedArtist.a_name;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 
@@ -42,11 +47,10 @@ namespace SongsAbout_DesktopApp
                 selectAlbum.ShowDialog();
                 if (selectAlbum.DialogResult == DialogResult.OK)
                 {
-                    Album selectedAlbum = new Album();
-                    selectedAlbum = selectAlbum.SelectedAlbum;
-                    NewTrack.Album = selectedAlbum;
-                    txtBoxAlbum.Text = selectedAlbum.al_title;
-                    txtBoxMainArtist.Text = selectedAlbum.artist_id.ToString();
+                    NewTrack.Album = selectAlbum.SelectedAlbum;
+
+                    txtBoxAlbum.Text = NewTrack.Album.al_title;
+                    txtBoxMainArtist.Text = NewTrack.Album.artist_id.ToString();
                     // txtBoxMainArtist.Text = selectedAlbum.GetArtistName();
 
                 }
@@ -65,16 +69,24 @@ namespace SongsAbout_DesktopApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            NewTrack.Album = _trackAlbum;
-            NewTrack.album_id = _trackAlbum.album_id;
-            NewTrack.track_artist_id = _trackAlbum.artist_id;
-            // NewTrack.Album.Artist = _trackArtist;
-            NewTrack.track_name = txtBoxName.Text;
-            NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
-            NewTrack.Save();
-            List<string> genres = GetGenres();
-            NewTrack.SaveGenres(ref genres);
-            this.Close();
+            try
+            {
+                // NewTrack.Album = _trackAlbum;
+                //  NewTrack.album_id = _trackAlbum.album_id;
+                NewTrack.track_artist_id = NewTrack.Album.artist_id;
+                // NewTrack.Album.Artist = _trackArtist;
+                NewTrack.track_name = txtBoxName.Text;
+                NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
+                NewTrack.Save();
+
+                //List<string> genres = GetGenres();
+                // NewTrack.SaveGenres(ref genres);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         public List<string> GetGenres()

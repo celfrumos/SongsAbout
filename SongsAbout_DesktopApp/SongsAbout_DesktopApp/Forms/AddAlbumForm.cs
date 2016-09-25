@@ -13,12 +13,13 @@ namespace SongsAbout_DesktopApp
     public partial class AddAlbumForm : Form
     {
         bool isNewArtist = false;
-        public Album NewAlbum = new Album();
+        public Album NewAlbum { get; set; }
         private Artist _albumArtist;
 
         public AddAlbumForm()
         {
             InitializeComponent();
+            NewAlbum = new Album();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -35,9 +36,8 @@ namespace SongsAbout_DesktopApp
         {
             string fileName = openFileDialog.FileName;
             picBoxProfilePic.Image = Image.FromFile(fileName);
-           // NewAlbum.SetAlbumCoverArt(fileName);
+            // NewAlbum.SetAlbumCoverArt(fileName);
         }
-
 
         /// <summary>
         /// On click, show a dialog to select an artist for the album
@@ -73,24 +73,29 @@ namespace SongsAbout_DesktopApp
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (txtBoxTitle.Text != "")
+            if (!isNewArtist)
             {
-                try
+                if (txtBoxTitle.Text != "")
                 {
-                    NewAlbum.Save();
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    try
+                    {
+                        NewAlbum.artist_id = _albumArtist.artist_id;
+                        NewAlbum.Save();
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.DialogResult = DialogResult.Abort;
+                        MessageBox.Show(ex.Message, "Something went wrong saving new Artist");
+                    }
+
                 }
-                catch (Exception ex)
+                else
                 {
-                    this.DialogResult = DialogResult.Abort;
-                    MessageBox.Show(ex.Message, "Something went Wrong Saving New Artist");
+                    MessageBox.Show("Please enter at least a tilte for the New album.");
                 }
 
-            }
-            else
-            {
-                MessageBox.Show("Please enter at least a tilte for the New album.");
             }
         }
 

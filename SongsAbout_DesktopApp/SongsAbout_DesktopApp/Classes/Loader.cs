@@ -15,7 +15,6 @@ namespace SongsAbout_DesktopApp
 
     public static class Loader
     {
-
         /// <summary>
         /// Load all of the Artists from the database
         /// </summary>
