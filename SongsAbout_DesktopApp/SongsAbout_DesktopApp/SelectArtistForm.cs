@@ -25,18 +25,18 @@ namespace SongsAbout_DesktopApp
 
         private void LoadArtists()
         {
-            lstBoxSelectArtist.Items.Clear();
-            Loader loader = new Loader();
-            DictArtists = loader.LoadArtists();
+            //lstBoxSelectArtist.Items.Clear();
+            //Loader loader = new Loader();
+            //DictArtists = loader.LoadArtists();
 
-            foreach (KeyValuePair<string, Artist> artist in DictArtists)
-            {
-                lstBoxSelectArtist.Items.Add(artist.Key);
-            }
-            if (lstBoxSelectArtist.Items.Count > 0)
-            {
-                lstBoxSelectArtist.SelectedIndex = 0;
-            }
+            //foreach (KeyValuePair<string, Artist> artist in DictArtists)
+            //{
+            //    lstBoxSelectArtist.Items.Add(artist.Key);
+            //}
+            //if (lstBoxSelectArtist.Items.Count > 0)
+            //{
+            //    lstBoxSelectArtist.SelectedIndex = 0;
+            //}
         }
 
         private void btnClose_Click(object sender, EventArgs e)

@@ -37,7 +37,7 @@ namespace SongsAbout_DesktopApp
             if (selectArtist.DialogResult == DialogResult.OK)
             {
                 _trackArtist = selectArtist.SelectedArtist;
-                txtBoxMainArtist.Text = _trackArtist.Name;
+                txtBoxMainArtist.Text = _trackArtist.a_name;
             }
         }
 
@@ -50,9 +50,9 @@ namespace SongsAbout_DesktopApp
                 if (selectAlbum.DialogResult == DialogResult.OK)
                 {
                     NewTrack.Album = selectAlbum.SelectedAlbum;
-                    txtBoxAlbum.Text = NewTrack.Album.Title;
+                    txtBoxAlbum.Text = NewTrack.Album.al_title;
 
-                    txtBoxMainArtist.Text = NewTrack.Artist.Name;
+                    txtBoxMainArtist.Text = NewTrack.Album.Artist.a_name;
 
                 }
 
@@ -69,13 +69,13 @@ namespace SongsAbout_DesktopApp
         }
 
         private void btnSave_Click(object sender, EventArgs e)
-        {            
+        {
             NewTrack.Album = _trackAlbum;
-            NewTrack.Album.MainArtist = _trackArtist;
-            NewTrack.Name = txtBoxName.Text;
-            NewTrack.Length = double.Parse(txtBoxLength.Text);
-            NewTrack.SetGenres(GetGenres());
-            NewTrack.Save();
+            NewTrack.Album.Artist = _trackArtist;
+            NewTrack.track_name = txtBoxName.Text;
+            NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
+            //  NewTrack.SetGenres(GetGenres());
+            // NewTrack.Save();
             this.Close();
         }
 

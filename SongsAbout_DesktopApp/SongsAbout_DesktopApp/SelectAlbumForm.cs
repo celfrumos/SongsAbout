@@ -69,22 +69,22 @@ namespace SongsAbout_DesktopApp
 
         private void LoadAlbums()
         {
-            Loader loader = new Loader();
-            DictAlbums = loader.LoadAlbums();
+            //    Loader loader = new Loader();
+            //DictAlbums = loader.LoadAlbums();
 
-            foreach (KeyValuePair<string, Album> album in DictAlbums)
-            {
-                lstBoxSelectAlbum.Items.Add(album.Key);
-            }
-            if (lstBoxSelectAlbum.Items.Count > 0)
-            {
-                lstBoxSelectAlbum.SelectedIndex = 0;
-            }
+            //foreach (KeyValuePair<string, Album> album in DictAlbums)
+            //{
+            //    lstBoxSelectAlbum.Items.Add(album.Key);
+            //}
+            //if (lstBoxSelectAlbum.Items.Count > 0)
+            //{
+            //    lstBoxSelectAlbum.SelectedIndex = 0;
+            //}
         }
 
         private void FilterByArtist(Artist albumArtist)
         {
-            txtBoxSelectedArtist.Text = _albumArtist.Name;
+            txtBoxSelectedArtist.Text = _albumArtist.a_name;
         }
 
         private void btnNewAlbum_Click(object sender, EventArgs e)

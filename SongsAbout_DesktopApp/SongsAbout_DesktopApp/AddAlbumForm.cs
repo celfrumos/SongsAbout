@@ -32,8 +32,8 @@ namespace SongsAbout_DesktopApp
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             string fileName = openFileDialog.FileName;
+            picBoxProfilePic.Image = Image.FromFile(fileName);
             SelectedAlbum.SetAlbumCoverArt(fileName);
-            picBoxProfilePic.Image = SelectedAlbum.CoverArt;
         }
 
         private void btnSelectArtist_Click(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace SongsAbout_DesktopApp
                     //LoadArtists();
 
                     _albumArtist = selectArtist.SelectedArtist;
-                    txtBoxMainArtist.Text = _albumArtist.Name;
+                    txtBoxMainArtist.Text = _albumArtist.a_name;
 
                 }
                 catch (Exception ex)
@@ -61,11 +61,11 @@ namespace SongsAbout_DesktopApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SelectedAlbum.Title = txtBoxTitle.Text;
-            SelectedAlbum.Year = txtBoxYear.Text;
-            SelectedAlbum.MainArtist = _albumArtist;
+            SelectedAlbum.al_title = txtBoxTitle.Text;
+            SelectedAlbum.al_year = txtBoxYear.Text;
+            SelectedAlbum.Artist = _albumArtist;
 
-            SelectedAlbum.Save();
+           // SelectedAlbum.Save();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

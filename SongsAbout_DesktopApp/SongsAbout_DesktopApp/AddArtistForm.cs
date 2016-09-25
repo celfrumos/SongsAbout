@@ -25,10 +25,10 @@ namespace SongsAbout_DesktopApp
         {
             if (txtBoxName.Text != "")
             {
-                NewArtist.Name = txtBoxName.Text;
-                NewArtist.Bio = txtBoxBio.Text;
-                NewArtist.Website = txtBoxWebsite.Text;
-                NewArtist.Save();
+                NewArtist.a_name = txtBoxName.Text;
+                NewArtist.a_bio = txtBoxBio.Text;
+                NewArtist.a_website = txtBoxWebsite.Text;
+                
                 this.Close();
             }
             else
@@ -44,9 +44,12 @@ namespace SongsAbout_DesktopApp
 
         private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
+
             string fileName = openFileDialog.FileName;
-            NewArtist.SetProfilePic(fileName);
-            picBoxProfilePic.Image = NewArtist.ProfilePic;
+
+            NewArtist.a_profile_pic = picBoxProfilePic.Image;
+            NewArtist. SetProfilePic(fileName);
+            picBoxProfilePic.Image = picBoxProfilePic.Image;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
