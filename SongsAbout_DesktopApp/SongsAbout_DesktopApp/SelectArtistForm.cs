@@ -25,7 +25,7 @@ namespace SongsAbout_DesktopApp
 
         private void LoadArtists()
         {
-            //lstBoxSelectArtist.Items.Clear();
+            lstBoxSelectArtist.Items.Clear();
             //Loader loader = new Loader();
             //DictArtists = loader.LoadArtists();
 

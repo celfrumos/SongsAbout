@@ -12,7 +12,7 @@ namespace SongsAbout_DesktopApp
 {
     public partial class AddAlbumForm : Form
     {
-        Album SelectedAlbum = new Album();
+        Album NewAlbum = new Album();
         private Artist _albumArtist;
         public AddAlbumForm()
         {
@@ -33,7 +33,7 @@ namespace SongsAbout_DesktopApp
         {
             string fileName = openFileDialog.FileName;
             picBoxProfilePic.Image = Image.FromFile(fileName);
-            SelectedAlbum.SetAlbumCoverArt(fileName);
+            NewAlbum.SetAlbumCoverArt(fileName);
         }
 
         private void btnSelectArtist_Click(object sender, EventArgs e)
@@ -61,19 +61,35 @@ namespace SongsAbout_DesktopApp
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            using (DatabaseContext context = new DatabaseContext()) {
-                SelectedAlbum.al_title = txtBoxTitle.Text;
-                SelectedAlbum.al_year = txtBoxYear.Text;
-                SelectedAlbum.Artist = _albumArtist;
-                context.Albums.InsertOnSubmit(SelectedAlbum);
-
-                if ()
-                {
-
-                }
-                context.Artists.InsertOnSubmit(_albumArtist);
+            try
+            {
+                SaveAlbum();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
+            }
+            catch (Exception ex)
+            {
+                this.DialogResult = DialogResult.Abort;
+                throw new Exception("Error Submitting data to database" + ex.Message);
+            }
+        }
+
+        private void SaveAlbum()
+        {
+            using (DatabaseContext context = new DatabaseContext())
+            {
+                DataSet artistData = new DataSet();
+                NewAlbum.al_title = txtBoxTitle.Text;
+                NewAlbum.al_year = txtBoxYear.Text;
+                NewAlbum.Artist = _albumArtist;
+                
+                context.Albums.InsertOnSubmit(NewAlbum);
+
+                if (artistData.Artists.FindByartist_id(_albumArtist.artist_id) != null)
+                {
+                    context.Artists.InsertOnSubmit(_albumArtist);
+                }
+                context.SubmitChanges();
             }
         }
     }
