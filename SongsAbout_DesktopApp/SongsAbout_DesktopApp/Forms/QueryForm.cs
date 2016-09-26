@@ -19,6 +19,8 @@ namespace SongsAbout_DesktopApp
 
         private void QueryForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'dataSet.Tags' table. You can move, or remove it, as needed.
+            this.tagsTableAdapter.Fill(this.dataSet.Tags);
             // TODO: This line of code loads data into the 'dataSet.TrackGenres' table. You can move, or remove it, as needed.
             this.trackGenresTableAdapter.Fill(this.dataSet.TrackGenres);
             // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.

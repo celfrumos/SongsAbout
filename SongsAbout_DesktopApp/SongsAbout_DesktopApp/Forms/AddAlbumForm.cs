@@ -13,16 +13,9 @@ namespace SongsAbout_DesktopApp
     public partial class AddAlbumForm : Form
     {
         bool isNewArtist = false;
-        private ComboBox cBoxAlbum;
 
         private Album _newAlbum = new Album();//{ get; set; }
-
-        public AddAlbumForm()
-        {
-            InitializeComponent();
-            _newAlbum = new Album();
-        }
-
+        
         public AddAlbumForm(out Album newAlbum) //: this(ref cBoxAlbum)
         {
             InitializeComponent();
@@ -78,7 +71,7 @@ namespace SongsAbout_DesktopApp
                 }
                 else
                 {
-                    MessageBox.Show("Please enter at least a tilte for the New album.");
+                    MessageBox.Show("Please enter a title for the New album.");
                 }
 
             }
@@ -88,7 +81,10 @@ namespace SongsAbout_DesktopApp
         {
             AddArtistForm artistForm = new AddArtistForm();
             artistForm.ShowDialog();
-            cBoxMainArtist.Refresh();
+            if (artistForm.DialogResult == DialogResult.OK)
+            {
+                this.artistsTableAdapter.Fill(this.dataSet.Artists);
+            }
         }
 
         private void AddAlbumForm_Load(object sender, EventArgs e)

@@ -139,7 +139,7 @@
             // btnSavedLists
             // 
             this.btnSavedLists.Font = new System.Drawing.Font("Arial Unicode MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSavedLists.Location = new System.Drawing.Point(45, 504);
+            this.btnSavedLists.Location = new System.Drawing.Point(40, 560);
             this.btnSavedLists.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSavedLists.Name = "btnSavedLists";
             this.btnSavedLists.Size = new System.Drawing.Size(193, 54);
@@ -151,7 +151,7 @@
             // btnAddInfo
             // 
             this.btnAddInfo.Font = new System.Drawing.Font("Arial Unicode MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddInfo.Location = new System.Drawing.Point(45, 562);
+            this.btnAddInfo.Location = new System.Drawing.Point(40, 502);
             this.btnAddInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddInfo.Name = "btnAddInfo";
             this.btnAddInfo.Size = new System.Drawing.Size(193, 54);

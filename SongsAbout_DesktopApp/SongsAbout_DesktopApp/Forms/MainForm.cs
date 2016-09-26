@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Windows.Forms;
+using SongsAbout_DesktopApp.Forms;
 
 namespace SongsAbout_DesktopApp
 {
@@ -65,7 +66,8 @@ namespace SongsAbout_DesktopApp
 
         private void btnSavedLists_Click(object sender, EventArgs e)
         {
-
+            MyListsForm myLists = new MyListsForm();
+            myLists.ShowDialog();
         }
 
         private void btnAddTrack_Click(object sender, EventArgs e)
@@ -85,7 +87,6 @@ namespace SongsAbout_DesktopApp
                 if (ex.InnerException != null)
                 {
                     MessageBox.Show(ex.Message + ex.InnerException.Message, "Something went wrong.");
-
                 }
                 else
                 {

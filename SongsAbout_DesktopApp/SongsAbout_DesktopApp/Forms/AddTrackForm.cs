@@ -70,19 +70,18 @@ namespace SongsAbout_DesktopApp
 
             if (artistForm.DialogResult == DialogResult.OK)
             {
-                cBoxMainArtist.Refresh();
+                this.artistsTableAdapter.Fill(this.dataSet.Artists);
             }
         }
         
         private void btnNewAlbum_Click(object sender, EventArgs e)
         {
-            Album newAlbum = new Album();
+            Album newAlbum;
             AddAlbumForm albumForm = new AddAlbumForm(out newAlbum);
             albumForm.ShowDialog();
             if (albumForm.DialogResult == DialogResult.OK)
             {
-
-                //cBoxAlbum.Items.Add(albumForm.NewAlbum);
+                this.albumsTableAdapter.Fill(this.dataSet.Albums);
                 // cBoxAlbum.Refresh();
             }
         }

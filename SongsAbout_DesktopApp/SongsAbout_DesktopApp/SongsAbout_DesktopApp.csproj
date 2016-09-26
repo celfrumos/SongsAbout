@@ -79,6 +79,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseClasses.cs">
+      <DependentUpon>DatabaseClasses.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MyListsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MyListsForm.Designer.cs">
+      <DependentUpon>MyListsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\QueryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +143,9 @@
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Track.cs" />
+    <EmbeddedResource Include="Forms\MyListsForm.resx">
+      <DependentUpon>MyListsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\QueryForm.resx">
       <DependentUpon>QueryForm.cs</DependentUpon>
     </EmbeddedResource>
