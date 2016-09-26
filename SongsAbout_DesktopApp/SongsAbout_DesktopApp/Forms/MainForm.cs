@@ -104,7 +104,15 @@ namespace SongsAbout_DesktopApp
         private void btnViewData_Click(object sender, EventArgs e)
         {
             QueryForm queryForm = new QueryForm();
-            queryForm.ShowDialog();
+            try
+            {
+
+                queryForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Something went wrong.");
+            }
         }
     }
 }
