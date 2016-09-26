@@ -36,8 +36,7 @@ namespace SongsAbout_DesktopApp
             // TODO: This line of code loads data into the 'dataSet.Genres' table. You can move, or remove it, as needed.
             this.genresTableAdapter.Fill(this.dataSet.Genres);
 
-        }
-        
+        }        
 
         private bool SaveChanges()
         {
