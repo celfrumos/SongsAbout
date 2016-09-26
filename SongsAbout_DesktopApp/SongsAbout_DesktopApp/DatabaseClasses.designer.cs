@@ -156,6 +156,8 @@ namespace SongsAbout_DesktopApp
 		
 		private string _a_spotify_uri;
 		
+		private System.Data.Linq.Binary _a_profile_pic;
+		
 		private EntitySet<Album> _Albums;
 		
 		private EntitySet<Track> _Tracks;
@@ -172,6 +174,8 @@ namespace SongsAbout_DesktopApp
     partial void Ona_websiteChanged();
     partial void Ona_spotify_uriChanging(string value);
     partial void Ona_spotify_uriChanged();
+    partial void Ona_profile_picChanging(System.Data.Linq.Binary value);
+    partial void Ona_profile_picChanged();
     #endregion
 		
 		public Artist()
@@ -270,7 +274,27 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Album1", Storage="_Albums", ThisKey="artist_id", OtherKey="artist_id")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_profile_pic", DbType="Image", CanBeNull=false)]
+		public System.Data.Linq.Binary a_profile_pic
+		{
+			get
+			{
+				return this._a_profile_pic;
+			}
+			set
+			{
+				if ((this._a_profile_pic != value))
+				{
+					this.Ona_profile_picChanging(value);
+					this.SendPropertyChanging();
+					this._a_profile_pic = value;
+					this.SendPropertyChanged("a_profile_pic");
+					this.Ona_profile_picChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Album", Storage="_Albums", ThisKey="artist_id", OtherKey="artist_id")]
 		public EntitySet<Album> Albums
 		{
 			get
@@ -283,7 +307,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track1", Storage="_Tracks", ThisKey="artist_id", OtherKey="track_artist_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track", Storage="_Tracks", ThisKey="artist_id", OtherKey="track_artist_id")]
 		public EntitySet<Track> Tracks
 		{
 			get
@@ -551,7 +575,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track1_TrackGenre", Storage="_Track", ThisKey="track_id", OtherKey="track_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_TrackGenre", Storage="_Track", ThisKey="track_id", OtherKey="track_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Track Track
 		{
 			get
@@ -777,7 +801,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track1", Storage="_Tracks", ThisKey="album_id", OtherKey="album_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track", Storage="_Tracks", ThisKey="album_id", OtherKey="album_id")]
 		public EntitySet<Track> Tracks
 		{
 			get
@@ -790,7 +814,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Album1", Storage="_Artist", ThisKey="artist_id", OtherKey="artist_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Album", Storage="_Artist", ThisKey="artist_id", OtherKey="artist_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Artist Artist
 		{
 			get
@@ -1086,7 +1110,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track1_TrackGenre", Storage="_TrackGenres", ThisKey="track_id", OtherKey="track_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_TrackGenre", Storage="_TrackGenres", ThisKey="track_id", OtherKey="track_id")]
 		public EntitySet<TrackGenre> TrackGenres
 		{
 			get
@@ -1112,7 +1136,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track1", Storage="_Album", ThisKey="album_id", OtherKey="album_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Track", Storage="_Album", ThisKey="album_id", OtherKey="album_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Album Album
 		{
 			get
@@ -1146,7 +1170,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track1", Storage="_Artist", ThisKey="track_artist_id", OtherKey="artist_id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_Track", Storage="_Artist", ThisKey="track_artist_id", OtherKey="artist_id", IsForeignKey=true)]
 		public Artist Artist
 		{
 			get

@@ -7,8 +7,9 @@
       <Column Name="a_bio" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="a_website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="a_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Association Name="Artist_Album1" Member="Albums" ThisKey="artist_id" OtherKey="artist_id" Type="Album" />
-      <Association Name="Artist_Track1" Member="Tracks" ThisKey="artist_id" OtherKey="track_artist_id" Type="Track" />
+      <Column Name="a_profile_pic" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="false" />
+      <Association Name="Artist_Album" Member="Albums" ThisKey="artist_id" OtherKey="artist_id" Type="Album" />
+      <Association Name="Artist_Track" Member="Tracks" ThisKey="artist_id" OtherKey="track_artist_id" Type="Track" />
     </Type>
   </Table>
   <Table Name="dbo.Genres" Member="Genres">
@@ -23,7 +24,7 @@
       <Column Name="track_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="genre" Member="tg_genre" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
       <Association Name="Genre_TrackGenre" Member="Genre1" ThisKey="tg_genre" OtherKey="genre" Type="Genre" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Track1_TrackGenre" Member="Track" ThisKey="track_id" OtherKey="track_id" Type="Track" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Track_TrackGenre" Member="Track" ThisKey="track_id" OtherKey="track_id" Type="Track" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Albums" Member="Albums">
@@ -34,8 +35,8 @@
       <Column Name="al_year" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
       <Column Name="al_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="al_cover_art" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="Album_Track1" Member="Tracks" ThisKey="album_id" OtherKey="album_id" Type="Track" />
-      <Association Name="Artist_Album1" Member="Artist" ThisKey="artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Album_Track" Member="Tracks" ThisKey="album_id" OtherKey="album_id" Type="Track" />
+      <Association Name="Artist_Album" Member="Artist" ThisKey="artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tracks" Member="Tracks">
@@ -48,10 +49,10 @@
       <Column Name="track_artist_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="can_play" Type="System.Char" DbType="NChar(1)" CanBeNull="true" />
       <Column Name="list_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Track1_TrackGenre" Member="TrackGenres" ThisKey="track_id" OtherKey="track_id" Type="TrackGenre" />
+      <Association Name="Track_TrackGenre" Member="TrackGenres" ThisKey="track_id" OtherKey="track_id" Type="TrackGenre" />
       <Association Name="Track_TrackTag" Member="TrackTags" ThisKey="track_id" OtherKey="track_id" Type="TrackTag" />
-      <Association Name="Album_Track1" Member="Album" ThisKey="album_id" OtherKey="album_id" Type="Album" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Artist_Track1" Member="Artist" ThisKey="track_artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" />
+      <Association Name="Album_Track" Member="Album" ThisKey="album_id" OtherKey="album_id" Type="Album" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Artist_Track" Member="Artist" ThisKey="track_artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tags" Member="Tags">
