@@ -88,5 +88,16 @@ namespace SongsAbout_DesktopApp
         {
             this.Close();
         }
+
+        private void Artist_Drop(object sender, DragEventArgs e)
+        {
+            var i = e.Data.GetData("FileDrop", true);
+            MessageBox.Show(i.ToString(), "File Contents");
+        }
+
+        private void artistsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
