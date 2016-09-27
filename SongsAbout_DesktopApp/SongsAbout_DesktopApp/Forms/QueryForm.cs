@@ -19,24 +19,32 @@ namespace SongsAbout_DesktopApp
 
         private void QueryForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dataSet.Lists' table. You can move, or remove it, as needed.
-            this.listsTableAdapter.Fill(this.dataSet.Lists);
-            // TODO: This line of code loads data into the 'dataSet.TrackTags' table. You can move, or remove it, as needed.
-            this.trackTagsTableAdapter.Fill(this.dataSet.TrackTags);
-            // TODO: This line of code loads data into the 'dataSet.Tags' table. You can move, or remove it, as needed.
-            this.tagsTableAdapter.Fill(this.dataSet.Tags);
-            // TODO: This line of code loads data into the 'dataSet.TrackGenres' table. You can move, or remove it, as needed.
-            this.trackGenresTableAdapter.Fill(this.dataSet.TrackGenres);
-            // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-            this.artistsTableAdapter.Fill(this.dataSet.Artists);
-            // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
-            this.albumsTableAdapter.Fill(this.dataSet.Albums);
-            // TODO: This line of code loads data into the 'dataSet.Tracks' table. You can move, or remove it, as needed.
-            this.tracksTableAdapter.Fill(this.dataSet.Tracks);
-            // TODO: This line of code loads data into the 'dataSet.Genres' table. You can move, or remove it, as needed.
-            this.genresTableAdapter.Fill(this.dataSet.Genres);
+            try
+            {
 
-        }        
+                // TODO: This line of code loads data into the 'dataSet.Lists' table. You can move, or remove it, as needed.
+                this.listsTableAdapter.Fill(this.dataSet.Lists);
+                // TODO: This line of code loads data into the 'dataSet.TrackTags' table. You can move, or remove it, as needed.
+                this.trackTagsTableAdapter.Fill(this.dataSet.TrackTags);
+                // TODO: This line of code loads data into the 'dataSet.Tags' table. You can move, or remove it, as needed.
+                this.tagsTableAdapter.Fill(this.dataSet.Tags);
+                // TODO: This line of code loads data into the 'dataSet.TrackGenres' table. You can move, or remove it, as needed.
+                this.trackGenresTableAdapter.Fill(this.dataSet.TrackGenres);
+                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+                this.artistsTableAdapter.Fill(this.dataSet.Artists);
+                // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
+                this.albumsTableAdapter.Fill(this.dataSet.Albums);
+                // TODO: This line of code loads data into the 'dataSet.Tracks' table. You can move, or remove it, as needed.
+                this.tracksTableAdapter.Fill(this.dataSet.Tracks);
+                // TODO: This line of code loads data into the 'dataSet.Genres' table. You can move, or remove it, as needed.
+                this.genresTableAdapter.Fill(this.dataSet.Genres);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+
+        }
 
         private bool SaveChanges()
         {

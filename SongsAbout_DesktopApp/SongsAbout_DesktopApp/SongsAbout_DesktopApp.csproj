@@ -82,6 +82,11 @@
     <Compile Include="DatabaseClasses.cs">
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
     </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MyListsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,11 +126,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Classes\Loader.cs" />
     <Compile Include="Forms\MainForm.cs">
@@ -187,6 +187,7 @@
     <None Include="DataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
     </None>
     <None Include="DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
