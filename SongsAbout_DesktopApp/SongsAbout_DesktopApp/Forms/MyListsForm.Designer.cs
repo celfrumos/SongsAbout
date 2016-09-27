@@ -30,15 +30,20 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.listView = new System.Windows.Forms.ListView();
             this.dataSet = new SongsAbout_DesktopApp.DataSet();
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableAdapterMgr = new SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager();
             this.albumsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.AlbumsTableAdapter();
-            this.colAlbumArt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colTrackName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.artistsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.ArtistsTableAdapter();
+            this.gBox = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblArtist = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
+            this.gBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -48,18 +53,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(157, 137);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // listView
-            // 
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colAlbumArt,
-            this.colTrackName});
-            this.listView.Location = new System.Drawing.Point(63, 178);
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(476, 339);
-            this.listView.TabIndex = 1;
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
             // 
             // dataSet
             // 
@@ -71,9 +64,61 @@
             this.bindingSource.DataSource = this.dataSet;
             this.bindingSource.Position = 0;
             // 
+            // flowLayoutPanel
+            // 
+            this.flowLayoutPanel.Location = new System.Drawing.Point(12, 166);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Size = new System.Drawing.Size(592, 415);
+            this.flowLayoutPanel.TabIndex = 1;
+            // 
+            // tableAdapterMgr
+            // 
+            this.tableAdapterMgr.AlbumsTableAdapter = this.albumsTableAdapter;
+            this.tableAdapterMgr.ArtistsTableAdapter = this.artistsTableAdapter;
+            this.tableAdapterMgr.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterMgr.GenresTableAdapter = null;
+            this.tableAdapterMgr.ListsTableAdapter = null;
+            this.tableAdapterMgr.TagsTableAdapter = null;
+            this.tableAdapterMgr.TrackGenresTableAdapter = null;
+            this.tableAdapterMgr.TracksTableAdapter = null;
+            this.tableAdapterMgr.TrackTagsTableAdapter = null;
+            this.tableAdapterMgr.UpdateOrder = SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
             // albumsTableAdapter
             // 
             this.albumsTableAdapter.ClearBeforeFill = true;
+            // 
+            // artistsTableAdapter
+            // 
+            this.artistsTableAdapter.ClearBeforeFill = true;
+            // 
+            // gBox
+            // 
+            this.gBox.Controls.Add(this.pictureBox2);
+            this.gBox.Controls.Add(this.lblArtist);
+            this.gBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.gBox.Location = new System.Drawing.Point(66, 32);
+            this.gBox.Name = "gBox";
+            this.gBox.Size = new System.Drawing.Size(83, 106);
+            this.gBox.TabIndex = 3;
+            this.gBox.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(3, 10);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(74, 73);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // lblArtist
+            // 
+            this.lblArtist.AutoSize = true;
+            this.lblArtist.Location = new System.Drawing.Point(17, 85);
+            this.lblArtist.Name = "lblArtist";
+            this.lblArtist.Size = new System.Drawing.Size(46, 17);
+            this.lblArtist.TabIndex = 0;
+            this.lblArtist.Text = "label1";
             // 
             // MyListsForm
             // 
@@ -81,25 +126,31 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(616, 593);
-            this.Controls.Add(this.listView);
+            this.Controls.Add(this.gBox);
+            this.Controls.Add(this.flowLayoutPanel);
             this.Controls.Add(this.pictureBox1);
             this.Name = "MyListsForm";
             this.Text = "MyListsForm";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
+            this.gBox.ResumeLayout(false);
+            this.gBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.PictureBox pictureBox1;
         private DataSet dataSet;
         private System.Windows.Forms.BindingSource bindingSource;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
+        private DataSetTableAdapters.TableAdapterManager tableAdapterMgr;
         private DataSetTableAdapters.AlbumsTableAdapter albumsTableAdapter;
-        private System.Windows.Forms.ColumnHeader colAlbumArt;
-        private System.Windows.Forms.ColumnHeader colTrackName;
+        private DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter;
+        private System.Windows.Forms.GroupBox gBox;
+        private System.Windows.Forms.Label lblArtist;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
