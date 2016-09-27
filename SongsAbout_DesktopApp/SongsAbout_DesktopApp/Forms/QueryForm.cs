@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -124,6 +125,11 @@ namespace SongsAbout_DesktopApp
             {
                 MessageBox.Show(ex.Message, "Error updating cell value");
             }
+        }
+
+        private void openFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

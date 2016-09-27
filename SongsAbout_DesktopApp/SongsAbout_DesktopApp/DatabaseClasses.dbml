@@ -7,7 +7,7 @@
       <Column Name="a_bio" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="a_website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="a_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="a_profile_pic" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="false" />
+      <Column Name="a_profile_pic" Type="System.String" CanBeNull="false" />
       <Association Name="Artist_Album" Member="Albums" ThisKey="artist_id" OtherKey="artist_id" Type="Album" />
       <Association Name="Artist_Track" Member="Tracks" ThisKey="artist_id" OtherKey="track_artist_id" Type="Track" />
     </Type>
@@ -34,7 +34,7 @@
       <Column Name="al_title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="al_year" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
       <Column Name="al_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="al_cover_art" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="al_cover_art" Type="System.String" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="Album_Track" Member="Tracks" ThisKey="album_id" OtherKey="album_id" Type="Track" />
       <Association Name="Artist_Album" Member="Artist" ThisKey="artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>

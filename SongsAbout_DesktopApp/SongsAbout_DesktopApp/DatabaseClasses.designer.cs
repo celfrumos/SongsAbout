@@ -156,7 +156,7 @@ namespace SongsAbout_DesktopApp
 		
 		private string _a_spotify_uri;
 		
-		private System.Data.Linq.Binary _a_profile_pic;
+		private string _a_profile_pic;
 		
 		private EntitySet<Album> _Albums;
 		
@@ -174,7 +174,7 @@ namespace SongsAbout_DesktopApp
     partial void Ona_websiteChanged();
     partial void Ona_spotify_uriChanging(string value);
     partial void Ona_spotify_uriChanged();
-    partial void Ona_profile_picChanging(System.Data.Linq.Binary value);
+    partial void Ona_profile_picChanging(string value);
     partial void Ona_profile_picChanged();
     #endregion
 		
@@ -274,8 +274,8 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_profile_pic", DbType="Image", CanBeNull=false)]
-		public System.Data.Linq.Binary a_profile_pic
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_profile_pic", CanBeNull=false)]
+		public string a_profile_pic
 		{
 			get
 			{
@@ -646,7 +646,7 @@ namespace SongsAbout_DesktopApp
 		
 		private string _al_spotify_uri;
 		
-		private System.Data.Linq.Binary _al_cover_art;
+		private string _al_cover_art;
 		
 		private EntitySet<Track> _Tracks;
 		
@@ -666,7 +666,7 @@ namespace SongsAbout_DesktopApp
     partial void Onal_yearChanged();
     partial void Onal_spotify_uriChanging(string value);
     partial void Onal_spotify_uriChanged();
-    partial void Onal_cover_artChanging(System.Data.Linq.Binary value);
+    partial void Onal_cover_artChanging(string value);
     partial void Onal_cover_artChanged();
     #endregion
 		
@@ -781,8 +781,8 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_al_cover_art", DbType="Image", UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary al_cover_art
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_al_cover_art", UpdateCheck=UpdateCheck.Never)]
+		public string al_cover_art
 		{
 			get
 			{

@@ -783,6 +783,7 @@ namespace SongsAbout_DesktopApp {
                 this.columna_bio.MaxLength = 2147483647;
                 this.columna_website.MaxLength = 2147483647;
                 this.columna_spotify_uri.MaxLength = 255;
+                this.columna_profile_pic.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1680,6 +1681,7 @@ namespace SongsAbout_DesktopApp {
                 this.columnal_title.MaxLength = 255;
                 this.columnal_year.MaxLength = 4;
                 this.columnal_spotify_uri.MaxLength = 255;
+                this.columnal_cover_art.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
