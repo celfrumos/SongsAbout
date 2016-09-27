@@ -12,6 +12,7 @@ namespace SongsAbout_DesktopApp
 {
     public partial class QueryForm : Form
     {
+        private string newFileName { get; set; }
         public QueryForm()
         {
             InitializeComponent();
@@ -21,7 +22,6 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-
                 // TODO: This line of code loads data into the 'dataSet.Lists' table. You can move, or remove it, as needed.
                 this.listsTableAdapter.Fill(this.dataSet.Lists);
                 // TODO: This line of code loads data into the 'dataSet.TrackTags' table. You can move, or remove it, as needed.
@@ -97,7 +97,33 @@ namespace SongsAbout_DesktopApp
 
         private void artistsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int artistColumnIndex = 3;
+            var senderGrid = (DataGridView)sender;
 
+            if (senderGrid.Columns[artistColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == artistColumnIndex)
+                {
+                    DataGridViewCell selectedCell = senderGrid.Rows[e.RowIndex].Cells[artistColumnIndex];
+                    openFileDialog.ShowDialog();
+                    UpdateCellValue(ref selectedCell);
+
+                }
+            }
+        }
+
+        private void UpdateCellValue(ref DataGridViewCell cell)
+        {
+            try
+            {
+                string filename = openFileDialog.FileName;
+                cell.Value = filename;
+                SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error updating cell value");
+            }
         }
     }
 }
