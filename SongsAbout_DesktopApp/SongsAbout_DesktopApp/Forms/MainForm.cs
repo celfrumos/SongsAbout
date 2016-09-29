@@ -114,5 +114,11 @@ namespace SongsAbout_DesktopApp
                 MessageBox.Show(ex.Message, "Something went wrong.");
             }
         }
+
+        private void btnSpotify_Click(object sender, EventArgs e)
+        {
+            SelectionForm selectForm = new SelectionForm();
+            selectForm.ShowDialog();
+        }
     }
 }

@@ -32,31 +32,34 @@
             this.mskTxtBoxPassword = new System.Windows.Forms.MaskedTextBox();
             this.txtBoxUserName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.btnTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblLogin
             // 
             this.lblLogin.AutoSize = true;
             this.lblLogin.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblLogin.Location = new System.Drawing.Point(26, 25);
+            this.lblLogin.Location = new System.Drawing.Point(20, 20);
+            this.lblLogin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(43, 17);
+            this.lblLogin.Size = new System.Drawing.Size(33, 13);
             this.lblLogin.TabIndex = 0;
             this.lblLogin.Text = "Login";
             // 
             // mskTxtBoxPassword
             // 
-            this.mskTxtBoxPassword.Location = new System.Drawing.Point(127, 72);
+            this.mskTxtBoxPassword.Location = new System.Drawing.Point(95, 58);
+            this.mskTxtBoxPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.mskTxtBoxPassword.Name = "mskTxtBoxPassword";
-            this.mskTxtBoxPassword.Size = new System.Drawing.Size(100, 22);
+            this.mskTxtBoxPassword.Size = new System.Drawing.Size(76, 20);
             this.mskTxtBoxPassword.TabIndex = 1;
             // 
             // txtBoxUserName
             // 
-            this.txtBoxUserName.Location = new System.Drawing.Point(127, 25);
+            this.txtBoxUserName.Location = new System.Drawing.Point(95, 20);
+            this.txtBoxUserName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtBoxUserName.Name = "txtBoxUserName";
-            this.txtBoxUserName.Size = new System.Drawing.Size(100, 22);
+            this.txtBoxUserName.Size = new System.Drawing.Size(76, 20);
             this.txtBoxUserName.TabIndex = 2;
             this.txtBoxUserName.Text = "celmaigri";
             // 
@@ -64,32 +67,35 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(26, 72);
+            this.label1.Location = new System.Drawing.Point(20, 58);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 17);
+            this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Password";
             // 
-            // webBrowser1
+            // btnTest
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(669, 416);
-            this.webBrowser1.TabIndex = 3;
+            this.btnTest.Location = new System.Drawing.Point(180, 111);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(75, 23);
+            this.btnTest.TabIndex = 4;
+            this.btnTest.Text = "test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // SelectionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(669, 416);
-            this.Controls.Add(this.webBrowser1);
+            this.ClientSize = new System.Drawing.Size(502, 338);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.txtBoxUserName);
             this.Controls.Add(this.mskTxtBoxPassword);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblLogin);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "SelectionForm";
             this.Text = "SelectionForm";
             this.ResumeLayout(false);
@@ -103,6 +109,6 @@
         private System.Windows.Forms.MaskedTextBox mskTxtBoxPassword;
         private System.Windows.Forms.TextBox txtBoxUserName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.Button btnTest;
     }
 }
