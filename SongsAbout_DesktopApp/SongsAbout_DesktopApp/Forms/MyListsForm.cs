@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Linq;
+using System.IO;
 
 
 namespace SongsAbout_DesktopApp.Forms
@@ -31,6 +32,21 @@ namespace SongsAbout_DesktopApp.Forms
             }
         }
 
+        private Image convertImageFromBytes(ref byte[] picFile)
+        {
+            if (picFile != null)
+            {
+                using (var ms = new MemoryStream(picFile))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+
         private GroupBox NewArtistBox(ref DataSet.ArtistsRow aRow)
         {
             int artistId = aRow.artist_id;
@@ -39,7 +55,18 @@ namespace SongsAbout_DesktopApp.Forms
             // pBoxArtist 
             //  
             PictureBox pBoxArtist = new PictureBox();
-            //      pBoxArtist.Image = aRow.a_profile_pic; 
+            pBoxArtist.SizeMode = PictureBoxSizeMode.Zoom;
+            Image aPicImage;
+            try
+            {
+                byte[] aPicBytes = aRow.a_profile_pic;
+                aPicImage = convertImageFromBytes(ref aPicBytes);
+                pBoxArtist.Image = aPicImage;
+            }
+            catch (Exception)
+            {
+                //  pBoxArtist.Image = null;
+            }
             pBoxArtist.Location = new System.Drawing.Point(0, 2);
             pBoxArtist.Name = "pBoxArtist" + artistName;
             pBoxArtist.Size = new System.Drawing.Size(83, 80);
@@ -53,9 +80,16 @@ namespace SongsAbout_DesktopApp.Forms
             Label lblArtist = new Label();
             lblArtist.Text = artistName;
             lblArtist.AutoSize = true;
-            lblArtist.Location = new System.Drawing.Point(17, 85);
+            //  lblArtist.Location = new System.Drawing.Point(17, 85);
             lblArtist.Tag = artistId;
+            lblArtist.BorderStyle = BorderStyle.FixedSingle;
+            lblArtist.BackColor = Color.Aquamarine;
             lblArtist.Name = "lbl" + artistName;
+            lblArtist.BackColor = System.Drawing.Color.LightSkyBlue;
+            lblArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            lblArtist.Location = new System.Drawing.Point(0, 81);
+            lblArtist.Size = new System.Drawing.Size(83, 25);
+            lblArtist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // lblArtist.Size = new System.Drawing.Size(46, 17); 
             // lblArtist.TabIndex = 0; 
             lblArtist.Click += button_Click;   //  set any method 

@@ -13,6 +13,7 @@ namespace SongsAbout_DesktopApp
 {
     public partial class QueryForm : Form
     {
+
         private string newFileName { get; set; }
         public QueryForm()
         {
@@ -106,7 +107,7 @@ namespace SongsAbout_DesktopApp
                 if (e.ColumnIndex == artistColumnIndex)
                 {
                     DataGridViewCell selectedCell = senderGrid.Rows[e.RowIndex].Cells[artistColumnIndex];
-                    openFileDialog.ShowDialog();
+
                     UpdateCellValue(ref selectedCell);
 
                 }
@@ -117,19 +118,17 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
+                openFileDialog.ShowDialog();
                 string filename = openFileDialog.FileName;
-                cell.Value = filename;
+                byte[] newProfilePic = File.ReadAllBytes(filename);
+                cell.Value = newProfilePic;
+
                 SaveChanges();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error updating cell value");
             }
-        }
-
-        private void openFileDialog_FileOk(object sender, CancelEventArgs e)
-        {
-
         }
     }
 }
