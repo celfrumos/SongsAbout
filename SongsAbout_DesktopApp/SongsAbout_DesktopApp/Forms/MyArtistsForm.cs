@@ -13,9 +13,9 @@ using System.IO;
 
 namespace SongsAbout_DesktopApp.Forms
 {
-    public partial class MyListsForm : Form
+    public partial class MyArtistsForm : Form
     {
-        public MyListsForm()
+        public MyArtistsForm()
         {
             InitializeComponent();
             LoadTracks();
@@ -65,7 +65,7 @@ namespace SongsAbout_DesktopApp.Forms
             }
             catch (Exception)
             {
-                //  pBoxArtist.Image = null;
+                pBoxArtist.Image = Properties.Resources.MusicNote;
             }
             pBoxArtist.Location = new System.Drawing.Point(0, 2);
             pBoxArtist.Name = "pBoxArtist" + artistName;
@@ -78,8 +78,25 @@ namespace SongsAbout_DesktopApp.Forms
             // lblArtist 
             //  
             Label lblArtist = new Label();
+            FormatLabel(ref lblArtist, ref artistName, ref artistId);
+
+            // 
+            // gBox 
+            // 
+            GroupBox gBox = new GroupBox();
+            gBox.Controls.Add(pBoxArtist);
+            gBox.Controls.Add(lblArtist);
+            gBox.Name = "grpBox" + artistName;
+            gBox.Size = new System.Drawing.Size(83, 106);
+            //   gBox.TabIndex = 3; 
+            gBox.TabStop = false;
+            return gBox;
+        }
+
+        private void FormatLabel(ref Label lblArtist, ref string artistName, ref int artistId)
+        {
             lblArtist.Text = artistName;
-            lblArtist.AutoSize = true;
+            lblArtist.AutoSize = false;
             //  lblArtist.Location = new System.Drawing.Point(17, 85);
             lblArtist.Tag = artistId;
             lblArtist.BorderStyle = BorderStyle.FixedSingle;
@@ -90,24 +107,10 @@ namespace SongsAbout_DesktopApp.Forms
             lblArtist.Location = new System.Drawing.Point(0, 81);
             lblArtist.Size = new System.Drawing.Size(83, 25);
             lblArtist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // lblArtist.Size = new System.Drawing.Size(46, 17); 
-            // lblArtist.TabIndex = 0; 
+       
             lblArtist.Click += button_Click;   //  set any method 
             lblArtist.Enter += button_Enter;   //  
             lblArtist.Leave += button_Leave;
-
-            // 
-            // gBox 
-            // 
-            GroupBox gBox = new GroupBox();
-
-            gBox.Controls.Add(pBoxArtist);
-            gBox.Controls.Add(lblArtist);
-            gBox.Name = "grpBox1";
-            gBox.Size = new System.Drawing.Size(83, 106);
-            //   gBox.TabIndex = 3; 
-            gBox.TabStop = false;
-            return gBox;
         }
 
         private void button_Click(object sender, EventArgs e)
@@ -119,6 +122,7 @@ namespace SongsAbout_DesktopApp.Forms
         {
 
         }
+
         private void button_Leave(object sender, EventArgs e)
         {
 

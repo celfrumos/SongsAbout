@@ -66,7 +66,7 @@ namespace SongsAbout_DesktopApp
 
         private void btnSavedLists_Click(object sender, EventArgs e)
         {
-            MyListsForm myLists = new MyListsForm();
+            MyArtistsForm myLists = new MyArtistsForm();
             myLists.ShowDialog();
         }
 
