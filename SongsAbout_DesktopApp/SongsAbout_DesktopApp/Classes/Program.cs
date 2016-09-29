@@ -8,7 +8,6 @@ namespace SongsAbout_DesktopApp
 {
     static class Program
     {
-    const string SPOTIFY_CLIENT_ID = "4d8b5c54f513430f8b0f486974c89402";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
