@@ -22,7 +22,7 @@ namespace SongsAbout_DesktopApp.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SongsAbout_DesktopApp.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SongsAbout_DesktopApp.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace SongsAbout_DesktopApp.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace SongsAbout_DesktopApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MusicNote {
+        public static System.Drawing.Bitmap MusicNote {
             get {
                 object obj = ResourceManager.GetObject("MusicNote", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace SongsAbout_DesktopApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 4d8b5c54f513430f8b0f486974c89402.
         /// </summary>
-        internal static string SpotifyClientID {
+        public static string SpotifyClientID {
             get {
                 return ResourceManager.GetString("SpotifyClientID", resourceCulture);
             }
@@ -82,9 +82,18 @@ namespace SongsAbout_DesktopApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 5cffc3acb16b4176b8e1135090d59c3c.
         /// </summary>
-        internal static string SpotifySecret {
+        public static string SpotifySecret {
             get {
                 return ResourceManager.GetString("SpotifySecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UserId {
+            get {
+                return ResourceManager.GetString("UserId", resourceCulture);
             }
         }
     }

@@ -127,4 +127,7 @@
   <data name="SpotifySecret" xml:space="preserve">
     <value>5cffc3acb16b4176b8e1135090d59c3c</value>
   </data>
+  <data name="UserId" xml:space="preserve">
+    <value />
+  </data>
 </root>

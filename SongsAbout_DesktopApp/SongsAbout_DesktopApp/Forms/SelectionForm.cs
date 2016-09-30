@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+#region SpotifyAPIThings
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
@@ -14,14 +16,16 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
-
-
+#endregion
+using SongsAbout_DesktopApp.Properties;
 
 namespace SongsAbout_DesktopApp.Forms
 {
     public partial class SelectionForm : Form
     {
         SpotifyWebAPI _spotify = new SpotifyWebAPI();
+        PrivateProfile privateProfile;
+        string userId;
         public SelectionForm()
         {
             InitializeComponent();
@@ -34,8 +38,8 @@ namespace SongsAbout_DesktopApp.Forms
                     "http://localhost",     // RedirectUri Domain
                     3646,                   // Listening port ///3646
                     Properties.Resources.SpotifyClientID,   // Client ID
-                    Scope.UserReadPrivate,          // Scope (permisisons)
-                    TimeSpan.FromSeconds(20)        // Wait time
+                    Scope.UserLibraryRead//,          // Scope (permisisons)
+                                         //TimeSpan.FromSeconds(20)        // Wait time
             );
 
             try
@@ -43,27 +47,44 @@ namespace SongsAbout_DesktopApp.Forms
                 //This will open the user's browser and returns once
                 //the user is authorized.
                 _spotify = await webApiFactory.GetWebApi();
+
                 // MessageBox.Show("Access Token: " + _spotify.AccessToken, "Success");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                throw new Exception("Error Getting Spotify API: " + ex.Message);
             }
-
-
         }
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            TestAPI();
             try
             {
-                PrivateProfile privateProfile = _spotify.GetPrivateProfile();
-                label2.Text = privateProfile.DisplayName;
-                string userId = privateProfile.Id;
-                Paging<SimplePlaylist> myPlaylists = _spotify.GetUserPlaylists(userId, 5, 0);
+                GetInfo();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error getting desired Info");
+            }
+        }
 
-                foreach (SimplePlaylist item in myPlaylists.Items)
+        private void GetInfo()
+        {
+            TestAPI(Scope.UserFollowRead);
+            // userId = GetUserId();
+            FollowedArtists k = _spotify.GetFollowedArtists(FollowType.Artist);
+            foreach (var item in k.Artists.Items)
+            {
+                string id = item.Id;
+                string uri = item.Uri;
+                string name = item.Name;
+                var images = item.Images;                                
+                string href = item.Href;
+                List<string> genres = item.Genres;
+            }
+            /*
+            Paging<SimplePlaylist> myPlaylists = _spotify.GetUserPlaylists(userId, 5, 0);
+            foreach (SimplePlaylist item in myPlaylists.Items)
                 {
                     string playlistTrack = "";
                     string uri = item.Uri;
@@ -82,19 +103,51 @@ namespace SongsAbout_DesktopApp.Forms
                             playlistTrack += name + " " + alName + " " + aName;
                             MessageBox.Show(playlistTrack);
                         }
-
                     }
                     else
                     {
                         throw new Exception(tracks.Error.Message);
                     }
                 }
+                */
+        }
+
+        private async void TestAPI(Scope selectedScope)
+        {
+            WebAPIFactory webApiFactory = new WebAPIFactory(
+                    "http://localhost",     // RedirectUri Domain
+                    3646,                   // Listening port ///3646
+                    Properties.Resources.SpotifyClientID,   // Client ID
+                    selectedScope  //, Scope (permisisons)
+            );
+
+            try
+            {
+                //This will open the user's browser and returns once
+                //the user is authorized.
+                _spotify = await webApiFactory.GetWebApi();
+
+                // MessageBox.Show("Access Token: " + _spotify.AccessToken, "Success");
             }
-            //      _spotify.GetUserPlaylists();            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                throw new Exception("Error Getting Spotify API: " + ex.Message);
             }
+        }
+
+        private string GetUserId()
+        {
+            privateProfile = _spotify.GetPrivateProfile();
+            //  label2.Text = privateProfile.DisplayName;
+            if (Resources.UserId == null)
+            {
+                userId = privateProfile.Id;
+            }
+            else
+            {
+                userId = Resources.UserId;
+            }
+            return userId;
         }
     }
 }
