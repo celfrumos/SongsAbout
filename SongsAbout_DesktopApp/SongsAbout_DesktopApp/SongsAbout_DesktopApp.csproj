@@ -158,6 +158,11 @@
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Track.cs" />
+    <Compile Include="Properties\User.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>User.settings</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\MyArtistsForm.resx">
       <DependentUpon>MyArtistsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,6 +226,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Properties\User.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>User.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

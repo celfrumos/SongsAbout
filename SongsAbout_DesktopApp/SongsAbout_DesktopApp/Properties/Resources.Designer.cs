@@ -87,14 +87,5 @@ namespace SongsAbout_DesktopApp.Properties {
                 return ResourceManager.GetString("SpotifySecret", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string UserId {
-            get {
-                return ResourceManager.GetString("UserId", resourceCulture);
-            }
-        }
     }
 }

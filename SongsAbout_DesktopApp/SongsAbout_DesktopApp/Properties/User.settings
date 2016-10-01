@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SongsAbout_DesktopApp.Properties" GeneratedClassName="User">
+  <Profiles />
+  <Settings>
+    <Setting Name="u_PRIVATE_PROFILE" Type="SpotifyAPI.Web.Models.PrivateProfile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="u_PROFILE_PIC" Type="SpotifyAPI.Web.Models.Image" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="u_FOLLOWED_ARTISTS" Type="SpotifyAPI.Web.Models.FollowedArtists" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="u_FEATURED_PLAYLISTS" Type="SpotifyAPI.Web.Models.FeaturedPlaylists" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="u_SPOTIFY_WEB_API" Type="SpotifyAPI.Web.SpotifyWebAPI" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="uPUBLIC_PROFILE" Type="SpotifyAPI.Web.Models.PublicProfile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

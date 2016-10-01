@@ -33,5 +33,28 @@ namespace SongsAbout_DesktopApp.Properties {
                 return ((string)(this["SongsAboutSQLDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::SpotifyAPI.Web.Models.PrivateProfile Profile {
+            get {
+                return ((global::SpotifyAPI.Web.Models.PrivateProfile)(this["Profile"]));
+            }
+            set {
+                this["Profile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Setting {
+            get {
+                return ((string)(this["Setting"]));
+            }
+            set {
+                this["Setting"] = value;
+            }
+        }
     }
 }

@@ -53,6 +53,10 @@ namespace SongsAbout_DesktopApp.Forms
             {
                 MessageBox.Show(ex.Message, "Error getting desired Info");
             }
+            if (_profile != null)
+            {
+                Settings.Default.Profile = _profile;
+            }
         }
 
         private void GetFollowedArtists()

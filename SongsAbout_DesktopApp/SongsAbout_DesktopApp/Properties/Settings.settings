@@ -10,5 +10,11 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=JDEGRAW\SQLEXPRESS;Initial Catalog=SongsAboutSQLDB;Integrated Security=True</Value>
     </Setting>
+    <Setting Name="Profile" Type="SpotifyAPI.Web.Models.PrivateProfile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
