@@ -20,6 +20,47 @@ namespace SongsAbout_DesktopApp.Classes
 {
     public static class SpotifySetup
     {
+        /// <summary>
+        /// Initial Setup of USer Spotify Settings
+        /// </summary>
+        public async static void RunAuthentication()
+        {
+            SpotifyWebAPI _spotify = new SpotifyWebAPI();
+            WebAPIFactory webApiFactory = new WebAPIFactory(
+                "http://localhost",
+                8000,
+               Properties.Resources.SpotifyClientID,
+                Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
+                Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic);
+
+            try
+            {
+                if (User.Default.SpotifyWebAPI == null)
+                {
+
+                    User.Default.SpotifyWebAPI = await webApiFactory.GetWebApi();
+                    User.Default.Save();
+                }
+
+                AssignProfile();
+                AssignFollowedArtists();
+                AssignProfile();
+                AssignProfilePic();
+                User.Default.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error running authentication: " + ex.Message);
+            }
+
+            if (_spotify == null)
+                return;
+
+        }
+
+        /// <summary>
+        /// Gets profile info via WebAPI. Assigns user settings PrivateProfile, UserId, and PublicProfile
+        /// </summary>
         private static void AssignProfile()
         {
             try
@@ -29,6 +70,7 @@ namespace SongsAbout_DesktopApp.Classes
                     User.Default.PrivateProfile = User.Default.SpotifyWebAPI.GetPrivateProfile();
                     //User.Default.PrivateProfile = _profile;
                     User.Default.UserId = User.Default.PrivateProfile.Id;
+                    User.Default.PublicProfile = User.Default.SpotifyWebAPI.GetPublicProfile(User.Default.UserId);
                     User.Default.Save();
                 }
             }
@@ -59,6 +101,10 @@ namespace SongsAbout_DesktopApp.Classes
 
         }
 
+        /// <summary>
+        /// Returns a list of User's saved tracks
+        /// </summary>
+        /// <returns></returns>
         private static List<FullTrack> GetSavedTracks()
         {
             try
@@ -80,20 +126,25 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
+        /// <summary>
+        /// Async method to get Profile image as a System.Drawing.Image
+        /// </summary>
+        /// <returns></returns>
         private async static Task<Image> GetProfilePic()
         {
-            try
+            if (User.Default.PrivateProfile != null)
             {
-                if (User.Default.PrivateProfile.Images != null)
+                try
                 {
-                    AssignProfilePic();
-                }
+                    if (User.Default.ProfilePic == null)
+                    {
+                        AssignProfilePic();
+                    }
 
-                if (User.Default.PrivateProfile.Images.Count > 0)){
                     using (WebClient wc = new WebClient())
                     {
                         Image _profilePic;
-                        byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(User.Default.PrivateProfile.Images[0].Url));
+                        byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(User.Default.ProfilePic.Url));
                         using (MemoryStream stream = new MemoryStream(imageBytes))
                         {
                             _profilePic = Image.FromStream(stream);
@@ -105,28 +156,51 @@ namespace SongsAbout_DesktopApp.Classes
                             return _profilePic;
                         }
                     }
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error getting profile photo " + ex.Message);
+                }
+            }
+            else
+            {
+                throw new Exception("User WebAPI undefined");
+            }
+        }
+
+        /// <summary>
+        /// Assign User Setting ProfilePic
+        /// </summary>
+        private static void AssignProfilePic()
+        {
+            if (User.Default.PrivateProfile != null)
+            {
+                if (User.Default.PrivateProfile.Images.Count > 0)
+                {
+                    User.Default.ProfilePic = User.Default.PrivateProfile.Images[0];
+                    User.Default.Save();
                 }
                 else
                 {
-                    throw new Exception("");
+                    throw new Exception("Error Assigning profile pic");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception("Error getting profile photo " + ex.Message);//  MessageBox.Show(ex.Message, "Error getting profile photo");
+                throw new Exception("User WebAPI undefined");
             }
         }
 
-        private static void AssignProfilePic()
-        {
-
-        }
-
+        /// <summary>
+        /// Assign User Setting for FollowedArtists
+        /// </summary>
         private static void AssignFollowedArtists()
         {
             if (User.Default.SpotifyWebAPI != null)
             {
                 User.Default.FollowedArtists = User.Default.SpotifyWebAPI.GetFollowedArtists(FollowType.Artist);
+                User.Default.Save();
                 //foreach (var a in artists.Artists.Items)
                 //{
                 //    string id = a.Id;
@@ -135,7 +209,11 @@ namespace SongsAbout_DesktopApp.Classes
                 //    var images = a.Images;
                 //    string href = a.Href;
                 //    List<string> genres = a.Genres;
-                //}
+                //}                
+            }
+            else
+            {
+                throw new Exception("User WebAPI undefined");
             }
         }
 
@@ -173,36 +251,6 @@ namespace SongsAbout_DesktopApp.Classes
 
             }
 
-        }
-
-        public async static void RunAuthentication()
-        {
-            SpotifyWebAPI _spotify = new SpotifyWebAPI();
-            WebAPIFactory webApiFactory = new WebAPIFactory(
-                "http://localhost",
-                8000,
-               Properties.Resources.SpotifyClientID,
-                Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
-                Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic);
-
-            try
-            {
-                if (User.Default.SpotifyWebAPI == null)
-                {
-                    _spotify = await webApiFactory.GetWebApi();
-                    User.Default.SpotifyWebAPI = _spotify;
-                    User.Default.Save();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error running authentication: " + ex.Message);
-            }
-
-            if (_spotify == null)
-                return;
-
-            AssignProfile();
         }
 
     }
