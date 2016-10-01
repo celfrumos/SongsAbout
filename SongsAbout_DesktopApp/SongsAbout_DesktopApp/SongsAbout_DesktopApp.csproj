@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\SpotifySetup.cs" />
     <Compile Include="Classes\UserProfile.cs" />
     <Compile Include="DatabaseClasses.cs">
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
@@ -144,12 +145,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Program.cs" />
-    <Compile Include="Forms\ConnectSpotifyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ConnectSpotifyForm.Designer.cs">
-      <DependentUpon>ConnectSpotifyForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\ResultsForm.cs">
       <SubType>Form</SubType>
@@ -183,9 +178,6 @@
     </None>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ConnectSpotifyForm.resx">
-      <DependentUpon>ConnectSpotifyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
