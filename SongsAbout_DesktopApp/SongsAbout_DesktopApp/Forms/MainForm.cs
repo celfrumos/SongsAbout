@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.Control;
 using SongsAbout_DesktopApp.Forms;
+using SongsAbout_DesktopApp.Classes;
 using System.IO;
 
+using SongsAbout_DesktopApp.Properties;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
@@ -105,7 +107,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                Task.Run(() => RunAuthentication());
+                Task.Run(() => SpotifySetup.RunAuthentication());
             }
             catch (Exception ex)
             {
@@ -117,12 +119,12 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                Paging<SimplePlaylist> playlists = _spotify.GetUserPlaylists(_profile.Id);
+                Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId);
                 List<SimplePlaylist> list = playlists.Items.ToList();
 
                 while (playlists.Next != null)
                 {
-                    playlists = _spotify.GetUserPlaylists(_profile.Id, 20, playlists.Offset + playlists.Limit);
+                    playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId, 20, playlists.Offset + playlists.Limit);
                     list.AddRange(playlists.Items);
                 }
 
@@ -133,17 +135,7 @@ namespace SongsAbout_DesktopApp
                 throw new Exception(ex.Message);
             }
         }
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Task.Run(() => RunAuthentication());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error getting desired Info");
-            }
-        }
+
 
     }
 
