@@ -80,12 +80,36 @@ namespace SongsAbout_DesktopApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.Models.PublicProfile uPUBLIC_PROFILE {
+        public global::SpotifyAPI.Web.Models.PublicProfile u_PUBLIC_PROFILE {
             get {
-                return ((global::SpotifyAPI.Web.Models.PublicProfile)(this["uPUBLIC_PROFILE"]));
+                return ((global::SpotifyAPI.Web.Models.PublicProfile)(this["u_PUBLIC_PROFILE"]));
             }
             set {
-                this["uPUBLIC_PROFILE"] = value;
+                this["u_PUBLIC_PROFILE"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string u_USER_ID {
+            get {
+                return ((string)(this["u_USER_ID"]));
+            }
+            set {
+                this["u_USER_ID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Setting {
+            get {
+                return ((string)(this["Setting"]));
+            }
+            set {
+                this["Setting"] = value;
             }
         }
     }

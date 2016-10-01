@@ -16,7 +16,6 @@ using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using Image = System.Drawing.Image;
 
-
 using SongsAbout_DesktopApp.Properties;
 
 namespace SongsAbout_DesktopApp.Forms
@@ -55,7 +54,7 @@ namespace SongsAbout_DesktopApp.Forms
             }
             if (_profile != null)
             {
-                Settings.Default.Profile = _profile;
+                User.Default.u_PRIVATE_PROFILE = _profile;
             }
         }
 
@@ -133,15 +132,16 @@ namespace SongsAbout_DesktopApp.Forms
 
         private string GetUserId()
         {
+
             _profile = _spotify.GetPrivateProfile();
             //  label2.Text = privateProfile.DisplayName;
-            if (Resources.UserId == null)
+            if (User.Default.u_USER_ID == null)
             {
                 _userId = _profile.Id;
             }
             else
             {
-                _userId = Resources.UserId;
+                _userId = User.Default.u_USER_ID;
             }
             return userId;
         }

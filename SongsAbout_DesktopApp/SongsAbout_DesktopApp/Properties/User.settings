@@ -17,7 +17,13 @@
     <Setting Name="u_SPOTIFY_WEB_API" Type="SpotifyAPI.Web.SpotifyWebAPI" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="uPUBLIC_PROFILE" Type="SpotifyAPI.Web.Models.PublicProfile" Scope="User">
+    <Setting Name="u_PUBLIC_PROFILE" Type="SpotifyAPI.Web.Models.PublicProfile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="u_USER_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Setting" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
