@@ -78,7 +78,7 @@
             // btnTest
             // 
             this.btnTest.Location = new System.Drawing.Point(240, 137);
-            this.btnTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTest.Margin = new System.Windows.Forms.Padding(4);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(100, 28);
             this.btnTest.TabIndex = 4;
@@ -101,6 +101,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(99, 192);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 125);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 

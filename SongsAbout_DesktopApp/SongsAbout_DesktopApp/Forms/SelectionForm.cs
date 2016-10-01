@@ -24,39 +24,23 @@ namespace SongsAbout_DesktopApp.Forms
     public partial class SelectionForm : Form
     {
         private SpotifyWebAPI _spotify;
-
         private PrivateProfile _profile;
         private List<FullTrack> _savedTracks;
         private List<SimplePlaylist> _playlists;
-        private string userId;
+        private string _userId;
+        private Image _profilePic;
+
+        public Image ProfilePic { get { return _profilePic; } }
+        public SpotifyWebAPI Spotify { get { return _spotify; } }
+
+        public PrivateProfile Profile { get { return _profile; } }
+        public List<FullTrack> SavedTracks { get { return _savedTracks; } }
+        public List<SimplePlaylist> Playlists { get { return _playlists; } }
+        public string userId { get { return _userId; } }
 
         public SelectionForm()
         {
             InitializeComponent();
-        }
-
-        private async void TestAPI()
-        {
-            WebAPIFactory webApiFactory = new WebAPIFactory(
-
-                    "http://localhost",                     // RedirectUri Domain
-                    3646,                                   // Listening port ///3646
-                    Properties.Resources.SpotifyClientID,   // Client ID
-                    Scope.UserLibraryRead   //,             // Scope (permisisons)
-                                            //TimeSpan.FromSeconds(20)        // Wait time
-            );
-
-            try
-            {
-                //This will open the user's browser and returns once
-                //the user is authorized.
-                _spotify = await webApiFactory.GetWebApi();
-                // MessageBox.Show("Access Token: " + _spotify.AccessToken, "Success");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error Getting Spotify API: " + ex.Message);
-            }
         }
 
         private void btnTest_Click(object sender, EventArgs e)
@@ -149,11 +133,11 @@ namespace SongsAbout_DesktopApp.Forms
             //  label2.Text = privateProfile.DisplayName;
             if (Resources.UserId == null)
             {
-                userId = _profile.Id;
+                _userId = _profile.Id;
             }
             else
             {
-                userId = Resources.UserId;
+                _userId = Resources.UserId;
             }
             return userId;
         }
@@ -163,7 +147,7 @@ namespace SongsAbout_DesktopApp.Forms
             WebAPIFactory webApiFactory = new WebAPIFactory(
                 "http://localhost",
                 8000,
-                "26d287105e31491889f3cd293d85bfea",
+               Properties.Resources.SpotifyClientID,
                 Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
                 Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic);
 
@@ -191,17 +175,38 @@ namespace SongsAbout_DesktopApp.Forms
             }
 
             //  authButton.Enabled = false;
-            _profile = _spotify.GetPrivateProfile();
+            try
+            {
+                _profile = _spotify.GetPrivateProfile();
+            }
 
-            _savedTracks = GetSavedTracks();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error getting profile");
+            }
+
+            try
+            {
+                _savedTracks = GetSavedTracks();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error getting saved tracks");
+            }
             // savedTracksCountLabel.Text = _savedTracks.Count.ToString();
             //_savedTracks.ForEach(track => savedTracksListView.Items.Add(new ListViewItem()
             //{
             //    Text = track.Name,
             //    SubItems = { string.Join(",", track.Artists.Select(source => source.Name)), track.Album.Name }
             //}));
-
-            _playlists = GetPlaylists();
+            try
+            {
+                _playlists = GetPlaylists();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error getting playlists");
+            }
             // playlistsCountLabel.Text = _playlists.Count.ToString();
             // _playlists.ForEach(playlist => playlistsListBox.Items.Add(playlist.Name));
 
@@ -209,44 +214,67 @@ namespace SongsAbout_DesktopApp.Forms
             //countryLabel.Text = _profile.Country;
             //emailLabel.Text = _profile.Email;
             //accountLabel.Text = _profile.Product;
-
-            if (_profile.Images != null && _profile.Images.Count > 0)
+            try
             {
-                using (WebClient wc = new WebClient())
+                if (_profile.Images != null && _profile.Images.Count > 0)
                 {
-                    byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(_profile.Images[0].Url));
-                    using (MemoryStream stream = new MemoryStream(imageBytes))
-                        pictureBox1.Image = Image.FromStream(stream);
+                    using (WebClient wc = new WebClient())
+                    {
+                        byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(_profile.Images[0].Url));
+                        using (MemoryStream stream = new MemoryStream(imageBytes))
+                        {
+                            _profilePic = Image.FromStream(stream);
+                            pictureBox1.Image = _profilePic;
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error getting profile photo");
             }
         }
 
         private List<FullTrack> GetSavedTracks()
         {
-            Paging<SavedTrack> savedTracks = _spotify.GetSavedTracks();
-            List<FullTrack> list = savedTracks.Items.Select(track => track.Track).ToList();
-
-            while (savedTracks.Next != null)
+            try
             {
-                savedTracks = _spotify.GetSavedTracks(20, savedTracks.Offset + savedTracks.Limit);
-                list.AddRange(savedTracks.Items.Select(track => track.Track));
-            }
+                Paging<SavedTrack> savedTracks = _spotify.GetSavedTracks();
+                List<FullTrack> list = savedTracks.Items.Select(track => track.Track).ToList();
 
-            return list;
+                while (savedTracks.Next != null)
+                {
+                    savedTracks = _spotify.GetSavedTracks(20, savedTracks.Offset + savedTracks.Limit);
+                    list.AddRange(savedTracks.Items.Select(track => track.Track));
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
-        
+
         private List<SimplePlaylist> GetPlaylists()
         {
-            Paging<SimplePlaylist> playlists = _spotify.GetUserPlaylists(_profile.Id);
-            List<SimplePlaylist> list = playlists.Items.ToList();
-
-            while (playlists.Next != null)
+            try
             {
-                playlists = _spotify.GetUserPlaylists(_profile.Id, 20, playlists.Offset + playlists.Limit);
-                list.AddRange(playlists.Items);
-            }
+                Paging<SimplePlaylist> playlists = _spotify.GetUserPlaylists(_profile.Id);
+                List<SimplePlaylist> list = playlists.Items.ToList();
 
-            return list;
+                while (playlists.Next != null)
+                {
+                    playlists = _spotify.GetUserPlaylists(_profile.Id, 20, playlists.Offset + playlists.Limit);
+                    list.AddRange(playlists.Items);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 

@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.Windows.Forms;
 using SongsAbout_DesktopApp.Forms;
 
+
 namespace SongsAbout_DesktopApp
 {
     public partial class MainForm : Form
@@ -106,7 +107,6 @@ namespace SongsAbout_DesktopApp
             QueryForm queryForm = new QueryForm();
             try
             {
-
                 queryForm.ShowDialog();
             }
             catch (Exception ex)

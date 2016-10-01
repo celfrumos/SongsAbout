@@ -40,7 +40,9 @@
             this.btnAddInfo = new System.Windows.Forms.Button();
             this.btnViewData = new System.Windows.Forms.Button();
             this.btnSpotify = new System.Windows.Forms.Button();
+            this.pBoxProfilePic = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -57,7 +59,7 @@
             this.txtBoxQuery.Location = new System.Drawing.Point(295, 256);
             this.txtBoxQuery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxQuery.Name = "txtBoxQuery";
-            this.txtBoxQuery.Size = new System.Drawing.Size(216, 21);
+            this.txtBoxQuery.Size = new System.Drawing.Size(216, 25);
             this.txtBoxQuery.TabIndex = 1;
             // 
             // label1
@@ -68,7 +70,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(36, 256);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(202, 19);
+            this.label1.Size = new System.Drawing.Size(232, 23);
             this.label1.TabIndex = 5;
             this.label1.Text = "I want to find songs about:";
             // 
@@ -80,14 +82,14 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label2.Location = new System.Drawing.Point(73, 315);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(177, 19);
+            this.label2.Size = new System.Drawing.Size(204, 23);
             this.label2.TabIndex = 7;
             this.label2.Text = "In any of these genres:";
             // 
             // lstBxGenres
             // 
             this.lstBxGenres.FormattingEnabled = true;
-            this.lstBxGenres.ItemHeight = 14;
+            this.lstBxGenres.ItemHeight = 18;
             this.lstBxGenres.Items.AddRange(new object[] {
             "Acoustic",
             "Country",
@@ -101,7 +103,7 @@
             this.lstBxGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstBxGenres.Name = "lstBxGenres";
             this.lstBxGenres.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstBxGenres.Size = new System.Drawing.Size(216, 88);
+            this.lstBxGenres.Size = new System.Drawing.Size(216, 76);
             this.lstBxGenres.Sorted = true;
             this.lstBxGenres.TabIndex = 8;
             // 
@@ -113,7 +115,7 @@
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label3.Location = new System.Drawing.Point(170, 461);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 19);
+            this.label3.Size = new System.Drawing.Size(98, 23);
             this.label3.TabIndex = 9;
             this.label3.Text = "Keywords:";
             // 
@@ -122,7 +124,7 @@
             this.txtBoxKeywords.Location = new System.Drawing.Point(295, 461);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
-            this.txtBoxKeywords.Size = new System.Drawing.Size(216, 21);
+            this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
             this.txtBoxKeywords.TabIndex = 10;
             // 
             // btnSearch
@@ -181,12 +183,23 @@
             this.btnSpotify.UseVisualStyleBackColor = true;
             this.btnSpotify.Click += new System.EventHandler(this.btnSpotify_Click);
             // 
+            // pBoxProfilePic
+            // 
+            this.pBoxProfilePic.Location = new System.Drawing.Point(12, 11);
+            this.pBoxProfilePic.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pBoxProfilePic.Name = "pBoxProfilePic";
+            this.pBoxProfilePic.Size = new System.Drawing.Size(65, 64);
+            this.pBoxProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pBoxProfilePic.TabIndex = 16;
+            this.pBoxProfilePic.TabStop = false;
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(547, 625);
+            this.Controls.Add(this.pBoxProfilePic);
             this.Controls.Add(this.btnSpotify);
             this.Controls.Add(this.btnViewData);
             this.Controls.Add(this.btnAddInfo);
@@ -205,6 +218,7 @@
             this.Text = "SongsAbout";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,6 +238,7 @@
         private System.Windows.Forms.Button btnAddInfo;
         private System.Windows.Forms.Button btnViewData;
         private System.Windows.Forms.Button btnSpotify;
+        private System.Windows.Forms.PictureBox pBoxProfilePic;
     }
 }
 
