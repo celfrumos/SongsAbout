@@ -25,79 +25,79 @@ namespace SongsAbout_DesktopApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.Models.PrivateProfile u_PRIVATE_PROFILE {
+        public global::SpotifyAPI.Web.Models.PrivateProfile PrivateProfile {
             get {
-                return ((global::SpotifyAPI.Web.Models.PrivateProfile)(this["u_PRIVATE_PROFILE"]));
+                return ((global::SpotifyAPI.Web.Models.PrivateProfile)(this["PrivateProfile"]));
             }
             set {
-                this["u_PRIVATE_PROFILE"] = value;
+                this["PrivateProfile"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.Models.Image u_PROFILE_PIC {
+        public global::SpotifyAPI.Web.Models.Image ProfilePic {
             get {
-                return ((global::SpotifyAPI.Web.Models.Image)(this["u_PROFILE_PIC"]));
+                return ((global::SpotifyAPI.Web.Models.Image)(this["ProfilePic"]));
             }
             set {
-                this["u_PROFILE_PIC"] = value;
+                this["ProfilePic"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.Models.FollowedArtists u_FOLLOWED_ARTISTS {
+        public global::SpotifyAPI.Web.Models.FollowedArtists FollowedArtists {
             get {
-                return ((global::SpotifyAPI.Web.Models.FollowedArtists)(this["u_FOLLOWED_ARTISTS"]));
+                return ((global::SpotifyAPI.Web.Models.FollowedArtists)(this["FollowedArtists"]));
             }
             set {
-                this["u_FOLLOWED_ARTISTS"] = value;
+                this["FollowedArtists"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.Models.FeaturedPlaylists u_FEATURED_PLAYLISTS {
+        public global::SpotifyAPI.Web.Models.FeaturedPlaylists FeaturedPlaylists {
             get {
-                return ((global::SpotifyAPI.Web.Models.FeaturedPlaylists)(this["u_FEATURED_PLAYLISTS"]));
+                return ((global::SpotifyAPI.Web.Models.FeaturedPlaylists)(this["FeaturedPlaylists"]));
             }
             set {
-                this["u_FEATURED_PLAYLISTS"] = value;
+                this["FeaturedPlaylists"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.SpotifyWebAPI u_SPOTIFY_WEB_API {
+        public global::SpotifyAPI.Web.SpotifyWebAPI SpotifyWebAPI {
             get {
-                return ((global::SpotifyAPI.Web.SpotifyWebAPI)(this["u_SPOTIFY_WEB_API"]));
+                return ((global::SpotifyAPI.Web.SpotifyWebAPI)(this["SpotifyWebAPI"]));
             }
             set {
-                this["u_SPOTIFY_WEB_API"] = value;
+                this["SpotifyWebAPI"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.Models.PublicProfile u_PUBLIC_PROFILE {
+        public global::SpotifyAPI.Web.Models.PublicProfile PublicProfile {
             get {
-                return ((global::SpotifyAPI.Web.Models.PublicProfile)(this["u_PUBLIC_PROFILE"]));
+                return ((global::SpotifyAPI.Web.Models.PublicProfile)(this["PublicProfile"]));
             }
             set {
-                this["u_PUBLIC_PROFILE"] = value;
+                this["PublicProfile"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string u_USER_ID {
+        public string UserId {
             get {
-                return ((string)(this["u_USER_ID"]));
+                return ((string)(this["UserId"]));
             }
             set {
-                this["u_USER_ID"] = value;
+                this["UserId"] = value;
             }
         }
         

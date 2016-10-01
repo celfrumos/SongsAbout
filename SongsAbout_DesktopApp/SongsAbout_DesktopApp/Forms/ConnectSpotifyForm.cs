@@ -26,16 +26,10 @@ namespace SongsAbout_DesktopApp.Forms
         private PrivateProfile _profile;
         private List<FullTrack> _savedTracks;
         private List<SimplePlaylist> _playlists;
-        private string _userId;
         private Image _profilePic;
 
         public Image ProfilePic { get { return _profilePic; } }
-        public SpotifyWebAPI Spotify { get { return _spotify; } }
 
-        public PrivateProfile Profile { get { return _profile; } }
-        public List<FullTrack> SavedTracks { get { return _savedTracks; } }
-        public List<SimplePlaylist> Playlists { get { return _playlists; } }
-        public string userId { get { return _userId; } }
 
         public ConnectSpotifyForm()
         {
@@ -51,10 +45,6 @@ namespace SongsAbout_DesktopApp.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error getting desired Info");
-            }
-            if (_profile != null)
-            {
-                User.Default.u_PRIVATE_PROFILE = _profile;
             }
         }
 
@@ -130,22 +120,6 @@ namespace SongsAbout_DesktopApp.Forms
             }
         }
 
-        private string GetUserId()
-        {
-
-            _profile = _spotify.GetPrivateProfile();
-            //  label2.Text = privateProfile.DisplayName;
-            if (User.Default.u_USER_ID == null)
-            {
-                _userId = _profile.Id;
-            }
-            else
-            {
-                _userId = User.Default.u_USER_ID;
-            }
-            return userId;
-        }
-
         private async void RunAuthentication()
         {
             WebAPIFactory webApiFactory = new WebAPIFactory(
@@ -157,7 +131,12 @@ namespace SongsAbout_DesktopApp.Forms
 
             try
             {
-                _spotify = await webApiFactory.GetWebApi();
+                if (User.Default.SpotifyWebAPI == null)
+                {
+                    _spotify = await webApiFactory.GetWebApi();
+                    User.Default.SpotifyWebAPI = _spotify;
+                    User.Default.Save();
+                }
             }
             catch (Exception ex)
             {
@@ -181,7 +160,12 @@ namespace SongsAbout_DesktopApp.Forms
             //  authButton.Enabled = false;
             try
             {
-                _profile = _spotify.GetPrivateProfile();
+                if (User.Default.PrivateProfile == null)
+                {
+                    _profile = _spotify.GetPrivateProfile();
+                    User.Default.PrivateProfile = _profile;
+                    User.Default.Save();
+                }
             }
 
             catch (Exception ex)
@@ -197,7 +181,6 @@ namespace SongsAbout_DesktopApp.Forms
             {
                 MessageBox.Show(ex.Message, "Error getting saved tracks");
             }
-            // savedTracksCountLabel.Text = _savedTracks.Count.ToString();
             //_savedTracks.ForEach(track => savedTracksListView.Items.Add(new ListViewItem()
             //{
             //    Text = track.Name,
@@ -211,7 +194,7 @@ namespace SongsAbout_DesktopApp.Forms
             {
                 MessageBox.Show(ex.Message, "Error getting playlists");
             }
-            // playlistsCountLabel.Text = _playlists.Count.ToString();
+
             // _playlists.ForEach(playlist => playlistsListBox.Items.Add(playlist.Name));
 
             //displayNameLabel.Text = _profile.DisplayName;

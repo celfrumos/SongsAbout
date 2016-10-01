@@ -2,25 +2,25 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SongsAbout_DesktopApp.Properties" GeneratedClassName="User">
   <Profiles />
   <Settings>
-    <Setting Name="u_PRIVATE_PROFILE" Type="SpotifyAPI.Web.Models.PrivateProfile" Scope="User">
+    <Setting Name="PrivateProfile" Type="SpotifyAPI.Web.Models.PrivateProfile" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="u_PROFILE_PIC" Type="SpotifyAPI.Web.Models.Image" Scope="User">
+    <Setting Name="ProfilePic" Type="SpotifyAPI.Web.Models.Image" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="u_FOLLOWED_ARTISTS" Type="SpotifyAPI.Web.Models.FollowedArtists" Scope="User">
+    <Setting Name="FollowedArtists" Type="SpotifyAPI.Web.Models.FollowedArtists" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="u_FEATURED_PLAYLISTS" Type="SpotifyAPI.Web.Models.FeaturedPlaylists" Scope="User">
+    <Setting Name="FeaturedPlaylists" Type="SpotifyAPI.Web.Models.FeaturedPlaylists" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="u_SPOTIFY_WEB_API" Type="SpotifyAPI.Web.SpotifyWebAPI" Scope="User">
+    <Setting Name="SpotifyWebAPI" Type="SpotifyAPI.Web.SpotifyWebAPI" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="u_PUBLIC_PROFILE" Type="SpotifyAPI.Web.Models.PublicProfile" Scope="User">
+    <Setting Name="PublicProfile" Type="SpotifyAPI.Web.Models.PublicProfile" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="u_USER_ID" Type="System.String" Scope="User">
+    <Setting Name="UserId" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Setting" Type="System.String" Scope="User">
