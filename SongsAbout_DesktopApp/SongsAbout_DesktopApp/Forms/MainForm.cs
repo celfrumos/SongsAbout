@@ -16,6 +16,13 @@ namespace SongsAbout_DesktopApp
 {
     public partial class MainForm : Form
     {
+        private SpotifyWebAPI _spotify;
+        private PrivateProfile _profile;
+        private List<FullTrack> _savedTracks;
+        private List<SimplePlaylist> _playlists;
+        private string _userId;
+        private Image _profilePic;
+
         public MainForm()
         {
             InitializeComponent();
@@ -117,8 +124,13 @@ namespace SongsAbout_DesktopApp
 
         private void btnSpotify_Click(object sender, EventArgs e)
         {
-            SelectionForm selectForm = new SelectionForm();
+            ConnectSpotifyForm selectForm = new ConnectSpotifyForm();
             selectForm.ShowDialog();
+
+            if (selectForm.ProfilePic != null)
+            {
+                pBoxProfilePic.Image = selectForm.ProfilePic;
+            }
         }
     }
 }

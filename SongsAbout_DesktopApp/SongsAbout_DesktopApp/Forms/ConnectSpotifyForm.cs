@@ -6,10 +6,10 @@ using System.Net;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
@@ -21,7 +21,7 @@ using SongsAbout_DesktopApp.Properties;
 
 namespace SongsAbout_DesktopApp.Forms
 {
-    public partial class SelectionForm : Form
+    public partial class ConnectSpotifyForm : Form
     {
         private SpotifyWebAPI _spotify;
         private PrivateProfile _profile;
@@ -38,7 +38,7 @@ namespace SongsAbout_DesktopApp.Forms
         public List<SimplePlaylist> Playlists { get { return _playlists; } }
         public string userId { get { return _userId; } }
 
-        public SelectionForm()
+        public ConnectSpotifyForm()
         {
             InitializeComponent();
         }

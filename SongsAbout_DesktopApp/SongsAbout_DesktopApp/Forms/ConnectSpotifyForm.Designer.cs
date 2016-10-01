@@ -1,6 +1,6 @@
 ﻿namespace SongsAbout_DesktopApp.Forms
 {
-    partial class SelectionForm
+    partial class ConnectSpotifyForm
     {
         /// <summary>
         /// Required designer variable.
