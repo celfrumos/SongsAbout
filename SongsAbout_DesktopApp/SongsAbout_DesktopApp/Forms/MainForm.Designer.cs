@@ -41,6 +41,7 @@
             this.btnViewData = new System.Windows.Forms.Button();
             this.btnSpotify = new System.Windows.Forms.Button();
             this.pBoxProfilePic = new System.Windows.Forms.PictureBox();
+            this.btnImportArtists = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
@@ -175,7 +176,7 @@
             // 
             // btnSpotify
             // 
-            this.btnSpotify.Location = new System.Drawing.Point(91, 422);
+            this.btnSpotify.Location = new System.Drawing.Point(25, 420);
             this.btnSpotify.Name = "btnSpotify";
             this.btnSpotify.Size = new System.Drawing.Size(100, 36);
             this.btnSpotify.TabIndex = 15;
@@ -193,12 +194,23 @@
             this.pBoxProfilePic.TabIndex = 16;
             this.pBoxProfilePic.TabStop = false;
             // 
+            // btnImportArtists
+            // 
+            this.btnImportArtists.Location = new System.Drawing.Point(149, 420);
+            this.btnImportArtists.Name = "btnImportArtists";
+            this.btnImportArtists.Size = new System.Drawing.Size(100, 36);
+            this.btnImportArtists.TabIndex = 17;
+            this.btnImportArtists.Text = "Import Spotfy Artists";
+            this.btnImportArtists.UseVisualStyleBackColor = true;
+            this.btnImportArtists.Click += new System.EventHandler(this.btnImportArtists_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(547, 625);
+            this.Controls.Add(this.btnImportArtists);
             this.Controls.Add(this.pBoxProfilePic);
             this.Controls.Add(this.btnSpotify);
             this.Controls.Add(this.btnViewData);
@@ -239,6 +251,7 @@
         private System.Windows.Forms.Button btnViewData;
         private System.Windows.Forms.Button btnSpotify;
         private System.Windows.Forms.PictureBox pBoxProfilePic;
+        private System.Windows.Forms.Button btnImportArtists;
     }
 }
 

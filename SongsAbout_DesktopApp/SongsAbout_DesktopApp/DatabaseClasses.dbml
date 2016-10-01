@@ -6,8 +6,8 @@
       <Column Name="a_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="a_bio" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="a_website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="a_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="a_profile_pic" Type="System.String" CanBeNull="false" />
+      <Column Name="a_spotify_uri" AutoSync="Always" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="a_profile_pic" AutoSync="Always" Type="System.Byte[]" DbType="Image" CanBeNull="true" />
       <Association Name="Artist_Album" Member="Albums" ThisKey="artist_id" OtherKey="artist_id" Type="Album" />
       <Association Name="Artist_Track" Member="Tracks" ThisKey="artist_id" OtherKey="track_artist_id" Type="Track" />
     </Type>

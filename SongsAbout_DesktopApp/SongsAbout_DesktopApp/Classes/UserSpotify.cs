@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Net;
 using System.Threading.Tasks;
-using static System.Windows.Forms.Control;
-using SongsAbout_DesktopApp.Forms;
 using System.IO;
-using System.Drawing;
 using SongsAbout_DesktopApp.Properties;
 
 using SpotifyAPI.Web;
@@ -18,12 +14,12 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public static class SpotifySetup
+    public static class UserSpotify
     {
         /// <summary>
         /// Initial Setup of USer Spotify Settings
         /// </summary>
-        public async static void RunAuthentication()
+        public async static void Authenticate()
         {
             SpotifyWebAPI _spotify = new SpotifyWebAPI();
             WebAPIFactory webApiFactory = new WebAPIFactory(
@@ -105,7 +101,7 @@ namespace SongsAbout_DesktopApp.Classes
         /// Returns a list of User's saved tracks
         /// </summary>
         /// <returns></returns>
-        private static List<FullTrack> GetSavedTracks()
+        public static List<FullTrack> GetSavedTracks()
         {
             try
             {
@@ -130,7 +126,7 @@ namespace SongsAbout_DesktopApp.Classes
         /// Async method to get Profile image as a System.Drawing.Image
         /// </summary>
         /// <returns></returns>
-        private async static Task<Image> GetProfilePic()
+        public async static Task<Image> GetProfilePic()
         {
             if (User.Default.PrivateProfile != null)
             {
@@ -253,5 +249,92 @@ namespace SongsAbout_DesktopApp.Classes
 
         }
 
+        public static List<SimplePlaylist> GetPlaylists()
+        {
+            try
+            {
+                if (User.Default.PrivateProfile != null)
+                {
+
+                    Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId);
+                    List<SimplePlaylist> list = playlists.Items.ToList();
+
+                    while (playlists.Next != null)
+                    {
+                        playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId, 20, playlists.Offset + playlists.Limit);
+                        list.AddRange(playlists.Items);
+                    }
+
+                    return list;
+
+                }
+                else
+                {
+                    throw new Exception("Spotify Profile hasn't been defined yet.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Async method to get Profile image as a System.Drawing.Image
+        /// </summary>
+        /// <returns></returns>
+        public async static Task<Image> getImagefromSpotify(SpotifyAPI.Web.Models.Image pic)
+        {
+            if (User.Default.PrivateProfile != null)
+            {
+                try
+                {
+                    using (WebClient wc = new WebClient())
+                    {
+                        Image systemPic;
+                        byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(pic.Url));
+                        using (MemoryStream stream = new MemoryStream(imageBytes))
+                        {
+                            systemPic = Image.FromStream(stream);
+                            return systemPic;
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error getting profile photo " + ex.Message);
+                }
+            }
+            else
+            {
+                throw new Exception("User WebAPI undefined");
+            }
+        }
+        public async static Task<byte[]> ConvertSpotifyImageToBytes(SpotifyAPI.Web.Models.Image pic)
+        {
+            if (User.Default.PrivateProfile != null)
+            {
+                try
+                {
+                    using (WebClient wc = new WebClient())
+                    {
+                        byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(pic.Url));
+
+                        return imageBytes;
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error getting profile photo " + ex.Message);
+                }
+            }
+            else
+            {
+                throw new Exception("User WebAPI undefined");
+            }
+        }
     }
 }

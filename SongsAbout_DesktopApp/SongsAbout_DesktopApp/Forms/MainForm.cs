@@ -1,35 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.Control;
 using SongsAbout_DesktopApp.Forms;
 using SongsAbout_DesktopApp.Classes;
-using System.IO;
 
 using SongsAbout_DesktopApp.Properties;
 using SpotifyAPI.Web;
-using SpotifyAPI.Web.Auth;
-using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using Image = System.Drawing.Image;
-
 
 namespace SongsAbout_DesktopApp
 {
     public partial class MainForm : Form
     {
-        private SpotifyWebAPI _spotify;
-        private PrivateProfile _profile;
-        private List<FullTrack> _savedTracks;
-        private List<SimplePlaylist> _playlists;
-        private Image _profilePic;
+        //private SpotifyWebAPI _spotify;
+        //private PrivateProfile _profile;
+        //private List<FullTrack> _savedTracks;
+        //private List<SimplePlaylist> _playlists;
+        //private Image _profilePic;
 
         public MainForm()
         {
@@ -103,11 +92,18 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private void btnSpotify_Click(object sender, EventArgs e)
+        private async void btnSpotify_Click(object sender, EventArgs e)
         {
             try
             {
-                Task.Run(() => SpotifySetup.RunAuthentication());
+                if (User.Default.PrivateProfile == null)
+                {
+                    await Task.Run(() => UserSpotify.Authenticate());
+                }
+                else
+                {
+                    MessageBox.Show("Profile Already Defined.");
+                }
             }
             catch (Exception ex)
             {
@@ -115,28 +111,39 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private static List<SimplePlaylist> GetPlaylists()
+        private void ImportArtistsFromSpotify()
         {
-            try
+            List<SimplePlaylist> userPlaylists = UserSpotify.GetPlaylists();
+            foreach (var playlist in userPlaylists)
             {
-                Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId);
-                List<SimplePlaylist> list = playlists.Items.ToList();
+                Paging<PlaylistTrack> playlistTracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.UserId, playlist.Id);
 
-                while (playlists.Next != null)
+                foreach (PlaylistTrack pt in playlistTracks.Items)
                 {
-                    playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId, 20, playlists.Offset + playlists.Limit);
-                    list.AddRange(playlists.Items);
-                }
+                    foreach (SimpleArtist ar in pt.Track.Artists)
+                    {
+                        FullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
+                        Artist a = new Artist();
+                        a.UpdataArtistInfo(artist);
+                        a.Save();
 
-                return list;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                    }
+                }
             }
         }
 
 
+        private void btnImportArtists_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ImportArtistsFromSpotify();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Importing Artists from Spotify: " + ex.Message);
+            }
+        }
     }
 
 }

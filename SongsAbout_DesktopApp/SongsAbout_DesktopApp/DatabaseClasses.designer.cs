@@ -156,7 +156,7 @@ namespace SongsAbout_DesktopApp
 		
 		private string _a_spotify_uri;
 		
-		private string _a_profile_pic;
+		private byte[] _a_profile_pic;
 		
 		private EntitySet<Album> _Albums;
 		
@@ -174,7 +174,7 @@ namespace SongsAbout_DesktopApp
     partial void Ona_websiteChanged();
     partial void Ona_spotify_uriChanging(string value);
     partial void Ona_spotify_uriChanged();
-    partial void Ona_profile_picChanging(string value);
+    partial void Ona_profile_picChanging(byte[] value);
     partial void Ona_profile_picChanged();
     #endregion
 		
@@ -254,7 +254,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_spotify_uri", DbType="NVarChar(255)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_spotify_uri", AutoSync=AutoSync.Always, DbType="NVarChar(255)")]
 		public string a_spotify_uri
 		{
 			get
@@ -274,8 +274,8 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_profile_pic", CanBeNull=false)]
-		public string a_profile_pic
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_profile_pic", AutoSync=AutoSync.Always, DbType="Image")]
+		public byte[] a_profile_pic
 		{
 			get
 			{
