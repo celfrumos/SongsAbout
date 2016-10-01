@@ -48,54 +48,54 @@ namespace SongsAbout_DesktopApp.Forms
             }
         }
 
-        private void GetFollowedArtists()
-        {
-            TestAPI(Scope.UserFollowRead);
-            // userId = GetUserId();
-            FollowedArtists artists = _spotify.GetFollowedArtists(FollowType.Artist);
-            foreach (var item in artists.Artists.Items)
-            {
-                string id = item.Id;
-                string uri = item.Uri;
-                string name = item.Name;
-                var images = item.Images;
-                string href = item.Href;
-                List<string> genres = item.Genres;
-            }
+        //private void GetFollowedArtists()
+        //{
+        //    TestAPI(Scope.UserFollowRead);
+        //    // userId = GetUserId();
+        //    FollowedArtists artists = _spotify.GetFollowedArtists(FollowType.Artist);
+        //    foreach (var item in artists.Artists.Items)
+        //    {
+        //        string id = item.Id;
+        //        string uri = item.Uri;
+        //        string name = item.Name;
+        //        var images = item.Images;
+        //        string href = item.Href;
+        //        List<string> genres = item.Genres;
+        //    }
 
-        }
+        //}
 
-        private void PutPlaylists()
-        {
+        //private void PutPlaylists()
+        //{
 
-            Paging<SimplePlaylist> myPlaylists = _spotify.GetUserPlaylists(userId, 5, 0);
-            foreach (SimplePlaylist item in myPlaylists.Items)
-            {
-                string playlistTrack = "";
-                string uri = item.Uri;
-                string playlistId = item.Id;
+        //    Paging<SimplePlaylist> myPlaylists = _spotify.GetUserPlaylists(userId, 5, 0);
+        //    foreach (SimplePlaylist item in myPlaylists.Items)
+        //    {
+        //        string playlistTrack = "";
+        //        string uri = item.Uri;
+        //        string playlistId = item.Id;
 
-                Paging<PlaylistTrack> tracks = _spotify.GetPlaylistTracks(userId, playlistId);
-                if (tracks.Error.Message == null)
-                {
-                    foreach (PlaylistTrack t in tracks.Items)
-                    {
-                        string name = t.Track.Name;
-                        string alName = t.Track.Album.Name;
-                        var artists = t.Track.Artists;
-                        SimpleArtist firstArtist = artists[0];
-                        string aName = firstArtist.Name;
-                        playlistTrack += name + " " + alName + " " + aName;
-                        MessageBox.Show(playlistTrack);
-                    }
-                }
-                else
-                {
-                    throw new Exception(tracks.Error.Message);
-                }
-            }
+        //        Paging<PlaylistTrack> tracks = _spotify.GetPlaylistTracks(userId, playlistId);
+        //        if (tracks.Error.Message == null)
+        //        {
+        //            foreach (PlaylistTrack t in tracks.Items)
+        //            {
+        //                string name = t.Track.Name;
+        //                string alName = t.Track.Album.Name;
+        //                var artists = t.Track.Artists;
+        //                SimpleArtist firstArtist = artists[0];
+        //                string aName = firstArtist.Name;
+        //                playlistTrack += name + " " + alName + " " + aName;
+        //                MessageBox.Show(playlistTrack);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            throw new Exception(tracks.Error.Message);
+        //        }
+        //    }
 
-        }
+        //}
 
         private async void TestAPI(Scope selectedScope)
         {

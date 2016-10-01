@@ -106,12 +106,13 @@ namespace SongsAbout_DesktopApp
 
         private void btnSpotify_Click(object sender, EventArgs e)
         {
-            ConnectSpotifyForm selectForm = new ConnectSpotifyForm();
-            selectForm.ShowDialog();
-
-            if (selectForm.ProfilePic != null)
+            try
             {
-                pBoxProfilePic.Image = selectForm.ProfilePic;
+                Task.Run(() => RunAuthentication());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error getting desired Info");
             }
         }
 
@@ -213,7 +214,9 @@ namespace SongsAbout_DesktopApp
                         using (MemoryStream stream = new MemoryStream(imageBytes))
                         {
                             _profilePic = Image.FromStream(stream);
-                            //   pictureBox1.Image = _profilePic;
+                            string profilePicFileName = "Pictures\\ProfilePic." + _profilePic.GetType();
+                         //   _profilePic.Save(profilePicFileName);
+                            pBoxProfilePic.Image = _profilePic;
                         }
                     }
                 }
