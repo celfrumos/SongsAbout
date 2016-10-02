@@ -23,7 +23,7 @@ namespace SongsAbout_DesktopApp.Classes
                 catch (Exception ex)
                 {
                     Console.WriteLine("Error importing Playlist: " + playlist.Name + ", " + ex.Message);
-                    throw new Exception(ex.Message);
+                    //throw new Exception(ex.Message);
                 }
             }
             Console.WriteLine("Finished importing artists from Playlists.");
@@ -50,7 +50,7 @@ namespace SongsAbout_DesktopApp.Classes
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw new Exception(ex.Message);
+                //throw new Exception(ex.Message);
             }
         }
 

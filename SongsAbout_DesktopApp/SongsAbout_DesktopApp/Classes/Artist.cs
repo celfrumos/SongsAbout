@@ -64,12 +64,31 @@ namespace SongsAbout_DesktopApp
 
                 try
                 {
-                    DataTable artistTable = dataSet.Artists;
-                  
-                    string query = "a_name = '" + this.a_name + "'";
-                    DataRow[] rows = artistTable.Select(query);
+                    //    DataTable artistTable = dataSet.Artists;
 
-                    return (rows.Length == 0);
+                    //    string query = "a_name = '" + this.a_name + "'";
+                    //    DataRow[] rows = artistTable.Select(query);
+
+                    //    return (rows.Length != 0);
+                    using (DataClasses1DataContext db = new DataClasses1DataContext())
+                    {
+                        string aquery =
+                        "select * from tracks where a_name = '" + this.a_name + "'";
+                        var arts = db.ExecuteQuery<Artist>(aquery);
+                        int count = 0;
+                        foreach (var item in arts)
+                        {
+                            count++;
+                        }
+                        //DataTable tracksTable = dataSet.Artists; 
+                        //string query = "track_name = '" + this.track_name + "' "; 
+                        //DataRow[] rows = tracksTable.Select(query); 
+                        //return (rows.Length == 0);
+                        db.Dispose();
+                        bool result = (count != 0);
+                        return result;
+
+                    }
                 }
                 catch (Exception)
                 {

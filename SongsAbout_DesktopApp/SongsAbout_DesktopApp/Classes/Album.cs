@@ -42,13 +42,28 @@ namespace SongsAbout_DesktopApp
                 // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
                 albumsTableAdapter.Fill(dataSet.Albums);
 
-                DataTable albumsTable = dataSet.Artists;
-                string query = "al_title = '" + this.al_title + "'";
+              //  DataTable albumsTable = dataSet.Albums;
+                //string query = "al_title = '" + this.al_title + "'";
                 try
                 {
-                    DataRow[] rows = albumsTable.Select(query);
+                    //DataRow[] rows = albumsTable.Select(query);
+                    DataClasses1DataContext db = new DataClasses1DataContext();
+                    string aquery =
+                    "select * from Albums where al_title = '" + this.al_title + "'";
+                    var albs = db.ExecuteQuery<Album>(aquery);
+                    int count = 0;
+                    foreach (var item in albs)
+                    {
+                        count++;
+                    }
+                    //Album a = new Album(); 
+                    //DataTable albumsTable = dataSet.Artists; 
+                    //string query = "al_title = '" + this.al_title + "'"; 
 
-                    return (rows.Length == 0);
+                    //   var rows = albumsTable.Select(query); 
+                    db.Dispose();
+                    return (count != 0);
+                    //   return (rows.Length == 0);
                 }
                 catch (Exception)
                 {

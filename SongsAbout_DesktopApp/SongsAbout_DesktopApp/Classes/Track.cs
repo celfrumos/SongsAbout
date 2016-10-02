@@ -26,9 +26,9 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-//                string msg = "Error saving Track:" + ex.Message;
-  //              Console.WriteLine(msg);
-                throw new Exception("Error saving Track:" + ex.Message);
+                string msg = "Error saving Track:" + ex.Message;
+                Console.WriteLine(msg);
+                //throw new Exception("Error saving Track:" + ex.Message);
 
             }
         }
@@ -37,7 +37,6 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                BindingSource tracksBindingSource = new BindingSource();
                 DataSetTableAdapters.TracksTableAdapter tracksTableAdapter = new DataSetTableAdapters.TracksTableAdapter();
                 DataSet dataSet = new DataSet();
 
@@ -47,8 +46,31 @@ namespace SongsAbout_DesktopApp
                 DataTable tracksTable = dataSet.Artists;
                 string query = "track_name = '" + this.track_name + "' ";
                 DataRow[] rows = tracksTable.Select(query);
-
-                return (rows.Length == 0);
+                try
+                {
+                    using (DataClasses1DataContext db = new DataClasses1DataContext())
+                    {
+                        string aquery =
+                        "select * from tracks where track_name = '" + this.track_name + "'";
+                        var tracks = db.ExecuteQuery<Track>(aquery);
+                        int count = 0;
+                        foreach (var item in tracks)
+                        {
+                            count++;
+                        }
+                        //DataTable tracksTable = dataSet.Artists; 
+                        //string query = "track_name = '" + this.track_name + "' "; 
+                        //DataRow[] rows = tracksTable.Select(query); 
+                        //return (rows.Length == 0);
+                        db.Dispose();
+                        bool result = (count != 0);
+                        return result;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -87,7 +109,7 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        internal void Update(FullTrack t)
+        public void Update(FullTrack t)
         {
             try
             {
@@ -95,7 +117,8 @@ namespace SongsAbout_DesktopApp
                 this.track_length_minutes = t.DurationMs / 60000;
                 this.track_spotify_uri = t.Uri;
                 UpdateAlbum(t.Album);
-                UpdateArtist(t.Artists[0]);
+                var tArtist = t.Artists[0];
+                UpdateArtist(tArtist);
             }
             catch (Exception ex)
             {
@@ -109,9 +132,9 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                this.Artist = new Artist();
-                this.Artist.Update(simpleArtist);
-                this.Artist.Save();
+                //this.Artist = new Artist();
+                //this.Artist.Update(simpleArtist);
+                //this.Artist.Save();
             }
             catch (Exception ex)
             {
