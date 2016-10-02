@@ -15,6 +15,10 @@ namespace SongsAbout_DesktopApp
 
         private void QueryForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'dataSet.TrackArtistAlbum' table. You can move, or remove it, as needed.
+            this.trackArtistAlbumTableAdapter.Fill(this.dataSet.TrackArtistAlbum);
+            // TODO: This line of code loads data into the 'dataSet.TrackArtistAlbum' table. You can move, or remove it, as needed.
+            this.trackArtistAlbumTableAdapter.Fill(this.dataSet.TrackArtistAlbum);
             try
             {
                 // TODO: This line of code loads data into the 'dataSet.Lists' table. You can move, or remove it, as needed.
@@ -122,6 +126,11 @@ namespace SongsAbout_DesktopApp
             {
                 MessageBox.Show(ex.Message, "Error updating cell value");
             }
+        }
+
+        private void trackArtistAlbumDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
