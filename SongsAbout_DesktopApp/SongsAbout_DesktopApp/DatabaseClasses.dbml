@@ -7,7 +7,7 @@
       <Column Name="a_bio" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="a_website" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="a_spotify_uri" AutoSync="Always" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="a_profile_pic" AutoSync="Always" Type="System.Byte[]" DbType="Image" CanBeNull="true" />
+      <Column Name="a_profile_pic" Type="System.Byte[]" DbType="Image" CanBeNull="true" />
       <Association Name="Artist_Album" Member="Albums" ThisKey="artist_id" OtherKey="artist_id" Type="Album" />
       <Association Name="Artist_Track" Member="Tracks" ThisKey="artist_id" OtherKey="track_artist_id" Type="Track" />
     </Type>
@@ -16,6 +16,7 @@
     <Type Name="Genre">
       <Column Name="genre" Type="System.String" DbType="NVarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Genre_TrackGenre" Member="TrackGenres" ThisKey="genre" OtherKey="tg_genre" Type="TrackGenre" />
+      <Association Name="Genre_AlbumGenre" Member="AlbumGenres" ThisKey="genre" OtherKey="genre" Type="AlbumGenre" />
     </Type>
   </Table>
   <Table Name="dbo.TrackGenres" Member="TrackGenres">
@@ -34,8 +35,9 @@
       <Column Name="al_title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="al_year" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
       <Column Name="al_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="al_cover_art" Type="System.String" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="al_cover_art" Type="System.Byte[]" DbType="Image" CanBeNull="true" />
       <Association Name="Album_Track" Member="Tracks" ThisKey="album_id" OtherKey="album_id" Type="Track" />
+      <Association Name="Album_AlbumGenre" Member="AlbumGenres" ThisKey="album_id" OtherKey="album_id" Type="AlbumGenre" />
       <Association Name="Artist_Album" Member="Artist" ThisKey="artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
@@ -68,6 +70,15 @@
       <Column Name="track_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Tag_TrackTag" Member="Tag" ThisKey="tag_text" OtherKey="tag_text" Type="Tag" IsForeignKey="true" DeleteRule="CASCADE" />
       <Association Name="Track_TrackTag" Member="Track" ThisKey="track_id" OtherKey="track_id" Type="Track" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AlbumGenres" Member="AlbumGenres">
+    <Type Name="AlbumGenre">
+      <Column Name="al_g_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="album_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="genre" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="Album_AlbumGenre" Member="Album" ThisKey="album_id" OtherKey="album_id" Type="Album" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Genre_AlbumGenre" Member="Genre1" ThisKey="genre" OtherKey="genre" Type="Genre" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
 </Database>

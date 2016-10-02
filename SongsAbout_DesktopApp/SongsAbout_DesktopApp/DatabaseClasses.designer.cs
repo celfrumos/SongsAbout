@@ -51,6 +51,9 @@ namespace SongsAbout_DesktopApp
     partial void InsertTrackTag(TrackTag instance);
     partial void UpdateTrackTag(TrackTag instance);
     partial void DeleteTrackTag(TrackTag instance);
+    partial void InsertAlbumGenre(AlbumGenre instance);
+    partial void UpdateAlbumGenre(AlbumGenre instance);
+    partial void DeleteAlbumGenre(AlbumGenre instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -136,6 +139,14 @@ namespace SongsAbout_DesktopApp
 			get
 			{
 				return this.GetTable<TrackTag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AlbumGenre> AlbumGenres
+		{
+			get
+			{
+				return this.GetTable<AlbumGenre>();
 			}
 		}
 	}
@@ -274,7 +285,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_profile_pic", AutoSync=AutoSync.Always, DbType="Image")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_a_profile_pic", DbType="Image")]
 		public byte[] a_profile_pic
 		{
 			get
@@ -375,6 +386,8 @@ namespace SongsAbout_DesktopApp
 		
 		private EntitySet<TrackGenre> _TrackGenres;
 		
+		private EntitySet<AlbumGenre> _AlbumGenres;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -386,6 +399,7 @@ namespace SongsAbout_DesktopApp
 		public Genre()
 		{
 			this._TrackGenres = new EntitySet<TrackGenre>(new Action<TrackGenre>(this.attach_TrackGenres), new Action<TrackGenre>(this.detach_TrackGenres));
+			this._AlbumGenres = new EntitySet<AlbumGenre>(new Action<AlbumGenre>(this.attach_AlbumGenres), new Action<AlbumGenre>(this.detach_AlbumGenres));
 			OnCreated();
 		}
 		
@@ -422,6 +436,19 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Genre_AlbumGenre", Storage="_AlbumGenres", ThisKey="genre", OtherKey="genre")]
+		public EntitySet<AlbumGenre> AlbumGenres
+		{
+			get
+			{
+				return this._AlbumGenres;
+			}
+			set
+			{
+				this._AlbumGenres.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -449,6 +476,18 @@ namespace SongsAbout_DesktopApp
 		}
 		
 		private void detach_TrackGenres(TrackGenre entity)
+		{
+			this.SendPropertyChanging();
+			entity.Genre1 = null;
+		}
+		
+		private void attach_AlbumGenres(AlbumGenre entity)
+		{
+			this.SendPropertyChanging();
+			entity.Genre1 = this;
+		}
+		
+		private void detach_AlbumGenres(AlbumGenre entity)
 		{
 			this.SendPropertyChanging();
 			entity.Genre1 = null;
@@ -646,9 +685,11 @@ namespace SongsAbout_DesktopApp
 		
 		private string _al_spotify_uri;
 		
-		private string _al_cover_art;
+		private byte[] _al_cover_art;
 		
 		private EntitySet<Track> _Tracks;
+		
+		private EntitySet<AlbumGenre> _AlbumGenres;
 		
 		private EntityRef<Artist> _Artist;
 		
@@ -666,13 +707,14 @@ namespace SongsAbout_DesktopApp
     partial void Onal_yearChanged();
     partial void Onal_spotify_uriChanging(string value);
     partial void Onal_spotify_uriChanged();
-    partial void Onal_cover_artChanging(string value);
+    partial void Onal_cover_artChanging(byte[] value);
     partial void Onal_cover_artChanged();
     #endregion
 		
 		public Album()
 		{
 			this._Tracks = new EntitySet<Track>(new Action<Track>(this.attach_Tracks), new Action<Track>(this.detach_Tracks));
+			this._AlbumGenres = new EntitySet<AlbumGenre>(new Action<AlbumGenre>(this.attach_AlbumGenres), new Action<AlbumGenre>(this.detach_AlbumGenres));
 			this._Artist = default(EntityRef<Artist>);
 			OnCreated();
 		}
@@ -781,8 +823,8 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_al_cover_art", UpdateCheck=UpdateCheck.Never)]
-		public string al_cover_art
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_al_cover_art", DbType="Image")]
+		public byte[] al_cover_art
 		{
 			get
 			{
@@ -811,6 +853,19 @@ namespace SongsAbout_DesktopApp
 			set
 			{
 				this._Tracks.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_AlbumGenre", Storage="_AlbumGenres", ThisKey="album_id", OtherKey="album_id")]
+		public EntitySet<AlbumGenre> AlbumGenres
+		{
+			get
+			{
+				return this._AlbumGenres;
+			}
+			set
+			{
+				this._AlbumGenres.Assign(value);
 			}
 		}
 		
@@ -875,6 +930,18 @@ namespace SongsAbout_DesktopApp
 		}
 		
 		private void detach_Tracks(Track entity)
+		{
+			this.SendPropertyChanging();
+			entity.Album = null;
+		}
+		
+		private void attach_AlbumGenres(AlbumGenre entity)
+		{
+			this.SendPropertyChanging();
+			entity.Album = this;
+		}
+		
+		private void detach_AlbumGenres(AlbumGenre entity)
 		{
 			this.SendPropertyChanging();
 			entity.Album = null;
@@ -1506,6 +1573,198 @@ namespace SongsAbout_DesktopApp
 						this._track_id = default(int);
 					}
 					this.SendPropertyChanged("Track");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AlbumGenres")]
+	public partial class AlbumGenre : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _al_g_id;
+		
+		private System.Nullable<int> _album_id;
+		
+		private string _genre;
+		
+		private EntityRef<Album> _Album;
+		
+		private EntityRef<Genre> _Genre1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onal_g_idChanging(int value);
+    partial void Onal_g_idChanged();
+    partial void Onalbum_idChanging(System.Nullable<int> value);
+    partial void Onalbum_idChanged();
+    partial void OngenreChanging(string value);
+    partial void OngenreChanged();
+    #endregion
+		
+		public AlbumGenre()
+		{
+			this._Album = default(EntityRef<Album>);
+			this._Genre1 = default(EntityRef<Genre>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_al_g_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int al_g_id
+		{
+			get
+			{
+				return this._al_g_id;
+			}
+			set
+			{
+				if ((this._al_g_id != value))
+				{
+					this.Onal_g_idChanging(value);
+					this.SendPropertyChanging();
+					this._al_g_id = value;
+					this.SendPropertyChanged("al_g_id");
+					this.Onal_g_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_album_id", DbType="Int")]
+		public System.Nullable<int> album_id
+		{
+			get
+			{
+				return this._album_id;
+			}
+			set
+			{
+				if ((this._album_id != value))
+				{
+					if (this._Album.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onalbum_idChanging(value);
+					this.SendPropertyChanging();
+					this._album_id = value;
+					this.SendPropertyChanged("album_id");
+					this.Onalbum_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_genre", DbType="NVarChar(255)")]
+		public string genre
+		{
+			get
+			{
+				return this._genre;
+			}
+			set
+			{
+				if ((this._genre != value))
+				{
+					if (this._Genre1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OngenreChanging(value);
+					this.SendPropertyChanging();
+					this._genre = value;
+					this.SendPropertyChanged("genre");
+					this.OngenreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_AlbumGenre", Storage="_Album", ThisKey="album_id", OtherKey="album_id", IsForeignKey=true, DeleteRule="CASCADE")]
+		public Album Album
+		{
+			get
+			{
+				return this._Album.Entity;
+			}
+			set
+			{
+				Album previousValue = this._Album.Entity;
+				if (((previousValue != value) 
+							|| (this._Album.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Album.Entity = null;
+						previousValue.AlbumGenres.Remove(this);
+					}
+					this._Album.Entity = value;
+					if ((value != null))
+					{
+						value.AlbumGenres.Add(this);
+						this._album_id = value.album_id;
+					}
+					else
+					{
+						this._album_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Album");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Genre_AlbumGenre", Storage="_Genre1", ThisKey="genre", OtherKey="genre", IsForeignKey=true, DeleteRule="CASCADE")]
+		public Genre Genre1
+		{
+			get
+			{
+				return this._Genre1.Entity;
+			}
+			set
+			{
+				Genre previousValue = this._Genre1.Entity;
+				if (((previousValue != value) 
+							|| (this._Genre1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Genre1.Entity = null;
+						previousValue.AlbumGenres.Remove(this);
+					}
+					this._Genre1.Entity = value;
+					if ((value != null))
+					{
+						value.AlbumGenres.Add(this);
+						this._genre = value.genre;
+					}
+					else
+					{
+						this._genre = default(string);
+					}
+					this.SendPropertyChanged("Genre1");
 				}
 			}
 		}

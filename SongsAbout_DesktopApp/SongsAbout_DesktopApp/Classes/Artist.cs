@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Data;
 using SpotifyAPI.Web.Models;
-using System.Threading.Tasks;
 using SongsAbout_DesktopApp.Classes;
-using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SongsAbout_DesktopApp
@@ -61,7 +54,7 @@ namespace SongsAbout_DesktopApp
             return (rows.Length == 0);
         }
 
-        public async void UpdataArtistInfo(FullArtist artist)
+        public async void Update(FullArtist artist)
         {
             this.a_name = artist.Name;
             this.a_spotify_uri = artist.Uri;

@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Importer.cs" />
     <Compile Include="Classes\UserSpotify.cs" />
     <Compile Include="Classes\UserProfile.cs" />
     <Compile Include="DatabaseClasses.cs">
