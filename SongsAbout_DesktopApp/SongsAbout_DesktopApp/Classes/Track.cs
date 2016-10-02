@@ -37,39 +37,20 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                DataSetTableAdapters.TracksTableAdapter tracksTableAdapter = new DataSetTableAdapters.TracksTableAdapter();
-                DataSet dataSet = new DataSet();
-
-                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-                tracksTableAdapter.Fill(dataSet.Tracks);
-
-                DataTable tracksTable = dataSet.Artists;
-                string query = "track_name = '" + this.track_name + "' ";
-                DataRow[] rows = tracksTable.Select(query);
-                try
+                int count = 0;
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    using (DataClasses1DataContext db = new DataClasses1DataContext())
+                    string aquery = "SELECT * FROM Tracks WHERE track_name = '" + this.track_name + "'";
+                    var tracks = db.ExecuteQuery<Track>(aquery);
+
+                    foreach (var item in tracks)
                     {
-                        string aquery =
-                        "select * from tracks where track_name = '" + this.track_name + "'";
-                        var tracks = db.ExecuteQuery<Track>(aquery);
-                        int count = 0;
-                        foreach (var item in tracks)
-                        {
-                            count++;
-                        }
-                        //DataTable tracksTable = dataSet.Artists; 
-                        //string query = "track_name = '" + this.track_name + "' "; 
-                        //DataRow[] rows = tracksTable.Select(query); 
-                        //return (rows.Length == 0);
-
-                        return (count != 0);
+                        count++;
                     }
+
                 }
-                catch (Exception)
-                {
-                    return false;
-                }
+                return (count > 0);
+
             }
             catch (Exception ex)
             {
@@ -148,6 +129,11 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
+                if (Album.Exists(album.Name))
+                {
+                    Artist a = Artist.Load(album.name));
+                    this.album_id = a.
+                }
                 Album al = new Album();
                 al.Update(album);
                 al.Save();

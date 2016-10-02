@@ -23,82 +23,71 @@ namespace SongsAbout_DesktopApp
         /// </summary>
         public void Save()
         {
-            using (DataClasses1DataContext context = new DataClasses1DataContext())
-                try
-                {
-                    {
-                        if (this.a_name != null && !Exists(this.a_name))
-                        {
-                            try
-                            {
-                                context.Artists.InsertOnSubmit(this);
-
-                                context.SubmitChanges();
-                            }
-                            catch (Exception ex)
-                            {
-                                string msg = "Error Saving Artist" + ex.Message;
-                                Console.WriteLine(msg);
-                                throw new Exception(msg);
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    string msg = "Error updating artist: " + ex.Message;
-                    Console.WriteLine(msg);
-                    throw new Exception(msg);
-                }
-        }
-
-        public bool Exists(string name)
-        {
             try
             {
-                //BindingSource artistsBindingSource = new BindingSource();
-                //DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter = new DataSetTableAdapters.ArtistsTableAdapter();
-                //DataSet dataSet = new DataSet();
-
-                //// TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-                //artistsTableAdapter.Fill(dataSet.Artists);
-
-                try
+                if (this.a_name != null)
                 {
-                    //    DataTable artistTable = dataSet.Artists;
-
-                    //    string query = "a_name = '" + this.a_name + "'";
-                    //    DataRow[] rows = artistTable.Select(query);
-
-                    //    return (rows.Length != 0);
-                    using (DataClasses1DataContext db = new DataClasses1DataContext())
+                    if (!Exists(this.a_name))
                     {
-                        string aquery =
-                        "select * from tracks where a_name = '" + this.a_name + "'";
-                        var artists = db.ExecuteQuery<Artist>(aquery);
-                        int count = 0;
-                        foreach (Artist artist in artists)
+                        try
                         {
-                            count++;
-                            if (count == 1)
+                            using (DataClasses1DataContext context = new DataClasses1DataContext())
                             {
-                                //   this = artist.;
+                                context.Artists.InsertOnSubmit(this);
+                                context.SubmitChanges();
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            string msg = "Error Saving Artist" + ex.Message;
+                            Console.WriteLine(msg);
+                            throw new Exception(msg);
+                        }
+                    }
+                    else
+                    {
+                        string msg = "An artist with this name already exists. To update that artist, use Artist a = Artist.Load(a_name)";
 
-                        bool result = (count != 0);
-                        return result;
-
+                        Console.WriteLine(msg);
+                        //throw new Exception ()
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return false;
+                    throw new Exception("Artist name cannot be null.");
                 }
+
             }
             catch (Exception ex)
             {
                 string msg = "Error updating artist: " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
+            }
+        }
+
+        public static bool Exists(string name)
+        {
+            try
+            {
+                string aquery =
+                "SELECT * FROM Artists WHERE a_name = '" + name + "'";
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                {
+                    var artists = db.ExecuteQuery<Artist>(aquery);
+                    int count = 0;
+                    foreach (Artist artist in artists)
+                    {
+                        count++;
+                    }
+
+                    return (count > 0);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = "Error verifying if artist: " + name + " exists, " + ex.Message;
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -141,15 +130,14 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-
-        public void Load()
+        public static Artist Load(string name)
         {
             try
             {
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
                     string aquery =
-                    "select * from tracks where a_name = '" + this.a_name + "'";
+                    "SELECT * FROM Artists WHERE a_name = '" + name + "'";
                     var artists = db.ExecuteQuery<Artist>(aquery);
                     int count = 0;
                     foreach (Artist artist in artists)
@@ -157,20 +145,21 @@ namespace SongsAbout_DesktopApp
                         count++;
                         if (count == 1)
                         {
-                            //   this = artist.;
+                            return artist;
                         }
                     }
 
-                    bool result = (count != 0);
-                    //   return result;
-
+                    throw new Exception("No artist with that name found");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new Exception("Error Loading artist: " + name + ", " + ex.Message);
             }
+        }
+
+        private void oldLoad()
+        {
             try
             {
                 BindingSource artistsBindingSource = new BindingSource();

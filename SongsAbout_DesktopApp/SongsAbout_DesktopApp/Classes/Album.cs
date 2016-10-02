@@ -31,52 +31,22 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        public bool Exists(string name)
+        public static bool Exists(string name)
         {
             try
             {
-                //BindingSource albumsBindingSource = new BindingSource();
-                DataSetTableAdapters.AlbumsTableAdapter albumsTableAdapter = new DataSetTableAdapters.AlbumsTableAdapter();
-                DataSet dataSet = new DataSet();
-
-                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-                albumsTableAdapter.Fill(dataSet.Albums);
-
-                //  DataTable albumsTable = dataSet.Albums;
-                //string query = "al_title = '" + this.al_title + "'";
-                try
+                int count = 0;
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    //DataRow[] rows = albumsTable.Select(query);
-                    DataClasses1DataContext db = new DataClasses1DataContext();
                     string aquery =
-                    "select * from Albums where al_title = '" + this.al_title + "'";
+                    "select * from Albums where al_title = '" + name + "'";
                     var albs = db.ExecuteQuery<Album>(aquery);
-                    int count = 0;
                     foreach (var item in albs)
                     {
                         count++;
-                        if (count ==1 )
-                        {
-                           // this.aa
-                        }
                     }
-                    //Album a = new Album(); 
-                    //DataTable albumsTable = dataSet.Artists; 
-                    //string query = "al_title = '" + this.al_title + "'"; 
-
-                    //   var rows = albumsTable.Select(query); 
-                    bool exists = (count != 0);
-                    if (exists)
-                    {
-                    }
-                    db.Dispose();
-                    return exists;
-                    //   return (rows.Length == 0);
                 }
-                catch (Exception)
-                {
-                    return false;
-                }
+                return (count > 0); ;
             }
             catch (Exception ex)
             {
@@ -113,7 +83,7 @@ namespace SongsAbout_DesktopApp
                 if (album.Images.Count > 0)
                 {
                     byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
-                     this.al_cover_art = pic;
+                    this.al_cover_art = pic;
                 }
             }
             catch (Exception ex)
@@ -138,6 +108,34 @@ namespace SongsAbout_DesktopApp
                 string msg = "Error updating album artist: " + this.al_title + ", " + this.Artist.a_name + ": " + ex.Message;
                 Console.WriteLine(msg);
                 throw new Exception(msg);
+            }
+        }
+
+        public static Album Load(string name)
+        {
+            try
+            {
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                {
+                    string aquery =
+                    "SELECT * FROM Albums WHERE a_name = '" + name + "'";
+                    var albums = db.ExecuteQuery<Album>(aquery);
+                    int count = 0;
+                    foreach (Album album in albums)
+                    {
+                        count++;
+                        if (count == 1)
+                        {
+                            return album;
+                        }
+                    }
+
+                    throw new Exception("No artist with that name found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error Loading artist: " + name + ", " + ex.Message);
             }
         }
 
