@@ -15,12 +15,10 @@ namespace SongsAbout_DesktopApp
 
         private void QueryForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dataSet.TrackArtistAlbum' table. You can move, or remove it, as needed.
-            this.trackArtistAlbumTableAdapter.Fill(this.dataSet.TrackArtistAlbum);
-            // TODO: This line of code loads data into the 'dataSet.TrackArtistAlbum' table. You can move, or remove it, as needed.
-            this.trackArtistAlbumTableAdapter.Fill(this.dataSet.TrackArtistAlbum);
             try
             {
+                // TODO: This line of code loads data into the 'dataSet.AlbumGenres' table. You can move, or remove it, as needed.
+                this.albumGenresTableAdapter.Fill(this.dataSet.AlbumGenres);
                 // TODO: This line of code loads data into the 'dataSet.Lists' table. You can move, or remove it, as needed.
                 this.listsTableAdapter.Fill(this.dataSet.Lists);
                 // TODO: This line of code loads data into the 'dataSet.TrackTags' table. You can move, or remove it, as needed.
@@ -62,24 +60,38 @@ namespace SongsAbout_DesktopApp
         }
         private void btnSaveContinue_Click(object sender, EventArgs e)
         {
-            bool saveSucceeded = SaveChanges();
-            if (saveSucceeded)
+            try
             {
-                MessageBox.Show("Success");
+                if (SaveChanges())
+                {
+                    MessageBox.Show("Success");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Saving Data:");
             }
         }
 
         private void btnSaveClose_Click(object sender, EventArgs e)
         {
-            bool saveSucceeded = SaveChanges();
-            if (saveSucceeded)
+            try
             {
-                MessageBox.Show("Success. Now closing form.");
-                this.Close();
+                if (SaveChanges())
+                {
+                    MessageBox.Show("Success. Now closing form.");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Nothing was saved. Try again or press cancel to exit.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Nothing was saved. Try again or press cancel to exit.");
+                MessageBox.Show(ex.Message, "Error Saving Data.");
+                throw;
             }
         }
 
@@ -96,18 +108,25 @@ namespace SongsAbout_DesktopApp
 
         private void artistsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int artistColumnIndex = 3;
-            var senderGrid = (DataGridView)sender;
-
-            if (senderGrid.Columns[artistColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            try
             {
-                if (e.ColumnIndex == artistColumnIndex)
+                int artistColumnIndex = 3;
+                var senderGrid = (DataGridView)sender;
+
+                if (senderGrid.Columns[artistColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
                 {
-                    DataGridViewCell selectedCell = senderGrid.Rows[e.RowIndex].Cells[artistColumnIndex];
+                    if (e.ColumnIndex == artistColumnIndex)
+                    {
+                        DataGridViewCell selectedCell = senderGrid.Rows[e.RowIndex].Cells[artistColumnIndex];
 
-                    UpdateCellValue(ref selectedCell);
+                        UpdateCellValue(ref selectedCell);
 
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Updating Artist info");
             }
         }
 
@@ -128,9 +147,6 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private void trackArtistAlbumDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+  
     }
 }
