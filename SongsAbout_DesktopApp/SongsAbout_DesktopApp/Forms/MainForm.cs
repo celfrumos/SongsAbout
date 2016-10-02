@@ -114,20 +114,44 @@ namespace SongsAbout_DesktopApp
         private void ImportArtistsFromSpotify()
         {
             List<SimplePlaylist> userPlaylists = UserSpotify.GetPlaylists();
-            foreach (var playlist in userPlaylists)
+            foreach (SimplePlaylist playlist in userPlaylists)
             {
-                Paging<PlaylistTrack> playlistTracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.UserId, playlist.Id);
-
-                foreach (PlaylistTrack pt in playlistTracks.Items)
+                try
                 {
-                    foreach (SimpleArtist ar in pt.Track.Artists)
-                    {
-                        FullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
-                        Artist a = new Artist();
-                        a.UpdataArtistInfo(artist);
-                        a.Save();
+                    Paging<PlaylistTrack> playlistTracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.UserId, playlist.Id);
 
+                    foreach (PlaylistTrack pt in playlistTracks.Items)
+                    {
+                        try
+                        {
+                            foreach (SimpleArtist ar in pt.Track.Artists)
+                            {
+                                try
+                                {
+                                    FullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
+                                    Artist a = new Artist();
+                                    if (!a.Exists(artist.Name))
+                                    {
+                                        a.UpdataArtistInfo(artist);
+                                        a.Save();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message, "Error importing artist: " + ar.Name);
+                                }
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error importing playlist tracks");
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error importing Playlist: " + playlist.Name);
                 }
             }
         }

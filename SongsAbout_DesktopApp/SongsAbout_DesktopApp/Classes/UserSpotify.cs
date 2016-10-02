@@ -317,13 +317,10 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 try
                 {
-                    using (WebClient wc = new WebClient())
-                    {
-                        byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(pic.Url));
+                    WebClient wc = new WebClient();
+                    byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(pic.Url));
 
-                        return imageBytes;
-
-                    }
+                    return imageBytes;
 
                 }
                 catch (Exception ex)
