@@ -3,6 +3,7 @@ using SpotifyAPI.Web.Models;
 using SongsAbout_DesktopApp.Classes;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using SongsAbout_DesktopApp.Properties;
 using System;
 
 namespace SongsAbout_DesktopApp
@@ -11,10 +12,20 @@ namespace SongsAbout_DesktopApp
     {
         public void Save()
         {
-            using (DataClasses1DataContext context = new DataClasses1DataContext())
+            try
             {
-                context.Albums.InsertOnSubmit(this);
-                context.SubmitChanges();
+                if (!Exists(this.al_title))
+                {
+                    using (DataClasses1DataContext context = new DataClasses1DataContext())
+                    {
+                        context.Albums.InsertOnSubmit(this);
+                        context.SubmitChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error Saving Artist: " + ex.Message);
             }
         }
 
@@ -34,19 +45,40 @@ namespace SongsAbout_DesktopApp
             return (rows.Length == 0);
         }
 
-        public async void Update(FullAlbum album)
+        internal void Update(SimpleAlbum album)
         {
-            this.al_title = album.Name;
-            this.al_spotify_uri = album.Uri;
-            this.SetGenres(album.Genres);
-
-            if (album.Images.Count > 0)
+            try
             {
-                this.al_cover_art = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
+                FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
+                this.Update(al);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
-        private void SetGenres(List<string> genres)
+        public async void Update(FullAlbum album)
+        {
+            try
+            {
+                this.al_title = album.Name;
+                this.al_spotify_uri = album.Uri;
+                this.Artist.Update(album.Artists[0]);
+                this.SetGenres(album.Genres);
+
+                if (album.Images.Count > 0)
+                {
+                    this.al_cover_art = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error Updating Album" + ex.Message);
+            }
+        }
+
+        public void SetGenres(List<string> genres)
         {
             foreach (string g in genres)
             {
@@ -56,15 +88,5 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        public async void Update(SimpleAlbum album)
-        {
-            this.al_title = album.Name;
-            this.al_spotify_uri = album.Uri;
-
-            if (album.Images.Count > 0)
-            {
-                this.al_cover_art = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
-            }
-        }
     }
 }

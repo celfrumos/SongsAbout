@@ -38,16 +38,18 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        private static void ImportTrack(FullTrack track)
+        public static void ImportTrack(FullTrack t)
         {
-            throw new NotImplementedException();
+            Track track = new Track();
+            track.Update(t);
         }
 
-        private static void ImportAlbum(SimpleAlbum album)
+        public static void ImportAlbum(SimpleAlbum album)
         {
             try
             {
                 FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
+                ImportAlbum(al);
             }
             catch (Exception)
             {
