@@ -28,14 +28,17 @@ namespace SongsAbout_DesktopApp
 
             using (DataClasses1DataContext context = new DataClasses1DataContext())
             {
-                try
+                if (this.a_name != null && !Exists(this.a_name))
                 {
-                    context.Artists.InsertOnSubmit(this);
-                    context.SubmitChanges();
-                }
-                catch (Exception)
-                {
-                    throw;
+                    try
+                    {
+                        context.Artists.InsertOnSubmit(this);
+                        context.SubmitChanges();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
             }
 

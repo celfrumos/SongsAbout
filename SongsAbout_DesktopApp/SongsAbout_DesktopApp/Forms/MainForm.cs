@@ -119,43 +119,57 @@ namespace SongsAbout_DesktopApp
                 try
                 {
                     Paging<PlaylistTrack> playlistTracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.UserId, playlist.Id);
-
-                    foreach (PlaylistTrack pt in playlistTracks.Items)
-                    {
-                        try
-                        {
-                            foreach (SimpleArtist ar in pt.Track.Artists)
-                            {
-                                try
-                                {
-                                    FullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
-                                    Artist a = new Artist();
-                                    if (!a.Exists(artist.Name))
-                                    {
-                                        a.UpdataArtistInfo(artist);
-                                        a.Save();
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message, "Error importing artist: " + ar.Name);
-                                }
-
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Error importing playlist tracks");
-                        }
-                    }
+                    ApplyPlaylistTracks(playlistTracks);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error importing Playlist: " + playlist.Name);
                 }
             }
+            MessageBox.Show("Finished importing artists from Playlists.");
         }
 
+        private void ApplyArtist(SimpleArtist ar)
+        {
+            try
+            {
+                FullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
+                Artist a = new Artist();
+                if (!a.Exists(artist.Name))
+                {
+                    a.UpdataArtistInfo(artist);
+                    a.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error importing artist: " + ar.Name);
+            }
+
+        }
+
+        private void ApplyPlaylistTracks(Paging<PlaylistTrack> playlistTracks)
+        {
+            foreach (PlaylistTrack pt in playlistTracks.Items)
+            {
+                try
+                {
+                    foreach (SimpleArtist ar in pt.Track.Artists)
+                    {
+                        ApplyArtist(ar);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //  MessageBox.Show(ex.Message, "Error importing playlist tracks");
+                }
+            }
+        }
+
+        private void ImportSavedAlbums()
+        {
+            User.Default.SpotifyWebAPI.GetSavedAlbums();
+        }
 
         private void btnImportArtists_Click(object sender, EventArgs e)
         {
