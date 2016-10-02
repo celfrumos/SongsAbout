@@ -742,7 +742,6 @@
             this.tableAdapterMngr.GenresTableAdapter = this.genresTableAdapter;
             this.tableAdapterMngr.ListsTableAdapter = this.listsTableAdapter;
             this.tableAdapterMngr.TagsTableAdapter = this.tagsTableAdapter;
-            this.tableAdapterMngr.TestImagesTableAdapter = null;
             this.tableAdapterMngr.TrackGenresTableAdapter = this.trackGenresTableAdapter;
             this.tableAdapterMngr.TracksTableAdapter = this.tracksTableAdapter;
             this.tableAdapterMngr.TrackTagsTableAdapter = this.trackTagsTableAdapter;
@@ -855,7 +854,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_track_spotify_uri;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_list_id;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.FileDialog fileDialog;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_a_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_a_bio;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_a_website;

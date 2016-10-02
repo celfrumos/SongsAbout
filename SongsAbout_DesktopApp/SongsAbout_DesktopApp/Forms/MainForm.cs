@@ -115,7 +115,19 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-              Importer.ImportArtistsFromSpotify();
+                Importer.ImportSavedPlaylists();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Importing Artists from Spotify: " + ex.Message);
+            }
+        }
+
+        private void btnImportSavedTracks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Importer.ImportSavedTracks();
             }
             catch (Exception ex)
             {

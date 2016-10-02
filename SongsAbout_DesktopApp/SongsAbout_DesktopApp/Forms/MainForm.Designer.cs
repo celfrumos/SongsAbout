@@ -41,7 +41,8 @@
             this.btnViewData = new System.Windows.Forms.Button();
             this.btnSpotify = new System.Windows.Forms.Button();
             this.pBoxProfilePic = new System.Windows.Forms.PictureBox();
-            this.btnImportArtists = new System.Windows.Forms.Button();
+            this.btnImportPlaylistArtists = new System.Windows.Forms.Button();
+            this.btnImportSavedTracks = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
@@ -194,15 +195,25 @@
             this.pBoxProfilePic.TabIndex = 16;
             this.pBoxProfilePic.TabStop = false;
             // 
-            // btnImportArtists
+            // btnImportPlaylistArtists
             // 
-            this.btnImportArtists.Location = new System.Drawing.Point(149, 420);
-            this.btnImportArtists.Name = "btnImportArtists";
-            this.btnImportArtists.Size = new System.Drawing.Size(100, 36);
-            this.btnImportArtists.TabIndex = 17;
-            this.btnImportArtists.Text = "Import Spotfy Artists";
-            this.btnImportArtists.UseVisualStyleBackColor = true;
-            this.btnImportArtists.Click += new System.EventHandler(this.btnImportArtists_Click);
+            this.btnImportPlaylistArtists.Location = new System.Drawing.Point(149, 420);
+            this.btnImportPlaylistArtists.Name = "btnImportPlaylistArtists";
+            this.btnImportPlaylistArtists.Size = new System.Drawing.Size(147, 36);
+            this.btnImportPlaylistArtists.TabIndex = 17;
+            this.btnImportPlaylistArtists.Text = "Import Spotfy Artists";
+            this.btnImportPlaylistArtists.UseVisualStyleBackColor = true;
+            this.btnImportPlaylistArtists.Click += new System.EventHandler(this.btnImportArtists_Click);
+            // 
+            // btnImportSavedTracks
+            // 
+            this.btnImportSavedTracks.Location = new System.Drawing.Point(361, 409);
+            this.btnImportSavedTracks.Name = "btnImportSavedTracks";
+            this.btnImportSavedTracks.Size = new System.Drawing.Size(150, 30);
+            this.btnImportSavedTracks.TabIndex = 17;
+            this.btnImportSavedTracks.Text = "Import Saved Tracks";
+            this.btnImportSavedTracks.UseVisualStyleBackColor = true;
+            this.btnImportSavedTracks.Click += new System.EventHandler(this.btnImportSavedTracks_Click);
             // 
             // MainForm
             // 
@@ -210,7 +221,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(547, 625);
-            this.Controls.Add(this.btnImportArtists);
+            this.Controls.Add(this.btnImportSavedTracks);
+            this.Controls.Add(this.btnImportPlaylistArtists);
             this.Controls.Add(this.pBoxProfilePic);
             this.Controls.Add(this.btnSpotify);
             this.Controls.Add(this.btnViewData);
@@ -251,7 +263,8 @@
         private System.Windows.Forms.Button btnViewData;
         private System.Windows.Forms.Button btnSpotify;
         private System.Windows.Forms.PictureBox pBoxProfilePic;
-        private System.Windows.Forms.Button btnImportArtists;
+        private System.Windows.Forms.Button btnImportPlaylistArtists;
+        private System.Windows.Forms.Button btnImportSavedTracks;
     }
 }
 

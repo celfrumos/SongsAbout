@@ -26,9 +26,9 @@ namespace SongsAbout_DesktopApp
                         context.Artists.InsertOnSubmit(this);
                         context.SubmitChanges();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        throw;
+                        throw new Exception("Error Saving Artist" + ex.Message);
                     }
                 }
             }
@@ -59,7 +59,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("Error updating artist: " + simpleArtist.Name);
             }
         }
 
@@ -72,7 +72,8 @@ namespace SongsAbout_DesktopApp
                 this.a_website = artist.Href;
                 if (artist.Images.Count > 0)
                 {
-                    this.a_profile_pic = await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+                    byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+                    this.a_profile_pic = pic;//await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
                 }
                 this.a_website = artist.Href;
             }
@@ -110,7 +111,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Loading Artist: " ex.Message);
+                throw new Exception("Error Loading Artist: " + ex.Message);
             }
         }
     }

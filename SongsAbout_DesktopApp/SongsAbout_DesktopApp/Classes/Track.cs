@@ -11,31 +11,46 @@ namespace SongsAbout_DesktopApp
     {
         public void Save()
         {
-            if (!Exists(this.track_name))
+            try
             {
-                //this.track_artist_id = this.Album.artist_id;
-                using (DataClasses1DataContext context = new DataClasses1DataContext())
+                if (this.track_name != null && !Exists(this.track_name))
                 {
-                    context.Tracks.InsertOnSubmit(this);
-                    context.SubmitChanges();
+                    //this.track_artist_id = this.Album.artist_id;
+                    using (DataClasses1DataContext context = new DataClasses1DataContext())
+                    {
+                        context.Tracks.InsertOnSubmit(this);
+                        context.SubmitChanges();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error saving Track:" + ex.Message);
+
             }
         }
 
         private bool Exists(string track_name)
         {
-            BindingSource tracksBindingSource = new BindingSource();
-            DataSetTableAdapters.TracksTableAdapter tracksTableAdapter = new DataSetTableAdapters.TracksTableAdapter();
-            DataSet dataSet = new DataSet();
+            try
+            {
+                BindingSource tracksBindingSource = new BindingSource();
+                DataSetTableAdapters.TracksTableAdapter tracksTableAdapter = new DataSetTableAdapters.TracksTableAdapter();
+                DataSet dataSet = new DataSet();
 
-            // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-            tracksTableAdapter.Fill(dataSet.Tracks);
+                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+                tracksTableAdapter.Fill(dataSet.Tracks);
 
-            DataTable tracksTable = dataSet.Artists;
-            string query = "track_name = '" + this.track_name + "' ";
-            DataRow[] rows = tracksTable.Select(query);
+                DataTable tracksTable = dataSet.Artists;
+                string query = "track_name = '" + this.track_name + "' ";
+                DataRow[] rows = tracksTable.Select(query);
 
-            return (rows.Length == 0);
+                return (rows.Length == 0);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error verifying that track: " + track_name + ": " + ex.Message);
+            }
         }
 
         public void SaveGenres(ref List<string> genres)
@@ -69,15 +84,43 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                this.Album.Update(t.Album);
-                this.Artist.Update(t.Artists[0]);
                 this.track_name = t.Name;
-                this.track_length_minutes = t.DurationMs;
+                this.track_length_minutes = t.DurationMs/60000;
                 this.track_spotify_uri = t.Uri;
+                UpdateAlbum(t.Album);
+                UpdateArtist(t.Artists[0]);
             }
             catch (Exception ex)
             {
                 throw new Exception("Error Updating track: " + ex.Message);
+            }
+        }
+
+        private void UpdateArtist(SimpleArtist simpleArtist)
+        {
+            try
+            {
+                this.Artist = new Artist();
+                this.Artist.Update(simpleArtist);
+                this.Artist.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating track artist: " + this.track_name + ", " + this.Artist.a_name + ": " + ex.Message);
+            }
+        }
+
+        private void UpdateAlbum(SimpleAlbum album)
+        {
+            try
+            {
+                this.Album = new Album();
+                this.Album.Update(album);
+                this.Album.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating track artist: " + this.track_name + ", " + this.Artist.a_name + ": " + ex.Message);
             }
         }
     }

@@ -79,7 +79,6 @@
             this.tableAdapterMgr.GenresTableAdapter = null;
             this.tableAdapterMgr.ListsTableAdapter = null;
             this.tableAdapterMgr.TagsTableAdapter = null;
-            this.tableAdapterMgr.TestImagesTableAdapter = null;
             this.tableAdapterMgr.TrackGenresTableAdapter = null;
             this.tableAdapterMgr.TracksTableAdapter = null;
             this.tableAdapterMgr.TrackTagsTableAdapter = null;

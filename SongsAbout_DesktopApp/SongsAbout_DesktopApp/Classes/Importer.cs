@@ -10,7 +10,7 @@ namespace SongsAbout_DesktopApp.Classes
     public static class Importer
     {
 
-        public static void ImportArtistsFromSpotify()
+        public static void ImportSavedPlaylists()
         {
             List<SimplePlaylist> userPlaylists = UserSpotify.GetPlaylists();
             foreach (SimplePlaylist playlist in userPlaylists)
@@ -40,8 +40,33 @@ namespace SongsAbout_DesktopApp.Classes
 
         public static void ImportTrack(FullTrack t)
         {
-            Track track = new Track();
-            track.Update(t);
+            try
+            {
+                Track track = new Track();
+                track.Update(t);
+                track.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public static void ImportSavedTracks()
+        {
+            Paging<SavedTrack> tracks = User.Default.SpotifyWebAPI.GetSavedTracks();
+            foreach (SavedTrack t in tracks.Items)
+            {
+                try
+                {
+                    FullTrack track = User.Default.SpotifyWebAPI.GetTrack(t.Track.Id);
+                    ImportTrack(track);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         public static void ImportAlbum(SimpleAlbum album)
@@ -96,7 +121,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        private static void ImportSavedAlbums()
+        public static void ImportSavedAlbums()
         {
             User.Default.SpotifyWebAPI.GetSavedAlbums();
         }

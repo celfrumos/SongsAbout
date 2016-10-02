@@ -14,7 +14,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                if (!Exists(this.al_title))
+                if (this.al_title != null && !Exists(this.al_title))
                 {
                     using (DataClasses1DataContext context = new DataClasses1DataContext())
                     {
@@ -52,9 +52,9 @@ namespace SongsAbout_DesktopApp
                 FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
                 this.Update(al);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception("Error Updating Album: " + ex.Message);
             }
         }
 
@@ -64,12 +64,13 @@ namespace SongsAbout_DesktopApp
             {
                 this.al_title = album.Name;
                 this.al_spotify_uri = album.Uri;
-                this.Artist.Update(album.Artists[0]);
+                UpdateArtist(album.Artists[0]);
                 this.SetGenres(album.Genres);
 
                 if (album.Images.Count > 0)
                 {
-                    this.al_cover_art = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
+                    byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
+                    this.al_cover_art = pic;
                 }
             }
             catch (Exception ex)
@@ -78,6 +79,18 @@ namespace SongsAbout_DesktopApp
             }
         }
 
+        private void UpdateArtist(SimpleArtist simpleArtist)
+        {
+            try
+            {
+                this.Artist = new Artist();
+                this.Artist.Update(simpleArtist);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating album artist: " + this.al_title + ", " + this.Artist.a_name + ": " + ex.Message);
+            }
+        }
         public void SetGenres(List<string> genres)
         {
             foreach (string g in genres)
