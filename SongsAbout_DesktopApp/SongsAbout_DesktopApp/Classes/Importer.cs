@@ -22,10 +22,11 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error importing Playlist: " + playlist.Name);
+                    Console.WriteLine("Error importing Playlist: " + playlist.Name + ", " + ex.Message);
+                    throw new Exception(ex.Message);
                 }
             }
-            MessageBox.Show("Finished importing artists from Playlists.");
+            Console.WriteLine("Finished importing artists from Playlists.");
         }
 
         public static void ImportPlaylistTracks(Paging<PlaylistTrack> playlistTracks)
@@ -48,6 +49,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 throw new Exception(ex.Message);
             }
         }
@@ -64,7 +66,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -90,16 +92,26 @@ namespace SongsAbout_DesktopApp.Classes
                 a.Update(album);
                 a.Save();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
         }
         public static void ImportPlaylistTrackArtists(PlaylistTrack pt)
         {
             foreach (SimpleArtist ar in pt.Track.Artists)
             {
-                ImportArtist(ar);
+                try
+                {
+
+                    ImportArtist(ar);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
+                }
             }
         }
 
@@ -117,14 +129,14 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error importing artist: " + ar.Name);
+                Console.WriteLine(ex.Message, "Error importing artist: " + ar.Name);
             }
         }
 
-        public static void ImportSavedAlbums()
-        {
-            User.Default.SpotifyWebAPI.GetSavedAlbums();
-        }
+        //public static void ImportSavedAlbums()
+        //{
+        //    User.Default.SpotifyWebAPI.GetSavedAlbums();
+        //}
 
     }
 }

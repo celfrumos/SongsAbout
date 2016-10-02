@@ -25,24 +25,42 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Saving Artist: " + ex.Message);
+                string msg = "Error Saving Album: " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
         public bool Exists(string name)
         {
-            BindingSource artistsBindingSource = new BindingSource();
-            DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter = new DataSetTableAdapters.ArtistsTableAdapter();
-            DataSet dataSet = new DataSet();
+            try
+            {
+                //BindingSource albumsBindingSource = new BindingSource();
+                DataSetTableAdapters.AlbumsTableAdapter albumsTableAdapter = new DataSetTableAdapters.AlbumsTableAdapter();
+                DataSet dataSet = new DataSet();
 
-            // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-            artistsTableAdapter.Fill(dataSet.Artists);
+                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+                albumsTableAdapter.Fill(dataSet.Albums);
 
-            DataTable artistTable = dataSet.Artists;
-            string query = "al_title = '" + this.al_title + "'";
-            DataRow[] rows = artistTable.Select(query);
+                DataTable albumsTable = dataSet.Artists;
+                string query = "al_title = '" + this.al_title + "'";
+                try
+                {
+                    DataRow[] rows = albumsTable.Select(query);
 
-            return (rows.Length == 0);
+                    return (rows.Length == 0);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = "Error validating if album exists: " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
+            }
         }
 
         internal void Update(SimpleAlbum album)
@@ -54,7 +72,9 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Updating Album: " + ex.Message);
+                string msg = "Error Updating Album: " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
@@ -70,12 +90,14 @@ namespace SongsAbout_DesktopApp
                 if (album.Images.Count > 0)
                 {
                     byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
-                    this.al_cover_art = pic;
+                    // this.al_cover_art = pic;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Updating Album" + ex.Message);
+                string msg = "Error Updating Album: " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
@@ -85,20 +107,25 @@ namespace SongsAbout_DesktopApp
             {
                 this.Artist = new Artist();
                 this.Artist.Update(simpleArtist);
+                this.Artist.Save();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating album artist: " + this.al_title + ", " + this.Artist.a_name + ": " + ex.Message);
+                string msg = "Error updating album artist: " + this.al_title + ", " + this.Artist.a_name + ": " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
+
         public void SetGenres(List<string> genres)
         {
-            foreach (string g in genres)
-            {
-                AlbumGenre ag = new AlbumGenre();
-                ag.album_id = this.album_id;
-                ag.genre = g;
-            }
+            //foreach (string g in genres)
+            //{
+            //    AlbumGenre ag = new AlbumGenre();
+            //    ag.album_id = this.album_id;
+            //    ag.genre = g;
+
+            //}
         }
 
     }

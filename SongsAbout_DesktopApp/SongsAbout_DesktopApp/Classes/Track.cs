@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SpotifyAPI.Web.Models;
 using System.Windows.Forms;
+using System.IO;
 
 namespace SongsAbout_DesktopApp
 {
@@ -25,6 +26,8 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
+//                string msg = "Error saving Track:" + ex.Message;
+  //              Console.WriteLine(msg);
                 throw new Exception("Error saving Track:" + ex.Message);
 
             }
@@ -49,7 +52,9 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error verifying that track: " + track_name + ": " + ex.Message);
+                string msg = "Error verifying that track: " + track_name + ": " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
@@ -76,7 +81,9 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Saving track genres: " + ex.Message);
+                string msg = "Error Saving track genres: " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
@@ -85,14 +92,16 @@ namespace SongsAbout_DesktopApp
             try
             {
                 this.track_name = t.Name;
-                this.track_length_minutes = t.DurationMs/60000;
+                this.track_length_minutes = t.DurationMs / 60000;
                 this.track_spotify_uri = t.Uri;
                 UpdateAlbum(t.Album);
                 UpdateArtist(t.Artists[0]);
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Updating track: " + ex.Message);
+                string msg = "Error Updating track: " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
@@ -106,7 +115,9 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating track artist: " + this.track_name + ", " + this.Artist.a_name + ": " + ex.Message);
+                string msg = "Error updating track artist: " + this.track_name + ", " + this.Artist.a_name + ": " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
@@ -120,7 +131,9 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating track artist: " + this.track_name + ", " + this.Artist.a_name + ": " + ex.Message);
+                string msg = "Error updating track artist: " + this.track_name + ": " + ex.Message;
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
     }
