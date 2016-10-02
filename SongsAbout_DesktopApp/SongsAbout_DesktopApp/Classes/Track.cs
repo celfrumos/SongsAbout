@@ -62,9 +62,8 @@ namespace SongsAbout_DesktopApp
                         //string query = "track_name = '" + this.track_name + "' "; 
                         //DataRow[] rows = tracksTable.Select(query); 
                         //return (rows.Length == 0);
-                        db.Dispose();
-                        bool result = (count != 0);
-                        return result;
+
+                        return (count != 0);
                     }
                 }
                 catch (Exception)
@@ -132,9 +131,10 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                //this.Artist = new Artist();
-                //this.Artist.Update(simpleArtist);
-                //this.Artist.Save();
+                Artist a = new Artist();
+                a.Update(simpleArtist);
+                a.Save();
+                this.track_artist_id = a.artist_id;
             }
             catch (Exception ex)
             {
@@ -148,9 +148,10 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                this.Album = new Album();
-                this.Album.Update(album);
-                this.Album.Save();
+                Album al = new Album();
+                al.Update(album);
+                al.Save();
+                this.album_id = al.album_id;
             }
             catch (Exception ex)
             {

@@ -32,6 +32,7 @@ namespace SongsAbout_DesktopApp
                             try
                             {
                                 context.Artists.InsertOnSubmit(this);
+
                                 context.SubmitChanges();
                             }
                             catch (Exception ex)
@@ -55,12 +56,12 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                BindingSource artistsBindingSource = new BindingSource();
-                DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter = new DataSetTableAdapters.ArtistsTableAdapter();
-                DataSet dataSet = new DataSet();
+                //BindingSource artistsBindingSource = new BindingSource();
+                //DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter = new DataSetTableAdapters.ArtistsTableAdapter();
+                //DataSet dataSet = new DataSet();
 
-                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-                artistsTableAdapter.Fill(dataSet.Artists);
+                //// TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+                //artistsTableAdapter.Fill(dataSet.Artists);
 
                 try
                 {
@@ -74,17 +75,17 @@ namespace SongsAbout_DesktopApp
                     {
                         string aquery =
                         "select * from tracks where a_name = '" + this.a_name + "'";
-                        var arts = db.ExecuteQuery<Artist>(aquery);
+                        var artists = db.ExecuteQuery<Artist>(aquery);
                         int count = 0;
-                        foreach (var item in arts)
+                        foreach (Artist artist in artists)
                         {
                             count++;
+                            if (count == 1)
+                            {
+                                //   this = artist.;
+                            }
                         }
-                        //DataTable tracksTable = dataSet.Artists; 
-                        //string query = "track_name = '" + this.track_name + "' "; 
-                        //DataRow[] rows = tracksTable.Select(query); 
-                        //return (rows.Length == 0);
-                        db.Dispose();
+
                         bool result = (count != 0);
                         return result;
 
@@ -143,6 +144,33 @@ namespace SongsAbout_DesktopApp
 
         public void Load()
         {
+            try
+            {
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                {
+                    string aquery =
+                    "select * from tracks where a_name = '" + this.a_name + "'";
+                    var artists = db.ExecuteQuery<Artist>(aquery);
+                    int count = 0;
+                    foreach (Artist artist in artists)
+                    {
+                        count++;
+                        if (count == 1)
+                        {
+                            //   this = artist.;
+                        }
+                    }
+
+                    bool result = (count != 0);
+                    //   return result;
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             try
             {
                 BindingSource artistsBindingSource = new BindingSource();

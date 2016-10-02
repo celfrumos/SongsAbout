@@ -42,7 +42,7 @@ namespace SongsAbout_DesktopApp
                 // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
                 albumsTableAdapter.Fill(dataSet.Albums);
 
-              //  DataTable albumsTable = dataSet.Albums;
+                //  DataTable albumsTable = dataSet.Albums;
                 //string query = "al_title = '" + this.al_title + "'";
                 try
                 {
@@ -55,14 +55,22 @@ namespace SongsAbout_DesktopApp
                     foreach (var item in albs)
                     {
                         count++;
+                        if (count ==1 )
+                        {
+                           // this.aa
+                        }
                     }
                     //Album a = new Album(); 
                     //DataTable albumsTable = dataSet.Artists; 
                     //string query = "al_title = '" + this.al_title + "'"; 
 
                     //   var rows = albumsTable.Select(query); 
+                    bool exists = (count != 0);
+                    if (exists)
+                    {
+                    }
                     db.Dispose();
-                    return (count != 0);
+                    return exists;
                     //   return (rows.Length == 0);
                 }
                 catch (Exception)
@@ -105,7 +113,7 @@ namespace SongsAbout_DesktopApp
                 if (album.Images.Count > 0)
                 {
                     byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
-                    // this.al_cover_art = pic;
+                     this.al_cover_art = pic;
                 }
             }
             catch (Exception ex)
@@ -120,9 +128,10 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                this.Artist = new Artist();
-                this.Artist.Update(simpleArtist);
-                this.Artist.Save();
+                Artist a = new Artist();
+                a.Update(simpleArtist);
+                a.Save();
+                this.artist_id = a.artist_id;
             }
             catch (Exception ex)
             {
