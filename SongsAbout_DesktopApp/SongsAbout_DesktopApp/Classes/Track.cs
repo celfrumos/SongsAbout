@@ -33,14 +33,14 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private bool Exists(string track_name)
+        public static bool Exists(string track_name)
         {
             try
             {
                 int count = 0;
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    string aquery = "SELECT * FROM Tracks WHERE track_name = '" + track_name + "'";
+                    string aquery = $"SELECT * FROM Tracks WHERE track_name = '{track_name }'";
                     var tracks = db.ExecuteQuery<Track>(aquery);
 
                     foreach (var item in tracks)
@@ -54,9 +54,10 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error verifying that track: " + track_name + " exists: " + ex.Message;
+                string msg = $"Error verifying that track '{track_name}' exists: {ex.Message}";
                 Console.WriteLine(msg);
-                throw new Exception(msg);
+                //   throw new Exception(msg);
+                return true;
             }
         }
 
@@ -96,27 +97,23 @@ namespace SongsAbout_DesktopApp
                 this.track_name = t.Name;
                 this.track_length_minutes = (double)(t.DurationMs) / 60000;
                 this.track_spotify_uri = t.Uri;
+
                 UpdateAlbum(t.Album);
                 var tArtist = t.Artists[0];
                 UpdateArtist(tArtist);
             }
             catch (Exception ex)
             {
-                string msg = "Error Updating track: " + ex.Message;
+                string msg = $"Error Updating track: {ex.Message}";
                 Console.WriteLine(msg);
-                throw new Exception(msg);
+                //throw new Exception(msg);
             }
         }
 
-        private void UpdateArtist(SimpleArtist simpleArtist)
+        public void UpdateArtist(SimpleArtist simpleArtist)
         {
             try
             {
-                //Artist a = new Artist();
-                //a.Update(simpleArtist);
-                //a.Save();
-                //this.track_artist_id = a.artist_id;
-
                 Artist a;
                 if (Artist.Exists(simpleArtist.Name))
                 {
@@ -125,16 +122,17 @@ namespace SongsAbout_DesktopApp
                 else
                 {
                     a = new Artist();
+                    a.Update(simpleArtist);
+                    a.Save();
                 }
-                a.Update(simpleArtist);
-                a.Save();
+
                 this.track_artist_id = a.artist_id;
             }
             catch (Exception ex)
             {
-                string msg = "Error updating track artist: " + this.track_name + ", " + this.Artist.a_name + ": " + ex.Message;
+                string msg = $"Error updating track artist: {this.track_name}, {this.Artist.a_name}: {ex.Message}";
                 Console.WriteLine(msg);
-                throw new Exception(msg);
+                //  throw new Exception(msg);
             }
         }
 
@@ -150,17 +148,17 @@ namespace SongsAbout_DesktopApp
                 else
                 {
                     al = new Album();
+                    al.Update(album);
+                    al.Save();
                 }
 
-                al.Update(album);
-                al.Save();
                 this.album_id = al.album_id;
             }
             catch (Exception ex)
             {
-                string msg = "Error updating track artist: " + this.track_name + ": " + ex.Message;
+                string msg = $"Error updating track album for track: {this.track_name}: {ex.Message}";
                 Console.WriteLine(msg);
-                throw new Exception(msg);
+                //    throw new Exception(msg);
             }
         }
     }

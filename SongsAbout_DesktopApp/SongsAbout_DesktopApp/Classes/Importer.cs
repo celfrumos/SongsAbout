@@ -34,8 +34,8 @@ namespace SongsAbout_DesktopApp.Classes
             foreach (PlaylistTrack pt in playlistTracks.Items)
             {
                 ImportTrack(pt.Track);
-                ImportAlbum(pt.Track.Album);
-                ImportPlaylistTrackArtists(pt);
+                //ImportAlbum(pt.Track.Album);
+                //ImportPlaylistTrackArtists(pt);
             }
         }
 
@@ -43,9 +43,14 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                Track track = new Track();
-                track.Update(t);
-                track.Save();
+                Track track;
+                if (!Track.Exists(t.Name))
+                {
+                    track = new Track();
+                    track.Update(t);
+                    track.Save();
+                    Console.WriteLine($"Successfully Imported track {t.Name}");
+                }
             }
             catch (Exception ex)
             {
@@ -78,9 +83,9 @@ namespace SongsAbout_DesktopApp.Classes
                 FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
                 ImportAlbum(al);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception($"Error getting full album '{album.Name}': {ex.Message}");
             }
         }
 
@@ -89,8 +94,11 @@ namespace SongsAbout_DesktopApp.Classes
             try
             {
                 Album a = new Album();
-                a.Update(album);
-                a.Save();
+                if (!Artist.Exists(album.Name))
+                {
+                    a.Update(album);
+                    a.Save();
+                }
             }
             catch (Exception ex)
             {
@@ -98,29 +106,29 @@ namespace SongsAbout_DesktopApp.Classes
                 throw new Exception(ex.Message);
             }
         }
-        public static void ImportPlaylistTrackArtists(PlaylistTrack pt)
-        {
-            foreach (SimpleArtist ar in pt.Track.Artists)
-            {
-                try
-                {
 
-                    ImportArtist(ar);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    throw new Exception(ex.Message);
-                }
-            }
-        }
+        //public static void ImportPlaylistTrackArtists(PlaylistTrack pt)
+        //{
+        //    foreach (SimpleArtist ar in pt.Track.Artists)
+        //    {
+        //        try
+        //        {
+        //            ImportArtist(ar);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine(ex.Message);
+        //            throw new Exception(ex.Message);
+        //        }
+        //    }
+        //}
 
         public static void ImportArtist(SimpleArtist ar)
         {
             try
             {
                 FullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
-        
+
                 if (!Artist.Exists(artist.Name))
                 {
                     Artist a = new Artist();
@@ -130,7 +138,20 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message, "Error importing artist: " + ar.Name);
+                Console.WriteLine(ex.Message, $"Error importing artist '{ar.Name}'");
+            }
+        }
+
+        public static void ImportTrack(SimpleTrack track)
+        {
+            try
+            {
+                var t = User.Default.SpotifyWebAPI.GetTrack(track.Id);
+                ImportTrack(t);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

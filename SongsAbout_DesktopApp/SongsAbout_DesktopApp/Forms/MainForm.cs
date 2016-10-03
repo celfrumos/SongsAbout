@@ -128,10 +128,11 @@ namespace SongsAbout_DesktopApp
             try
             {
                 Importer.ImportSavedTracks();
+                Console.WriteLine("Finished importing saved tracks");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error Importing Artists from Spotify: " + ex.Message);
+                MessageBox.Show($"Error Importing Artists from Spotify: {ex.Message}");
             }
         }
     }

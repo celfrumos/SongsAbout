@@ -1,7 +1,5 @@
-﻿using System.Data;
-using SpotifyAPI.Web.Models;
+﻿using SpotifyAPI.Web.Models;
 using SongsAbout_DesktopApp.Classes;
-using System.Windows.Forms;
 using System.Collections.Generic;
 using SongsAbout_DesktopApp.Properties;
 using System;
@@ -25,21 +23,20 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error Saving Album: " + ex.Message;
+                string msg = $"Error Saving Album '{ex.Message}'";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
         }
 
-        public static bool Exists(string name)
+        public static bool Exists(string al_title)
         {
             try
             {
                 int count = 0;
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    string aquery =
-                    "select * from Albums where al_title = '" + name + "'";
+                    string aquery = $"SELECT * FROM Albums WHERE al_title = '{al_title}'";
                     var albs = db.ExecuteQuery<Album>(aquery);
                     foreach (var item in albs)
                     {
@@ -50,7 +47,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error validating if album exists: " + ex.Message;
+                string msg = $"Error validating if album '{al_title}'exists: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -62,8 +59,7 @@ namespace SongsAbout_DesktopApp
             {
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    string aquery =
-                    "SELECT * FROM Albums WHERE al_title = '" + al_title + "'";
+                    string aquery = $"SELECT * FROM Albums WHERE al_title = '{al_title}'";
                     var albums = db.ExecuteQuery<Album>(aquery);
                     int count = 0;
                     foreach (Album album in albums)
@@ -75,12 +71,39 @@ namespace SongsAbout_DesktopApp
                         }
                     }
 
-                    throw new Exception("No artist with that name found");
+                    throw new Exception($"No artist with name '{al_title}' found");
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Loading Album: " + al_title + ", " + ex.Message);
+                throw new Exception($"Error Loading Album '{al_title}', {ex.Message}");
+            }
+        }
+
+        public static Album Load(int album_id)
+        {
+            try
+            {
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                {
+                    string aquery = $"SELECT * FROM Albums WHERE album_id = {album_id}";
+                    var albums = db.ExecuteQuery<Album>(aquery);
+                    int count = 0;
+                    foreach (Album album in albums)
+                    {
+                        count++;
+                        if (count == 1)
+                        {
+                            return album;
+                        }
+                    }
+
+                    throw new Exception($"No artist with id {album_id} found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error Loading Album from id '{album_id}': {ex.Message}");
             }
         }
 
@@ -93,7 +116,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error Updating Album: " + ex.Message;
+                string msg = $"Error Updating Album: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -107,18 +130,36 @@ namespace SongsAbout_DesktopApp
                 this.al_spotify_uri = album.Uri;
                 UpdateArtist(album.Artists[0]);
                 this.SetGenres(album.Genres);
+                ImportAlbumTracks(album.Tracks);
 
                 if (album.Images.Count > 0)
                 {
                     byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
                     this.al_cover_art = pic;
                 }
+                Console.WriteLine($"Album updated: '{album.Name}'");
             }
             catch (Exception ex)
             {
-                string msg = "Error Updating Album: " + ex.Message;
+                string msg = $"Error Updating Album: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
+            }
+        }
+
+        private void ImportAlbumTracks(Paging<SimpleTrack> tracks)
+        {
+            foreach (SimpleTrack track in tracks.Items)
+            {
+                try
+                {
+                    Importer.ImportTrack(track);
+                    Console.WriteLine($"Imported track '{track.Name}'");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
@@ -134,16 +175,16 @@ namespace SongsAbout_DesktopApp
                 else
                 {
                     a = new Artist();
+                    a.Update(simpleArtist);
+                    a.Save();
                 }
-                a.Update(simpleArtist);
-                a.Save();
                 this.artist_id = a.artist_id;
+                Console.WriteLine($"Artist updated: '{a.a_name}'");
             }
             catch (Exception ex)
             {
-                string msg = "Error updating album artist: " + this.al_title + ", " + this.Artist.a_name + ": " + ex.Message;
+                string msg = $"Error updating artist for album '{this.al_title}', '{this.Artist.a_name}' : {ex.Message}";
                 Console.WriteLine(msg);
-                throw new Exception(msg);
             }
         }
 

@@ -39,14 +39,14 @@ namespace SongsAbout_DesktopApp
                         }
                         catch (Exception ex)
                         {
-                            string msg = "Error Saving Artist" + ex.Message;
+                            string msg = $"Error Saving Artist: {ex.Message}";
                             Console.WriteLine(msg);
                             throw new Exception(msg);
                         }
                     }
                     else
                     {
-                        string msg = "An artist with this name already exists. To update that artist, use Artist a = Artist.Load(a_name)";
+                        string msg = $"An artist named '{a_name}' already exists. To update that artist, use Artist a = Artist.Load(a_name)";
 
                         Console.WriteLine(msg);
                         //throw new Exception ()
@@ -60,7 +60,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error updating artist: " + ex.Message;
+                string msg = $"Error updating artist: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -70,8 +70,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                string aquery =
-                "SELECT * FROM Artists WHERE a_name = '" + name + "'";
+                string aquery = $"SELECT * FROM Artists WHERE a_name = '{name}'";
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
                     var artists = db.ExecuteQuery<Artist>(aquery);
@@ -87,7 +86,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error verifying if artist: " + name + " exists, " + ex.Message;
+                string msg = $"Error verifying if artist: '{name}' exists: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -102,7 +101,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error updating artist: " + simpleArtist.Name + ex.Message;
+                string msg = $"Error updating artist '{simpleArtist.Name}': {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -124,20 +123,19 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error Updating artist: " + ex.Message;
+                string msg = $"Error Updating artist: '{artist.Name}': {ex.Message}'";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
         }
 
-        public static Artist Load(string name)
+        public static Artist Load(string a_name)
         {
             try
             {
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    string aquery =
-                    "SELECT * FROM Artists WHERE a_name = '" + name + "'";
+                    string aquery = $"SELECT * FROM Artists WHERE a_name = '{a_name}'";
                     var artists = db.ExecuteQuery<Artist>(aquery);
                     int count = 0;
                     foreach (Artist artist in artists)
@@ -149,12 +147,12 @@ namespace SongsAbout_DesktopApp
                         }
                     }
 
-                    throw new Exception("No artist with that name found");
+                    throw new Exception($"No artist with name '{a_name}' found");
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Loading artist: " + name + ", " + ex.Message);
+                throw new Exception($"Error Loading artist '{a_name}': {ex.Message}");
             }
         }
 
