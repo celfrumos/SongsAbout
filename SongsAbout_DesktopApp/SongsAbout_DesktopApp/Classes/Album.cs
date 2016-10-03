@@ -56,7 +56,35 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        internal void Update(SimpleAlbum album)
+        public static Album Load(string al_title)
+        {
+            try
+            {
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                {
+                    string aquery =
+                    "SELECT * FROM Albums WHERE al_title = '" + al_title + "'";
+                    var albums = db.ExecuteQuery<Album>(aquery);
+                    int count = 0;
+                    foreach (Album album in albums)
+                    {
+                        count++;
+                        if (count == 1)
+                        {
+                            return album;
+                        }
+                    }
+
+                    throw new Exception("No artist with that name found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error Loading Album: " + al_title + ", " + ex.Message);
+            }
+        }
+
+        public void Update(SimpleAlbum album)
         {
             try
             {
@@ -98,7 +126,15 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                Artist a = new Artist();
+                Artist a;
+                if (Artist.Exists(simpleArtist.Name))
+                {
+                    a = Artist.Load(simpleArtist.Name);
+                }
+                else
+                {
+                    a = new Artist();
+                }
                 a.Update(simpleArtist);
                 a.Save();
                 this.artist_id = a.artist_id;
@@ -108,34 +144,6 @@ namespace SongsAbout_DesktopApp
                 string msg = "Error updating album artist: " + this.al_title + ", " + this.Artist.a_name + ": " + ex.Message;
                 Console.WriteLine(msg);
                 throw new Exception(msg);
-            }
-        }
-
-        public static Album Load(string name)
-        {
-            try
-            {
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
-                {
-                    string aquery =
-                    "SELECT * FROM Albums WHERE a_name = '" + name + "'";
-                    var albums = db.ExecuteQuery<Album>(aquery);
-                    int count = 0;
-                    foreach (Album album in albums)
-                    {
-                        count++;
-                        if (count == 1)
-                        {
-                            return album;
-                        }
-                    }
-
-                    throw new Exception("No artist with that name found");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error Loading artist: " + name + ", " + ex.Message);
             }
         }
 

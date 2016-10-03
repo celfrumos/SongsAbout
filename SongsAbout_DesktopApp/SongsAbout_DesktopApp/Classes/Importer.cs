@@ -120,9 +120,10 @@ namespace SongsAbout_DesktopApp.Classes
             try
             {
                 FullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
-                Artist a = new Artist();
-                if (!a.Exists(artist.Name))
+        
+                if (!Artist.Exists(artist.Name))
                 {
+                    Artist a = new Artist();
                     a.Update(artist);
                     a.Save();
                 }

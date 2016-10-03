@@ -40,7 +40,7 @@ namespace SongsAbout_DesktopApp
                 int count = 0;
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    string aquery = "SELECT * FROM Tracks WHERE track_name = '" + this.track_name + "'";
+                    string aquery = "SELECT * FROM Tracks WHERE track_name = '" + track_name + "'";
                     var tracks = db.ExecuteQuery<Track>(aquery);
 
                     foreach (var item in tracks)
@@ -54,7 +54,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = "Error verifying that track: " + track_name + ": " + ex.Message;
+                string msg = "Error verifying that track: " + track_name + " exists: " + ex.Message;
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -94,7 +94,7 @@ namespace SongsAbout_DesktopApp
             try
             {
                 this.track_name = t.Name;
-                this.track_length_minutes = t.DurationMs / 60000;
+                this.track_length_minutes = (double)(t.DurationMs) / 60000;
                 this.track_spotify_uri = t.Uri;
                 UpdateAlbum(t.Album);
                 var tArtist = t.Artists[0];
@@ -112,7 +112,20 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                Artist a = new Artist();
+                //Artist a = new Artist();
+                //a.Update(simpleArtist);
+                //a.Save();
+                //this.track_artist_id = a.artist_id;
+
+                Artist a;
+                if (Artist.Exists(simpleArtist.Name))
+                {
+                    a = Artist.Load(simpleArtist.Name);
+                }
+                else
+                {
+                    a = new Artist();
+                }
                 a.Update(simpleArtist);
                 a.Save();
                 this.track_artist_id = a.artist_id;
@@ -129,12 +142,16 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                if (Album.Exists(album.Name))
+                Album al;
+                if (Artist.Exists(album.Name))
                 {
-                    Artist a = Artist.Load(album.name));
-                    this.album_id = a.
+                    al = Album.Load(album.Name);
                 }
-                Album al = new Album();
+                else
+                {
+                    al = new Album();
+                }
+
                 al.Update(album);
                 al.Save();
                 this.album_id = al.album_id;
