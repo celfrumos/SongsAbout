@@ -130,7 +130,7 @@ namespace SongsAbout_DesktopApp
                 this.al_spotify_uri = album.Uri;
                 UpdateArtist(album.Artists[0]);
                 this.SetGenres(album.Genres);
-                ImportAlbumTracks(album.Tracks);
+                //     ImportAlbumTracks(album.Tracks);
 
                 if (album.Images.Count > 0)
                 {
@@ -177,9 +177,9 @@ namespace SongsAbout_DesktopApp
                     a = new Artist();
                     a.Update(simpleArtist);
                     a.Save();
+                    Console.WriteLine($"Artist added: '{a.a_name}'");
                 }
                 this.artist_id = a.artist_id;
-                Console.WriteLine($"Artist updated: '{a.a_name}'");
             }
             catch (Exception ex)
             {

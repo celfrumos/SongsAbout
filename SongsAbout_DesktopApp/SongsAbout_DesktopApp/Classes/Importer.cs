@@ -51,6 +51,9 @@ namespace SongsAbout_DesktopApp.Classes
                     track.Save();
                     Console.WriteLine($"Successfully Imported track {t.Name}");
                 }
+                else {
+                    Console.WriteLine($"Track '{t.Name}' already exists");
+                }
             }
             catch (Exception ex)
             {
@@ -94,7 +97,7 @@ namespace SongsAbout_DesktopApp.Classes
             try
             {
                 Album a = new Album();
-                if (!Artist.Exists(album.Name))
+                if (!Album.Exists(album.Name))
                 {
                     a.Update(album);
                     a.Save();
