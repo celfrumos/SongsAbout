@@ -12,8 +12,8 @@ namespace SongsAbout_DesktopApp.Classes
 
         public static void ImportSavedPlaylists()
         {
-            List<SimplePlaylist> userPlaylists = UserSpotify.GetPlaylists();
-            foreach (SimplePlaylist playlist in userPlaylists)
+            Paging<FullPlaylist> userPlaylists = UserSpotify.GetPlaylists();
+            foreach (FullPlaylist playlist in userPlaylists.Items)
             {
                 try
                 {
@@ -165,6 +165,24 @@ namespace SongsAbout_DesktopApp.Classes
                 Console.WriteLine(ex.Message);
                 throw new Exception(ex.Message);
             }
+        }
+        public static void ImportTopTracks()
+        {
+            try
+            {
+                Paging<FullTrack> topTracks = User.Default.SpotifyWebAPI.GetUsersTopTracks();
+                foreach (FullTrack t in topTracks.Items)
+                {
+                    ImportTrack(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error fetching user's top tracks: {ex.Message}";
+                Console.WriteLine(msg);
+                throw new Exception(msg);
+            }
+
         }
 
         //public static void ImportPlaylistTrackArtists(PlaylistTrack pt)

@@ -14,8 +14,14 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public static class UserSpotify
+    public class UserSpotify
     {
+        public static SpotifyWebAPI API
+        {
+            get { return User.Default.SpotifyWebAPI; }
+            set { User.Default.SpotifyWebAPI = value; }
+        }
+
         /// <summary>
         /// Initial Setup of USer Spotify Settings
         /// </summary>
@@ -249,7 +255,7 @@ namespace SongsAbout_DesktopApp.Classes
 
         }
 
-        public static List<SimplePlaylist> GetPlaylists()
+        public static Paging<FullPlaylist> GetPlaylists()
         {
             try
             {
@@ -257,15 +263,14 @@ namespace SongsAbout_DesktopApp.Classes
                 {
 
                     Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId);
-                    List<SimplePlaylist> list = playlists.Items.ToList();
-
-                    while (playlists.Next != null)
+                    Paging<FullPlaylist> result = new Paging<FullPlaylist>();
+                    foreach (SimplePlaylist p in playlists.Items)
                     {
-                        playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId, 20, playlists.Offset + playlists.Limit);
-                        list.AddRange(playlists.Items);
+                        var fP = User.Default.SpotifyWebAPI.GetPlaylist(User.Default.UserId, p.Id);
+                        result.Items.Add(fP);
                     }
 
-                    return list;
+                    return result;
 
                 }
                 else
