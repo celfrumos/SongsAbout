@@ -81,7 +81,6 @@ namespace SongsAbout_DesktopApp
                     }
 
                     return (count > 0);
-
                 }
             }
             catch (Exception ex)
@@ -92,33 +91,29 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        internal void Update(SimpleArtist simpleArtist)
+        internal void Update(SimpleArtist artist)
         {
             try
             {
-                FullArtist ar = User.Default.SpotifyWebAPI.GetArtist(simpleArtist.Id);
-                this.Update(ar);
+                FullArtist a = User.Default.SpotifyWebAPI.GetArtist(artist.Id);
+                this.Update(a);
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating artist '{simpleArtist.Name}': {ex.Message}";
+                string msg = $"Error updating artist '{artist.Name}': {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
         }
 
-        public async void Update(FullArtist artist)
+        public void Update(FullArtist artist)
         {
             try
             {
                 this.a_name = artist.Name;
                 this.a_spotify_uri = artist.Uri;
                 this.a_website = artist.Href;
-                if (artist.Images.Count > 0)
-                {
-                    byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
-                    //  this.a_profile_pic = pic;//await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
-                }
+                this.UpdateProfilePic(artist);
                 this.a_website = artist.Href;
             }
             catch (Exception ex)
@@ -126,6 +121,15 @@ namespace SongsAbout_DesktopApp
                 string msg = $"Error Updating artist: '{artist.Name}': {ex.Message}'";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
+            }
+        }
+
+        private async void UpdateProfilePic(FullArtist artist)
+        {
+            if (artist.Images.Count > 0)
+            {
+                byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+                this.a_profile_pic = pic;//await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
             }
         }
 

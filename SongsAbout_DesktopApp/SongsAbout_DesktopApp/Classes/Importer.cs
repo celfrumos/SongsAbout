@@ -22,7 +22,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error importing Playlist: " + playlist.Name + ", " + ex.Message);
+                    Console.WriteLine($"Error importing Playlist: {playlist.Name}, {ex.Message}");
                     //throw new Exception(ex.Message);
                 }
             }
@@ -34,8 +34,19 @@ namespace SongsAbout_DesktopApp.Classes
             foreach (PlaylistTrack pt in playlistTracks.Items)
             {
                 ImportTrack(pt.Track);
-                //ImportAlbum(pt.Track.Album);
-                //ImportPlaylistTrackArtists(pt);
+            }
+        }
+
+        public static void ImportTrack(SimpleTrack t)
+        {
+            try
+            {
+                FullTrack track = User.Default.SpotifyWebAPI.GetTrack(t.Id);
+                ImportTrack(ref track);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -52,6 +63,30 @@ namespace SongsAbout_DesktopApp.Classes
                     Console.WriteLine($"Successfully Imported track {t.Name}");
                 }
                 else {
+                    Console.WriteLine($"Track '{t.Name}' already exists");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //throw new Exception(ex.Message);
+            }
+        }
+
+        public static void ImportTrack(ref FullTrack t)
+        {
+            try
+            {
+                Track track;
+                if (!Track.Exists(t.Name))
+                {
+                    track = new Track();
+                    track.Update(t);
+                    track.Save();
+                    Console.WriteLine($"Successfully Imported track {t.Name}");
+                }
+                else
+                {
                     Console.WriteLine($"Track '{t.Name}' already exists");
                 }
             }
@@ -110,6 +145,28 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
+        public static void ImportEntireAlbum(FullAlbum album)
+        {
+            try
+            {
+                Album a = new Album();
+                if (!Album.Exists(album.Name))
+                {
+                    a.Update(album);
+                    foreach (SimpleTrack track in album.Tracks.Items)
+                    {
+                        Track t = new Track();
+                    }
+                    a.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+
         //public static void ImportPlaylistTrackArtists(PlaylistTrack pt)
         //{
         //    foreach (SimpleArtist ar in pt.Track.Artists)
@@ -145,18 +202,6 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        public static void ImportTrack(SimpleTrack track)
-        {
-            try
-            {
-                var t = User.Default.SpotifyWebAPI.GetTrack(track.Id);
-                ImportTrack(t);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
 
         //public static void ImportSavedAlbums()
         //{

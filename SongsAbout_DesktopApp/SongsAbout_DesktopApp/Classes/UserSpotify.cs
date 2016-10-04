@@ -311,6 +311,7 @@ namespace SongsAbout_DesktopApp.Classes
                 throw new Exception("User WebAPI undefined");
             }
         }
+
         public async static Task<byte[]> ConvertSpotifyImageToBytes(SpotifyAPI.Web.Models.Image pic)
         {
             if (User.Default.PrivateProfile != null)
@@ -318,6 +319,7 @@ namespace SongsAbout_DesktopApp.Classes
                 try
                 {
                     WebClient wc = new WebClient();
+                    //TODO: test out non-async downloading
                     byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(pic.Url));
 
                     return imageBytes;
@@ -325,7 +327,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error getting profile photo " + ex.Message);
+                    throw new Exception($"Error getting profile photo: {ex.Message}");
                 }
             }
             else

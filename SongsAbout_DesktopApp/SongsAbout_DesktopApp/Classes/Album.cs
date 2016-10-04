@@ -112,7 +112,7 @@ namespace SongsAbout_DesktopApp
             try
             {
                 FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
-                this.Update(al);
+                this.Update(ref al);
             }
             catch (Exception ex)
             {
@@ -122,7 +122,22 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        public async void Update(FullAlbum album)
+        public void Update(ref SimpleAlbum album)
+        {
+            try
+            {
+                FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
+                this.Update(ref al);
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error Updating Album: {ex.Message}";
+                Console.WriteLine(msg);
+                throw new Exception(msg);
+            }
+        }
+
+        public void Update(FullAlbum album)
         {
             try
             {
@@ -130,13 +145,8 @@ namespace SongsAbout_DesktopApp
                 this.al_spotify_uri = album.Uri;
                 UpdateArtist(album.Artists[0]);
                 this.SetGenres(album.Genres);
-                //     ImportAlbumTracks(album.Tracks);
+                this.UpdateCoverArt(album);
 
-                if (album.Images.Count > 0)
-                {
-                    byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
-                    this.al_cover_art = pic;
-                }
                 Console.WriteLine($"Album updated: '{album.Name}'");
             }
             catch (Exception ex)
@@ -147,21 +157,50 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private void ImportAlbumTracks(Paging<SimpleTrack> tracks)
+        public void Update(ref FullAlbum album)
         {
-            foreach (SimpleTrack track in tracks.Items)
+            try
             {
-                try
-                {
-                    Importer.ImportTrack(track);
-                    Console.WriteLine($"Imported track '{track.Name}'");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                this.al_title = album.Name;
+                this.al_spotify_uri = album.Uri;
+                UpdateArtist(album.Artists[0]);
+                this.SetGenres(album.Genres);
+                this.UpdateCoverArt(album);
+
+                Console.WriteLine($"Album updated: '{album.Name}'");
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error Updating Album: {ex.Message}";
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
+
+        private async void UpdateCoverArt(FullAlbum album)
+        {
+            if (album.Images.Count > 0)
+            {
+                byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
+                this.al_cover_art = pic;
+            }
+        }
+
+        //private void ImportAlbumTracks(Paging<SimpleTrack> tracks)
+        //{
+        //    foreach (SimpleTrack track in tracks.Items)
+        //    {
+        //        try
+        //        {
+        //            Importer.ImportTrack(track);
+        //            Console.WriteLine($"Imported track '{track.Name}'");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine(ex.Message);
+        //        }
+        //    }
+        //}
 
         private void UpdateArtist(SimpleArtist simpleArtist)
         {

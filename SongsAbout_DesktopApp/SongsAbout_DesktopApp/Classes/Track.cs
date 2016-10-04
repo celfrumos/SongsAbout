@@ -10,6 +10,15 @@ namespace SongsAbout_DesktopApp
 {
     public partial class Track
     {
+        public Track(FullTrack t)
+        {
+            this.track_name = t.Name;
+            this.track_length_minutes = (double)(t.DurationMs) / 60000;
+            this.track_spotify_uri = t.Uri;
+            this.UpdateAlbum(t.Album);
+            this.UpdateArtist(t.Artists[0]);
+        }
+
         public void Save()
         {
             try
@@ -34,6 +43,34 @@ namespace SongsAbout_DesktopApp
         }
 
         public static bool Exists(string track_name)
+        {
+            try
+            {
+                int count = 0;
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                {
+                    string aquery = $"SELECT * FROM Tracks WHERE track_name = '{track_name }'";
+                    var tracks = db.ExecuteQuery<Track>(aquery);
+
+                    foreach (var item in tracks)
+                    {
+                        count++;
+                    }
+
+                }
+                return (count > 0);
+
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error verifying that track '{track_name}' exists: {ex.Message}";
+                Console.WriteLine(msg);
+                //   throw new Exception(msg);
+                return true;
+            }
+        }
+
+        public static bool Exists(int track_id)
         {
             try
             {
@@ -99,7 +136,27 @@ namespace SongsAbout_DesktopApp
                 this.track_spotify_uri = t.Uri;
 
                 UpdateAlbum(t.Album);
-                var tArtist = t.Artists[0];
+                SimpleArtist tArtist = t.Artists[0];
+                UpdateArtist(tArtist);
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error Updating track: {ex.Message}";
+                Console.WriteLine(msg);
+                //throw new Exception(msg);
+            }
+        }
+
+        public void Update(ref FullTrack t)
+        {
+            try
+            {
+                this.track_name = t.Name;
+                this.track_length_minutes = (double)(t.DurationMs) / 60000;
+                this.track_spotify_uri = t.Uri;
+
+                UpdateAlbum(t.Album);
+                SimpleArtist tArtist = t.Artists[0];
                 UpdateArtist(tArtist);
             }
             catch (Exception ex)
@@ -161,5 +218,32 @@ namespace SongsAbout_DesktopApp
                 //    throw new Exception(msg);
             }
         }
+
+        private void UpdateAlbum(ref SimpleAlbum album)
+        {
+            try
+            {
+                Album al;
+                if (Artist.Exists(album.Name))
+                {
+                    al = Album.Load(album.Name);
+                }
+                else
+                {
+                    al = new Album();
+                    al.Update(album);
+                    al.Save();
+                }
+
+                this.album_id = al.album_id;
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error updating track album for track: {this.track_name}: {ex.Message}";
+                Console.WriteLine(msg);
+                //    throw new Exception(msg);
+            }
+        }
+
     }
 }
