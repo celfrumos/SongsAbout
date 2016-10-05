@@ -3,20 +3,25 @@ using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using SpotifyAPI.Web.Models;
+using SongsAbout_DesktopApp.Properties;
 using System.Windows.Forms;
 using System.IO;
+using SongsAbout_DesktopApp.Classes;
 
 namespace SongsAbout_DesktopApp
 {
     public partial class Track
     {
+
         public Track(FullTrack t)
         {
-            this.track_name = t.Name;
-            this.track_length_minutes = (double)(t.DurationMs) / 60000;
-            this.track_spotify_uri = t.Uri;
-            this.UpdateAlbum(t.Album);
-            this.UpdateArtist(t.Artists[0]);
+            this.Update(ref t);
+        }
+
+        public Track(SimpleTrack track)
+        {
+            FullTrack t = UserSpotify.API.GetTrack(track.Id);
+            this.Update(ref t);
         }
 
         public void Save()
@@ -77,7 +82,7 @@ namespace SongsAbout_DesktopApp
                 int count = 0;
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    string aquery = $"SELECT * FROM Tracks WHERE track_name = '{track_name }'";
+                    string aquery = $"SELECT * FROM Tracks WHERE track_name = '{track_id }'";
                     var tracks = db.ExecuteQuery<Track>(aquery);
 
                     foreach (var item in tracks)
@@ -91,7 +96,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = $"Error verifying that track '{track_name}' exists: {ex.Message}";
+                string msg = $"Error verifying that track '{track_id}' exists: {ex.Message}";
                 Console.WriteLine(msg);
                 //   throw new Exception(msg);
                 return true;

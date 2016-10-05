@@ -1,19 +1,33 @@
 ﻿using System;
+using System.Threading.Tasks;
+using System.Net;
 using System.Collections.Generic;
-using System.Windows.Forms;
-
+using System.IO;
 using SongsAbout_DesktopApp.Properties;
 using SpotifyAPI.Web.Models;
+using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Classes
 {
     public static class Importer
     {
-
+        public static void ImportAll()
+        {
+            try
+            {
+                // ImportTopTracks();
+                ImportSavedPlaylists();
+                //ImportSavedTracks();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Importing data from Spotify: {ex.Message}");
+            }
+        }
         public static void ImportSavedPlaylists()
         {
-            Paging<FullPlaylist> userPlaylists = UserSpotify.GetPlaylists();
-            foreach (FullPlaylist playlist in userPlaylists.Items)
+            List<FullPlaylist> userPlaylists = UserSpotify.GetPlaylists();
+            foreach (FullPlaylist playlist in userPlaylists)
             {
                 try
                 {
@@ -54,11 +68,10 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                Track track;
                 if (!Track.Exists(t.Name))
                 {
-                    track = new Track();
-                    track.Update(t);
+                    Track track = new Track(t);
+                    // track.Update(t);
                     track.Save();
                     Console.WriteLine($"Successfully Imported track {t.Name}");
                 }
@@ -77,11 +90,10 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                Track track;
                 if (!Track.Exists(t.Name))
                 {
-                    track = new Track();
-                    track.Update(t);
+                    Track track = new Track(t);
+                    //  track.Update(t);
                     track.Save();
                     Console.WriteLine($"Successfully Imported track {t.Name}");
                 }
@@ -97,6 +109,58 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
+        public static Image ImportSpotifyImage(SpotifyAPI.Web.Models.Image pic)
+        {
+            if (User.Default.PrivateProfile != null)
+            {
+                try
+                {
+                    using (WebClient wc = new WebClient())
+                    {
+                        Image systemPic;
+                        byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
+                        using (MemoryStream stream = new MemoryStream(imageBytes))
+                        {
+                            systemPic = Image.FromStream(stream);
+                            return systemPic;
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error getting profile photo " + ex.Message);
+                }
+            }
+            else
+            {
+                throw new Exception("User WebAPI undefined");
+            }
+        }
+
+        public static byte[] ImportSpotifyImageBytes(SpotifyAPI.Web.Models.Image pic)
+        {
+            if (User.Default.PrivateProfile != null)
+            {
+                try
+                {
+                    WebClient wc = new WebClient();
+                    //TODO: test out non-async downloading
+                    byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
+
+                    return imageBytes;
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error getting profile photo: {ex.Message}");
+                }
+            }
+            else
+            {
+                throw new Exception("User WebAPI undefined");
+            }
+        }
         public static void ImportSavedTracks()
         {
             Paging<SavedTrack> tracks = User.Default.SpotifyWebAPI.GetSavedTracks();
@@ -149,13 +213,14 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                Album a = new Album();
+                Album a;
                 if (!Album.Exists(album.Name))
                 {
-                    a.Update(album);
+                    a = new Album(album);
                     foreach (SimpleTrack track in album.Tracks.Items)
                     {
-                        Track t = new Track();
+                        Track t = new Track(track);
+                        t.Save();
                     }
                     a.Save();
                 }
@@ -166,11 +231,12 @@ namespace SongsAbout_DesktopApp.Classes
                 throw new Exception(ex.Message);
             }
         }
+
         public static void ImportTopTracks()
         {
             try
             {
-                Paging<FullTrack> topTracks = User.Default.SpotifyWebAPI.GetUsersTopTracks();
+                Paging<FullTrack> topTracks = UserSpotify.GetTopTracks();
                 foreach (FullTrack t in topTracks.Items)
                 {
                     ImportTrack(t);

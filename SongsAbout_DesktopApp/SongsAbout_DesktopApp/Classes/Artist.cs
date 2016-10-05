@@ -70,6 +70,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
+                formatName(ref name);
                 string aquery = $"SELECT * FROM Artists WHERE a_name = '{name}'";
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
@@ -88,6 +89,15 @@ namespace SongsAbout_DesktopApp
                 string msg = $"Error verifying if artist: '{name}' exists: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
+            }
+        }
+
+        private static void formatName(ref string name)
+        {
+            if (name.Contains("\'"))
+            {
+                int i = name.IndexOf("\'");
+                name = name.Insert(i, "'");
             }
         }
 
@@ -124,11 +134,11 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private async void UpdateProfilePic(FullArtist artist)
+        private void UpdateProfilePic(FullArtist artist)
         {
             if (artist.Images.Count > 0)
             {
-                byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+                byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
                 this.a_profile_pic = pic;//await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
             }
         }
@@ -137,6 +147,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
+                formatName(ref a_name);
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
                     string aquery = $"SELECT * FROM Artists WHERE a_name = '{a_name}'";

@@ -179,7 +179,7 @@
             // 
             this.btnSpotify.Location = new System.Drawing.Point(25, 420);
             this.btnSpotify.Name = "btnSpotify";
-            this.btnSpotify.Size = new System.Drawing.Size(100, 36);
+            this.btnSpotify.Size = new System.Drawing.Size(93, 53);
             this.btnSpotify.TabIndex = 15;
             this.btnSpotify.Text = "Connect Spotify";
             this.btnSpotify.UseVisualStyleBackColor = true;
@@ -201,7 +201,7 @@
             this.btnImportPlaylistArtists.Name = "btnImportPlaylistArtists";
             this.btnImportPlaylistArtists.Size = new System.Drawing.Size(147, 36);
             this.btnImportPlaylistArtists.TabIndex = 17;
-            this.btnImportPlaylistArtists.Text = "Import Spotfy Artists";
+            this.btnImportPlaylistArtists.Text = "Import From Spotify";
             this.btnImportPlaylistArtists.UseVisualStyleBackColor = true;
             this.btnImportPlaylistArtists.Click += new System.EventHandler(this.btnImportArtists_Click);
             // 

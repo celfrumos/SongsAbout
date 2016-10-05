@@ -22,6 +22,8 @@ namespace SongsAbout_DesktopApp.Classes
             set { User.Default.SpotifyWebAPI = value; }
         }
 
+        public Image ProfilePic { get; set; }
+
         /// <summary>
         /// Initial Setup of USer Spotify Settings
         /// </summary>
@@ -44,10 +46,10 @@ namespace SongsAbout_DesktopApp.Classes
                     User.Default.Save();
                 }
 
-                AssignProfile();
-                AssignFollowedArtists();
-                AssignProfile();
-                AssignProfilePic();
+                FetchProfile();
+                FetchFollowedArtists();
+                FetchProfile();
+                FetchProfilePic();
                 User.Default.Save();
             }
             catch (Exception ex)
@@ -63,7 +65,7 @@ namespace SongsAbout_DesktopApp.Classes
         /// <summary>
         /// Gets profile info via WebAPI. Assigns user settings PrivateProfile, UserId, and PublicProfile
         /// </summary>
-        private static void AssignProfile()
+        private static void FetchProfile()
         {
             try
             {
@@ -140,7 +142,7 @@ namespace SongsAbout_DesktopApp.Classes
                 {
                     if (User.Default.ProfilePic == null)
                     {
-                        AssignProfilePic();
+                        FetchProfilePic();
                     }
 
                     using (WebClient wc = new WebClient())
@@ -162,7 +164,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error getting profile photo " + ex.Message);
+                    throw new Exception($"Error getting profile photo: {ex.Message}");
                 }
             }
             else
@@ -174,7 +176,7 @@ namespace SongsAbout_DesktopApp.Classes
         /// <summary>
         /// Assign User Setting ProfilePic
         /// </summary>
-        private static void AssignProfilePic()
+        public static void FetchProfilePic()
         {
             if (User.Default.PrivateProfile != null)
             {
@@ -185,7 +187,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else
                 {
-                    throw new Exception("Error Assigning profile pic");
+                    throw new Exception("Error Fetch profile pic");
                 }
             }
             else
@@ -197,11 +199,11 @@ namespace SongsAbout_DesktopApp.Classes
         /// <summary>
         /// Assign User Setting for FollowedArtists
         /// </summary>
-        private static void AssignFollowedArtists()
+        public static void FetchFollowedArtists()
         {
-            if (User.Default.SpotifyWebAPI != null)
+            if (API != null)
             {
-                User.Default.FollowedArtists = User.Default.SpotifyWebAPI.GetFollowedArtists(FollowType.Artist);
+                User.Default.FollowedArtists = API.GetFollowedArtists(FollowType.Artist);
                 User.Default.Save();
                 //foreach (var a in artists.Artists.Items)
                 //{
@@ -216,6 +218,28 @@ namespace SongsAbout_DesktopApp.Classes
             else
             {
                 throw new Exception("User WebAPI undefined");
+            }
+        }
+
+        internal static Paging<FullTrack> GetTopTracks()
+        {
+            if (User.Default.PrivateProfile != null)
+            {
+                try
+                {
+                    return API.GetUsersTopTracks();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error getting user's top tracks: {ex.Message}");
+                }
+            }
+            else
+            {
+                string msg = "Failed to get user top tracks; Profile not yet defined.";
+                Console.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
@@ -255,7 +279,7 @@ namespace SongsAbout_DesktopApp.Classes
 
         }
 
-        public static Paging<FullPlaylist> GetPlaylists()
+        public static List<FullPlaylist> GetPlaylists()
         {
             try
             {
@@ -263,11 +287,13 @@ namespace SongsAbout_DesktopApp.Classes
                 {
 
                     Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId);
-                    Paging<FullPlaylist> result = new Paging<FullPlaylist>();
+                    List<FullPlaylist> result = new List<FullPlaylist>();
+                    //Paging<FullPlaylist> l = new Paging<FullPlaylist>();
+
                     foreach (SimplePlaylist p in playlists.Items)
                     {
-                        var fP = User.Default.SpotifyWebAPI.GetPlaylist(User.Default.UserId, p.Id);
-                        result.Items.Add(fP);
+                        FullPlaylist fP = User.Default.SpotifyWebAPI.GetPlaylist(User.Default.UserId, p.Id);
+                        result.Add(fP);
                     }
 
                     return result;
@@ -288,57 +314,5 @@ namespace SongsAbout_DesktopApp.Classes
         /// Async method to get Profile image as a System.Drawing.Image
         /// </summary>
         /// <returns></returns>
-        public async static Task<Image> getImagefromSpotify(SpotifyAPI.Web.Models.Image pic)
-        {
-            if (User.Default.PrivateProfile != null)
-            {
-                try
-                {
-                    using (WebClient wc = new WebClient())
-                    {
-                        Image systemPic;
-                        byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(pic.Url));
-                        using (MemoryStream stream = new MemoryStream(imageBytes))
-                        {
-                            systemPic = Image.FromStream(stream);
-                            return systemPic;
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error getting profile photo " + ex.Message);
-                }
-            }
-            else
-            {
-                throw new Exception("User WebAPI undefined");
-            }
-        }
-
-        public async static Task<byte[]> ConvertSpotifyImageToBytes(SpotifyAPI.Web.Models.Image pic)
-        {
-            if (User.Default.PrivateProfile != null)
-            {
-                try
-                {
-                    WebClient wc = new WebClient();
-                    //TODO: test out non-async downloading
-                    byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(pic.Url));
-
-                    return imageBytes;
-
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Error getting profile photo: {ex.Message}");
-                }
-            }
-            else
-            {
-                throw new Exception("User WebAPI undefined");
-            }
-        }
     }
 }

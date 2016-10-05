@@ -8,6 +8,12 @@ namespace SongsAbout_DesktopApp
 {
     public partial class Album
     {
+
+        public Album(FullAlbum album)
+        {
+            this.Update(ref album);
+        }
+
         public void Save()
         {
             try
@@ -163,7 +169,7 @@ namespace SongsAbout_DesktopApp
             {
                 this.al_title = album.Name;
                 this.al_spotify_uri = album.Uri;
-                UpdateArtist(album.Artists[0]);
+                this.UpdateArtist(album.Artists[0]);
                 this.SetGenres(album.Genres);
                 this.UpdateCoverArt(album);
 
@@ -177,11 +183,11 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private async void UpdateCoverArt(FullAlbum album)
+        private void UpdateCoverArt(FullAlbum album)
         {
             if (album.Images.Count > 0)
             {
-                byte[] pic = await UserSpotify.ConvertSpotifyImageToBytes(album.Images[0]);
+                byte[] pic = Importer.ImportSpotifyImageBytes(album.Images[0]);
                 this.al_cover_art = pic;
             }
         }

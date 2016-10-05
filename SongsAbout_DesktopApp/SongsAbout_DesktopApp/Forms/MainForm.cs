@@ -115,7 +115,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                Importer.ImportSavedPlaylists();
+                Importer.ImportAll();
             }
             catch (Exception ex)
             {
