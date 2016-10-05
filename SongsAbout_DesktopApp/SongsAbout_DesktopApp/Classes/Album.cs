@@ -40,6 +40,7 @@ namespace SongsAbout_DesktopApp
             try
             {
                 int count = 0;
+                formatName(ref al_title);
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
                     string aquery = $"SELECT * FROM Albums WHERE al_title = '{al_title}'";
@@ -59,10 +60,20 @@ namespace SongsAbout_DesktopApp
             }
         }
 
+        private static void formatName(ref string name)
+        {
+            if (name.Contains("\'"))
+            {
+                int i = name.IndexOf("\'");
+                name = name.Insert(i, "'");
+            }
+        }
+
         public static Album Load(string al_title)
         {
             try
             {
+                formatName(ref al_title);
                 using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
                     string aquery = $"SELECT * FROM Albums WHERE al_title = '{al_title}'";

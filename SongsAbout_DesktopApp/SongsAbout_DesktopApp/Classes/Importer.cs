@@ -31,8 +31,11 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 try
                 {
-                    Paging<PlaylistTrack> playlistTracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.UserId, playlist.Id);
-                    ImportPlaylistTracks(playlistTracks);
+                    Paging<PlaylistTrack> playlistTracks = UserSpotify.API.GetPlaylistTracks(User.Default.UserId, playlist.Id);
+                    foreach (PlaylistTrack pt in playlistTracks.Items)
+                    {
+                        ImportTrack(pt.Track);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -41,14 +44,6 @@ namespace SongsAbout_DesktopApp.Classes
                 }
             }
             Console.WriteLine("Finished importing artists from Playlists.");
-        }
-
-        public static void ImportPlaylistTracks(Paging<PlaylistTrack> playlistTracks)
-        {
-            foreach (PlaylistTrack pt in playlistTracks.Items)
-            {
-                ImportTrack(pt.Track);
-            }
         }
 
         public static void ImportTrack(SimpleTrack t)
