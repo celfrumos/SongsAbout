@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using SongsAbout_DesktopApp.Classes;
 
 namespace SongsAbout_DesktopApp
 {
@@ -52,8 +53,8 @@ namespace SongsAbout_DesktopApp
 
             string fileName = openFileDialog.FileName;
 
-           // NewArtist.a_profile_pic = picBoxProfilePic.Image;
-           // NewArtist.SetProfilePic(fileName);
+            // NewArtist.a_profile_pic = picBoxProfilePic.Image;
+            // NewArtist.SetProfilePic(fileName);
             picBoxProfilePic.Image = picBoxProfilePic.Image;
         }
 

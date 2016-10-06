@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using SongsAbout_DesktopApp.Properties;
 using System;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout_DesktopApp.Classes
 {
     public partial class Album
     {
@@ -26,10 +26,38 @@ namespace SongsAbout_DesktopApp
                         context.SubmitChanges();
                     }
                 }
+                else
+                {
+                    Console.WriteLine($"Error saving album {this.al_title}, already exists");
+                }
             }
             catch (Exception ex)
             {
                 string msg = $"Error Saving Album '{ex.Message}'";
+                Console.WriteLine(msg);
+                throw new Exception(msg);
+            }
+        }
+
+        public static bool Exists(int album_id)
+        {
+            try
+            {
+                int count = 0;
+                using (DataClassesDataContext db = new DataClassesDataContext())
+                {
+                    string aquery = $"SELECT * FROM Albums WHERE album_id = {album_id}";
+                    var albs = db.ExecuteQuery<Album>(aquery);
+                    foreach (var item in albs)
+                    {
+                        count++;
+                    }
+                }
+                return (count > 0); ;
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error validating if album '{album_id}' exists: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -54,7 +82,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = $"Error validating if album '{al_title}'exists: {ex.Message}";
+                string msg = $"Error validating if album '{al_title}' exists: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
@@ -164,6 +192,7 @@ namespace SongsAbout_DesktopApp
                 this.SetGenres(album.Genres);
                 this.UpdateCoverArt(album);
 
+                this.Save();
                 Console.WriteLine($"Album updated: '{album.Name}'");
             }
             catch (Exception ex)
@@ -184,6 +213,7 @@ namespace SongsAbout_DesktopApp
                 this.SetGenres(album.Genres);
                 this.UpdateCoverArt(album);
 
+                this.Save();
                 Console.WriteLine($"Album updated: '{album.Name}'");
             }
             catch (Exception ex)
@@ -232,7 +262,7 @@ namespace SongsAbout_DesktopApp
                 {
                     a = new Artist();
                     a.Update(simpleArtist);
-                    a.Save();
+                    //  a.Save();
                     Console.WriteLine($"Artist added: '{a.a_name}'");
                 }
                 this.artist_id = a.artist_id;

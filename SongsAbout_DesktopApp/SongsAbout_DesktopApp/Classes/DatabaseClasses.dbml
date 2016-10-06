@@ -9,7 +9,7 @@
       <Column Name="a_spotify_uri" AutoSync="Always" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="a_profile_pic" Type="System.Byte[]" DbType="Image" CanBeNull="true" />
       <Association Name="Artist_Album" Member="Albums" ThisKey="artist_id" OtherKey="artist_id" Type="Album" />
-      <Association Name="Artist_ArtistTrack" Member="ArtistTracks" ThisKey="artist_id" OtherKey="artist_id" Type="ArtistTrack" />
+      <Association Name="Artist_TrackArtist" Member="TrackArtists" ThisKey="artist_id" OtherKey="artist_id" Type="TrackArtists" />
     </Type>
   </Table>
   <Table Name="dbo.Genres" Member="Genres">
@@ -44,7 +44,6 @@
   <Table Name="dbo.Tracks" Member="Tracks">
     <Type Name="Track">
       <Column Name="track_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="album_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="track_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="track_spotify_uri" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="track_length_minutes" Type="System.Double" DbType="Float" CanBeNull="true" />
@@ -54,7 +53,7 @@
       <Association Name="Track_TrackGenre" Member="TrackGenres" ThisKey="track_id" OtherKey="track_id" Type="TrackGenre" />
       <Association Name="Track_TrackTag" Member="TrackTags" ThisKey="track_id" OtherKey="track_id" Type="TrackTag" />
       <Association Name="Track_AlbumTrack" Member="AlbumTracks" ThisKey="track_id" OtherKey="track_id" Type="AlbumTracks" />
-      <Association Name="Track_ArtistTrack" Member="ArtistTracks" ThisKey="track_id" OtherKey="track_id" Type="ArtistTrack" />
+      <Association Name="Track_TrackArtist" Member="TrackArtists" ThisKey="track_id" OtherKey="track_id" Type="TrackArtists" />
     </Type>
   </Table>
   <Table Name="dbo.Tags" Member="Tags">
@@ -90,13 +89,13 @@
       <Association Name="Track_AlbumTrack" Member="Track" ThisKey="track_id" OtherKey="track_id" Type="Track" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ArtistTracks" Member="ArtistTracks">
-    <Type Name="ArtistTrack">
+  <Table Name="dbo.TrackArtists" Member="TrackArtists">
+    <Type Name="TrackArtists">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="artist_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="track_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Artist_ArtistTrack" Member="Artist" ThisKey="artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" />
-      <Association Name="Track_ArtistTrack" Member="Track" ThisKey="track_id" OtherKey="track_id" Type="Track" IsForeignKey="true" />
+      <Association Name="Artist_TrackArtist" Member="Artist" ThisKey="artist_id" OtherKey="artist_id" Type="Artist" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Track_TrackArtist" Member="Track" ThisKey="track_id" OtherKey="track_id" Type="Track" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>

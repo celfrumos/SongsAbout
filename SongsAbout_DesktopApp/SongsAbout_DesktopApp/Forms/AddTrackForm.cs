@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SongsAbout_DesktopApp.Classes;
 
 namespace SongsAbout_DesktopApp
 {
@@ -34,7 +35,7 @@ namespace SongsAbout_DesktopApp
                 NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
 
                 string newAlbumId = cBoxAlbum.SelectedValue.ToString();
-                NewTrack.album_id = int.Parse(newAlbumId);
+//                NewTrack.album_id = int.Parse(newAlbumId);
 
                 string newArtistId = cBoxAlbum.SelectedValue.ToString();
                 NewTrack.track_artist_id = int.Parse(newArtistId);
@@ -73,7 +74,7 @@ namespace SongsAbout_DesktopApp
                 this.artistsTableAdapter.Fill(this.dataSet.Artists);
             }
         }
-        
+
         private void btnNewAlbum_Click(object sender, EventArgs e)
         {
             Album newAlbum;

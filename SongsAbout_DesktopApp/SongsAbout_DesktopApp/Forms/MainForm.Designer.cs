@@ -149,7 +149,7 @@
             this.btnSavedLists.Name = "btnSavedLists";
             this.btnSavedLists.Size = new System.Drawing.Size(193, 54);
             this.btnSavedLists.TabIndex = 12;
-            this.btnSavedLists.Text = "Go to My Saved Lists";
+            this.btnSavedLists.Text = "Import Spotify Playlists";
             this.btnSavedLists.UseVisualStyleBackColor = true;
             this.btnSavedLists.Click += new System.EventHandler(this.btnSavedLists_Click);
             // 

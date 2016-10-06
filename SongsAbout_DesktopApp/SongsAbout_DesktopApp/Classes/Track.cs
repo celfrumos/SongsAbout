@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using SongsAbout_DesktopApp.Classes;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout_DesktopApp.Classes
 {
     public partial class Track
     {
@@ -113,7 +113,7 @@ namespace SongsAbout_DesktopApp
                 int count = 0;
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
-                    string aquery = $"SELECT * FROM Tracks WHERE track_name = '{track_id }'";
+                    string aquery = $"SELECT * FROM Tracks WHERE track_id = {track_id}";
                     var tracks = db.ExecuteQuery<Track>(aquery);
 
                     foreach (var item in tracks)
@@ -170,10 +170,9 @@ namespace SongsAbout_DesktopApp
                 this.track_name = t.Name;
                 this.track_length_minutes = (double)(t.DurationMs) / 60000;
                 this.track_spotify_uri = t.Uri;
-
+                this.Save();
                 UpdateAlbum(t.Album);
-                SimpleArtist tArtist = t.Artists[0];
-                UpdateArtist(tArtist);
+                UpdateArtist(t.Artists[0]);
             }
             catch (Exception ex)
             {
@@ -208,6 +207,7 @@ namespace SongsAbout_DesktopApp
             try
             {
                 Artist a;
+                TrackArtists ta = new TrackArtists();
                 if (Artist.Exists(simpleArtist.Name))
                 {
                     a = Artist.Load(simpleArtist.Name);
@@ -216,10 +216,10 @@ namespace SongsAbout_DesktopApp
                 {
                     a = new Artist();
                     a.Update(simpleArtist);
-                    a.Save();
+                    //   a.Save();
                 }
 
-                this.track_artist_id = a.artist_id;
+                ta.Update(a.artist_id, this.track_id);
             }
             catch (Exception ex)
             {
@@ -236,7 +236,7 @@ namespace SongsAbout_DesktopApp
                 AlbumTracks at = new AlbumTracks();
 
                 Album al;
-                if (Artist.Exists(album.Name))
+                if (Album.Exists(album.Name))
                 {
                     al = Album.Load(album.Name);
                 }
@@ -244,10 +244,10 @@ namespace SongsAbout_DesktopApp
                 {
                     al = new Album();
                     al.Update(album);
-                    al.Save();
+                    //al.Save();
                 }
-                at.album_id = al.album_id;
-                this.AlbumTracks.Add(at);
+                at.Update(al.album_id, this.track_id);
+                //at.Save();
             }
             catch (Exception ex)
             {
@@ -257,31 +257,31 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private void UpdateAlbum(ref SimpleAlbum album)
-        {
-            try
-            {
-                Album al;
-                if (Artist.Exists(album.Name))
-                {
-                    al = Album.Load(album.Name);
-                }
-                else
-                {
-                    al = new Album();
-                    al.Update(album);
-                    al.Save();
-                }
+        //private void UpdateAlbum(ref SimpleAlbum album)
+        //{
+        //    try
+        //    {
+        //        Album al;
+        //        if (Artist.Exists(album.Name))
+        //        {
+        //            al = Album.Load(album.Name);
+        //        }
+        //        else
+        //        {
+        //            al = new Album();
+        //            al.Update(album);
+        //            al.Save();
+        //        }
 
-                this.album_id = al.album_id;
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error updating track album for track: {this.track_name}: {ex.Message}";
-                Console.WriteLine(msg);
-                //    throw new Exception(msg);
-            }
-        }
+        //        this.album_id = al.album_id;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string msg = $"Error updating track album for track: {this.track_name}: {ex.Message}";
+        //        Console.WriteLine(msg);
+        //        //    throw new Exception(msg);
+        //    }
+        //}
 
     }
 }

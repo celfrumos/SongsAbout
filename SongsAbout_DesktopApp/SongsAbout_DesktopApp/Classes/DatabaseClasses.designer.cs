@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout_DesktopApp.Classes
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -57,9 +57,9 @@ namespace SongsAbout_DesktopApp
     partial void InsertAlbumTracks(AlbumTracks instance);
     partial void UpdateAlbumTracks(AlbumTracks instance);
     partial void DeleteAlbumTracks(AlbumTracks instance);
-    partial void InsertArtistTrack(ArtistTrack instance);
-    partial void UpdateArtistTrack(ArtistTrack instance);
-    partial void DeleteArtistTrack(ArtistTrack instance);
+    partial void InsertTrackArtists(TrackArtists instance);
+    partial void UpdateTrackArtists(TrackArtists instance);
+    partial void DeleteTrackArtists(TrackArtists instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -164,11 +164,11 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		public System.Data.Linq.Table<ArtistTrack> ArtistTracks
+		public System.Data.Linq.Table<TrackArtists> TrackArtists
 		{
 			get
 			{
-				return this.GetTable<ArtistTrack>();
+				return this.GetTable<TrackArtists>();
 			}
 		}
 	}
@@ -193,7 +193,7 @@ namespace SongsAbout_DesktopApp
 		
 		private EntitySet<Album> _Albums;
 		
-		private EntitySet<ArtistTrack> _ArtistTracks;
+		private EntitySet<TrackArtists> _TrackArtists;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -214,7 +214,7 @@ namespace SongsAbout_DesktopApp
 		public Artist()
 		{
 			this._Albums = new EntitySet<Album>(new Action<Album>(this.attach_Albums), new Action<Album>(this.detach_Albums));
-			this._ArtistTracks = new EntitySet<ArtistTrack>(new Action<ArtistTrack>(this.attach_ArtistTracks), new Action<ArtistTrack>(this.detach_ArtistTracks));
+			this._TrackArtists = new EntitySet<TrackArtists>(new Action<TrackArtists>(this.attach_TrackArtists), new Action<TrackArtists>(this.detach_TrackArtists));
 			OnCreated();
 		}
 		
@@ -340,16 +340,16 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_ArtistTrack", Storage="_ArtistTracks", ThisKey="artist_id", OtherKey="artist_id")]
-		public EntitySet<ArtistTrack> ArtistTracks
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_TrackArtist", Storage="_TrackArtists", ThisKey="artist_id", OtherKey="artist_id")]
+		public EntitySet<TrackArtists> TrackArtists
 		{
 			get
 			{
-				return this._ArtistTracks;
+				return this._TrackArtists;
 			}
 			set
 			{
-				this._ArtistTracks.Assign(value);
+				this._TrackArtists.Assign(value);
 			}
 		}
 		
@@ -385,13 +385,13 @@ namespace SongsAbout_DesktopApp
 			entity.Artist = null;
 		}
 		
-		private void attach_ArtistTracks(ArtistTrack entity)
+		private void attach_TrackArtists(TrackArtists entity)
 		{
 			this.SendPropertyChanging();
 			entity.Artist = this;
 		}
 		
-		private void detach_ArtistTracks(ArtistTrack entity)
+		private void detach_TrackArtists(TrackArtists entity)
 		{
 			this.SendPropertyChanging();
 			entity.Artist = null;
@@ -978,8 +978,6 @@ namespace SongsAbout_DesktopApp
 		
 		private int _track_id;
 		
-		private int _album_id;
-		
 		private string _track_name;
 		
 		private string _track_spotify_uri;
@@ -998,7 +996,7 @@ namespace SongsAbout_DesktopApp
 		
 		private EntitySet<AlbumTracks> _AlbumTracks;
 		
-		private EntitySet<ArtistTrack> _ArtistTracks;
+		private EntitySet<TrackArtists> _TrackArtists;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1006,8 +1004,6 @@ namespace SongsAbout_DesktopApp
     partial void OnCreated();
     partial void Ontrack_idChanging(int value);
     partial void Ontrack_idChanged();
-    partial void Onalbum_idChanging(int value);
-    partial void Onalbum_idChanged();
     partial void Ontrack_nameChanging(string value);
     partial void Ontrack_nameChanged();
     partial void Ontrack_spotify_uriChanging(string value);
@@ -1027,7 +1023,7 @@ namespace SongsAbout_DesktopApp
 			this._TrackGenres = new EntitySet<TrackGenre>(new Action<TrackGenre>(this.attach_TrackGenres), new Action<TrackGenre>(this.detach_TrackGenres));
 			this._TrackTags = new EntitySet<TrackTag>(new Action<TrackTag>(this.attach_TrackTags), new Action<TrackTag>(this.detach_TrackTags));
 			this._AlbumTracks = new EntitySet<AlbumTracks>(new Action<AlbumTracks>(this.attach_AlbumTracks), new Action<AlbumTracks>(this.detach_AlbumTracks));
-			this._ArtistTracks = new EntitySet<ArtistTrack>(new Action<ArtistTrack>(this.attach_ArtistTracks), new Action<ArtistTrack>(this.detach_ArtistTracks));
+			this._TrackArtists = new EntitySet<TrackArtists>(new Action<TrackArtists>(this.attach_TrackArtists), new Action<TrackArtists>(this.detach_TrackArtists));
 			OnCreated();
 		}
 		
@@ -1047,26 +1043,6 @@ namespace SongsAbout_DesktopApp
 					this._track_id = value;
 					this.SendPropertyChanged("track_id");
 					this.Ontrack_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_album_id", DbType="Int NOT NULL")]
-		public int album_id
-		{
-			get
-			{
-				return this._album_id;
-			}
-			set
-			{
-				if ((this._album_id != value))
-				{
-					this.Onalbum_idChanging(value);
-					this.SendPropertyChanging();
-					this._album_id = value;
-					this.SendPropertyChanged("album_id");
-					this.Onalbum_idChanged();
 				}
 			}
 		}
@@ -1230,16 +1206,16 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_ArtistTrack", Storage="_ArtistTracks", ThisKey="track_id", OtherKey="track_id")]
-		public EntitySet<ArtistTrack> ArtistTracks
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_TrackArtist", Storage="_TrackArtists", ThisKey="track_id", OtherKey="track_id")]
+		public EntitySet<TrackArtists> TrackArtists
 		{
 			get
 			{
-				return this._ArtistTracks;
+				return this._TrackArtists;
 			}
 			set
 			{
-				this._ArtistTracks.Assign(value);
+				this._TrackArtists.Assign(value);
 			}
 		}
 		
@@ -1299,13 +1275,13 @@ namespace SongsAbout_DesktopApp
 			entity.Track = null;
 		}
 		
-		private void attach_ArtistTracks(ArtistTrack entity)
+		private void attach_TrackArtists(TrackArtists entity)
 		{
 			this.SendPropertyChanging();
 			entity.Track = this;
 		}
 		
-		private void detach_ArtistTracks(ArtistTrack entity)
+		private void detach_TrackArtists(TrackArtists entity)
 		{
 			this.SendPropertyChanging();
 			entity.Track = null;
@@ -1978,8 +1954,8 @@ namespace SongsAbout_DesktopApp
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ArtistTracks")]
-	public partial class ArtistTrack : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TrackArtists")]
+	public partial class TrackArtists : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -2006,7 +1982,7 @@ namespace SongsAbout_DesktopApp
     partial void Ontrack_idChanged();
     #endregion
 		
-		public ArtistTrack()
+		public TrackArtists()
 		{
 			this._Artist = default(EntityRef<Artist>);
 			this._Track = default(EntityRef<Track>);
@@ -2081,7 +2057,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_ArtistTrack", Storage="_Artist", ThisKey="artist_id", OtherKey="artist_id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Artist_TrackArtist", Storage="_Artist", ThisKey="artist_id", OtherKey="artist_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Artist Artist
 		{
 			get
@@ -2098,12 +2074,12 @@ namespace SongsAbout_DesktopApp
 					if ((previousValue != null))
 					{
 						this._Artist.Entity = null;
-						previousValue.ArtistTracks.Remove(this);
+						previousValue.TrackArtists.Remove(this);
 					}
 					this._Artist.Entity = value;
 					if ((value != null))
 					{
-						value.ArtistTracks.Add(this);
+						value.TrackArtists.Add(this);
 						this._artist_id = value.artist_id;
 					}
 					else
@@ -2115,7 +2091,7 @@ namespace SongsAbout_DesktopApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_ArtistTrack", Storage="_Track", ThisKey="track_id", OtherKey="track_id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Track_TrackArtist", Storage="_Track", ThisKey="track_id", OtherKey="track_id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Track Track
 		{
 			get
@@ -2132,12 +2108,12 @@ namespace SongsAbout_DesktopApp
 					if ((previousValue != null))
 					{
 						this._Track.Entity = null;
-						previousValue.ArtistTracks.Remove(this);
+						previousValue.TrackArtists.Remove(this);
 					}
 					this._Track.Entity = value;
 					if ((value != null))
 					{
-						value.ArtistTracks.Add(this);
+						value.TrackArtists.Add(this);
 						this._track_id = value.track_id;
 					}
 					else

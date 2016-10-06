@@ -87,16 +87,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AlbumTracks.cs" />
+    <Compile Include="Classes\TrackArtists.cs" />
     <Compile Include="Classes\Importer.cs" />
     <Compile Include="Classes\UserSpotify.cs" />
-    <Compile Include="Classes\UserProfile.cs" />
-    <Compile Include="DatabaseClasses.cs">
+    <Compile Include="Classes\DatabaseClasses.cs">
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
     </Compile>
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ImportPlaylistsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportPlaylistsForm.Designer.cs">
+      <DependentUpon>ImportPlaylistsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MyArtistsForm.cs">
       <SubType>Form</SubType>
@@ -133,7 +140,7 @@
     </Compile>
     <Compile Include="Classes\Album.cs" />
     <Compile Include="Classes\Artist.cs" />
-    <Compile Include="DatabaseClasses.designer.cs">
+    <Compile Include="Classes\DatabaseClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
@@ -159,6 +166,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>User.settings</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\ImportPlaylistsForm.resx">
+      <DependentUpon>ImportPlaylistsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MyArtistsForm.resx">
       <DependentUpon>MyArtistsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,7 +184,7 @@
     <EmbeddedResource Include="Forms\AddTrackForm.resx">
       <DependentUpon>AddTrackForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DatabaseClasses.dbml.layout">
+    <None Include="Classes\DatabaseClasses.dbml.layout">
       <DependentUpon>DatabaseClasses.dbml</DependentUpon>
     </None>
     <EmbeddedResource Include="Forms\MainForm.resx">
@@ -193,7 +203,7 @@
     <EmbeddedResource Include="Forms\ResultsForm.resx">
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DatabaseClasses.dbml">
+    <None Include="Classes\DatabaseClasses.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DatabaseClasses.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>

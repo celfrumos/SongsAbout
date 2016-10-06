@@ -10,7 +10,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Collections;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout_DesktopApp.Classes
 {
 
     /// <summary>
@@ -92,6 +92,31 @@ namespace SongsAbout_DesktopApp
             }
         }
 
+        public static bool Exists(int artist_id)
+        {
+            try
+            {
+                string aquery = $"SELECT * FROM Artists WHERE artist_id = {artist_id}";
+                using (DataClassesDataContext db = new DataClassesDataContext())
+                {
+                    var artists = db.ExecuteQuery<Artist>(aquery);
+                    int count = 0;
+                    foreach (Artist artist in artists)
+                    {
+                        count++;
+                    }
+
+                    return (count > 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error verifying if artist: '{artist_id}' exists: {ex.Message}";
+                Console.WriteLine(msg);
+                throw new Exception(msg);
+            }
+        }
+
         private static void formatName(ref string name)
         {
             if (name.Contains("\'"))
@@ -125,6 +150,8 @@ namespace SongsAbout_DesktopApp
                 this.a_website = artist.Href;
                 this.UpdateProfilePic(artist);
                 this.a_website = artist.Href;
+
+                this.Save();
             }
             catch (Exception ex)
             {

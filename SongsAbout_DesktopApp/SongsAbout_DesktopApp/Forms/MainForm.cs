@@ -23,7 +23,7 @@ namespace SongsAbout_DesktopApp
         public MainForm()
         {
             InitializeComponent();
-            
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace SongsAbout_DesktopApp
 
         private void btnSavedLists_Click(object sender, EventArgs e)
         {
-            MyArtistsForm myLists = new MyArtistsForm();
+            ImportPlaylistsForm myLists = new ImportPlaylistsForm();
             myLists.ShowDialog();
         }
 

@@ -283,7 +283,7 @@ namespace SongsAbout_DesktopApp.Classes
 
         }
 
-        public static List<FullPlaylist> GetPlaylists()
+        public static List<SimplePlaylist> GetPlaylists()
         {
             try
             {
@@ -291,16 +291,8 @@ namespace SongsAbout_DesktopApp.Classes
                 {
 
                     Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId);
-                    List<FullPlaylist> result = new List<FullPlaylist>();
-                    //Paging<FullPlaylist> l = new Paging<FullPlaylist>();
-
-                    foreach (SimplePlaylist p in playlists.Items)
-                    {
-                        FullPlaylist fP = User.Default.SpotifyWebAPI.GetPlaylist(User.Default.UserId, p.Id);
-                        result.Add(fP);
-                    }
-
-                    return result;
+                    
+                    return playlists.Items;
 
                 }
                 else

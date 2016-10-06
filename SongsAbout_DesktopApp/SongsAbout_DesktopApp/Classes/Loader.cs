@@ -7,7 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout_DesktopApp.Classes
 {
     using System.Data.Linq;
     using System.Data.Linq.Mapping;
@@ -21,7 +21,7 @@ namespace SongsAbout_DesktopApp
         /// <returns>Dictionary<string, Artist></returns>
         public static Dictionary<string, Artist> LoadArtists()
         {
-            using (DataClasses1DataContext context = new DataClasses1DataContext())
+            using (DataClassesDataContext context = new DataClassesDataContext())
             {
                 try
                 {
@@ -47,7 +47,7 @@ namespace SongsAbout_DesktopApp
         /// <returns>Dictionary<string, Album></returns>
         public static Dictionary<string, Album> LoadAlbums()
         {
-            using (DataClasses1DataContext context = new DataClasses1DataContext())
+            using (DataClassesDataContext context = new DataClassesDataContext())
             {
                 Dictionary<string, Album> _dictAlbums = new Dictionary<string, Album>();
                 try
