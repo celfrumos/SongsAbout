@@ -103,13 +103,23 @@ namespace SongsAbout_DesktopApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        public global::System.Drawing.Color BackColor {
             get {
-                return ((string)(this["Setting"]));
+                return ((global::System.Drawing.Color)(this["BackColor"]));
             }
             set {
-                this["Setting"] = value;
+                this["BackColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color TextColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextColor"]));
+            }
+            set {
+                this["TextColor"] = value;
             }
         }
     }
