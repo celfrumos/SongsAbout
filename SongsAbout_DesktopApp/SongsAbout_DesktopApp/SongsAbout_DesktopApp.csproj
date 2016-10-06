@@ -99,11 +99,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PlaylistsForm.cs">
+    <Compile Include="Forms\ImportPlaylistsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PlaylistsForm.Designer.cs">
-      <DependentUpon>PlaylistsForm.cs</DependentUpon>
+    <Compile Include="Forms\ImportPlaylistsForm.Designer.cs">
+      <DependentUpon>ImportPlaylistsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MyArtistsForm.cs">
       <SubType>Form</SubType>
@@ -166,8 +166,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>User.settings</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\PlaylistsForm.resx">
-      <DependentUpon>PlaylistsForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ImportPlaylistsForm.resx">
+      <DependentUpon>ImportPlaylistsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MyArtistsForm.resx">
       <DependentUpon>MyArtistsForm.cs</DependentUpon>

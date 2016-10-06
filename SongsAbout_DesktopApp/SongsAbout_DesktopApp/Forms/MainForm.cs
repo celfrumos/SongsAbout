@@ -45,7 +45,7 @@ namespace SongsAbout_DesktopApp
 
         private void btnSavedLists_Click(object sender, EventArgs e)
         {
-            PlaylistsForm myLists = new PlaylistsForm();
+            ImportPlaylistsForm myLists = new ImportPlaylistsForm();
             myLists.ShowDialog();
         }
 
