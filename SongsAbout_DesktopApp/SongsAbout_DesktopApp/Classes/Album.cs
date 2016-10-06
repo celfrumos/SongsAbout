@@ -20,7 +20,7 @@ namespace SongsAbout_DesktopApp
             {
                 if (this.al_title != null && !Exists(this.al_title))
                 {
-                    using (DataClasses1DataContext context = new DataClasses1DataContext())
+                    using (DataClassesDataContext context = new DataClassesDataContext())
                     {
                         context.Albums.InsertOnSubmit(this);
                         context.SubmitChanges();
@@ -41,7 +41,7 @@ namespace SongsAbout_DesktopApp
             {
                 int count = 0;
                 formatName(ref al_title);
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     string aquery = $"SELECT * FROM Albums WHERE al_title = '{al_title}'";
                     var albs = db.ExecuteQuery<Album>(aquery);
@@ -74,7 +74,7 @@ namespace SongsAbout_DesktopApp
             try
             {
                 formatName(ref al_title);
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     string aquery = $"SELECT * FROM Albums WHERE al_title = '{al_title}'";
                     var albums = db.ExecuteQuery<Album>(aquery);
@@ -101,7 +101,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     string aquery = $"SELECT * FROM Albums WHERE album_id = {album_id}";
                     var albums = db.ExecuteQuery<Album>(aquery);

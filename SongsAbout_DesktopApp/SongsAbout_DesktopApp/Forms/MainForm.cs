@@ -23,6 +23,7 @@ namespace SongsAbout_DesktopApp
         public MainForm()
         {
             InitializeComponent();
+            
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -92,24 +93,6 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private async void btnSpotify_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (User.Default.PrivateProfile == null)
-                {
-                    await Task.Run(() => UserSpotify.Authenticate());
-                }
-                else
-                {
-                    MessageBox.Show("Profile Already Defined.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error getting desired Info");
-            }
-        }
 
         private void btnImportArtists_Click(object sender, EventArgs e)
         {

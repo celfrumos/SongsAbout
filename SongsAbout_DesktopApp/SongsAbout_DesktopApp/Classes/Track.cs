@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using SpotifyAPI.Web.Models;
 using SongsAbout_DesktopApp.Properties;
@@ -15,13 +16,42 @@ namespace SongsAbout_DesktopApp
 
         public Track(FullTrack t)
         {
-            this.Update(ref t);
+            this.track_name = t.Name;
+            this.track_length_minutes = (double)(t.DurationMs) / 60000;
+            this.track_spotify_uri = t.Uri;
+
+            try
+            {
+                UpdateAlbum(t.Album);
+                SimpleArtist tArtist = t.Artists[0];
+                UpdateArtist(tArtist);
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error Updating track: {ex.Message}";
+                Console.WriteLine(msg);
+                throw new Exception(msg);
+            }
         }
 
         public Track(SimpleTrack track)
         {
-            FullTrack t = UserSpotify.API.GetTrack(track.Id);
-            this.Update(ref t);
+            FullTrack t = UserSpotify.WebAPI.GetTrack(track.Id);
+            this.track_name = t.Name;
+            this.track_length_minutes = (double)(t.DurationMs) / 60000;
+            this.track_spotify_uri = t.Uri;
+            try
+            {
+                UpdateAlbum(t.Album);
+                SimpleArtist tArtist = t.Artists[0];
+                UpdateArtist(tArtist);
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error Updating track: {ex.Message}";
+                Console.WriteLine(msg);
+                throw new Exception(msg);
+            }
         }
 
         public void Save()
@@ -31,18 +61,19 @@ namespace SongsAbout_DesktopApp
                 if (this.track_name != null && !Exists(this.track_name))
                 {
                     //this.track_artist_id = this.Album.artist_id;
-                    using (DataClasses1DataContext context = new DataClasses1DataContext())
+                    using (DataClassesDataContext context = new DataClassesDataContext())
                     {
-                        context.Tracks.InsertOnSubmit(this);
+                        Track t = this;
+                        context.Tracks.InsertOnSubmit(t);
                         context.SubmitChanges();
                     }
                 }
             }
             catch (Exception ex)
             {
-                string msg = "Error saving Track:" + ex.Message;
+                string msg = $"Error saving Track: {ex.Message}";
                 Console.WriteLine(msg);
-                //throw new Exception("Error saving Track:" + ex.Message);
+                throw new Exception(msg);
 
             }
         }
@@ -52,7 +83,7 @@ namespace SongsAbout_DesktopApp
             try
             {
                 int count = 0;
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     string aquery = $"SELECT * FROM Tracks WHERE track_name = '{track_name }'";
                     var tracks = db.ExecuteQuery<Track>(aquery);
@@ -80,7 +111,7 @@ namespace SongsAbout_DesktopApp
             try
             {
                 int count = 0;
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     string aquery = $"SELECT * FROM Tracks WHERE track_name = '{track_id }'";
                     var tracks = db.ExecuteQuery<Track>(aquery);
@@ -107,7 +138,7 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                using (DataClasses1DataContext context = new DataClasses1DataContext())
+                using (DataClassesDataContext context = new DataClassesDataContext())
                 {
                     DataSet gen = new DataSet();
 
@@ -154,11 +185,11 @@ namespace SongsAbout_DesktopApp
 
         public void Update(ref FullTrack t)
         {
+            this.track_name = t.Name;
+            this.track_length_minutes = (double)(t.DurationMs) / 60000;
+            this.track_spotify_uri = t.Uri;
             try
             {
-                this.track_name = t.Name;
-                this.track_length_minutes = (double)(t.DurationMs) / 60000;
-                this.track_spotify_uri = t.Uri;
 
                 UpdateAlbum(t.Album);
                 SimpleArtist tArtist = t.Artists[0];
@@ -192,7 +223,7 @@ namespace SongsAbout_DesktopApp
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating track artist: {this.track_name}, {this.Artist.a_name}: {ex.Message}";
+                string msg = $"Error updating track artist: {this.track_name}: {ex.Message}";
                 Console.WriteLine(msg);
                 //  throw new Exception(msg);
             }
@@ -202,6 +233,8 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
+                AlbumTracks at = new AlbumTracks();
+
                 Album al;
                 if (Artist.Exists(album.Name))
                 {
@@ -213,8 +246,8 @@ namespace SongsAbout_DesktopApp
                     al.Update(album);
                     al.Save();
                 }
-
-                this.album_id = al.album_id;
+                at.album_id = al.album_id;
+                this.AlbumTracks.Add(at);
             }
             catch (Exception ex)
             {

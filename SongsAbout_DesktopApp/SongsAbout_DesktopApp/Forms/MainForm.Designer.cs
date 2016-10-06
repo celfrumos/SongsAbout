@@ -183,7 +183,6 @@
             this.btnSpotify.TabIndex = 15;
             this.btnSpotify.Text = "Connect Spotify";
             this.btnSpotify.UseVisualStyleBackColor = true;
-            this.btnSpotify.Click += new System.EventHandler(this.btnSpotify_Click);
             // 
             // pBoxProfilePic
             // 

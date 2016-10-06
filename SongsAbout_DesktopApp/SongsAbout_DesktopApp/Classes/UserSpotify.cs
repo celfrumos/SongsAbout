@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.IO;
 using SongsAbout_DesktopApp.Properties;
 
+using SpotifyAPI.Local;
+using SpotifyAPI.Local.Enums;
+using SpotifyAPI.Local.Models;
+
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
@@ -16,7 +20,7 @@ namespace SongsAbout_DesktopApp.Classes
 {
     public class UserSpotify
     {
-        public static SpotifyWebAPI API
+        public static SpotifyWebAPI WebAPI
         {
             get { return User.Default.SpotifyWebAPI; }
             set { User.Default.SpotifyWebAPI = value; }
@@ -201,9 +205,9 @@ namespace SongsAbout_DesktopApp.Classes
         /// </summary>
         public static void FetchFollowedArtists()
         {
-            if (API != null)
+            if (WebAPI != null)
             {
-                User.Default.FollowedArtists = API.GetFollowedArtists(FollowType.Artist);
+                User.Default.FollowedArtists = WebAPI.GetFollowedArtists(FollowType.Artist);
                 User.Default.Save();
                 //foreach (var a in artists.Artists.Items)
                 //{
@@ -227,7 +231,7 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 try
                 {
-                    return API.GetUsersTopTracks();
+                    return WebAPI.GetUsersTopTracks();
 
                 }
                 catch (Exception ex)

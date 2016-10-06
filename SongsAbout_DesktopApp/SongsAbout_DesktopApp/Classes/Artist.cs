@@ -31,7 +31,7 @@ namespace SongsAbout_DesktopApp
                     {
                         try
                         {
-                            using (DataClasses1DataContext context = new DataClasses1DataContext())
+                            using (DataClassesDataContext context = new DataClassesDataContext())
                             {
                                 context.Artists.InsertOnSubmit(this);
                                 context.SubmitChanges();
@@ -72,7 +72,7 @@ namespace SongsAbout_DesktopApp
             {
                 formatName(ref name);
                 string aquery = $"SELECT * FROM Artists WHERE a_name = '{name}'";
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     var artists = db.ExecuteQuery<Artist>(aquery);
                     int count = 0;
@@ -148,7 +148,7 @@ namespace SongsAbout_DesktopApp
             try
             {
                 formatName(ref a_name);
-                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     string aquery = $"SELECT * FROM Artists WHERE a_name = '{a_name}'";
                     var artists = db.ExecuteQuery<Artist>(aquery);
@@ -171,35 +171,35 @@ namespace SongsAbout_DesktopApp
             }
         }
 
-        private void oldLoad()
-        {
-            try
-            {
-                BindingSource artistsBindingSource = new BindingSource();
-                DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter = new DataSetTableAdapters.ArtistsTableAdapter();
-                DataSet dataSet = new DataSet();
+        //private void oldLoad()
+        //{
+        //    try
+        //    {
+        //        BindingSource artistsBindingSource = new BindingSource();
+        //        DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter = new DataSetTableAdapters.ArtistsTableAdapter();
+        //        DataSet dataSet = new DataSet();
 
-                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-                artistsTableAdapter.Fill(dataSet.Artists);
+        //        // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+        //        artistsTableAdapter.Fill(dataSet.Artists);
 
-                DataTable artistTable = dataSet.Artists;
-                string query = "a_name = '" + this.a_name + "'";
-                DataRow[] rows = artistTable.Select(query);
+        //        DataTable artistTable = dataSet.Artists;
+        //        string query = "a_name = '" + this.a_name + "'";
+        //        DataRow[] rows = artistTable.Select(query);
 
-                if (rows.Length > 0)
-                {
-                    this.a_name = rows[0]["a_name"].ToString();
-                    this.a_spotify_uri = rows[0]["a_spotify_uri"].ToString();
-                    this.a_website = rows[0]["a_website"].ToString();
-                    this._a_profile_pic = (byte[])rows[0]["_a_profile_pic"];
-                    this.a_bio = rows[0]["a_bio"].ToString();
+        //        if (rows.Length > 0)
+        //        {
+        //            this.a_name = rows[0]["a_name"].ToString();
+        //            this.a_spotify_uri = rows[0]["a_spotify_uri"].ToString();
+        //            this.a_website = rows[0]["a_website"].ToString();
+        //            this._a_profile_pic = (byte[])rows[0]["_a_profile_pic"];
+        //            this.a_bio = rows[0]["a_bio"].ToString();
 
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error Loading Artist: " + ex.Message);
-            }
-        }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error Loading Artist: " + ex.Message);
+        //    }
+        //}
     }
 }
