@@ -20,7 +20,7 @@ namespace SongsAbout_DesktopApp.Classes
             try
             {
                 // ImportTopTracks();
-                ImportSavedPlaylists();
+                //ImportSavedPlaylists();
                 ImportFollowedArtists();
                 //ImportSavedTracks();
             }

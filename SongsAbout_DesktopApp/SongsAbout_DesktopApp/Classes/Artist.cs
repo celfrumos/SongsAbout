@@ -16,7 +16,7 @@ namespace SongsAbout_DesktopApp.Classes
     /// <summary>
     /// Partial Class to hold Artist Functions
     /// </summary>
-    public partial class Artist
+    public partial class Artist : DbEntity<Artist>
     {
         /// <summary>
         /// Submit Changes to the Database
@@ -29,20 +29,8 @@ namespace SongsAbout_DesktopApp.Classes
                 {
                     if (!Exists(this.a_name))
                     {
-                        try
-                        {
-                            using (DataClassesDataContext context = new DataClassesDataContext())
-                            {
-                                context.Artists.InsertOnSubmit(this);
-                                context.SubmitChanges();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            string msg = $"Error Saving Artist: {ex.Message}";
-                            Console.WriteLine(msg);
-                            throw new Exception(msg);
-                        }
+                        this.Save(this, "Artists");
+                        
                     }
                     else
                     {
@@ -68,65 +56,41 @@ namespace SongsAbout_DesktopApp.Classes
 
         public static bool Exists(string name)
         {
-            try
-            {
-                formatName(ref name);
-                string aquery = $"SELECT * FROM Artists WHERE a_name = '{name}'";
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    var artists = db.ExecuteQuery<Artist>(aquery);
-                    int count = 0;
-                    foreach (Artist artist in artists)
-                    {
-                        count++;
-                    }
-
-                    return (count > 0);
-                }
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error verifying if artist: '{name}' exists: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
-            }
+            return DbEntity<Artist>.Exists(name, "a_name", "Artists");
         }
+
+        //public static bool Exists(string name)
+        //{
+        //    try
+        //    {
+        //        formatName(ref name);
+        //        string aquery = $"SELECT * FROM Artists WHERE a_name = '{name}'";
+        //        using (DataClassesDataContext db = new DataClassesDataContext())
+        //        {
+        //            var artists = db.ExecuteQuery<Artist>(aquery);
+        //            int count = 0;
+        //            foreach (Artist artist in artists)
+        //            {
+        //                count++;
+        //            }
+
+        //            return (count > 0);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string msg = $"Error verifying if artist: '{name}' exists: {ex.Message}";
+        //        Console.WriteLine(msg);
+        //        throw new Exception(msg);
+        //    }
+        //}
 
         public static bool Exists(int artist_id)
         {
-            try
-            {
-                string aquery = $"SELECT * FROM Artists WHERE artist_id = {artist_id}";
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    var artists = db.ExecuteQuery<Artist>(aquery);
-                    int count = 0;
-                    foreach (Artist artist in artists)
-                    {
-                        count++;
-                    }
-
-                    return (count > 0);
-                }
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error verifying if artist: '{artist_id}' exists: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
-            }
+            return DbEntity<Artist>.Exists(artist_id, "a_name", "Artists");
         }
 
-        private static void formatName(ref string name)
-        {
-            if (name.Contains("\'"))
-            {
-                int i = name.IndexOf("\'");
-                name = name.Insert(i, "'");
-            }
-        }
-
-        internal void Update(SimpleArtist artist)
+        public void Update(SimpleArtist artist)
         {
             try
             {
@@ -167,36 +131,41 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
                 this.a_profile_pic = pic;//await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+
             }
         }
-
-        public static Artist Load(string a_name)
+        public static Artist Load(string title)
         {
-            try
-            {
-                formatName(ref a_name);
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    string aquery = $"SELECT * FROM Artists WHERE a_name = '{a_name}'";
-                    var artists = db.ExecuteQuery<Artist>(aquery);
-                    int count = 0;
-                    foreach (Artist artist in artists)
-                    {
-                        count++;
-                        if (count == 1)
-                        {
-                            return artist;
-                        }
-                    }
-
-                    throw new Exception($"No artist with name '{a_name}' found");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error Loading artist '{a_name}': {ex.Message}");
-            }
+            return DbEntity<Artist>.Load(title, "a_name", "Artists");
         }
+
+        //public static Artist Load(string a_name)
+        //{
+        //    try
+        //    {
+        //        formatName(ref a_name);
+        //        using (DataClassesDataContext db = new DataClassesDataContext())
+        //        {
+        //            string aquery = $"SELECT * FROM Artists WHERE a_name = '{a_name}'";
+        //            var artists = db.ExecuteQuery<Artist>(aquery);
+        //            int count = 0;
+        //            foreach (Artist artist in artists)
+        //            {
+        //                count++;
+        //                if (count == 1)
+        //                {
+        //                    return artist;
+        //                }
+        //            }
+
+        //            throw new Exception($"No artist with name '{a_name}' found");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception($"Error Loading artist '{a_name}': {ex.Message}");
+        //    }
+        //}
 
         //private void oldLoad()
         //{
