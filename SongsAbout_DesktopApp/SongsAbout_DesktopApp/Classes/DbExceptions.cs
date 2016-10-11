@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SongsAbout_DesktopApp.Classes.Exceptions
+namespace SongsAbout_DesktopApp.Classes
 {
     public class DbException<T> : Exception
     {
@@ -124,6 +124,11 @@ namespace SongsAbout_DesktopApp.Classes.Exceptions
         {
             Console.WriteLine($"Error Loading {_type} '{name}' from {_table} table: " + msg);
         }
+        public LoadError(int id, string msg) :
+       base($"Error Loading {_type} '{id}' from {_table} table: " + msg)
+        {
+            Console.WriteLine($"Error Loading {_type} '{id}' from {_table} table: " + msg);
+        }
 
     }
 
@@ -166,10 +171,50 @@ namespace SongsAbout_DesktopApp.Classes.Exceptions
             Console.WriteLine($"No {_type} in {_table} table with name '{name}' found");
         }
 
+        public EntityNotFoundError(int id) :
+            base($"No {_type} in {_table} table with id '{id}' found")
+        {
+            Console.WriteLine($"No {_type} in {_table} table with id '{id}' found");
+        }
+
+        public EntityNotFoundError(ref Exception ex) :
+            base(defaultMsg + ": " + ex.Message)
+        {
+            Console.WriteLine(defaultMsg + ": " + ex.Message);
+        }
+
+
         public EntityNotFoundError(string name, string msg) :
             base($"No {_type} in {_table} table with name '{name}' found: " + msg)
         {
             Console.WriteLine($"No {_type} in {_table} table with name '{name}' found: " + msg);
+        }
+        public EntityNotFoundError(int id, string msg) :
+          base($"No {_type} in {_table} table with id '{id}' found: " + msg)
+        {
+            Console.WriteLine($"No {_type} in {_table} table with id '{id}' found: " + msg);
+        }
+    }
+
+    public class InvalidDbDataTypeError<T> : DbException<T>
+    {
+        private static string defaultMsg = $"Invalid data type used for DbEntity<> class: {_entity.GetType()}";
+
+        public InvalidDbDataTypeError() : base(defaultMsg)
+        {
+
+        }
+    }
+
+    public class SpotifyImportError<T, U> : DbException<T>
+    {
+        private U _s_entity { get; set; }
+
+        private static string defaultMsg = $"Error importing {_type} data from spotify type '{_entity.GetType().ToString()}'";
+
+        public SpotifyImportError() : base(defaultMsg)
+        {
+
         }
     }
 }

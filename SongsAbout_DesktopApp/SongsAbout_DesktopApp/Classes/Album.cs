@@ -39,9 +39,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Saving Album '{ex.Message}'";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new SaveError<Album>(ex.Message);
             }
         }
 
@@ -83,9 +81,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating Album: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Album>(album.Name, ex.Message);
             }
         }
 

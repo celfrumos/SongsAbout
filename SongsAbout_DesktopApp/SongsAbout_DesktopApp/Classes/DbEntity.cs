@@ -26,11 +26,11 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else
                 {
-                    throw new Exception("Invalid data type used for DbEntity<> class.");
+                    throw new InvalidDbDataTypeError<T>();
                 }
             }
         }
-        
+
         private static T _entity { get; }
 
         private static string _titleColumn
@@ -51,7 +51,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else
                 {
-                    throw new Exception("Invalid data type used for DbEntity<> class.");
+                    throw new InvalidDbDataTypeError<T>();
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else
                 {
-                    throw new Exception("Invalid data type used for DbEntity<> class.");
+                    throw new InvalidDbDataTypeError<T>();
                 }
             }
         }
@@ -110,9 +110,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Saving {_type}: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new SaveError<T>(ex.Message);
             }
         }
 
@@ -134,9 +132,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error verifying if {_type} with id '{id}' exists: {ex.Message}";
-                Console.WriteLine("In DbEntity Exists: " + msg);
-                throw new Exception(msg);
+                throw new EntityNotFoundError<T>(id, ex.Message);
             }
         }
 
@@ -159,9 +155,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error verifying if entity: '{name}' exists in {_table} table: {ex.Message}";
-                Console.WriteLine("In DbEntity Exists: " + msg);
-                throw new Exception(msg);
+                throw new EntityNotFoundError<T>(name, ex.Message);
             }
         }
 
@@ -178,13 +172,12 @@ namespace SongsAbout_DesktopApp.Classes
                     {
                         return t;
                     }
-
-                    throw new Exception($"No {_type} in {_table} table with name '{title}' found");
+                    throw new EntityNotFoundError<T>(title);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error Loading {_type} '{title}' from {_table} table: {ex.Message}");
+                throw new LoadError<T>(title, ex.Message);
             }
         }
 
@@ -201,12 +194,12 @@ namespace SongsAbout_DesktopApp.Classes
                         return t;
                     }
 
-                    throw new Exception($"No {_type} in {_table} table with name '{id}' found");
+                    throw new EntityNotFoundError<T>(id);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error Loading {_type} with id '{id}' from {_table} table: {ex.Message}");
+                throw new LoadError<T>(id, ex.Message);
             }
         }
 

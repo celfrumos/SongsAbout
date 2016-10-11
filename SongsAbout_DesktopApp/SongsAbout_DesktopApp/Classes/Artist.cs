@@ -32,54 +32,46 @@ namespace SongsAbout_DesktopApp.Classes
                 {
                     if (!Exists(this.a_name))
                     {
-                        this.Submit(/*this, "Artists"*/);
-
+                        this.Submit();
                     }
                     else
                     {
-                        string msg = $"An artist named '{a_name}' already exists. To update that artist, use Artist a = Artist.Load(a_name)";
-
-                        Console.WriteLine(msg);
-                        //throw new Exception ()
+                        var e = new EntityNotFoundError<Artist>();
                     }
                 }
                 else
                 {
                     throw new Exception("Artist name cannot be null.");
                 }
-
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating artist: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new SaveError<Artist>(ex.Message);
             }
         }
 
         new public static bool Exists(string name)
         {
-            return DbEntity<Artist>.Exists(name/*, "a_name", "Artists"*/);
+            return DbEntity<Artist>.Exists(name);
         }
-                
+
         new public static bool Exists(int artist_id)
         {
-            return DbEntity<Artist>.Exists(artist_id/*, "a_name", "Artists"*/);
+            return DbEntity<Artist>.Exists(artist_id);
         }
 
         public void Update(SimpleArtist artist)
         {
+            FullArtist a;
             try
             {
-                FullArtist a = User.Default.SpotifyWebAPI.GetArtist(artist.Id);
-                this.Update(a);
+                a = User.Default.SpotifyWebAPI.GetArtist(artist.Id);
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating artist '{artist.Name}': {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Artist>(artist.Name, ex.Message);
             }
+            this.Update(a);
         }
 
         public void Update(FullArtist artist)
@@ -96,9 +88,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating artist: '{artist.Name}': {ex.Message}'";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Artist>(artist.Name, ex.Message);
             }
         }
 
