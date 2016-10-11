@@ -8,33 +8,99 @@ namespace SongsAbout_DesktopApp.Classes
 {
     public class DbEntity<T>
     {
-     
-        protected string _title { get; set; }
-        protected string _table { get; set; }
-        protected int _id { get; set; }
+        protected static string _type
+        {
+            get
+            {
+                if (_entity is Artist)
+                {
+                    return "Artist";
+                }
+                else if (_entity is Album)
+                {
+                    return "Album";
+                }
+                else if (_entity is Track)
+                {
+                    return "Track";
+                }
+                else
+                {
+                    throw new Exception("Invalid data type used for DbEntity<> class.");
+                }
+            }
+        }
+        
+        private static T _entity { get; }
 
-        protected void Save(T entity, string table)
+        private static string _titleColumn
+        {
+            get
+            {
+                if (_entity is Artist)
+                {
+                    return Artist.TitleColumn;
+                }
+                else if (_entity is Album)
+                {
+                    return Album.TitleColumn;
+                }
+                else if (_entity is Track)
+                {
+                    return Track.TitleColumn;
+                }
+                else
+                {
+                    throw new Exception("Invalid data type used for DbEntity<> class.");
+                }
+            }
+        }
+
+        private static string _table
+        {
+            get
+            {
+                if (_entity is Artist)
+                {
+                    return Artist.Table;
+                }
+                else if (_entity is Album)
+                {
+                    return Album.Table;
+                }
+                else if (_entity is Track)
+                {
+                    return Track.Table;
+                }
+                else
+                {
+                    throw new Exception("Invalid data type used for DbEntity<> class.");
+                }
+            }
+        }
+
+        protected void Submit()
         {
             try
             {
                 using (DataClassesDataContext context = new DataClassesDataContext())
                 {
-                    switch (table)
+                    switch (_table)
                     {
                         case "Artists":
-                            context.Artists.InsertOnSubmit(entity as Artist);
+                            context.Artists.InsertOnSubmit(_entity as Artist);
                             break;
                         case "Albums":
-                            context.Albums.InsertOnSubmit(entity as Album);
+                            context.Albums.InsertOnSubmit(_entity as Album);
                             break;
                         case "Tracks":
-                            context.Tracks.InsertOnSubmit(entity as Track);
+                            context.Tracks.InsertOnSubmit(_entity as Track);
                             break;
                         case "Genres":
-                            context.Genres.InsertOnSubmit(entity as Genre);
+                            context.Genres.InsertOnSubmit(_entity as Genre);
                             break;
                         case "TrackGenres":
-                            context.TrackGenres.InsertOnSubmit(entity as TrackGenre);
+                            context.TrackGenres.InsertOnSubmit(_entity as TrackGenre);
                             break;
                         default:
                             break;
@@ -44,17 +110,17 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Saving {entity.ToString()}: {ex.Message}";
+                string msg = $"Error Saving {_type}: {ex.Message}";
                 Console.WriteLine(msg);
                 throw new Exception(msg);
             }
         }
 
-        protected static bool Exists(int id, string column, string table)
+        protected static bool Exists(int id)
         {
             try
             {
-                string aquery = $"SELECT * FROM {table} WHERE {column} = '{id}'";
+                string aquery = $"SELECT * FROM {_table} WHERE {_titleColumn} = '{id}'";
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     var entities = db.ExecuteQuery<T>(aquery);
@@ -68,18 +134,18 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error verifying if id '{id}' exists in {table} table: {ex.Message}";
+                string msg = $"Error verifying if {_type} with id '{id}' exists: {ex.Message}";
                 Console.WriteLine("In DbEntity Exists: " + msg);
                 throw new Exception(msg);
             }
         }
 
-        protected static bool Exists(string name, string column, string table)
+        protected static bool Exists(string name)
         {
             try
             {
                 formatName(ref name);
-                string aquery = $"SELECT * FROM {table} WHERE {column} = '{name}'";
+                string aquery = $"SELECT * FROM {_table} WHERE {_titleColumn} = '{name}'";
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     var entities = db.ExecuteQuery<T>(aquery);
@@ -93,34 +159,57 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error verifying if entity: '{name}' exists in {table} table: {ex.Message}";
+                string msg = $"Error verifying if entity: '{name}' exists in {_table} table: {ex.Message}";
                 Console.WriteLine("In DbEntity Exists: " + msg);
                 throw new Exception(msg);
             }
         }
 
-        protected static T Load(string title, string column, string table)
+        protected static T Load(string title)
         {
             try
             {
                 formatName(ref title);
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
-                    string query = $"SELECT * FROM {table} WHERE {column} = '{title}'";
+                    string query = $"SELECT * FROM {_table} WHERE {_titleColumn} = '{title}'";
                     var entities = db.ExecuteQuery<T>(query);
-                    foreach (var t in entities)
+                    foreach (T t in entities)
                     {
                         return t;
                     }
 
-                    throw new Exception($"No item in {table} table with name '{title}' found");
+                    throw new Exception($"No {_type} in {_table} table with name '{title}' found");
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error Loading entity '{title}' from {table} table: {ex.Message}");
+                throw new Exception($"Error Loading {_type} '{title}' from {_table} table: {ex.Message}");
             }
         }
+
+        protected static T Load(int id)
+        {
+            try
+            {
+                using (DataClassesDataContext db = new DataClassesDataContext())
+                {
+                    string query = $"SELECT * FROM {_table} WHERE {_titleColumn} = '{id}'";
+                    var entities = db.ExecuteQuery<T>(query);
+                    foreach (T t in entities)
+                    {
+                        return t;
+                    }
+
+                    throw new Exception($"No {_type} in {_table} table with name '{id}' found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error Loading {_type} with id '{id}' from {_table} table: {ex.Message}");
+            }
+        }
+
 
         private static void formatName(ref string name)
         {

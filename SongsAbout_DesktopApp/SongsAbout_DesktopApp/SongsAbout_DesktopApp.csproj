@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="Classes\AlbumTracks.cs" />
     <Compile Include="Classes\DbEntity.cs" />
+    <Compile Include="Classes\DbExceptions.cs" />
     <Compile Include="Classes\TrackArtists.cs" />
     <Compile Include="Classes\Importer.cs" />
     <Compile Include="Classes\UserSpotify.cs" />

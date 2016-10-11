@@ -18,6 +18,9 @@ namespace SongsAbout_DesktopApp.Classes
     /// </summary>
     public partial class Artist : DbEntity<Artist>
     {
+        public static string Table = "Artists";
+        public static string TitleColumn = "a_name";
+
         /// <summary>
         /// Submit Changes to the Database
         /// </summary>
@@ -29,8 +32,8 @@ namespace SongsAbout_DesktopApp.Classes
                 {
                     if (!Exists(this.a_name))
                     {
-                        this.Save(this, "Artists");
-                        
+                        this.Submit(/*this, "Artists"*/);
+
                     }
                     else
                     {
@@ -54,40 +57,14 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        public static bool Exists(string name)
+        new public static bool Exists(string name)
         {
-            return DbEntity<Artist>.Exists(name, "a_name", "Artists");
+            return DbEntity<Artist>.Exists(name/*, "a_name", "Artists"*/);
         }
-
-        //public static bool Exists(string name)
-        //{
-        //    try
-        //    {
-        //        formatName(ref name);
-        //        string aquery = $"SELECT * FROM Artists WHERE a_name = '{name}'";
-        //        using (DataClassesDataContext db = new DataClassesDataContext())
-        //        {
-        //            var artists = db.ExecuteQuery<Artist>(aquery);
-        //            int count = 0;
-        //            foreach (Artist artist in artists)
-        //            {
-        //                count++;
-        //            }
-
-        //            return (count > 0);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string msg = $"Error verifying if artist: '{name}' exists: {ex.Message}";
-        //        Console.WriteLine(msg);
-        //        throw new Exception(msg);
-        //    }
-        //}
-
-        public static bool Exists(int artist_id)
+                
+        new public static bool Exists(int artist_id)
         {
-            return DbEntity<Artist>.Exists(artist_id, "a_name", "Artists");
+            return DbEntity<Artist>.Exists(artist_id/*, "a_name", "Artists"*/);
         }
 
         public void Update(SimpleArtist artist)
@@ -134,9 +111,15 @@ namespace SongsAbout_DesktopApp.Classes
 
             }
         }
-        public static Artist Load(string title)
+
+        new public static Artist Load(string title)
         {
-            return DbEntity<Artist>.Load(title, "a_name", "Artists");
+            return DbEntity<Artist>.Load(title);
+        }
+
+        new public static Artist Load(int id)
+        {
+            return DbEntity<Artist>.Load(id);
         }
 
         //public static Artist Load(string a_name)
