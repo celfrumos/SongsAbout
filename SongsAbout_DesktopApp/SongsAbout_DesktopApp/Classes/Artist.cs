@@ -62,16 +62,16 @@ namespace SongsAbout_DesktopApp.Classes
 
         public void Update(SimpleArtist artist)
         {
-            FullArtist a;
             try
             {
+                FullArtist a;
                 a = User.Default.SpotifyWebAPI.GetArtist(artist.Id);
+                this.Update(a);
             }
             catch (Exception ex)
             {
                 throw new UpdateError<Artist>(artist.Name, ex.Message);
             }
-            this.Update(a);
         }
 
         public void Update(FullArtist artist)

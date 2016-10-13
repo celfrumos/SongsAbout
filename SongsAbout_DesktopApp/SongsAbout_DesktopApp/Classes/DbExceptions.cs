@@ -81,25 +81,21 @@ namespace SongsAbout_DesktopApp.Classes
 
         private static string defaultMsg = $"An Error Occurred while interacting with the database";
 
-        public DbException() : base(defaultMsg) { }
+        public DbException() : base(defaultMsg) { Console.WriteLine(defaultMsg); }
 
-        public DbException(string msg) : base(msg) { }
+        public DbException(string msg) : base(msg) { Console.WriteLine(msg); }
     }
 
     public class SaveError<T> : DbException<T>
     {
         private static string defaultMsg = $"Error Saving {_type}";
 
-        public SaveError() :
-            base(defaultMsg)
+        public SaveError() : base(defaultMsg)
         {
-            Console.WriteLine(defaultMsg);
         }
 
-        public SaveError(string msg) :
-            base(msg)
+        public SaveError(string msg) : base(msg)
         {
-            Console.WriteLine(msg);
         }
 
     }
@@ -107,27 +103,19 @@ namespace SongsAbout_DesktopApp.Classes
     {
         private static string defaultMsg = $"Error Loading {_type} from Database";
 
-        public LoadError() :
-            base(defaultMsg)
+        public LoadError() : base(defaultMsg)
         {
-            Console.WriteLine(defaultMsg);
         }
 
-        public LoadError(string msg) :
-            base(msg)
+        public LoadError(string msg) : base(msg)
         {
-            Console.WriteLine(msg);
         }
 
-        public LoadError(string name, string msg) :
-            base($"Error Loading {_type} '{name}' from {_table} table: " + msg)
+        public LoadError(string name, string msg) : base($"Error Loading {_type} '{name}' from {_table} table: " + msg)
         {
-            Console.WriteLine($"Error Loading {_type} '{name}' from {_table} table: " + msg);
         }
-        public LoadError(int id, string msg) :
-       base($"Error Loading {_type} '{id}' from {_table} table: " + msg)
+        public LoadError(int id, string msg) : base($"Error Loading {_type} '{id}' from {_table} table: " + msg)
         {
-            Console.WriteLine($"Error Loading {_type} '{id}' from {_table} table: " + msg);
         }
 
     }
@@ -136,22 +124,16 @@ namespace SongsAbout_DesktopApp.Classes
     {
         private static string defaultMsg = $"Error Updating {_type}";
 
-        public UpdateError() :
-            base(defaultMsg)
+        public UpdateError() : base(defaultMsg)
         {
-            Console.WriteLine(defaultMsg);
         }
 
-        public UpdateError(string msg) :
-            base(msg)
+        public UpdateError(string msg) : base(msg)
         {
-            Console.WriteLine(msg);
         }
 
-        public UpdateError(string name, string msg) :
-            base($"Error Updating {_type} '{name}'" + msg)
+        public UpdateError(string name, string msg) : base($"Error Updating {_type} '{name}'" + msg)
         {
-            Console.WriteLine($"Error Updating {_type} '{name}': " + msg);
         }
     }
 
@@ -159,28 +141,20 @@ namespace SongsAbout_DesktopApp.Classes
     {
         private static string defaultMsg = $"The expected {_type} in {_table} table was not found";
 
-        public EntityNotFoundError() :
-            base(defaultMsg)
+        public EntityNotFoundError() : base(defaultMsg)
         {
-            Console.WriteLine(defaultMsg);
         }
 
-        public EntityNotFoundError(string name) :
-            base($"No {_type} in {_table} table with name '{name}' found")
+        public EntityNotFoundError(string name) : base($"No {_type} in {_table} table with name '{name}' found")
         {
-            Console.WriteLine($"No {_type} in {_table} table with name '{name}' found");
         }
 
-        public EntityNotFoundError(int id) :
-            base($"No {_type} in {_table} table with id '{id}' found")
+        public EntityNotFoundError(int id) : base($"No {_type} in {_table} table with id '{id}' found")
         {
-            Console.WriteLine($"No {_type} in {_table} table with id '{id}' found");
         }
 
-        public EntityNotFoundError(ref Exception ex) :
-            base(defaultMsg + ": " + ex.Message)
+        public EntityNotFoundError(ref Exception ex) : base(defaultMsg + ": " + ex.Message)
         {
-            Console.WriteLine(defaultMsg + ": " + ex.Message);
         }
 
 
@@ -200,10 +174,7 @@ namespace SongsAbout_DesktopApp.Classes
     {
         private static string defaultMsg = $"Invalid data type used for DbEntity<> class: {_entity.GetType()}";
 
-        public InvalidDbDataTypeError() : base(defaultMsg)
-        {
-
-        }
+        public InvalidDbDataTypeError() : base(defaultMsg) { }
     }
 
     public class SpotifyImportError<T, U> : DbException<T>
@@ -216,5 +187,10 @@ namespace SongsAbout_DesktopApp.Classes
         {
 
         }
+    }
+
+    public class NullValueError<T>
+    {
+
     }
 }

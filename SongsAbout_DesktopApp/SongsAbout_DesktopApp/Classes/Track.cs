@@ -31,9 +31,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating track: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Track>(t.Name, ex.Message);
             }
         }
 
@@ -51,9 +49,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating track: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Track>(track.Name, ex.Message);
             }
         }
 

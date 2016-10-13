@@ -115,9 +115,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating Album: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Artist>(album.Name, ex.Message);
             }
         }
 
@@ -136,9 +134,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating Album: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Album>(album.Name, ex.Message);
             }
         }
 
@@ -187,8 +183,8 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating artist for album '{this.al_title}', '{this.Artist.a_name}' : {ex.Message}";
-                Console.WriteLine(msg);
+                throw new UpdateError<Artist>($"Error updating artist for album '{this.al_title}', '{this.Artist.a_name}' : {ex.Message}");
+       
             }
         }
 
