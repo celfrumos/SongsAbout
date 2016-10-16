@@ -1,4 +1,5 @@
-﻿namespace SongsAbout_DesktopApp.Forms
+﻿using SongsAbout_DesktopApp.Properties;
+namespace SongsAbout_DesktopApp.Forms
 {
     partial class ImportPlaylistsForm
     {
@@ -47,7 +48,7 @@
             this.Name = "ImportPlaylistsForm";
             this.Text = "ImportPlaylistsForm";
             this.ResumeLayout(false);
-
+            this.BackColor = User.Default.pro
         }
 
         #endregion

@@ -103,13 +103,61 @@ namespace SongsAbout_DesktopApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        [global::System.Configuration.DefaultSettingValueAttribute("HotTrack")]
+        public global::System.Drawing.Color BackColor {
             get {
-                return ((string)(this["Setting"]));
+                return ((global::System.Drawing.Color)(this["BackColor"]));
             }
             set {
-                this["Setting"] = value;
+                this["BackColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Highlight")]
+        public global::System.Drawing.Color Highlight {
+            get {
+                return ((global::System.Drawing.Color)(this["Highlight"]));
+            }
+            set {
+                this["Highlight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color TextColor {
+            get {
+                return ((global::System.Drawing.Color)(this["TextColor"]));
+            }
+            set {
+                this["TextColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Arial Unicode MS, 7.8pt")]
+        public global::System.Drawing.Font ParagraphFont {
+            get {
+                return ((global::System.Drawing.Font)(this["ParagraphFont"]));
+            }
+            set {
+                this["ParagraphFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Arial Unicode MS, 10.2pt")]
+        public global::System.Drawing.Font HeaderFont {
+            get {
+                return ((global::System.Drawing.Font)(this["HeaderFont"]));
+            }
+            set {
+                this["HeaderFont"] = value;
             }
         }
     }

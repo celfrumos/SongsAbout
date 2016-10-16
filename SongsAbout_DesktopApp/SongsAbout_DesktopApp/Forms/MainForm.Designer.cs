@@ -1,4 +1,5 @@
-﻿namespace SongsAbout_DesktopApp
+﻿using SongsAbout_DesktopApp.Properties;
+namespace SongsAbout_DesktopApp
 {
     partial class MainForm
     {
@@ -68,7 +69,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = User.Default.ParagraphFont;
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(36, 256);
             this.label1.Name = "label1";
@@ -80,7 +81,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = User.Default.ParagraphFont;
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label2.Location = new System.Drawing.Point(73, 315);
             this.label2.Name = "label2";
@@ -113,7 +114,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = User.Default.ParagraphFont;
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label3.Location = new System.Drawing.Point(170, 461);
             this.label3.Name = "label3";
@@ -131,7 +132,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Font = new System.Drawing.Font("Arial Unicode MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Font = User.Default.ParagraphFont;
             this.btnSearch.Location = new System.Drawing.Point(295, 504);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
@@ -143,19 +144,19 @@
             // 
             // btnSavedLists
             // 
-            this.btnSavedLists.Font = new System.Drawing.Font("Arial Unicode MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSavedLists.Font = User.Default.ParagraphFont;
             this.btnSavedLists.Location = new System.Drawing.Point(40, 560);
             this.btnSavedLists.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSavedLists.Name = "btnSavedLists";
             this.btnSavedLists.Size = new System.Drawing.Size(193, 54);
             this.btnSavedLists.TabIndex = 12;
-            this.btnSavedLists.Text = "Import Spotify Playlists";
+            this.btnSavedLists.Text = "Import Playlists";
             this.btnSavedLists.UseVisualStyleBackColor = true;
             this.btnSavedLists.Click += new System.EventHandler(this.btnSavedLists_Click);
             // 
             // btnAddInfo
             // 
-            this.btnAddInfo.Font = new System.Drawing.Font("Arial Unicode MS", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddInfo.Font = User.Default.ParagraphFont;
             this.btnAddInfo.Location = new System.Drawing.Point(40, 502);
             this.btnAddInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddInfo.Name = "btnAddInfo";
@@ -200,7 +201,7 @@
             this.btnImportPlaylistArtists.Name = "btnImportPlaylistArtists";
             this.btnImportPlaylistArtists.Size = new System.Drawing.Size(147, 36);
             this.btnImportPlaylistArtists.TabIndex = 17;
-            this.btnImportPlaylistArtists.Text = "Import From Spotify";
+            this.btnImportPlaylistArtists.Text = "Import AllSpotify";
             this.btnImportPlaylistArtists.UseVisualStyleBackColor = true;
             this.btnImportPlaylistArtists.Click += new System.EventHandler(this.btnImportArtists_Click);
             // 
@@ -218,7 +219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.BackColor = User.Default.BackColor;
             this.ClientSize = new System.Drawing.Size(547, 625);
             this.Controls.Add(this.btnImportSavedTracks);
             this.Controls.Add(this.btnImportPlaylistArtists);
@@ -235,7 +236,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBoxQuery);
             this.Controls.Add(this.pictureBox1);
-            this.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = User.Default.ParagraphFont;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "SongsAbout";
