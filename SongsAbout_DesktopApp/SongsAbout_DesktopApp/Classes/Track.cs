@@ -11,8 +11,11 @@ using SongsAbout_DesktopApp.Classes;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public partial class Track
+    public partial class Track : DbEntity<Track>
     {
+
+        public static string Table = "Tracks";
+        public static string TitleColumn = "track_name";
 
         public Track(FullTrack t)
         {
@@ -28,9 +31,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating track: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Track>(t.Name, ex.Message);
             }
         }
 
@@ -48,9 +49,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating track: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Track>(track.Name, ex.Message);
             }
         }
 
@@ -58,15 +57,21 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                if (this.track_name != null && !Exists(this.track_name))
+                if (this.track_name != null)
                 {
-                    //this.track_artist_id = this.Album.artist_id;
-                    using (DataClassesDataContext context = new DataClassesDataContext())
+                    if (!Exists(this.track_name))
                     {
-                        Track t = this;
-                        context.Tracks.InsertOnSubmit(t);
-                        context.SubmitChanges();
+                        this.Submit();
                     }
+                    else
+                    {
+                        string msg = $"Track {this.track_name} already exists";
+                        Console.WriteLine(msg);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Track name can't be null");
                 }
             }
             catch (Exception ex)
@@ -78,90 +83,45 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        public static bool Exists(string track_name)
+        new public static bool Exists(string track_name)
         {
-            try
-            {
-                int count = 0;
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    string aquery = $"SELECT * FROM Tracks WHERE track_name = '{track_name }'";
-                    var tracks = db.ExecuteQuery<Track>(aquery);
-
-                    foreach (var item in tracks)
-                    {
-                        count++;
-                    }
-
-                }
-                return (count > 0);
-
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error verifying that track '{track_name}' exists: {ex.Message}";
-                Console.WriteLine(msg);
-                //   throw new Exception(msg);
-                return true;
-            }
+            return DbEntity<Track>.Exists(track_name);
         }
 
-        public static bool Exists(int track_id)
+        new public static bool Exists(int track_id)
         {
-            try
-            {
-                int count = 0;
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    string aquery = $"SELECT * FROM Tracks WHERE track_id = {track_id}";
-                    var tracks = db.ExecuteQuery<Track>(aquery);
+            return DbEntity<Track>.Exists(track_id);
 
-                    foreach (var item in tracks)
-                    {
-                        count++;
-                    }
-
-                }
-                return (count > 0);
-
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error verifying that track '{track_id}' exists: {ex.Message}";
-                Console.WriteLine(msg);
-                //   throw new Exception(msg);
-                return true;
-            }
         }
 
-        public void SaveGenres(ref List<string> genres)
-        {
-            try
-            {
-                using (DataClassesDataContext context = new DataClassesDataContext())
-                {
-                    DataSet gen = new DataSet();
+        //public void SaveGenres(ref List<string> genres)
+        //{
+        //    try
+        //    {
+        //        using (DataClassesDataContext context = new DataClassesDataContext())
+        //        {
+        //            DataSet gen = new DataSet();
 
-                    foreach (string g in genres)
-                    {
-                        TrackGenre tg = new TrackGenre();
-                        tg.track_id = this.track_id;
-                        tg.tg_genre = g;
+        //            foreach (string g in genres)
+        //            {
+        //                TrackGenre tg = new TrackGenre();
+        //                tg.track_id = this.track_id;
+        //                tg.tg_genre = g;
 
-                        context.TrackGenres.InsertOnSubmit(tg);
-                    }
+        //                context.TrackGenres.InsertOnSubmit(tg);
+        //            }
 
-                    context.SubmitChanges();
-                }
+        //            context.SubmitChanges();
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                string msg = "Error Saving track genres: " + ex.Message;
-                Console.WriteLine(msg);
-                throw new Exception(msg);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string msg = "Error Saving track genres: " + ex.Message;
+        //        Console.WriteLine(msg);
+        //        throw new Exception(msg);
+        //    }
+        //}
 
         public void Update(FullTrack t)
         {

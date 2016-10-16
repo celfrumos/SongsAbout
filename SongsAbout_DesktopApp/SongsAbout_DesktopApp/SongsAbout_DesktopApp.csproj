@@ -92,6 +92,7 @@
     <Compile Include="Classes\SpotifyControls.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Classes\DbExceptions.cs" />
     <Compile Include="Classes\TrackArtists.cs" />
     <Compile Include="Classes\Importer.cs" />
     <Compile Include="Classes\UserSpotify.cs" />

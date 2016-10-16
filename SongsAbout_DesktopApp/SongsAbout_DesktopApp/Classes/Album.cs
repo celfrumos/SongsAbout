@@ -6,9 +6,10 @@ using System;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public partial class Album
+    public partial class Album : DbEntity<Artist>
     {
-
+        public static string Table = "Albums";
+        public static string TitleColumn = "al_title";
         public Album(FullAlbum album)
         {
             this.Update(ref album);
@@ -18,12 +19,17 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                if (this.al_title != null && !Exists(this.al_title))
+                if (this.al_title != null)
                 {
-                    using (DataClassesDataContext context = new DataClassesDataContext())
+                    if (!Exists(this.al_title))
                     {
-                        context.Albums.InsertOnSubmit(this);
-                        context.SubmitChanges();
+                        this.Submit();
+
+                    }
+                    else
+                    {
+                        string msg = $"Track {this.al_title} already exists";
+                        Console.WriteLine(msg);
                     }
                 }
                 else
@@ -33,59 +39,18 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Saving Album '{ex.Message}'";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new SaveError<Album>(ex.Message);
             }
         }
 
-        public static bool Exists(int album_id)
+        new public static bool Exists(int album_id)
         {
-            try
-            {
-                int count = 0;
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    string aquery = $"SELECT * FROM Albums WHERE album_id = {album_id}";
-                    var albs = db.ExecuteQuery<Album>(aquery);
-                    foreach (var item in albs)
-                    {
-                        count++;
-                    }
-                }
-                return (count > 0); ;
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error validating if album '{album_id}' exists: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
-            }
+            return DbEntity<Album>.Exists(album_id);
         }
 
-        public static bool Exists(string al_title)
+        new public static bool Exists(string al_title)
         {
-            try
-            {
-                int count = 0;
-                formatName(ref al_title);
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    string aquery = $"SELECT * FROM Albums WHERE al_title = '{al_title}'";
-                    var albs = db.ExecuteQuery<Album>(aquery);
-                    foreach (var item in albs)
-                    {
-                        count++;
-                    }
-                }
-                return (count > 0); ;
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error validating if album '{al_title}' exists: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
-            }
+            return DbEntity<Album>.Exists(al_title);
         }
 
         private static void formatName(ref string name)
@@ -97,59 +62,14 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        public static Album Load(string al_title)
+        new public static Album Load(string al_title)
         {
-            try
-            {
-                formatName(ref al_title);
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    string aquery = $"SELECT * FROM Albums WHERE al_title = '{al_title}'";
-                    var albums = db.ExecuteQuery<Album>(aquery);
-                    int count = 0;
-                    foreach (Album album in albums)
-                    {
-                        count++;
-                        if (count == 1)
-                        {
-                            return album;
-                        }
-                    }
-
-                    throw new Exception($"No artist with name '{al_title}' found");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error Loading Album '{al_title}', {ex.Message}");
-            }
+            return DbEntity<Album>.Load(al_title);
         }
 
-        public static Album Load(int album_id)
+        new public static Album Load(int album_id)
         {
-            try
-            {
-                using (DataClassesDataContext db = new DataClassesDataContext())
-                {
-                    string aquery = $"SELECT * FROM Albums WHERE album_id = {album_id}";
-                    var albums = db.ExecuteQuery<Album>(aquery);
-                    int count = 0;
-                    foreach (Album album in albums)
-                    {
-                        count++;
-                        if (count == 1)
-                        {
-                            return album;
-                        }
-                    }
-
-                    throw new Exception($"No artist with id {album_id} found");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error Loading Album from id '{album_id}': {ex.Message}");
-            }
+            return DbEntity<Album>.Load(album_id);
         }
 
         public void Update(SimpleAlbum album)
@@ -161,9 +81,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating Album: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Album>(album.Name, ex.Message);
             }
         }
 
@@ -197,9 +115,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating Album: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Artist>(album.Name, ex.Message);
             }
         }
 
@@ -218,9 +134,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating Album: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError<Album>(album.Name, ex.Message);
             }
         }
 
@@ -269,8 +183,8 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating artist for album '{this.al_title}', '{this.Artist.a_name}' : {ex.Message}";
-                Console.WriteLine(msg);
+                throw new UpdateError<Artist>($"Error updating artist for album '{this.al_title}', '{this.Artist.a_name}' : {ex.Message}");
+       
             }
         }
 
