@@ -14,22 +14,52 @@ using System.Threading.Tasks;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-
-    class SpotifyPanel : Panel
+    public static class SpotifyControlEventHandlers
     {
-        public SpotifyPanel(string name)
+
+        public static void button_Leave(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void button_Enter(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void button_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SpotifyPanel : Panel
+    {
+        public SpotifyPanel(string name) : this()
         {
             this.Name = "grpBox" + name;
             this.Tag = name;
             this.Controls.Add(new SpotifyLabel(ref name));
+        }
+
+        public SpotifyPanel()
+        {
             this.Size = new Size(83, 106);
             this.TabStop = false;
 
-            this.Click += button_Click;
-            this.Enter += button_Enter;
-            this.Leave += button_Leave;
+            this.Click += SpotifyControlEventHandlers.button_Click;
+            this.Enter += SpotifyControlEventHandlers.button_Enter;
+            this.Leave += SpotifyControlEventHandlers.button_Leave;
+        }
+        public SpotifyPanel(FullAlbum a) : this(ref a)
+        {
+
         }
 
+        public SpotifyPanel(FullPlaylist p) : this(ref p)
+        {
+
+        }
         public SpotifyPanel(ref FullArtist artist) : this(artist.Name)
         {
             this.Controls.Add(new SpotifyPictureBox(ref artist));
@@ -52,35 +82,37 @@ namespace SongsAbout_DesktopApp.Classes
             this.Controls.Add(new SpotifyPictureBox(ref playlist));
         }
 
-        protected void button_Leave(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected void button_Enter(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected void button_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 
-    class SpotifyLabel : Label
+    public class SpotifyLabel : Label
     {
-        public SpotifyLabel()
-        {
-            this.AutoSize = false;
-            this.BorderStyle = BorderStyle.FixedSingle;
-            this.BackColor = User.Default.BackColor;
-            this.ForeColor = User.Default.TextColor;
-            this.Location = new Point(0, 81);
-            this.Size = new Size(83, 25);
-            this.TextAlign = ContentAlignment.MiddleCenter;
+        private static bool _defAutosize = false;
+        private static BorderStyle _defBorderStyle = BorderStyle.None;
+        private static Color _defBackColor = User.Default.BackColor;
+        private static Font _defFont = User.Default.ParagraphFont;
+        private static Color _defTextColor = User.Default.TextColor;
+        private static Point _defLocatoin = new Point(0, 81);
+        private static Size _defSize = new Size(83, 25);
+        private static ContentAlignment _defAlignment = ContentAlignment.MiddleCenter;
 
+        public SpotifyLabel()
+            : this(_defAutosize, _defBorderStyle, _defFont, _defBackColor, _defTextColor, _defLocatoin, _defSize, _defAlignment)
+        { }
+
+        public SpotifyLabel(bool autoSize, BorderStyle style, Font font, Color backColor, Color foreColor, Point location, Size size, ContentAlignment alignment)
+        {
+            this.AutoSize = autoSize;
+            this.BorderStyle = style;
+            this.BackColor = backColor;
+            this.ForeColor = foreColor;
+            this.Location = location;
+            this.Size = size;
+            this.TextAlign = alignment;
+
+            this.Click += SpotifyControlEventHandlers.button_Click;
+            this.Enter += SpotifyControlEventHandlers.button_Enter;
+            this.Leave += SpotifyControlEventHandlers.button_Leave;
         }
 
         public SpotifyLabel(ref string name) : this()
@@ -92,18 +124,38 @@ namespace SongsAbout_DesktopApp.Classes
         public SpotifyLabel(ref string name, string level) : this(ref name)
         {
         }
+
     }
-    class SpotifyPictureBox : PictureBox
+
+    public class SpotifyPictureBox : PictureBox
     {
-        public SpotifyPictureBox(string name)
+        private static string _defName = "Not Set";
+        private static Point _defLocation = new Point(0, 2);
+        private static Size _defSize = new Size(83, 80);
+        private static PictureBoxSizeMode _defSizeMode = PictureBoxSizeMode.Zoom;
+        private static bool _defAutoSize = true;
+
+        public SpotifyPictureBox() : this(_defName, _defLocation, _defSize, _defSizeMode, _defAutoSize)
+        {
+            this.Image = Resources.MusicNote;
+        }
+
+        public SpotifyPictureBox(string name) : this(name, _defLocation, _defSize, _defSizeMode, _defAutoSize)
         {
             this.Name = "pBoxArtist" + name;
             this.Tag = name;
-            this.Location = new Point(0, 2);
-            this.Size = new Size(83, 80);
-            this.SizeMode = PictureBoxSizeMode.Zoom;
-            this.TabStop = false;
+        }
 
+        public SpotifyPictureBox(string name, Point location, Size size, PictureBoxSizeMode sizeMode, bool tabStop)
+        {
+            this.Location = location;
+            this.Size = size;
+            this.SizeMode = sizeMode;
+            this.TabStop = tabStop;
+
+            this.Click += SpotifyControlEventHandlers.button_Click;
+            this.Enter += SpotifyControlEventHandlers.button_Enter;
+            this.Leave += SpotifyControlEventHandlers.button_Leave;
         }
 
         public SpotifyPictureBox(ref FullAlbum album) : this(album.Name)
@@ -125,17 +177,30 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 if (images.Count > 0)
                 {
-                    this.Image = Importer.ImportSpotifyImage(images[0]);
+                    Image i = Importer.ImportSpotifyImage(images[0]);
+                    if (i != null)
+                    {
+                        this.Image = i;
+                    }
+                    else
+                    {
+                        this.Image = Resources.MusicNote;
+                    }
                 }
                 else
                 {
-                    this.Image = Properties.Resources.MusicNote;
+                    this.Image = Resources.MusicNote;
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine($"Error setting image: {ex.Message}");
+            }
+            if (this.Image == null)
+            {
+                throw new Exception("Error Setting Image");
             }
         }
     }
+
 }
