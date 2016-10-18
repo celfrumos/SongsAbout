@@ -75,28 +75,28 @@ namespace SongsAbout_DesktopApp.Classes
             this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
 
-        public SpotifyPanel(string name, string level, ref EventHandler clickEvent) : this(name, level)
+        public SpotifyPanel(string name, string level, EventHandler clickEvent) : this(name, level)
         {
-            this.Controls.Add(new SpotifyLabel(name, ref clickEvent));
+            this.Controls.Add(new SpotifyLabel(name, clickEvent));
         }
 
-        public SpotifyPanel(ref FullTrack track, EventHandler clickEvent) : this(track.Name, "Track", ref clickEvent) { }
+        public SpotifyPanel(ref FullTrack track, EventHandler clickEvent) : this(track.Name, "Track", clickEvent) { }
 
-        public SpotifyPanel(ref FullArtist artist, EventHandler clickEvent) : this(artist.Name, "Artist", ref clickEvent)
-        {
-            this.Controls.Add(new SpotifyPictureBox(ref artist, ref clickEvent));
-        }
-
-        public SpotifyPanel(ref FullAlbum artist, EventHandler clickEvent) : this(artist.Name, "Artist", ref clickEvent)
+        public SpotifyPanel(ref FullArtist artist, EventHandler clickEvent) : this(artist.Name, "Artist", clickEvent)
         {
             this.Controls.Add(new SpotifyPictureBox(ref artist, ref clickEvent));
         }
-        public SpotifyPanel(ref FullPlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist", ref clickEvent)
+
+        public SpotifyPanel(ref FullAlbum artist, EventHandler clickEvent) : this(artist.Name, "Artist", clickEvent)
+        {
+            this.Controls.Add(new SpotifyPictureBox(ref artist, ref clickEvent));
+        }
+        public SpotifyPanel(ref FullPlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist", clickEvent)
         {
             this.Controls.Add(new SpotifyPictureBox(ref playlist, ref clickEvent));
         }
 
-        public SpotifyPanel(ref SimplePlaylist playlist, ref EventHandler clickEvent) : this(playlist.Name, "Playlist", ref clickEvent)
+        public SpotifyPanel(ref SimplePlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist", clickEvent)
         {
             this.Controls.Add(new SpotifyPictureBox(ref playlist, ref clickEvent));
         }
@@ -113,16 +113,19 @@ namespace SongsAbout_DesktopApp.Classes
         private static Point _defLocation = new Point(0, 81);
         private static Size _defSize = new Size(83, 25);
         private static ContentAlignment _defAlignment = ContentAlignment.MiddleCenter;
-
-        public EventHandler SpotifyLabel_Click { set { this.Click += value; } }
+        
 
         public string Level { get; set; }
 
-        public SpotifyLabel()
+        public SpotifyLabel(string name = "Not Set", string level = "Not Set")
             : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
-        { }
+        {
+            this.Text = name;
+            this.Tag = name;
+        }
 
-        public SpotifyLabel(Font font, Color backColor, Color foreColor, Point location, Size size, ContentAlignment alignment = ContentAlignment.MiddleCenter, bool autoSize = false, BorderStyle style = BorderStyle.None)
+        public SpotifyLabel(Font font, Color backColor, Color foreColor, Point location, Size size, 
+            ContentAlignment alignment = ContentAlignment.MiddleCenter, bool autoSize = false, BorderStyle style = BorderStyle.None)
         {
             this.AutoSize = autoSize;
             this.BorderStyle = style;
@@ -132,20 +135,19 @@ namespace SongsAbout_DesktopApp.Classes
             this.Size = size;
             this.TextAlign = alignment;
 
-            //// this.Click += SpotifyControlEventHandlers.Default_Click;
+            // this.Click += SpotifyControlEventHandlers.Default_Click;
             // this.Enter += SpotifyControlEventHandlers.Enter;
             // this.Leave += SpotifyControlEventHandlers.Leave;
             this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
-        public SpotifyLabel(string name, ref EventHandler clickEvent) : this()
+        public SpotifyLabel(string name,  EventHandler clickEvent) : this(name)
         {
-            this.Text = name;
-            this.Tag = name;
+            this.Click += clickEvent;
         }
 
-        public SpotifyLabel(ref string name, string level, ref EventHandler clickEvent) : this(name, ref clickEvent)
+        public SpotifyLabel(string name, string level,  EventHandler clickEvent) : this(name,  level)
         {
-            this.Level = level;
+            this.Click += clickEvent;
         }
 
         //internal void AddEventHandler(Action<object, EventArgs> spotifyControl_Click)
@@ -166,18 +168,22 @@ namespace SongsAbout_DesktopApp.Classes
 
         private EventHandler clickEvent { set { this.Click += value; } }
 
-        public string Level { get; private set; }
+        public string Level { get; set; }
 
         public SpotifyPictureBox() : this(_defName, _defLevel)
         {
             this.Image = Resources.MusicNote;
         }
 
-        public SpotifyPictureBox(string name, string level) : this(_defLocation, _defSize, _defSizeMode, _defAutoSize)
+        public SpotifyPictureBox(string name = "Not Set", string level = "Not Set") : this(_defLocation, _defSize, _defSizeMode, _defAutoSize)
         {
             this.Level = level;
             this.Name = "pBoxArtist" + name;
             this.Tag = name;
+            if (name == "Not Set" || level == "Not Set")
+            {
+                this.Image = Resources.MusicNote;
+            }
         }
 
         public SpotifyPictureBox(Point location, Size size, PictureBoxSizeMode sizeMode, bool tabStop)

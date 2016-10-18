@@ -31,7 +31,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        private static T _entity { get; }
+        private static T _entity;
 
         private static string _titleColumn
         {
@@ -116,18 +116,22 @@ namespace SongsAbout_DesktopApp.Classes
 
         protected static bool Exists(int id)
         {
+            T a = _entity;
+            var t = _table;
+            var c = _titleColumn;
+                
             try
             {
-                string aquery = $"SELECT * FROM {_table} WHERE {_titleColumn} = '{id}'";
+                string aquery = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{id}'";
+                //LINQ syntax
+                //var aquery =
+                //    from _titleColumn in _table
+                //    where _titleColumn == id
+                //    select id;
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
-                    var entities = db.ExecuteQuery<T>(aquery);
-
-                    foreach (T t in entities)
-                    {
-                        return true;
-                    }
-                    return false;
+                    List<T> entities = db.ExecuteQuery<T>(aquery).ToList();
+                    return entities.Count > 0;                    
                 }
             }
             catch (Exception ex)
@@ -140,17 +144,15 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
+                T a = _entity;
+                var t = _table;
+                var c = _titleColumn;
                 formatName(ref name);
-                string aquery = $"SELECT * FROM {_table} WHERE {_titleColumn} = '{name}'";
+                string aquery = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{name}'";
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
-                    var entities = db.ExecuteQuery<T>(aquery);
-
-                    foreach (T t in entities)
-                    {
-                        return true;
-                    }
-                    return false;
+                    List<T> entities = db.ExecuteQuery<T>(aquery).ToList();
+                    return entities.Count > 0;
                 }
             }
             catch (Exception ex)
@@ -166,7 +168,7 @@ namespace SongsAbout_DesktopApp.Classes
                 formatName(ref title);
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
-                    string query = $"SELECT * FROM {_table} WHERE {_titleColumn} = '{title}'";
+                    string query = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{title}'";
                     var entities = db.ExecuteQuery<T>(query);
                     foreach (T t in entities)
                     {
@@ -187,7 +189,7 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
-                    string query = $"SELECT * FROM {_table} WHERE {_titleColumn} = '{id}'";
+                    string query = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{id}'";
                     var entities = db.ExecuteQuery<T>(query);
                     foreach (T t in entities)
                     {

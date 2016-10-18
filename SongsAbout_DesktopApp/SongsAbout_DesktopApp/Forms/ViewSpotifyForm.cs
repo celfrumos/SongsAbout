@@ -86,7 +86,7 @@ namespace SongsAbout_DesktopApp.Forms
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in RedrawForm(): " + ex.Message);
-                flowLayoutPanel1.Controls.Add(new SpotifyLabel(ref objTag, objLevel));
+                flowLayoutPanel1.Controls.Add(new SpotifyLabel( objTag, objLevel, SpotifyControl_Click));
             }
 
         }
@@ -98,12 +98,12 @@ namespace SongsAbout_DesktopApp.Forms
 
         private void PromptOptions()
         {
-            SpotifyLabel lblPlaylists = new SpotifyLabel("Playlists");
-            SpotifyLabel lblAlbums = new SpotifyLabel("Artists");
-            SpotifyLabel lblTracks = new SpotifyLabel("Albums");
-            lblPlaylists.Click += SpotifyControl_Click;
-            lblAlbums.Click += SpotifyControl_Click;
-            lblTracks.Click += SpotifyControl_Click;
+            SpotifyLabel lblPlaylists = new SpotifyLabel("Playlists", SpotifyControl_Click);
+            SpotifyLabel lblAlbums = new SpotifyLabel("Artists", SpotifyControl_Click);
+            SpotifyLabel lblTracks = new SpotifyLabel("Albums", SpotifyControl_Click);
+            //lblPlaylists.Click += SpotifyControl_Click;
+            //lblAlbums.Click += SpotifyControl_Click;
+            //lblTracks.Click += SpotifyControl_Click;
             //lblPlaylists.AddEventHandler(SpotifyControl_Click);
 
             flowLayoutPanel1.Controls.Add(lblPlaylists);
@@ -123,8 +123,9 @@ namespace SongsAbout_DesktopApp.Forms
                     {
                         if (playlist.Public == true)
                         {
-                            SpotifyPanel panel = new SpotifyPanel(await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.UserId, playlist.Id), SpotifyControl_Click);
-                            panel.Click += SpotifyControl_Click; 
+                            FullPlaylist p = await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.UserId, playlist.Id);
+                            SpotifyPanel panel = new SpotifyPanel(ref p, SpotifyControl_Click);
+                            // panel.Click += SpotifyControl_Click; 
                             flowLayoutPanel1.Controls.Add(panel);
                         }
                     }
@@ -149,8 +150,9 @@ namespace SongsAbout_DesktopApp.Forms
                 {
                     try
                     {
-                        SpotifyPanel panel = new SpotifyPanel(await UserSpotify.WebAPI.GetAlbumAsync(a.Album.Id));
-                        panel.Click += SpotifyControl_Click;
+                        FullAlbum album = await UserSpotify.WebAPI.GetAlbumAsync(a.Album.Id);
+                        SpotifyPanel panel = new SpotifyPanel(ref album,SpotifyControl_Click);
+                        
                         flowLayoutPanel1.Controls.Add(panel);
                     }
                     catch (Exception ex)
