@@ -16,67 +16,75 @@ namespace SongsAbout_DesktopApp.Classes
 {
     public static class SpotifyControlEventHandlers
     {
-
-        public static void button_Leave(object sender, EventArgs e)
+        public static void Leave(object sender, EventArgs e)
         {
             throw new NotImplementedException();
         }
 
-        public static void button_Enter(object sender, EventArgs e)
+        public static void Enter(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            SpotifyLabel s = sender as SpotifyLabel;
+            var a = s.Tag.ToString();
         }
 
-        public static void button_Click(object sender, EventArgs e)
+        public static void Hover(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Control c = sender as Control;
+            c.Cursor = Cursors.Hand;
+        }
+
+        public static void Default_Click(object sender, EventArgs e)
+        {
+         //   throw new NotImplementedException();
         }
     }
 
     public class SpotifyPanel : Panel
     {
-        public SpotifyPanel(string name) : this()
-        {
-            this.Name = "grpBox" + name;
-            this.Tag = name;
-            this.Controls.Add(new SpotifyLabel(ref name));
-        }
+        public string Level { get; set; }
 
         public SpotifyPanel()
         {
             this.Size = new Size(83, 106);
             this.TabStop = false;
 
-            this.Click += SpotifyControlEventHandlers.button_Click;
-            this.Enter += SpotifyControlEventHandlers.button_Enter;
-            this.Leave += SpotifyControlEventHandlers.button_Leave;
+            //   this.Click += SpotifyControlEventHandlers.Default_Click;
+            //this.Enter += SpotifyControlEventHandlers.Enter;
+            //this.Leave += SpotifyControlEventHandlers.Leave;
+            this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
-        public SpotifyPanel(FullAlbum a) : this(ref a)
+        public SpotifyPanel(string name, string level) : this()
         {
-
+            this.Name = "pnl" + name;
+            this.Tag = name;
+            this.Level = level;
+            this.Controls.Add(new SpotifyLabel(ref name));
         }
 
-        public SpotifyPanel(FullPlaylist p) : this(ref p)
-        {
+        public SpotifyPanel(string name) : this(name, "Not Set") { }
 
-        }
-        public SpotifyPanel(ref FullArtist artist) : this(artist.Name)
+
+        public SpotifyPanel(FullAlbum a) : this(ref a) { }
+
+        public SpotifyPanel(FullPlaylist p) : this(ref p) { }
+
+        public SpotifyPanel(ref FullTrack track) : this(track.Name, "Track") { }
+
+        public SpotifyPanel(ref FullArtist artist) : this(artist.Name, "Artist")
         {
             this.Controls.Add(new SpotifyPictureBox(ref artist));
         }
 
-        public SpotifyPanel(ref FullTrack track) : this(track.Name) { }
-
-        public SpotifyPanel(ref FullAlbum artist) : this(artist.Name)
+        public SpotifyPanel(ref FullAlbum artist) : this(artist.Name, "Artist")
         {
             this.Controls.Add(new SpotifyPictureBox(ref artist));
         }
-        public SpotifyPanel(ref FullPlaylist playlist) : this(playlist.Name)
+        public SpotifyPanel(ref FullPlaylist playlist) : this(playlist.Name, "Playlist")
         {
             this.Controls.Add(new SpotifyPictureBox(ref playlist));
         }
 
-        public SpotifyPanel(ref SimplePlaylist p) : this(p.Name)
+        public SpotifyPanel(ref SimplePlaylist p) : this(p.Name, "Playlist")
         {
             FullPlaylist playlist = UserSpotify.WebAPI.GetPlaylist(User.Default.UserId, p.Id);
             this.Controls.Add(new SpotifyPictureBox(ref playlist));
@@ -92,12 +100,13 @@ namespace SongsAbout_DesktopApp.Classes
         private static Color _defBackColor = User.Default.BackColor;
         private static Font _defFont = User.Default.ParagraphFont;
         private static Color _defTextColor = User.Default.TextColor;
-        private static Point _defLocatoin = new Point(0, 81);
+        private static Point _defLocation = new Point(0, 81);
         private static Size _defSize = new Size(83, 25);
         private static ContentAlignment _defAlignment = ContentAlignment.MiddleCenter;
+        public string Level { get; set; }
 
         public SpotifyLabel()
-            : this(_defAutosize, _defBorderStyle, _defFont, _defBackColor, _defTextColor, _defLocatoin, _defSize, _defAlignment)
+            : this(_defAutosize, _defBorderStyle, _defFont, _defBackColor, _defTextColor, _defLocation, _defSize, _defAlignment)
         { }
 
         public SpotifyLabel(bool autoSize, BorderStyle style, Font font, Color backColor, Color foreColor, Point location, Size size, ContentAlignment alignment)
@@ -110,11 +119,12 @@ namespace SongsAbout_DesktopApp.Classes
             this.Size = size;
             this.TextAlign = alignment;
 
-            this.Click += SpotifyControlEventHandlers.button_Click;
-            this.Enter += SpotifyControlEventHandlers.button_Enter;
-            this.Leave += SpotifyControlEventHandlers.button_Leave;
+           //// this.Click += SpotifyControlEventHandlers.Default_Click;
+           // this.Enter += SpotifyControlEventHandlers.Enter;
+           // this.Leave += SpotifyControlEventHandlers.Leave;
+            this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
-
+        public SpotifyLabel(string name) : this(ref name) { }
         public SpotifyLabel(ref string name) : this()
         {
             this.Text = name;
@@ -123,50 +133,61 @@ namespace SongsAbout_DesktopApp.Classes
 
         public SpotifyLabel(ref string name, string level) : this(ref name)
         {
+            this.Level = level;
         }
 
+        //internal void AddEventHandler(Action<object, EventArgs> spotifyControl_Click)
+        //{
+        //    this.Click += new EventHandler(spotifyControl_Click);
+
+        //}
     }
 
     public class SpotifyPictureBox : PictureBox
     {
         private static string _defName = "Not Set";
+        private static string _defLevel = "Not Set";
         private static Point _defLocation = new Point(0, 2);
         private static Size _defSize = new Size(83, 80);
         private static PictureBoxSizeMode _defSizeMode = PictureBoxSizeMode.Zoom;
         private static bool _defAutoSize = true;
 
-        public SpotifyPictureBox() : this(_defName, _defLocation, _defSize, _defSizeMode, _defAutoSize)
+        public string Level { get; private set; }
+
+        public SpotifyPictureBox() : this(_defName, _defLevel)
         {
             this.Image = Resources.MusicNote;
         }
 
-        public SpotifyPictureBox(string name) : this(name, _defLocation, _defSize, _defSizeMode, _defAutoSize)
+        public SpotifyPictureBox(string name, string level) : this(_defLocation, _defSize, _defSizeMode, _defAutoSize)
         {
+            this.Level = level;
             this.Name = "pBoxArtist" + name;
             this.Tag = name;
         }
 
-        public SpotifyPictureBox(string name, Point location, Size size, PictureBoxSizeMode sizeMode, bool tabStop)
+        public SpotifyPictureBox(Point location, Size size, PictureBoxSizeMode sizeMode, bool tabStop)
         {
             this.Location = location;
             this.Size = size;
             this.SizeMode = sizeMode;
             this.TabStop = tabStop;
 
-            this.Click += SpotifyControlEventHandlers.button_Click;
-            this.Enter += SpotifyControlEventHandlers.button_Enter;
-            this.Leave += SpotifyControlEventHandlers.button_Leave;
+           // this.Click += SpotifyControlEventHandlers.Default_Click;
+            //this.Enter += SpotifyControlEventHandlers.Enter;
+            //this.Leave += SpotifyControlEventHandlers.Leave;
+            this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
 
-        public SpotifyPictureBox(ref FullAlbum album) : this(album.Name)
+        public SpotifyPictureBox(ref FullAlbum album) : this(album.Name, "Album")
         {
             SetImage(album.Images);
         }
-        public SpotifyPictureBox(ref FullArtist artist) : this(artist.Name)
+        public SpotifyPictureBox(ref FullArtist artist) : this(artist.Name, "Artist")
         {
             SetImage(artist.Images);
         }
-        public SpotifyPictureBox(ref FullPlaylist playlist) : this(playlist.Name)
+        public SpotifyPictureBox(ref FullPlaylist playlist) : this(playlist.Name, "Playlist")
         {
             SetImage(playlist.Images);
         }

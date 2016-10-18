@@ -22,15 +22,72 @@ namespace SongsAbout_DesktopApp.Forms
         public ViewSpotifyForm()
         {
             InitializeComponent();
-            //LoadAlbums();
             try
             {
-                LoadPlaylists();
+                PromptOptions();
+                //LoadAlbums();
+                //     LoadPlaylists();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+        public void SpotifyControl_Click(object sender, EventArgs e)
+        {
+            string objTag;
+            string objLevel;
+            if (sender is SpotifyLabel)
+            {
+                SpotifyLabel lbl = sender as SpotifyLabel;
+                objTag = lbl.Tag.ToString();
+                objLevel = lbl.Level;
+            }
+            else if (sender is SpotifyPanel)
+            {
+                SpotifyPanel panel = sender as SpotifyPanel;
+                objTag = panel.Tag.ToString();
+                objLevel = panel.Level;
+            }
+            else if (sender is SpotifyPictureBox)
+            {
+                SpotifyLabel pBox = sender as SpotifyLabel;
+                objTag = pBox.Tag.ToString();
+                objLevel = pBox.Level;
+            }
+            else
+            {
+                throw new Exception("Incorrect object clicked");
+            }
+            RedrawForm(objTag, objLevel);
+        }
+
+        private void RedrawForm(string objTag, string objLevel)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            if (objTag == "Playlists")
+            {
+                LoadPlaylists();
+            }
+            else
+            {
+                flowLayoutPanel1.Controls.Add(new SpotifyLabel(ref objTag, objLevel));
+            }
+        }
+
+        private void PromptOptions()
+        {
+            SpotifyLabel lblPlaylists = new SpotifyLabel("Playlists");
+            SpotifyLabel lblAlbums = new SpotifyLabel("Artists");
+            SpotifyLabel lblTracks = new SpotifyLabel("Albums");
+            lblPlaylists.Click += SpotifyControl_Click;
+            lblAlbums.Click += SpotifyControl_Click;
+            lblTracks.Click += SpotifyControl_Click;
+            //lblPlaylists.AddEventHandler(SpotifyControl_Click);
+
+            flowLayoutPanel1.Controls.Add(lblPlaylists);
+            flowLayoutPanel1.Controls.Add(lblAlbums);
+            flowLayoutPanel1.Controls.Add(lblTracks);
         }
 
         private async void LoadPlaylists()
