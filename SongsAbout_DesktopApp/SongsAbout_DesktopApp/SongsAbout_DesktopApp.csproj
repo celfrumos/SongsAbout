@@ -89,7 +89,7 @@
   <ItemGroup>
     <Compile Include="Classes\AlbumTracks.cs" />
     <Compile Include="Classes\DbEntity.cs" />
-    <Compile Include="Classes\SpotifyControls.cs">
+    <Compile Include="Classes\SpotifyControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\DbExceptions.cs" />
@@ -171,6 +171,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>User.settings</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Classes\SpotifyControl.resx">
+      <DependentUpon>SpotifyControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ViewSpotifyForm.resx">
       <DependentUpon>ViewSpotifyForm.cs</DependentUpon>
     </EmbeddedResource>

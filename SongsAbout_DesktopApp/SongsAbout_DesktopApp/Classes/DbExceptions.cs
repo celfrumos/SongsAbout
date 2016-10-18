@@ -191,6 +191,5 @@ namespace SongsAbout_DesktopApp.Classes
 
     public class NullValueError<T>
     {
-
     }
 }
