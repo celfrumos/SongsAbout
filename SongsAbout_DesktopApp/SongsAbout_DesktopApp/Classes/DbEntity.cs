@@ -1,60 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
+using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public class DbEntity<T>
+    public abstract class DbEntity<U>
     {
-        protected static string _type
-        {
-            get
-            {
-                if (_entity is Artist)
-                {
-                    return "Artist";
-                }
-                else if (_entity is Album)
-                {
-                    return "Album";
-                }
-                else if (_entity is Track)
-                {
-                    return "Track";
-                }
-                else
-                {
-                    throw new InvalidDbDataTypeError<T>();
-                }
-            }
-        }
+        public string TitleColumnName { get; set; }
+        public string TableName { get; set; }
+        public string TypeName { get; set; }
 
-        private static T _entity;
-
-        private static string _titleColumn
-        {
-            get
-            {
-                if (_entity is Artist)
-                {
-                    return Artist.TitleColumn;
-                }
-                else if (_entity is Album)
-                {
-                    return Album.TitleColumn;
-                }
-                else if (_entity is Track)
-                {
-                    return Track.TitleColumn;
-                }
-                else
-                {
-                    throw new InvalidDbDataTypeError<T>();
-                }
-            }
-        }
+        private static U _entity;
 
         private static string _table
         {
@@ -74,18 +35,26 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else
                 {
-                    throw new InvalidDbDataTypeError<T>();
+                    throw new InvalidDbDataTypeError<U>();
                 }
             }
         }
 
-        protected void Submit()
+        protected DbEntity(string titleColumn, string table, string typeName)
+        {
+            this.TitleColumnName = titleColumn;
+            this.TableName = table;
+            this.TypeName = TypeName;
+        }
+
+        public virtual void Submit()
         {
             try
             {
+                string table = TableName;
                 using (DataClassesDataContext context = new DataClassesDataContext())
                 {
-                    switch (_table)
+                    switch (table)
                     {
                         case "Artists":
                             context.Artists.InsertOnSubmit(_entity as Artist);
@@ -110,50 +79,104 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                throw new SaveError<T>(ex.Message);
+                throw new SaveError<U>(ex.Message);
             }
         }
 
-        protected static bool Exists(int id)
+
+        public virtual void Submit(string table)
         {
-            T a = _entity;
-            var t = _table;
-            var c = _titleColumn;
-                
             try
             {
-                string aquery = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{id}'";
-                //LINQ syntax
-                //var aquery =
-                //    from _titleColumn in _table
-                //    where _titleColumn == id
-                //    select id;
-                using (DataClassesDataContext db = new DataClassesDataContext())
+                using (DataClassesDataContext context = new DataClassesDataContext())
                 {
-                    List<T> entities = db.ExecuteQuery<T>(aquery).ToList();
-                    return entities.Count > 0;                    
+                    switch (table)
+                    {
+                        case "Artists":
+                            context.Artists.InsertOnSubmit(_entity as Artist);
+                            break;
+                        case "Albums":
+                            context.Albums.InsertOnSubmit(_entity as Album);
+                            break;
+                        case "Tracks":
+                            context.Tracks.InsertOnSubmit(_entity as Track);
+                            break;
+                        case "Genres":
+                            context.Genres.InsertOnSubmit(_entity as Genre);
+                            break;
+                        case "TrackGenres":
+                            context.TrackGenres.InsertOnSubmit(_entity as TrackGenre);
+                            break;
+                        default:
+                            break;
+                    }
+                    context.SubmitChanges();
                 }
             }
             catch (Exception ex)
             {
-                throw new EntityNotFoundError<T>(id, ex.Message);
+                throw new SaveError<U>(ex.Message);
             }
         }
 
-        protected static bool Exists(string name)
+        public static bool Exists(int id, string column, string table)
         {
             try
             {
-                T a = _entity;
-                var t = _table;
-                var c = _titleColumn;
-                formatName(ref name);
-                string aquery = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{name}'";
+                string aquery = $"SELECT {column} FROM {table} WHERE {column} = '{id}'";
+                //LINQ syntax
+                var j =
+                    from _titleColumn in _table
+                    where _titleColumn == id
+                    select id;
+
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
-                    List<T> entities = db.ExecuteQuery<T>(aquery).ToList();
+
+                    List<U> entities = db.ExecuteQuery<U>(aquery).ToList();
                     return entities.Count > 0;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityNotFoundError<U>(id, ex.Message);
+            }
+        }
+
+        public virtual bool Exists(string name)
+        {
+            try
+            {
+                string column = TitleColumnName,
+                    table = TableName;
+
+                formatName(ref name);
+                string aquery = $"SELECT {column} FROM {table} WHERE {column} = '{name}'";
+                using (DataClassesDataContext db = new DataClassesDataContext())
+                {
+                    List<U> entities = db.ExecuteQuery<U>(aquery).ToList();
+                    return entities.Count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityNotFoundError<U>(name, ex.Message);
+            }
+        }
+
+        public virtual bool Exists<T>(string name, ref DataClassesDataContext db)
+        {
+            try
+            {
+                string column = TitleColumnName,
+                    table = TableName;
+
+                formatName(ref name);
+                string aquery = $"SELECT {column} FROM {table} WHERE {column} = '{name}'";
+
+                List<T> entities = db.ExecuteQuery<T>(aquery).ToList();
+                return entities.Count > 0;
+
             }
             catch (Exception ex)
             {
@@ -161,7 +184,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        protected static T Load(string title)
+        public static U Load(string title)
         {
             try
             {
@@ -169,39 +192,39 @@ namespace SongsAbout_DesktopApp.Classes
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     string query = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{title}'";
-                    var entities = db.ExecuteQuery<T>(query);
-                    foreach (T t in entities)
+                    var entities = db.ExecuteQuery<U>(query);
+                    foreach (U t in entities)
                     {
                         return t;
                     }
-                    throw new EntityNotFoundError<T>(title);
+                    throw new EntityNotFoundError<U>(title);
                 }
             }
             catch (Exception ex)
             {
-                throw new LoadError<T>(title, ex.Message);
+                throw new LoadError<U>(title, ex.Message);
             }
         }
 
-        protected static T Load(int id)
+        public static U Load(int id)
         {
             try
             {
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
                     string query = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{id}'";
-                    var entities = db.ExecuteQuery<T>(query);
-                    foreach (T t in entities)
+                    var entities = db.ExecuteQuery<U>(query);
+                    foreach (U t in entities)
                     {
                         return t;
                     }
 
-                    throw new EntityNotFoundError<T>(id);
+                    throw new EntityNotFoundError<U>(id);
                 }
             }
             catch (Exception ex)
             {
-                throw new LoadError<T>(id, ex.Message);
+                throw new LoadError<U>(id, ex.Message);
             }
         }
 

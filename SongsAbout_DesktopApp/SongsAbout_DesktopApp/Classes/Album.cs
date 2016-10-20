@@ -6,11 +6,9 @@ using System;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public partial class Album : DbEntity<Artist>
+    public partial class Album : DbEntity<Album>
     {
-        public static string Table = "Albums";
-        public static string TitleColumn = "al_title";
-        public Album(FullAlbum album)
+        public Album(FullAlbum album) : base("al_title", "Albums", "Album")
         {
             this.Update(ref album);
         }
@@ -23,7 +21,7 @@ namespace SongsAbout_DesktopApp.Classes
                 {
                     if (!Exists(this.al_title))
                     {
-                        this.Submit();
+                        context.Albums.InsertOnSubmit(this);
 
                     }
                     else
@@ -43,15 +41,15 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        new public static bool Exists(int album_id)
-        {
-            return DbEntity<Album>.Exists(album_id);
-        }
+        //new public static bool Exists(int album_id)
+        //{
+        //    return DbEntity<Album>.Exists(album_id);
+        //}
 
-        new public static bool Exists(string al_title)
-        {
-            return DbEntity<Album>.Exists(al_title);
-        }
+        //new public static bool Exists(string al_title)
+        //{
+        //    return DbEntity<Album>.Exists(al_title);
+        //}
 
         private static void formatName(ref string name)
         {
@@ -64,12 +62,12 @@ namespace SongsAbout_DesktopApp.Classes
 
         new public static Album Load(string al_title)
         {
-            return DbEntity<Album>.Load(al_title);
+            return Load(al_title);
         }
 
         new public static Album Load(int album_id)
         {
-            return DbEntity<Album>.Load(album_id);
+            return Load(album_id);
         }
 
         public void Update(SimpleAlbum album)
@@ -184,7 +182,7 @@ namespace SongsAbout_DesktopApp.Classes
             catch (Exception ex)
             {
                 throw new UpdateError<Artist>($"Error updating artist for album '{this.al_title}', '{this.Artist.a_name}' : {ex.Message}");
-       
+
             }
         }
 
