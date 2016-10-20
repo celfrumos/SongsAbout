@@ -22,11 +22,11 @@ namespace SongsAbout_DesktopApp.Classes
         }
     
         public int ID { get; set; }
-        public string a_name { get; set; }
         public string a_bio { get; set; }
         public string a_website { get; set; }
         public string a_spotify_uri { get; set; }
         public byte[] a_profile_pic { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Album> Albums { get; set; }

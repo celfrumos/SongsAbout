@@ -17,7 +17,7 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                if (this.al_title != null)
+                if (this.name != null)
                 {
                     //if (!Exists(this.al_title))
                     //{
@@ -32,7 +32,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else
                 {
-                    Console.WriteLine($"Error saving album {this.al_title}, already exists");
+                    Console.WriteLine($"Error saving album {this.name}, already exists");
                 }
             }
             catch (Exception ex)
@@ -106,7 +106,7 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                this.al_title = album.Name;
+                this.name = album.Name;
                 this.al_spotify_uri = album.Uri;
                 UpdateArtist(album.Artists[0]);
                 this.SetGenres(album.Genres);
@@ -125,7 +125,7 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                this.al_title = album.Name;
+                this.name = album.Name;
                 this.al_spotify_uri = album.Uri;
                 this.UpdateArtist(album.Artists[0]);
                 this.SetGenres(album.Genres);
@@ -179,13 +179,13 @@ namespace SongsAbout_DesktopApp.Classes
                     a = new Artist();
                     a.Update(simpleArtist);
                     //  a.Save();
-                    Console.WriteLine($"Artist added: '{a.a_name}'");
+                    Console.WriteLine($"Artist added: '{a.name}'");
                 }
                 this.artist_id = a.ID;
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Artist>($"Error updating artist for album '{this.al_title}', '{this.Artist.a_name}' : {ex.Message}");
+                throw new UpdateError<Artist>($"Error updating artist for album '{this.name}', '{this.Artist.name}' : {ex.Message}");
 
             }
         }

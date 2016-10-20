@@ -96,6 +96,11 @@
     <Compile Include="Classes\AlbumTrack.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
+    <Compile Include="Classes\DataClasses1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Entities\AlbumTracks.Manual.cs" />
     <Compile Include="Classes\Artist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
@@ -109,11 +114,6 @@
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Classes\DataClasses1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\Entities\DbEntity.cs" />
     <Compile Include="Classes\Genre.cs">

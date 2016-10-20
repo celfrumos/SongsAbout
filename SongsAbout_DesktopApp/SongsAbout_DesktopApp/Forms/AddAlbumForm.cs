@@ -15,8 +15,8 @@ namespace SongsAbout_DesktopApp
     {
         bool isNewArtist = false;
 
-        private Album _newAlbum = new Album();//{ get; set; }
-        
+        Album _newAlbum = new Album();//{ get; set; }
+
         public AddAlbumForm(out Album newAlbum) //: this(ref cBoxAlbum)
         {
             InitializeComponent();
@@ -55,7 +55,7 @@ namespace SongsAbout_DesktopApp
                     try
                     {
                         string newArtistId = cBoxMainArtist.SelectedValue.ToString();
-                        _newAlbum.al_title = txtBoxTitle.Text;
+                        _newAlbum.name = txtBoxTitle.Text;
                         _newAlbum.al_year = txtBoxYear.Text;
                         _newAlbum.artist_id = int.Parse(newArtistId);
 

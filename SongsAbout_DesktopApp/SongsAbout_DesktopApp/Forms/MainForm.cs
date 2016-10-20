@@ -58,7 +58,7 @@ namespace SongsAbout_DesktopApp
 
                 if (addTrack.DialogResult == DialogResult.OK)
                 {
-                    MessageBox.Show("Successfully saved " + addTrack.NewTrack.track_name, "Success!");
+                    MessageBox.Show("Successfully saved " + addTrack.NewTrack.name, "Success!");
                 }
             }
             catch (Exception ex)

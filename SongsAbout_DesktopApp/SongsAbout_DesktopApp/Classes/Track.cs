@@ -25,12 +25,12 @@ namespace SongsAbout_DesktopApp.Classes
         }
     
         public int ID { get; set; }
-        public string track_name { get; set; }
         public string track_spotify_uri { get; set; }
         public Nullable<double> track_length_minutes { get; set; }
         public int track_artist_id { get; set; }
         public string can_play { get; set; }
         public Nullable<int> list_id { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlbumTrack> AlbumTracks { get; set; }

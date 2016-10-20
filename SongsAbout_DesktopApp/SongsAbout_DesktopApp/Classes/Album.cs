@@ -23,10 +23,10 @@ namespace SongsAbout_DesktopApp.Classes
     
         public int ID { get; set; }
         public int artist_id { get; set; }
-        public string al_title { get; set; }
         public string al_year { get; set; }
         public string al_spotify_uri { get; set; }
         public byte[] al_cover_art { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlbumGenre> AlbumGenres { get; set; }
