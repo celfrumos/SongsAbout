@@ -15,11 +15,11 @@ namespace SongsAbout_DesktopApp.Classes
     {
 
         public static string Table = "Tracks";
-        public static string TitleColumn = "track_name";
+        public static string TitleColumn = "name";
 
         public Track(FullTrack t)
         {
-            this.track_name = t.Name;
+            this.name = t.Name;
             this.track_length_minutes = (double)(t.DurationMs) / 60000;
             this.track_spotify_uri = t.Uri;
 
@@ -38,7 +38,7 @@ namespace SongsAbout_DesktopApp.Classes
         public Track(SimpleTrack track)
         {
             FullTrack t = UserSpotify.WebAPI.GetTrack(track.Id);
-            this.track_name = t.Name;
+            this.name = t.Name;
             this.track_length_minutes = (double)(t.DurationMs) / 60000;
             this.track_spotify_uri = t.Uri;
             try
@@ -57,15 +57,15 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                if (this.track_name != null)
+                if (this.name != null)
                 {
-                    if (!Exists(this.track_name))
+                    if (!Exists(this.name))
                     {
                         //this.Submit();
                     }
                     else
                     {
-                        string msg = $"Track {this.track_name} already exists";
+                        string msg = $"Track {this.name} already exists";
                         Console.WriteLine(msg);
                     }
                 }
@@ -83,12 +83,12 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        new public static bool Exists(string track_name)
+        public static bool Exists(string name)
         {
-            return true;// DbEntity<Track>.Exists(track_name);
+            return true;// DbEntity<Track>.Exists(name);
         }
 
-        new public static bool Exists(int track_id)
+        public static bool Exists(int track_id)
         {
             return true; // DbEntity<Track>.Exists(track_id);
 
@@ -127,7 +127,7 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                this.track_name = t.Name;
+                this.name = t.Name;
                 this.track_length_minutes = (double)(t.DurationMs) / 60000;
                 this.track_spotify_uri = t.Uri;
                 this.Save();
@@ -144,7 +144,7 @@ namespace SongsAbout_DesktopApp.Classes
 
         public void Update(ref FullTrack t)
         {
-            this.track_name = t.Name;
+            this.name = t.Name;
             this.track_length_minutes = (double)(t.DurationMs) / 60000;
             this.track_spotify_uri = t.Uri;
             try
@@ -183,7 +183,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating track artist: {this.track_name}: {ex.Message}";
+                string msg = $"Error updating track artist: {this.name}: {ex.Message}";
                 Console.WriteLine(msg);
                 //  throw new Exception(msg);
             }
@@ -211,7 +211,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating track album for track: {this.track_name}: {ex.Message}";
+                string msg = $"Error updating track album for track: {this.name}: {ex.Message}";
                 Console.WriteLine(msg);
                 //    throw new Exception(msg);
             }
@@ -237,7 +237,7 @@ namespace SongsAbout_DesktopApp.Classes
         //    }
         //    catch (Exception ex)
         //    {
-        //        string msg = $"Error updating track album for track: {this.track_name}: {ex.Message}";
+        //        string msg = $"Error updating track album for track: {this.name}: {ex.Message}";
         //        Console.WriteLine(msg);
         //        //    throw new Exception(msg);
         //    }

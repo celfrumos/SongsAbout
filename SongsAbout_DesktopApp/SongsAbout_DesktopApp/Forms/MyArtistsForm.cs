@@ -49,8 +49,8 @@ namespace SongsAbout_DesktopApp.Forms
 
         private GroupBox NewArtistBox(ref DataSet.ArtistsRow aRow)
         {
-            int artistId = aRow.artist_id;
-            string artistName = aRow.a_name;
+            int artistId = aRow.ID;
+            string artistName = aRow.name;
             //  
             // pBoxArtist 
             //  

@@ -150,7 +150,7 @@
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\UserSpotify.cs" />
-    <Compile Include="DataSet1.Designer.cs">
+    <Compile Include="DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
@@ -172,9 +172,6 @@
     </Compile>
     <Compile Include="Forms\QueryForm.Designer.cs">
       <DependentUpon>QueryForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet.cs">
-      <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddAlbumForm.cs">
       <SubType>Form</SubType>
@@ -267,10 +264,7 @@
     <None Include="DataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSet.xss">
-      <DependentUpon>DataSet.xsd</DependentUpon>
+      <LastGenOutput>DataSet.Designer.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

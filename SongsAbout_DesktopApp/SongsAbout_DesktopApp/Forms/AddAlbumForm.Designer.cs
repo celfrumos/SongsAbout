@@ -253,7 +253,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ComboBox cBoxMainArtist;
         private System.Windows.Forms.Button btnNewArtist;
-        private DataSet dataSet;
+        private SongsAbout_DesktopApp.DataSet dataSet;
         private System.Windows.Forms.BindingSource artistsBindingSource;
         private DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter;
     }

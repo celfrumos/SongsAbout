@@ -31,11 +31,11 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                NewTrack.track_name = txtBoxName.Text;
+                NewTrack.name = txtBoxName.Text;
                 NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
 
                 string newAlbumId = cBoxAlbum.SelectedValue.ToString();
-//                NewTrack.album_id = int.Parse(newAlbumId);
+                //                NewTrack.album_id = int.Parse(newAlbumId);
 
                 string newArtistId = cBoxAlbum.SelectedValue.ToString();
                 NewTrack.track_artist_id = int.Parse(newArtistId);

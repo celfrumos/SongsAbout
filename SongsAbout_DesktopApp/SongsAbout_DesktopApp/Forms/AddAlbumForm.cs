@@ -16,10 +16,12 @@ namespace SongsAbout_DesktopApp
         bool isNewArtist = false;
 
         Album _newAlbum = new Album();//{ get; set; }
-
-        public AddAlbumForm(out Album newAlbum) //: this(ref cBoxAlbum)
+        public AddAlbumForm() //: this(ref cBoxAlbum)
         {
             InitializeComponent();
+        }
+        public AddAlbumForm(out Album newAlbum) : this()//: this(ref cBoxAlbum)
+        {
             newAlbum = _newAlbum;
         }
 
@@ -91,7 +93,7 @@ namespace SongsAbout_DesktopApp
         private void AddAlbumForm_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-            this.artistsTableAdapter.Fill(this.dataSet.Artists);
+          //  this.artistsTableAdapter.Fill(this.dataSet.Artists);
 
         }
     }

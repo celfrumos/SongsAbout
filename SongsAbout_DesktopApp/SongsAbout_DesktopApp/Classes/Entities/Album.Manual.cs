@@ -1,24 +1,33 @@
 ﻿using SpotifyAPI.Web.Models;
 using SongsAbout_DesktopApp.Classes;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
+using System.Linq.Expressions;
+using System.Linq;
 using System.Collections.Generic;
 using SongsAbout_DesktopApp.Properties;
 using System;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public partial class Album// : DbEntity<Album>
+    public partial class Album : DbEntity
     {
         public Album(FullAlbum album)// : base("al_title", "Albums", "Album")
         {
             this.Update(ref album);
         }
 
-        public void Save()
+        public override void Save()
         {
             try
             {
                 if (this.name != null)
                 {
+                    using (var context = new DataClassContext())
+                    {
+                        context.Albums.Add(this);
+                        context.SaveChanges();
+                    }
                     //if (!Exists(this.al_title))
                     //{
                     //    // context.Albums.InsertOnSubmit(this);
@@ -52,26 +61,42 @@ namespace SongsAbout_DesktopApp.Classes
         //}
         public static bool Exists(string a)
         {
-            return true;
-        }
-        public static bool Exists(int i) { return true; }
-        private static void formatName(ref string name)
-        {
-            if (name.Contains("\'"))
+            IQueryable<Album> albums;
+            using (DataClassContext context = new DataClassContext())
             {
-                int i = name.IndexOf("\'");
-                name = name.Insert(i, "'");
+                DbEntity.formatName(ref a);
+                albums =
+                   from ab in context.Albums
+                   where ab.name == a
+                   select ab;
             }
+            return albums.Count() > 0;
+        }
+        public static bool Exists(int a)
+        {
+            IQueryable<Album> albums;
+            using (DataClassContext context = new DataClassContext())
+            {
+                albums =
+                     from ab in context.Albums
+                     where ab.ID == a
+                     select ab;
+            }
+            return albums.Count() > 0;
         }
 
-        new public static Album Load(string al_title)
+
+
+        public static Album Load(string al_title)
         {
-            return Load(al_title);
+            throw new NotImplementedException();
+            // return Load(al_title);
         }
 
-        new public static Album Load(int album_id)
+        public static Album Load(int album_id)
         {
-            return Load(album_id);
+            throw new NotImplementedException();
+            //return Load(album_id);
         }
 
         public void Update(SimpleAlbum album)

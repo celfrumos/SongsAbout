@@ -19,7 +19,7 @@ namespace SongsAbout_DesktopApp.Classes
     public partial class Artist// : DbEntity<Artist>
     {
         public static string Table = "Artists";
-        public static string TitleColumn = "a_name";
+        public static string TitleColumn = "name";
 
         /// <summary>
         /// Submit Changes to the Database
@@ -28,9 +28,9 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                if (this.a_name != null)
+                if (this.name != null)
                 {
-                    if (!Exists(this.a_name))
+                    if (!Exists(this.name))
                     {
                         //   DbEntity<Artist>.Submit();
                     }
@@ -59,7 +59,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        new public static bool Exists(int artist_id)
+        public static bool Exists(int artist_id)
         {
             return true;
             //  return DbEntity<Artist>.Exists(artist_id);
@@ -83,7 +83,7 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                this.a_name = artist.Name;
+                this.name = artist.Name;
                 this.a_spotify_uri = artist.Uri;
                 this.a_website = artist.Href;
                 this.UpdateProfilePic(artist);
@@ -107,24 +107,26 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        new public static Artist Load(string title)
+         public static Artist Load(string title)
         {
-            return DbEntity<Artist>.Load(title);
+            throw new NotImplementedException();
+            //return DbEntity<Artist>.Load(title);
         }
 
-        new public static Artist Load(int id)
+         public static Artist Load(int id)
         {
-            return DbEntity<Artist>.Load(id);
+            throw new NotImplementedException();
+            //return DbEntity<Artist>.Load(id);
         }
 
-        //public static Artist Load(string a_name)
+        //public static Artist Load(string name)
         //{
         //    try
         //    {
-        //        formatName(ref a_name);
+        //        formatName(ref name);
         //        using (DataClassesDataContext db = new DataClassesDataContext())
         //        {
-        //            string aquery = $"SELECT * FROM Artists WHERE a_name = '{a_name}'";
+        //            string aquery = $"SELECT * FROM Artists WHERE name = '{name}'";
         //            var artists = db.ExecuteQuery<Artist>(aquery);
         //            int count = 0;
         //            foreach (Artist artist in artists)
@@ -136,12 +138,12 @@ namespace SongsAbout_DesktopApp.Classes
         //                }
         //            }
 
-        //            throw new Exception($"No artist with name '{a_name}' found");
+        //            throw new Exception($"No artist with name '{name}' found");
         //        }
         //    }
         //    catch (Exception ex)
         //    {
-        //        throw new Exception($"Error Loading artist '{a_name}': {ex.Message}");
+        //        throw new Exception($"Error Loading artist '{name}': {ex.Message}");
         //    }
         //}
 
@@ -157,12 +159,12 @@ namespace SongsAbout_DesktopApp.Classes
         //        artistsTableAdapter.Fill(dataSet.Artists);
 
         //        DataTable artistTable = dataSet.Artists;
-        //        string query = "a_name = '" + this.a_name + "'";
+        //        string query = "name = '" + this.name + "'";
         //        DataRow[] rows = artistTable.Select(query);
 
         //        if (rows.Length > 0)
         //        {
-        //            this.a_name = rows[0]["a_name"].ToString();
+        //            this.name = rows[0]["name"].ToString();
         //            this.a_spotify_uri = rows[0]["a_spotify_uri"].ToString();
         //            this.a_website = rows[0]["a_website"].ToString();
         //            this._a_profile_pic = (byte[])rows[0]["_a_profile_pic"];

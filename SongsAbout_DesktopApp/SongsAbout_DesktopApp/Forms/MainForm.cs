@@ -53,12 +53,21 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                AddTrackForm addTrack = new AddTrackForm();
-                addTrack.ShowDialog();
-
+                var addTrack = new AddAlbumForm();
+                try
+                {
+                    addTrack.ShowDialog();
+                }
+                catch (System.ArgumentException ex)
+                {
+                    MessageBox.Show(ex.Message, "Something went wrong.");
+                }
                 if (addTrack.DialogResult == DialogResult.OK)
                 {
-                    MessageBox.Show("Successfully saved " + addTrack.NewTrack.name, "Success!");
+                    MessageBox.Show("Successfully saved ", "Success!");
+                }
+                else {
+                    MessageBox.Show("Something Happened");
                 }
             }
             catch (Exception ex)
@@ -112,7 +121,7 @@ namespace SongsAbout_DesktopApp
             {
                 Importer.ImportFollowedArtists();
 
-              //  Importer.ImportSavedTracks();
+                //  Importer.ImportSavedTracks();
                 Console.WriteLine("Finished importing saved tracks");
             }
             catch (Exception ex)

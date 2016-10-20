@@ -105,15 +105,15 @@ namespace SongsAbout_DesktopApp.Classes
 
     public class SpotifyLabel : Label
     {
-        private static bool _defAutosize = false;
-        private static BorderStyle _defBorderStyle = BorderStyle.None;
+        //     private static bool _defAutosize = false;
+        //  private static BorderStyle _defBorderStyle = BorderStyle.None;
         private static Color _defBackColor = User.Default.BackColor;
         private static Font _defFont = User.Default.ParagraphFont;
         private static Color _defTextColor = User.Default.TextColor;
         private static Point _defLocation = new Point(0, 81);
         private static Size _defSize = new Size(83, 25);
-        private static ContentAlignment _defAlignment = ContentAlignment.MiddleCenter;
-        
+        //  private static ContentAlignment _defAlignment = ContentAlignment.MiddleCenter;
+
 
         public string Level { get; set; }
 
@@ -124,7 +124,7 @@ namespace SongsAbout_DesktopApp.Classes
             this.Tag = name;
         }
 
-        public SpotifyLabel(Font font, Color backColor, Color foreColor, Point location, Size size, 
+        public SpotifyLabel(Font font, Color backColor, Color foreColor, Point location, Size size,
             ContentAlignment alignment = ContentAlignment.MiddleCenter, bool autoSize = false, BorderStyle style = BorderStyle.None)
         {
             this.AutoSize = autoSize;
@@ -140,12 +140,12 @@ namespace SongsAbout_DesktopApp.Classes
             // this.Leave += SpotifyControlEventHandlers.Leave;
             this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
-        public SpotifyLabel(string name,  EventHandler clickEvent) : this(name)
+        public SpotifyLabel(string name, EventHandler clickEvent) : this(name)
         {
             this.Click += clickEvent;
         }
 
-        public SpotifyLabel(string name, string level,  EventHandler clickEvent) : this(name,  level)
+        public SpotifyLabel(string name, string level, EventHandler clickEvent) : this(name, level)
         {
             this.Click += clickEvent;
         }
