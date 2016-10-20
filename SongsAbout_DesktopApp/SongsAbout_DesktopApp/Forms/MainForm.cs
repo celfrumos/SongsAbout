@@ -110,7 +110,9 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                Importer.ImportSavedTracks();
+                Importer.ImportFollowedArtists();
+
+              //  Importer.ImportSavedTracks();
                 Console.WriteLine("Finished importing saved tracks");
             }
             catch (Exception ex)

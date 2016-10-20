@@ -683,7 +683,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SongsAboutSQLDBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DataClassContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AlbumGenres" EntityType="Self.AlbumGenre" />
           <EntitySet Name="Albums" EntityType="Self.Album" />
           <EntitySet Name="AlbumTracks" EntityType="Self.AlbumTrack" />
@@ -755,7 +755,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DataClassesStoreContainer" CdmEntityContainer="SongsAboutSQLDBEntities1">
+        <EntityContainerMapping StorageEntityContainer="DataClassesStoreContainer" CdmEntityContainer="DataClassContext">
           <EntitySetMapping Name="AlbumGenres">
             <EntityTypeMapping TypeName="DataClasses.AlbumGenre">
               <MappingFragment StoreEntitySet="AlbumGenres">

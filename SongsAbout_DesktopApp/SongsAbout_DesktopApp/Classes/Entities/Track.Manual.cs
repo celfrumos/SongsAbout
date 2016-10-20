@@ -11,7 +11,7 @@ using SongsAbout_DesktopApp.Classes;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public partial class Track : DbEntity<Track>
+    public partial class Track //: DbEntity<Track>
     {
 
         public static string Table = "Tracks";
@@ -61,7 +61,7 @@ namespace SongsAbout_DesktopApp.Classes
                 {
                     if (!Exists(this.track_name))
                     {
-                        this.Submit();
+                        //this.Submit();
                     }
                     else
                     {
@@ -85,12 +85,12 @@ namespace SongsAbout_DesktopApp.Classes
 
         new public static bool Exists(string track_name)
         {
-            return DbEntity<Track>.Exists(track_name);
+            return true;// DbEntity<Track>.Exists(track_name);
         }
 
         new public static bool Exists(int track_id)
         {
-            return DbEntity<Track>.Exists(track_id);
+            return true; // DbEntity<Track>.Exists(track_id);
 
         }
 
@@ -166,20 +166,20 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                Artist a;
-                TrackArtists ta = new TrackArtists();
-                if (Artist.Exists(simpleArtist.Name))
-                {
-                    a = Artist.Load(simpleArtist.Name);
-                }
-                else
-                {
-                    a = new Artist();
-                    a.Update(simpleArtist);
-                    //   a.Save();
-                }
+                //Artist a;
+                //TrackArtists ta = new TrackArtists();
+                //if (Artist.Exists(simpleArtist.Name))
+                //{
+                //    a = Artist.Load(simpleArtist.Name);
+                //}
+                //else
+                //{
+                //    a = new Artist();
+                //    a.Update(simpleArtist);
+                //    //   a.Save();
+                //}
 
-                ta.Update(a.artist_id, this.track_id);
+                //ta.Update(a.artist_id, this.track_id);
             }
             catch (Exception ex)
             {
@@ -193,21 +193,21 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                AlbumTracks at = new AlbumTracks();
+                //AlbumTracks at = new AlbumTracks();
 
-                Album al;
-                if (Album.Exists(album.Name))
-                {
-                    al = Album.Load(album.Name);
-                }
-                else
-                {
-                    al = new Album();
-                    al.Update(album);
-                    //al.Save();
-                }
-                at.Update(al.album_id, this.track_id);
-                //at.Save();
+                //Album al;
+                //if (Album.Exists(album.Name))
+                //{
+                //    al = Album.Load(album.Name);
+                //}
+                //else
+                //{
+                //    al = new Album();
+                //    al.Update(album);
+                //    //al.Save();
+                //}
+                //at.Update(al.album_id, this.track_id);
+                ////at.Save();
             }
             catch (Exception ex)
             {

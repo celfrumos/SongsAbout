@@ -16,7 +16,7 @@ namespace SongsAbout_DesktopApp.Classes
     /// <summary>
     /// Partial Class to hold Artist Functions
     /// </summary>
-    public partial class Artist : DbEntity<Artist>
+    public partial class Artist// : DbEntity<Artist>
     {
         public static string Table = "Artists";
         public static string TitleColumn = "a_name";
@@ -32,7 +32,7 @@ namespace SongsAbout_DesktopApp.Classes
                 {
                     if (!Exists(this.a_name))
                     {
-                        this.Submit();
+                        //   DbEntity<Artist>.Submit();
                     }
                     else
                     {
@@ -50,14 +50,19 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        new public static bool Exists(string name)
+        public static bool Exists(string name)
         {
-            return DbEntity<Artist>.Exists(name);
+            using (DataClassContext c = new DataClassContext())
+            {
+                Artist k = c.Artists.Find(name);
+                return k != null;
+            }
         }
 
         new public static bool Exists(int artist_id)
         {
-            return DbEntity<Artist>.Exists(artist_id);
+            return true;
+            //  return DbEntity<Artist>.Exists(artist_id);
         }
 
         public void Update(SimpleArtist artist)

@@ -103,10 +103,10 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 if (!Track.Exists(t.Name))
                 {
-                    Track track = new Track();
-                    track.Update(t);
-                    track.Save();
-                    Console.WriteLine($"Successfully Imported track {t.Name}");
+                    //Track track = new Track();
+                    //track.Update(t);
+                    //track.Save();
+                    //Console.WriteLine($"Successfully Imported track {t.Name}");
                 }
                 else {
                     Console.WriteLine($"Track '{t.Name}' already exists");

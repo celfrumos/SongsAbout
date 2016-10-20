@@ -21,22 +21,22 @@ namespace SongsAbout_DesktopApp.Classes
         /// <returns>Dictionary<string, Artist></returns>
         public static Dictionary<string, Artist> LoadArtists()
         {
-            using (DataClassesDataContext context = new DataClassesDataContext())
+            using (DataClassContext context = new DataClassContext())
             {
-                try
-                {
-                    Dictionary<string, Artist> _dictArtists = new Dictionary<string, Artist>();
-                    Table<Artist> artists = context.Artists.Context.GetTable<Artist>();
-                    foreach (Artist artist in artists)
-                    {
-                        _dictArtists.Add(artist.a_name, artist);
-                    }
-                    return _dictArtists;
+                //try
+                //{
+                //    //Dictionary<string, Artist> _dictArtists = new Dictionary<string, Artist>();
+                //    //Table<Artist> artists = context.Artists.Context.GetTable<Artist>();
+                //    //foreach (Artist artist in artists)
+                //    //{
+                //    //    _dictArtists.Add(artist.a_name, artist);
+                //    //}
+                //    //return _dictArtists;
 
-                }
-                catch (Exception ex)
+                //}
+                //catch (Exception ex)
                 {
-                    throw new Exception("Error loading Artists. Msg: " + ex.Message);
+                    throw new Exception("Error loading Artists. Msg: " /*+ ex.Message*/);
                 }
             }
         }
@@ -47,24 +47,24 @@ namespace SongsAbout_DesktopApp.Classes
         /// <returns>Dictionary<string, Album></returns>
         public static Dictionary<string, Album> LoadAlbums()
         {
-            using (DataClassesDataContext context = new DataClassesDataContext())
-            {
-                Dictionary<string, Album> _dictAlbums = new Dictionary<string, Album>();
-                try
-                {
-                    Table<Album> albumTable = context.Albums.Context.GetTable<Album>();
-                    foreach (Album album in albumTable)
-                    {
-                        _dictAlbums.Add(album.al_title, album);
-                    }
-                    return _dictAlbums;
-                }
+            //    using (DataClassesDataContext context = new DataClassesDataContext())
+            //    {
+            //        Dictionary<string, Album> _dictAlbums = new Dictionary<string, Album>();
+            //        try
+            //        {
+            //            Table<Album> albumTable = context.Albums.Context.GetTable<Album>();
+            //            foreach (Album album in albumTable)
+            //            {
+            //                _dictAlbums.Add(album.al_title, album);
+            //            }
+            //            return _dictAlbums;
+            //        }
 
-                catch (Exception ex)
-                {
-                    throw new Exception("Error loading Albums. Msg: " + ex.Message);
-                }
-            }
+            //        catch (Exception ex)
+            //        {
+            throw new Exception("Error loading Albums. Msg: " /*+ ex.Message*/);
+            //        }
+            //    }
         }
 
     }

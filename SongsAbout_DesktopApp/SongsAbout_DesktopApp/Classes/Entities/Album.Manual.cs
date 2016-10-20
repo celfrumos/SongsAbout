@@ -6,9 +6,9 @@ using System;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public partial class Album : DbEntity<Album>
+    public partial class Album// : DbEntity<Album>
     {
-        public Album(FullAlbum album) : base("al_title", "Albums", "Album")
+        public Album(FullAlbum album)// : base("al_title", "Albums", "Album")
         {
             this.Update(ref album);
         }
@@ -19,16 +19,16 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 if (this.al_title != null)
                 {
-                    if (!Exists(this.al_title))
-                    {
-                        context.Albums.InsertOnSubmit(this);
+                    //if (!Exists(this.al_title))
+                    //{
+                    //    // context.Albums.InsertOnSubmit(this);
 
-                    }
-                    else
-                    {
-                        string msg = $"Track {this.al_title} already exists";
-                        Console.WriteLine(msg);
-                    }
+                    //}
+                    //else
+                    //{
+                    //    string msg = $"Track {this.al_title} already exists";
+                    //    Console.WriteLine(msg);
+                    //}
                 }
                 else
                 {
@@ -50,7 +50,11 @@ namespace SongsAbout_DesktopApp.Classes
         //{
         //    return DbEntity<Album>.Exists(al_title);
         //}
-
+        public static bool Exists(string a)
+        {
+            return true;
+        }
+        public static bool Exists(int i) { return true; }
         private static void formatName(ref string name)
         {
             if (name.Contains("\'"))
@@ -177,7 +181,7 @@ namespace SongsAbout_DesktopApp.Classes
                     //  a.Save();
                     Console.WriteLine($"Artist added: '{a.a_name}'");
                 }
-                this.artist_id = a.artist_id;
+                this.artist_id = a.ID;
             }
             catch (Exception ex)
             {

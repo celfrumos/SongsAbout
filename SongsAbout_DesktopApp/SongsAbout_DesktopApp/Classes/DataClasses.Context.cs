@@ -13,10 +13,10 @@ namespace SongsAbout_DesktopApp.Classes
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SongsAboutSQLDBEntities1 : DbContext
+    public partial class DataClassContext : DbContext
     {
-        public SongsAboutSQLDBEntities1()
-            : base("name=SongsAboutSQLDBEntities1")
+        public DataClassContext()
+            : base("name=DataClassContext")
         {
         }
     

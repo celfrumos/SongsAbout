@@ -43,7 +43,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else if (_entity is Album)
                 {
-                    return Album.TitleColumn;
+                    return "A.bu";
                 }
                 else if (_entity is Track)
                 {
@@ -66,7 +66,7 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else if (_entity is Album)
                 {
-                    return Album.Table;
+                    return "Albums";
                 }
                 else if (_entity is Track)
                 {
