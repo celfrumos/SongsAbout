@@ -87,13 +87,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AlbumTracks.cs" />
+    <Compile Include="Classes\AlbumTracks.Manual.cs" />
     <Compile Include="Classes\DbEntity.cs" />
     <Compile Include="Classes\SpotifyControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\DbExceptions.cs" />
-    <Compile Include="Classes\TrackArtists.cs" />
+    <Compile Include="Classes\TrackArtists.Manual.cs" />
     <Compile Include="Classes\Importer.cs" />
     <Compile Include="Classes\UserSpotify.cs" />
     <Compile Include="Classes\DatabaseClasses.cs">
@@ -143,8 +143,8 @@
     <Compile Include="Forms\AddTrackForm.Designer.cs">
       <DependentUpon>AddTrackForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Album.cs" />
-    <Compile Include="Classes\Artist.cs" />
+    <Compile Include="Classes\Album.Manual.cs" />
+    <Compile Include="Classes\Artist.Manual.cs" />
     <Compile Include="Classes\DatabaseClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -165,7 +165,7 @@
     <Compile Include="Forms\ResultsForm.Designer.cs">
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Track.cs" />
+    <Compile Include="Classes\Track.Manual.cs" />
     <Compile Include="Properties\User.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
