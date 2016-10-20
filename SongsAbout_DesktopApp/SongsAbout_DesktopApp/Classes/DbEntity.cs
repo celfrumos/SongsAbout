@@ -14,7 +14,7 @@ namespace SongsAbout_DesktopApp.Classes
         public string TitleColumnName { get; set; }
         public string TableName { get; set; }
         public string TypeName { get; set; }
-
+        public virtual int ID { get; set; }
         private static U _entity;
 
         private static string _table
@@ -40,7 +40,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        protected DbEntity(string titleColumn, string table, string typeName)
+        protected DbEntity(string titleColumn = "Not Yet Set", string table = "Not Yet Set", string typeName = "Not Yet Set")
         {
             this.TitleColumnName = titleColumn;
             this.TableName = table;
@@ -143,6 +143,23 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
+        public static bool Exists(string name, string column, string table)
+        {
+            try
+            {
+                string aquery = $"SELECT {column} FROM {table} WHERE {column} = '{name}'";
+                using (DataClassesDataContext db = new DataClassesDataContext())
+                {
+
+                    List<U> entities = db.ExecuteQuery<U>(aquery).ToList();
+                    return entities.Count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityNotFoundError<U>(name, ex.Message);
+            }
+        }
         public virtual bool Exists(string name)
         {
             try
@@ -212,7 +229,7 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 using (DataClassesDataContext db = new DataClassesDataContext())
                 {
-                    string query = $"SELECT {_titleColumn} FROM {_table} WHERE {_titleColumn} = '{id}'";
+                    string query = $"SELECT {titlec} FROM {_table} WHERE {_titleColumn} = '{id}'";
                     var entities = db.ExecuteQuery<U>(query);
                     foreach (U t in entities)
                     {

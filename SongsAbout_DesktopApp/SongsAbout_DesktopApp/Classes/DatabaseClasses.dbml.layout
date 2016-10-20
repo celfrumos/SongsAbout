@@ -20,7 +20,7 @@
         <elementListCompartment Id="137f2f34-b89b-4913-be0e-64512aee19b3" absoluteBounds="9.39, 3.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(9.9375 : 5.375); (9.9375 : 4.8862939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(9.9375 : 5.375); (9.9375 : 4.8862939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Genre/Genre_TrackGenre" />
       <nodes>
         <classShapeMoniker Id="a8d8c400-900a-48d3-bf37-d5ea8b618bff" />
@@ -51,28 +51,28 @@
         <elementListCompartment Id="369e4768-3266-46c6-bc54-9ba0f0c549b2" absoluteBounds="6.1400000000000006, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.625 : 1.00084554036458); (8.125 : 1.00084554036458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.625 : 1.00084554036458); (8.125 : 1.00084554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Tag/Tag_TrackTag" />
       <nodes>
         <classShapeMoniker Id="85e104ef-9cee-4d3e-b6f2-7b37738e4572" />
         <classShapeMoniker Id="83da0edc-0999-4ec0-bc53-e58b1161aa12" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.9375 : 3.75); (6.9375 : 1.8862939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.9375 : 3.75); (6.9375 : 1.8862939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Track/Track_TrackTag" />
       <nodes>
         <classShapeMoniker Id="f94dc1b6-253d-44d5-b56c-315c3b14f591" />
         <classShapeMoniker Id="83da0edc-0999-4ec0-bc53-e58b1161aa12" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.75 : 4.31814697265625); (9.375 : 4.31814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.75 : 4.31814697265625); (9.375 : 4.31814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Track/Track_TrackGenre" />
       <nodes>
         <classShapeMoniker Id="f94dc1b6-253d-44d5-b56c-315c3b14f591" />
         <classShapeMoniker Id="f20c1f53-60ab-435a-af8d-7db4249ab50c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.05859475 : 2.4631982421875); (1.05859475 : 6.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.05859475 : 2.4631982421875); (1.05859475 : 6.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Artist/Artist_Album" />
       <nodes>
         <classShapeMoniker Id="23d5c120-a2f8-4342-9432-f5aaa716efdc" />
@@ -85,14 +85,14 @@
         <elementListCompartment Id="5180f599-d9be-4145-a424-01dd0e357183" absoluteBounds="6.765, 7.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 7.85659912109375); (6.75 : 7.85659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 7.85659912109375); (6.75 : 7.85659912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Album/Album_AlbumGenre" />
       <nodes>
         <classShapeMoniker Id="38cde0f0-fc4a-4d13-9640-a68ba62b9dfe" />
         <classShapeMoniker Id="67211781-b391-49b0-bd8d-24982ff17913" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.625 : 6.37669108072917); (8.625 : 7.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.625 : 6.37669108072917); (8.625 : 7.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesDataContext/Genre/Genre_AlbumGenre" />
       <nodes>
         <classShapeMoniker Id="a8d8c400-900a-48d3-bf37-d5ea8b618bff" />
@@ -105,35 +105,35 @@
         <elementListCompartment Id="ff909d7a-486b-403f-99be-7d8a7fe14734" absoluteBounds="3.1399999999999997, 5.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.7421895 : 6.25); (1.7421895 : 5.6874995); (3.125 : 5.6874995)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DataClassesDataContext/Album/Album_AlbumTrack" />
-      <nodes>
-        <classShapeMoniker Id="38cde0f0-fc4a-4d13-9640-a68ba62b9dfe" />
-        <classShapeMoniker Id="3d00230b-49a0-40be-929c-1595830edcee" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 5.51524983723958); (5.125 : 5.51524983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DataClassesDataContext/Track/Track_AlbumTrack" />
-      <nodes>
-        <classShapeMoniker Id="f94dc1b6-253d-44d5-b56c-315c3b14f591" />
-        <classShapeMoniker Id="3d00230b-49a0-40be-929c-1595830edcee" />
-      </nodes>
-    </associationConnector>
     <classShape Id="c56e6d44-571f-4686-9071-d7034cb7109f" absoluteBounds="3.125, 1.125, 2, 1.3862939453125">
       <DataClassMoniker Name="/DataClassesDataContext/TrackArtists" />
       <nestedChildShapes>
         <elementListCompartment Id="48011360-8342-432b-bd57-28b7483fc64d" absoluteBounds="3.1399999999999997, 1.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <associationConnector edgePoints="[(1.5 : 6.25); (1.5 : 5.6874995); (3.125 : 5.6874995)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Album/Album_AlbumTracks" />
+      <nodes>
+        <classShapeMoniker Id="38cde0f0-fc4a-4d13-9640-a68ba62b9dfe" />
+        <classShapeMoniker Id="3d00230b-49a0-40be-929c-1595830edcee" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 5.51524983723958); (5.125 : 5.51524983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Track/Track_AlbumTracks" />
+      <nodes>
+        <classShapeMoniker Id="f94dc1b6-253d-44d5-b56c-315c3b14f591" />
+        <classShapeMoniker Id="3d00230b-49a0-40be-929c-1595830edcee" />
+      </nodes>
+    </associationConnector>
     <associationConnector edgePoints="[(2.5 : 1.79409912109375); (3.125 : 1.79409912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DataClassesDataContext/Artist/Artist_TrackArtist" />
+      <AssociationMoniker Name="/DataClassesDataContext/Artist/Artist_TrackArtists" />
       <nodes>
         <classShapeMoniker Id="23d5c120-a2f8-4342-9432-f5aaa716efdc" />
         <classShapeMoniker Id="c56e6d44-571f-4686-9071-d7034cb7109f" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.90625 : 3.75); (5.90625 : 2.2300439453125); (5.125 : 2.2300439453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DataClassesDataContext/Track/Track_TrackArtist" />
+      <AssociationMoniker Name="/DataClassesDataContext/Track/Track_TrackArtists" />
       <nodes>
         <classShapeMoniker Id="f94dc1b6-253d-44d5-b56c-315c3b14f591" />
         <classShapeMoniker Id="c56e6d44-571f-4686-9071-d7034cb7109f" />
