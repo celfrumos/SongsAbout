@@ -10,7 +10,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Collections;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
 
     /// <summary>
@@ -52,9 +52,14 @@ namespace SongsAbout_DesktopApp.Classes
 
         public static bool Exists(string name)
         {
-            using (DataClassContext c = new DataClassContext())
+            using (var db = new DataClassContext())
             {
-                Artist k = c.Artists.Find(name);
+                Artist k = db.Artists.Find(name);
+                //var query =
+                //    from a in db.Artists
+                //    where a == name
+                //    select a;
+
                 return k != null;
             }
         }
@@ -107,13 +112,13 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-         public static Artist Load(string title)
+        public static Artist Load(string title)
         {
             throw new NotImplementedException();
             //return DbEntity<Artist>.Load(title);
         }
 
-         public static Artist Load(int id)
+        public static Artist Load(int id)
         {
             throw new NotImplementedException();
             //return DbEntity<Artist>.Load(id);

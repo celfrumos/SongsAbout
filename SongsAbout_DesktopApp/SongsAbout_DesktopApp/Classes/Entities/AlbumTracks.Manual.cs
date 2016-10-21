@@ -6,7 +6,7 @@ using Album = SongsAbout_DesktopApp.Classes.Album;
 using System.Threading.Tasks;
 using SongsAbout_DesktopApp;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
     //public partial class AlbumTracks
     //{

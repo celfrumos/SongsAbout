@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DataClassContext : DbContext
     {
@@ -38,5 +40,14 @@ namespace SongsAbout_DesktopApp.Classes
         public virtual DbSet<Track> Tracks { get; set; }
         public virtual DbSet<TrackTag> TrackTags { get; set; }
         public virtual DbSet<TrackTopic> TrackTopics { get; set; }
+    
+        public virtual ObjectResult<Nullable<bool>> GenreExists(string genre)
+        {
+            var genreParameter = genre != null ?
+                new ObjectParameter("genre", genre) :
+                new ObjectParameter("genre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GenreExists", genreParameter);
+        }
     }
 }

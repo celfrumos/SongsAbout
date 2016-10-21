@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using SongsAbout_DesktopApp.Properties;
 using System;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
     public partial class Album : DbEntity
     {

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using SongsAbout_DesktopApp.Classes;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
     public partial class Track //: DbEntity<Track>
     {

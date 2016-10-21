@@ -295,6 +295,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GenreExists" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="genre" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DataClassesStoreContainer">
           <EntitySet Name="AlbumGenres" EntityType="Self.AlbumGenres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Albums" EntityType="Self.Albums" Schema="dbo" store:Type="Tables" />
@@ -374,7 +377,7 @@
           <Property Name="album_id" Type="Int32" />
           <Property Name="genre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Album" Relationship="Self.FK_AlbumGenres_Albums" FromRole="AlbumGenres" ToRole="Albums" />
-          <NavigationProperty Name="Genre1" Relationship="Self.FK_AlbumGenres_Genres" FromRole="AlbumGenres" ToRole="Genres" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_AlbumGenres_Genres" FromRole="AlbumGenres" ToRole="Genres" />
         </EntityType>
         <EntityType Name="Album">
           <Key>
@@ -748,6 +751,9 @@
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="TrackTopics" EntitySet="TrackTopics" />
           </AssociationSet>
+          <FunctionImport Name="GenreExists" ReturnType="Collection(Boolean)">
+          <Parameter Name="genre" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -876,6 +882,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GenreExists" FunctionName="DataClasses.Store.GenreExists" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

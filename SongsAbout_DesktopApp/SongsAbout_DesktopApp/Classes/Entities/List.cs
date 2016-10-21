@@ -7,18 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TrackArtist
+    public partial class List
     {
-        public int ID { get; set; }
-        public int artist_id { get; set; }
-        public int track_id { get; set; }
-    
-        public virtual Artist Artist { get; set; }
-        public virtual Track Track { get; set; }
+        public int list_id { get; set; }
+        public string list_name { get; set; }
     }
 }

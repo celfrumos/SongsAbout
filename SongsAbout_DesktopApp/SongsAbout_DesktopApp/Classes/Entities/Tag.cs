@@ -7,25 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Genre
+    public partial class Tag
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Genre()
+        public Tag()
         {
-            this.AlbumGenres = new HashSet<AlbumGenre>();
-            this.TrackGenres = new HashSet<TrackGenre>();
+            this.TrackTags = new HashSet<TrackTag>();
         }
     
-        public string genre { get; set; }
+        public string tag_text { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlbumGenre> AlbumGenres { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackGenre> TrackGenres { get; set; }
+        public virtual ICollection<TrackTag> TrackTags { get; set; }
     }
 }

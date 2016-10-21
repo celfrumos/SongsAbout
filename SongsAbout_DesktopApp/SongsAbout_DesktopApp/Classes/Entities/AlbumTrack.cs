@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TrackTopic
+    public partial class AlbumTrack
     {
         public int ID { get; set; }
-        public Nullable<int> topic_id { get; set; }
+        public int album_id { get; set; }
         public int track_id { get; set; }
     
-        public virtual Topic Topic { get; set; }
+        public virtual Album Album { get; set; }
         public virtual Track Track { get; set; }
     }
 }

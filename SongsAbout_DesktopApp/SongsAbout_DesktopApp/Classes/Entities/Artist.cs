@@ -7,22 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Classes.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Tag
+    public partial class Artist
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tag()
+        public Artist()
         {
-            this.TrackTags = new HashSet<TrackTag>();
+            this.Albums = new HashSet<Album>();
+            this.TrackArtists = new HashSet<TrackArtist>();
         }
     
-        public string tag_text { get; set; }
+        public int ID { get; set; }
+        public string a_bio { get; set; }
+        public string a_website { get; set; }
+        public string a_spotify_uri { get; set; }
+        public byte[] a_profile_pic { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackTag> TrackTags { get; set; }
+        public virtual ICollection<Album> Albums { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TrackArtist> TrackArtists { get; set; }
     }
 }

@@ -87,66 +87,67 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Album.cs">
+    <Compile Include="Classes\Entities\Album.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\AlbumGenre.cs">
+    <Compile Include="Classes\Entities\AlbumGenre.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\AlbumTrack.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\DataClasses1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Classes\Entities\AlbumTrack.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\Entities\AlbumTracks.Manual.cs" />
-    <Compile Include="Classes\Artist.cs">
+    <Compile Include="Classes\Entities\Artist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\DataClasses.Context.cs">
+    <Compile Include="Classes\Entities\DataClasses.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\DataClasses.Designer.cs">
+    <Compile Include="Classes\Entities\DataClasses.Designer.cs">
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Classes\Entities\DbEntity.cs" />
-    <Compile Include="Classes\Genre.cs">
+    <Compile Include="Classes\Entities\DataClasses1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\List.cs">
+    <Compile Include="Classes\Entities\Genre.Manual.cs" />
+    <Compile Include="Classes\Entities\DbEntity.cs" />
+    <Compile Include="Classes\Entities\Genre.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Entities\List.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\SpotifyControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\DbExceptions.cs" />
-    <Compile Include="Classes\Tag.cs">
+    <Compile Include="Classes\Entities\Tag.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Topic.cs">
+    <Compile Include="Classes\Entities\Topic.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Track.cs">
+    <Compile Include="Classes\Entities\Track.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\TrackArtist.cs">
+    <Compile Include="Classes\Entities\TrackArtist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\Entities\TrackArtists.Manual.cs" />
     <Compile Include="Classes\Importer.cs" />
-    <Compile Include="Classes\TrackGenre.cs">
+    <Compile Include="Classes\Entities\TrackGenre.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\TrackTag.cs">
+    <Compile Include="Classes\Entities\TrackTag.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\TrackTopic.cs">
+    <Compile Include="Classes\Entities\TrackTopic.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\UserSpotify.cs" />
@@ -251,11 +252,11 @@
     <EmbeddedResource Include="Forms\ResultsForm.resx">
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="Classes\DataClasses.edmx">
+    <EntityDeploy Include="Classes\Entities\DataClasses.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataClasses.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Classes\DataClasses.edmx.diagram">
+    <None Include="Classes\Entities\DataClasses.edmx.diagram">
       <DependentUpon>DataClasses.edmx</DependentUpon>
     </None>
     <None Include="DataSet.xsc">
@@ -292,12 +293,12 @@
     <None Include="Pictures\black-simple-music-note-vector_318-10095.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Classes\DataClasses.Context.tt">
+    <Content Include="Classes\Entities\DataClasses.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <LastGenOutput>DataClasses.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Classes\DataClasses.tt">
+    <Content Include="Classes\Entities\DataClasses.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <LastGenOutput>DataClasses1.cs</LastGenOutput>
