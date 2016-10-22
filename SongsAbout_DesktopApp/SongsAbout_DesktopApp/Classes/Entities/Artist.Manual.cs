@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Linq;
+using System.Linq;
 using SpotifyAPI.Web.Models;
 using SongsAbout_DesktopApp.Classes;
 using System.Windows.Forms;
@@ -16,15 +17,32 @@ namespace SongsAbout_DesktopApp.Classes.Entities
     /// <summary>
     /// Partial Class to hold Artist Functions
     /// </summary>
-    public partial class Artist// : DbEntity<Artist>
+    public partial class Artist : DbEntity// : DbEntity<Artist>
     {
         public static string Table = "Artists";
+        public static string TypeString = "Artist";
         public static string TitleColumn = "name";
+
+        public override string TableName
+        {
+            get { return Table; }
+        }
+
+        public override string Name { get; set; }
+
+        public override string TypeName
+        {
+            get { return TypeString; }
+        }
+        public override string TitleColumnName
+        {
+            get { return TitleColumn; }
+        }
 
         /// <summary>
         /// Submit Changes to the Database
         /// </summary>
-        public void Save()
+        public override void Save()
         {
             try
             {
@@ -36,7 +54,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
                     }
                     else
                     {
-                        var e = new EntityNotFoundError<Artist>();
+                        throw new EntityNotFoundError(this.GetType());
                     }
                 }
                 else
@@ -46,21 +64,29 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new SaveError<Artist>(ex.Message);
+                throw new SaveError(this, this.name, ex.Message);
             }
         }
 
         public static bool Exists(string name)
         {
-            using (var db = new DataClassContext())
+            try
             {
-                Artist k = db.Artists.Find(name);
-                //var query =
-                //    from a in db.Artists
-                //    where a == name
-                //    select a;
 
-                return k != null;
+                int count = 0;
+                using (var db = new DataClassContext())
+                {
+                    var query =
+                               from g in db.Genres
+                               where g.genre == name
+                               select g;
+                    count = query.Count();
+                }
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 

@@ -2,194 +2,178 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SongsAbout_DesktopApp.Classes.Entities;
 using System.Threading.Tasks;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public class DbException<T> : Exception
+    public class DbException : Exception
     {
-        protected static string _type
+        protected string _message;
+
+        public override string Message
         {
-            get
-            {
-                if (_entity is Artist)
-                {
-                    return "Artist";
-                }
-                else if (_entity is Album)
-                {
-                    return "Album";
-                }
-                else if (_entity is Track)
-                {
-                    return "Track";
-                }
-                else
-                {
-                    throw new Exception("Invalid data type used for DbEntity<> class.");
-                }
-            }
+            get { return _message; }
         }
 
-        protected static T _entity { get; }
+        const string defMsg = "An Error Occurred while interacting with the database";
 
-        protected static string _titleColumn
+        protected string _type
         {
-            get
-            {
-                if (_entity is Artist)
-                {
-                    return Artist.TitleColumn;
-                }
-                else if (_entity is Album)
-                {
-                    return "A.bu";
-                }
-                else if (_entity is Track)
-                {
-                    return Track.TitleColumn;
-                }
-                else
-                {
-                    throw new Exception("Invalid data type used for DbEntity<> class.");
-                }
-            }
+            get { return _entity.TypeName; }
+            set { _type = value; }
         }
 
-        protected static string _table
+        protected DbEntity _entity { get; set; }
+
+        protected string _table
         {
-            get
-            {
-                if (_entity is Artist)
-                {
-                    return Artist.Table;
-                }
-                else if (_entity is Album)
-                {
-                    return "Albums";
-                }
-                else if (_entity is Track)
-                {
-                    return Track.Table;
-                }
-                else
-                {
-                    throw new Exception("Invalid data type used for DbEntity<> class.");
-                }
-            }
+            get { return _entity.TableName; }
+            set { _table = value; }
         }
 
-        private static string defaultMsg = $"An Error Occurred while interacting with the database";
+        protected string _titleColumn { get { return _entity.TitleColumnName; } }
 
-        public DbException() : base(defaultMsg) { Console.WriteLine(defaultMsg); }
-
-        public DbException(string msg) : base(msg) { Console.WriteLine(msg); }
-    }
-
-    public class SaveError<T> : DbException<T>
-    {
-        private static string defaultMsg = $"Error Saving {_type}";
-
-        public SaveError() : base(defaultMsg)
+        protected DbException(DbEntity e, string msg = defMsg)
         {
+            Initialize(ref e, ref msg);
         }
 
-        public SaveError(string msg) : base(msg)
+        protected void Initialize(ref DbEntity e, ref string msg)
         {
+            _message = msg;
+
+            _entity = e;
+            _type = e.TypeName;
+            _table = e.TableName;
         }
 
-    }
-    public class LoadError<T> : DbException<T>
-    {
-        private static string defaultMsg = $"Error Loading {_type} from Database";
-
-        public LoadError() : base(defaultMsg)
+        protected DbException(string msg = defMsg) : base(msg)
         {
-        }
-
-        public LoadError(string msg) : base(msg)
-        {
-        }
-
-        public LoadError(string name, string msg) : base($"Error Loading {_type} '{name}' from {_table} table: " + msg)
-        {
-        }
-        public LoadError(int id, string msg) : base($"Error Loading {_type} '{id}' from {_table} table: " + msg)
-        {
+            _message = msg;
         }
 
     }
 
-    public class UpdateError<T> : DbException<T>
+    public class SaveError : DbException
     {
-        private static string defaultMsg = $"Error Updating {_type}";
+        const string defaultMsg = "Error Saving to the database.";
 
-        public UpdateError() : base(defaultMsg)
+        public SaveError(DbEntity e, string name, string msg = defaultMsg)
+            : base(e, saveErrDefMsg(ref e, ref name, ref msg))
         {
         }
 
-        public UpdateError(string msg) : base(msg)
+        private static string saveErrDefMsg(ref DbEntity e, ref string name, ref string msg)
+        {            
+            return
+            (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from {e.TableName} table: " + msg);
+
+        }
+
+    }
+
+    public class LoadError : DbException
+    {
+        const string defaultMsg = "Error Loading entity from Database";
+
+        public LoadError(DbEntity e, string name, string msg = defaultMsg)
+            : base(loadDefMsg(ref e, ref name, ref msg))
         {
         }
 
-        public UpdateError(string name, string msg) : base($"Error Updating {_type} '{name}'" + msg)
+
+        public LoadError(DbEntity e, int id, string msg = defaultMsg)
+            : base(loadDefMsg(ref e, ref id, ref msg))
         {
+            string se = $"Error Loading {_type} '{id}' from {_table} table: " + msg;
+        }
+
+        private static string loadDefMsg(ref DbEntity e, ref string name, ref string msg)
+        {
+            return
+                (msg == defaultMsg ? msg : $"Error Loading {e.TypeName} '{name}' from {e.TableName} table: " + msg);
+        }
+        private static string loadDefMsg(ref DbEntity e, ref int id, ref string msg)
+        {
+            return (msg == defaultMsg ? msg : $"Error Loading {e.TypeName} with id {id} from {e.TableName} table: " + msg);
+        }
+
+    }
+
+    public class UpdateError : DbException
+    {
+        const string defaultMsg = "Error Updating Entity in Database";
+
+        public UpdateError(DbEntity e, string name, string msg = defaultMsg)
+            : base(e, updateMsg(ref e, ref name, ref msg))
+        {
+        }
+
+        private static string updateMsg(ref DbEntity e, ref string name, ref string msg)
+        {
+            return
+                (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from {e.TableName} table: " + msg);
         }
     }
 
-    public class EntityNotFoundError<T> : DbException<T>
+    public class EntityNotFoundError : DbException
     {
-        private static string defaultMsg = $"The expected {_type} in {_table} table was not found";
-
-        public EntityNotFoundError() : base(defaultMsg)
+        const string defaultMsg = "The expected entity was not found";
+        public EntityNotFoundError(Type t)
         {
         }
+        public EntityNotFoundError(DbEntity e, string name, string msg = defaultMsg)
+            : base(notFoundMsg(ref e, ref name, ref msg))
+        { }
 
-        public EntityNotFoundError(string name) : base($"No {_type} in {_table} table with name '{name}' found")
+        public EntityNotFoundError(DbEntity e, int name, string msg = defaultMsg)
+            : base(notFoundMsg(ref e, ref name, ref msg))
+        { }
+
+        private static string notFoundMsg(ref DbEntity e, ref string name, ref string msg)
         {
+            return (msg == defaultMsg ? msg
+                : $"Entity {e.TypeName} named '{name}' not found in {e.TableName} table: " + msg);
         }
 
-        public EntityNotFoundError(int id) : base($"No {_type} in {_table} table with id '{id}' found")
+        private static string notFoundMsg(ref DbEntity e, ref int id, ref string msg)
         {
-        }
-
-        public EntityNotFoundError(ref Exception ex) : base(defaultMsg + ": " + ex.Message)
-        {
-        }
-
-
-        public EntityNotFoundError(string name, string msg) :
-            base($"No {_type} in {_table} table with name '{name}' found: " + msg)
-        {
-            Console.WriteLine($"No {_type} in {_table} table with name '{name}' found: " + msg);
-        }
-        public EntityNotFoundError(int id, string msg) :
-          base($"No {_type} in {_table} table with id '{id}' found: " + msg)
-        {
-            Console.WriteLine($"No {_type} in {_table} table with id '{id}' found: " + msg);
+            return (msg == defaultMsg ? msg
+                : $"Entity {e.TypeName} with id '{id}' not found in {e.TableName} table: " + msg);
         }
     }
 
-    public class InvalidDbDataTypeError<T> : DbException<T>
+    public class SpotifyImportError<SpotifyType> : DbException
     {
-        private static string defaultMsg = $"Invalid data type used for DbEntity<> class: {_entity.GetType()}";
+        const string defaultMsg = "Error importing data from spotify";
 
-        public InvalidDbDataTypeError() : base(defaultMsg) { }
-    }
-
-    public class SpotifyImportError<T, U> : DbException<T>
-    {
-        private U _s_entity { get; set; }
-
-        private static string defaultMsg = $"Error importing {_type} data from spotify type '{_entity.GetType().ToString()}'";
-
-        public SpotifyImportError() : base(defaultMsg)
+        public SpotifyImportError(DbEntity e, string msg = defaultMsg)
+            : base(e, ImportDefMsg(ref e, ref msg))
         {
+
+        }
+
+        private static string ImportDefMsg(ref DbEntity e, ref string msg)
+        {
+            return (msg == defaultMsg ? msg
+                : $"Error importing {e.TypeName} data from spotify type '{typeof(SpotifyType).ToString()}'");
 
         }
     }
 
-    public class NullValueError<T>
+    public class NullValueError : Exception
     {
+        const string defaultMsg = "The value returned was null.";
+
+        public NullValueError(DbEntity e, string msg = defaultMsg) : base(nullValDefMsg(ref e, ref msg))
+        {
+        }
+
+        private static string nullValDefMsg(ref DbEntity e, ref string msg)
+        {
+            return
+                (msg == defaultMsg ? msg : $"The expected value in {e.TableName} table unexpectedly returned null.");
+        }
     }
 }
