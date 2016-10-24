@@ -22,7 +22,8 @@ namespace SongsAbout_DesktopApp.Classes.Entities
         public static string Table = "Artists";
         public static string TypeString = "Artist";
         public static string TitleColumn = "name";
-
+        Type a = typeof(Artist);
+       
         public override string TableName
         {
             get { return Table; }
@@ -32,7 +33,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
 
         public override string TypeName
         {
-            get { return TypeString; }
+            get { return typeof(Artist).ToString(); }
         }
         public override string TitleColumnName
         {
@@ -54,7 +55,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
                     }
                     else
                     {
-                        throw new EntityNotFoundError(this.GetType());
+                        throw new EntityNotFoundError(this,this.name);
                     }
                 }
                 else
@@ -106,7 +107,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Artist>(artist.Name, ex.Message);
+                throw new UpdateError(this,artist.Name, ex.Message);
             }
         }
 
@@ -124,7 +125,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Artist>(artist.Name, ex.Message);
+                throw new UpdateError(this,artist.Name, ex.Message);
             }
         }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SongsAbout_DesktopApp.Classes.Entities;
 using SongsAbout_DesktopApp.Classes;
 
 namespace SongsAbout_DesktopApp

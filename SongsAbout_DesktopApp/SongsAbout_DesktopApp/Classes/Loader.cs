@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using SongsAbout_DesktopApp.Classes.Entities;
 using System.Drawing;
 
 namespace SongsAbout_DesktopApp.Classes

@@ -59,32 +59,14 @@
             this.col_genre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabTracks = new System.Windows.Forms.TabPage();
             this.tracksDataGridView = new System.Windows.Forms.DataGridView();
-            this.col_track_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_track_album_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.albumsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.col_track_artist_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.col_can_play = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.col_track_spotify_uri = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_list_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabAlbums = new System.Windows.Forms.TabPage();
             this.albumsDataGridView = new System.Windows.Forms.DataGridView();
-            this.col_al_artist_Id = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.col_al_title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_al_year = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_al_cover_art = new System.Windows.Forms.DataGridViewImageColumn();
-            this.col_al_spotify_uri = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.artistsDataGridView = new System.Windows.Forms.DataGridView();
-            this.col_a_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_a_bio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_a_website = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_a_profile_pic = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.col_a_spotify_uri = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControls = new System.Windows.Forms.TabControl();
             this.tabAlbumGenres = new System.Windows.Forms.TabPage();
             this.albumGenresDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.albumGenresBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -107,6 +89,21 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tableAdapterMngr = new SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager();
             this.albumGenresTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.AlbumGenresTableAdapter();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_a_bio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_a_website = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_a_profile_pic = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.col_a_spotify_uri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_al_artist_Id = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.col_al_year = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_al_cover_art = new System.Windows.Forms.DataGridViewImageColumn();
+            this.col_al_spotify_uri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_track_artist_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.col_can_play = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.col_track_spotify_uri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_list_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.tabLists.SuspendLayout();
@@ -246,13 +243,11 @@
             // 
             this.col_ttags_track_id.DataPropertyName = "track_id";
             this.col_ttags_track_id.DataSource = this.tracksBindingSource;
-            this.col_ttags_track_id.DisplayMember = "track_name";
             this.col_ttags_track_id.DisplayStyleForCurrentCellOnly = true;
             this.col_ttags_track_id.HeaderText = "Track";
             this.col_ttags_track_id.Name = "col_ttags_track_id";
             this.col_ttags_track_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.col_ttags_track_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_ttags_track_id.ValueMember = "track_id";
             // 
             // tracksBindingSource
             // 
@@ -343,13 +338,11 @@
             this.col_tg_track_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.col_tg_track_id.DataPropertyName = "track_id";
             this.col_tg_track_id.DataSource = this.tracksBindingSource;
-            this.col_tg_track_id.DisplayMember = "track_name";
             this.col_tg_track_id.DisplayStyleForCurrentCellOnly = true;
             this.col_tg_track_id.HeaderText = "Track";
             this.col_tg_track_id.Name = "col_tg_track_id";
             this.col_tg_track_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.col_tg_track_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_tg_track_id.ValueMember = "track_id";
             this.col_tg_track_id.Width = 73;
             // 
             // col_tg_genre
@@ -425,9 +418,7 @@
             this.tracksDataGridView.AutoGenerateColumns = false;
             this.tracksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tracksDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_track_name,
             this.col_length,
-            this.col_track_album_id,
             this.col_track_artist_id,
             this.col_can_play,
             this.col_track_spotify_uri,
@@ -440,84 +431,10 @@
             this.tracksDataGridView.Size = new System.Drawing.Size(1008, 444);
             this.tracksDataGridView.TabIndex = 2;
             // 
-            // col_track_name
-            // 
-            this.col_track_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_track_name.DataPropertyName = "track_name";
-            this.col_track_name.HeaderText = "Track Name";
-            this.col_track_name.Name = "col_track_name";
-            this.col_track_name.Width = 105;
-            // 
-            // col_length
-            // 
-            this.col_length.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_length.DataPropertyName = "track_length_minutes";
-            this.col_length.HeaderText = "Length (minutes)";
-            this.col_length.Name = "col_length";
-            this.col_length.Width = 132;
-            // 
-            // col_track_album_id
-            // 
-            this.col_track_album_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.col_track_album_id.DataPropertyName = "album_id";
-            this.col_track_album_id.DataSource = this.albumsBindingSource;
-            this.col_track_album_id.DisplayMember = "al_title";
-            this.col_track_album_id.DisplayStyleForCurrentCellOnly = true;
-            this.col_track_album_id.HeaderText = "Album";
-            this.col_track_album_id.MaxDropDownItems = 20;
-            this.col_track_album_id.Name = "col_track_album_id";
-            this.col_track_album_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_track_album_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_track_album_id.ValueMember = "album_id";
-            this.col_track_album_id.Width = 76;
-            // 
             // albumsBindingSource
             // 
             this.albumsBindingSource.DataMember = "Albums";
             this.albumsBindingSource.DataSource = this.dataSet;
-            // 
-            // col_track_artist_id
-            // 
-            this.col_track_artist_id.DataPropertyName = "track_artist_id";
-            this.col_track_artist_id.DataSource = this.artistsBindingSource;
-            this.col_track_artist_id.DisplayMember = "a_name";
-            this.col_track_artist_id.DisplayStyleForCurrentCellOnly = true;
-            this.col_track_artist_id.HeaderText = "Artist";
-            this.col_track_artist_id.Name = "col_track_artist_id";
-            this.col_track_artist_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_track_artist_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_track_artist_id.ValueMember = "artist_id";
-            // 
-            // col_can_play
-            // 
-            this.col_can_play.DataPropertyName = "can_play";
-            this.col_can_play.FalseValue = "n";
-            this.col_can_play.HeaderText = "Can Play?";
-            this.col_can_play.IndeterminateValue = "n";
-            this.col_can_play.Name = "col_can_play";
-            this.col_can_play.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_can_play.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_can_play.TrueValue = "y";
-            // 
-            // col_track_spotify_uri
-            // 
-            this.col_track_spotify_uri.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_track_spotify_uri.DataPropertyName = "track_spotify_uri";
-            this.col_track_spotify_uri.HeaderText = "Spotify URI";
-            this.col_track_spotify_uri.Name = "col_track_spotify_uri";
-            this.col_track_spotify_uri.Width = 99;
-            // 
-            // col_list_id
-            // 
-            this.col_list_id.DataPropertyName = "list_id";
-            this.col_list_id.DataSource = this.listsBindingSource;
-            this.col_list_id.DisplayMember = "list_name";
-            this.col_list_id.DisplayStyleForCurrentCellOnly = true;
-            this.col_list_id.HeaderText = "List";
-            this.col_list_id.Name = "col_list_id";
-            this.col_list_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_list_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_list_id.ValueMember = "list_id";
             // 
             // tabAlbums
             // 
@@ -536,8 +453,8 @@
             this.albumsDataGridView.AutoGenerateColumns = false;
             this.albumsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.albumsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn7,
             this.col_al_artist_Id,
-            this.col_al_title,
             this.col_al_year,
             this.col_al_cover_art,
             this.col_al_spotify_uri});
@@ -548,50 +465,6 @@
             this.albumsDataGridView.RowTemplate.Height = 24;
             this.albumsDataGridView.Size = new System.Drawing.Size(1008, 444);
             this.albumsDataGridView.TabIndex = 1;
-            // 
-            // col_al_artist_Id
-            // 
-            this.col_al_artist_Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_al_artist_Id.DataPropertyName = "artist_id";
-            this.col_al_artist_Id.DataSource = this.artistsBindingSource;
-            this.col_al_artist_Id.DisplayMember = "a_name";
-            this.col_al_artist_Id.DisplayStyleForCurrentCellOnly = true;
-            this.col_al_artist_Id.HeaderText = "Artist";
-            this.col_al_artist_Id.Name = "col_al_artist_Id";
-            this.col_al_artist_Id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_al_artist_Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_al_artist_Id.ValueMember = "artist_id";
-            this.col_al_artist_Id.Width = 69;
-            // 
-            // col_al_title
-            // 
-            this.col_al_title.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_al_title.DataPropertyName = "al_title";
-            this.col_al_title.HeaderText = "Title";
-            this.col_al_title.Name = "col_al_title";
-            this.col_al_title.Width = 64;
-            // 
-            // col_al_year
-            // 
-            this.col_al_year.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_al_year.DataPropertyName = "al_year";
-            this.col_al_year.HeaderText = "Year";
-            this.col_al_year.Name = "col_al_year";
-            this.col_al_year.Width = 67;
-            // 
-            // col_al_cover_art
-            // 
-            this.col_al_cover_art.DataPropertyName = "al_cover_art";
-            this.col_al_cover_art.HeaderText = "Cover Art";
-            this.col_al_cover_art.Name = "col_al_cover_art";
-            // 
-            // col_al_spotify_uri
-            // 
-            this.col_al_spotify_uri.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_al_spotify_uri.DataPropertyName = "al_spotify_uri";
-            this.col_al_spotify_uri.HeaderText = "Spotify URI";
-            this.col_al_spotify_uri.Name = "col_al_spotify_uri";
-            this.col_al_spotify_uri.Width = 107;
             // 
             // tabPage1
             // 
@@ -611,7 +484,7 @@
             this.artistsDataGridView.AutoGenerateColumns = false;
             this.artistsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.artistsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_a_name,
+            this.name,
             this.col_a_bio,
             this.col_a_website,
             this.col_a_profile_pic,
@@ -625,43 +498,6 @@
             this.artistsDataGridView.TabIndex = 2;
             this.artistsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.artistsDataGridView_CellContentClick);
             this.artistsDataGridView.DragDrop += new System.Windows.Forms.DragEventHandler(this.Artist_Drop);
-            // 
-            // col_a_name
-            // 
-            this.col_a_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.col_a_name.DataPropertyName = "a_name";
-            this.col_a_name.HeaderText = "Name";
-            this.col_a_name.Name = "col_a_name";
-            this.col_a_name.Width = 74;
-            // 
-            // col_a_bio
-            // 
-            this.col_a_bio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_a_bio.DataPropertyName = "a_bio";
-            this.col_a_bio.HeaderText = "Bio";
-            this.col_a_bio.MinimumWidth = 60;
-            this.col_a_bio.Name = "col_a_bio";
-            this.col_a_bio.Width = 60;
-            // 
-            // col_a_website
-            // 
-            this.col_a_website.DataPropertyName = "a_website";
-            this.col_a_website.HeaderText = "Website";
-            this.col_a_website.Name = "col_a_website";
-            // 
-            // col_a_profile_pic
-            // 
-            this.col_a_profile_pic.DataPropertyName = "a_profile_pic";
-            this.col_a_profile_pic.HeaderText = "Profile Pic";
-            this.col_a_profile_pic.Name = "col_a_profile_pic";
-            this.col_a_profile_pic.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_a_profile_pic.Text = "Add";
-            // 
-            // col_a_spotify_uri
-            // 
-            this.col_a_spotify_uri.DataPropertyName = "a_spotify_uri";
-            this.col_a_spotify_uri.HeaderText = "Spotify URI";
-            this.col_a_spotify_uri.Name = "col_a_spotify_uri";
             // 
             // tabControls
             // 
@@ -696,7 +532,6 @@
             this.albumGenresDataGridView.AutoGenerateColumns = false;
             this.albumGenresDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.albumGenresDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6});
             this.albumGenresDataGridView.DataSource = this.albumGenresBindingSource;
@@ -706,13 +541,6 @@
             this.albumGenresDataGridView.RowTemplate.Height = 24;
             this.albumGenresDataGridView.Size = new System.Drawing.Size(1008, 444);
             this.albumGenresDataGridView.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "al_g_id";
-            this.dataGridViewTextBoxColumn4.HeaderText = "al_g_id";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -831,11 +659,13 @@
             // 
             this.tableAdapterMngr.AlbumGenresTableAdapter = null;
             this.tableAdapterMngr.AlbumsTableAdapter = this.albumsTableAdapter;
+            this.tableAdapterMngr.albumtracksTableAdapter = null;
             this.tableAdapterMngr.ArtistsTableAdapter = this.artistsTableAdapter;
             this.tableAdapterMngr.BackupDataSetBeforeUpdate = false;
             this.tableAdapterMngr.GenresTableAdapter = this.genresTableAdapter;
             this.tableAdapterMngr.ListsTableAdapter = this.listsTableAdapter;
             this.tableAdapterMngr.TagsTableAdapter = this.tagsTableAdapter;
+            this.tableAdapterMngr.TrackArtistsTableAdapter = null;
             this.tableAdapterMngr.TrackGenresTableAdapter = this.trackGenresTableAdapter;
             this.tableAdapterMngr.TracksTableAdapter = this.tracksTableAdapter;
             this.tableAdapterMngr.TrackTagsTableAdapter = this.trackTagsTableAdapter;
@@ -844,6 +674,135 @@
             // albumGenresTableAdapter
             // 
             this.albumGenresTableAdapter.ClearBeforeFill = true;
+            // 
+            // name
+            // 
+            this.name.DataPropertyName = "name";
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            // 
+            // col_a_bio
+            // 
+            this.col_a_bio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_a_bio.DataPropertyName = "a_bio";
+            this.col_a_bio.HeaderText = "Bio";
+            this.col_a_bio.MinimumWidth = 60;
+            this.col_a_bio.Name = "col_a_bio";
+            this.col_a_bio.Width = 60;
+            // 
+            // col_a_website
+            // 
+            this.col_a_website.DataPropertyName = "a_website";
+            this.col_a_website.HeaderText = "Website";
+            this.col_a_website.Name = "col_a_website";
+            // 
+            // col_a_profile_pic
+            // 
+            this.col_a_profile_pic.DataPropertyName = "a_profile_pic";
+            this.col_a_profile_pic.HeaderText = "Profile Pic";
+            this.col_a_profile_pic.Name = "col_a_profile_pic";
+            this.col_a_profile_pic.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_a_profile_pic.Text = "Add";
+            // 
+            // col_a_spotify_uri
+            // 
+            this.col_a_spotify_uri.DataPropertyName = "a_spotify_uri";
+            this.col_a_spotify_uri.HeaderText = "Spotify URI";
+            this.col_a_spotify_uri.Name = "col_a_spotify_uri";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "name";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // col_al_artist_Id
+            // 
+            this.col_al_artist_Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_al_artist_Id.DataPropertyName = "ID";
+            this.col_al_artist_Id.DataSource = this.artistsBindingSource;
+            this.col_al_artist_Id.DisplayMember = "name";
+            this.col_al_artist_Id.DisplayStyleForCurrentCellOnly = true;
+            this.col_al_artist_Id.HeaderText = "Artist";
+            this.col_al_artist_Id.Name = "col_al_artist_Id";
+            this.col_al_artist_Id.ReadOnly = true;
+            this.col_al_artist_Id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_al_artist_Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_al_artist_Id.ValueMember = "ID";
+            this.col_al_artist_Id.Width = 69;
+            // 
+            // col_al_year
+            // 
+            this.col_al_year.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_al_year.DataPropertyName = "al_year";
+            this.col_al_year.HeaderText = "Year";
+            this.col_al_year.Name = "col_al_year";
+            this.col_al_year.Width = 67;
+            // 
+            // col_al_cover_art
+            // 
+            this.col_al_cover_art.DataPropertyName = "al_cover_art";
+            this.col_al_cover_art.HeaderText = "Cover Art";
+            this.col_al_cover_art.Name = "col_al_cover_art";
+            // 
+            // col_al_spotify_uri
+            // 
+            this.col_al_spotify_uri.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_al_spotify_uri.DataPropertyName = "al_spotify_uri";
+            this.col_al_spotify_uri.HeaderText = "Spotify URI";
+            this.col_al_spotify_uri.Name = "col_al_spotify_uri";
+            this.col_al_spotify_uri.Width = 107;
+            // 
+            // col_length
+            // 
+            this.col_length.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_length.DataPropertyName = "track_length_minutes";
+            this.col_length.HeaderText = "Length (minutes)";
+            this.col_length.Name = "col_length";
+            this.col_length.Width = 132;
+            // 
+            // col_track_artist_id
+            // 
+            this.col_track_artist_id.DataPropertyName = "track_artist_id";
+            this.col_track_artist_id.DataSource = this.artistsBindingSource;
+            this.col_track_artist_id.DisplayMember = "name";
+            this.col_track_artist_id.DisplayStyleForCurrentCellOnly = true;
+            this.col_track_artist_id.HeaderText = "Artist";
+            this.col_track_artist_id.Name = "col_track_artist_id";
+            this.col_track_artist_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_track_artist_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_track_artist_id.ValueMember = "ID";
+            // 
+            // col_can_play
+            // 
+            this.col_can_play.DataPropertyName = "can_play";
+            this.col_can_play.FalseValue = "n";
+            this.col_can_play.HeaderText = "Can Play?";
+            this.col_can_play.IndeterminateValue = "n";
+            this.col_can_play.Name = "col_can_play";
+            this.col_can_play.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_can_play.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_can_play.TrueValue = "y";
+            // 
+            // col_track_spotify_uri
+            // 
+            this.col_track_spotify_uri.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_track_spotify_uri.DataPropertyName = "track_spotify_uri";
+            this.col_track_spotify_uri.HeaderText = "Spotify URI";
+            this.col_track_spotify_uri.Name = "col_track_spotify_uri";
+            this.col_track_spotify_uri.Width = 99;
+            // 
+            // col_list_id
+            // 
+            this.col_list_id.DataPropertyName = "list_id";
+            this.col_list_id.DataSource = this.listsBindingSource;
+            this.col_list_id.DisplayMember = "list_name";
+            this.col_list_id.DisplayStyleForCurrentCellOnly = true;
+            this.col_list_id.HeaderText = "List";
+            this.col_list_id.Name = "col_list_id";
+            this.col_list_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_list_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_list_id.ValueMember = "list_id";
             // 
             // QueryForm
             // 
@@ -935,11 +894,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn tag_text;
         private System.Windows.Forms.DataGridViewTextBoxColumn track_id;
         private System.Windows.Forms.DataGridView trackTagsDataGridView;
-        private System.Windows.Forms.DataGridViewComboBoxColumn col_al_artist_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_al_title;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_al_year;
-        private System.Windows.Forms.DataGridViewImageColumn col_al_cover_art;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_al_spotify_uri;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_tg_track_id;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_tg_genre;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_genre;
@@ -949,10 +904,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_list_name;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_a_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_a_bio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_a_website;
-        private System.Windows.Forms.DataGridViewButtonColumn col_a_profile_pic;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_a_spotify_uri;
         private System.Windows.Forms.BindingSource trackArtistAlbumBindingSource;
         private System.Windows.Forms.DataGridView trackArtistAlbumDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
@@ -966,11 +917,21 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_track_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_length;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_track_album_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_length;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_track_artist_id;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_can_play;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_track_spotify_uri;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_list_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewComboBoxColumn col_al_artist_Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_al_year;
+        private System.Windows.Forms.DataGridViewImageColumn col_al_cover_art;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_al_spotify_uri;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_a_bio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_a_website;
+        private System.Windows.Forms.DataGridViewButtonColumn col_a_profile_pic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_a_spotify_uri;
     }
 }

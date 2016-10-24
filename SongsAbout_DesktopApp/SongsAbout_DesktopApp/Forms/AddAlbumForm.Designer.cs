@@ -43,11 +43,15 @@
             this.cBoxMainArtist = new System.Windows.Forms.ComboBox();
             this.btnNewArtist = new System.Windows.Forms.Button();
             this.dataSet = new SongsAbout_DesktopApp.DataSet();
-            this.artistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tableAdapterManager = new SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager();
+            this.albumsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.AlbumsTableAdapter();
             this.artistsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.ArtistsTableAdapter();
+            this.artistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.artistsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSave
@@ -169,15 +173,14 @@
             // 
             // cBoxMainArtist
             // 
-            this.cBoxMainArtist.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.artistsBindingSource, "artist_id", true));
-            this.cBoxMainArtist.DataSource = this.artistsBindingSource;
-            this.cBoxMainArtist.DisplayMember = "a_name";
+            this.cBoxMainArtist.DataSource = this.artistsBindingSource1;
+            this.cBoxMainArtist.DisplayMember = "name";
             this.cBoxMainArtist.FormattingEnabled = true;
             this.cBoxMainArtist.Location = new System.Drawing.Point(140, 219);
             this.cBoxMainArtist.Name = "cBoxMainArtist";
             this.cBoxMainArtist.Size = new System.Drawing.Size(216, 24);
             this.cBoxMainArtist.TabIndex = 34;
-            this.cBoxMainArtist.ValueMember = "artist_id";
+            this.cBoxMainArtist.ValueMember = "ID";
             // 
             // btnNewArtist
             // 
@@ -197,14 +200,39 @@
             this.dataSet.DataSetName = "DataSet";
             this.dataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // artistsBindingSource
+            // tableAdapterManager
             // 
-            this.artistsBindingSource.DataMember = "Artists";
-            this.artistsBindingSource.DataSource = this.dataSet;
+            this.tableAdapterManager.AlbumGenresTableAdapter = null;
+            this.tableAdapterManager.AlbumsTableAdapter = this.albumsTableAdapter;
+            this.tableAdapterManager.albumtracksTableAdapter = null;
+            this.tableAdapterManager.ArtistsTableAdapter = this.artistsTableAdapter;
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.GenresTableAdapter = null;
+            this.tableAdapterManager.ListsTableAdapter = null;
+            this.tableAdapterManager.TagsTableAdapter = null;
+            this.tableAdapterManager.TrackArtistsTableAdapter = null;
+            this.tableAdapterManager.TrackGenresTableAdapter = null;
+            this.tableAdapterManager.TracksTableAdapter = null;
+            this.tableAdapterManager.TrackTagsTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // albumsTableAdapter
+            // 
+            this.albumsTableAdapter.ClearBeforeFill = true;
             // 
             // artistsTableAdapter
             // 
             this.artistsTableAdapter.ClearBeforeFill = true;
+            // 
+            // artistsBindingSource
+            // 
+            this.artistsBindingSource.DataSource = this.dataSet;
+            this.artistsBindingSource.Position = 0;
+            // 
+            // artistsBindingSource1
+            // 
+            this.artistsBindingSource1.DataMember = "Artists";
+            this.artistsBindingSource1.DataSource = this.artistsBindingSource;
             // 
             // AddAlbumForm
             // 
@@ -234,6 +262,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,7 +283,10 @@
         private System.Windows.Forms.ComboBox cBoxMainArtist;
         private System.Windows.Forms.Button btnNewArtist;
         private SongsAbout_DesktopApp.DataSet dataSet;
-        private System.Windows.Forms.BindingSource artistsBindingSource;
+        private DataSetTableAdapters.TableAdapterManager tableAdapterManager;
+        private DataSetTableAdapters.AlbumsTableAdapter albumsTableAdapter;
         private DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter;
+        private System.Windows.Forms.BindingSource artistsBindingSource;
+        private System.Windows.Forms.BindingSource artistsBindingSource1;
     }
 }

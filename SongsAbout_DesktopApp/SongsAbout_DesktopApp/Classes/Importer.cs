@@ -9,6 +9,8 @@ using SpotifyAPI.Local.Enums;
 using SongsAbout_DesktopApp.Properties;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
+using SongsAbout_DesktopApp.Classes.Entities;
+using Track = SongsAbout_DesktopApp.Classes.Entities.Track;
 using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Classes

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using SongsAbout_DesktopApp.Classes;
+using SongsAbout_DesktopApp.Classes.Entities;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -56,11 +57,11 @@ namespace SongsAbout_DesktopApp
                 {
                     try
                     {
-                        string newArtistId = cBoxMainArtist.SelectedValue.ToString();
+                        int newArtistId;
                         _newAlbum.name = txtBoxTitle.Text;
                         _newAlbum.al_year = txtBoxYear.Text;
-                        _newAlbum.artist_id = int.Parse(newArtistId);
-
+                        int.TryParse(cBoxMainArtist.SelectedValue.ToString(), out newArtistId);
+                        _newAlbum.artist_id = newArtistId;
                         _newAlbum.Save();
                         this.DialogResult = DialogResult.OK;
                         this.Close();
@@ -86,15 +87,22 @@ namespace SongsAbout_DesktopApp
             artistForm.ShowDialog();
             if (artistForm.DialogResult == DialogResult.OK)
             {
-                this.artistsTableAdapter.Fill(this.dataSet.Artists);
+                // this.artistsTableAdapter.Fill(this.dataSet.Artists);
             }
         }
 
         private void AddAlbumForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-          //  this.artistsTableAdapter.Fill(this.dataSet.Artists);
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+                this.artistsTableAdapter.Fill(this.dataSet.Artists);
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error Encountered");
+            }
         }
     }
 }

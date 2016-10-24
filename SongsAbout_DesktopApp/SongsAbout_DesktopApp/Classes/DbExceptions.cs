@@ -9,14 +9,10 @@ namespace SongsAbout_DesktopApp.Classes
 {
     public class DbException : Exception
     {
+        const string defMsg = "An Error Occurred while interacting with the database";
         protected string _message;
 
-        public override string Message
-        {
-            get { return _message; }
-        }
-
-        const string defMsg = "An Error Occurred while interacting with the database";
+        public override string Message { get { return _message; } }
 
         protected string _type
         {
@@ -58,14 +54,17 @@ namespace SongsAbout_DesktopApp.Classes
     public class SaveError : DbException
     {
         const string defaultMsg = "Error Saving to the database.";
+        public SaveError(string msg = defaultMsg) : base($"Save Error: {msg}")
+        {
 
+        }
         public SaveError(DbEntity e, string name, string msg = defaultMsg)
             : base(e, saveErrDefMsg(ref e, ref name, ref msg))
         {
         }
 
         private static string saveErrDefMsg(ref DbEntity e, ref string name, ref string msg)
-        {            
+        {
             return
             (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from {e.TableName} table: " + msg);
 
@@ -76,6 +75,8 @@ namespace SongsAbout_DesktopApp.Classes
     public class LoadError : DbException
     {
         const string defaultMsg = "Error Loading entity from Database";
+
+        LoadError(string msg = defaultMsg) : base($"Load Error: {msg}") { }
 
         public LoadError(DbEntity e, string name, string msg = defaultMsg)
             : base(loadDefMsg(ref e, ref name, ref msg))
@@ -109,14 +110,17 @@ namespace SongsAbout_DesktopApp.Classes
             : base(e, updateMsg(ref e, ref name, ref msg))
         {
         }
-
+        public UpdateError(DbEntity e, Type spotifyType, string name, string msg = defaultMsg)
+        {
+            string m =
+                (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from {spotifyType} in {e.TableName} table: " + msg);
+        }
         private static string updateMsg(ref DbEntity e, ref string name, ref string msg)
         {
             return
                 (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from {e.TableName} table: " + msg);
         }
     }
-
     public class EntityNotFoundError : DbException
     {
         const string defaultMsg = "The expected entity was not found";
@@ -127,8 +131,8 @@ namespace SongsAbout_DesktopApp.Classes
             : base(notFoundMsg(ref e, ref name, ref msg))
         { }
 
-        public EntityNotFoundError(DbEntity e, int name, string msg = defaultMsg)
-            : base(notFoundMsg(ref e, ref name, ref msg))
+        public EntityNotFoundError(DbEntity e, int id, string msg = defaultMsg)
+            : base(notFoundMsg(ref e, ref id, ref msg))
         { }
 
         private static string notFoundMsg(ref DbEntity e, ref string name, ref string msg)

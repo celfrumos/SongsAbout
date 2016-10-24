@@ -12,9 +12,9 @@ namespace SongsAbout_DesktopApp.Classes.Entities
     public abstract class DbEntity
     {
         public abstract string TitleColumnName { get; }
-        public abstract string TableName { get;  }
+        public abstract string TableName { get; }
         public abstract string Name { get; set; }
-        public abstract string TypeName { get;  }
+        public virtual string TypeName { get { return typeof(DbEntity).ToString(); } }
         public abstract void Save();
         protected static void formatName(ref string name)
         {

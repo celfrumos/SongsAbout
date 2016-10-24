@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Album = SongsAbout_DesktopApp.Classes.Album;
+using SongsAbout_DesktopApp.Classes.Entities;
+using Album = SongsAbout_DesktopApp.Classes.Entities.Album;
 using System.Threading.Tasks;
 using SongsAbout_DesktopApp;
 

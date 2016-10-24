@@ -12,7 +12,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Album
+    public partial class Album 
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Album()

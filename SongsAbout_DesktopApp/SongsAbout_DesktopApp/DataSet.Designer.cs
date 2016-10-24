@@ -1956,10 +1956,6 @@ namespace SongsAbout_DesktopApp {
             
             private global::System.Data.DataColumn columnID;
             
-            private global::System.Data.DataColumn columnalbum_id;
-            
-            private global::System.Data.DataColumn columntrack_name;
-            
             private global::System.Data.DataColumn columntrack_spotify_uri;
             
             private global::System.Data.DataColumn columntrack_length_minutes;
@@ -1969,6 +1965,10 @@ namespace SongsAbout_DesktopApp {
             private global::System.Data.DataColumn columncan_play;
             
             private global::System.Data.DataColumn columnlist_id;
+            
+            private global::System.Data.DataColumn columnname;
+            
+            private global::System.Data.DataColumn columntrack_album_id;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -2008,22 +2008,6 @@ namespace SongsAbout_DesktopApp {
             public global::System.Data.DataColumn IDColumn {
                 get {
                     return this.columnID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn album_idColumn {
-                get {
-                    return this.columnalbum_id;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn track_nameColumn {
-                get {
-                    return this.columntrack_name;
                 }
             }
             
@@ -2069,6 +2053,22 @@ namespace SongsAbout_DesktopApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn nameColumn {
+                get {
+                    return this.columnname;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn track_album_idColumn {
+                get {
+                    return this.columntrack_album_id;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2104,19 +2104,19 @@ namespace SongsAbout_DesktopApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TracksRow AddTracksRow(int album_id, string track_name, string track_spotify_uri, double track_length_minutes, int track_artist_id, string can_play, ListsRow parentListsRowByFK_Tracks_Lists) {
+            public TracksRow AddTracksRow(string track_spotify_uri, double track_length_minutes, int track_artist_id, string can_play, ListsRow parentListsRowByFK_Tracks_Lists, string name, int track_album_id) {
                 TracksRow rowTracksRow = ((TracksRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        album_id,
-                        track_name,
                         track_spotify_uri,
                         track_length_minutes,
                         track_artist_id,
                         can_play,
-                        null};
+                        null,
+                        name,
+                        track_album_id};
                 if ((parentListsRowByFK_Tracks_Lists != null)) {
-                    columnValuesArray[7] = parentListsRowByFK_Tracks_Lists[0];
+                    columnValuesArray[5] = parentListsRowByFK_Tracks_Lists[0];
                 }
                 rowTracksRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTracksRow);
@@ -2148,13 +2148,13 @@ namespace SongsAbout_DesktopApp {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
-                this.columnalbum_id = base.Columns["album_id"];
-                this.columntrack_name = base.Columns["track_name"];
                 this.columntrack_spotify_uri = base.Columns["track_spotify_uri"];
                 this.columntrack_length_minutes = base.Columns["track_length_minutes"];
                 this.columntrack_artist_id = base.Columns["track_artist_id"];
                 this.columncan_play = base.Columns["can_play"];
                 this.columnlist_id = base.Columns["list_id"];
+                this.columnname = base.Columns["name"];
+                this.columntrack_album_id = base.Columns["track_album_id"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2162,10 +2162,6 @@ namespace SongsAbout_DesktopApp {
             private void InitClass() {
                 this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
-                this.columnalbum_id = new global::System.Data.DataColumn("album_id", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnalbum_id);
-                this.columntrack_name = new global::System.Data.DataColumn("track_name", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columntrack_name);
                 this.columntrack_spotify_uri = new global::System.Data.DataColumn("track_spotify_uri", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntrack_spotify_uri);
                 this.columntrack_length_minutes = new global::System.Data.DataColumn("track_length_minutes", typeof(double), null, global::System.Data.MappingType.Element);
@@ -2176,6 +2172,10 @@ namespace SongsAbout_DesktopApp {
                 base.Columns.Add(this.columncan_play);
                 this.columnlist_id = new global::System.Data.DataColumn("list_id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlist_id);
+                this.columnname = new global::System.Data.DataColumn("name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnname);
+                this.columntrack_album_id = new global::System.Data.DataColumn("track_album_id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntrack_album_id);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -2184,11 +2184,10 @@ namespace SongsAbout_DesktopApp {
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
-                this.columnalbum_id.AllowDBNull = false;
-                this.columntrack_name.MaxLength = 255;
                 this.columntrack_spotify_uri.MaxLength = 255;
                 this.columntrack_artist_id.AllowDBNull = false;
                 this.columncan_play.MaxLength = 1;
+                this.columnname.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4557,33 +4556,6 @@ namespace SongsAbout_DesktopApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int album_id {
-                get {
-                    return ((int)(this[this.tableTracks.album_idColumn]));
-                }
-                set {
-                    this[this.tableTracks.album_idColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string track_name {
-                get {
-                    try {
-                        return ((string)(this[this.tableTracks.track_nameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'track_name\' in table \'Tracks\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableTracks.track_nameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string track_spotify_uri {
                 get {
                     try {
@@ -4659,6 +4631,38 @@ namespace SongsAbout_DesktopApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string name {
+                get {
+                    try {
+                        return ((string)(this[this.tableTracks.nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'name\' in table \'Tracks\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTracks.nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int track_album_id {
+                get {
+                    try {
+                        return ((int)(this[this.tableTracks.track_album_idColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'track_album_id\' in table \'Tracks\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTracks.track_album_idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ListsRow ListsRow {
                 get {
                     return ((ListsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Tracks_Lists"])));
@@ -4666,18 +4670,6 @@ namespace SongsAbout_DesktopApp {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Tracks_Lists"]);
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Istrack_nameNull() {
-                return this.IsNull(this.tableTracks.track_nameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Settrack_nameNull() {
-                this[this.tableTracks.track_nameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4726,6 +4718,30 @@ namespace SongsAbout_DesktopApp {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setlist_idNull() {
                 this[this.tableTracks.list_idColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsnameNull() {
+                return this.IsNull(this.tableTracks.nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetnameNull() {
+                this[this.tableTracks.nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Istrack_album_idNull() {
+                return this.IsNull(this.tableTracks.track_album_idColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Settrack_album_idNull() {
+                this[this.tableTracks.track_album_idColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5711,45 +5727,45 @@ namespace SongsAbout_DesktopApp.DataSetTableAdapters {
             tableMapping.ColumnMappings.Add("a_website", "a_website");
             tableMapping.ColumnMappings.Add("a_spotify_uri", "a_spotify_uri");
             tableMapping.ColumnMappings.Add("a_profile_pic", "a_profile_pic");
+            tableMapping.ColumnMappings.Add("ID", "ID");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Artists] WHERE (([artist_id] = @Original_artist_id) AND ((@IsNull_a_" +
-                "name = 1 AND [a_name] IS NULL) OR ([a_name] = @Original_a_name)) AND ((@IsNull_a" +
-                "_spotify_uri = 1 AND [a_spotify_uri] IS NULL) OR ([a_spotify_uri] = @Original_a_" +
-                "spotify_uri)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Artists] WHERE (([ID] = @Original_ID) AND ((@IsNull_name = 1 AND [na" +
+                "me] IS NULL) OR ([name] = @Original_name)) AND ((@IsNull_a_spotify_uri = 1 AND [" +
+                "a_spotify_uri] IS NULL) OR ([a_spotify_uri] = @Original_a_spotify_uri)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_a_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_a_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_a_spotify_uri", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_spotify_uri", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_a_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_spotify_uri", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Artists] ([a_name], [a_bio], [a_website], [a_spotify_uri], [a_profile_pic]) VALUES (@a_name, @a_bio, @a_website, @a_spotify_uri, @a_profile_pic);
-SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHERE (artist_id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Artists] ([name], [a_bio], [a_website], [a_spotify_uri], [a_profile_pic]) VALUES (@name, @a_bio, @a_website, @a_spotify_uri, @a_profile_pic);
+SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_bio", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_bio", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_website", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_website", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_spotify_uri", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_profile_pic", global::System.Data.SqlDbType.Image, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_profile_pic", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Artists] SET [a_name] = @a_name, [a_bio] = @a_bio, [a_website] = @a_website, [a_spotify_uri] = @a_spotify_uri, [a_profile_pic] = @a_profile_pic WHERE (([artist_id] = @Original_artist_id) AND ((@IsNull_a_name = 1 AND [a_name] IS NULL) OR ([a_name] = @Original_a_name)) AND ((@IsNull_a_spotify_uri = 1 AND [a_spotify_uri] IS NULL) OR ([a_spotify_uri] = @Original_a_spotify_uri)));
-SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHERE (artist_id = @artist_id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Artists] SET [name] = @name, [a_bio] = @a_bio, [a_website] = @a_website, [a_spotify_uri] = @a_spotify_uri, [a_profile_pic] = @a_profile_pic WHERE (([ID] = @Original_ID) AND ((@IsNull_name = 1 AND [name] IS NULL) OR ([name] = @Original_name)) AND ((@IsNull_a_spotify_uri = 1 AND [a_spotify_uri] IS NULL) OR ([a_spotify_uri] = @Original_a_spotify_uri)));
+SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_bio", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_bio", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_website", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_website", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_spotify_uri", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_profile_pic", global::System.Data.SqlDbType.Image, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_profile_pic", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_a_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_a_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_a_spotify_uri", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_spotify_uri", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_a_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "a_spotify_uri", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@artist_id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5765,8 +5781,8 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic\r\nFROM   " +
-                "  Artists";
+            this._commandCollection[0].CommandText = "SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic\r\nFROM     Artists" +
+                "";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5827,15 +5843,15 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_artist_id, string Original_a_name, string Original_a_spotify_uri) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_artist_id));
-            if ((Original_a_name == null)) {
+        public virtual int Delete(int Original_ID, string Original_name, string Original_a_spotify_uri) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            if ((Original_name == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_a_name));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_name));
             }
             if ((Original_a_spotify_uri == null)) {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
@@ -5865,12 +5881,12 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string a_name, string a_bio, string a_website, string a_spotify_uri, byte[] a_profile_pic) {
-            if ((a_name == null)) {
+        public virtual int Insert(string name, string a_bio, string a_website, string a_spotify_uri, byte[] a_profile_pic) {
+            if ((name == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(a_name));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(name));
             }
             if ((a_bio == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -5916,12 +5932,12 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string a_name, string a_bio, string a_website, string a_spotify_uri, byte[] a_profile_pic, int Original_artist_id, string Original_a_name, string Original_a_spotify_uri, int artist_id) {
-            if ((a_name == null)) {
+        public virtual int Update(string name, string a_bio, string a_website, string a_spotify_uri, byte[] a_profile_pic, int Original_ID, string Original_name, string Original_a_spotify_uri, int ID) {
+            if ((name == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(a_name));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(name));
             }
             if ((a_bio == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -5947,14 +5963,14 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((byte[])(a_profile_pic));
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_artist_id));
-            if ((Original_a_name == null)) {
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID));
+            if ((Original_name == null)) {
                 this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_a_name));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_name));
             }
             if ((Original_a_spotify_uri == null)) {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
@@ -5964,7 +5980,7 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
                 this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_a_spotify_uri));
             }
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(artist_id));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5979,6 +5995,14 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string name, string a_bio, string a_website, string a_spotify_uri, byte[] a_profile_pic, int Original_ID, string Original_name, string Original_a_spotify_uri) {
+            return this.Update(name, a_bio, a_website, a_spotify_uri, a_profile_pic, Original_ID, Original_name, Original_a_spotify_uri, Original_ID);
         }
     }
     
@@ -6109,30 +6133,30 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [TrackGenres] WHERE (([track_id] = @Original_track_id) AND ([genre] =" +
-                " @Original_genre) AND ([ID] = @Original_ID))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [TrackGenres] WHERE (([ID] = @Original_ID) AND ([track_id] = @Origina" +
+                "l_track_id) AND ([genre] = @Original_genre))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [TrackGenres] ([track_id], [genre]) VALUES (@track_id, @genre);\r\nSELE" +
-                "CT track_id, genre, ID FROM TrackGenres WHERE (ID = SCOPE_IDENTITY())";
+                "CT ID, track_id, genre FROM TrackGenres WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [TrackGenres] SET [track_id] = @track_id, [genre] = @genre WHERE (([track_" +
-                "id] = @Original_track_id) AND ([genre] = @Original_genre) AND ([ID] = @Original_" +
-                "ID));\r\nSELECT track_id, genre, ID FROM TrackGenres WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [TrackGenres] SET [track_id] = @track_id, [genre] = @genre WHERE (([ID] = " +
+                "@Original_ID) AND ([track_id] = @Original_track_id) AND ([genre] = @Original_gen" +
+                "re));\r\nSELECT ID, track_id, genre FROM TrackGenres WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -6149,7 +6173,7 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT track_id, genre, ID FROM TrackGenres";
+            this._commandCollection[0].CommandText = "SELECT ID, track_id, genre\r\nFROM     TrackGenres";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6210,15 +6234,15 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_track_id, string Original_genre, int Original_ID) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_track_id));
+        public virtual int Delete(int Original_ID, int Original_track_id, string Original_genre) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_track_id));
             if ((Original_genre == null)) {
                 throw new global::System.ArgumentNullException("Original_genre");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_genre));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_genre));
             }
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6267,7 +6291,7 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int track_id, string genre, int Original_track_id, string Original_genre, int Original_ID, int ID) {
+        public virtual int Update(int track_id, string genre, int Original_ID, int Original_track_id, string Original_genre, int ID) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(track_id));
             if ((genre == null)) {
                 throw new global::System.ArgumentNullException("genre");
@@ -6275,14 +6299,14 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(genre));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_track_id));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_track_id));
             if ((Original_genre == null)) {
                 throw new global::System.ArgumentNullException("Original_genre");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_genre));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_genre));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_ID));
             this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -6304,8 +6328,8 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int track_id, string genre, int Original_track_id, string Original_genre, int Original_ID) {
-            return this.Update(track_id, genre, Original_track_id, Original_genre, Original_ID, Original_ID);
+        public virtual int Update(int track_id, string genre, int Original_ID, int Original_track_id, string Original_genre) {
+            return this.Update(track_id, genre, Original_ID, Original_track_id, Original_genre, Original_ID);
         }
     }
     
@@ -6434,19 +6458,19 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Genres] WHERE (([genre] = @Original_genre))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Genres] WHERE (([genre] = @Original_genre))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Genres] ([genre]) VALUES (@genre);\r\nSELECT genre FROM Genres W" +
-                "HERE (genre = @genre)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Genres] ([genre]) VALUES (@genre);\r\nSELECT genre FROM Genres WHERE (" +
+                "genre = @genre)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Genres] SET [genre] = @genre WHERE (([genre] = @Original_genre));\r\n" +
-                "SELECT genre FROM Genres WHERE (genre = @genre)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [Genres] SET [genre] = @genre WHERE (([genre] = @Original_genre));\r\nSELECT" +
+                " genre FROM Genres WHERE (genre = @genre)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -6465,7 +6489,7 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT genre FROM dbo.Genres";
+            this._commandCollection[0].CommandText = "SELECT genre\r\nFROM     Genres";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6748,44 +6772,44 @@ SELECT artist_id, a_name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Ar
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Albums] WHERE (([artist_id] = @Original_artist_id) AND ((@IsNull_al_year = 1 AND [al_year] IS NULL) OR ([al_year] = @Original_al_year)) AND ((@IsNull_al_spotify_uri = 1 AND [al_spotify_uri] IS NULL) OR ([al_spotify_uri] = @Original_al_spotify_uri)) AND ([ID] = @Original_ID) AND ((@IsNull_name = 1 AND [name] IS NULL) OR ([name] = @Original_name)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Albums] WHERE (([ID] = @Original_ID) AND ([artist_id] = @Original_artist_id) AND ((@IsNull_name = 1 AND [name] IS NULL) OR ([name] = @Original_name)) AND ((@IsNull_al_year = 1 AND [al_year] IS NULL) OR ([al_year] = @Original_al_year)) AND ((@IsNull_al_spotify_uri = 1 AND [al_spotify_uri] IS NULL) OR ([al_spotify_uri] = @Original_al_spotify_uri)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_al_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_year", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_al_year", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_al_spotify_uri", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_spotify_uri", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_al_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_spotify_uri", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Albums] ([artist_id], [al_year], [al_spotify_uri], [al_cover_art], [name]) VALUES (@artist_id, @al_year, @al_spotify_uri, @al_cover_art, @name);
-SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WHERE (ID = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Albums] ([artist_id], [name], [al_year], [al_spotify_uri], [al_cover_art]) VALUES (@artist_id, @name, @al_year, @al_spotify_uri, @al_cover_art);
+SELECT ID, artist_id, name, al_year, al_spotify_uri, al_cover_art FROM Albums WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@al_year", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@al_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_spotify_uri", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@al_cover_art", global::System.Data.SqlDbType.Image, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_cover_art", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Albums] SET [artist_id] = @artist_id, [al_year] = @al_year, [al_spotify_uri] = @al_spotify_uri, [al_cover_art] = @al_cover_art, [name] = @name WHERE (([artist_id] = @Original_artist_id) AND ((@IsNull_al_year = 1 AND [al_year] IS NULL) OR ([al_year] = @Original_al_year)) AND ((@IsNull_al_spotify_uri = 1 AND [al_spotify_uri] IS NULL) OR ([al_spotify_uri] = @Original_al_spotify_uri)) AND ([ID] = @Original_ID) AND ((@IsNull_name = 1 AND [name] IS NULL) OR ([name] = @Original_name)));
-SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Albums] SET [artist_id] = @artist_id, [name] = @name, [al_year] = @al_year, [al_spotify_uri] = @al_spotify_uri, [al_cover_art] = @al_cover_art WHERE (([ID] = @Original_ID) AND ([artist_id] = @Original_artist_id) AND ((@IsNull_name = 1 AND [name] IS NULL) OR ([name] = @Original_name)) AND ((@IsNull_al_year = 1 AND [al_year] IS NULL) OR ([al_year] = @Original_al_year)) AND ((@IsNull_al_spotify_uri = 1 AND [al_spotify_uri] IS NULL) OR ([al_spotify_uri] = @Original_al_spotify_uri)));
+SELECT ID, artist_id, name, al_year, al_spotify_uri, al_cover_art FROM Albums WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@al_year", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_year", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@al_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_spotify_uri", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@al_cover_art", global::System.Data.SqlDbType.Image, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_cover_art", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_al_year", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_year", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_al_year", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_year", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_al_spotify_uri", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_spotify_uri", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_al_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "al_spotify_uri", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -6802,7 +6826,8 @@ SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WH
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums";
+            this._commandCollection[0].CommandText = "SELECT ID, artist_id, name, al_year, al_spotify_uri, al_cover_art\r\nFROM     Album" +
+                "s";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6863,32 +6888,32 @@ SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_artist_id, string Original_al_year, string Original_al_spotify_uri, int Original_ID, string Original_name) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_artist_id));
-            if ((Original_al_year == null)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+        public virtual int Delete(int Original_ID, int Original_artist_id, string Original_name, string Original_al_year, string Original_al_spotify_uri) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_artist_id));
+            if ((Original_name == null)) {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_al_year));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_name));
+            }
+            if ((Original_al_year == null)) {
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((string)(Original_al_year));
             }
             if ((Original_al_spotify_uri == null)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_al_spotify_uri));
-            }
-            this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_ID));
-            if ((Original_name == null)) {
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((string)(Original_name));
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((string)(Original_al_spotify_uri));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -6910,31 +6935,31 @@ SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int artist_id, string al_year, string al_spotify_uri, byte[] al_cover_art, string name) {
+        public virtual int Insert(int artist_id, string name, string al_year, string al_spotify_uri, byte[] al_cover_art) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(artist_id));
-            if ((al_year == null)) {
+            if ((name == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(al_year));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(name));
             }
-            if ((al_spotify_uri == null)) {
+            if ((al_year == null)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(al_spotify_uri));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(al_year));
             }
-            if ((al_cover_art == null)) {
+            if ((al_spotify_uri == null)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((byte[])(al_cover_art));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(al_spotify_uri));
             }
-            if ((name == null)) {
+            if ((al_cover_art == null)) {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(name));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((byte[])(al_cover_art));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -6956,57 +6981,57 @@ SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int artist_id, string al_year, string al_spotify_uri, byte[] al_cover_art, string name, int Original_artist_id, string Original_al_year, string Original_al_spotify_uri, int Original_ID, string Original_name, int ID) {
+        public virtual int Update(int artist_id, string name, string al_year, string al_spotify_uri, byte[] al_cover_art, int Original_ID, int Original_artist_id, string Original_name, string Original_al_year, string Original_al_spotify_uri, int ID) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(artist_id));
-            if ((al_year == null)) {
+            if ((name == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(al_year));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(name));
             }
-            if ((al_spotify_uri == null)) {
+            if ((al_year == null)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(al_spotify_uri));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(al_year));
             }
-            if ((al_cover_art == null)) {
+            if ((al_spotify_uri == null)) {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((byte[])(al_cover_art));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(al_spotify_uri));
             }
-            if ((name == null)) {
+            if ((al_cover_art == null)) {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(name));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((byte[])(al_cover_art));
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_artist_id));
-            if ((Original_al_year == null)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_artist_id));
+            if ((Original_name == null)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_al_year));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_name));
+            }
+            if ((Original_al_year == null)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_al_year));
             }
             if ((Original_al_spotify_uri == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_al_spotify_uri));
-            }
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_ID));
-            if ((Original_name == null)) {
                 this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_name));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_al_spotify_uri));
             }
             this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
@@ -7029,8 +7054,8 @@ SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int artist_id, string al_year, string al_spotify_uri, byte[] al_cover_art, string name, int Original_artist_id, string Original_al_year, string Original_al_spotify_uri, int Original_ID, string Original_name) {
-            return this.Update(artist_id, al_year, al_spotify_uri, al_cover_art, name, Original_artist_id, Original_al_year, Original_al_spotify_uri, Original_ID, Original_name, Original_ID);
+        public virtual int Update(int artist_id, string name, string al_year, string al_spotify_uri, byte[] al_cover_art, int Original_ID, int Original_artist_id, string Original_name, string Original_al_year, string Original_al_spotify_uri) {
+            return this.Update(artist_id, name, al_year, al_spotify_uri, al_cover_art, Original_ID, Original_artist_id, Original_name, Original_al_year, Original_al_spotify_uri, Original_ID);
         }
     }
     
@@ -7156,22 +7181,21 @@ SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WH
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Tracks";
             tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("album_id", "album_id");
-            tableMapping.ColumnMappings.Add("track_name", "track_name");
             tableMapping.ColumnMappings.Add("track_spotify_uri", "track_spotify_uri");
             tableMapping.ColumnMappings.Add("track_length_minutes", "track_length_minutes");
             tableMapping.ColumnMappings.Add("track_artist_id", "track_artist_id");
             tableMapping.ColumnMappings.Add("can_play", "can_play");
             tableMapping.ColumnMappings.Add("list_id", "list_id");
+            tableMapping.ColumnMappings.Add("name", "name");
+            tableMapping.ColumnMappings.Add("track_album_id", "track_album_id");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Tracks] WHERE (([track_id] = @Original_track_id) AND ([album_id] = @Original_album_id) AND ((@IsNull_track_name = 1 AND [track_name] IS NULL) OR ([track_name] = @Original_track_name)) AND ((@IsNull_track_spotify_uri = 1 AND [track_spotify_uri] IS NULL) OR ([track_spotify_uri] = @Original_track_spotify_uri)) AND ((@IsNull_track_length_minutes = 1 AND [track_length_minutes] IS NULL) OR ([track_length_minutes] = @Original_track_length_minutes)) AND ([track_artist_id] = @Original_track_artist_id) AND ((@IsNull_can_play = 1 AND [can_play] IS NULL) OR ([can_play] = @Original_can_play)) AND ((@IsNull_list_id = 1 AND [list_id] IS NULL) OR ([list_id] = @Original_list_id)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Tracks] WHERE (([ID] = @Original_ID) AND ((@IsNull_name = 1 AND [name] IS NULL) OR ([name] = @Original_name)) AND ((@IsNull_track_spotify_uri = 1 AND [track_spotify_uri] IS NULL) OR ([track_spotify_uri] = @Original_track_spotify_uri)) AND ((@IsNull_track_length_minutes = 1 AND [track_length_minutes] IS NULL) OR ([track_length_minutes] = @Original_track_length_minutes)) AND ([track_artist_id] = @Original_track_artist_id) AND ((@IsNull_can_play = 1 AND [can_play] IS NULL) OR ([can_play] = @Original_can_play)) AND ((@IsNull_list_id = 1 AND [list_id] IS NULL) OR ([list_id] = @Original_list_id)) AND ((@IsNull_track_album_id = 1 AND [track_album_id] IS NULL) OR ([track_album_id] = @Original_track_album_id)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_track_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_track_spotify_uri", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_spotify_uri", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_spotify_uri", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_track_length_minutes", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_length_minutes", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -7181,34 +7205,35 @@ SELECT artist_id, al_year, al_spotify_uri, al_cover_art, ID, name FROM Albums WH
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_can_play", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "can_play", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_list_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "list_id", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_list_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "list_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_track_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_album_id", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_album_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Tracks] ([album_id], [track_name], [track_spotify_uri], [track_length_minutes], [track_artist_id], [can_play], [list_id]) VALUES (@album_id, @track_name, @track_spotify_uri, @track_length_minutes, @track_artist_id, @can_play, @list_id);
-SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, track_artist_id, can_play, list_id FROM Tracks WHERE (track_id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Tracks] ([name], [track_spotify_uri], [track_length_minutes], [track_artist_id], [can_play], [list_id], [track_album_id]) VALUES (@name, @track_spotify_uri, @track_length_minutes, @track_artist_id, @can_play, @list_id, @track_album_id);
+SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_play, list_id, track_album_id FROM Tracks WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_spotify_uri", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_length_minutes", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_length_minutes", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_artist_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@can_play", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "can_play", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@list_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "list_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_album_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Tracks] SET [album_id] = @album_id, [track_name] = @track_name, [track_spotify_uri] = @track_spotify_uri, [track_length_minutes] = @track_length_minutes, [track_artist_id] = @track_artist_id, [can_play] = @can_play, [list_id] = @list_id WHERE (([track_id] = @Original_track_id) AND ([album_id] = @Original_album_id) AND ((@IsNull_track_name = 1 AND [track_name] IS NULL) OR ([track_name] = @Original_track_name)) AND ((@IsNull_track_spotify_uri = 1 AND [track_spotify_uri] IS NULL) OR ([track_spotify_uri] = @Original_track_spotify_uri)) AND ((@IsNull_track_length_minutes = 1 AND [track_length_minutes] IS NULL) OR ([track_length_minutes] = @Original_track_length_minutes)) AND ([track_artist_id] = @Original_track_artist_id) AND ((@IsNull_can_play = 1 AND [can_play] IS NULL) OR ([can_play] = @Original_can_play)) AND ((@IsNull_list_id = 1 AND [list_id] IS NULL) OR ([list_id] = @Original_list_id)));
-SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, track_artist_id, can_play, list_id FROM Tracks WHERE (track_id = @track_id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Tracks] SET [name] = @name, [track_spotify_uri] = @track_spotify_uri, [track_length_minutes] = @track_length_minutes, [track_artist_id] = @track_artist_id, [can_play] = @can_play, [list_id] = @list_id, [track_album_id] = @track_album_id WHERE (([ID] = @Original_ID) AND ((@IsNull_name = 1 AND [name] IS NULL) OR ([name] = @Original_name)) AND ((@IsNull_track_spotify_uri = 1 AND [track_spotify_uri] IS NULL) OR ([track_spotify_uri] = @Original_track_spotify_uri)) AND ((@IsNull_track_length_minutes = 1 AND [track_length_minutes] IS NULL) OR ([track_length_minutes] = @Original_track_length_minutes)) AND ([track_artist_id] = @Original_track_artist_id) AND ((@IsNull_can_play = 1 AND [can_play] IS NULL) OR ([can_play] = @Original_can_play)) AND ((@IsNull_list_id = 1 AND [list_id] IS NULL) OR ([list_id] = @Original_list_id)) AND ((@IsNull_track_album_id = 1 AND [track_album_id] IS NULL) OR ([track_album_id] = @Original_track_album_id)));
+SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_play, list_id, track_album_id FROM Tracks WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_spotify_uri", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_length_minutes", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_length_minutes", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_artist_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@can_play", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "can_play", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@list_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "list_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_track_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_album_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_name", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "name", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_track_spotify_uri", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_spotify_uri", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_spotify_uri", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_spotify_uri", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_track_length_minutes", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_length_minutes", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -7218,7 +7243,9 @@ SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_can_play", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "can_play", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_list_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "list_id", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_list_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "list_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_track_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_album_id", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_album_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7234,8 +7261,8 @@ SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, 
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, t" +
-                "rack_artist_id, can_play, list_id FROM dbo.Tracks";
+            this._commandCollection[0].CommandText = "SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_pl" +
+                "ay, list_id, track_album_id\r\nFROM     Tracks";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7296,49 +7323,56 @@ SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_track_id, int Original_album_id, string Original_track_name, string Original_track_spotify_uri, global::System.Nullable<double> Original_track_length_minutes, int Original_track_artist_id, string Original_can_play, global::System.Nullable<int> Original_list_id) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_track_id));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_album_id));
-            if ((Original_track_name == null)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+        public virtual int Delete(int Original_ID, string Original_name, string Original_track_spotify_uri, global::System.Nullable<double> Original_track_length_minutes, int Original_track_artist_id, string Original_can_play, global::System.Nullable<int> Original_list_id, global::System.Nullable<int> Original_track_album_id) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            if ((Original_name == null)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_track_name));
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_name));
             }
             if ((Original_track_spotify_uri == null)) {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((string)(Original_track_spotify_uri));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_track_spotify_uri));
             }
             if ((Original_track_length_minutes.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((double)(Original_track_length_minutes.Value));
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((double)(Original_track_length_minutes.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((int)(Original_track_artist_id));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((int)(Original_track_artist_id));
             if ((Original_can_play == null)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_can_play));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((string)(Original_can_play));
             }
             if ((Original_list_id.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(Original_list_id.Value));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((int)(Original_list_id.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((Original_track_album_id.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((int)(Original_track_album_id.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7360,35 +7394,40 @@ SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int album_id, string track_name, string track_spotify_uri, global::System.Nullable<double> track_length_minutes, int track_artist_id, string can_play, global::System.Nullable<int> list_id) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(album_id));
-            if ((track_name == null)) {
+        public virtual int Insert(string name, string track_spotify_uri, global::System.Nullable<double> track_length_minutes, int track_artist_id, string can_play, global::System.Nullable<int> list_id, global::System.Nullable<int> track_album_id) {
+            if ((name == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(name));
+            }
+            if ((track_spotify_uri == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(track_name));
-            }
-            if ((track_spotify_uri == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(track_spotify_uri));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(track_spotify_uri));
             }
             if ((track_length_minutes.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((double)(track_length_minutes.Value));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((double)(track_length_minutes.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(track_artist_id));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(track_artist_id));
             if ((can_play == null)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(can_play));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(can_play));
             }
             if ((list_id.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(list_id.Value));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(list_id.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((track_album_id.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(track_album_id.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
@@ -7414,98 +7453,110 @@ SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, 
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
-                    int album_id, 
-                    string track_name, 
+                    string name, 
                     string track_spotify_uri, 
                     global::System.Nullable<double> track_length_minutes, 
                     int track_artist_id, 
                     string can_play, 
                     global::System.Nullable<int> list_id, 
-                    int Original_track_id, 
-                    int Original_album_id, 
-                    string Original_track_name, 
+                    global::System.Nullable<int> track_album_id, 
+                    int Original_ID, 
+                    string Original_name, 
                     string Original_track_spotify_uri, 
                     global::System.Nullable<double> Original_track_length_minutes, 
                     int Original_track_artist_id, 
                     string Original_can_play, 
                     global::System.Nullable<int> Original_list_id, 
-                    int track_id) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(album_id));
-            if ((track_name == null)) {
+                    global::System.Nullable<int> Original_track_album_id, 
+                    int ID) {
+            if ((name == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(name));
+            }
+            if ((track_spotify_uri == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(track_name));
-            }
-            if ((track_spotify_uri == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(track_spotify_uri));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(track_spotify_uri));
             }
             if ((track_length_minutes.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((double)(track_length_minutes.Value));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((double)(track_length_minutes.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(track_artist_id));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(track_artist_id));
             if ((can_play == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(can_play));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(can_play));
             }
             if ((list_id.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(list_id.Value));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(list_id.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((track_album_id.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(track_album_id.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_track_id));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_album_id));
-            if ((Original_track_name == null)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_ID));
+            if ((Original_name == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_track_name));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_name));
             }
             if ((Original_track_spotify_uri == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_track_spotify_uri));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_track_spotify_uri));
             }
             if ((Original_track_length_minutes.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((double)(Original_track_length_minutes.Value));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((double)(Original_track_length_minutes.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_track_artist_id));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_track_artist_id));
             if ((Original_can_play == null)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(Original_can_play));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_can_play));
             }
             if ((Original_list_id.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_list_id.Value));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(Original_list_id.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[20].Value = ((int)(track_id));
+            if ((Original_track_album_id.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((int)(Original_track_album_id.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[21].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7520,6 +7571,14 @@ SELECT track_id, album_id, track_name, track_spotify_uri, track_length_minutes, 
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string name, string track_spotify_uri, global::System.Nullable<double> track_length_minutes, int track_artist_id, string can_play, global::System.Nullable<int> list_id, global::System.Nullable<int> track_album_id, int Original_ID, string Original_name, string Original_track_spotify_uri, global::System.Nullable<double> Original_track_length_minutes, int Original_track_artist_id, string Original_can_play, global::System.Nullable<int> Original_list_id, global::System.Nullable<int> Original_track_album_id) {
+            return this.Update(name, track_spotify_uri, track_length_minutes, track_artist_id, can_play, list_id, track_album_id, Original_ID, Original_name, Original_track_spotify_uri, Original_track_length_minutes, Original_track_artist_id, Original_can_play, Original_list_id, Original_track_album_id, Original_ID);
         }
     }
     
@@ -8617,34 +8676,34 @@ SELECT tag_text, track_id, ID FROM TrackTags WHERE (ID = @ID)";
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [AlbumGenres] WHERE (((@IsNull_album_id = 1 AND [album_id] IS NULL) O" +
-                "R ([album_id] = @Original_album_id)) AND ((@IsNull_genre = 1 AND [genre] IS NULL" +
-                ") OR ([genre] = @Original_genre)) AND ([ID] = @Original_ID))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [AlbumGenres] WHERE (([ID] = @Original_ID) AND ((@IsNull_album_id = 1" +
+                " AND [album_id] IS NULL) OR ([album_id] = @Original_album_id)) AND ((@IsNull_gen" +
+                "re = 1 AND [genre] IS NULL) OR ([genre] = @Original_genre)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_genre", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [AlbumGenres] ([album_id], [genre]) VALUES (@album_id, @genre);\r\nSELE" +
-                "CT album_id, genre, ID FROM AlbumGenres WHERE (ID = SCOPE_IDENTITY())";
+                "CT ID, album_id, genre FROM AlbumGenres WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [AlbumGenres] SET [album_id] = @album_id, [genre] = @genre WHERE (((@IsNull_album_id = 1 AND [album_id] IS NULL) OR ([album_id] = @Original_album_id)) AND ((@IsNull_genre = 1 AND [genre] IS NULL) OR ([genre] = @Original_genre)) AND ([ID] = @Original_ID));
-SELECT album_id, genre, ID FROM AlbumGenres WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [AlbumGenres] SET [album_id] = @album_id, [genre] = @genre WHERE (([ID] = @Original_ID) AND ((@IsNull_album_id = 1 AND [album_id] IS NULL) OR ([album_id] = @Original_album_id)) AND ((@IsNull_genre = 1 AND [genre] IS NULL) OR ([genre] = @Original_genre)));
+SELECT ID, album_id, genre FROM AlbumGenres WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_album_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "album_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_genre", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_genre", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "genre", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -8661,7 +8720,7 @@ SELECT album_id, genre, ID FROM AlbumGenres WHERE (ID = @ID)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT album_id, genre, ID FROM AlbumGenres";
+            this._commandCollection[0].CommandText = "SELECT ID, album_id, genre\r\nFROM     AlbumGenres";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -8722,24 +8781,24 @@ SELECT album_id, genre, ID FROM AlbumGenres WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(global::System.Nullable<int> Original_album_id, string Original_genre, int Original_ID) {
+        public virtual int Delete(int Original_ID, global::System.Nullable<int> Original_album_id, string Original_genre) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             if ((Original_album_id.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_album_id.Value));
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_album_id.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[1].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             if ((Original_genre == null)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_genre));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_genre));
             }
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8793,7 +8852,7 @@ SELECT album_id, genre, ID FROM AlbumGenres WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> album_id, string genre, global::System.Nullable<int> Original_album_id, string Original_genre, int Original_ID, int ID) {
+        public virtual int Update(global::System.Nullable<int> album_id, string genre, int Original_ID, global::System.Nullable<int> Original_album_id, string Original_genre, int ID) {
             if ((album_id.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(album_id.Value));
             }
@@ -8806,23 +8865,23 @@ SELECT album_id, genre, ID FROM AlbumGenres WHERE (ID = @ID)";
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(genre));
             }
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
             if ((Original_album_id.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_album_id.Value));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_album_id.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             if ((Original_genre == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_genre));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_genre));
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ID));
             this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -8844,8 +8903,8 @@ SELECT album_id, genre, ID FROM AlbumGenres WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> album_id, string genre, global::System.Nullable<int> Original_album_id, string Original_genre, int Original_ID) {
-            return this.Update(album_id, genre, Original_album_id, Original_genre, Original_ID, Original_ID);
+        public virtual int Update(global::System.Nullable<int> album_id, string genre, int Original_ID, global::System.Nullable<int> Original_album_id, string Original_genre) {
+            return this.Update(album_id, genre, Original_ID, Original_album_id, Original_genre, Original_ID);
         }
     }
     
@@ -9285,24 +9344,26 @@ SELECT album_id, genre, ID FROM AlbumGenres WHERE (ID = @ID)";
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[TrackArtists] WHERE (([ID] = @Original_ID) AND ([artist_id] = " +
-                "@Original_artist_id) AND ([track_id] = @Original_track_id))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [TrackArtists] WHERE (([ID] = @Original_ID) AND ([artist_id] = @Origi" +
+                "nal_artist_id) AND ([track_id] = @Original_track_id))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[TrackArtists] ([artist_id], [track_id]) VALUES (@artist_id, @t" +
-                "rack_id);\r\nSELECT ID, artist_id, track_id FROM TrackArtists WHERE (ID = SCOPE_ID" +
-                "ENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [TrackArtists] ([artist_id], [track_id]) VALUES (@artist_id, @track_i" +
+                "d);\r\nSELECT ID, artist_id, track_id FROM TrackArtists WHERE (ID = SCOPE_IDENTITY" +
+                "())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[TrackArtists] SET [artist_id] = @artist_id, [track_id] = @track_id WHERE (([ID] = @Original_ID) AND ([artist_id] = @Original_artist_id) AND ([track_id] = @Original_track_id));
-SELECT ID, artist_id, track_id FROM TrackArtists WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [TrackArtists] SET [artist_id] = @artist_id, [track_id] = @track_id WHERE " +
+                "(([ID] = @Original_ID) AND ([artist_id] = @Original_artist_id) AND ([track_id] =" +
+                " @Original_track_id));\r\nSELECT ID, artist_id, track_id FROM TrackArtists WHERE (" +
+                "ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@artist_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "artist_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@track_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "track_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -9325,7 +9386,7 @@ SELECT ID, artist_id, track_id FROM TrackArtists WHERE (ID = @ID)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, artist_id, track_id FROM dbo.TrackArtists";
+            this._commandCollection[0].CommandText = "SELECT ID, artist_id, track_id\r\nFROM     TrackArtists";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

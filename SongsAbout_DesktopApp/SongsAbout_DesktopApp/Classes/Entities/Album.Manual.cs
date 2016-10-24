@@ -12,6 +12,26 @@ namespace SongsAbout_DesktopApp.Classes.Entities
 {
     public partial class Album : DbEntity
     {
+        public static string Table = "Albums";
+        public static string TypeString = "Album";
+        public static string TitleColumn = "name";
+        Type a = typeof(Artist);
+
+        public override string TableName
+        {
+            get { return Table; }
+        }
+
+        public override string Name { get; set; }
+
+        //public override string TypeName
+        //{
+        //    get { return typeof(Artist).ToString(); }
+        //}
+        public override string TitleColumnName
+        {
+            get { return TitleColumn; }
+        }
         public Album(FullAlbum album)// : base("al_title", "Albums", "Album")
         {
             this.Update(ref album);
@@ -46,7 +66,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new SaveError<Album>(ex.Message);
+                throw new SaveError(this, ex.Message);
             }
         }
 
@@ -108,7 +128,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Album>(album.Name, ex.Message);
+                throw new UpdateError(this, album.Name, ex.Message);
             }
         }
 
@@ -121,9 +141,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating Album: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new UpdateError(this, album.Name, ex.Message);
             }
         }
 
@@ -142,7 +160,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Artist>(album.Name, ex.Message);
+                throw new UpdateError(this, album.Name, ex.Message);
             }
         }
 
@@ -161,7 +179,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Album>(album.Name, ex.Message);
+                throw new UpdateError(this, album.Name, ex.Message);
             }
         }
 
@@ -210,7 +228,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Artist>($"Error updating artist for album '{this.name}', '{this.Artist.name}' : {ex.Message}");
+                throw new UpdateError(this, typeof(SimpleArtist), this.name, ex.Message);
 
             }
         }

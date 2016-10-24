@@ -11,12 +11,29 @@ using SongsAbout_DesktopApp.Classes;
 
 namespace SongsAbout_DesktopApp.Classes.Entities
 {
-    public partial class Track //: DbEntity<Track>
+    public partial class Track : DbEntity //: DbEntity<Track>
     {
 
         public static string Table = "Tracks";
+        public static string TypeString = "Track";
         public static string TitleColumn = "name";
+        Type a = typeof(Track);
 
+        public override string TableName
+        {
+            get { return Table; }
+        }
+
+        public override string Name { get; set; }
+
+        public override string TypeName
+        {
+            get { return typeof(Artist).ToString(); }
+        }
+        public override string TitleColumnName
+        {
+            get { return TitleColumn; }
+        }
         public Track(FullTrack t)
         {
             this.name = t.Name;
@@ -31,7 +48,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Track>(t.Name, ex.Message);
+                throw new UpdateError(this, t.Name, ex.Message);
             }
         }
 
@@ -49,11 +66,11 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError<Track>(track.Name, ex.Message);
+                throw new UpdateError(this, track.Name, ex.Message);
             }
         }
 
-        public void Save()
+        public override void Save()
         {
             try
             {
@@ -76,9 +93,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                string msg = $"Error saving Track: {ex.Message}";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw new EntityNotFoundError(this, this.Name, ex.Message);
 
             }
         }

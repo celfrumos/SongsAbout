@@ -53,16 +53,16 @@ namespace SongsAbout_DesktopApp
         {
             try
             {
-                var addTrack = new AddAlbumForm();
+                var addAlbum = new AddAlbumForm();
                 try
                 {
-                    addTrack.ShowDialog();
+                    addAlbum.ShowDialog();
                 }
                 catch (System.ArgumentException ex)
                 {
                     MessageBox.Show(ex.Message, "Something went wrong.");
                 }
-                if (addTrack.DialogResult == DialogResult.OK)
+                if (addAlbum.DialogResult == DialogResult.OK)
                 {
                     MessageBox.Show("Successfully saved ", "Success!");
                 }
