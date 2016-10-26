@@ -30,7 +30,7 @@ namespace SongsAbout_DesktopApp.Classes
 
         protected string _titleColumn { get { return _entity.TitleColumnName; } }
 
-        protected DbException(DbEntity e, string msg = defMsg)
+        public DbException(DbEntity e, string msg = defMsg)
         {
             Initialize(ref e, ref msg);
         }
@@ -44,11 +44,27 @@ namespace SongsAbout_DesktopApp.Classes
             _table = e.TableName;
         }
 
-        protected DbException(string msg = defMsg) : base(msg)
+        public DbException(string msg = defMsg) : base(msg)
+        {
+            _message = msg;
+        }
+        public DbException(Type t, string msg = defMsg) : base(dbExDefMsg(ref t, msg))
         {
             _message = msg;
         }
 
+        protected static string dbExDefMsg(ref DbEntity e, string msg = "")
+        {
+            return
+            (msg == defMsg ? msg : $"Error Updating {e.TypeName} from {e.TableName} table: " + msg);
+
+        }
+        protected static string dbExDefMsg(ref Type t, string msg = "")
+        {
+            return
+            (msg == defMsg ? msg : $"Error Updating {t} from  table. " + msg);
+
+        }
     }
 
     public class SaveError : DbException
@@ -124,9 +140,15 @@ namespace SongsAbout_DesktopApp.Classes
     public class EntityNotFoundError : DbException
     {
         const string defaultMsg = "The expected entity was not found";
-        public EntityNotFoundError(Type t)
+        public EntityNotFoundError(Type t, string name, string msg = defaultMsg)
+            : base(notFoundMsg(ref t, ref name, ref msg))
         {
         }
+        public EntityNotFoundError(Type t, int id, string msg = defaultMsg)
+        : base(notFoundMsg(ref t, ref id, ref msg))
+        {
+        }
+
         public EntityNotFoundError(DbEntity e, string name, string msg = defaultMsg)
             : base(notFoundMsg(ref e, ref name, ref msg))
         { }
@@ -135,6 +157,17 @@ namespace SongsAbout_DesktopApp.Classes
             : base(notFoundMsg(ref e, ref id, ref msg))
         { }
 
+        private static string notFoundMsg(ref Type t, ref string name, ref string msg)
+        {
+            return (msg == defaultMsg ? msg
+                : $"Entity {t} named '{name}' not found in the intended table: " + msg);
+        }
+
+        private static string notFoundMsg(ref Type t, ref int id, ref string msg)
+        {
+            return (msg == defaultMsg ? msg
+                : $"Entity '{t}' with id '{id}' not found in the intended table: " + msg);
+        }
         private static string notFoundMsg(ref DbEntity e, ref string name, ref string msg)
         {
             return (msg == defaultMsg ? msg

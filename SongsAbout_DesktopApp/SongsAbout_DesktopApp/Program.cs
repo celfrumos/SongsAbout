@@ -19,7 +19,6 @@ namespace SongsAbout_DesktopApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Console.ReadLine();
             ConnectSpotify();
             Application.Run(new MainForm());
         }

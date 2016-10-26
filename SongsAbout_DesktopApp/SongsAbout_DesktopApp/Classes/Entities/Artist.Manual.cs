@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Linq;
 using System.Linq;
 using SpotifyAPI.Web.Models;
@@ -19,11 +20,12 @@ namespace SongsAbout_DesktopApp.Classes.Entities
     /// </summary>
     public partial class Artist : DbEntity// : DbEntity<Artist>
     {
+        DataClassContext artistContext = new DataClassContext();
         public static string Table = "Artists";
         public static string TypeString = "Artist";
         public static string TitleColumn = "name";
         Type a = typeof(Artist);
-       
+
         public override string TableName
         {
             get { return Table; }
@@ -51,11 +53,43 @@ namespace SongsAbout_DesktopApp.Classes.Entities
                 {
                     if (!Exists(this.name))
                     {
-                        //   DbEntity<Artist>.Submit();
+                        using (var context = new DataClassContext())
+                        {
+                            context.Artists.Add(this);
+                            context.SaveChanges();
+                        }
                     }
                     else
                     {
-                        throw new EntityNotFoundError(this,this.name);
+                        throw new EntityNotFoundError(this, this.name);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Artist name cannot be null.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new SaveError(this, this.name, ex.Message);
+            }
+        }
+        /// </summary>
+        public override void Save(DataClassContext db)
+        {
+            try
+            {
+                if (this.name != null)
+                {
+                    if (!Exists(this.name))
+                    {
+                        db.Artists.Add(this);
+                        db.SaveChanges();
+
+                    }
+                    else
+                    {
+                        throw new EntityNotFoundError(this, this.name);
                     }
                 }
                 else
@@ -77,23 +111,37 @@ namespace SongsAbout_DesktopApp.Classes.Entities
                 int count = 0;
                 using (var db = new DataClassContext())
                 {
-                    var query =
-                               from g in db.Genres
-                               where g.genre == name
-                               select g;
+                    var query = from a in db.Artists
+                                where a.name == name
+                                select a;
                     count = query.Count();
                 }
                 return count > 0;
             }
             catch (Exception ex)
             {
-                throw;
+                throw new DbException(typeof(Artist), ex.Message);
             }
         }
 
         public static bool Exists(int artist_id)
         {
-            return true;
+            try
+            {
+                int count = 0;
+                using (var db = new DataClassContext())
+                {
+                    count = (from a in db.Artists
+                             where a.ID == artist_id
+                             select a).Count();
+                };
+                return count > 0;
+
+            }
+            catch (Exception ex)
+            {
+                throw new DbException(typeof(Artist), ex.Message);
+            }
             //  return DbEntity<Artist>.Exists(artist_id);
         }
 
@@ -107,7 +155,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError(this,artist.Name, ex.Message);
+                throw new UpdateError(this, artist.Name, ex.Message);
             }
         }
 
@@ -125,7 +173,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError(this,artist.Name, ex.Message);
+                throw new UpdateError(this, artist.Name, ex.Message);
             }
         }
 
@@ -134,80 +182,63 @@ namespace SongsAbout_DesktopApp.Classes.Entities
             if (artist.Images.Count > 0)
             {
                 byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
-                this.a_profile_pic = pic;//await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+                this.a_profile_pic = pic; //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
 
             }
         }
 
-        public static Artist Load(string title)
+        public static Artist Load(string a_name)
         {
-            throw new NotImplementedException();
-            //return DbEntity<Artist>.Load(title);
+            try
+            {
+                if (!Exists(a_name))
+                {
+                    Artist l;
+                    using (var db = new DataClassContext())
+                    {
+                        l = (Artist)(from a in db.Artists
+                                     where a.name == a_name
+                                     select a);
+                    }
+                    return l;
+                }
+                else
+                {
+                    throw new EntityNotFoundError(typeof(Artist), a_name);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new LoadError(new Artist(), a_name, ex.Message);
+            }
         }
 
-        public static Artist Load(int id)
+        public static Artist Load(int a_id)
         {
-            throw new NotImplementedException();
-            //return DbEntity<Artist>.Load(id);
+            try
+            {
+                if (!Exists(a_id))
+                {
+                    Artist l;
+                    using (var db = new DataClassContext())
+                    {
+                        l = (Artist)(from a in db.Artists
+                                     where a.ID == a_id
+                                     select a);
+                    }
+                    return l;
+                }
+                else
+                {
+                    throw new EntityNotFoundError(typeof(Artist), a_id);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new LoadError(new Artist(), a_id, ex.Message);
+            }
         }
 
-        //public static Artist Load(string name)
-        //{
-        //    try
-        //    {
-        //        formatName(ref name);
-        //        using (DataClassesDataContext db = new DataClassesDataContext())
-        //        {
-        //            string aquery = $"SELECT * FROM Artists WHERE name = '{name}'";
-        //            var artists = db.ExecuteQuery<Artist>(aquery);
-        //            int count = 0;
-        //            foreach (Artist artist in artists)
-        //            {
-        //                count++;
-        //                if (count == 1)
-        //                {
-        //                    return artist;
-        //                }
-        //            }
-
-        //            throw new Exception($"No artist with name '{name}' found");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception($"Error Loading artist '{name}': {ex.Message}");
-        //    }
-        //}
-
-        //private void oldLoad()
-        //{
-        //    try
-        //    {
-        //        BindingSource artistsBindingSource = new BindingSource();
-        //        DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter = new DataSetTableAdapters.ArtistsTableAdapter();
-        //        DataSet dataSet = new DataSet();
-
-        //        // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-        //        artistsTableAdapter.Fill(dataSet.Artists);
-
-        //        DataTable artistTable = dataSet.Artists;
-        //        string query = "name = '" + this.name + "'";
-        //        DataRow[] rows = artistTable.Select(query);
-
-        //        if (rows.Length > 0)
-        //        {
-        //            this.name = rows[0]["name"].ToString();
-        //            this.a_spotify_uri = rows[0]["a_spotify_uri"].ToString();
-        //            this.a_website = rows[0]["a_website"].ToString();
-        //            this._a_profile_pic = (byte[])rows[0]["_a_profile_pic"];
-        //            this.a_bio = rows[0]["a_bio"].ToString();
-
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error Loading Artist: " + ex.Message);
-        //    }
-        //}
     }
 }

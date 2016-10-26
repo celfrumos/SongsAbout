@@ -2,15 +2,17 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Data.Linq;
+using System.Linq.Expressions;
 using SongsAbout_DesktopApp.Classes.Entities;
+
 using SongsAbout_DesktopApp.Classes;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout_DesktopApp.Forms
 {
     public partial class QueryForm : Form
     {
-
-        private string newFileName { get; set; }
         public QueryForm()
         {
             InitializeComponent();

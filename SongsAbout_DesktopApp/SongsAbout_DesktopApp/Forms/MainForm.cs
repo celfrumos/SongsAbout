@@ -10,7 +10,7 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;
 using Image = System.Drawing.Image;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout_DesktopApp.Forms
 {
     public partial class MainForm : Form
     {
