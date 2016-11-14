@@ -38,5 +38,8 @@
     <Setting Name="HeaderFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Arial Unicode MS, 10.2pt</Value>
     </Setting>
+    <Setting Name="LocalProfilePic" Type="System.Object" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

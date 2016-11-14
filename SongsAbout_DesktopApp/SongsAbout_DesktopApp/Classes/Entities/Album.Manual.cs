@@ -24,10 +24,10 @@ namespace SongsAbout_DesktopApp.Classes.Entities
 
         public override string Name { get; set; }
 
-        //public override string TypeName
-        //{
-        //    get { return typeof(Artist).ToString(); }
-        //}
+        public override string TypeName
+        {
+            get { return typeof(Artist).ToString(); }
+        }
         public override string TitleColumnName
         {
             get { return TitleColumn; }

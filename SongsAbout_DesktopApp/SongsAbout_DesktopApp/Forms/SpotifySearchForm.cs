@@ -18,9 +18,11 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Forms
 {
-    public partial class ViewSpotifyForm : Form
+    public partial class SpotifySearchForm : Form
     {
-        public ViewSpotifyForm()
+
+        private SearchType searchType;
+        public SpotifySearchForm()
         {
             InitializeComponent();
             try
@@ -34,7 +36,8 @@ namespace SongsAbout_DesktopApp.Forms
                 Console.WriteLine(ex.Message);
             }
         }
-        public void SpotifyControl_Click(object sender, EventArgs e)
+
+        private void SpotifyControl_Click(object sender, EventArgs e)
         {
             string objTag;
             string objLevel;
@@ -87,7 +90,9 @@ namespace SongsAbout_DesktopApp.Forms
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in RedrawForm(): " + ex.Message);
-                flowLayoutPanel1.Controls.Add(new SpotifyLabel( objTag, objLevel, SpotifyControl_Click));
+                EventHandler clickEvent = SpotifyControl_Click;
+
+                flowLayoutPanel1.Controls.Add(new SpotifyLabel(objTag, objLevel, SpotifyControl_Click));
             }
 
         }
@@ -125,7 +130,7 @@ namespace SongsAbout_DesktopApp.Forms
                         if (playlist.Public == true)
                         {
                             FullPlaylist p = await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.UserId, playlist.Id);
-                            SpotifyPanel panel = new SpotifyPanel(ref p, SpotifyControl_Click);
+                            SpotifyPanel panel = new SpotifyPanel(p, SpotifyControl_Click);
                             // panel.Click += SpotifyControl_Click; 
                             flowLayoutPanel1.Controls.Add(panel);
                         }
@@ -152,8 +157,8 @@ namespace SongsAbout_DesktopApp.Forms
                     try
                     {
                         FullAlbum album = await UserSpotify.WebAPI.GetAlbumAsync(a.Album.Id);
-                        SpotifyPanel panel = new SpotifyPanel(ref album,SpotifyControl_Click);
-                        
+                        SpotifyPanel panel = new SpotifyPanel(album, SpotifyControl_Click);
+
                         flowLayoutPanel1.Controls.Add(panel);
                     }
                     catch (Exception ex)
@@ -167,5 +172,56 @@ namespace SongsAbout_DesktopApp.Forms
                 MessageBox.Show(ex.Message, "");
             }
         }
+
+        private async void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtBoxSearch.Text != "")
+                {
+                    flowLayoutPanel1.Controls.Clear();
+                    var s = User.Default.SpotifyWebAPI.SearchItems(txtBoxSearch.Text, SearchType.All);
+
+                    var artists = s.Artists;
+                    var albums = s.Albums;
+                    var tracks = s.Tracks;
+                    var playlists = s.Playlists;
+                    int i = 0;
+                    while (i < artists.Items.Count)
+                    {
+                        var artist = artists.Items[i];
+                        Console.WriteLine(artist.Name);
+                        await Task.Run(() => addToFlow(artist));
+                        i++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error searching Spotify");
+            }
+        }
+
+        private void addToFlow(BasicModel entity)
+        {
+            var s = entity.Headers();
+            if (entity.GetType() == typeof(FullArtist))
+            {
+                FullArtist a = entity as FullArtist;
+                if (flowLayoutPanel1.InvokeRequired)
+                {
+                    flowLayoutPanel1.Invoke(new MethodInvoker(delegate
+                    {
+                        flowLayoutPanel1.Controls.Add(new SpotifyPanel(a, SpotifyControl_Click));
+                    }));
+                }
+                else
+                {
+                    flowLayoutPanel1.Controls.Add(new SpotifyPanel(a, SpotifyControl_Click));
+                }
+            }
+            
+        }
+
     }
 }

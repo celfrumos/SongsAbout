@@ -181,11 +181,11 @@ namespace SongsAbout_DesktopApp.Classes
         }
     }
 
-    public class SpotifyImportError<SpotifyType> : DbException
+    public class SpotifyToDBImportException<SpotifyType> : DbException
     {
         const string defaultMsg = "Error importing data from spotify";
 
-        public SpotifyImportError(DbEntity e, string msg = defaultMsg)
+        public SpotifyToDBImportException(DbEntity e, string msg = defaultMsg)
             : base(e, ImportDefMsg(ref e, ref msg))
         {
 

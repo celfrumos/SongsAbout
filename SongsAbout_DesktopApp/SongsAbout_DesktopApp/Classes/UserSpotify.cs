@@ -8,6 +8,7 @@ using SongsAbout_DesktopApp.Properties;
 
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Enums;
+using System.Net.Sockets;
 using SpotifyAPI.Local.Models;
 
 using SpotifyAPI.Web;
@@ -25,9 +26,10 @@ namespace SongsAbout_DesktopApp.Classes
             get { return User.Default.SpotifyWebAPI; }
             set { User.Default.SpotifyWebAPI = value; }
         }
+        private const int PORT = 8000;
+        private const string REDIRECT_URI = "http://localhost";
 
         public Image ProfilePic { get; set; }
-
         /// <summary>
         /// Initial Setup of USer Spotify Settings
         /// </summary>
@@ -35,9 +37,9 @@ namespace SongsAbout_DesktopApp.Classes
         {
             SpotifyWebAPI _spotify = new SpotifyWebAPI();
             WebAPIFactory webApiFactory = new WebAPIFactory(
-                "http://localhost",
-                8000,
-               Properties.Resources.SpotifyClientID,
+                REDIRECT_URI,
+                PORT,
+               Resources.SpotifyClientID,
                 Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
                 Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic);
 
@@ -45,35 +47,78 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 if (User.Default.SpotifyWebAPI == null)
                 {
-
                     User.Default.SpotifyWebAPI = await webApiFactory.GetWebApi();
                     User.Default.Save();
                 }
 
                 FetchProfile();
                 FetchFollowedArtists();
-                FetchProfile();
                 FetchProfilePic();
                 User.Default.Save();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error running authentication: " + ex.Message);
+                var e = new SpotifyAuthError(ex.Message);
+                
+                throw new SpotifyAuthError(ex.Message);
             }
 
-            if (_spotify == null)
-                return;
 
         }
 
-        /// <summary>
-        /// Gets profile info via WebAPI. Assigns user settings PrivateProfile, UserId, and PublicProfile
-        /// </summary>
-        private static void FetchProfile()
+        private static ImplicitGrantAuth implicitAuth = new ImplicitGrantAuth();
+        public async static void ImplicitConnectSpotify()
         {
             try
             {
-                if (User.Default.PrivateProfile == null)
+
+                implicitAuth.StartHttpServer(PORT);
+                implicitAuth.ClientId = Resources.SpotifyClientID;
+                //UserSpotify.Authenticate
+                implicitAuth.Scope = Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
+                Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic;
+                implicitAuth.ShowDialog = true;
+                implicitAuth.RedirectUri = REDIRECT_URI;
+                implicitAuth.OnResponseReceivedEvent += ImplicitAuth_OnResponseReceivedEvent;
+                var sre = implicitAuth.State;
+                await Task.Run(() => implicitAuth.DoAuth());
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Implicitly Authorizing Spotify: {ex.Message}");
+                throw;
+            }
+        }
+
+        private static void ImplicitAuth_OnResponseReceivedEvent(Token token, string state)
+        {
+            try
+            {
+                SpotifyWebAPI api = new SpotifyWebAPI();
+                if (api.UseAuth)
+                {
+                    if (!token.IsExpired())
+                    {
+                        api.AccessToken = token.AccessToken;
+                        User.Default.SpotifyWebAPI = api;
+                    }
+                }
+                implicitAuth.StopHttpServer();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Implicitly setting spotify API: {ex.Message}");
+            }
+        }
+        /// <summary>
+        /// Gets profile info via WebAPI. Assigns user settings PrivateProfile, UserId, and PublicProfile
+        /// </summary>
+        public static void FetchProfile()
+        {
+            try
+            {
+                if (User.Default["PrivateProfile"] == null)
                 {
                     User.Default.PrivateProfile = User.Default.SpotifyWebAPI.GetPrivateProfile();
                     //User.Default.PrivateProfile = _profile;
@@ -84,28 +129,9 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Assigning Profile" + ex.Message);
+                throw new ProfileAssignmentError(ex.Message);
             }
 
-            //    if (InvokeRequired)
-            //    {
-            //        Invoke(new Action(InitialSetup));
-            //        return;
-            //    }
-
-            //  authButton.Enabled = false;
-            //_savedTracks.ForEach(track => savedTracksListView.Items.Add(new ListViewItem()
-            //{
-            //    Text = track.Name,
-            //    SubItems = { string.Join(",", track.Artists.Select(source => source.Name)), track.Album.Name }
-            //}));
-
-            // _playlists.ForEach(playlist => playlistsListBox.Items.Add(playlist.Name));
-
-            //displayNameLabel.Text = _profile.DisplayName;
-            //countryLabel.Text = _profile.Country;
-            //emailLabel.Text = _profile.Email;
-            //accountLabel.Text = _profile.Product;
 
         }
 
@@ -115,10 +141,13 @@ namespace SongsAbout_DesktopApp.Classes
         /// <returns></returns>
         public static List<FullTrack> GetSavedTracks()
         {
+            Paging<SavedTrack> savedTracks = new Paging<SavedTrack>();
+            List<FullTrack> list = new List<FullTrack>();
             try
             {
-                Paging<SavedTrack> savedTracks = User.Default.SpotifyWebAPI.GetSavedTracks();
-                List<FullTrack> list = savedTracks.Items.Select(track => track.Track).ToList();
+                savedTracks = User.Default.SpotifyWebAPI.GetSavedTracks();
+
+                list = savedTracks.Items.Select(track => track.Track).ToList();
 
                 while (savedTracks.Next != null)
                 {
@@ -130,8 +159,35 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                SpotifyException exception = new SpotifyException(ex.Message);
+                if (savedTracks.HasError())
+                {
+                    exception.Errors.Add(savedTracks.Error);
+                }
+                throw exception;
             }
+        }
+
+        public async static Task<Image> ImportImageFromSpotify(SpotifyAPI.Web.Models.Image SpotifyPic)
+        {
+            try
+            {
+                using (WebClient wc = new WebClient())
+                {
+                    Image returnImage;
+                    byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(SpotifyPic.Url));
+                    using (MemoryStream stream = new MemoryStream(imageBytes))
+                    {
+                        returnImage = Image.FromStream(stream);
+                        return returnImage;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error Importing image from Spotify: {ex.Message}");
+            }
+
         }
 
         /// <summary>
@@ -156,10 +212,11 @@ namespace SongsAbout_DesktopApp.Classes
                         using (MemoryStream stream = new MemoryStream(imageBytes))
                         {
                             _profilePic = Image.FromStream(stream);
-                            var picType = _profilePic.GetType();
-                            string extension = picType.Name;
-                            var format = System.Drawing.Imaging.ImageFormat.Bmp;
-                            _profilePic.Save(stream, format);
+                            //var picType = _profilePic.GetType();
+                            //string extension = picType.Name;
+                            //var format = System.Drawing.Imaging.ImageFormat.Bmp;
+
+                            //_profilePic.Save(stream, format);
                             //   _profilePic.Save(profilePicFileName);
                             return _profilePic;
                         }
@@ -182,11 +239,11 @@ namespace SongsAbout_DesktopApp.Classes
         /// </summary>
         public static void FetchProfilePic()
         {
-            if (User.Default.PrivateProfile != null)
+            if (User.Default["PrivateProfile"] != null)
             {
                 if (User.Default.PrivateProfile.Images.Count > 0)
                 {
-                    User.Default.ProfilePic = User.Default.PrivateProfile.Images[0];
+                    User.Default["ProfilePic"] = User.Default.PrivateProfile.Images[0];
                     User.Default.Save();
                 }
                 else
@@ -207,7 +264,7 @@ namespace SongsAbout_DesktopApp.Classes
         {
             if (WebAPI != null)
             {
-                User.Default.FollowedArtists = WebAPI.GetFollowedArtists(FollowType.Artist);
+                User.Default["FollowedArtists"] = WebAPI.GetFollowedArtists(FollowType.Artist);
                 User.Default.Save();
                 //foreach (var a in artists.Artists.Items)
                 //{
@@ -291,7 +348,7 @@ namespace SongsAbout_DesktopApp.Classes
                 {
 
                     Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId);
-                    
+
                     return playlists.Items;
 
                 }

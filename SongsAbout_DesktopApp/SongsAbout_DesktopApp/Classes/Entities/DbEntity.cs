@@ -16,7 +16,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
         public abstract string Name { get; set; }
         public virtual string TypeName { get { return typeof(DbEntity).ToString(); } }
         public abstract void Save();
-        public abstract void Save(DataClassContext db);
+        public virtual void Save(DataClassContext db) { }
         protected static void formatName(ref string name)
         {
             if (name.Contains("\'"))

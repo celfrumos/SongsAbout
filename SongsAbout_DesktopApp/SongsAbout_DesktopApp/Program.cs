@@ -7,6 +7,7 @@ using SongsAbout_DesktopApp.Forms;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SongsAbout_DesktopApp
 {
     static class Program
@@ -19,21 +20,38 @@ namespace SongsAbout_DesktopApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ConnectSpotify();
-            Application.Run(new MainForm());
+            User.Default.Upgrade();
+           // ConnectSpotify();
+            try
+            {
+                Application.Run(new MainForm());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nClosing Program.", "Fatal Error Running Application");
+            }
         }
 
         private async static void ConnectSpotify()
         {
             try
             {
-                if (User.Default.PrivateProfile == null)
+                if (User.Default.UserId != null)
+                {
+                    //  UserSpotify.ImplicitConnectSpotify();
+                }
+                if (User.Default.SpotifyWebAPI == null)
                 {
                     await Task.Run(() => UserSpotify.Authenticate());
                 }
                 else
                 {
                     MessageBox.Show("Profile Already Defined.");
+
+                    UserSpotify.FetchProfile();
+                    UserSpotify.FetchFollowedArtists();
+                    UserSpotify.FetchProfilePic();
+                    User.Default.Save();
                 }
             }
             catch (Exception ex)
@@ -41,5 +59,7 @@ namespace SongsAbout_DesktopApp
                 MessageBox.Show(ex.Message, "Error getting desired Info");
             }
         }
+
+
     }
 }

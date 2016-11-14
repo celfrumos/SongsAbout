@@ -19,9 +19,15 @@ namespace SongsAbout_DesktopApp.Forms
         }
 
         private async void QueryForm_Load(object sender, EventArgs e)
-        {
-            try
+        {  try
             {
+                // TODO: This line of code loads data into the 'dataSet.TrackArtists' table. You can move, or remove it, as needed.
+                this.trackArtistsTableAdapter.Fill(this.dataSet.TrackArtists);
+                // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
+                  this.albumsTableAdapter.Fill(this.dataSet.Albums);
+                this.albumGenresTableAdapter.Fill(this.dataSet.AlbumGenres);
+
+                this.artistsTableAdapter.Fill(this.dataSet.Artists);
                 await Task.Run(() => FillTables());
             }
             catch (Exception ex)
@@ -31,26 +37,89 @@ namespace SongsAbout_DesktopApp.Forms
 
         }
 
-        private void FillTables()
+        private async void FillTables()
         {
-            // TODO: This line of code loads data into the 'dataSet.AlbumGenres' table. You can move, or remove it, as needed.
-            this.albumGenresTableAdapter.Fill(this.dataSet.AlbumGenres);
-            // TODO: This line of code loads data into the 'dataSet.Lists' table. You can move, or remove it, as needed.
-            this.listsTableAdapter.Fill(this.dataSet.Lists);
-            // TODO: This line of code loads data into the 'dataSet.TrackTags' table. You can move, or remove it, as needed.
-            this.trackTagsTableAdapter.Fill(this.dataSet.TrackTags);
-            // TODO: This line of code loads data into the 'dataSet.Tags' table. You can move, or remove it, as needed.
-            this.tagsTableAdapter.Fill(this.dataSet.Tags);
-            // TODO: This line of code loads data into the 'dataSet.TrackGenres' table. You can move, or remove it, as needed.
-            this.trackGenresTableAdapter.Fill(this.dataSet.TrackGenres);
-            // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-            this.artistsTableAdapter.Fill(this.dataSet.Artists);
-            // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
-            this.albumsTableAdapter.Fill(this.dataSet.Albums);
-            // TODO: This line of code loads data into the 'dataSet.Tracks' table. You can move, or remove it, as needed.
-            this.tracksTableAdapter.Fill(this.dataSet.Tracks);
-            // TODO: This line of code loads data into the 'dataSet.Genres' table. You can move, or remove it, as needed.
-            this.genresTableAdapter.Fill(this.dataSet.Genres);
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.AlbumGenres' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.albumGenresTableAdapter.Fill(this.dataSet.AlbumGenres));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling AlbumGenres Table: {ex.Message}");
+            }
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.Lists' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.listsTableAdapter.Fill(this.dataSet.Lists));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling Lists Table: {ex.Message}");
+            }
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.TrackTags' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.trackTagsTableAdapter.Fill(this.dataSet.TrackTags));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling TrackTags Table: {ex.Message}");
+            }
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.Tags' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.tagsTableAdapter.Fill(this.dataSet.Tags));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling Tags Table: {ex.Message}");
+            }
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.TrackGenres' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.trackGenresTableAdapter.Fill(this.dataSet.TrackGenres));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling TrackGenres Table: {ex.Message}");
+            }
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.artistsTableAdapter.Fill(this.dataSet.Artists));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling Artists Table: {ex.Message}");
+            }
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.albumsTableAdapter.Fill(this.dataSet.Albums));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling Albums Table: {ex.Message}");
+            }
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.Tracks' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.tracksTableAdapter.Fill(this.dataSet.Tracks));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling Tracks Table: {ex.Message}");
+            }
+            try
+            {
+                // TODO: This line of code loads data into the 'dataSet.Genres' table. You can move, or remove it, as needed.
+                await Task.Run(() => this.genresTableAdapter.Fill(this.dataSet.Genres));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Filling Genres Table: {ex.Message}");
+            }
 
         }
 

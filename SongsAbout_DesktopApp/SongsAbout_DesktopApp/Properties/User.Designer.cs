@@ -160,5 +160,16 @@ namespace SongsAbout_DesktopApp.Properties {
                 this["HeaderFont"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public object LocalProfilePic {
+            get {
+                return ((object)(this["LocalProfilePic"]));
+            }
+            set {
+                this["LocalProfilePic"] = value;
+            }
+        }
     }
 }

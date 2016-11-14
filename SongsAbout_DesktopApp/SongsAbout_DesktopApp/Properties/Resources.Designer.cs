@@ -71,6 +71,16 @@ namespace SongsAbout_DesktopApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ProfilePic {
+            get {
+                object obj = ResourceManager.GetObject("ProfilePic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 4d8b5c54f513430f8b0f486974c89402.
         /// </summary>
         public static string SpotifyClientID {

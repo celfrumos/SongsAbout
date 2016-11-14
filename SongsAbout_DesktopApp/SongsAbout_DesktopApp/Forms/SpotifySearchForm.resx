@@ -117,14 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MusicNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Pictures\black-simple-music-note-vector_318-10095.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ProfilePic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ProfilePic.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SpotifyClientID" xml:space="preserve">
-    <value>4d8b5c54f513430f8b0f486974c89402</value>
-  </data>
 </root>

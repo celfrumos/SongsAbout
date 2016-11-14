@@ -14,15 +14,30 @@ namespace SongsAbout_DesktopApp.Forms
 {
     public partial class MainForm : Form
     {
-        //private SpotifyWebAPI _spotify;
-        //private PrivateProfile _profile;
-        //private List<FullTrack> _savedTracks;
-        //private List<SimplePlaylist> _playlists;
-        //private Image _profilePic;
-
         public MainForm()
         {
             InitializeComponent();
+            SetProfilePic();
+
+        }
+
+        private async void SetProfilePic()
+        {
+            try
+            {
+                if (User.Default.ProfilePic != null)
+                {
+                    pBoxProfilePic.Image = await UserSpotify.ImportImageFromSpotify(User.Default.ProfilePic);
+                    //pBoxProfilePic.Image = await UserSpotify.ImportImageFromSpotify(User.Default.ProfilePic);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Setting Profile Picture: {ex.Message}");
+            }
 
         }
 
@@ -31,6 +46,8 @@ namespace SongsAbout_DesktopApp.Forms
             //string uri = "spotify:track:6C7RJEIUDqKkJRZVWdkfkH";
             //MakeRequest(uri).Wait();
             //GetResults();
+       
+           
         }
 
         private void GetResults()
@@ -43,13 +60,13 @@ namespace SongsAbout_DesktopApp.Forms
             }
         }
 
-        private void btnSavedLists_Click(object sender, EventArgs e)
+        private void msiSpotifySearch_Click(object sender, EventArgs e)
         {
-            ViewSpotifyForm myLists = new ViewSpotifyForm();
+            SpotifySearchForm myLists = new SpotifySearchForm();
             myLists.ShowDialog();
         }
 
-        private void btnAddTrack_Click(object sender, EventArgs e)
+        private void msiAddTrack_Click(object sender, EventArgs e)
         {
             try
             {
@@ -89,7 +106,7 @@ namespace SongsAbout_DesktopApp.Forms
             // ArtistDictionary = artists.Load();
         }
 
-        private void btnViewData_Click(object sender, EventArgs e)
+        private void msiViewData_Click(object sender, EventArgs e)
         {
             QueryForm queryForm = new QueryForm();
             try
@@ -103,7 +120,7 @@ namespace SongsAbout_DesktopApp.Forms
         }
 
 
-        private void btnImportArtists_Click(object sender, EventArgs e)
+        private void msiImportAll_Click(object sender, EventArgs e)
         {
             try
             {
@@ -115,19 +132,48 @@ namespace SongsAbout_DesktopApp.Forms
             }
         }
 
-        private void btnImportSavedTracks_Click(object sender, EventArgs e)
+        private void msiImportFollowedArtists_Click(object sender, EventArgs e)
         {
             try
             {
                 Importer.ImportFollowedArtists();
 
-                //  Importer.ImportSavedTracks();
                 Console.WriteLine("Finished importing saved tracks");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error Importing Artists from Spotify: {ex.Message}");
             }
+        }
+        private void msiImportSavedTracks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Importer.ImportSavedTracks();
+                Console.WriteLine("Finished importing saved tracks");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error Importing Saved Tracks from Spotify: {ex.Message}");
+            }
+        }
+
+        private void msiConncectSpotify_Click(object sender, EventArgs e)
+        {
+            Task task = new Task(() => UserSpotify.Authenticate());
+
+            task.Wait();
+            if (task.IsCompleted)
+            {
+                SetProfilePic();
+
+            }
+
+        }
+
+        private void msiDisconnect_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

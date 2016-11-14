@@ -37,23 +37,36 @@ namespace SongsAbout_DesktopApp.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.txtBoxKeywords = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.btnSavedLists = new System.Windows.Forms.Button();
-            this.btnAddInfo = new System.Windows.Forms.Button();
-            this.btnViewData = new System.Windows.Forms.Button();
-            this.btnSpotify = new System.Windows.Forms.Button();
             this.pBoxProfilePic = new System.Windows.Forms.PictureBox();
-            this.btnImportPlaylistArtists = new System.Windows.Forms.Button();
-            this.btnImportSavedTracks = new System.Windows.Forms.Button();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spotifyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savedTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.followedArtistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.followedPlaylistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
+            this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(183, 19);
+            this.pictureBox1.Location = new System.Drawing.Point(183, 48);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(181, 188);
+            this.pictureBox1.Size = new System.Drawing.Size(177, 159);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -69,11 +82,11 @@ namespace SongsAbout_DesktopApp.Forms
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = User.Default.ParagraphFont;
+            this.label1.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(36, 256);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(232, 23);
+            this.label1.Size = new System.Drawing.Size(175, 19);
             this.label1.TabIndex = 5;
             this.label1.Text = "I want to find songs about:";
             // 
@@ -81,11 +94,11 @@ namespace SongsAbout_DesktopApp.Forms
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = User.Default.ParagraphFont;
+            this.label2.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label2.Location = new System.Drawing.Point(73, 315);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(204, 23);
+            this.label2.Size = new System.Drawing.Size(154, 19);
             this.label2.TabIndex = 7;
             this.label2.Text = "In any of these genres:";
             // 
@@ -114,17 +127,17 @@ namespace SongsAbout_DesktopApp.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = User.Default.ParagraphFont;
+            this.label3.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(170, 461);
+            this.label3.Location = new System.Drawing.Point(170, 418);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 23);
+            this.label3.Size = new System.Drawing.Size(75, 19);
             this.label3.TabIndex = 9;
             this.label3.Text = "Keywords:";
             // 
             // txtBoxKeywords
             // 
-            this.txtBoxKeywords.Location = new System.Drawing.Point(295, 461);
+            this.txtBoxKeywords.Location = new System.Drawing.Point(295, 418);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
             this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
@@ -132,8 +145,8 @@ namespace SongsAbout_DesktopApp.Forms
             // 
             // btnSearch
             // 
-            this.btnSearch.Font = User.Default.ParagraphFont;
-            this.btnSearch.Location = new System.Drawing.Point(295, 504);
+            this.btnSearch.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.btnSearch.Location = new System.Drawing.Point(295, 461);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(216, 112);
@@ -142,52 +155,9 @@ namespace SongsAbout_DesktopApp.Forms
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // btnSavedLists
-            // 
-            this.btnSavedLists.Font = User.Default.ParagraphFont;
-            this.btnSavedLists.Location = new System.Drawing.Point(40, 560);
-            this.btnSavedLists.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnSavedLists.Name = "btnSavedLists";
-            this.btnSavedLists.Size = new System.Drawing.Size(193, 54);
-            this.btnSavedLists.TabIndex = 12;
-            this.btnSavedLists.Text = "Import Playlists";
-            this.btnSavedLists.UseVisualStyleBackColor = true;
-            this.btnSavedLists.Click += new System.EventHandler(this.btnSavedLists_Click);
-            // 
-            // btnAddInfo
-            // 
-            this.btnAddInfo.Font = User.Default.ParagraphFont;
-            this.btnAddInfo.Location = new System.Drawing.Point(40, 502);
-            this.btnAddInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnAddInfo.Name = "btnAddInfo";
-            this.btnAddInfo.Size = new System.Drawing.Size(193, 54);
-            this.btnAddInfo.TabIndex = 13;
-            this.btnAddInfo.Text = "Add New Track";
-            this.btnAddInfo.UseVisualStyleBackColor = true;
-            this.btnAddInfo.Click += new System.EventHandler(this.btnAddTrack_Click);
-            // 
-            // btnViewData
-            // 
-            this.btnViewData.Location = new System.Drawing.Point(77, 367);
-            this.btnViewData.Name = "btnViewData";
-            this.btnViewData.Size = new System.Drawing.Size(130, 31);
-            this.btnViewData.TabIndex = 14;
-            this.btnViewData.Text = "View Data";
-            this.btnViewData.UseVisualStyleBackColor = true;
-            this.btnViewData.Click += new System.EventHandler(this.btnViewData_Click);
-            // 
-            // btnSpotify
-            // 
-            this.btnSpotify.Location = new System.Drawing.Point(25, 420);
-            this.btnSpotify.Name = "btnSpotify";
-            this.btnSpotify.Size = new System.Drawing.Size(93, 53);
-            this.btnSpotify.TabIndex = 15;
-            this.btnSpotify.Text = "Connect Spotify";
-            this.btnSpotify.UseVisualStyleBackColor = true;
-            // 
             // pBoxProfilePic
             // 
-            this.pBoxProfilePic.Location = new System.Drawing.Point(12, 11);
+            this.pBoxProfilePic.Location = new System.Drawing.Point(12, 39);
             this.pBoxProfilePic.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pBoxProfilePic.Name = "pBoxProfilePic";
             this.pBoxProfilePic.Size = new System.Drawing.Size(65, 64);
@@ -195,39 +165,153 @@ namespace SongsAbout_DesktopApp.Forms
             this.pBoxProfilePic.TabIndex = 16;
             this.pBoxProfilePic.TabStop = false;
             // 
-            // btnImportPlaylistArtists
+            // mainMenuStrip
             // 
-            this.btnImportPlaylistArtists.Location = new System.Drawing.Point(149, 420);
-            this.btnImportPlaylistArtists.Name = "btnImportPlaylistArtists";
-            this.btnImportPlaylistArtists.Size = new System.Drawing.Size(147, 36);
-            this.btnImportPlaylistArtists.TabIndex = 17;
-            this.btnImportPlaylistArtists.Text = "Import AllSpotify";
-            this.btnImportPlaylistArtists.UseVisualStyleBackColor = true;
-            this.btnImportPlaylistArtists.Click += new System.EventHandler(this.btnImportArtists_Click);
+            this.mainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.spotifyToolStripMenuItem,
+            this.profileToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(547, 28);
+            this.mainMenuStrip.TabIndex = 18;
             // 
-            // btnImportSavedTracks
+            // fileToolStripMenuItem
             // 
-            this.btnImportSavedTracks.Location = new System.Drawing.Point(361, 409);
-            this.btnImportSavedTracks.Name = "btnImportSavedTracks";
-            this.btnImportSavedTracks.Size = new System.Drawing.Size(150, 30);
-            this.btnImportSavedTracks.TabIndex = 17;
-            this.btnImportSavedTracks.Text = "Import Saved Tracks";
-            this.btnImportSavedTracks.UseVisualStyleBackColor = true;
-            this.btnImportSavedTracks.Click += new System.EventHandler(this.btnImportSavedTracks_Click);
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewDatabaseToolStripMenuItem,
+            this.addNewTrackToolStripMenuItem,
+            this.logOutToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // viewDatabaseToolStripMenuItem
+            // 
+            this.viewDatabaseToolStripMenuItem.Name = "viewDatabaseToolStripMenuItem";
+            this.viewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.viewDatabaseToolStripMenuItem.Text = "View Database";
+            this.viewDatabaseToolStripMenuItem.Click += new System.EventHandler(this.msiViewData_Click);
+            // 
+            // addNewTrackToolStripMenuItem
+            // 
+            this.addNewTrackToolStripMenuItem.Name = "addNewTrackToolStripMenuItem";
+            this.addNewTrackToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.addNewTrackToolStripMenuItem.Text = "Add New Track";
+            this.addNewTrackToolStripMenuItem.Click += new System.EventHandler(this.msiAddTrack_Click);
+            // 
+            // spotifyToolStripMenuItem
+            // 
+            this.spotifyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectToolStripMenuItem,
+            this.importToolStripMenuItem,
+            this.searchToolStripMenuItem,
+            this.disconnectToolStripMenuItem});
+            this.spotifyToolStripMenuItem.Name = "spotifyToolStripMenuItem";
+            this.spotifyToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
+            this.spotifyToolStripMenuItem.Text = "Spotify";
+            // 
+            // connectToolStripMenuItem
+            // 
+            this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.connectToolStripMenuItem.Text = "Connect";
+            this.connectToolStripMenuItem.Click += new System.EventHandler(this.msiConncectSpotify_Click);
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.savedTracksToolStripMenuItem,
+            this.followedArtistsToolStripMenuItem,
+            this.followedPlaylistsToolStripMenuItem,
+            this.allToolStripMenuItem});
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.importToolStripMenuItem.Text = "Import";
+            // 
+            // savedTracksToolStripMenuItem
+            // 
+            this.savedTracksToolStripMenuItem.Name = "savedTracksToolStripMenuItem";
+            this.savedTracksToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.savedTracksToolStripMenuItem.Text = "Saved Tracks";
+            this.savedTracksToolStripMenuItem.Click += new System.EventHandler(this.msiImportSavedTracks_Click);
+            // 
+            // followedArtistsToolStripMenuItem
+            // 
+            this.followedArtistsToolStripMenuItem.Name = "followedArtistsToolStripMenuItem";
+            this.followedArtistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.followedArtistsToolStripMenuItem.Text = "Followed Artists";
+            this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(this.msiImportFollowedArtists_Click);
+            // 
+            // followedPlaylistsToolStripMenuItem
+            // 
+            this.followedPlaylistsToolStripMenuItem.Name = "followedPlaylistsToolStripMenuItem";
+            this.followedPlaylistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.followedPlaylistsToolStripMenuItem.Text = "Followed Playlists";
+            // 
+            // allToolStripMenuItem
+            // 
+            this.allToolStripMenuItem.Name = "allToolStripMenuItem";
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.allToolStripMenuItem.Text = "All";
+            this.allToolStripMenuItem.Click += new System.EventHandler(this.msiImportAll_Click);
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.searchToolStripMenuItem.Text = "Search";
+            this.searchToolStripMenuItem.Click += new System.EventHandler(this.msiSpotifySearch_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // profileToolStripMenuItem
+            // 
+            this.profileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.profileToolStripMenuItem1,
+            this.themeToolStripMenuItem});
+            this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
+            this.profileToolStripMenuItem.Text = "Settings";
+            // 
+            // profileToolStripMenuItem1
+            // 
+            this.profileToolStripMenuItem1.Name = "profileToolStripMenuItem1";
+            this.profileToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.profileToolStripMenuItem1.Text = "Profile";
+            // 
+            // themeToolStripMenuItem
+            // 
+            this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.themeToolStripMenuItem.Text = "Theme";
+            // 
+            // disconnectToolStripMenuItem
+            // 
+            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.disconnectToolStripMenuItem.Text = "Disconnect";
+            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.msiDisconnect_Click);
+            // 
+            // logOutToolStripMenuItem
+            // 
+            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.logOutToolStripMenuItem.Text = "Log Out";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = User.Default.BackColor;
+            this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(547, 625);
-            this.Controls.Add(this.btnImportSavedTracks);
-            this.Controls.Add(this.btnImportPlaylistArtists);
             this.Controls.Add(this.pBoxProfilePic);
-            this.Controls.Add(this.btnSpotify);
-            this.Controls.Add(this.btnViewData);
-            this.Controls.Add(this.btnAddInfo);
-            this.Controls.Add(this.btnSavedLists);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtBoxKeywords);
             this.Controls.Add(this.label3);
@@ -236,13 +320,17 @@ namespace SongsAbout_DesktopApp.Forms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBoxQuery);
             this.Controls.Add(this.pictureBox1);
-            this.Font = User.Default.ParagraphFont;
+            this.Controls.Add(this.mainMenuStrip);
+            this.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.MainMenuStrip = this.mainMenuStrip;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.Text = "SongsAbout";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,13 +346,25 @@ namespace SongsAbout_DesktopApp.Forms
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtBoxKeywords;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnSavedLists;
-        private System.Windows.Forms.Button btnAddInfo;
-        private System.Windows.Forms.Button btnViewData;
-        private System.Windows.Forms.Button btnSpotify;
         private System.Windows.Forms.PictureBox pBoxProfilePic;
-        private System.Windows.Forms.Button btnImportPlaylistArtists;
-        private System.Windows.Forms.Button btnImportSavedTracks;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem spotifyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem savedTracksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem followedArtistsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem followedPlaylistsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addNewTrackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
     }
 }
 
