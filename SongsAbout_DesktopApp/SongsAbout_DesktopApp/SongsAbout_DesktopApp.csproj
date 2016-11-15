@@ -97,6 +97,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Controls\ISpotifyControl.cs" />
+    <Compile Include="Classes\Controls\ISpotifyPictureBox.cs" />
+    <Compile Include="Classes\Controls\SpotifyLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Classes\Controls\SpotifyLabel.Designer.cs">
+      <DependentUpon>SpotifyLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Controls\SpotifyPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -108,12 +116,6 @@
     </Compile>
     <Compile Include="Classes\Controls\SpotifyPictureBox.Designer.cs">
       <DependentUpon>SpotifyPictureBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\Controls\SpotifyLabel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Classes\Controls\SLabel.Designer.cs">
-      <DependentUpon>SpotifyLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Converter.cs" />
     <Compile Include="Classes\Entities\Album.cs">
@@ -255,9 +257,6 @@
     <Compile Include="WebAuthForm.Designer.cs">
       <DependentUpon>WebAuthForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Classes\Controls\SLabel.resx">
-      <DependentUpon>SpotifyLabel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Classes\Controls\SpotifyPanel.resx">
       <DependentUpon>SpotifyPanel.cs</DependentUpon>
     </EmbeddedResource>

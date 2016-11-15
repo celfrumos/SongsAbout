@@ -9,10 +9,10 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-    public partial class SpotifyPictureBox : SpotifyControl
+    public partial class SpotifyPictureBox : UserControl, ISpotifyControl, ISpotifyPictureBox
     {
-        private static string _defName = "Not Set";
-        private static string _defLevel = "Not Set";
+        private const string _defName = "Not Set";
+        private const string _defLevel = "Not Set";
         private static Point _defLocation = new Point(0, 2);
         private static Size _defSize = new Size(83, 80);
         private static PictureBoxSizeMode _defSizeMode = PictureBoxSizeMode.Zoom;
@@ -36,26 +36,31 @@ namespace SongsAbout_DesktopApp.Controls
             set { this.pictureBox.Image = value; }
         }
 
-        private EventHandler clickEvent { set { this.Click += value; } }
+        private EventHandler ClickEvent { set { this.Click += value; } }
 
-        public SpotifyPictureBox() : this(_defName, _defLevel)
+        public string Level { get; set; }
+
+        public SpotifyPictureBox(string name = _defName, string level = _defLevel)
         {
             InitializeComponent();
-            this.Image = Resources.MusicNote;
-        }
-
-        public SpotifyPictureBox(string name = "Not Set", string level = "Not Set") : this(_defLocation, _defSize, _defSizeMode, _defAutoSize)
-        {
             this.Level = level;
             this.Name = "pBoxArtist" + name;
             this.Tag = name;
-            if (name == "Not Set" || level == "Not Set")
+            this.Location = _defLocation;
+            this.Size = _defSize;
+            this.pictureBox.SizeMode = _defSizeMode;
+            this.TabStop = false;
+            if (name == _defName || level == _defLevel)
             {
                 this.Image = Resources.MusicNote;
             }
         }
+        public SpotifyPictureBox(EventHandler clickEvent, string name = _defName, string level = _defLevel) : this(name, level)
+        {
+            this.ClickEvent = clickEvent;
+        }
 
-        public SpotifyPictureBox(Point location, Size size, PictureBoxSizeMode sizeMode, bool tabStop)
+        public SpotifyPictureBox(Point location, Size size, PictureBoxSizeMode sizeMode, bool tabStop = false) : this()
         {
             this.Location = location;
             this.Size = size;
@@ -68,22 +73,24 @@ namespace SongsAbout_DesktopApp.Controls
             // this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
 
-        public SpotifyPictureBox(FullAlbum album, EventHandler clickEvent) : this(album.Name, "Album")
+        public SpotifyPictureBox(FullAlbum album, EventHandler clickEvent) : this(clickEvent, album.Name, "Album")
         {
             SetImage(album.Images);
         }
-        public SpotifyPictureBox(FullArtist artist, EventHandler clickEvent) : this(artist.Name, "Artist")
+        public SpotifyPictureBox(FullArtist artist, EventHandler clickEvent) : this(clickEvent, artist.Name, "Artist")
         {
             SetImage(artist.Images);
         }
-        public SpotifyPictureBox(FullPlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist")
+        public SpotifyPictureBox(FullPlaylist playlist, EventHandler clickEvent) : this(clickEvent, playlist.Name, "Playlist")
         {
             SetImage(playlist.Images);
         }
-
-        public SpotifyPictureBox(SimplePlaylist playlist, EventHandler clickEvent)
+        public PictureBox AsPictureBox()
         {
-            this.clickEvent = clickEvent;
+            return this.pictureBox;
+        }
+        public SpotifyPictureBox(SimplePlaylist playlist, EventHandler clickEvent) : this(clickEvent, playlist.Name, "Playlist")
+        {
         }
 
         private void SetImage(List<SpotifyAPI.Web.Models.Image> images)
@@ -117,10 +124,5 @@ namespace SongsAbout_DesktopApp.Controls
             }
         }
 
-
-        protected override void OnPaint(PaintEventArgs pe)
-        {
-            base.OnPaint(pe);
-        }
     }
 }

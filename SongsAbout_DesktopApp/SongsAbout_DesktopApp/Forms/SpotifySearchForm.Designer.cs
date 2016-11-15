@@ -31,15 +31,19 @@ namespace SongsAbout_DesktopApp.Forms
         {
             this.flpSpotifyControls = new System.Windows.Forms.FlowLayoutPanel();
             this.txtBoxSearch = new System.Windows.Forms.TextBox();
+            this.spotPan = new SongsAbout_DesktopApp.Controls.SpotifyPanel();
             this.btnSearch = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            this.spotPan.Image = Resources.ProfilePic;
+            this.spotPan.Text = "rawdeg";
+            this.spotPan.Location = new System.Drawing.Point(11, 77);
             // 
-            // flowLayoutPanel1
+            // flpSpotifyControls
             // 
             this.flpSpotifyControls.AutoScroll = true;
             this.flpSpotifyControls.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flpSpotifyControls.Location = new System.Drawing.Point(12, 79);
-            this.flpSpotifyControls.Name = "flowLayoutPanel1";
+            this.flpSpotifyControls.Name = "flpSpotifyControls";
             this.flpSpotifyControls.Size = new System.Drawing.Size(405, 517);
             this.flpSpotifyControls.TabIndex = 0;
             // 
@@ -62,6 +66,7 @@ namespace SongsAbout_DesktopApp.Forms
             // 
             // SpotifySearchForm
             // 
+            this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
@@ -79,6 +84,7 @@ namespace SongsAbout_DesktopApp.Forms
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flpSpotifyControls;
+        private SongsAbout_DesktopApp.Controls.SpotifyPanel spotPan;
         private System.Windows.Forms.TextBox txtBoxSearch;
         private System.Windows.Forms.Button btnSearch;
     }

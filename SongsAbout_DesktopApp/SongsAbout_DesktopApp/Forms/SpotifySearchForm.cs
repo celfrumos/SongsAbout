@@ -166,25 +166,25 @@ namespace SongsAbout_DesktopApp.Forms
                 {
                     flpSpotifyControls.Controls.Clear();
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
-                    var s = UserSpotify.WebAPI.SearchItems(txtBoxSearch.Text, _searchType);
-                    var res = new List<BasicModel>();
-                    foreach (var item in s.Artists.Items)
-                    {
-                        res.Add(item);
+                    //var s = UserSpotify.WebAPI.SearchItems(txtBoxSearch.Text, _searchType);
+                    //var res = new List<BasicModel>();
+                    //foreach (var item in s.Artists.Items)
+                    //{
+                    //    res.Add(item);
 
-                    }
-                    var artists = s.Artists;
-                    var albums = s.Albums;
-                    var tracks = s.Tracks;
-                    var playlists = s.Playlists;
-                    int i = 0;
-                    while (i < artists.Items.Count)
-                    {
-                        var artist = artists.Items[i];
-                        Console.WriteLine(artist.Name);
-                        await Task.Run(() => AddToFlow(artist, SpotifyPanel_Click));
-                        i++;
-                    }
+                    //}
+                    //var artists = s.Artists;
+                    //var albums = s.Albums;
+                    //var tracks = s.Tracks;
+                    //var playlists = s.Playlists;
+                    //int i = 0;
+                    //while (i < artists.Items.Count)
+                    //{
+                    //    var artist = artists.Items[i];
+                    //    Console.WriteLine(artist.Name);
+                    //    await Task.Run(() => AddToFlow(artist, SpotifyPanel_Click));
+                    //    i++;
+                    //}
                 }
             }
             catch (Exception ex)

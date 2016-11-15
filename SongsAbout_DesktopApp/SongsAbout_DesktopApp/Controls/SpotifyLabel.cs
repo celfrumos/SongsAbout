@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-   
-    public partial class SpotifyLabel : SpotifyControl
+
+    public partial class SpotifyLabel : UserControl, ISpotifyControl
     {
         public SpotifyLabel()
         {
@@ -20,6 +20,8 @@ namespace SongsAbout_DesktopApp.Controls
         private static Point _defLocation = new Point(0, 81);
         private static Size _defSize = new Size(83, 25);
 
+        public string Level { get; set; }
+
         public SpotifyLabel(string name = "Not Set", string level = "Not Set")
             : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
         {
@@ -28,15 +30,6 @@ namespace SongsAbout_DesktopApp.Controls
             this.Tag = name;
         }
 
-
-        public override Type GetReflectionType(Type objectType, object instance)
-        {
-            if (objectType == typeof(SpotifyControl))
-            {
-                return typeof(SpotifyLabel);
-            }
-            return base.GetReflectionType(objectType, instance);
-        }
         public SpotifyLabel(object tag = null, string text = "Not Set", string level = "Not Set")
             : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
         {
@@ -77,11 +70,10 @@ namespace SongsAbout_DesktopApp.Controls
             this.Click += clickEvent;
         }
 
-        protected override void OnPaint(PaintEventArgs pe)
+        public Label AsLabel()
         {
-            base.OnPaint(pe);
+            return this.Label;
         }
-
         new internal class ConcreteClassProvider : TypeDescriptionProvider
         {
             public ConcreteClassProvider() : base(TypeDescriptor.GetProvider(typeof(UserControl)))

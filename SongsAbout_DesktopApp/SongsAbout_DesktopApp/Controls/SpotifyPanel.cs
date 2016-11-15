@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Drawing;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using SongsAbout_DesktopApp.Classes;
+using SongsAbout_DesktopApp.Properties;
 using SpotifyAPI.Web.Models;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 
+
 namespace SongsAbout_DesktopApp.Controls
 {
-    public partial class SpotifyPanel : SpotifyControl
+    public partial class SpotifyPanel : UserControl, ISpotifyControl, ISpotifyPictureBox
     {
         public Image Image
         {
-            get { return this.pictureBox.Image; }
-            set { this.pictureBox.Image = value; }
+            get { return this.PictureBox.Image; }
+            set { this.PictureBox.Image = value; }
         }
 
         public override string Text
@@ -29,7 +35,15 @@ namespace SongsAbout_DesktopApp.Controls
             set { this.Click += value; }
         }
 
-        public SpotifyPanel(object name = null, string level = "Not set")
+        public string Level { get; set; }
+
+        public PictureBoxSizeMode SizeMode
+        {
+            get { return this.PictureBox.SizeMode; }
+            set { this.PictureBox.SizeMode = value; }
+        }
+
+        public SpotifyPanel(object name = null, string level = "Not set") : this()
         {
             this.Size = new Size(83, 106);
             this.TabStop = false;
@@ -38,7 +52,7 @@ namespace SongsAbout_DesktopApp.Controls
             this.Tag = name;
             this.Level = level;
         }
-        public SpotifyPanel(BasicModel spotifyEntity, object name = null, string level = "Not set")
+        public SpotifyPanel(BasicModel spotifyEntity, object name = null, string level = "Not set") : this()
         {
             this.Size = new Size(83, 106);
             this.TabStop = false;
@@ -50,38 +64,33 @@ namespace SongsAbout_DesktopApp.Controls
 
         public SpotifyPanel(string name, string level, EventHandler clickEvent) : this(name, level)
         {
-            this.Controls.Add(new SpotifyLabel(name, clickEvent));
+            this.Label = new SpotifyLabel(name, clickEvent).AsLabel();
         }
         public SpotifyPanel(BasicModel spotifyEntity, string name, string level, EventHandler clickEvent)
             : this(spotifyEntity, name, level)
         {
-            this.Controls.Add(new SpotifyLabel(name, clickEvent));
+            this.Label = new SpotifyLabel(name, clickEvent).AsLabel();
         }
 
         public SpotifyPanel(FullTrack track, EventHandler clickEvent) : this(track.Name, "Track", clickEvent) { }
 
         public SpotifyPanel(FullArtist artist, EventHandler clickEvent) : this(artist.Name, "Artist", clickEvent)
         {
-            this.Controls.Add(new SpotifyPictureBox(artist, clickEvent));
+            this.PictureBox = new SpotifyPictureBox(artist, clickEvent).AsPictureBox();
         }
 
         public SpotifyPanel(FullAlbum album, EventHandler clickEvent) : this(album.Name, "Artist", clickEvent)
         {
-            this.Controls.Add(new SpotifyPictureBox(album, clickEvent));
+            this.PictureBox = new SpotifyPictureBox(album, clickEvent).AsPictureBox();
         }
         public SpotifyPanel(FullPlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist", clickEvent)
         {
-            this.Controls.Add(new SpotifyPictureBox(playlist, clickEvent));
+            this.PictureBox = new SpotifyPictureBox(playlist, clickEvent).AsPictureBox();
         }
 
         public SpotifyPanel(SimplePlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist", clickEvent)
         {
-            this.Controls.Add(new SpotifyPictureBox(playlist, clickEvent));
-        }
-
-        protected override void OnPaint(PaintEventArgs pe)
-        {
-            base.OnPaint(pe);
+            this.PictureBox = new SpotifyPictureBox(playlist, clickEvent).AsPictureBox();
         }
     }
 }
