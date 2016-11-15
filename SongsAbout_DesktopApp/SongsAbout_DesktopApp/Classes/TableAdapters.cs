@@ -55,7 +55,7 @@ namespace SongsAbout_DesktopApp.DataSetTableAdapters
         }
     }
     public partial class GenresTableAdapter
-    {
+    {        
         public GenresTableAdapter(SqlConnection connection) : this()
         {
             this._connection = connection;
@@ -109,9 +109,9 @@ namespace SongsAbout_DesktopApp.DataSetTableAdapters
             this._connection = connection;
         }
     }
-    public partial class albumtracksTableAdapter
+    public partial class AlbumTracksTableAdapter
     {
-        public albumtracksTableAdapter(SqlConnection connection) : this()
+        public AlbumTracksTableAdapter(SqlConnection connection) : this()
         {
             this._connection = connection;
         }

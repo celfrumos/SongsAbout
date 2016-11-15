@@ -70,7 +70,7 @@
             // 
             this.tableAdapterMgr.AlbumGenresTableAdapter = null;
             this.tableAdapterMgr.AlbumsTableAdapter = this.albumsTableAdapter;
-            this.tableAdapterMgr.albumtracksTableAdapter = null;
+          //  this.tableAdapterMgr.albumtracksTableAdapter = null;
             this.tableAdapterMgr.ArtistsTableAdapter = this.artistsTableAdapter;
             this.tableAdapterMgr.BackupDataSetBeforeUpdate = false;
             this.tableAdapterMgr.GenresTableAdapter = null;

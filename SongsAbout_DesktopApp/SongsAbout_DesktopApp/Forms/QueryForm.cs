@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Linq;
 using System.Linq.Expressions;
 using SongsAbout_DesktopApp.Classes.Entities;
-
+using SongsAbout_DesktopApp.Properties;
 using SongsAbout_DesktopApp.Classes;
 
 namespace SongsAbout_DesktopApp.Forms
@@ -16,15 +17,56 @@ namespace SongsAbout_DesktopApp.Forms
         public QueryForm()
         {
             InitializeComponent();
+            ChooseConnection();
+
+        }
+
+        private void ChooseConnection()
+        {
+            SqlConnection sr = new SqlConnection();
+            var result = MessageBox.Show("Are you at home?", "Where are you?", MessageBoxButtons.YesNoCancel);
+            switch (result)
+            {
+                case DialogResult.Cancel:
+                    this.Close();
+                    break;
+                case DialogResult.Yes:
+                    sr.ConnectionString = Settings.Default.SongsAboutSQLDBConnectionString;
+                    break;
+                case DialogResult.No:
+                    sr.ConnectionString = Settings.Default.SchoolDBConnectionString;
+                    break;
+                default:
+                    break;
+            }
+
+            SetConnection(sr);
+        }
+
+        private void SetConnection(SqlConnection sr)
+        {
+            tableAdapterMngr.AlbumGenresTableAdapter.SetConnection(sr);
+            tableAdapterMngr.AlbumsTableAdapter.SetConnection(sr);
+            tableAdapterMngr.AlbumTracksTableAdapter.SetConnection(sr);
+            tableAdapterMngr.ArtistsTableAdapter.SetConnection(sr);
+            tableAdapterMngr.GenresTableAdapter.SetConnection(sr);
+            tableAdapterMngr.ListsTableAdapter.SetConnection(sr);
+            tableAdapterMngr.TagsTableAdapter.SetConnection(sr);
+            tableAdapterMngr.TrackArtistsTableAdapter.SetConnection(sr);
+            tableAdapterMngr.TrackGenresTableAdapter.SetConnection(sr);
+            tableAdapterMngr.TracksTableAdapter.SetConnection(sr);
+            tableAdapterMngr.TrackTagsTableAdapter.SetConnection(sr);
+            
         }
 
         private async void QueryForm_Load(object sender, EventArgs e)
-        {  try
+        {
+            try
             {
                 // TODO: This line of code loads data into the 'dataSet.TrackArtists' table. You can move, or remove it, as needed.
                 this.trackArtistsTableAdapter.Fill(this.dataSet.TrackArtists);
                 // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
-                  this.albumsTableAdapter.Fill(this.dataSet.Albums);
+                this.albumsTableAdapter.Fill(this.dataSet.Albums);
                 this.albumGenresTableAdapter.Fill(this.dataSet.AlbumGenres);
 
                 this.artistsTableAdapter.Fill(this.dataSet.Artists);

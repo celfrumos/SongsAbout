@@ -37,11 +37,11 @@ namespace SongsAbout_DesktopApp.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLNCLI11.1;Data Source=bigdata2.ad.uvu.edu;Integrated Security=SSPI;Ini" +
-            "tial Catalog=INFO2410_SongTopics")]
-        public string SchoolDB {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=bigdata2.ad.uvu.edu;Integrated Security=SSPI;Initial Catalog=INFO2410" +
+            "_SongTopics")]
+        public string SchoolDBConnectionString {
             get {
-                return ((string)(this["SchoolDB"]));
+                return ((string)(this["SchoolDBConnectionString"]));
             }
         }
     }

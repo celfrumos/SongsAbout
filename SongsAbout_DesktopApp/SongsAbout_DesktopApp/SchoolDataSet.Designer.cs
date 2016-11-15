@@ -7087,7 +7087,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7448,7 +7448,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7837,7 +7837,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8146,7 +8146,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8517,7 +8517,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8831,7 +8831,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9159,7 +9159,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9506,7 +9506,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9818,7 +9818,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10130,7 +10130,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10426,7 +10426,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10778,7 +10778,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11242,7 +11242,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11565,7 +11565,7 @@ namespace SongsAbout_DesktopApp.SchoolDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDB;
+            this._connection.ConnectionString = global::SongsAbout_DesktopApp.Properties.Settings.Default.SchoolDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

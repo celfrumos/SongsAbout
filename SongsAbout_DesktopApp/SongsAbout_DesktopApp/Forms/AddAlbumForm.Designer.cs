@@ -204,7 +204,6 @@
             // 
             this.tableAdapterManager.AlbumGenresTableAdapter = null;
             this.tableAdapterManager.AlbumsTableAdapter = this.albumsTableAdapter;
-            this.tableAdapterManager.albumtracksTableAdapter = null;
             this.tableAdapterManager.ArtistsTableAdapter = this.artistsTableAdapter;
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
             this.tableAdapterManager.GenresTableAdapter = null;
