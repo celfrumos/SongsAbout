@@ -33,5 +33,16 @@ namespace SongsAbout_DesktopApp.Properties {
                 return ((string)(this["SongsAboutSQLDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLNCLI11.1;Data Source=bigdata2.ad.uvu.edu;Integrated Security=SSPI;Ini" +
+            "tial Catalog=INFO2410_SongTopics")]
+        public string SchoolDB {
+            get {
+                return ((string)(this["SchoolDB"]));
+            }
+        }
     }
 }
