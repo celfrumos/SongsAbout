@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Drawing;
+using SongsAbout_DesktopApp.Classes;
 using SpotifyAPI.Web.Models;
 using System.Windows.Forms;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Controls
 {
-  
+
     public partial class SpotifyPanel : Panel
     {
         public SpotifyPanel()

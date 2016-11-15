@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Controls
 {
     public partial class SpotifyLabel : Label
     {
@@ -56,7 +56,7 @@ namespace SongsAbout_DesktopApp.Classes
             this.Location = location;
             this.Size = size;
             this.TextAlign = alignment;
-            
+
             this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
 

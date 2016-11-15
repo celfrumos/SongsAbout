@@ -1,6 +1,6 @@
-﻿namespace SongsAbout_DesktopApp.Classes
+﻿namespace SongsAbout_DesktopApp.Controls
 {
-    partial class SpotifyPanel
+    partial class SpotifyPictureBox
     {
         /// <summary>
         /// Required designer variable.

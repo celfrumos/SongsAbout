@@ -8,11 +8,12 @@ using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SongsAbout_DesktopApp.Properties;
 using System.Windows.Forms;
+using SongsAbout_DesktopApp.Classes;
 using System.Drawing;
 using Image = System.Drawing.Image;
 using System.Threading.Tasks;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout_DesktopApp.Controls
 {
     public class SpotifyControl : Control
     {
