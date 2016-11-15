@@ -22,7 +22,7 @@ namespace SongsAbout_DesktopApp.Forms
     public partial class SpotifySearchForm : Form
     {
 
-        private SearchType _searchType;
+        private SearchType _searchType = SearchType.All;
         public SpotifySearchForm()
         {
             InitializeComponent();

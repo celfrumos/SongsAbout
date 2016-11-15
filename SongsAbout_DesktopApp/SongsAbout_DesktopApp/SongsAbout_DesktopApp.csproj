@@ -94,6 +94,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Controls\SLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Classes\Controls\SLabel.Designer.cs">
+      <DependentUpon>SLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Converter.cs" />
     <Compile Include="Classes\Entities\Album.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
@@ -131,9 +137,7 @@
     <Compile Include="Classes\Entities\List.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Controls\SpotifyControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Classes\Controls\SpotifyControlEventHandlers.cs" />
     <Compile Include="Classes\DbExceptions.cs" />
     <Compile Include="Classes\Entities\Tag.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
@@ -160,7 +164,7 @@
     </Compile>
     <Compile Include="Classes\SpotifyExceptions.cs" />
     <Compile Include="Classes\Controls\SpotifyLabel.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Classes\Controls\SpotifyLabel.Designer.cs">
       <DependentUpon>SpotifyLabel.cs</DependentUpon>
@@ -176,6 +180,12 @@
     </Compile>
     <Compile Include="Classes\Controls\SpotifyPictureBox.Designer.cs">
       <DependentUpon>SpotifyPictureBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Controls\SpotifyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Classes\Controls\SpotifyControl.Designer.cs">
+      <DependentUpon>SpotifyControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\UserSpotify.cs" />
     <Compile Include="DataSet.cs">
@@ -250,11 +260,17 @@
     <Compile Include="WebAuthForm.Designer.cs">
       <DependentUpon>WebAuthForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Classes\Controls\SpotifyControl.resx">
-      <DependentUpon>SpotifyControl.cs</DependentUpon>
+    <EmbeddedResource Include="Classes\Controls\SLabel.resx">
+      <DependentUpon>SLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Classes\Controls\SpotifyControlEventHandlers.resx">
+      <DependentUpon>SpotifyControlEventHandlers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Classes\Controls\SpotifyLabel.resx">
       <DependentUpon>SpotifyLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Classes\Controls\SpotifyControl.resx">
+      <DependentUpon>SpotifyControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SpotifySearchForm.resx">
       <DependentUpon>SpotifySearchForm.cs</DependentUpon>

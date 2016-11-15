@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-    public partial class SpotifyLabel : Label
+    public partial class SpotifyLabel : SpotifyControl
     {
         public SpotifyLabel()
         {
@@ -30,10 +30,15 @@ namespace SongsAbout_DesktopApp.Controls
         private static Point _defLocation = new Point(0, 81);
         private static Size _defSize = new Size(83, 25);
 
-        public string Level { get; set; }
-
-        public SpotifyLabel(string name = "Not Set", string level = "Not Set") : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
+        public override string Level()
         {
+            return _level;
+        }
+
+        public SpotifyLabel(string name = "Not Set", string level = "Not Set") 
+            : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
+        {
+            this._level = level;
             this.Text = name;
             this.Tag = name;
         }
@@ -43,6 +48,7 @@ namespace SongsAbout_DesktopApp.Controls
         : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
         {
             this.Text = name;
+            this._level = level;
             this.Tag = spotifyEntity;
         }
 
@@ -55,7 +61,7 @@ namespace SongsAbout_DesktopApp.Controls
             this.ForeColor = foreColor;
             this.Location = location;
             this.Size = size;
-            this.TextAlign = alignment;
+         //   this.TextAlign = alignment;
 
             this.MouseHover += SpotifyControlEventHandlers.Hover;
         }

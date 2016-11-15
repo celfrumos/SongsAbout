@@ -1,14 +1,13 @@
-﻿using SongsAbout_DesktopApp.Properties;
-namespace SongsAbout_DesktopApp.Controls
+﻿namespace SongsAbout_DesktopApp.Controls
 {
-    partial class SpotifyLabel : SpotifyControl
+    partial class SpotifyControl
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -23,32 +22,27 @@ namespace SongsAbout_DesktopApp.Controls
 
         #region Component Designer generated code
 
-        /// <summary>
+        /// <summary> 
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label
+            // SpotifyUserControl
             // 
-
-            this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(0, 0);
-            this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(100, 23);
-            this.label.TabIndex = 0;
-            this.ForeColor = User.Default.TextColor;
-            this.BackColor = User.Default.BackColor;
-            this.label.Text = "label";
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Name = "SpotifyUserControl";
+            this.Size = new System.Drawing.Size(72, 17);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label;
     }
 }

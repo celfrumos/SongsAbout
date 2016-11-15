@@ -1,58 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
-using SpotifyAPI;
-using SpotifyAPI.Web.Models;
-using SpotifyAPI.Web.Auth;
-using SpotifyAPI.Web.Enums;
-using SongsAbout_DesktopApp.Properties;
-using System.Windows.Forms;
-using SongsAbout_DesktopApp.Classes;
-using System.Drawing;
-using Image = System.Drawing.Image;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-    public class SpotifyControl : Control
+    public partial class SpotifyControl : UserControl
     {
-
+        protected string _level;
         public SpotifyControl()
         {
+            InitializeComponent();
         }
 
-        private void InitializeComponent()
+        public virtual string Level()
         {
-            this.SuspendLayout();
-            this.ResumeLayout(false);
-
-        }
-     
-    }
-
-    public static class SpotifyControlEventHandlers
-    {
-        public static void Leave(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            return _level;
         }
 
-        public static void Enter(object sender, EventArgs e)
+        public override string Text
         {
-            SpotifyLabel s = sender as SpotifyLabel;
-            var a = s.Tag.ToString();
-        }
+            get { return base.Text; }
 
-        public static void Hover(object sender, EventArgs e)
-        {
-            Control c = sender as Control;
-            c.Cursor = Cursors.Hand;
-        }
-
-        public static void Default_Click(object sender, EventArgs e)
-        {
+            set { base.Text = value; }
         }
     }
-
 }
