@@ -6682,7 +6682,7 @@ SELECT ID, artist_id, name, al_year, al_spotify_uri, al_cover_art FROM Albums WH
                 return this._adapter;
             }
         }
-        
+   
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         internal global::System.Data.SqlClient.SqlConnection Connection {
