@@ -38,17 +38,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // splitContainer
             // 
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer.Name = "splitContainer1";
+            this.splitContainer.Name = "splitContainer";
             // 
-            // splitContainer1.Panel1
+            // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.Controls.Add(this.PictureBox);
             // 
-            // splitContainer1.Panel2
+            // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.Label);
             this.splitContainer.Size = new System.Drawing.Size(181, 73);
@@ -101,8 +101,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer splitContainer = new System.Windows.Forms.SplitContainer();
-        private System.Windows.Forms.PictureBox PictureBox = new System.Windows.Forms.PictureBox();
-        private System.Windows.Forms.Label Label = new System.Windows.Forms.Label();
+        private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.PictureBox PictureBox;
+        private System.Windows.Forms.Label Label;
     }
 }

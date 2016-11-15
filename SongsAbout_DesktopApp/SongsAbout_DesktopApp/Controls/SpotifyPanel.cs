@@ -52,6 +52,7 @@ namespace SongsAbout_DesktopApp.Controls
             this.Tag = name;
             this.Level = level;
         }
+
         public SpotifyPanel(BasicModel spotifyEntity, object name = null, string level = "Not set") : this()
         {
             this.Size = new Size(83, 106);
@@ -66,6 +67,7 @@ namespace SongsAbout_DesktopApp.Controls
         {
             this.Label = new SpotifyLabel(name, clickEvent).AsLabel();
         }
+
         public SpotifyPanel(BasicModel spotifyEntity, string name, string level, EventHandler clickEvent)
             : this(spotifyEntity, name, level)
         {
@@ -83,6 +85,7 @@ namespace SongsAbout_DesktopApp.Controls
         {
             this.PictureBox = new SpotifyPictureBox(album, clickEvent).AsPictureBox();
         }
+
         public SpotifyPanel(FullPlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist", clickEvent)
         {
             this.PictureBox = new SpotifyPictureBox(playlist, clickEvent).AsPictureBox();

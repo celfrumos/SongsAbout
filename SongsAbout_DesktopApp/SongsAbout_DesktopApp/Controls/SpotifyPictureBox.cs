@@ -9,7 +9,7 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-    public partial class SpotifyPictureBox : UserControl, ISpotifyControl, ISpotifyPictureBox
+    public partial class SpotifyPictureBox : PictureBox, ISpotifyControl, ISpotifyPictureBox
     {
         private const string _defName = "Not Set";
         private const string _defLevel = "Not Set";
@@ -23,18 +23,7 @@ namespace SongsAbout_DesktopApp.Controls
             get { return this.pictureBox.Name; }
             set { this.pictureBox.Name = value; }
         }
-
-        public PictureBoxSizeMode SizeMode
-        {
-            get { return this.pictureBox.SizeMode; }
-            set { this.pictureBox.SizeMode = value; }
-        }
-
-        public Image Image
-        {
-            get { return this.pictureBox.Image; }
-            set { this.pictureBox.Image = value; }
-        }
+         
 
         private EventHandler ClickEvent { set { this.Click += value; } }
 
