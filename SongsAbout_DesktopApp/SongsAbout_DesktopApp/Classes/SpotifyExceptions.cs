@@ -12,30 +12,16 @@ namespace SongsAbout_DesktopApp.Classes
 {
     public class SpotifyException : SpotifyWebApiException
     {
-        private const string defMsg = "An unknown error involving the Spotify API has occurred";
+        private const string defMsg = "An unknown Spotify Error has occurred";
         public override string Message
         {
-            get { return this.GetType().ToString() + ": " + base.Message; }
+            get { return $"SpotifyException: {GetType()}: {base.Message}"; }
         }
-        //  public Error Error { get; set; }
-        public List<Error> Errors { get; set; }
-        public int ErrorNum { get { return Errors.Count; } }
+
         public SpotifyException(string msg = defMsg) : base(msg)
         {
-            this.Errors = new List<Error>();
+            Console.WriteLine(Message);
         }
-        public SpotifyException(Error err, string msg = defMsg) : base(msg)
-        {
-            this.Errors = new List<Error>();
-            this.Errors.Add(err);
-        }
-        public SpotifyException(List<Error> errors, string msg = defMsg) : base(msg)
-        {
-            this.Errors = new List<Error>();
-            this.Errors = errors;
-        }
-
-
     }
 
     public class UnassignedAPIException : SpotifyException
@@ -43,18 +29,13 @@ namespace SongsAbout_DesktopApp.Classes
         private const string defMsg = "The API has not yet been called.";
         public override string Message
         {
-            get { return "API not yet defined: " + base.Message; }
+            get { return $"API not yet defined: {base.Message}"; }
         }
 
         public UnassignedAPIException(string msg = defMsg) : base(msg)
         {
         }
-        public UnassignedAPIException(Error err, string msg = defMsg) : base(err, msg)
-        {
-        }
-        public UnassignedAPIException(List<Error> errors, string msg = defMsg) : base(errors, msg)
-        {
-        }
+
     }
 
     public class ProfileAssignmentError : SpotifyException
@@ -62,57 +43,67 @@ namespace SongsAbout_DesktopApp.Classes
         private const string defMsg = "An error has occured assigning the user profile.";
         public override string Message
         {
-            get { return "Error Assigning Profile: " + base.Message; }
+            get { return $"Error Assigning Profile: {base.Message}"; }
         }
         public ProfileAssignmentError(string msg = defMsg) : base(msg)
         {
 
         }
-        public ProfileAssignmentError(Error err, string msg = defMsg) : base(err, msg)
-        {
-        }
-        public ProfileAssignmentError(List<Error> errors, string msg = defMsg) : base(errors, msg)
-        {
-        }
     }
+
     public class SpotifyAuthError : SpotifyException
     {
         private const string defMsg = "An error has occured assigning the user profile.";
         public AutorizationCodeAuthResponse AuthResponse { get; set; }
+
         public override string Message
         {
-            get { return "Error Assigning Profile: " + base.Message; }
+            get { return $"Error Assigning Profile: {base.Message}"; }
         }
         public SpotifyAuthError(string msg = defMsg) : base(msg)
         {
         }
-        public SpotifyAuthError(Error err, string msg = defMsg) : base(err, msg)
-        {
-        }
-        public SpotifyAuthError(List<Error> errors, string msg = defMsg) : base(errors, msg)
-        {
-        }
-        public SpotifyAuthError(AutorizationCodeAuthResponse response, List<Error> errors, string msg = defMsg) : base(errors, msg)
-        {
-            this.AuthResponse = response;
-        }
-    }
 
-    public class SpotifyImportError<SpotifyT> : SpotifyException
+    }
+    public class SpotifyImportError : SpotifyException
     {
         private const string defMsg = "Spotify entity not imported correctly.";
         public override string Message
         {
-            get { return "Error Importing: " + typeof(SpotifyT) + " from the API: " + base.Message; }
+            get { return $"Error importing from the API: {base.Message}"; }
         }
         public SpotifyImportError(string msg = defMsg) : base(msg)
         {
         }
-        public SpotifyImportError(Error err, string msg = defMsg) : base(err, msg)
+    }
+    public class SpotifyImportError<SpotifyType> : SpotifyImportError
+    {
+        private const string defMsg = "Spotify entity not imported correctly.";
+        public override string Message
+        {
+            get { return $"Error Importing: {typeof(SpotifyType)} from the API: {base.Message}"; }
+        }
+        public SpotifyImportError(string msg = defMsg) : base(msg)
         {
         }
-        public SpotifyImportError(List<Error> errors, string msg = defMsg) : base(errors, msg)
+    }
+
+    public class SpotifyConversionError : SpotifyException
+    {
+        private const string defMsg = "Spotify Conversion Error.";
+
+        public Type FromType { get; set; }
+        public Type ToType { get; set; }
+
+        public override string Message
         {
+            get { return $"Error converting {FromType} to {ToType}: {base.Message}"; }
+        }
+
+        public SpotifyConversionError(Type fromType, Type toType, string msg = defMsg) : base(msg)
+        {
+            this.FromType = fromType;
+            this.ToType = toType;
         }
 
     }
@@ -121,15 +112,41 @@ namespace SongsAbout_DesktopApp.Classes
     {
         private const string defMsg = "Unknown image import error.";
 
+        public override string Message
+        {
+            get { return $"Spotify Image Import Error: {base.Message}"; }
+        }
+
         public SpotifyImageImportError(string msg = defMsg) : base(msg)
         {
         }
-        public SpotifyImageImportError(Error err, string msg = defMsg) : base(err, msg)
+
+    }
+    public class SpotifyUndefinedAPIError : SpotifyException
+    {
+        private const string defMsg = "Spotify API not yet defined";
+
+        public override string Message
         {
+            get { return $"Spotify API Undefined: {base.Message}"; }
         }
-        public SpotifyImageImportError(List<Error> errors, string msg = defMsg) : base(errors, msg)
+
+        public SpotifyUndefinedAPIError(string msg = defMsg) : base(msg)
         {
         }
     }
 
+    public class SpotifyUndefinedProfileError : SpotifyException
+    {
+        private const string defMsg = "Spotify User Profile not yet defined";
+
+        public override string Message
+        {
+            get { return $"Spotify Profile Undefined: {base.Message}"; }
+        }
+
+        public SpotifyUndefinedProfileError(string msg = defMsg) : base(msg)
+        {
+        }
+    }
 }

@@ -86,12 +86,11 @@ namespace SongsAbout_DesktopApp.Classes
             Console.WriteLine("Finished importing Saved Playlists.");
         }
 
-        public static void ImportTrack(SimpleTrack t)
+        public static void ImportTrack(SimpleTrack track)
         {
             try
             {
-                FullTrack track = User.Default.SpotifyWebAPI.GetTrack(t.Id);
-                ImportTrack(ref track);
+                ImportTrack(Converter.GetFullTrack(track));
             }
             catch (Exception ex)
             {
@@ -99,11 +98,11 @@ namespace SongsAbout_DesktopApp.Classes
             }
         }
 
-        public static void ImportTrack(FullTrack t)
+        public static void ImportTrack(FullTrack track)
         {
             try
             {
-                if (!Track.Exists(t.Name))
+                if (!Track.Exists(track.Name))
                 {
                     //Track track = new Track();
                     //track.Update(t);
@@ -111,34 +110,12 @@ namespace SongsAbout_DesktopApp.Classes
                     //Console.WriteLine($"Successfully Imported track {t.Name}");
                 }
                 else {
-                    Console.WriteLine($"Track '{t.Name}' already exists");
+                    Console.WriteLine($"Track '{track.Name}' already exists");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                //throw new Exception(ex.Message);
-            }
-        }
 
-        public static void ImportTrack(ref FullTrack t)
-        {
-            try
-            {
-                if (!Track.Exists(t.Name))
-                {
-                    Track track = new Track(t);
-                    //  track.Update(t);
-                    track.Save();
-                    Console.WriteLine($"Successfully Imported track {t.Name}");
-                }
-                else
-                {
-                    Console.WriteLine($"Track '{t.Name}' already exists");
-                }
-            }
-            catch (Exception ex)
-            {
                 Console.WriteLine(ex.Message);
                 //throw new Exception(ex.Message);
             }
@@ -164,12 +141,12 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error getting profile photo " + ex.Message);
+                    throw new SpotifyImageImportError(ex.Message);
                 }
             }
             else
             {
-                throw new Exception("User WebAPI undefined");
+                throw new SpotifyUndefinedProfileError();
             }
         }
 
@@ -200,12 +177,15 @@ namespace SongsAbout_DesktopApp.Classes
         public static void ImportSavedTracks()
         {
             Paging<SavedTrack> tracks = User.Default.SpotifyWebAPI.GetSavedTracks();
-            foreach (SavedTrack t in tracks.Items)
+            foreach (SavedTrack track in tracks.Items)
             {
                 try
                 {
-                    FullTrack track = User.Default.SpotifyWebAPI.GetTrack(t.Track.Id);
-                    ImportTrack(track);
+                    ImportTrack(Converter.GetFullTrack(track));
+                }
+                catch (SpotifyException)
+                {
+                    throw;
                 }
                 catch (Exception ex)
                 {
@@ -218,12 +198,15 @@ namespace SongsAbout_DesktopApp.Classes
         {
             try
             {
-                FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
-                ImportAlbum(al);
+                ImportAlbum(Converter.GetFullAlbum(album));
+            }
+            catch (SpotifyException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error getting full album '{album.Name}': {ex.Message}");
+                throw new SpotifyImportError<SimpleAlbum>($"Error getting full album '{album.Name}': {ex.Message}");
             }
         }
 

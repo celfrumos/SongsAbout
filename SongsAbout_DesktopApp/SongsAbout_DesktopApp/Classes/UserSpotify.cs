@@ -56,17 +56,18 @@ namespace SongsAbout_DesktopApp.Classes
                 FetchProfilePic();
                 User.Default.Save();
             }
+            catch (SpotifyException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
-                var e = new SpotifyAuthError(ex.Message);
-                
                 throw new SpotifyAuthError(ex.Message);
             }
-
-
         }
 
         private static ImplicitGrantAuth implicitAuth = new ImplicitGrantAuth();
+
         public async static void ImplicitConnectSpotify()
         {
             try
@@ -77,6 +78,7 @@ namespace SongsAbout_DesktopApp.Classes
                 //UserSpotify.Authenticate
                 implicitAuth.Scope = Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
                 Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic;
+
                 implicitAuth.ShowDialog = true;
                 implicitAuth.RedirectUri = REDIRECT_URI;
                 implicitAuth.OnResponseReceivedEvent += ImplicitAuth_OnResponseReceivedEvent;
@@ -86,8 +88,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error Implicitly Authorizing Spotify: {ex.Message}");
-                throw;
+                throw new SpotifyAuthError(ex.Message);
             }
         }
 
@@ -101,14 +102,14 @@ namespace SongsAbout_DesktopApp.Classes
                     if (!token.IsExpired())
                     {
                         api.AccessToken = token.AccessToken;
-                        User.Default.SpotifyWebAPI = api;
+                        WebAPI = api;
                     }
                 }
                 implicitAuth.StopHttpServer();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error Implicitly setting spotify API: {ex.Message}");
+                throw new SpotifyAuthError(ex.Message);
             }
         }
         /// <summary>
@@ -120,10 +121,10 @@ namespace SongsAbout_DesktopApp.Classes
             {
                 if (User.Default["PrivateProfile"] == null)
                 {
-                    User.Default.PrivateProfile = User.Default.SpotifyWebAPI.GetPrivateProfile();
+                    User.Default.PrivateProfile = WebAPI.GetPrivateProfile();
                     //User.Default.PrivateProfile = _profile;
                     User.Default.UserId = User.Default.PrivateProfile.Id;
-                    User.Default.PublicProfile = User.Default.SpotifyWebAPI.GetPublicProfile(User.Default.UserId);
+                    User.Default.PublicProfile = WebAPI.GetPublicProfile(User.Default.UserId);
                     User.Default.Save();
                 }
             }
@@ -145,7 +146,7 @@ namespace SongsAbout_DesktopApp.Classes
             List<FullTrack> list = new List<FullTrack>();
             try
             {
-                savedTracks = User.Default.SpotifyWebAPI.GetSavedTracks();
+                savedTracks = WebAPI.GetSavedTracks();
 
                 list = savedTracks.Items.Select(track => track.Track).ToList();
 
@@ -160,10 +161,7 @@ namespace SongsAbout_DesktopApp.Classes
             catch (Exception ex)
             {
                 SpotifyException exception = new SpotifyException(ex.Message);
-                if (savedTracks.HasError())
-                {
-                    exception.Errors.Add(savedTracks.Error);
-                }
+
                 throw exception;
             }
         }
@@ -185,7 +183,7 @@ namespace SongsAbout_DesktopApp.Classes
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error Importing image from Spotify: {ex.Message}");
+                throw new SpotifyImageImportError(ex.Message);
             }
 
         }
@@ -194,43 +192,48 @@ namespace SongsAbout_DesktopApp.Classes
         /// Async method to get Profile image as a System.Drawing.Image
         /// </summary>
         /// <returns></returns>
-        public async static Task<Image> GetProfilePic()
+        public async static Task<Image> ImportLocalProfilePic()
         {
-            if (User.Default.PrivateProfile != null)
+            try
             {
-                try
+                if (User.Default.PrivateProfile != null)
                 {
-                    if (User.Default.ProfilePic == null)
+                    try
                     {
-                        FetchProfilePic();
-                    }
-
-                    using (WebClient wc = new WebClient())
-                    {
-                        Image _profilePic;
-                        byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(User.Default.ProfilePic.Url));
-                        using (MemoryStream stream = new MemoryStream(imageBytes))
+                        if (User.Default.ProfilePic == null)
                         {
-                            _profilePic = Image.FromStream(stream);
-                            //var picType = _profilePic.GetType();
-                            //string extension = picType.Name;
-                            //var format = System.Drawing.Imaging.ImageFormat.Bmp;
-
-                            //_profilePic.Save(stream, format);
-                            //   _profilePic.Save(profilePicFileName);
-                            return _profilePic;
+                            FetchProfilePic();
                         }
-                    }
 
+                        using (WebClient wc = new WebClient())
+                        {
+                            Image _profilePic;
+                            byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(User.Default.ProfilePic.Url));
+                            using (MemoryStream stream = new MemoryStream(imageBytes))
+                            {
+                                _profilePic = Image.FromStream(stream);
+                                return _profilePic;
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new SpotifyImageImportError($"Error importing profile pic from spotify image: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    throw new Exception($"Error getting profile photo: {ex.Message}");
+                    throw new SpotifyUndefinedAPIError("Error importing profile pic from spotify image");
                 }
             }
-            else
+            catch (SpotifyException)
             {
-                throw new Exception("User WebAPI undefined");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyException(ex.Message);
             }
         }
 
@@ -239,21 +242,32 @@ namespace SongsAbout_DesktopApp.Classes
         /// </summary>
         public static void FetchProfilePic()
         {
-            if (User.Default["PrivateProfile"] != null)
+            try
             {
-                if (User.Default.PrivateProfile.Images.Count > 0)
+                if (User.Default.PrivateProfile != null)
                 {
-                    User.Default["ProfilePic"] = User.Default.PrivateProfile.Images[0];
-                    User.Default.Save();
+                    if (User.Default.PrivateProfile.Images.Count > 0)
+                    {
+                        User.Default["ProfilePic"] = User.Default.PrivateProfile.Images[0];
+                        User.Default.Save();
+                    }
+                    else
+                    {
+                        throw new SpotifyImageImportError("Error importing profile pic");
+                    }
                 }
                 else
                 {
-                    throw new Exception("Error Fetch profile pic");
+                    throw new SpotifyUndefinedAPIError();
                 }
             }
-            else
+            catch (SpotifyException)
             {
-                throw new Exception("User WebAPI undefined");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyException(ex.Message);
             }
         }
 
@@ -262,80 +276,107 @@ namespace SongsAbout_DesktopApp.Classes
         /// </summary>
         public static void FetchFollowedArtists()
         {
-            if (WebAPI != null)
+            try
             {
-                User.Default["FollowedArtists"] = WebAPI.GetFollowedArtists(FollowType.Artist);
-                User.Default.Save();
-                //foreach (var a in artists.Artists.Items)
-                //{
-                //    string id = a.Id;
-                //    string uri = a.Uri;
-                //    string name = a.Name;
-                //    var images = a.Images;
-                //    string href = a.Href;
-                //    List<string> genres = a.Genres;
-                //}                
+                if (WebAPI != null)
+                {
+                    User.Default.FollowedArtists = WebAPI.GetFollowedArtists(FollowType.Artist);
+                    User.Default.Save();
+
+                }
+                else
+                {
+                    throw new SpotifyUndefinedAPIError("Error Fetching Followed Artists");
+                }
             }
-            else
+            catch (SpotifyException)
             {
-                throw new Exception("User WebAPI undefined");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyException(ex.Message);
             }
         }
 
         internal static Paging<FullTrack> GetTopTracks()
         {
-            if (User.Default.PrivateProfile != null)
+            try
             {
-                try
+                if (User.Default.PrivateProfile != null)
                 {
-                    return WebAPI.GetUsersTopTracks();
+                    try
+                    {
+                        return WebAPI.GetUsersTopTracks();
 
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new SpotifyImportError<Paging<FullTrack>>($"Error getting user's top tracks: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    throw new Exception($"Error getting user's top tracks: {ex.Message}");
+                    throw new SpotifyUndefinedProfileError("Failed to get user top tracks");
                 }
             }
-            else
+            catch (SpotifyException)
             {
-                string msg = "Failed to get user top tracks; Profile not yet defined.";
-                Console.WriteLine(msg);
-                throw new Exception(msg);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyException(ex.Message);
             }
         }
 
         private static void PutPlaylists()
         {
-
-            if (User.Default.PrivateProfile != null)
+            try
             {
-                Paging<SimplePlaylist> myPlaylists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId, 5, 0);
-                foreach (SimplePlaylist item in myPlaylists.Items)
+                if (User.Default.PrivateProfile != null)
                 {
-                    string playlistTrack = "";
-                    string uri = item.Uri;
-                    string playlistId = item.Id;
+                    Paging<SimplePlaylist> myPlaylists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId, 5, 0);
 
-                    Paging<PlaylistTrack> tracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.UserId, playlistId);
-                    if (tracks.Error.Message == null)
+                    foreach (SimplePlaylist playlist in myPlaylists.Items)
                     {
-                        foreach (PlaylistTrack t in tracks.Items)
+                        string playlistTrack = "";
+                        string uri = playlist.Uri;
+                        string playlistId = playlist.Id;
+
+                        Paging<PlaylistTrack> tracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.UserId, playlistId);
+                        if (tracks.Error.Message == null)
                         {
-                            string name = t.Track.Name;
-                            string alName = t.Track.Album.Name;
-                            var artists = t.Track.Artists;
-                            SimpleArtist firstArtist = artists[0];
-                            string aName = firstArtist.Name;
-                            playlistTrack += name + " " + alName + " " + aName;
-                            //  MessageBox.Show(playlistTrack);
+                            foreach (PlaylistTrack t in tracks.Items)
+                            {
+                                string name = t.Track.Name;
+                                string alName = t.Track.Album.Name;
+                                var artists = t.Track.Artists;
+                                SimpleArtist firstArtist = artists[0];
+                                string aName = firstArtist.Name;
+                                playlistTrack += name + " " + alName + " " + aName;
+                                //  MessageBox.Show(playlistTrack);
+                            }
+                        }
+                        else
+                        {
+                            throw new SpotifyImportError<Paging<SimplePlaylist>>(tracks.Error.Message);
                         }
                     }
-                    else
-                    {
-                        throw new Exception(tracks.Error.Message);
-                    }
-                }
 
+                }
+                else
+                {
+                    throw new SpotifyUndefinedProfileError();
+                }
+            }
+            catch (SpotifyException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyException(ex.Message);
             }
 
         }
@@ -354,18 +395,17 @@ namespace SongsAbout_DesktopApp.Classes
                 }
                 else
                 {
-                    throw new Exception("Spotify Profile hasn't been defined yet.");
+                    throw new SpotifyUndefinedProfileError("Spotify Profile hasn't been defined yet.");
                 }
+            }
+            catch (SpotifyException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new SpotifyException(ex.Message);
             }
         }
-
-        /// <summary>
-        /// Async method to get Profile image as a System.Drawing.Image
-        /// </summary>
-        /// <returns></returns>
     }
 }
