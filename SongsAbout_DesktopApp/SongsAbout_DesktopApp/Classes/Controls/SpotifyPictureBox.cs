@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using SpotifyAPI.Web.Models;
-using SongsAbout_DesktopApp.Properties;
 using SongsAbout_DesktopApp.Classes;
+using SongsAbout_DesktopApp.Properties;
+using SpotifyAPI.Web.Models;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-    public partial class SpotifyPictureBox : PictureBox
+    public partial class SpotifyPictureBox : SpotifyControl
     {
         private static string _defName = "Not Set";
         private static string _defLevel = "Not Set";
@@ -18,9 +18,25 @@ namespace SongsAbout_DesktopApp.Controls
         private static PictureBoxSizeMode _defSizeMode = PictureBoxSizeMode.Zoom;
         private static bool _defAutoSize = true;
 
-        private EventHandler clickEvent { set { this.Click += value; } }
+        new public string Name
+        {
+            get { return this.pictureBox.Name; }
+            set { this.pictureBox.Name = value; }
+        }
 
-        public string Level { get; set; }
+        public PictureBoxSizeMode SizeMode
+        {
+            get { return this.pictureBox.SizeMode; }
+            set { this.pictureBox.SizeMode = value; }
+        }
+
+        public Image Image
+        {
+            get { return this.pictureBox.Image; }
+            set { this.pictureBox.Image = value; }
+        }
+
+        private EventHandler clickEvent { set { this.Click += value; } }
 
         public SpotifyPictureBox() : this(_defName, _defLevel)
         {
@@ -43,13 +59,13 @@ namespace SongsAbout_DesktopApp.Controls
         {
             this.Location = location;
             this.Size = size;
-            this.SizeMode = sizeMode;
+            this.pictureBox.SizeMode = sizeMode;
             this.TabStop = tabStop;
 
             // this.Click += SpotifyControlEventHandlers.Default_Click;
             //this.Enter += SpotifyControlEventHandlers.Enter;
             //this.Leave += SpotifyControlEventHandlers.Leave;
-            this.MouseHover += SpotifyControlEventHandlers.Hover;
+            // this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
 
         public SpotifyPictureBox(FullAlbum album, EventHandler clickEvent) : this(album.Name, "Album")

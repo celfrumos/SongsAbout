@@ -1,26 +1,33 @@
 ﻿using System;
 using System.Drawing;
-using SongsAbout_DesktopApp.Classes;
 using SpotifyAPI.Web.Models;
 using System.Windows.Forms;
+using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-
-    public partial class SpotifyPanel : Panel
+    public partial class SpotifyPanel : SpotifyControl
     {
+        public Image Image
+        {
+            get { return this.pictureBox.Image; }
+            set { this.pictureBox.Image = value; }
+        }
+
+        public override string Text
+        {
+            get { return this.Label.Text; }
+            set { this.Label.Text = value; }
+        }
+
         public SpotifyPanel()
         {
             InitializeComponent();
         }
-
-        //private Action<object, EventArgs> spotifyControl_Click;
         public EventHandler spotifyControl_Click
         {
             set { this.Click += value; }
         }
-
-        public string Level { get; set; }
 
         public SpotifyPanel(object name = null, string level = "Not set")
         {
@@ -30,7 +37,6 @@ namespace SongsAbout_DesktopApp.Controls
             this.Name = "pnl" + name;
             this.Tag = name;
             this.Level = level;
-            this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
         public SpotifyPanel(BasicModel spotifyEntity, object name = null, string level = "Not set")
         {
@@ -40,7 +46,6 @@ namespace SongsAbout_DesktopApp.Controls
             this.Name = "pnl" + name;
             this.Tag = spotifyEntity;
             this.Level = level;
-            this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
 
         public SpotifyPanel(string name, string level, EventHandler clickEvent) : this(name, level)
@@ -73,8 +78,6 @@ namespace SongsAbout_DesktopApp.Controls
         {
             this.Controls.Add(new SpotifyPictureBox(playlist, clickEvent));
         }
-
-
 
         protected override void OnPaint(PaintEventArgs pe)
         {

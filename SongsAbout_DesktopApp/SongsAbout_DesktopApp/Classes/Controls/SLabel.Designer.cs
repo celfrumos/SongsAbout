@@ -1,6 +1,6 @@
 ﻿namespace SongsAbout_DesktopApp.Controls
 {
-    partial class SLabel 
+    partial class SpotifyLabel 
     {
         /// <summary> 
         /// Required designer variable.
@@ -42,16 +42,16 @@
             this.Label.Text = "text";
             this.Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SLabel
+            // SpotifyLabel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.Label);
             this.ForeColor = System.Drawing.Color.White;
-            this.Name = "SLabel";
+            this.Name = "SpotifyLabel";
             this.Size = new System.Drawing.Size(30, 17);
             this.ResumeLayout(false);
             this.PerformLayout();

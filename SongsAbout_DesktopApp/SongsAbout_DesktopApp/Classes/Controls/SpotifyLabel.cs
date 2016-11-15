@@ -1,54 +1,55 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using SpotifyAPI;
 using SpotifyAPI.Web.Models;
-using SpotifyAPI.Web.Auth;
-using SpotifyAPI.Web.Enums;
 using SongsAbout_DesktopApp.Properties;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-    public partial class SpotifyLabel : UserControl
+   
+    public partial class SpotifyLabel : SpotifyControl
     {
         public SpotifyLabel()
         {
             InitializeComponent();
         }
-
         private static Color _defBackColor = User.Default.BackColor;
         private static Font _defFont = User.Default.ParagraphFont;
         private static Color _defTextColor = User.Default.TextColor;
         private static Point _defLocation = new Point(0, 81);
         private static Size _defSize = new Size(83, 25);
 
-        public override string Level()
-        {
-            return _level;
-        }
-
-        public SpotifyLabel(string name = "Not Set", string level = "Not Set") 
+        public SpotifyLabel(string name = "Not Set", string level = "Not Set")
             : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
         {
-            this._level = level;
+            this.Level = level;
             this.Text = name;
             this.Tag = name;
         }
 
 
+        public override Type GetReflectionType(Type objectType, object instance)
+        {
+            if (objectType == typeof(SpotifyControl))
+            {
+                return typeof(SpotifyLabel);
+            }
+            return base.GetReflectionType(objectType, instance);
+        }
+        public SpotifyLabel(object tag = null, string text = "Not Set", string level = "Not Set")
+            : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
+        {
+            this.Level = level;
+            this.Text = text;
+            this.Tag = tag;
+        }
+
         public SpotifyLabel(BasicModel spotifyEntity, string name = "Not Set", string level = "Not Set")
         : this(_defFont, _defBackColor, _defTextColor, _defLocation, _defSize)
         {
             this.Text = name;
-            this._level = level;
+            this.Level = level;
             this.Tag = spotifyEntity;
         }
 
@@ -61,7 +62,7 @@ namespace SongsAbout_DesktopApp.Controls
             this.ForeColor = foreColor;
             this.Location = location;
             this.Size = size;
-         //   this.TextAlign = alignment;
+            //   this.TextAlign = alignment;
 
             this.MouseHover += SpotifyControlEventHandlers.Hover;
         }
@@ -80,5 +81,13 @@ namespace SongsAbout_DesktopApp.Controls
         {
             base.OnPaint(pe);
         }
+
+        new internal class ConcreteClassProvider : TypeDescriptionProvider
+        {
+            public ConcreteClassProvider() : base(TypeDescriptor.GetProvider(typeof(UserControl)))
+            {
+            }
+        }
+
     }
 }

@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SongsAbout_DesktopApp.Classes;
 using SongsAbout_DesktopApp.Controls;
-using SongsAbout_DesktopApp.Classes.Entities;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 using SongsAbout_DesktopApp.Properties;
-using SongsAbout_DesktopApp.Forms;
-
-using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Forms
 {
@@ -38,33 +29,24 @@ namespace SongsAbout_DesktopApp.Forms
 
         private void SpotifyLabel_Click(object sender, EventArgs e)
         {
-            var control = sender as Control;
-            var objTag = control.Tag;
-            string objLevel;
-            if (sender is SpotifyLabel)
+            try
             {
-                SpotifyLabel lbl = sender as SpotifyLabel;
-                objLevel = lbl.Level();
+
+                var control = sender as SpotifyLabel;
+                var objTag = control.Tag;
+                string objLevel = control.Level;
+
+                RedrawForm(objTag.ToString(), objLevel);
             }
-            else if (sender is SpotifyPanel)
+            catch (Exception ex)
             {
-                SpotifyPanel panel = sender as SpotifyPanel;
-                objLevel = panel.Level;
+                MessageBox.Show(ex.Message, "Error");
             }
-            else if (sender is SpotifyPictureBox)
-            {
-                SpotifyLabel pBox = sender as SpotifyLabel;
-                objLevel = pBox.Level();
-            }
-            else
-            {
-                throw new Exception("Something went Wrong");
-            }
-            RedrawForm(objTag.ToString(), objLevel);
         }
         private void SpotifyPanel_Click(object sender, EventArgs e)
         {
-            var control = sender as Control;
+            var control = sender as SpotifyControl;
+            
             string objTag;
             string objLevel;
             var t = control.Tag;
@@ -109,7 +91,12 @@ namespace SongsAbout_DesktopApp.Forms
 
         private void PromptOptions()
         {
-            flpSpotifyControls.Controls.Add(new SpotifyLabel("Playlists", SpotifyLabel_Click));
+            var s = new SpotifyLabel("Playlists", SpotifyLabel_Click);
+            var sdaf = new Label();
+            sdaf.Text = "dffdafdfa";
+            flpSpotifyControls.Controls.Add(sdaf);
+            
+            flpSpotifyControls.Controls.Add(s);
             flpSpotifyControls.Controls.Add(new SpotifyLabel("Tracks", SpotifyLabel_Click));
             flpSpotifyControls.Controls.Add(new SpotifyLabel("Albums", SpotifyLabel_Click));
             flpSpotifyControls.Controls.Add(new SpotifyLabel("Tracks", SpotifyLabel_Click));
@@ -205,17 +192,17 @@ namespace SongsAbout_DesktopApp.Forms
                 MessageBox.Show(ex.Message, "Error searching Spotify");
             }
         }
-
+ 
         private async void ExecuteSearch(string query, SearchType searchType, int limit = 20, int offset = 0)
         {
             var resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
             var res = new List<BasicModel>();
             if (searchType == SearchType.All)
             {
-                resultsList.Artists.Items.ForEach(a => res.Add(a));
-                resultsList.Albums.Items.ForEach(al => res.Add(al));
-                resultsList.Tracks.Items.ForEach(t => res.Add(t));
-                resultsList.Playlists.Items.ForEach(p => res.Add(p));
+                await Task.Run(() => resultsList.Artists.Items.ForEach(a => AddToFlow(a, SpotifyPanel_Click)));
+                await Task.Run(() => resultsList.Albums.Items.ForEach(al => AddToFlow(al, SpotifyPanel_Click)));
+                await Task.Run(() => resultsList.Tracks.Items.ForEach(t => AddToFlow(t, SpotifyPanel_Click)));
+                await Task.Run(() => resultsList.Playlists.Items.ForEach(p => AddToFlow(p, SpotifyPanel_Click)));
             }
             else
             {
