@@ -18,6 +18,13 @@ namespace SongsAbout_DesktopApp.Controls
             InitializeComponent();
         }
 
+        internal class ConcreteClassProvider : TypeDescriptionProvider
+        {
+            public ConcreteClassProvider() : base(TypeDescriptor.GetProvider(typeof(SpotifyControl)))
+            {
+            }
+        }
+        
         public virtual string Level()
         {
             return _level;

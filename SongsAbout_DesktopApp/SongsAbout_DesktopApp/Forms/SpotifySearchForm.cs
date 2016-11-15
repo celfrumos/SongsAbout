@@ -44,7 +44,7 @@ namespace SongsAbout_DesktopApp.Forms
             if (sender is SpotifyLabel)
             {
                 SpotifyLabel lbl = sender as SpotifyLabel;
-                objLevel = lbl.Level;
+                objLevel = lbl.Level();
             }
             else if (sender is SpotifyPanel)
             {
@@ -54,7 +54,7 @@ namespace SongsAbout_DesktopApp.Forms
             else if (sender is SpotifyPictureBox)
             {
                 SpotifyLabel pBox = sender as SpotifyLabel;
-                objLevel = pBox.Level;
+                objLevel = pBox.Level();
             }
             else
             {

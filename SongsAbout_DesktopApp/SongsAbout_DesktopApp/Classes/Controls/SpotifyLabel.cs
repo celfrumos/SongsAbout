@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-    public partial class SpotifyLabel : SpotifyControl
+    public partial class SpotifyLabel : UserControl
     {
         public SpotifyLabel()
         {

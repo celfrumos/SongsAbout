@@ -1,6 +1,6 @@
 ﻿namespace SongsAbout_DesktopApp.Controls
 {
-    partial class SLabel : SpotifyControl
+    partial class SLabel 
     {
         /// <summary> 
         /// Required designer variable.
