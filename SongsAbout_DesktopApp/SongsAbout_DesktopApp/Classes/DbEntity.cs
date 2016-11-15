@@ -5,11 +5,12 @@ using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
+using SongsAbout_DesktopApp.Controls;
 using System.Threading.Tasks;
 
 namespace SongsAbout_DesktopApp.Classes
 {
-    public abstract class DbEntity<U>
+    public abstract class DbEntity<U> : ISpotifyControl
     {
         public string TitleColumnName { get; set; }
         public string TableName { get; set; }

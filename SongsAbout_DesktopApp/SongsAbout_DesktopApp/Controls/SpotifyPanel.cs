@@ -22,8 +22,8 @@ namespace SongsAbout_DesktopApp.Controls
 
         public override string Text
         {
-            get { return this.Label.Text; }
-            set { this.Label.Text = value; }
+            get { return this.spotifyLabel.Text; }
+            set { this.spotifyLabel.Text = value; }
         }
 
         public SpotifyPanel()
@@ -65,13 +65,13 @@ namespace SongsAbout_DesktopApp.Controls
 
         public SpotifyPanel(string name, string level, EventHandler clickEvent) : this(name, level)
         {
-            this.Label = new SpotifyLabel(name, clickEvent).AsLabel();
+            this.spotifyLabel = new SpotifyLabel(name, clickEvent);
         }
 
         public SpotifyPanel(BasicModel spotifyEntity, string name, string level, EventHandler clickEvent)
             : this(spotifyEntity, name, level)
         {
-            this.Label = new SpotifyLabel(name, clickEvent).AsLabel();
+            this.spotifyLabel = new SpotifyLabel(name, clickEvent);
         }
 
         public SpotifyPanel(FullTrack track, EventHandler clickEvent) : this(track.Name, "Track", clickEvent) { }

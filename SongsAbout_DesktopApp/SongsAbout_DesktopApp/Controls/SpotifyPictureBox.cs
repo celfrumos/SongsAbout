@@ -9,7 +9,7 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout_DesktopApp.Controls
 {
-    public partial class SpotifyPictureBox : PictureBox, ISpotifyControl, ISpotifyPictureBox
+    public partial class SpotifyPictureBox : PictureBox, ISpotifyControl
     {
         private const string _defName = "Not Set";
         private const string _defLevel = "Not Set";
@@ -18,18 +18,16 @@ namespace SongsAbout_DesktopApp.Controls
         private static PictureBoxSizeMode _defSizeMode = PictureBoxSizeMode.Zoom;
         private static bool _defAutoSize = true;
 
-        new public string Name
+        public SpotifyPictureBox()
         {
-            get { return this.pictureBox.Name; }
-            set { this.pictureBox.Name = value; }
+            InitializeComponent();
+            this.Image = Resources.MusicNote;
         }
-         
-
         private EventHandler ClickEvent { set { this.Click += value; } }
 
         public string Level { get; set; }
 
-        public SpotifyPictureBox(string name = _defName, string level = _defLevel)
+        public SpotifyPictureBox(string name, string level = _defLevel)
         {
             InitializeComponent();
             this.Level = level;
@@ -37,11 +35,10 @@ namespace SongsAbout_DesktopApp.Controls
             this.Tag = name;
             this.Location = _defLocation;
             this.Size = _defSize;
-            this.pictureBox.SizeMode = _defSizeMode;
+            this.SizeMode = _defSizeMode;
             this.TabStop = false;
             if (name == _defName || level == _defLevel)
             {
-                this.Image = Resources.MusicNote;
             }
         }
         public SpotifyPictureBox(EventHandler clickEvent, string name = _defName, string level = _defLevel) : this(name, level)
@@ -53,7 +50,7 @@ namespace SongsAbout_DesktopApp.Controls
         {
             this.Location = location;
             this.Size = size;
-            this.pictureBox.SizeMode = sizeMode;
+            this.SizeMode = sizeMode;
             this.TabStop = tabStop;
 
             // this.Click += SpotifyControlEventHandlers.Default_Click;
@@ -76,7 +73,7 @@ namespace SongsAbout_DesktopApp.Controls
         }
         public PictureBox AsPictureBox()
         {
-            return this.pictureBox;
+            return this;
         }
         public SpotifyPictureBox(SimplePlaylist playlist, EventHandler clickEvent) : this(clickEvent, playlist.Name, "Playlist")
         {

@@ -72,7 +72,7 @@ namespace SongsAbout_DesktopApp.Controls
 
         public Label AsLabel()
         {
-            return this.Label;
+            return this;
         }
         new internal class ConcreteClassProvider : TypeDescriptionProvider
         {

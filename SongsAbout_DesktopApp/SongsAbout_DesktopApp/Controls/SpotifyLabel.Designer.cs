@@ -28,27 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Label = new System.Windows.Forms.Label();
-            this.SuspendLayout();
-            // 
-            // Label
-            // 
-            this.Label.AutoSize = true;
-            this.Label.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Label.Location = new System.Drawing.Point(0, 0);
-            this.Label.Name = "Label";
-            this.Label.Size = new System.Drawing.Size(30, 17);
-            this.Label.TabIndex = 0;
-            this.Label.Text = "text";
-            this.Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SpotifyLabel
             // 
-//            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-  //          this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.Label);
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "SpotifyLabel";
             this.Size = new System.Drawing.Size(30, 17);
@@ -59,6 +43,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Label Label;
+       // private System.Windows.Forms.Label Label;
+        //this.Label = new System.Windows.Forms.Label();
+        //this.SuspendLayout();
+        //// 
+        //// Label
+        //// 
+        //this.Controls.Add(this.Label);
+        //this.Label.AutoSize = true;
+        //this.Label.Dock = System.Windows.Forms.DockStyle.Fill;
+        //this.Label.Location = new System.Drawing.Point(0, 0);
+        //this.Label.Name = "Label";
+        //this.Label.Size = new System.Drawing.Size(30, 17);
+        //this.Label.TabIndex = 0;
+        //this.Label.Text = "text";
+        //this.Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
     }
 }

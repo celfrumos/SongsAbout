@@ -28,36 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.SuspendLayout();
             // 
-            // pictureBox1
+            // SpotifyPictureBox
             // 
-            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Image = global::SongsAbout_DesktopApp.Properties.Resources.MusicNote;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox.Name = "pictureBox1";
-            this.pictureBox.Size = new System.Drawing.Size(62, 61);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
-            // 
-            // SPBox
-            // 
-//            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-  //          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.Controls.Add(this.pictureBox);
             this.Name = "SPBox";
             this.Size = new System.Drawing.Size(62, 61);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox;
+        //private System.Windows.Forms.PictureBox pictureBox;
+        /*            this.pictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            this.SuspendLayout();
+            this.Controls.Add(this.pictureBox);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Image = global::SongsAbout_DesktopApp.Properties.Resources.MusicNote;
+            this.pictureBox.InitialImage = global::SongsAbout_DesktopApp.Properties.Resources.MusicNote;
+            this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(62, 61);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = fals*/
     }
 }

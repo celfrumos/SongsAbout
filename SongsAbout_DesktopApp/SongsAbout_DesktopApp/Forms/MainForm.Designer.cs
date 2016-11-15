@@ -42,6 +42,7 @@ namespace SongsAbout_DesktopApp.Forms
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spotifyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,12 +51,11 @@ namespace SongsAbout_DesktopApp.Forms
             this.followedPlaylistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
@@ -75,7 +75,7 @@ namespace SongsAbout_DesktopApp.Forms
             this.txtBoxQuery.Location = new System.Drawing.Point(295, 256);
             this.txtBoxQuery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxQuery.Name = "txtBoxQuery";
-            this.txtBoxQuery.Size = new System.Drawing.Size(216, 25);
+            this.txtBoxQuery.Size = new System.Drawing.Size(216, 21);
             this.txtBoxQuery.TabIndex = 1;
             // 
             // label1
@@ -86,7 +86,7 @@ namespace SongsAbout_DesktopApp.Forms
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(36, 256);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 19);
+            this.label1.Size = new System.Drawing.Size(134, 15);
             this.label1.TabIndex = 5;
             this.label1.Text = "I want to find songs about:";
             // 
@@ -98,14 +98,14 @@ namespace SongsAbout_DesktopApp.Forms
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label2.Location = new System.Drawing.Point(73, 315);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(154, 19);
+            this.label2.Size = new System.Drawing.Size(119, 15);
             this.label2.TabIndex = 7;
             this.label2.Text = "In any of these genres:";
             // 
             // lstBxGenres
             // 
             this.lstBxGenres.FormattingEnabled = true;
-            this.lstBxGenres.ItemHeight = 18;
+            this.lstBxGenres.ItemHeight = 14;
             this.lstBxGenres.Items.AddRange(new object[] {
             "Acoustic",
             "Country",
@@ -119,7 +119,7 @@ namespace SongsAbout_DesktopApp.Forms
             this.lstBxGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstBxGenres.Name = "lstBxGenres";
             this.lstBxGenres.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstBxGenres.Size = new System.Drawing.Size(216, 76);
+            this.lstBxGenres.Size = new System.Drawing.Size(216, 74);
             this.lstBxGenres.Sorted = true;
             this.lstBxGenres.TabIndex = 8;
             // 
@@ -131,7 +131,7 @@ namespace SongsAbout_DesktopApp.Forms
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label3.Location = new System.Drawing.Point(170, 418);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 19);
+            this.label3.Size = new System.Drawing.Size(59, 15);
             this.label3.TabIndex = 9;
             this.label3.Text = "Keywords:";
             // 
@@ -140,7 +140,7 @@ namespace SongsAbout_DesktopApp.Forms
             this.txtBoxKeywords.Location = new System.Drawing.Point(295, 418);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
-            this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
+            this.txtBoxKeywords.Size = new System.Drawing.Size(216, 21);
             this.txtBoxKeywords.TabIndex = 10;
             // 
             // btnSearch
@@ -175,7 +175,7 @@ namespace SongsAbout_DesktopApp.Forms
             this.aboutToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(547, 28);
+            this.mainMenuStrip.Size = new System.Drawing.Size(547, 24);
             this.mainMenuStrip.TabIndex = 18;
             // 
             // fileToolStripMenuItem
@@ -185,22 +185,28 @@ namespace SongsAbout_DesktopApp.Forms
             this.addNewTrackToolStripMenuItem,
             this.logOutToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // viewDatabaseToolStripMenuItem
             // 
             this.viewDatabaseToolStripMenuItem.Name = "viewDatabaseToolStripMenuItem";
-            this.viewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.viewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.viewDatabaseToolStripMenuItem.Text = "View Database";
             this.viewDatabaseToolStripMenuItem.Click += new System.EventHandler(this.msiViewData_Click);
             // 
             // addNewTrackToolStripMenuItem
             // 
             this.addNewTrackToolStripMenuItem.Name = "addNewTrackToolStripMenuItem";
-            this.addNewTrackToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.addNewTrackToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.addNewTrackToolStripMenuItem.Text = "Add New Track";
             this.addNewTrackToolStripMenuItem.Click += new System.EventHandler(this.msiAddTrack_Click);
+            // 
+            // logOutToolStripMenuItem
+            // 
+            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.logOutToolStripMenuItem.Text = "Log Out";
             // 
             // spotifyToolStripMenuItem
             // 
@@ -210,13 +216,13 @@ namespace SongsAbout_DesktopApp.Forms
             this.searchToolStripMenuItem,
             this.disconnectToolStripMenuItem});
             this.spotifyToolStripMenuItem.Name = "spotifyToolStripMenuItem";
-            this.spotifyToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
+            this.spotifyToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.spotifyToolStripMenuItem.Text = "Spotify";
             // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.msiConncectSpotify_Click);
             // 
@@ -228,48 +234,49 @@ namespace SongsAbout_DesktopApp.Forms
             this.followedPlaylistsToolStripMenuItem,
             this.allToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // savedTracksToolStripMenuItem
             // 
             this.savedTracksToolStripMenuItem.Name = "savedTracksToolStripMenuItem";
-            this.savedTracksToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.savedTracksToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.savedTracksToolStripMenuItem.Text = "Saved Tracks";
             this.savedTracksToolStripMenuItem.Click += new System.EventHandler(this.msiImportSavedTracks_Click);
             // 
             // followedArtistsToolStripMenuItem
             // 
             this.followedArtistsToolStripMenuItem.Name = "followedArtistsToolStripMenuItem";
-            this.followedArtistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.followedArtistsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.followedArtistsToolStripMenuItem.Text = "Followed Artists";
             this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(this.msiImportFollowedArtists_Click);
             // 
             // followedPlaylistsToolStripMenuItem
             // 
             this.followedPlaylistsToolStripMenuItem.Name = "followedPlaylistsToolStripMenuItem";
-            this.followedPlaylistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.followedPlaylistsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.followedPlaylistsToolStripMenuItem.Text = "Followed Playlists";
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.msiImportAll_Click);
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.searchToolStripMenuItem.Text = "Search";
             this.searchToolStripMenuItem.Click += new System.EventHandler(this.msiSpotifySearch_Click);
             // 
-            // aboutToolStripMenuItem
+            // disconnectToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.disconnectToolStripMenuItem.Text = "Disconnect";
+            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.msiDisconnect_Click);
             // 
             // profileToolStripMenuItem
             // 
@@ -277,37 +284,30 @@ namespace SongsAbout_DesktopApp.Forms
             this.profileToolStripMenuItem1,
             this.themeToolStripMenuItem});
             this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
-            this.profileToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.profileToolStripMenuItem.Text = "Settings";
             // 
             // profileToolStripMenuItem1
             // 
             this.profileToolStripMenuItem1.Name = "profileToolStripMenuItem1";
-            this.profileToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.profileToolStripMenuItem1.Size = new System.Drawing.Size(111, 22);
             this.profileToolStripMenuItem1.Text = "Profile";
             // 
             // themeToolStripMenuItem
             // 
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
-            // disconnectToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.disconnectToolStripMenuItem.Text = "Disconnect";
-            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.msiDisconnect_Click);
-            // 
-            // logOutToolStripMenuItem
-            // 
-            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.logOutToolStripMenuItem.Text = "Log Out";
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ClientSize = new System.Drawing.Size(547, 625);
