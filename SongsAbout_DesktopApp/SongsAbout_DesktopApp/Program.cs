@@ -20,12 +20,16 @@ namespace SongsAbout
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            User.Default.Upgrade();
-           
-            ConnectSpotify();
+
             try
             {
+                User.Default.Upgrade();
+                ConnectSpotify();
                 Application.Run(new MainForm());
+            }
+            catch (System.Resources.MissingManifestResourceException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
@@ -37,13 +41,28 @@ namespace SongsAbout
         {
             try
             {
-                if (User.Default.UserId != null)
+                if (User.Default.PrivateId != "")
                 {
                     //  UserSpotify.ImplicitConnectSpotify();
                 }
                 if (User.Default.SpotifyWebAPI == null)
                 {
-                    await Task.Run(() => UserSpotify.Authenticate());
+                    try
+                    {
+                        UserSpotify.Authenticate();
+                    }
+                    catch (System.Resources.MissingManifestResourceException ex)
+                    {
+                        throw;
+                    }
+                    catch (SpotifyAuthError ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error assigning user profile");
+                    }
                 }
                 else
                 {

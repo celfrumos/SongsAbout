@@ -66,7 +66,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                return UserSpotify.WebAPI.GetPlaylist(User.Default.UserId, playlist.Id);
+                return UserSpotify.WebAPI.GetPlaylist(User.Default.PrivateId, playlist.Id);
             }
             catch (Exception ex)
             {

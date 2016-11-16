@@ -26,6 +26,13 @@ namespace SongsAbout.Classes
             get { return User.Default.SpotifyWebAPI; }
             set { User.Default.SpotifyWebAPI = value; }
         }
+
+        public static string PrivateId
+        {
+            get { return User.Default.PrivateId; }
+            set { User.Default.PrivateId = value; }
+        }
+
         private const int PORT = 8000;
         private const string REDIRECT_URI = "http://localhost";
 
@@ -35,16 +42,17 @@ namespace SongsAbout.Classes
         /// </summary>
         public async static void Authenticate()
         {
-            SpotifyWebAPI _spotify = new SpotifyWebAPI();
-            WebAPIFactory webApiFactory = new WebAPIFactory(
-                REDIRECT_URI,
-                PORT,
-               Resources.SpotifyClientID,
-                Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
-                Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic);
-
             try
             {
+                string clientId = Settings.Default.ClientId;
+                SpotifyWebAPI _spotify = new SpotifyWebAPI();
+                WebAPIFactory webApiFactory = new WebAPIFactory(
+                    REDIRECT_URI,
+                    PORT,
+                   clientId,
+                    Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
+                    Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic);
+
                 if (User.Default.SpotifyWebAPI == null)
                 {
                     User.Default.SpotifyWebAPI = await webApiFactory.GetWebApi();
@@ -57,6 +65,10 @@ namespace SongsAbout.Classes
                 User.Default.Save();
             }
             catch (SpotifyException)
+            {
+                throw;
+            }
+            catch (System.Resources.MissingManifestResourceException ex)
             {
                 throw;
             }
@@ -113,7 +125,7 @@ namespace SongsAbout.Classes
             }
         }
         /// <summary>
-        /// Gets profile info via WebAPI. Assigns user settings PrivateProfile, UserId, and PublicProfile
+        /// Gets profile info via WebAPI. Assigns user settings PrivateProfile, PrivateId, and PublicProfile
         /// </summary>
         public static void FetchProfile()
         {
@@ -123,8 +135,8 @@ namespace SongsAbout.Classes
                 {
                     User.Default.PrivateProfile = WebAPI.GetPrivateProfile();
                     //User.Default.PrivateProfile = _profile;
-                    User.Default.UserId = User.Default.PrivateProfile.Id;
-                    User.Default.PublicProfile = WebAPI.GetPublicProfile(User.Default.UserId);
+                    PrivateId = User.Default.PrivateProfile.Id;
+                    User.Default.PublicProfile = WebAPI.GetPublicProfile(User.Default.PrivateId);
                     User.Default.Save();
                 }
             }
@@ -249,7 +261,6 @@ namespace SongsAbout.Classes
                     if (User.Default.PrivateProfile.Images.Count > 0)
                     {
                         User.Default["ProfilePic"] = User.Default.PrivateProfile.Images[0];
-                        User.Default.Save();
                     }
                     else
                     {
@@ -274,15 +285,13 @@ namespace SongsAbout.Classes
         /// <summary>
         /// Assign User Setting for FollowedArtists
         /// </summary>
-        public static void FetchFollowedArtists()
+        public async static void FetchFollowedArtists()
         {
             try
             {
                 if (WebAPI != null)
                 {
-                    User.Default.FollowedArtists = WebAPI.GetFollowedArtists(FollowType.Artist);
-                    User.Default.Save();
-
+                    User.Default.FollowedArtists = await WebAPI.GetFollowedArtistsAsync(FollowType.Artist);
                 }
                 else
                 {
@@ -330,13 +339,13 @@ namespace SongsAbout.Classes
             }
         }
 
-        private static void PutPlaylists()
+        private async static void PutPlaylists()
         {
             try
             {
                 if (User.Default.PrivateProfile != null)
                 {
-                    Paging<SimplePlaylist> myPlaylists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId, 5, 0);
+                    var myPlaylists = await UserSpotify.WebAPI.GetUserPlaylistsAsync(User.Default.PrivateId, 5, 0);
 
                     foreach (SimplePlaylist playlist in myPlaylists.Items)
                     {
@@ -344,7 +353,7 @@ namespace SongsAbout.Classes
                         string uri = playlist.Uri;
                         string playlistId = playlist.Id;
 
-                        Paging<PlaylistTrack> tracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.UserId, playlistId);
+                        var tracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.PrivateId, playlistId);
                         if (tracks.Error.Message == null)
                         {
                             foreach (PlaylistTrack t in tracks.Items)
@@ -388,7 +397,7 @@ namespace SongsAbout.Classes
                 if (User.Default.PrivateProfile != null)
                 {
 
-                    Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.UserId);
+                    Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.PrivateId);
 
                     return playlists.Items;
 

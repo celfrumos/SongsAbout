@@ -44,5 +44,14 @@ namespace SongsAbout.Properties {
                 return ((string)(this["SchoolDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4d8b5c54f513430f8b0f486974c89402")]
+        public string ClientId {
+            get {
+                return ((string)(this["ClientId"]));
+            }
+        }
     }
 }

@@ -108,7 +108,7 @@ namespace SongsAbout.Forms
                     {
                         if (playlist.Public)
                         {
-                            FullPlaylist p = await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.UserId, playlist.Id);
+                            FullPlaylist p = await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.PrivateId, playlist.Id);
                             SpotifyPanel panel = new SpotifyPanel(p, SpotifyLabel_Click);
                             flpSpotifyControls.Controls.Add(panel);
                         }

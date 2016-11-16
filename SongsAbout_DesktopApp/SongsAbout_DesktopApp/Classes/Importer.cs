@@ -67,11 +67,11 @@ namespace SongsAbout.Classes
 
         public static void ImportSavedPlaylists()
         {
-            foreach (SimplePlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(User.Default.UserId, 50, 21).Items)
+            foreach (SimplePlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId, 50, 21).Items)
             {
                 try
                 {
-                    Paging<PlaylistTrack> playlists = UserSpotify.WebAPI.GetPlaylistTracks(User.Default.UserId, playlist.Id);
+                    Paging<PlaylistTrack> playlists = UserSpotify.WebAPI.GetPlaylistTracks(User.Default.PrivateId, playlist.Id);
                     foreach (PlaylistTrack pt in playlists.Items)
                     {
                         ImportTrack(pt.Track);

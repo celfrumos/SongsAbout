@@ -33,7 +33,9 @@
             // SpotifyLabel
             // 
             this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackColor = SongsAbout.Properties.User.Default.BackColor;
+            this.Font = SongsAbout.Properties.User.Default.ParagraphFont;
+            this.BackColor = SongsAbout.Properties.User.Default.BackColor;
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ForeColor = SongsAbout.Properties.User.Default.TextColor;
             this.Size = new System.Drawing.Size(30, 17);
@@ -42,6 +44,6 @@
         }
 
         #endregion
-        
+
     }
 }

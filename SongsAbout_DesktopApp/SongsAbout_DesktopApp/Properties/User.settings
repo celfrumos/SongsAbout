@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SongsAbout_DesktopApp.Properties" GeneratedClassName="User">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SongsAbout.Properties" GeneratedClassName="User">
   <Profiles />
   <Settings>
     <Setting Name="PrivateProfile" Type="SpotifyAPI.Web.Models.PrivateProfile" Scope="User">
@@ -20,7 +20,7 @@
     <Setting Name="PublicProfile" Type="SpotifyAPI.Web.Models.PublicProfile" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UserId" Type="System.String" Scope="User">
+    <Setting Name="PrivateId" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BackColor" Type="System.Drawing.Color" Scope="User">

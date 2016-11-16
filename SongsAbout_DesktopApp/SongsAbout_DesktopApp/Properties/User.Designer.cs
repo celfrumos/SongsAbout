@@ -92,12 +92,12 @@ namespace SongsAbout.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UserId {
+        public string PrivateId {
             get {
-                return ((string)(this["UserId"]));
+                return ((string)(this["PrivateId"]));
             }
             set {
-                this["UserId"] = value;
+                this["PrivateId"] = value;
             }
         }
         

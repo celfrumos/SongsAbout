@@ -7,7 +7,7 @@
     <ProjectGuid>{FF13D718-9F13-42C5-B976-11722836710C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SongsAbput</RootNamespace>
+    <RootNamespace>SongsAbout</RootNamespace>
     <AssemblyName>SongsAbout</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
