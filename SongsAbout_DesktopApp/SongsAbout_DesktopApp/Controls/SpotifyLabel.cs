@@ -16,7 +16,21 @@ namespace SongsAbout.Controls
 
         public SpotifyEntityType SpotifyEntityType { get; set; }
         public DbEntityType DbEntityType { get; set; }
-
+        public override string Text
+        {
+            get { return base.Text; }
+            set
+            {
+                if (value != null)
+                {
+                    base.Text = value;
+                }
+                else
+                {
+                    base.Text = "";
+                }
+            }
+        }
         public string Level { get; set; }
 
         public SpotifyLabel()
@@ -25,7 +39,7 @@ namespace SongsAbout.Controls
         }
 
         public SpotifyLabel(string text, string level = "Not Set", EventHandler clickEvent = null, object tag = null,
-            DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
+            DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) :this()
         {
             this.Text = text;
             this.Level = level;

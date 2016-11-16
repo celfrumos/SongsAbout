@@ -15,16 +15,50 @@ namespace SongsAbout.Controls
 {
     public partial class SpotifyPanel : UserControl, IEntityControl
     {
+        private string _level;
         public Image Image
         {
             get { return this.SpotifyPictureBox.Image; }
-            set { this.SpotifyPictureBox.Image = value; }
+            set
+            {
+                try
+                {
+                    this.SpotifyPictureBox.Image = value;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
 
         public override string Text
         {
             get { return this.SpotifyLabel.Text; }
-            set { this.SpotifyLabel.Text = value; }
+            set
+            {
+                try
+                {
+                    this.SpotifyLabel.Text = value != null ? value : "";
+                }
+                catch (NullReferenceException)
+                {
+                    this.SpotifyLabel = new SpotifyLabel();
+                    try
+                    {
+
+                        this.SpotifyLabel.Text = value != null ? value : "";
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
 
         public SpotifyPanel()
@@ -32,7 +66,21 @@ namespace SongsAbout.Controls
             InitializeComponent();
         }
 
-        public string Level { get; set; }
+        public string Level
+        {
+            get { return this._level; }
+            set
+            {
+                try
+                {
+                    this._level = value != null ? value : "";
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
 
         public PictureBoxSizeMode SizeMode
         {
@@ -43,18 +91,39 @@ namespace SongsAbout.Controls
         public SpotifyEntityType SpotifyEntityType { get; set; }
 
         public DbEntityType DbEntityType { get; set; }
-
-        public DbEntity DbEntity { get; set; }
+        private DbEntity _dbEntity;
+        public DbEntity DbEntity
+        {
+            get { return this._dbEntity; }
+            set
+            {
+                try
+                {
+                    this._dbEntity = value;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
 
         public SpotifyPanel(string text, string level = "Not Set", EventHandler clickEvent = null, object tag = null,
-          DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
+          DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
         {
-            this.Text = text;
-            this.Level = level;
-            this.Tag = tag;
-            this.Click += clickEvent;
-            this.SpotifyEntityType = spotifyType;
-            this.DbEntityType = dbtype;
+            try
+            {
+                this.Text = text;
+                this.Level = level;
+                this.Tag = tag;
+                this.Click += clickEvent;
+                this.SpotifyEntityType = spotifyType;
+                this.DbEntityType = dbtype;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public SpotifyPanel(string text, EventHandler clickEvent = null) : this(text, "Not Set", clickEvent)
@@ -105,7 +174,6 @@ namespace SongsAbout.Controls
         public SpotifyPanel(SimplePlaylist playlist, EventHandler clickEvent = null)
           : this(playlist.Name, $"{typeof(SimplePlaylist)}", clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
         {
-
             this.SpotifyLabel = new SpotifyLabel(playlist, clickEvent);
             this.SpotifyPictureBox = new SpotifyPictureBox(playlist, clickEvent);
         }

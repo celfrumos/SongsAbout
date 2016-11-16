@@ -45,11 +45,9 @@ namespace SongsAbout.Forms
         private void SpotifyPanel_Click(object sender, EventArgs e)
         {
             var control = sender as SpotifyControl;
-            
-            string objTag;
-            string objLevel;
-            var t = control.Tag;
 
+            var t = control.Tag;
+            MessageBox.Show(t.ToString(), "Panel CLicked");
 
             // RedrawForm(objTag, objLevel);
         }
@@ -67,7 +65,10 @@ namespace SongsAbout.Forms
                         _searchType = SearchType.Artist;
                         break;
                     case "Albums":
-                        LoadAlbums();
+                        _searchType = SearchType.Album;
+                        break;
+                    case "Tracks":
+                        _searchType = SearchType.Track;
                         break;
                     default:
                         break;
@@ -175,7 +176,7 @@ namespace SongsAbout.Forms
                     //{
                     //    var artist = artists.Items[i];
                     //    Console.WriteLine(artist.Name);
-                    //    await Task.Run(() => AddToFlow(artist, SpotifyPanel_Click));
+                    //    AddToFlow(artist, SpotifyPanel_Click));
                     //    i++;
                     //}
                 }
@@ -185,102 +186,112 @@ namespace SongsAbout.Forms
                 MessageBox.Show(ex.Message, "Error searching Spotify");
             }
         }
- 
-        private async void ExecuteSearch(string query, SearchType searchType, int limit = 20, int offset = 0)
+
+        private void ExecuteSearch(string query, SearchType searchType, int limit = 20, int offset = 0)
         {
             var resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
-            var res = new List<BasicModel>();
+            //  var res = new List<BasicModel>();
             if (searchType == SearchType.All)
             {
-                await Task.Run(() => resultsList.Artists.Items.ForEach(a => AddToFlow(a, SpotifyPanel_Click)));
-                await Task.Run(() => resultsList.Albums.Items.ForEach(al => AddToFlow(al, SpotifyPanel_Click)));
-                await Task.Run(() => resultsList.Tracks.Items.ForEach(t => AddToFlow(t, SpotifyPanel_Click)));
-                await Task.Run(() => resultsList.Playlists.Items.ForEach(p => AddToFlow(p, SpotifyPanel_Click)));
+                resultsList.Artists.Items.ForEach(a =>
+                {
+                    AddToFlow(new SpotifyPanel(a, SpotifyPanel_Click));
+                });
+                resultsList.Albums.Items.ForEach(al =>
+                {
+                    AddToFlow(new SpotifyPanel(al, SpotifyPanel_Click));
+                });
+                resultsList.Tracks.Items.ForEach(t =>
+                {
+                    AddToFlow(new SpotifyPanel(t, SpotifyPanel_Click));
+                });
+                resultsList.Playlists.Items.ForEach(p =>
+                {
+                    AddToFlow(new SpotifyPanel(p, SpotifyPanel_Click));
+                });
             }
             else
             {
                 if (searchType == SearchType.Artist)
                 {
-                    await Task.Run(() => resultsList.Artists.Items.ForEach(a => AddToFlow(a, SpotifyPanel_Click)));
+                    resultsList.Artists.Items.ForEach(a =>
+                    {
+                        AddToFlow(new SpotifyPanel(a, SpotifyPanel_Click));
+                    });
                 }
                 if (searchType == SearchType.Album)
                 {
-                    await Task.Run(() => resultsList.Albums.Items.ForEach(al => AddToFlow(al, SpotifyPanel_Click)));
+                    resultsList.Albums.Items.ForEach(al =>
+                    {
+                        AddToFlow(new SpotifyPanel(al, SpotifyPanel_Click));
+                    });
                 }
                 if (searchType == SearchType.Track)
                 {
-                    await Task.Run(() => resultsList.Tracks.Items.ForEach(t => AddToFlow(t, SpotifyPanel_Click)));
+                    resultsList.Tracks.Items.ForEach(t =>
+                    {
+                        AddToFlow(new SpotifyPanel(t, SpotifyPanel_Click));
+                    });
                 }
                 if (searchType == SearchType.Playlist)
                 {
-                    await Task.Run(() => resultsList.Playlists.Items.ForEach(p => AddToFlow(p, SpotifyPanel_Click)));
+                    resultsList.Playlists.Items.ForEach(p =>
+                    {
+                        AddToFlow(new SpotifyPanel(p, SpotifyPanel_Click));
+                    });
                 }
 
             }
         }
 
-
-        private void AddToFlow(FullArtist artist, EventHandler clickEvent)
+        private async void AddToFlow(SpotifyPanel panel)
         {
-            if (flpSpotifyControls.InvokeRequired)
+            try
             {
-                flpSpotifyControls.Invoke(new MethodInvoker(delegate
+                await Task.Run(() =>
                 {
-                    flpSpotifyControls.Controls.Add(new SpotifyPanel(artist, clickEvent));
-                }));
+                    if (flpSpotifyControls.InvokeRequired)
+                    {
+                        flpSpotifyControls.Invoke(new MethodInvoker(delegate
+                        {
+                            flpSpotifyControls.Controls.Add(panel);
+                        }));
+                    }
+                    else
+                    {
+                        flpSpotifyControls.Controls.Add(panel);
+                    }
+                });
             }
-            else
+            catch (Exception ex)
             {
-                flpSpotifyControls.Controls.Add(new SpotifyPanel(artist, clickEvent));
+                Console.WriteLine(ex.Message);
             }
         }
-
-        private void AddToFlow(SimplePlaylist playlist, EventHandler clickEvent)
+        private async void AddToFlow(SpotifyLabel label)
         {
-            if (flpSpotifyControls.InvokeRequired)
+            try
             {
-                flpSpotifyControls.Invoke(new MethodInvoker(delegate
+                await Task.Run(() =>
                 {
-                    flpSpotifyControls.Controls.Add(new SpotifyPanel(playlist, clickEvent));
-                }));
+                    if (flpSpotifyControls.InvokeRequired)
+                    {
+                        flpSpotifyControls.Invoke(new MethodInvoker(delegate
+                        {
+                            flpSpotifyControls.Controls.Add(label);
+                        }));
+                    }
+                    else
+                    {
+                        flpSpotifyControls.Controls.Add(label);
+                    }
+                });
             }
-            else
+            catch (Exception ex)
             {
-                flpSpotifyControls.Controls.Add(new SpotifyPanel(playlist, clickEvent));
+                Console.WriteLine(ex.Message);
             }
         }
-
-        private void AddToFlow(FullTrack track, EventHandler clickEvent)
-        {
-            if (flpSpotifyControls.InvokeRequired)
-            {
-                flpSpotifyControls.Invoke(new MethodInvoker(delegate
-                {
-                    flpSpotifyControls.Controls.Add(new SpotifyPanel(track, clickEvent));
-                }));
-            }
-            else
-            {
-                flpSpotifyControls.Controls.Add(new SpotifyPanel(track, clickEvent));
-            }
-        }
-
-        private void AddToFlow(SimpleAlbum album, EventHandler clickEvent)
-        {
-            FullAlbum al = Converter.GetFullAlbum(album);
-            if (flpSpotifyControls.InvokeRequired)
-            {
-                flpSpotifyControls.Invoke(new MethodInvoker(delegate
-                {
-                    flpSpotifyControls.Controls.Add(new SpotifyPanel(al, clickEvent));
-                }));
-            }
-            else
-            {
-                flpSpotifyControls.Controls.Add(new SpotifyPanel(al, clickEvent));
-            }
-        }
-
 
     }
 }

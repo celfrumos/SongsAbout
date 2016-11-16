@@ -29,8 +29,14 @@ namespace SongsAbout.Controls
 
 
         public SpotifyPictureBox(string text, string level = "Not Set", EventHandler clickEvent = null, object tag = null,
-            DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
-        { }
+            DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
+        {
+            this.Level = level;
+            this.Click += clickEvent;
+            this.Tag = tag;
+            this.DbEntityType = dbtype;
+            this.SpotifyEntityType = spotifyType;
+        }
 
         public SpotifyPictureBox(DbEntity entity, EventHandler clickEvent = null)
             : this(entity.Name, entity.TypeName, clickEvent, entity, entity.DbEntityType, entity.SpotifyType)
