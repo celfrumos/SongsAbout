@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using SpotifyAPI.Web.Models;
-using SongsAbout_DesktopApp.Properties;
 using System.Windows.Forms;
 using System.IO;
-using SongsAbout_DesktopApp.Classes;
+using SongsAbout.Properties;
+using SongsAbout.Enums;
+using SongsAbout.Classes;
 
-namespace SongsAbout_DesktopApp.Classes.Entities
+namespace SongsAbout.Entities
 {
     public partial class Track : DbEntity //: DbEntity<Track>
     {

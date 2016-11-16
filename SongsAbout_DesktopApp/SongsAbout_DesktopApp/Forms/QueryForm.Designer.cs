@@ -1,4 +1,4 @@
-﻿namespace SongsAbout_DesktopApp.Forms
+﻿namespace SongsAbout.Forms
 {
     partial class QueryForm
     {
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.artistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet = new SongsAbout_DesktopApp.DataSet();
+            this.dataSet = new SongsAbout.DataSet();
             this.btnSaveClose = new System.Windows.Forms.Button();
             this.btnSaveContinue = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -90,24 +90,24 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.albumsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.AlbumsTableAdapter();
-            this.artistsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.ArtistsTableAdapter();
-            this.genresTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.GenresTableAdapter();
-            this.trackGenresTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.TrackGenresTableAdapter();
-            this.tracksTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.TracksTableAdapter();
-            this.tagsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.TagsTableAdapter();
-            this.trackTagsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.TrackTagsTableAdapter();
-            this.listsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.ListsTableAdapter();
+            this.albumsTableAdapter = new SongsAbout.DataSetTableAdapters.AlbumsTableAdapter();
+            this.artistsTableAdapter = new SongsAbout.DataSetTableAdapters.ArtistsTableAdapter();
+            this.genresTableAdapter = new SongsAbout.DataSetTableAdapters.GenresTableAdapter();
+            this.trackGenresTableAdapter = new SongsAbout.DataSetTableAdapters.TrackGenresTableAdapter();
+            this.tracksTableAdapter = new SongsAbout.DataSetTableAdapters.TracksTableAdapter();
+            this.tagsTableAdapter = new SongsAbout.DataSetTableAdapters.TagsTableAdapter();
+            this.trackTagsTableAdapter = new SongsAbout.DataSetTableAdapters.TrackTagsTableAdapter();
+            this.listsTableAdapter = new SongsAbout.DataSetTableAdapters.ListsTableAdapter();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tag_text = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.track_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.tableAdapterMngr = new SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager();
-            this.albumGenresTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.AlbumGenresTableAdapter();
-            this.trackArtistsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.TrackArtistsTableAdapter();
-            this.fKArtistTratrack40F9A68CBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tableAdapterMngr = new SongsAbout.DataSetTableAdapters.TableAdapterManager();
+            this.albumGenresTableAdapter = new SongsAbout.DataSetTableAdapters.AlbumGenresTableAdapter();
+            this.trackArtistsTableAdapter = new SongsAbout.DataSetTableAdapters.TrackArtistsTableAdapter();
+            this.fKArtistTracksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.trackArtistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.albumTracksTableAdapter = new SongsAbout_DesktopApp.SchoolDataSetTableAdapters.AlbumTracksTableAdapter();
+            //this.albumTracksTableAdapter = new SongsAbout.SchoolDataSetTableAdapters.AlbumTracksTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.tabLists.SuspendLayout();
@@ -137,7 +137,7 @@
             this.tabAlbumGenres.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.albumGenresDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.albumGenresBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fKArtistTratrack40F9A68CBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKArtistTracksBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackArtistsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -803,7 +803,7 @@
             this.tableAdapterMngr.TrackGenresTableAdapter = this.trackGenresTableAdapter;
             this.tableAdapterMngr.TracksTableAdapter = this.tracksTableAdapter;
             this.tableAdapterMngr.TrackTagsTableAdapter = this.trackTagsTableAdapter;
-            this.tableAdapterMngr.UpdateOrder = SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterMngr.UpdateOrder = SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // albumGenresTableAdapter
             // 
@@ -817,10 +817,6 @@
             // 
             this.trackArtistsBindingSource.DataMember = "TrackArtists";
             this.trackArtistsBindingSource.DataSource = this.dataSet;
-            // 
-            // albumTracksTableAdapter
-            // 
-            this.albumTracksTableAdapter.ClearBeforeFill = true;
             // 
             // QueryForm
             // 
@@ -865,7 +861,7 @@
             this.tabAlbumGenres.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.albumGenresDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.albumGenresBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fKArtistTratrack40F9A68CBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fKArtistTracksBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackArtistsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -917,7 +913,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_genre;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_ttags_track_id;
         private System.Windows.Forms.DataGridViewComboBoxColumn col_ttag_tag_text;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_tag;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_tag; 
         private System.Windows.Forms.DataGridViewTextBoxColumn col_list_name;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_a_name;
@@ -939,7 +935,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_al_year;
         private System.Windows.Forms.DataGridViewImageColumn col_al_cover_art;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_al_spotify_uri;
-        private System.Windows.Forms.BindingSource fKArtistTratrack40F9A68CBindingSource;
+        private System.Windows.Forms.BindingSource fKArtistTracksBindingSource;
         private DataSetTableAdapters.TrackArtistsTableAdapter trackArtistsTableAdapter;
         private System.Windows.Forms.BindingSource trackArtistsBindingSource;
         private System.Windows.Forms.DataGridView tracksDataGridView;
@@ -956,6 +952,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-        private SchoolDataSetTableAdapters.AlbumTracksTableAdapter albumTracksTableAdapter;
+       // private SchoolDataSetTableAdapters.AlbumTracksTableAdapter albumTracksTableAdapter;
     }
 }

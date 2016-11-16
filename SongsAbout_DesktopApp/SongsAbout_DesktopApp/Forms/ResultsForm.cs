@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SongsAbout_DesktopApp.Classes.Entities;
+using SongsAbout.Entities;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout
 {
     public partial class ResultsForm : Form
     {

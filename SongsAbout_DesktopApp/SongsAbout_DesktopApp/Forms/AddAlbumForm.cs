@@ -5,12 +5,12 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using SongsAbout_DesktopApp.Classes;
-using SongsAbout_DesktopApp.Classes.Entities;
+using SongsAbout.Classes;
+using SongsAbout.Entities;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout
 {
     public partial class AddAlbumForm : Form
     {

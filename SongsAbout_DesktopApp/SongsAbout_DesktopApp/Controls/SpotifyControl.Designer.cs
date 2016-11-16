@@ -1,4 +1,4 @@
-﻿namespace SongsAbout_DesktopApp.Controls
+﻿namespace SongsAbout.Controls
 {
     partial class SpotifyControl
     {

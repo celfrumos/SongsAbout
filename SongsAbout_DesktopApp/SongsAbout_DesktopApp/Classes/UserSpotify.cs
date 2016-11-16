@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.IO;
-using SongsAbout_DesktopApp.Properties;
+using SongsAbout.Properties;
 
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Enums;
@@ -17,7 +17,7 @@ using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using Image = System.Drawing.Image;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout.Classes
 {
     public class UserSpotify
     {

@@ -9,17 +9,17 @@ using System.Net.Http;
 using System.Web;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SongsAbout_DesktopApp.Classes;
-using SongsAbout_DesktopApp.Forms;
+using SongsAbout.Classes;
+using SongsAbout.Forms;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 
 
-using SongsAbout_DesktopApp.Properties;
+using SongsAbout.Properties;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout
 {
     public partial class WebAuthForm : Form
     {

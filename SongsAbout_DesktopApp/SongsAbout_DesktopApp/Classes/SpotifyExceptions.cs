@@ -8,7 +8,7 @@ using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using System.Threading.Tasks;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout.Classes
 {
     public class SpotifyException : SpotifyWebApiException
     {

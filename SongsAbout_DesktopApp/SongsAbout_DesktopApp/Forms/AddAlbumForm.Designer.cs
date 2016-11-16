@@ -1,4 +1,4 @@
-﻿namespace SongsAbout_DesktopApp
+﻿namespace SongsAbout
 {
     partial class AddAlbumForm
     {
@@ -42,10 +42,10 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.cBoxMainArtist = new System.Windows.Forms.ComboBox();
             this.btnNewArtist = new System.Windows.Forms.Button();
-            this.dataSet = new SongsAbout_DesktopApp.DataSet();
-            this.tableAdapterManager = new SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager();
-            this.albumsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.AlbumsTableAdapter();
-            this.artistsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.ArtistsTableAdapter();
+            this.dataSet = new SongsAbout.DataSet();
+            this.tableAdapterManager = new SongsAbout.DataSetTableAdapters.TableAdapterManager();
+            this.albumsTableAdapter = new SongsAbout.DataSetTableAdapters.AlbumsTableAdapter();
+            this.artistsTableAdapter = new SongsAbout.DataSetTableAdapters.ArtistsTableAdapter();
             this.artistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.artistsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).BeginInit();
@@ -213,7 +213,7 @@
             this.tableAdapterManager.TrackGenresTableAdapter = null;
             this.tableAdapterManager.TracksTableAdapter = null;
             this.tableAdapterManager.TrackTagsTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SongsAbout_DesktopApp.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UpdateOrder = SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // albumsTableAdapter
             // 
@@ -281,7 +281,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ComboBox cBoxMainArtist;
         private System.Windows.Forms.Button btnNewArtist;
-        private SongsAbout_DesktopApp.DataSet dataSet;
+        private SongsAbout.DataSet dataSet;
         private DataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private DataSetTableAdapters.AlbumsTableAdapter albumsTableAdapter;
         private DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter;

@@ -2,13 +2,13 @@
 using System.ComponentModel;
 using System.Drawing;
 using SpotifyAPI.Web.Models;
-using SongsAbout_DesktopApp.Properties;
+using SongsAbout.Properties;
 using System.Windows.Forms;
 
-namespace SongsAbout_DesktopApp.Controls
+namespace SongsAbout.Controls
 {
 
-    public partial class SpotifyLabel : Label, ISpotifyControl
+    public partial class SpotifyLabel : Label, IEntityControl
     {
         public SpotifyLabel()
         {

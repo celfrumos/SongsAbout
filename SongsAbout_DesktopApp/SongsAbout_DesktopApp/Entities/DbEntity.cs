@@ -6,8 +6,11 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SongsAbout.Classes;
+using SongsAbout.Enums;
+using SongsAbout.Controls;
 
-namespace SongsAbout_DesktopApp.Classes.Entities
+namespace SongsAbout.Entities
 {
     public abstract class DbEntity
     {
@@ -17,6 +20,8 @@ namespace SongsAbout_DesktopApp.Classes.Entities
         public virtual string TypeName { get { return typeof(DbEntity).ToString(); } }
         public abstract void Save();
         public virtual void Save(DataClassContext db) { }
+        public SpotifyEntityType SpotifyType { get; set; }
+
         protected static void formatName(ref string name)
         {
             if (name.Contains("\'"))

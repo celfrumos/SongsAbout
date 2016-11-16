@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SongsAbout_DesktopApp.Properties;
+using SongsAbout.Properties;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
-using SongsAbout_DesktopApp.Classes.Entities;
-using Track = SongsAbout_DesktopApp.Classes.Entities.Track;
+using SongsAbout.Entities;
+using Track = SongsAbout.Entities.Track;
 using Image = System.Drawing.Image;
 
-namespace SongsAbout_DesktopApp.Classes
+namespace SongsAbout.Classes
 {
     public static class Converter
     {

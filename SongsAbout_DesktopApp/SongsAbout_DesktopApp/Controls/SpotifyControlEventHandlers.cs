@@ -6,14 +6,14 @@ using SpotifyAPI;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
-using SongsAbout_DesktopApp.Properties;
+using SongsAbout.Properties;
 using System.Windows.Forms;
-using SongsAbout_DesktopApp.Classes;
+using SongsAbout.Classes;
 using System.Drawing;
 using Image = System.Drawing.Image;
 using System.Threading.Tasks;
 
-namespace SongsAbout_DesktopApp.Controls
+namespace SongsAbout.Controls
 {
 
     public static class SpotifyControlEventHandlers

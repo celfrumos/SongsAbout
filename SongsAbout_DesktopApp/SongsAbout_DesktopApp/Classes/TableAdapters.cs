@@ -7,7 +7,7 @@ using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-namespace SongsAbout_DesktopApp.DataSetTableAdapters
+namespace SongsAbout.DataSetTableAdapters
 {
     public partial class TracksTableAdapter
     {

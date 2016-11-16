@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using SongsAbout_DesktopApp.Classes;
-using SongsAbout_DesktopApp.Properties;
+using SongsAbout.Classes;
+using SongsAbout.Properties;
 using SpotifyAPI.Web.Models;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 
-namespace SongsAbout_DesktopApp.Controls
+namespace SongsAbout.Controls
 {
-    public partial class SpotifyPictureBox : PictureBox, ISpotifyControl
+    public partial class SpotifyPictureBox : PictureBox, IEntityControl
     {
         private const string _defName = "Not Set";
         private const string _defLevel = "Not Set";
         private static Point _defLocation = new Point(0, 2);
         private static Size _defSize = new Size(83, 80);
         private static PictureBoxSizeMode _defSizeMode = PictureBoxSizeMode.Zoom;
-        private static bool _defAutoSize = true;
-
+      
         public SpotifyPictureBox()
         {
             InitializeComponent();
@@ -25,7 +24,6 @@ namespace SongsAbout_DesktopApp.Controls
         }
         private EventHandler ClickEvent { set { this.Click += value; } }
 
-        public string Level { get; set; }
 
         public SpotifyPictureBox(string name, string level = _defLevel)
         {

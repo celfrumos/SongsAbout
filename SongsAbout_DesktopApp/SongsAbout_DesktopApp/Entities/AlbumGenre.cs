@@ -7,14 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout_DesktopApp.Classes.Entities
+namespace SongsAbout.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class List
+    public partial class AlbumGenre
     {
-        public int list_id { get; set; }
-        public string list_name { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> album_id { get; set; }
+        public string genre { get; set; }
+    
+        public virtual Album Album { get; set; }
+        public virtual Genre Genre { get; set; }
     }
 }

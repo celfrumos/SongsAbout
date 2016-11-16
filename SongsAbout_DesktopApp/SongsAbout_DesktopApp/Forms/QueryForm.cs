@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Data.Linq;
 using System.Linq.Expressions;
-using SongsAbout_DesktopApp.Classes.Entities;
-using SongsAbout_DesktopApp.Properties;
-using SongsAbout_DesktopApp.Classes;
+using SongsAbout.Entities;
+using SongsAbout.Properties;
+using SongsAbout.Classes;
 
-namespace SongsAbout_DesktopApp.Forms
+namespace SongsAbout.Forms
 {
     public partial class QueryForm : Form
     {

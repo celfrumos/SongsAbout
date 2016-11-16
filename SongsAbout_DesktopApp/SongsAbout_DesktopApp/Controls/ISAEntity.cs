@@ -1,8 +1,10 @@
-﻿namespace SongsAbout_DesktopApp.Controls
+﻿namespace SongsAbout.Controls
 {
-    public interface ISpotifyControl
+    public interface IEntityControl
     {
         string Level { get; set; }
         string Text { get; set; }
     }
+
+
 }

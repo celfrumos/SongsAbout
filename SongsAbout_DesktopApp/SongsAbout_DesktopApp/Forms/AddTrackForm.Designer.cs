@@ -1,4 +1,4 @@
-﻿namespace SongsAbout_DesktopApp
+﻿namespace SongsAbout
 {
     partial class AddTrackForm
     {
@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.lstBxGenres = new System.Windows.Forms.ListBox();
             this.genresBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet = new SongsAbout_DesktopApp.DataSet();
+            this.dataSet = new SongsAbout.DataSet();
             this.label2 = new System.Windows.Forms.Label();
             this.txtBoxLength = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -43,13 +43,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cBoxAlbum = new System.Windows.Forms.ComboBox();
             this.albumsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.albumsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.AlbumsTableAdapter();
+            this.albumsTableAdapter = new SongsAbout.DataSetTableAdapters.AlbumsTableAdapter();
             this.cBoxMainArtist = new System.Windows.Forms.ComboBox();
             this.artistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.artistsTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.ArtistsTableAdapter();
+            this.artistsTableAdapter = new SongsAbout.DataSetTableAdapters.ArtistsTableAdapter();
             this.btnNewAlbum = new System.Windows.Forms.Button();
             this.btnNewArtist = new System.Windows.Forms.Button();
-            this.genresTableAdapter = new SongsAbout_DesktopApp.DataSetTableAdapters.GenresTableAdapter();
+            this.genresTableAdapter = new SongsAbout.DataSetTableAdapters.GenresTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.genresBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.albumsBindingSource)).BeginInit();

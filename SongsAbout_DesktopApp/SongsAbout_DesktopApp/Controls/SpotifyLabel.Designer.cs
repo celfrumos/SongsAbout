@@ -1,4 +1,4 @@
-﻿namespace SongsAbout_DesktopApp.Controls
+﻿namespace SongsAbout.Controls
 {
     partial class SpotifyLabel
     {
@@ -28,35 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.SuspendLayout();
             // 
             // SpotifyLabel
             // 
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.ForeColor = System.Drawing.Color.White;
-            this.Name = "SpotifyLabel";
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ForeColor = SongsAbout.Properties.User.Default.TextColor;
             this.Size = new System.Drawing.Size(30, 17);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-       // private System.Windows.Forms.Label Label;
-        //this.Label = new System.Windows.Forms.Label();
-        //this.SuspendLayout();
-        //// 
-        //// Label
-        //// 
-        //this.Controls.Add(this.Label);
-        //this.Label.AutoSize = true;
-        //this.Label.Dock = System.Windows.Forms.DockStyle.Fill;
-        //this.Label.Location = new System.Drawing.Point(0, 0);
-        //this.Label.Name = "Label";
-        //this.Label.Size = new System.Drawing.Size(30, 17);
-        //this.Label.TabIndex = 0;
-        //this.Label.Text = "text";
-        //this.Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+        
     }
 }

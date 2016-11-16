@@ -4,15 +4,15 @@ using System.Data.Entity;
 using System.Data.Linq;
 using System.Linq;
 using SpotifyAPI.Web.Models;
-using SongsAbout_DesktopApp.Classes;
+using SongsAbout.Classes;
 using System.Windows.Forms;
-using SongsAbout_DesktopApp.Properties;
+using SongsAbout.Properties;
 using System.IO;
 using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Collections;
 
-namespace SongsAbout_DesktopApp.Classes.Entities
+namespace SongsAbout.Entities
 {
 
     /// <summary>

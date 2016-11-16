@@ -1,5 +1,5 @@
-﻿using SongsAbout_DesktopApp.Properties;
-namespace SongsAbout_DesktopApp.Forms
+﻿using SongsAbout.Properties;
+namespace SongsAbout.Forms
 {
     partial class SpotifySearchForm
     {
@@ -31,7 +31,7 @@ namespace SongsAbout_DesktopApp.Forms
         {
             this.flpSpotifyControls = new System.Windows.Forms.FlowLayoutPanel();
             this.txtBoxSearch = new System.Windows.Forms.TextBox();
-            this.spotPan = new SongsAbout_DesktopApp.Controls.SpotifyPanel();
+            this.spotPan = new SongsAbout.Controls.SpotifyPanel();
             this.btnSearch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             this.spotPan.Image = Resources.ProfilePic;
@@ -84,7 +84,7 @@ namespace SongsAbout_DesktopApp.Forms
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flpSpotifyControls;
-        private SongsAbout_DesktopApp.Controls.SpotifyPanel spotPan;
+        private SongsAbout.Controls.SpotifyPanel spotPan;
         private System.Windows.Forms.TextBox txtBoxSearch;
         private System.Windows.Forms.Button btnSearch;
     }

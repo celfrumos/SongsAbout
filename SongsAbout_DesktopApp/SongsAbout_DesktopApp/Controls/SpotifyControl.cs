@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SongsAbout_DesktopApp.Controls
+namespace SongsAbout.Controls
 {
     [TypeDescriptionProvider(typeof(AbstractControlDescriptionProvider<SpotifyControl, UserControl>))]
-    public partial class SpotifyControl : UserControl, ISpotifyControl
+    public partial class SpotifyControl : UserControl, IEntityControl
     {
         public SpotifyControl()
         {

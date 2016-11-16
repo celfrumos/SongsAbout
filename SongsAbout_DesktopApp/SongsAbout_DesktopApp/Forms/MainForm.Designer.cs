@@ -1,5 +1,5 @@
-﻿using SongsAbout_DesktopApp.Properties;
-namespace SongsAbout_DesktopApp.Forms
+﻿using SongsAbout.Properties;
+namespace SongsAbout.Forms
 {
     partial class MainForm
     {

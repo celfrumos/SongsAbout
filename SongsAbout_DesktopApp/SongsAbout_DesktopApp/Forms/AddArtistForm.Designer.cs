@@ -1,4 +1,4 @@
-﻿namespace SongsAbout_DesktopApp
+﻿namespace SongsAbout
 {
     partial class AddArtistForm
     {

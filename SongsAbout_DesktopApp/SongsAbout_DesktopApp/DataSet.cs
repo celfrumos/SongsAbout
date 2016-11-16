@@ -1,15 +1,10 @@
 ﻿using System.Data.Sql;
 using System.Data.Linq;
 using System.Data.SqlClient;
-using SongsAbout_DesktopApp.DataSetTableAdapters;
-using SongsAbout_DesktopApp.SchoolDataSetTableAdapters;
-namespace SongsAbout_DesktopApp
-{
-     
+using SongsAbout.DataSetTableAdapters;
+//using SongsAbout.SchoolDataSetTableAdapters;
 
-}
-
-namespace SongsAbout_DesktopApp
+namespace SongsAbout
 {
 
 

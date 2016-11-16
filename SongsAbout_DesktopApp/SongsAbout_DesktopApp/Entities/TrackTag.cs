@@ -7,22 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout_DesktopApp.Classes.Entities
+namespace SongsAbout.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Tag
+    public partial class TrackTag
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tag()
-        {
-            this.TrackTags = new HashSet<TrackTag>();
-        }
-    
+        public int ID { get; set; }
         public string tag_text { get; set; }
+        public int track_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackTag> TrackTags { get; set; }
+        public virtual Tag Tag { get; set; }
+        public virtual Track Track { get; set; }
     }
 }

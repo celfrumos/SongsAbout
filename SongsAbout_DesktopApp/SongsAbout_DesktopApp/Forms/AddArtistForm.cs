@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using SongsAbout_DesktopApp.Classes.Entities;
-using SongsAbout_DesktopApp.Classes;
+using SongsAbout.Entities;
+using SongsAbout.Classes;
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout
 {
     public partial class AddArtistForm : Form
     {

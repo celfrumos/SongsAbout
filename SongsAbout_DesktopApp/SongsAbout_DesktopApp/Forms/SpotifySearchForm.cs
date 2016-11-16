@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SongsAbout_DesktopApp.Classes;
-using SongsAbout_DesktopApp.Controls;
+using SongsAbout.Classes;
+using SongsAbout.Controls;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
-using SongsAbout_DesktopApp.Properties;
+using SongsAbout.Properties;
 
-namespace SongsAbout_DesktopApp.Forms
+namespace SongsAbout.Forms
 {
     public partial class SpotifySearchForm : Form
     {
@@ -31,7 +31,6 @@ namespace SongsAbout_DesktopApp.Forms
         {
             try
             {
-
                 var control = sender as SpotifyLabel;
                 var objTag = control.Tag;
                 string objLevel = control.Level;
@@ -62,10 +61,10 @@ namespace SongsAbout_DesktopApp.Forms
                 switch (objTag)
                 {
                     case "Playlists":
-                        LoadPlaylists();
+                        _searchType = SearchType.Playlist;
                         break;
                     case "Artists":
-                        LoadArtists();
+                        _searchType = SearchType.Artist;
                         break;
                     case "Albums":
                         LoadAlbums();
@@ -91,12 +90,6 @@ namespace SongsAbout_DesktopApp.Forms
 
         private void PromptOptions()
         {
-            var s = new SpotifyLabel("Playlists", SpotifyLabel_Click);
-            var sdaf = new Label();
-            sdaf.Text = "dffdafdfa";
-            flpSpotifyControls.Controls.Add(sdaf);
-            
-            flpSpotifyControls.Controls.Add(s);
             flpSpotifyControls.Controls.Add(new SpotifyLabel("Tracks", SpotifyLabel_Click));
             flpSpotifyControls.Controls.Add(new SpotifyLabel("Albums", SpotifyLabel_Click));
             flpSpotifyControls.Controls.Add(new SpotifyLabel("Tracks", SpotifyLabel_Click));

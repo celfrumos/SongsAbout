@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SongsAbout_DesktopApp.Classes.Entities;
-using Album = SongsAbout_DesktopApp.Classes.Entities.Album;
+using SongsAbout.Entities;
+using Album = SongsAbout.Entities.Album;
 using System.Threading.Tasks;
-using SongsAbout_DesktopApp;
+using SongsAbout;
 
-namespace SongsAbout_DesktopApp.Classes.Entities
+namespace SongsAbout.Entities
 {
     //public partial class AlbumTracks
     //{

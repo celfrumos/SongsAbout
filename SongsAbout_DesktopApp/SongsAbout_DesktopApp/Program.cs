@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SongsAbout_DesktopApp.Properties;
-using SongsAbout_DesktopApp.Classes;
-using SongsAbout_DesktopApp.Forms;
+using SongsAbout.Properties;
+using SongsAbout.Classes;
+using SongsAbout.Forms;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace SongsAbout_DesktopApp
+namespace SongsAbout
 {
     static class Program
     {

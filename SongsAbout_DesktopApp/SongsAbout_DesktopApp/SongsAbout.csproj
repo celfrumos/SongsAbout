@@ -7,8 +7,8 @@
     <ProjectGuid>{FF13D718-9F13-42C5-B976-11722836710C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SongsAbout_DesktopApp</RootNamespace>
-    <AssemblyName>SongsAbout_DesktopApp</AssemblyName>
+    <RootNamespace>SongsAbput</RootNamespace>
+    <AssemblyName>SongsAbout</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -113,7 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\TableAdapters.cs" />
-    <Compile Include="Controls\ISpotifyControl.cs" />
+    <Compile Include="Controls\ISAEntity.cs" />
     <Compile Include="Controls\ISpotifyPictureBox.cs" />
     <Compile Include="Controls\SpotifyLabel.cs">
       <SubType>Component</SubType>
@@ -134,65 +134,65 @@
       <DependentUpon>SpotifyPictureBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Converter.cs" />
-    <Compile Include="Classes\Entities\Album.cs">
+    <Compile Include="Entities\Album.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\AlbumGenre.cs">
+    <Compile Include="Entities\AlbumGenre.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\AlbumTrack.cs">
+    <Compile Include="Entities\AlbumTrack.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\AlbumTracks.Manual.cs" />
-    <Compile Include="Classes\Entities\Artist.cs">
+    <Compile Include="Entities\AlbumTracks.Manual.cs" />
+    <Compile Include="Entities\Artist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\DataClasses.Context.cs">
+    <Compile Include="Entities\DataClasses.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\DataClasses.Designer.cs">
+    <Compile Include="Entities\DataClasses.Designer.cs">
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Classes\Entities\DataClasses1.cs">
+    <Compile Include="Entities\DataClasses1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\Genre.Manual.cs" />
-    <Compile Include="Classes\Entities\DbEntity.cs" />
-    <Compile Include="Classes\Entities\Genre.cs">
+    <Compile Include="Entities\Genre.Manual.cs" />
+    <Compile Include="Entities\DbEntity.cs" />
+    <Compile Include="Entities\Genre.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\List.cs">
+    <Compile Include="Entities\List.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Controls\SpotifyControlEventHandlers.cs" />
     <Compile Include="Classes\DbExceptions.cs" />
-    <Compile Include="Classes\Entities\Tag.cs">
+    <Compile Include="Entities\Tag.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\Topic.cs">
+    <Compile Include="Entities\Topic.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\Track.cs">
+    <Compile Include="Entities\Track.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\TrackArtist.cs">
+    <Compile Include="Entities\TrackArtist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\TrackArtists.Manual.cs" />
+    <Compile Include="Entities\TrackArtists.Manual.cs" />
     <Compile Include="Classes\Importer.cs" />
-    <Compile Include="Classes\Entities\TrackGenre.cs">
+    <Compile Include="Entities\TrackGenre.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\TrackTag.cs">
+    <Compile Include="Entities\TrackTag.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\TrackTopic.cs">
+    <Compile Include="Entities\TrackTopic.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\SpotifyExceptions.cs" />
@@ -211,6 +211,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Enums\Enums.cs" />
     <Compile Include="Forms\SpotifySearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -247,8 +248,8 @@
     <Compile Include="Forms\AddTrackForm.Designer.cs">
       <DependentUpon>AddTrackForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\Album.Manual.cs" />
-    <Compile Include="Classes\Entities\Artist.Manual.cs" />
+    <Compile Include="Entities\Album.Manual.cs" />
+    <Compile Include="Entities\Artist.Manual.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,16 +264,11 @@
     <Compile Include="Forms\ResultsForm.Designer.cs">
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entities\Track.Manual.cs" />
+    <Compile Include="Entities\Track.Manual.cs" />
     <Compile Include="Properties\User.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>User.settings</DependentUpon>
-    </Compile>
-    <Compile Include="SchoolDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="WebAuthForm.cs">
       <SubType>Form</SubType>
@@ -280,6 +276,9 @@
     <Compile Include="WebAuthForm.Designer.cs">
       <DependentUpon>WebAuthForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\SpotifyLabel.resx">
+      <DependentUpon>SpotifyLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SpotifyPanel.resx">
       <DependentUpon>SpotifyPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -329,11 +328,11 @@
     <EmbeddedResource Include="WebAuthForm.resx">
       <DependentUpon>WebAuthForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="Classes\Entities\DataClasses.edmx">
+    <EntityDeploy Include="Entities\DataClasses.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataClasses.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Classes\Entities\DataClasses.edmx.diagram">
+    <None Include="Entities\DataClasses.edmx.diagram">
       <DependentUpon>DataClasses.edmx</DependentUpon>
     </None>
     <None Include="DataSet.xsc">
@@ -366,7 +365,6 @@
     </None>
     <None Include="SchoolDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SchoolDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="SchoolDataSet.xss">
@@ -386,12 +384,12 @@
     <None Include="Pictures\black-simple-music-note-vector_318-10095.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Classes\Entities\DataClasses.Context.tt">
+    <Content Include="Entities\DataClasses.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <LastGenOutput>DataClasses.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Classes\Entities\DataClasses.tt">
+    <Content Include="Entities\DataClasses.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <LastGenOutput>DataClasses1.cs</LastGenOutput>

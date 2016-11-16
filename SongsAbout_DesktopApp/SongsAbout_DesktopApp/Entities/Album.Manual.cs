@@ -1,22 +1,25 @@
-﻿using SpotifyAPI.Web.Models;
-using SongsAbout_DesktopApp.Classes;
+﻿
+using System;using SpotifyAPI.Web.Models;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Collections.Generic;
-using SongsAbout_DesktopApp.Properties;
-using System;
+using SongsAbout.Classes;
+using SongsAbout.Enums;
+using SongsAbout.Properties;
+using SongsAbout.Controls;
 
-namespace SongsAbout_DesktopApp.Classes.Entities
+namespace SongsAbout.Entities
 {
     public partial class Album : DbEntity
     {
         public static string Table = "Albums";
         public static string TypeString = "Album";
         public static string TitleColumn = "name";
+        private SpotifyEntityType _spotifyType = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
         Type a = typeof(Artist);
-
+     
         public override string TableName
         {
             get { return Table; }
@@ -34,6 +37,7 @@ namespace SongsAbout_DesktopApp.Classes.Entities
         }
         public Album(FullAlbum album)// : base("al_title", "Albums", "Album")
         {
+            this.SpotifyType = SpotifyEntityType.FullAlbum;
             this.Update(ref album);
         }
 
@@ -45,19 +49,10 @@ namespace SongsAbout_DesktopApp.Classes.Entities
                 {
                     using (var context = new DataClassContext())
                     {
-                        context.Albums.Add(this);
+                        context.Albums.Add(this);                        
                         context.SaveChanges();
                     }
-                    //if (!Exists(this.al_title))
-                    //{
-                    //    // context.Albums.InsertOnSubmit(this);
-
-                    //}
-                    //else
-                    //{
-                    //    string msg = $"Track {this.al_title} already exists";
-                    //    Console.WriteLine(msg);
-                    //}
+              
                 }
                 else
                 {
