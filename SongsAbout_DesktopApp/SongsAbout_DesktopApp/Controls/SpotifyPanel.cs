@@ -6,13 +6,14 @@ using System.Drawing;
 using SongsAbout.Classes;
 using SongsAbout.Properties;
 using SpotifyAPI.Web.Models;
+using SongsAbout.Entities;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
-
+using SongsAbout.Enums;
 
 namespace SongsAbout.Controls
 {
-    public partial class SpotifyPanel : UserControl, IEntityControl, ISpotifyPictureBox
+    public partial class SpotifyPanel : UserControl, IEntityControl
     {
         public Image Image
         {
@@ -22,17 +23,13 @@ namespace SongsAbout.Controls
 
         public override string Text
         {
-            get { return this.spotifyLabel.Text; }
-            set { this.spotifyLabel.Text = value; }
+            get { return this.SpotifyLabel.Text; }
+            set { this.SpotifyLabel.Text = value; }
         }
 
         public SpotifyPanel()
         {
             InitializeComponent();
-        }
-        public EventHandler spotifyControl_Click
-        {
-            set { this.Click += value; }
         }
 
         public string Level { get; set; }
@@ -43,59 +40,87 @@ namespace SongsAbout.Controls
             set { this.SpotifyPictureBox.SizeMode = value; }
         }
 
-        public SpotifyPanel(object name = null, string level = "Not set") : this()
-        {
-            this.Size = new Size(83, 106);
-            this.TabStop = false;
+        public SpotifyEntityType SpotifyEntityType { get; set; }
 
-            this.Name = "pnl" + name;
-            this.Tag = name;
+        public DbEntityType DbEntityType { get; set; }
+
+        public DbEntity DbEntity { get; set; }
+
+        public SpotifyPanel(string text, string level = "Not Set", EventHandler clickEvent = null, object tag = null,
+          DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
+        {
+            this.Text = text;
             this.Level = level;
+            this.Tag = tag;
+            this.Click += clickEvent;
+            this.SpotifyEntityType = spotifyType;
+            this.DbEntityType = dbtype;
         }
 
-        public SpotifyPanel(BasicModel spotifyEntity, object name = null, string level = "Not set") : this()
+        public SpotifyPanel(string text, EventHandler clickEvent = null) : this(text, "Not Set", clickEvent)
         {
-            this.Size = new Size(83, 106);
-            this.TabStop = false;
-
-            this.Name = "pnl" + name;
-            this.Tag = spotifyEntity;
-            this.Level = level;
         }
 
-        public SpotifyPanel(string name, string level, EventHandler clickEvent) : this(name, level)
+        public SpotifyPanel(DbEntity entity, EventHandler clickEvent = null)
+            : this(entity.Name, entity.TypeName, clickEvent, entity, entity.DbEntityType, entity.SpotifyType)
         {
-            this.spotifyLabel = new SpotifyLabel(name, clickEvent);
+            this.DbEntity = entity;
+            this.SpotifyLabel = new SpotifyLabel(entity, clickEvent);
+            this.SpotifyPictureBox = new SpotifyPictureBox(entity, clickEvent);
         }
 
-        public SpotifyPanel(BasicModel spotifyEntity, string name, string level, EventHandler clickEvent)
-            : this(spotifyEntity, name, level)
+        public SpotifyPanel(FullAlbum album, EventHandler clickEvent = null)
+            : this(album.Name, $"{typeof(FullAlbum)}", clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
         {
-            this.spotifyLabel = new SpotifyLabel(name, clickEvent);
-        }
-
-        public SpotifyPanel(FullTrack track, EventHandler clickEvent) : this(track.Name, "Track", clickEvent) { }
-
-        public SpotifyPanel(FullArtist artist, EventHandler clickEvent) : this(artist.Name, "Artist", clickEvent)
-        {
-            this.SpotifyPictureBox = new SpotifyPictureBox(artist, clickEvent);
-        }
-
-        public SpotifyPanel(FullAlbum album, EventHandler clickEvent) : this(album.Name, "Artist", clickEvent)
-        {
+            this.SpotifyLabel = new SpotifyLabel(album, clickEvent);
             this.SpotifyPictureBox = new SpotifyPictureBox(album, clickEvent);
         }
 
-        public SpotifyPanel(FullPlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist", clickEvent)
+        public SpotifyPanel(SimpleAlbum album, EventHandler clickEvent = null)
+         : this(album.Name, $"{typeof(SimpleAlbum)}", clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
         {
-            this.SpotifyPictureBox = new SpotifyPictureBox(playlist, clickEvent);
+            this.SpotifyLabel = new SpotifyLabel(album, clickEvent);
+            this.SpotifyPictureBox = new SpotifyPictureBox(album, clickEvent);
         }
 
-        public SpotifyPanel(SimplePlaylist playlist, EventHandler clickEvent) : this(playlist.Name, "Playlist", clickEvent)
+        public SpotifyPanel(FullArtist artist, EventHandler clickEvent = null)
+         : this(artist.Name, $"{typeof(FullArtist)}", clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
         {
+            this.SpotifyLabel = new SpotifyLabel(artist, clickEvent);
+            this.SpotifyPictureBox = new SpotifyPictureBox(artist, clickEvent);
+        }
+        public SpotifyPanel(SimpleArtist artist, EventHandler clickEvent = null)
+         : this(artist.Name, $"{typeof(SimpleArtist)}", clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
+        {
+            this.SpotifyLabel = new SpotifyLabel(artist, clickEvent);
+            this.SpotifyPictureBox = new SpotifyPictureBox(artist, clickEvent);
+        }
+
+        public SpotifyPanel(FullPlaylist playlist, EventHandler clickEvent = null)
+            : this(playlist.Name, $"{typeof(FullPlaylist)}", clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
+        {
+            this.SpotifyLabel = new SpotifyLabel(playlist, clickEvent);
             this.SpotifyPictureBox = new SpotifyPictureBox(playlist, clickEvent);
-         
+        }
+        public SpotifyPanel(SimplePlaylist playlist, EventHandler clickEvent = null)
+          : this(playlist.Name, $"{typeof(SimplePlaylist)}", clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
+        {
+
+            this.SpotifyLabel = new SpotifyLabel(playlist, clickEvent);
+            this.SpotifyPictureBox = new SpotifyPictureBox(playlist, clickEvent);
+        }
+        public SpotifyPanel(FullTrack track, EventHandler clickEvent = null)
+        : this(track.Name, $"{typeof(FullTrack)}", clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
+        {
+            this.SpotifyLabel = new SpotifyLabel(track, clickEvent);
+            this.SpotifyPictureBox = new SpotifyPictureBox(track, clickEvent);
+        }
+        public SpotifyPanel(SimpleTrack track, EventHandler clickEvent = null)
+        : this(track.Name, $"{typeof(SimpleTrack)}", clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
+        {
+            this.SpotifyLabel = new SpotifyLabel(track, clickEvent);
+            this.SpotifyPictureBox = new SpotifyPictureBox(track, clickEvent);
         }
     }
-  
+
 }

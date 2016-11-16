@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SongsAbout.Enums
 {
-    public enum DBEntityType
+    public enum DbEntityType
     {
-        Artist, Album, Track, Tag, List, Genre
+        Artist, Album, Track, Tag, List, Genre, None
     }
     public enum SpotifyEntityType
     {
-        FullArtist, FullAlbum, FullTrack, FullPlaylist, SimpleArtist, SimpleAlbum, SimpleTrack, SimplePlaylist
+        FullArtist, FullAlbum, FullTrack, FullPlaylist, SimpleArtist, SimpleAlbum, SimpleTrack, SimplePlaylist, None
     }
 }

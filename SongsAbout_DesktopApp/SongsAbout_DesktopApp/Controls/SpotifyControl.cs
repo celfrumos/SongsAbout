@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SongsAbout.Entities;
+using SongsAbout.Enums;
 
 namespace SongsAbout.Controls
 {
@@ -25,16 +27,23 @@ namespace SongsAbout.Controls
         }
         public virtual string Level { get; set; }
 
+        public DbEntity DbEntity { get; set; }
+
+        public SpotifyEntityType SpotifyEntityType { get; set; }
+
+        public DbEntityType DbEntityType { get; set; }
+
+
         public SpotifyControl(string text, string level)
         {
             this.Text = text;
             this.Level = level;
-            
+
         }
         SpotifyAPI.Web.Models.FullAlbum a = new SpotifyAPI.Web.Models.FullAlbum();
-       
+
     }
-    
+
     public interface ISpotifyEntity
     {
         string Name { get; set; }

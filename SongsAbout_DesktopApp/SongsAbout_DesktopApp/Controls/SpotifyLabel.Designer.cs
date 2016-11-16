@@ -32,12 +32,15 @@
             // 
             // SpotifyLabel
             // 
+            this.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AutoSize = true;
-            this.BackColor = SongsAbout.Properties.User.Default.BackColor;
-            this.Font = SongsAbout.Properties.User.Default.ParagraphFont;
-            this.BackColor = SongsAbout.Properties.User.Default.BackColor;
+            this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ForeColor = SongsAbout.Properties.User.Default.TextColor;
+            this.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.ForeColor = System.Drawing.Color.White;
+            this.Text = "Not Set";
             this.Size = new System.Drawing.Size(30, 17);
             this.ResumeLayout(false);
 

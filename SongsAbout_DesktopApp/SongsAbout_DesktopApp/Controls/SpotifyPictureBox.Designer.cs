@@ -37,10 +37,10 @@
             // 
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
             this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Image = global::SongsAbout.Properties.Resources.MusicNote;
             this.InitialImage = global::SongsAbout.Properties.Resources.MusicNote;
+            this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
