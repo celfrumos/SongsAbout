@@ -1,4 +1,6 @@
-﻿namespace SongsAbout.Controls
+﻿using System.Drawing;
+
+namespace SongsAbout.Controls
 {
     partial class SpotifyPanel
     {
@@ -30,8 +32,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpotifyPanel));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.SpotifyLabel = new SongsAbout.Controls.SpotifyLabel();
             this.SpotifyPictureBox = new SongsAbout.Controls.SpotifyPictureBox();
+            this.SpotifyLabel = new SongsAbout.Controls.SpotifyLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -56,58 +58,65 @@
             // 
             this.splitContainer.Panel2.AccessibleName = "LabelPanel";
             this.splitContainer.Panel2.Controls.Add(this.SpotifyLabel);
-            this.splitContainer.Size = new System.Drawing.Size(199, 52);
-            this.splitContainer.SplitterDistance = 54;
-            this.splitContainer.TabIndex = 3;
-            // 
-            // SpotifyLabel
-            // 
-            this.SpotifyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SpotifyLabel.AutoEllipsis = true;
-            this.SpotifyLabel.AutoSize = true;
-            this.SpotifyLabel.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.SpotifyLabel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SpotifyLabel.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.SpotifyLabel.ForeColor = System.Drawing.Color.White;
-            this.SpotifyLabel.Level = null;
-            this.SpotifyLabel.Location = new System.Drawing.Point(27, 17);
-            this.SpotifyLabel.Name = "SpotifyLabel";
-            this.SpotifyLabel.Size = new System.Drawing.Size(87, 19);
-            this.SpotifyLabel.TabIndex = 0;
-            this.SpotifyLabel.Text = "SpotifyLabel";
+            this.splitContainer.Panel2MinSize = 75;
+            this.splitContainer.Size = new System.Drawing.Size(140, 40);
+            this.splitContainer.SplitterDistance = 37;
+            this.splitContainer.SplitterWidth = 1;
+            this.splitContainer.TabIndex = 0;
             // 
             // SpotifyPictureBox
             // 
             this.SpotifyPictureBox.BackColor = System.Drawing.SystemColors.HotTrack;
             this.SpotifyPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SpotifyPictureBox.DbEntity = null;
+            this.SpotifyPictureBox.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
             this.SpotifyPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SpotifyPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("SpotifyPictureBox.Image")));
             this.SpotifyPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("SpotifyPictureBox.InitialImage")));
-            this.SpotifyPictureBox.Level = null;
+            this.SpotifyPictureBox.Level = "";
             this.SpotifyPictureBox.Location = new System.Drawing.Point(0, 0);
             this.SpotifyPictureBox.Name = "SpotifyPictureBox";
-            this.SpotifyPictureBox.Size = new System.Drawing.Size(54, 52);
+            this.SpotifyPictureBox.Size = new System.Drawing.Size(37, 40);
             this.SpotifyPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.SpotifyPictureBox.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
             this.SpotifyPictureBox.TabIndex = 0;
             this.SpotifyPictureBox.TabStop = false;
+            // 
+            // SpotifyLabel
+            // 
+            this.SpotifyLabel.AutoEllipsis = true;
+            this.SpotifyLabel.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.SpotifyLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SpotifyLabel.DbEntity = null;
+            this.SpotifyLabel.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
+            this.SpotifyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SpotifyLabel.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.SpotifyLabel.ForeColor = System.Drawing.Color.White;
+            this.SpotifyLabel.Level = "";
+            this.SpotifyLabel.Location = new System.Drawing.Point(0, 0);
+            this.SpotifyLabel.MinimumSize = new System.Drawing.Size(87, 19);
+            this.SpotifyLabel.Name = "SpotifyLabel";
+            this.SpotifyLabel.Size = this.SpotifyLabel.MinimumSize;
+            this.SpotifyLabel.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
+            this.SpotifyLabel.TabIndex = 0;
+            this.SpotifyLabel.Text = "SpotifyLabel";
+            this.SpotifyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SpotifyPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.Controls.Add(this.splitContainer);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MinimumSize = new System.Drawing.Size(110, 40);
             this.Name = "SpotifyPanel";
-            this.Size = new System.Drawing.Size(199, 52);
+            this.Size = new System.Drawing.Size(140, 40);
+            this.Tag = "Not Set";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
-            this.splitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).EndInit();
@@ -116,8 +125,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer splitContainer;
-        private SpotifyPictureBox SpotifyPictureBox;
-        private SpotifyLabel SpotifyLabel;
+   
+        protected System.Windows.Forms.SplitContainer splitContainer = new System.Windows.Forms.SplitContainer();
+        public SpotifyPictureBox SpotifyPictureBox = new SpotifyPictureBox();
+        public SpotifyLabel SpotifyLabel = new SpotifyLabel();
     }
 }

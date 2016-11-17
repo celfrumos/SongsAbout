@@ -134,6 +134,12 @@
       <DependentUpon>SpotifyPictureBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Converter.cs" />
+    <Compile Include="Controls\SpotifyImageStackedPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SpotifyImageStackedPanel.Designer.cs">
+      <DependentUpon>SpotifyImageStackedPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Album.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
@@ -290,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SpotifyControl.resx">
       <DependentUpon>SpotifyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SpotifyImageStackedPanel.resx">
+      <DependentUpon>SpotifyImageStackedPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SpotifySearchForm.resx">
       <DependentUpon>SpotifySearchForm.cs</DependentUpon>

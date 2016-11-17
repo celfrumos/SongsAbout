@@ -91,10 +91,6 @@ namespace SongsAbout.Forms
 
         private void PromptOptions()
         {
-            flpSpotifyControls.Controls.Add(new SpotifyLabel("Tracks", SpotifyLabel_Click));
-            flpSpotifyControls.Controls.Add(new SpotifyLabel("Albums", SpotifyLabel_Click));
-            flpSpotifyControls.Controls.Add(new SpotifyLabel("Tracks", SpotifyLabel_Click));
-            flpSpotifyControls.Controls.Add(new SpotifyLabel("Playlists", SpotifyLabel_Click));
         }
 
         private async void LoadPlaylists()
@@ -110,7 +106,7 @@ namespace SongsAbout.Forms
                         if (playlist.Public)
                         {
                             FullPlaylist p = await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.PrivateId, playlist.Id);
-                            SpotifyPanel panel = new SpotifyPanel(p, SpotifyLabel_Click);
+                            SpotifyPanel panel = new SpotifyPanel(p, SPanelType.Image, SpotifyLabel_Click);
                             flpSpotifyControls.Controls.Add(panel);
                         }
                     }
@@ -136,7 +132,7 @@ namespace SongsAbout.Forms
                     try
                     {
                         FullAlbum album = await UserSpotify.WebAPI.GetAlbumAsync(a.Album.Id);
-                        SpotifyPanel panel = new SpotifyPanel(album, SpotifyPanel_Click);
+                        SpotifyPanel panel = new SpotifyPanel(album, SPanelType.Image, SpotifyPanel_Click);
 
                         flpSpotifyControls.Controls.Add(panel);
                     }
@@ -160,25 +156,6 @@ namespace SongsAbout.Forms
                 {
                     flpSpotifyControls.Controls.Clear();
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
-                    //var s = UserSpotify.WebAPI.SearchItems(txtBoxSearch.Text, _searchType);
-                    //var res = new List<BasicModel>();
-                    //foreach (var item in s.Artists.Items)
-                    //{
-                    //    res.Add(item);
-
-                    //}
-                    //var artists = s.Artists;
-                    //var albums = s.Albums;
-                    //var tracks = s.Tracks;
-                    //var playlists = s.Playlists;
-                    //int i = 0;
-                    //while (i < artists.Items.Count)
-                    //{
-                    //    var artist = artists.Items[i];
-                    //    Console.WriteLine(artist.Name);
-                    //    AddToFlow(artist, SpotifyPanel_Click));
-                    //    i++;
-                    //}
                 }
             }
             catch (Exception ex)
@@ -195,19 +172,19 @@ namespace SongsAbout.Forms
             {
                 resultsList.Artists.Items.ForEach(a =>
                 {
-                    AddToFlow(new SpotifyPanel(a, SpotifyPanel_Click));
+                    AddToFlow(new SpotifyPanel(a, SPanelType.Image, SpotifyPanel_Click));
                 });
                 resultsList.Albums.Items.ForEach(al =>
                 {
-                    AddToFlow(new SpotifyPanel(al, SpotifyPanel_Click));
+                    AddToFlow(new SpotifyPanel(al, SPanelType.Image, SpotifyPanel_Click));
                 });
                 resultsList.Tracks.Items.ForEach(t =>
                 {
-                    AddToFlow(new SpotifyPanel(t, SpotifyPanel_Click));
+                    AddToFlow(new SpotifyPanel(t, SPanelType.Image, SpotifyPanel_Click));
                 });
                 resultsList.Playlists.Items.ForEach(p =>
                 {
-                    AddToFlow(new SpotifyPanel(p, SpotifyPanel_Click));
+                    AddToFlow(new SpotifyPanel(p, SPanelType.Image, SpotifyPanel_Click));
                 });
             }
             else
@@ -216,28 +193,28 @@ namespace SongsAbout.Forms
                 {
                     resultsList.Artists.Items.ForEach(a =>
                     {
-                        AddToFlow(new SpotifyPanel(a, SpotifyPanel_Click));
+                        AddToFlow(new SpotifyPanel(a, SPanelType.Image, SpotifyPanel_Click));
                     });
                 }
                 if (searchType == SearchType.Album)
                 {
                     resultsList.Albums.Items.ForEach(al =>
                     {
-                        AddToFlow(new SpotifyPanel(al, SpotifyPanel_Click));
+                        AddToFlow(new SpotifyPanel(al, SPanelType.Image, SpotifyPanel_Click));
                     });
                 }
                 if (searchType == SearchType.Track)
                 {
                     resultsList.Tracks.Items.ForEach(t =>
                     {
-                        AddToFlow(new SpotifyPanel(t, SpotifyPanel_Click));
+                        AddToFlow(new SpotifyPanel(t, SPanelType.Image, SpotifyPanel_Click));
                     });
                 }
                 if (searchType == SearchType.Playlist)
                 {
                     resultsList.Playlists.Items.ForEach(p =>
                     {
-                        AddToFlow(new SpotifyPanel(p, SpotifyPanel_Click));
+                        AddToFlow(new SpotifyPanel(p, SPanelType.Image, SpotifyPanel_Click));
                     });
                 }
 
@@ -248,20 +225,19 @@ namespace SongsAbout.Forms
         {
             try
             {
-                await Task.Run(() =>
+                //await Task.Run(() =>                {
+                if (flpSpotifyControls.InvokeRequired)
                 {
-                    if (flpSpotifyControls.InvokeRequired)
-                    {
-                        flpSpotifyControls.Invoke(new MethodInvoker(delegate
-                        {
-                            flpSpotifyControls.Controls.Add(panel);
-                        }));
-                    }
-                    else
+                    flpSpotifyControls.Invoke(new MethodInvoker(delegate
                     {
                         flpSpotifyControls.Controls.Add(panel);
-                    }
-                });
+                    }));
+                }
+                else
+                {
+                    flpSpotifyControls.Controls.Add(panel);
+                }
+                //  });
             }
             catch (Exception ex)
             {
