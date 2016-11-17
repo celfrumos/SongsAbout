@@ -21,10 +21,10 @@ namespace SongsAbout.Classes
         {
             try
             {
-                // ImportTopTracks();
-                ImportSavedPlaylists();
-               // ImportFollowedArtists();
+                ImportTopTracks();
                 ImportSavedTracks();
+                ImportSavedPlaylists();
+                // ImportFollowedArtists();
             }
             catch (Exception ex)
             {
@@ -106,10 +106,6 @@ namespace SongsAbout.Classes
                 {
                     Track newTrack = new Track(track);
                     newTrack.Save();
-                    //Track track = new Track();
-                    //track.Update(t);
-                    //track.Save();
-                    //Console.WriteLine($"Successfully Imported track {t.Name}");
                 }
                 else {
                     Console.WriteLine($"Track '{track.Name}' already exists");

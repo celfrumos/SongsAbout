@@ -96,6 +96,7 @@
           <Property Name="track_artist_id" Type="int" Nullable="false" />
           <Property Name="can_play" Type="nchar" MaxLength="1" />
           <Property Name="list_id" Type="int" />
+          <Property Name="track_album_id" Type="int" />
         </EntityType>
         <EntityType Name="TrackTags">
           <Key>
@@ -482,6 +483,7 @@
           <NavigationProperty Name="TrackTags" Relationship="Self.FK_TrackTags_Tracks" FromRole="Tracks" ToRole="TrackTags" />
           <NavigationProperty Name="TrackTopics" Relationship="Self.FK_TrackTopics_Tracks" FromRole="Tracks" ToRole="TrackTopics" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="track_album_id" Type="Int32" />
         </EntityType>
         <EntityType Name="TrackTag">
           <Key>
@@ -854,6 +856,7 @@
           <EntitySetMapping Name="Tracks">
             <EntityTypeMapping TypeName="DataClasses.Track">
               <MappingFragment StoreEntitySet="Tracks">
+                <ScalarProperty Name="track_album_id" ColumnName="track_album_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="track_spotify_uri" ColumnName="track_spotify_uri" />

@@ -40,7 +40,7 @@ namespace SongsAbout.Entities
             this.name = t.Name;
             this.track_length_minutes = (double)(t.DurationMs) / 60000;
             this.track_spotify_uri = t.Uri;
-
+            
             try
             {
                 UpdateAlbum(t.Album);
@@ -105,44 +105,32 @@ namespace SongsAbout.Entities
 
         public static bool Exists(string name)
         {
-            return true;// DbEntity<Track>.Exists(name);
+            int tracks = 0;
+            using (DataClassContext context = new DataClassContext())
+            {
+                formatName(ref name);
+                tracks = (
+                   from t in context.Tracks
+                   where t.name == name
+                   select t).Count();
+            }
+            return tracks > 0;
         }
 
-        public static bool Exists(int track_id)
+        public static bool Exists(int a)
         {
-            return true; // DbEntity<Track>.Exists(track_id);
+            int tracks = 0;
+            using (DataClassContext context = new DataClassContext())
+            {
+                tracks = (
+                   from ab in context.Tracks
+                   where ab.ID == a
+                   select ab).Count();
+            }
+            return tracks > 0;
 
         }
-
-        //public void SaveGenres(ref List<string> genres)
-        //{
-        //    try
-        //    {
-        //        using (DataClassesDataContext context = new DataClassesDataContext())
-        //        {
-        //            DataSet gen = new DataSet();
-
-        //            foreach (string g in genres)
-        //            {
-        //                TrackGenre tg = new TrackGenre();
-        //                tg.track_id = this.track_id;
-        //                tg.tg_genre = g;
-
-        //                context.TrackGenres.InsertOnSubmit(tg);
-        //            }
-
-        //            context.SubmitChanges();
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string msg = "Error Saving track genres: " + ex.Message;
-        //        Console.WriteLine(msg);
-        //        throw new Exception(msg);
-        //    }
-        //}
-
+        
         public void Update(FullTrack t)
         {
             try
@@ -150,7 +138,6 @@ namespace SongsAbout.Entities
                 this.name = t.Name;
                 this.track_length_minutes = (double)(t.DurationMs) / 60000;
                 this.track_spotify_uri = t.Uri;
-                this.Save();
                 UpdateAlbum(t.Album);
                 UpdateArtist(t.Artists[0]);
             }
@@ -162,42 +149,48 @@ namespace SongsAbout.Entities
             }
         }
 
-        public void Update(ref FullTrack t)
+        public void UpdateArtist(SimpleArtist artist)
         {
-            this.name = t.Name;
-            this.track_length_minutes = (double)(t.DurationMs) / 60000;
-            this.track_spotify_uri = t.Uri;
             try
             {
+                Artist a;
+                if (Artist.Exists(artist.Name))
+                {
+                    a = Artist.Load(artist.Name);
+                }
+                else
+                {
+                    a = new Artist(artist);
+                    a.Save();
+                    //al.Save();
+                }
+                this.track_artist_id = a.ID;
 
-                UpdateAlbum(t.Album);
-                SimpleArtist tArtist = t.Artists[0];
-                UpdateArtist(tArtist);
+                //ta.Update(a.artist_id, this.track_id);
             }
             catch (Exception ex)
             {
-                string msg = $"Error Updating track: {ex.Message}";
+                string msg = $"Error updating track artist: {this.name}: {ex.Message}";
                 Console.WriteLine(msg);
-                //throw new Exception(msg);
+                //  throw new Exception(msg);
             }
         }
-
-        public void UpdateArtist(SimpleArtist simpleArtist)
+        public void UpdateArtist(FullArtist artist)
         {
             try
             {
-                //Artist a;
-                //TrackArtists ta = new TrackArtists();
-                //if (Artist.Exists(simpleArtist.Name))
-                //{
-                //    a = Artist.Load(simpleArtist.Name);
-                //}
-                //else
-                //{
-                //    a = new Artist();
-                //    a.Update(simpleArtist);
-                //    //   a.Save();
-                //}
+                Artist a;
+                if (Artist.Exists(artist.Name))
+                {
+                    a = Artist.Load(artist.Name);
+                }
+                else
+                {
+                    a = new Artist(artist);
+                    a.Save();
+                    //al.Save();
+                }
+                this.track_artist_id = a.ID;
 
                 //ta.Update(a.artist_id, this.track_id);
             }
@@ -213,20 +206,21 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Album a = new Album(album);
                 //AlbumTracks at = new AlbumTracks();
 
-                //Album al;
-                //if (Album.Exists(album.Name))
-                //{
-                //    al = Album.Load(album.Name);
-                //}
-                //else
-                //{
-                //    al = new Album();
-                //    al.Update(album);
-                //    //al.Save();
-                //}
+                Album al;
+                if (Album.Exists(album.Name))
+                {
+                    al = Album.Load(album.Name);
+                    this.track_album_id = al.ID;
+                }
+                else
+                {
+                    al = new Album(album);
+                    al.Save();
+                    this.track_album_id = al.ID;
+                    //al.Save();
+                }
                 //at.Update(al.album_id, this.track_id);
                 ////at.Save();
             }
@@ -237,32 +231,35 @@ namespace SongsAbout.Entities
                 //    throw new Exception(msg);
             }
         }
+        private void UpdateAlbum(FullAlbum album)
+        {
+            try
+            {
+                //AlbumTracks at = new AlbumTracks();
 
-        //private void UpdateAlbum(ref SimpleAlbum album)
-        //{
-        //    try
-        //    {
-        //        Album al;
-        //        if (Artist.Exists(album.Name))
-        //        {
-        //            al = Album.Load(album.Name);
-        //        }
-        //        else
-        //        {
-        //            al = new Album();
-        //            al.Update(album);
-        //            al.Save();
-        //        }
-
-        //        this.album_id = al.album_id;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string msg = $"Error updating track album for track: {this.name}: {ex.Message}";
-        //        Console.WriteLine(msg);
-        //        //    throw new Exception(msg);
-        //    }
-        //}
+                Album al;
+                if (Album.Exists(album.Name))
+                {
+                    al = Album.Load(album.Name);
+                    this.track_album_id = al.ID;
+                }
+                else
+                {
+                    al = new Album(album);
+                    al.Save();
+                    this.track_album_id = al.ID;
+                    //al.Save();
+                }
+                //at.Update(al.album_id, this.track_id);
+                ////at.Save();
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error updating track album for track: {this.name}: {ex.Message}";
+                Console.WriteLine(msg);
+                //    throw new Exception(msg);
+            }
+        }
 
     }
 }

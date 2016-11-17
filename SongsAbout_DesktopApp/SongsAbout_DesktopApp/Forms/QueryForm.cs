@@ -31,10 +31,10 @@ namespace SongsAbout.Forms
                     this.Close();
                     break;
                 case DialogResult.Yes:
-                    sr.ConnectionString = AppSettings.Default.SongsAboutSQLDBConnectionString;
+                    sr.ConnectionString = Settings.Default.SongsAboutSQLDBConnectionString;
                     break;
                 case DialogResult.No:
-                    sr.ConnectionString = AppSettings.Default.SchoolDBConnectionString;
+                  //  sr.ConnectionString = Settings.Default.SchoolDBConnectionString;
                     break;
                 default:
                     break;

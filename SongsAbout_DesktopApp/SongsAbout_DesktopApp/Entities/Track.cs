@@ -31,6 +31,7 @@ namespace SongsAbout.Entities
         public string can_play { get; set; }
         public Nullable<int> list_id { get; set; }
         public string name { get; set; }
+        public Nullable<int> track_album_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlbumTrack> AlbumTracks { get; set; }

@@ -19,6 +19,12 @@ namespace SongsAbout.Entities
         public static string TypeString = "Album";
         public static string TitleColumn = "name";
         private SpotifyEntityType _spotifyType = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
+
+        public override SpotifyEntityType SpotifyType
+        {
+            get { return this._spotifyType; }
+            set { this._spotifyType = value; }
+        }
         Type a = typeof(Artist);
 
         public override string TableName
@@ -45,7 +51,7 @@ namespace SongsAbout.Entities
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
         }
-        public Album(SimpleAlbum album) : this(Converter.GetFullAlbum(album))// : base("al_title", "Albums", "Album")
+        public Album(SimpleAlbum album) : this(Converter.GetFullAlbum(album))
         {
         }
 
@@ -69,43 +75,34 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new SaveError(this, ex.Message);
+                throw new SaveError(this, ex.Message + "\n" + ex.InnerException.Message);
             }
         }
 
-        //new public static bool Exists(int album_id)
-        //{
-        //    return DbEntity<Album>.Exists(album_id);
-        //}
-
-        //new public static bool Exists(string al_title)
-        //{
-        //    return DbEntity<Album>.Exists(al_title);
-        //}
         public static bool Exists(string a)
         {
-            IQueryable<Album> albums;
+            int albums = 0;
             using (DataClassContext context = new DataClassContext())
             {
                 DbEntity.formatName(ref a);
-                albums =
+                albums = (
                    from ab in context.Albums
                    where ab.name == a
-                   select ab;
+                   select ab).Count();
             }
-            return albums.Count() > 0;
+            return albums > 0;
         }
         public static bool Exists(int a)
         {
-            IQueryable<Album> albums;
+            int albums = 0;
             using (DataClassContext context = new DataClassContext())
             {
-                albums =
-                     from ab in context.Albums
-                     where ab.ID == a
-                     select ab;
+                albums = (
+                   from ab in context.Albums
+                   where ab.ID == a
+                   select ab).Count();
             }
-            return albums.Count() > 0;
+            return albums > 0;
         }
 
 
@@ -127,14 +124,14 @@ namespace SongsAbout.Entities
             try
             {
                 FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
-                this.Update(ref al);
+                this.Update(al);
             }
             catch (Exception ex)
             {
                 throw new UpdateError(this, album.Name, ex.Message);
             }
         }
-          
+
         public void Update(FullAlbum album)
         {
             try

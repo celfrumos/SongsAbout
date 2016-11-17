@@ -25,8 +25,8 @@ namespace SongsAbout.Entities
         public virtual string TypeName { get { return typeof(DbEntity).ToString(); } }
         public abstract void Save();
         public virtual void Save(DataClassContext db) { }
-        public DbEntityType DbEntityType { get; set; }
-        public SpotifyEntityType SpotifyType { get; set; }
+        public virtual DbEntityType DbEntityType { get; set; }
+        public virtual SpotifyEntityType SpotifyType { get; set; }
 
         protected static void formatName(ref string name)
         {

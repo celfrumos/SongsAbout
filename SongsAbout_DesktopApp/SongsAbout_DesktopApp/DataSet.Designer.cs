@@ -5686,7 +5686,7 @@ namespace SongsAbout.DataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6002,7 +6002,7 @@ namespace SongsAbout.DataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6339,7 +6339,7 @@ SELECT ID, artist_id, name, al_year, al_spotify_uri, al_cover_art FROM Albums WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6774,7 +6774,7 @@ SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_p
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7251,7 +7251,7 @@ SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_p
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7573,7 +7573,7 @@ SELECT tag_text, track_id, ID FROM TrackTags WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7902,7 +7902,7 @@ SELECT tag_text, track_id, ID FROM TrackTags WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8233,7 +8233,7 @@ SELECT ID, album_id, genre FROM AlbumGenres WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8590,7 +8590,7 @@ SELECT ID, album_id, genre FROM AlbumGenres WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8899,7 +8899,7 @@ SELECT ID, album_id, genre FROM AlbumGenres WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9219,7 +9219,7 @@ SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.AppSettings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

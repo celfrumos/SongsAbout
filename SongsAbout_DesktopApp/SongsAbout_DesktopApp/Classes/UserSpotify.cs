@@ -44,7 +44,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                string clientId = AppSettings.Default.ClientId;
+                string clientId = Settings.Default.ClientId;
                 SpotifyWebAPI _spotify = new SpotifyWebAPI();
                 WebAPIFactory webApiFactory = new WebAPIFactory(
                     REDIRECT_URI,

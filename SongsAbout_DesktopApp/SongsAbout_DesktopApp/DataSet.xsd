@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SongsAboutSQLDBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SongsAboutSQLDBConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.SongsAbout.Properties.AppSettings.GlobalReference.Default.SongsAboutSQLDBConnectionString" Provider="System.Data.SqlClient" />
+          <Connection SettingsObjectName="Settings" SettingsPropertyName="SongsAboutSQLDBConnectionString" ConnectionStringObject="" IsSettingsProperty="true" Modifier="Assembly" Name="SongsAboutSQLDBConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.SongsAbout.Properties.Settings.GlobalReference.Default.SongsAboutSQLDBConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TrackGenresTableAdapter" GeneratorDataComponentClassName="TrackGenresTableAdapter" Name="TrackGenres" UserDataComponentName="TrackGenresTableAdapter">

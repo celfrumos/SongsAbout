@@ -356,13 +356,13 @@
       <DependentUpon>DataSet.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\AppSettings.settings">
+    <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>AppSettings.Designer.cs</LastGenOutput>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\AppSettings.Designer.cs">
+    <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>AppSettings.settings</DependentUpon>
+      <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Properties\User.settings">
