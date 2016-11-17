@@ -22,9 +22,9 @@ namespace SongsAbout.Classes
             try
             {
                 // ImportTopTracks();
-                //ImportSavedPlaylists();
-                ImportFollowedArtists();
-                //ImportSavedTracks();
+                ImportSavedPlaylists();
+               // ImportFollowedArtists();
+                ImportSavedTracks();
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace SongsAbout.Classes
 
         public static void ImportSavedPlaylists()
         {
-            foreach (SimplePlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId, 50, 21).Items)
+            foreach (SimplePlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId).Items)
             {
                 try
                 {
@@ -104,6 +104,8 @@ namespace SongsAbout.Classes
             {
                 if (!Track.Exists(track.Name))
                 {
+                    Track newTrack = new Track(track);
+                    newTrack.Save();
                     //Track track = new Track();
                     //track.Update(t);
                     //track.Save();

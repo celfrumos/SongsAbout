@@ -31,6 +31,19 @@ namespace SongsAbout.Entities
             get { return Table; }
         }
 
+        public Artist(FullArtist artist)
+        {
+            this.name = artist.Name;
+            this.a_spotify_uri = artist.Uri;
+            this.a_website = artist.Href;
+            this.UpdateProfilePic(artist);
+            this.a_website = artist.Href;
+
+        }
+        public Artist(SimpleArtist artist):this(Converter.GetFullArtist(artist))
+        {
+
+        }
         public override string Name { get; set; }
 
         public override string TypeName

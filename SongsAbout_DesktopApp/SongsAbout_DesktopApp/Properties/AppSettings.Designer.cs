@@ -36,17 +36,6 @@ namespace SongsAbout.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=bigdata2.ad.uvu.edu;Integrated Security=SSPI;Initial Catalog=INFO2410" +
-            "_SongTopics")]
-        public string SchoolDBConnectionString {
-            get {
-                return ((string)(this["SchoolDBConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("4d8b5c54f513430f8b0f486974c89402")]
         public string ClientId {
             get {

@@ -79,7 +79,11 @@ namespace SongsAbout.Entities
                 {
                     if (!Exists(this.name))
                     {
-                        //this.Submit();
+                        using (var db = new DataClassContext())
+                        {
+                            db.Tracks.Add(this);
+                            db.SaveChanges();
+                        }
                     }
                     else
                     {
@@ -209,6 +213,7 @@ namespace SongsAbout.Entities
         {
             try
             {
+                Album a = new Album(album);
                 //AlbumTracks at = new AlbumTracks();
 
                 //Album al;

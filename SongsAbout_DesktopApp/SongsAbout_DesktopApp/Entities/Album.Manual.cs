@@ -1,5 +1,6 @@
 ﻿
-using System;using SpotifyAPI.Web.Models;
+using System;
+using SpotifyAPI.Web.Models;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
@@ -19,7 +20,7 @@ namespace SongsAbout.Entities
         public static string TitleColumn = "name";
         private SpotifyEntityType _spotifyType = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
         Type a = typeof(Artist);
-     
+
         public override string TableName
         {
             get { return Table; }
@@ -38,7 +39,14 @@ namespace SongsAbout.Entities
         public Album(FullAlbum album)// : base("al_title", "Albums", "Album")
         {
             this.SpotifyType = SpotifyEntityType.FullAlbum;
-            this.Update(ref album);
+            this.name = album.Name;
+            this.al_spotify_uri = album.Uri;
+            this.UpdateArtist(album.Artists[0]);
+            this.SetGenres(album.Genres);
+            this.UpdateCoverArt(album);
+        }
+        public Album(SimpleAlbum album) : this(Converter.GetFullAlbum(album))// : base("al_title", "Albums", "Album")
+        {
         }
 
         public override void Save()
@@ -49,10 +57,10 @@ namespace SongsAbout.Entities
                 {
                     using (var context = new DataClassContext())
                     {
-                        context.Albums.Add(this);                        
+                        context.Albums.Add(this);
                         context.SaveChanges();
                     }
-              
+
                 }
                 else
                 {
@@ -126,20 +134,7 @@ namespace SongsAbout.Entities
                 throw new UpdateError(this, album.Name, ex.Message);
             }
         }
-
-        public void Update(ref SimpleAlbum album)
-        {
-            try
-            {
-                FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
-                this.Update(ref al);
-            }
-            catch (Exception ex)
-            {
-                throw new UpdateError(this, album.Name, ex.Message);
-            }
-        }
-
+          
         public void Update(FullAlbum album)
         {
             try
@@ -214,8 +209,7 @@ namespace SongsAbout.Entities
                 }
                 else
                 {
-                    a = new Artist();
-                    a.Update(simpleArtist);
+                    a = new Artist(simpleArtist);
                     //  a.Save();
                     Console.WriteLine($"Artist added: '{a.name}'");
                 }
