@@ -77,20 +77,12 @@ namespace SongsAbout.Entities
             {
                 if (this.name != null)
                 {
-                    //   if (!Exists(this.name))
-                    //{
                     using (var db = new DataClassesContext())
                     {
                         // db.Tracks.Add(this);
                         db.UpdateInsert_Track(this.ID, this.name, this.track_spotify_uri, this.track_length_minutes, this.track_artist_id, this.can_play, this.track_album_id);
                         db.SaveChanges();
                     }
-                    //  }
-                    // else
-                    //{
-                    //    string msg = $"Track {this.name} already exists";
-                    //    Console.WriteLine(msg);
-                    //}
                 }
                 else
                 {
