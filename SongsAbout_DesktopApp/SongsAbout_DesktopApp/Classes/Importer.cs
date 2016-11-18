@@ -54,8 +54,8 @@ namespace SongsAbout.Classes
             {
                 if (!Artist.Exists(artist.Name))
                 {
-                    Artist a = new Artist();
-                    a.Update(artist);
+                    Artist a = new Artist(artist);
+                    //a.Update(artist);
                     a.Save();
                 }
             }
@@ -107,7 +107,8 @@ namespace SongsAbout.Classes
                     Track newTrack = new Track(track);
                     newTrack.Save();
                 }
-                else {
+                else
+                {
                     Console.WriteLine($"Track '{track.Name}' already exists");
                 }
             }
@@ -174,21 +175,32 @@ namespace SongsAbout.Classes
 
         public static void ImportSavedTracks()
         {
-            Paging<SavedTrack> tracks = User.Default.SpotifyWebAPI.GetSavedTracks();
-            foreach (SavedTrack track in tracks.Items)
+            try
             {
-                try
+                if (UserSpotify.WebAPI == null)
                 {
-                    ImportTrack(Converter.GetFullTrack(track));
+                    throw new SpotifyUndefinedAPIError();
                 }
-                catch (SpotifyException)
+                Paging<SavedTrack> tracks = UserSpotify.WebAPI.GetSavedTracks();
+                foreach (SavedTrack track in tracks.Items)
                 {
-                    throw;
+                    try
+                    {
+                        ImportTrack(Converter.GetFullTrack(track));
+                    }
+                    catch (SpotifyException)
+                    {
+                        throw;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 

@@ -19,7 +19,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="artist_id" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="255" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="al_year" Type="nvarchar" MaxLength="4" />
           <Property Name="al_spotify_uri" Type="nvarchar" MaxLength="255" />
           <Property Name="al_cover_art" Type="image" />
@@ -37,7 +37,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="255" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="a_bio" Type="nvarchar(max)" />
           <Property Name="a_website" Type="nvarchar(max)" />
           <Property Name="a_spotify_uri" Type="nvarchar" MaxLength="255" />
@@ -90,12 +90,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="255" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="track_spotify_uri" Type="nvarchar" MaxLength="255" />
           <Property Name="track_length_minutes" Type="float" />
           <Property Name="track_artist_id" Type="int" Nullable="false" />
           <Property Name="can_play" Type="nchar" MaxLength="1" />
-          <Property Name="list_id" Type="int" />
           <Property Name="track_album_id" Type="int" />
         </EntityType>
         <EntityType Name="TrackTags">
@@ -103,7 +102,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="tag_text" Type="nvarchar" MaxLength="50" />
+          <Property Name="tag_text" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="track_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TrackTopics">
@@ -111,7 +110,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="topic_id" Type="int" />
+          <Property Name="topic_id" Type="int" Nullable="false" />
           <Property Name="track_id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__AlbumTracks_Album">
@@ -241,7 +240,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrackTags_Tags">
-          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="TrackTags" Type="Self.TrackTags" Multiplicity="*" />
@@ -269,7 +268,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrackTopics_Topics">
-          <End Role="Topics" Type="Self.Topics" Multiplicity="0..1">
+          <End Role="Topics" Type="Self.Topics" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="TrackTopics" Type="Self.TrackTopics" Multiplicity="*" />
@@ -392,7 +391,7 @@
           <NavigationProperty Name="AlbumGenres" Relationship="Self.FK_AlbumGenres_Albums" FromRole="Albums" ToRole="AlbumGenres" />
           <NavigationProperty Name="AlbumTracks" Relationship="Self.FK__AlbumTracks_Album" FromRole="Albums" ToRole="AlbumTracks" />
           <NavigationProperty Name="Artist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="AlbumTrack">
           <Key>
@@ -415,7 +414,7 @@
           <Property Name="a_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Albums" Relationship="Self.FK_Albums_Artists" FromRole="Artists" ToRole="Albums" />
           <NavigationProperty Name="TrackArtists" Relationship="Self.FK__ArtistTra__artis__40058253" FromRole="Artists" ToRole="TrackArtists" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -476,13 +475,12 @@
           <Property Name="track_length_minutes" Type="Double" />
           <Property Name="track_artist_id" Type="Int32" Nullable="false" />
           <Property Name="can_play" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="list_id" Type="Int32" />
           <NavigationProperty Name="AlbumTracks" Relationship="Self.FK__AlbumTracks_Track" FromRole="Tracks" ToRole="AlbumTracks" />
           <NavigationProperty Name="TrackArtists" Relationship="Self.FK__ArtistTra__track__40F9A68C" FromRole="Tracks" ToRole="TrackArtists" />
           <NavigationProperty Name="TrackGenres" Relationship="Self.FK_TrackGenres_Tracks" FromRole="Tracks" ToRole="TrackGenres" />
           <NavigationProperty Name="TrackTags" Relationship="Self.FK_TrackTags_Tracks" FromRole="Tracks" ToRole="TrackTags" />
           <NavigationProperty Name="TrackTopics" Relationship="Self.FK_TrackTopics_Tracks" FromRole="Tracks" ToRole="TrackTopics" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="track_album_id" Type="Int32" />
         </EntityType>
         <EntityType Name="TrackTag">
@@ -490,7 +488,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tag_text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tag_text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="track_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Tag" Relationship="Self.FK_TrackTags_Tags" FromRole="TrackTags" ToRole="Tags" />
           <NavigationProperty Name="Track" Relationship="Self.FK_TrackTags_Tracks" FromRole="TrackTags" ToRole="Tracks" />
@@ -500,7 +498,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="topic_id" Type="Int32" />
+          <Property Name="topic_id" Type="Int32" Nullable="false" />
           <Property Name="track_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Topic" Relationship="Self.FK_TrackTopics_Topics" FromRole="TrackTopics" ToRole="Topics" />
           <NavigationProperty Name="Track" Relationship="Self.FK_TrackTopics_Tracks" FromRole="TrackTopics" ToRole="Tracks" />
@@ -604,7 +602,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrackTags_Tags">
-          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="TrackTags" Type="Self.TrackTag" Multiplicity="*" />
@@ -618,7 +616,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TrackTopics_Topics">
-          <End Role="Topics" Type="Self.Topic" Multiplicity="0..1">
+          <End Role="Topics" Type="Self.Topic" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="TrackTopics" Type="Self.TrackTopic" Multiplicity="*" />
@@ -863,7 +861,6 @@
                 <ScalarProperty Name="track_length_minutes" ColumnName="track_length_minutes" />
                 <ScalarProperty Name="track_artist_id" ColumnName="track_artist_id" />
                 <ScalarProperty Name="can_play" ColumnName="can_play" />
-                <ScalarProperty Name="list_id" ColumnName="list_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

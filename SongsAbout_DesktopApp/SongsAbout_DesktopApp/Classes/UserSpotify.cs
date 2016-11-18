@@ -74,7 +74,8 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyAuthError(ex.Message);
+                var e = new SpotifyAuthError(ex.Message);
+                Console.WriteLine(e.Message + "\n" + e.StackTrace);
             }
         }
 

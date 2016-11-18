@@ -154,7 +154,7 @@ namespace SongsAbout.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error Importing Saved Tracks from Spotify: {ex.Message}");
+                MessageBox.Show($"Error Importing Saved Tracks from Spotify: {ex.StackTrace}");
             }
         }
 

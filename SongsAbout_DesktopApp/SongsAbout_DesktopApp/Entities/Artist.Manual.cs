@@ -20,7 +20,7 @@ namespace SongsAbout.Entities
     /// </summary>
     public partial class Artist : DbEntity// : DbEntity<Artist>
     {
-        DataClassContext artistContext = new DataClassContext();
+        // DataClassContext artistContext = new DataClassContext();
         public static string Table = "Artists";
         public static string TypeString = "Artist";
         public static string TitleColumn = "name";
@@ -40,11 +40,15 @@ namespace SongsAbout.Entities
             this.a_website = artist.Href;
 
         }
-        public Artist(SimpleArtist artist):this(Converter.GetFullArtist(artist))
+        public Artist(SimpleArtist artist) : this(Converter.GetFullArtist(artist))
         {
 
         }
-        public override string Name { get; set; }
+        public override string Name
+        {
+            get { return this.name; }
+            set { this.name = value; }
+        }
 
         public override string TypeName
         {
@@ -64,17 +68,17 @@ namespace SongsAbout.Entities
             {
                 if (this.name != null)
                 {
-                    if (!Exists(this.name))
+                    //   if (!Exists(this.name))
                     {
                         using (var context = new DataClassContext())
                         {
                             context.Artists.Add(this);
-                            context.SaveChanges();
+                            var e = context.SaveChanges();
                         }
                     }
-                    else
+                    //  else
                     {
-                        throw new EntityNotFoundError(this, this.name);
+                        //  throw new EntityNotFoundError(this, this.name);
                     }
                 }
                 else
@@ -82,9 +86,21 @@ namespace SongsAbout.Entities
                     throw new Exception("Artist name cannot be null.");
                 }
             }
+            catch (EntityNotFoundError ex)
+            {
+                Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
+            }
+            catch (UpdateError ex)
+            {
+                Console.WriteLine(ex.Message + "\n");
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
+            }
             catch (Exception ex)
             {
-                throw new SaveError(this, this.name, ex.Message);
+                Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
             }
         }
         /// </summary>
@@ -120,15 +136,14 @@ namespace SongsAbout.Entities
         {
             try
             {
-
                 int count = 0;
+                formatName(ref name);
                 using (var db = new DataClassContext())
                 {
-                    var query = from a in db.Artists
-                                where a.name == name
-                                select a;
-                    count = query.Count();
+                    var c = db.Artists.Where(a => a.name == name);
+                    count = c.Count();
                 }
+
                 return count > 0;
             }
             catch (Exception ex)

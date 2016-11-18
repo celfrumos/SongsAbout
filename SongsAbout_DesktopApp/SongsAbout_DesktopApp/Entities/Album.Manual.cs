@@ -47,7 +47,10 @@ namespace SongsAbout.Entities
             this.SpotifyType = SpotifyEntityType.FullAlbum;
             this.name = album.Name;
             this.al_spotify_uri = album.Uri;
-            this.UpdateArtist(album.Artists[0]);
+            if (album.Artists.Count > 0)
+            {
+                this.UpdateArtist(album.Artists[0]);
+            }
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
         }
@@ -75,7 +78,8 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new SaveError(this, ex.Message + "\n" + ex.InnerException.Message);
+                var e = new SaveError(this, ex.Message + "\n" + ex.InnerException.Message);
+                Console.WriteLine(e.Message + e.StackTrace);
             }
         }
 
@@ -207,7 +211,7 @@ namespace SongsAbout.Entities
                 else
                 {
                     a = new Artist(simpleArtist);
-                    //  a.Save();
+                      a.Save();
                     Console.WriteLine($"Artist added: '{a.name}'");
                 }
                 this.artist_id = a.ID;

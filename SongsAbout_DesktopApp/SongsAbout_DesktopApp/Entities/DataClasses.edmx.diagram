@@ -11,9 +11,9 @@
         <EntityTypeShape EntityType="DataClasses.Artist" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.Genre" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.List" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.Tag" Width="1.5" PointX="3.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.Tag" Width="1.5" PointX="7.625" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.Topic" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.TrackArtist" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.TrackArtist" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.TrackGenre" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.Track" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.TrackTag" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />

@@ -369,16 +369,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>User.Designer.cs</LastGenOutput>
     </None>
-    <None Include="SchoolDataSet.xsc">
-      <DependentUpon>SchoolDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="SchoolDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SchoolDataSet.xss">
-      <DependentUpon>SchoolDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

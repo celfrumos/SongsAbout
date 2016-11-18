@@ -15,7 +15,7 @@ namespace SongsAbout.Entities
     public partial class TrackTopic
     {
         public int ID { get; set; }
-        public Nullable<int> topic_id { get; set; }
+        public int topic_id { get; set; }
         public int track_id { get; set; }
     
         public virtual Topic Topic { get; set; }

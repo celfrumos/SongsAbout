@@ -29,7 +29,6 @@ namespace SongsAbout.Entities
         public Nullable<double> track_length_minutes { get; set; }
         public int track_artist_id { get; set; }
         public string can_play { get; set; }
-        public Nullable<int> list_id { get; set; }
         public string name { get; set; }
         public Nullable<int> track_album_id { get; set; }
     
