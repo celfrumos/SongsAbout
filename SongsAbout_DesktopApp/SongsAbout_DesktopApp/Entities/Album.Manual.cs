@@ -64,9 +64,10 @@ namespace SongsAbout.Entities
             {
                 if (this.name != null)
                 {
-                    using (var context = new DataClassContext())
+                    using (var context = new DataClassesContext())
                     {
-                        context.Albums.Add(this);
+                        context.UpdateInsert_Album(this.ID,this.artist_id,this.name,this.al_year,this.al_spotify_uri,this.al_cover_art);
+                   //     context.Albums.Add(this);
                         context.SaveChanges();
                     }
 
@@ -86,7 +87,7 @@ namespace SongsAbout.Entities
         public static bool Exists(string a)
         {
             int albums = 0;
-            using (DataClassContext context = new DataClassContext())
+            using (DataClassesContext context = new DataClassesContext())
             {
                 DbEntity.formatName(ref a);
                 albums = (
@@ -99,7 +100,7 @@ namespace SongsAbout.Entities
         public static bool Exists(int a)
         {
             int albums = 0;
-            using (DataClassContext context = new DataClassContext())
+            using (DataClassesContext context = new DataClassesContext())
             {
                 albums = (
                    from ab in context.Albums

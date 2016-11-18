@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SongsAbout.Properties" GeneratedClassName="User">
   <Profiles />
   <Settings>
-    <Setting Name="PrivateProfile" Type="SpotifyAPI.Web.Models.PrivateProfile" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="ProfilePic" Type="SpotifyAPI.Web.Models.Image" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -18,9 +15,6 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PublicProfile" Type="SpotifyAPI.Web.Models.PublicProfile" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="PrivateId" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BackColor" Type="System.Drawing.Color" Scope="User">
@@ -41,7 +35,10 @@
     <Setting Name="LocalProfilePic" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Setting" Type="System.String" Scope="User">
+    <Setting Name="PrivateProfile" Type="SpotifyAPI.Web.Models.PrivateProfile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PrivateId" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

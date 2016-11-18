@@ -17,30 +17,8 @@ namespace SongsAbout.Forms
         public QueryForm()
         {
             InitializeComponent();
-            ChooseConnection();
+            // ChooseConnection();
 
-        }
-
-        private void ChooseConnection()
-        {
-            SqlConnection sr = new SqlConnection();
-            var result = MessageBox.Show("Are you at home?", "Where are you?", MessageBoxButtons.YesNoCancel);
-            switch (result)
-            {
-                case DialogResult.Cancel:
-                    this.Close();
-                    break;
-                case DialogResult.Yes:
-                    sr.ConnectionString = Settings.Default.SongsAboutSQLDBConnectionString;
-                    break;
-                case DialogResult.No:
-                  //  sr.ConnectionString = Settings.Default.SchoolDBConnectionString;
-                    break;
-                default:
-                    break;
-            }
-
-            SetConnection(sr);
         }
 
         private void SetConnection(SqlConnection sr)
@@ -56,7 +34,7 @@ namespace SongsAbout.Forms
             tableAdapterMngr.TrackGenresTableAdapter.SetConnection(sr);
             tableAdapterMngr.TracksTableAdapter.SetConnection(sr);
             tableAdapterMngr.TrackTagsTableAdapter.SetConnection(sr);
-            
+
         }
 
         private async void QueryForm_Load(object sender, EventArgs e)
@@ -67,10 +45,10 @@ namespace SongsAbout.Forms
                 this.trackArtistsTableAdapter.Fill(this.dataSet.TrackArtists);
                 // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
                 this.albumsTableAdapter.Fill(this.dataSet.Albums);
-                this.albumGenresTableAdapter.Fill(this.dataSet.AlbumGenres);
-
+                // this.albumGenresTableAdapter.Fill(this.dataSet.AlbumGenres);
+                this.tracksTableAdapter.Fill(this.dataSet.Tracks);
                 this.artistsTableAdapter.Fill(this.dataSet.Artists);
-                await Task.Run(() => FillTables());
+               // await Task.Run(() => FillTables());
             }
             catch (Exception ex)
             {
@@ -129,7 +107,7 @@ namespace SongsAbout.Forms
             try
             {
                 // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-                await Task.Run(() => this.artistsTableAdapter.Fill(this.dataSet.Artists));
+             //   await Task.Run(() => this.artistsTableAdapter.Fill(this.dataSet.Artists));
             }
             catch (Exception ex)
             {
@@ -138,7 +116,7 @@ namespace SongsAbout.Forms
             try
             {
                 // TODO: This line of code loads data into the 'dataSet.Albums' table. You can move, or remove it, as needed.
-                await Task.Run(() => this.albumsTableAdapter.Fill(this.dataSet.Albums));
+              //  await Task.Run(() => this.albumsTableAdapter.Fill(this.dataSet.Albums));
             }
             catch (Exception ex)
             {
@@ -147,7 +125,7 @@ namespace SongsAbout.Forms
             try
             {
                 // TODO: This line of code loads data into the 'dataSet.Tracks' table. You can move, or remove it, as needed.
-                await Task.Run(() => this.tracksTableAdapter.Fill(this.dataSet.Tracks));
+              //  await Task.Run(() => this.tracksTableAdapter.Fill(this.dataSet.Tracks));
             }
             catch (Exception ex)
             {

@@ -40,12 +40,12 @@ namespace SongsAbout.Entities
             this.name = t.Name;
             this.track_length_minutes = (double)(t.DurationMs) / 60000;
             this.track_spotify_uri = t.Uri;
-            
+
             try
             {
-                UpdateAlbum(t.Album);
                 SimpleArtist tArtist = t.Artists[0];
                 UpdateArtist(tArtist);
+                UpdateAlbum(t.Album);
             }
             catch (Exception ex)
             {
@@ -77,19 +77,20 @@ namespace SongsAbout.Entities
             {
                 if (this.name != null)
                 {
-                    if (!Exists(this.name))
+                    //   if (!Exists(this.name))
+                    //{
+                    using (var db = new DataClassesContext())
                     {
-                        using (var db = new DataClassContext())
-                        {
-                            db.Tracks.Add(this);
-                            db.SaveChanges();
-                        }
+                        // db.Tracks.Add(this);
+                        db.UpdateInsert_Track(this.ID, this.name, this.track_spotify_uri, this.track_length_minutes, this.track_artist_id, this.can_play, this.track_album_id);
+                        db.SaveChanges();
                     }
-                    else
-                    {
-                        string msg = $"Track {this.name} already exists";
-                        Console.WriteLine(msg);
-                    }
+                    //  }
+                    // else
+                    //{
+                    //    string msg = $"Track {this.name} already exists";
+                    //    Console.WriteLine(msg);
+                    //}
                 }
                 else
                 {
@@ -106,7 +107,7 @@ namespace SongsAbout.Entities
         public static bool Exists(string name)
         {
             int tracks = 0;
-            using (DataClassContext context = new DataClassContext())
+            using (DataClassesContext context = new DataClassesContext())
             {
                 formatName(ref name);
                 tracks = (
@@ -120,7 +121,7 @@ namespace SongsAbout.Entities
         public static bool Exists(int a)
         {
             int tracks = 0;
-            using (DataClassContext context = new DataClassContext())
+            using (DataClassesContext context = new DataClassesContext())
             {
                 tracks = (
                    from ab in context.Tracks
@@ -130,7 +131,7 @@ namespace SongsAbout.Entities
             return tracks > 0;
 
         }
-        
+
         public void Update(FullTrack t)
         {
             try

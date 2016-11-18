@@ -25,17 +25,6 @@ namespace SongsAbout.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.Models.PrivateProfile PrivateProfile {
-            get {
-                return ((global::SpotifyAPI.Web.Models.PrivateProfile)(this["PrivateProfile"]));
-            }
-            set {
-                this["PrivateProfile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public global::SpotifyAPI.Web.Models.Image ProfilePic {
             get {
                 return ((global::SpotifyAPI.Web.Models.Image)(this["ProfilePic"]));
@@ -86,18 +75,6 @@ namespace SongsAbout.Properties {
             }
             set {
                 this["PublicProfile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PrivateId {
-            get {
-                return ((string)(this["PrivateId"]));
-            }
-            set {
-                this["PrivateId"] = value;
             }
         }
         
@@ -174,13 +151,24 @@ namespace SongsAbout.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        public global::SpotifyAPI.Web.Models.PrivateProfile PrivateProfile {
             get {
-                return ((string)(this["Setting"]));
+                return ((global::SpotifyAPI.Web.Models.PrivateProfile)(this["PrivateProfile"]));
             }
             set {
-                this["Setting"] = value;
+                this["PrivateProfile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PrivateId {
+            get {
+                return ((string)(this["PrivateId"]));
+            }
+            set {
+                this["PrivateId"] = value;
             }
         }
     }

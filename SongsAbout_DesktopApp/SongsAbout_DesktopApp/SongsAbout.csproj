@@ -140,26 +140,61 @@
     <Compile Include="Controls\SpotifyImageStackedPanel.Designer.cs">
       <DependentUpon>SpotifyImageStackedPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Album.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AlbumGenre.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AlbumTrack.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\AlbumTracks.Manual.cs" />
+    <Compile Include="Entities\Artist.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\DataClasses.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\DataClasses.Designer.cs">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Entities\DataClasses.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\DataClasses.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Genre.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Genre.Manual.cs" />
     <Compile Include="Entities\DbEntity.cs" />
     <Compile Include="Controls\SpotifyControlEventHandlers.cs" />
     <Compile Include="Classes\DbExceptions.cs" />
+    <Compile Include="Entities\List.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Tag.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Topic.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Track.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TrackArtist.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\TrackArtists.Manual.cs" />
     <Compile Include="Classes\Importer.cs" />
     <Compile Include="Classes\SpotifyExceptions.cs" />
@@ -170,13 +205,11 @@
       <DependentUpon>SpotifyControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\UserSpotify.cs" />
-    <Compile Include="DataSet.cs">
-      <DependentUpon>DataSet.xsd</DependentUpon>
+    <Compile Include="Entities\TrackGenre.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet.xsd</DependentUpon>
+    <Compile Include="Entities\TrackTopic.cs">
+      <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Forms\SpotifySearchForm.cs">
@@ -302,19 +335,19 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataClasses.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Entities\DataClasses.edmx.diagram">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-    </None>
     <None Include="DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </None>
     <None Include="DataSet.xsd">
-      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Entities\DataClasses.edmx.diagram">
+      <DependentUpon>DataClasses.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -344,16 +377,6 @@
     <None Include="Pictures\black-simple-music-note-vector_318-10095.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entities\DataClasses.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <LastGenOutput>DataClasses.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\DataClasses.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <LastGenOutput>DataClasses	.cs</LastGenOutput>
-    </Content>
     <None Include="Resources\ProfilePic.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +390,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entities\DataClasses.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataClasses.edmx</DependentUpon>
+      <LastGenOutput>DataClasses.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\DataClasses.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataClasses.edmx</DependentUpon>
+      <LastGenOutput>DataClasses.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

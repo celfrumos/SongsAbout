@@ -41,10 +41,6 @@ namespace SongsAbout
         {
             try
             {
-                if (User.Default.PrivateId != "")
-                {
-                    //  UserSpotify.ImplicitConnectSpotify();
-                }
                 if (User.Default.SpotifyWebAPI == null)
                 {
                     try
@@ -74,9 +70,13 @@ namespace SongsAbout
                     User.Default.Save();
                 }
             }
+            catch(SpotifyAuthError ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error getting desired Info");
+                MessageBox.Show(ex.Message);
             }
         }
 

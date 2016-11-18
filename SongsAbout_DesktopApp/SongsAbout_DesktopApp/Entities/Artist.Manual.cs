@@ -22,7 +22,7 @@ namespace SongsAbout.Entities
     /// </summary>
     public partial class Artist : DbEntity// : DbEntity<Artist>
     {
-        // DataClassContext artistContext = new DataClassContext();
+        // DataClassesContext artistContext = new DataClassesContext();
         public static string Table = "Artists";
         public static string TypeString = "Artist";
         public static string TitleColumn = "name";
@@ -70,18 +70,12 @@ namespace SongsAbout.Entities
             {
                 if (this.name != null)
                 {
-                    
-                    //   if (!Exists(this.name))
+                    using (var context = new DataClassesContext())
                     {
-                        using (var context = new DataClassContext())
-                        {
-                            context.Artists.Add(this);
-                            var e = context.SaveChanges();
-                        }
-                    }
-                    //  else
-                    {
-                        //  throw new EntityNotFoundError(this, this.name);
+                        context.UpdateInsert_Artist(this.ID, this.name, a_bio, a_website, this.a_spotify_uri, this.a_profile_pic);
+                        context.SaveChanges();
+                        //    context.Artists.Add(this);
+                        //  var e = context.SaveChanges();
                     }
                 }
                 else
@@ -107,7 +101,7 @@ namespace SongsAbout.Entities
             }
         }
         /// </summary>
-        public override void Save(DataClassContext db)
+        public override void Save(DataClassesContext db)
         {
             try
             {
@@ -141,7 +135,7 @@ namespace SongsAbout.Entities
             {
                 int count = 0;
                 formatName(ref name);
-                using (var db = new DataClassContext())
+                using (var db = new DataClassesContext())
                 {
                     var c = db.Artists.Where(a => a.name == name);
                     count = c.Count();
@@ -160,7 +154,7 @@ namespace SongsAbout.Entities
             try
             {
                 int count = 0;
-                using (var db = new DataClassContext())
+                using (var db = new DataClassesContext())
                 {
                     count = (from a in db.Artists
                              where a.ID == artist_id
@@ -222,21 +216,28 @@ namespace SongsAbout.Entities
         {
             try
             {
-                if (!Exists(a_name))
+              //  if (Exists(a_name))
+                //{
+                    Artist l = new Artist();
+                try
                 {
-                    Artist l;
-                    using (var db = new DataClassContext())
+                    using (var db = new DataClassesContext())
                     {
-                        l = (Artist)(from a in db.Artists
-                                     where a.name == a_name
-                                     select a);
+                        l = (from a in db.Artists
+                             where a.name == a_name
+                             select a).ToList()[0];
                     }
-                    return l;
                 }
-                else
+                catch (Exception)
                 {
-                    throw new EntityNotFoundError(typeof(Artist), a_name);
+                    l = new Artist();
                 }
+                    return l;
+               // }
+               // else
+                //{
+                 //   throw new EntityNotFoundError(typeof(Artist), a_name);
+                //}
             }
             catch (Exception ex)
             {
@@ -252,7 +253,7 @@ namespace SongsAbout.Entities
                 if (!Exists(a_id))
                 {
                     Artist l;
-                    using (var db = new DataClassContext())
+                    using (var db = new DataClassesContext())
                     {
                         l = (Artist)(from a in db.Artists
                                      where a.ID == a_id
