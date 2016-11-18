@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using SongsAbout.Classes;
 using SongsAbout.Properties;
 using SpotifyAPI.Web.Models;
@@ -100,7 +97,7 @@ namespace SongsAbout.Controls
                     // if displaying as image panel
                     else
                     {
-                        this.splitContainer.SplitterDistance = 70;
+                      //  this.splitContainer.SplitterDistance = 70;
                         this.MinimumSize = _imagePanelMinSize;
                         this.MaximumSize = _imagePanelMaxSize;
                     }
@@ -177,6 +174,26 @@ namespace SongsAbout.Controls
         {
             this.PanelType = type;
         }
+
+        public SpotifyPanel(Artist artist,SPanelType type = SPanelType.Image, EventHandler clickEvent = null) : this(artist.name, type,$"{typeof(Artist)}", clickEvent, artist, DbEntityType.Artist)
+        {
+            setImage(artist.a_profile_pic);
+            this.DbEntity = artist;
+        }
+
+        private void setImage(byte[] a_profile_pic)
+        {
+            try
+            {
+                this.Image = Importer.ImageFromBytes(a_profile_pic);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                this.Image = Resources.MusicNote;
+            }
+        }
+
         public SpotifyPanel(string text, SPanelType type = SPanelType.Image, string level = "Not Set", EventHandler clickEvent = null, object tag = null,
           DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
         {

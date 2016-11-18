@@ -41,19 +41,17 @@ namespace SongsAbout.Controls
             // 
             this.splitContainer.MinimumSize = new System.Drawing.Size(70, 95);
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.splitContainer.Panel1MinSize = 0;
-            this.splitContainer.Panel2MinSize = 0;
             this.splitContainer.Size = new System.Drawing.Size(70, 95);
-            this.splitContainer.SplitterDistance = 70;
+            this.splitContainer.SplitterDistance = 19;
             // 
             // SpotifyPictureBox
             // 
-            this.SpotifyPictureBox.Size = new System.Drawing.Size(70, 70);
+            this.SpotifyPictureBox.Size = new System.Drawing.Size(20,20);            
             // 
             // SpotifyLabel
             // 
             this.SpotifyLabel.MinimumSize = new System.Drawing.Size(0, 0);
-            this.SpotifyLabel.Size = new System.Drawing.Size(70, 24);
+            this.SpotifyLabel.Size = new System.Drawing.Size(140, 75);
             // 
             // SpotifyImageStackedPanel
             // 

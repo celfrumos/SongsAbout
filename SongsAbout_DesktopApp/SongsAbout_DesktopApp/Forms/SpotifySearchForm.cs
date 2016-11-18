@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SongsAbout.Classes;
-using SongsAbout.Controls;
+using System.Data;
+using System.Linq;
 using SpotifyAPI.Web.Models;
-using SpotifyAPI.Web.Enums;
 using SongsAbout.Properties;
+using SongsAbout.Classes;
+using SongsAbout.Entities;
+using SongsAbout.Controls;
+using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Forms
 {
@@ -19,7 +22,8 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
-                PromptOptions();
+                LoadArtists();
+                //PromptOptions();
             }
             catch (Exception ex)
             {
@@ -87,6 +91,18 @@ namespace SongsAbout.Forms
 
         private void LoadArtists()
         {
+            List<Artist> artists = new List<Artist>();
+            using (var db = new DataClassesContext())
+            {
+                artists = (from a in db.Artists
+                           select a).ToList();
+            }
+            foreach (Artist a in artists)
+            {
+                var lbl = new SpotifyPanel(a, SPanelType.StackedImage);
+                lbl.PanelType = SPanelType.StackedImage;
+                AddToFlow(lbl);
+            }
         }
 
         private void PromptOptions()

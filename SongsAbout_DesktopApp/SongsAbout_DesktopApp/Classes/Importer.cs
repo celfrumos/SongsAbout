@@ -12,6 +12,7 @@ using SpotifyAPI.Web.Enums;
 using SongsAbout.Entities;
 using Track = SongsAbout.Entities.Track;
 using Image = System.Drawing.Image;
+using System.Drawing;
 
 namespace SongsAbout.Classes
 {
@@ -114,11 +115,11 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine(ex.Message);
                 //throw new Exception(ex.Message);
             }
         }
+
 
         public static Image ImportSpotifyImage(SpotifyAPI.Web.Models.Image pic)
         {
@@ -130,11 +131,10 @@ namespace SongsAbout.Classes
                     {
                         Image systemPic;
                         byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
-                        using (MemoryStream stream = new MemoryStream(imageBytes))
-                        {
-                            systemPic = Image.FromStream(stream);
-                            return systemPic;
-                        }
+
+                        systemPic = ImageFromBytes(imageBytes);
+                      
+                        return systemPic;
                     }
 
                 }
@@ -146,6 +146,22 @@ namespace SongsAbout.Classes
             else
             {
                 throw new SpotifyUndefinedProfileError();
+            }
+        }
+
+        public static Image ImageFromBytes(byte[] imageBytes)
+        {
+            try
+            {
+                using (MemoryStream stream = new MemoryStream(imageBytes))
+                {
+                    return Image.FromStream(stream);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyImageImportError(ex.Message);
             }
         }
 

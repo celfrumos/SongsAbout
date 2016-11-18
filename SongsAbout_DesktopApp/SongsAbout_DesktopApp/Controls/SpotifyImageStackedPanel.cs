@@ -67,14 +67,13 @@ namespace SongsAbout.Controls
             get { return this.splitContainer.Panel1Collapsed; }
             set
             {
-                this.splitContainer.Panel1Collapsed = value;
+                //this.splitContainer.Panel1Collapsed = value;
                 // if displaying as text panel
-                if (this.splitContainer.Panel1Collapsed)
+                if (this.splitContainer.Panel1Collapsed = value)
                 {
                     this._minSize = _textPanelMinSize;
                     this._maxSize = _textPanelMaxSize;
                 }
-
                 else
                 {
                     // if displaying as image panel
@@ -86,7 +85,7 @@ namespace SongsAbout.Controls
                     // if displaying as image panel
                     else
                     {
-                        this.splitContainer.SplitterDistance = 70;
+                      //  this.splitContainer.SplitterDistance = 70;
                         this._minSize = _imagePanelMinSize;
                         this._maxSize = _imagePanelMaxSize;
                     }
