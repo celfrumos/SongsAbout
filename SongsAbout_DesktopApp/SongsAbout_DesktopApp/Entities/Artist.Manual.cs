@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Core;
 using System.Data.Linq;
 using System.Linq;
 using SpotifyAPI.Web.Models;
@@ -68,6 +70,7 @@ namespace SongsAbout.Entities
             {
                 if (this.name != null)
                 {
+                    
                     //   if (!Exists(this.name))
                     {
                         using (var context = new DataClassContext())

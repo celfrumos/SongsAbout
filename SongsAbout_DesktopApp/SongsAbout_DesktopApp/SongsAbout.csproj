@@ -140,19 +140,7 @@
     <Compile Include="Controls\SpotifyImageStackedPanel.Designer.cs">
       <DependentUpon>SpotifyImageStackedPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Album.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\AlbumGenre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\AlbumTrack.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\AlbumTracks.Manual.cs" />
-    <Compile Include="Entities\Artist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\DataClasses.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -163,44 +151,17 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Entities\DataClasses1.cs">
+    <Compile Include="Entities\DataClasses.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Genre.Manual.cs" />
     <Compile Include="Entities\DbEntity.cs" />
-    <Compile Include="Entities\Genre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\List.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controls\SpotifyControlEventHandlers.cs" />
     <Compile Include="Classes\DbExceptions.cs" />
-    <Compile Include="Entities\Tag.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Topic.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Track.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TrackArtist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\TrackArtists.Manual.cs" />
     <Compile Include="Classes\Importer.cs" />
-    <Compile Include="Entities\TrackGenre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TrackTag.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TrackTopic.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Classes\SpotifyExceptions.cs" />
     <Compile Include="Controls\SpotifyControl.cs">
       <SubType>UserControl</SubType>
@@ -391,7 +352,7 @@
     <Content Include="Entities\DataClasses.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataClasses.edmx</DependentUpon>
-      <LastGenOutput>DataClasses1.cs</LastGenOutput>
+      <LastGenOutput>DataClasses	.cs</LastGenOutput>
     </Content>
     <None Include="Resources\ProfilePic.bmp" />
   </ItemGroup>

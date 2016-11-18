@@ -295,8 +295,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GenreExists" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="genre" Type="varchar" Mode="In" />
+        <Function Name="UpdateInsert_Artist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="a_bio" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="a_website" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="a_spotify_uri" Type="nvarchar" Mode="In" />
+          <Parameter Name="a_profile_pic" Type="image" Mode="In" />
+          <Parameter Name="return" Type="nvarchar" Mode="InOut" />
         </Function>
         <EntityContainer Name="DataClassesStoreContainer">
           <EntitySet Name="AlbumGenres" EntityType="Self.AlbumGenres" Schema="dbo" store:Type="Tables" />
@@ -518,7 +524,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AlbumGenres_Genres">
-          <End Role="Genres" Type="Self.Genre" Multiplicity="0..1">
+          <End Role="Genres" Type="Self.Genre" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="AlbumGenres" Type="Self.AlbumGenre" Multiplicity="*" />
@@ -754,6 +760,24 @@
           <FunctionImport Name="GenreExists" ReturnType="Collection(Boolean)">
           <Parameter Name="genre" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Submit" ReturnType="Collection(String)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="a_bio" Mode="In" Type="String" />
+            <Parameter Name="a_website" Mode="In" Type="String" />
+            <Parameter Name="a_spotify_uri" Mode="In" Type="String" />
+            <Parameter Name="a_profile_pic" Mode="In" Type="Binary" />
+            <Parameter Name="return" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SubmitArtist" ReturnType="Collection(String)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="a_bio" Mode="In" Type="String" />
+            <Parameter Name="a_website" Mode="In" Type="String" />
+            <Parameter Name="a_spotify_uri" Mode="In" Type="String" />
+            <Parameter Name="a_profile_pic" Mode="In" Type="Binary" />
+            <Parameter Name="return" Mode="InOut" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -882,7 +906,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GenreExists" FunctionName="DataClasses.Store.GenreExists" />
+          <FunctionImportMapping FunctionImportName="Submit" FunctionName="DataClasses.Store.UpdateInsert_Artist" />
+          <FunctionImportMapping FunctionImportName="SubmitArtist" FunctionName="DataClasses.Store.UpdateInsert_Artist" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
