@@ -59,8 +59,8 @@ namespace SongsAbout.Controls
             this.splitContainer.Panel2.AccessibleName = "LabelPanel";
             this.splitContainer.Panel2.Controls.Add(this.SpotifyLabel);
             this.splitContainer.Panel2MinSize = 75;
-            this.splitContainer.Size = new System.Drawing.Size(140, 40);
-            this.splitContainer.SplitterDistance = 37;
+            this.splitContainer.Size = new System.Drawing.Size(170, 40);
+            this.splitContainer.SplitterDistance = 41;
             this.splitContainer.SplitterWidth = 1;
             this.splitContainer.TabIndex = 0;
             // 
@@ -76,7 +76,7 @@ namespace SongsAbout.Controls
             this.SpotifyPictureBox.Level = "";
             this.SpotifyPictureBox.Location = new System.Drawing.Point(0, 0);
             this.SpotifyPictureBox.Name = "SpotifyPictureBox";
-            this.SpotifyPictureBox.Size = new System.Drawing.Size(37, 40);
+            this.SpotifyPictureBox.Size = new System.Drawing.Size(41, 40);
             this.SpotifyPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.SpotifyPictureBox.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
             this.SpotifyPictureBox.TabIndex = 0;
@@ -113,7 +113,7 @@ namespace SongsAbout.Controls
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MinimumSize = new System.Drawing.Size(110, 40);
             this.Name = "SpotifyPanel";
-            this.Size = new System.Drawing.Size(140, 40);
+            this.Size = new System.Drawing.Size(170, 40);
             this.Tag = "Not Set";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);

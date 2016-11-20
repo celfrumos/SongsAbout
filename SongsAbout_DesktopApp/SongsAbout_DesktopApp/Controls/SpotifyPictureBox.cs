@@ -70,7 +70,7 @@ namespace SongsAbout.Controls
             }
             catch (SpotifyConversionError)
             {
-                this.Image = Resources.MusicNote;
+                this.Image = this.ErrorImage;
             }
         }
 
@@ -125,9 +125,11 @@ namespace SongsAbout.Controls
             catch (Exception ex)
             {
                 Console.WriteLine($"Error setting image: {ex.Message}");
+                this.Image = this.ErrorImage;
             }
             if (this.Image == null)
             {
+                this.Image = this.ErrorImage;
                 throw new SpotifyException("Error Setting Image");
             }
         }

@@ -13,33 +13,83 @@ namespace SongsAbout.Controls
         Image, Text, StackedImage
     }
 
+
     public partial class SpotifyImageStackedPanel : SongsAbout.Controls.SpotifyPanel
     {
         private Size _minSize;
         private Size _maxSize;
+        
+        private Size _imageStackedPanelMaxSize = new Size(105, 135);
+        private Size _imageStackedPanelMinSize = new Size(70, 95);
 
-        private Size _imageStackedPanelMaxSize = new System.Drawing.Size(105, 135);
-        private Size _imageStackedPanelMinSize = new System.Drawing.Size(70, 95);
+        private Size _imagePanelMaxSize = new Size(200, 134);
+        private Size _imagePanelMinSize = new Size(140, 40);
 
-        private Size _imagePanelMaxSize = new System.Drawing.Size(105, 134);
-        private Size _imagePanelMinSize = new System.Drawing.Size(200, 55);
-
-        private Size _textPanelMinSize = new System.Drawing.Size(105, 30);
-        private Size _textPanelMaxSize = new System.Drawing.Size(205, 30);
+        private Size _textPanelMaxSize = new Size(205, 30);
+        private Size _textPanelMinSize = new Size(105, 30);
 
         private SPanelType _panelType;
 
         public override Size MinimumSize
         {
-            get { return _minSize; }
-            set { _minSize = value; }
+
+            get { return this._minSize; }
+            set
+            {
+                this._minSize = value;
+                this.splitContainer.MinimumSize = value;
+                int w = value.Width,
+                    h = value.Height;
+
+                switch (_panelType)
+                {
+                    case SPanelType.Image:
+                        this.SpotifyPictureBox.MinimumSize = new Size(w, h * (1 / 5));
+                        this.SpotifyLabel.MinimumSize = new Size(w, h * (4 / 5));
+                        break;
+                    case SPanelType.Text:
+                        this.SpotifyLabel.MinimumSize = value;
+                        break;
+                    case SPanelType.StackedImage:
+                        this.SpotifyPictureBox.MinimumSize = new Size(w, h * (3 / 4));
+                        this.SpotifyLabel.MinimumSize = new Size(w, h * (1 / 4));
+                        break;
+                    default:
+                        break;
+                }
+                base._resize();
+            }
         }
         public override Size MaximumSize
         {
-            get { return _maxSize; }
-            set { _maxSize = value; }
+            get { return this._maxSize; }
+            set
+            {
+                this._maxSize = value;
+                this.splitContainer.MaximumSize = value;
+                int w = value.Width,
+                    h = value.Height;
+
+                switch (_panelType)
+                {
+                    case SPanelType.Image:
+                        this.SpotifyPictureBox.MaximumSize = new Size(w * (1 / 5), h);
+                        this.SpotifyLabel.MaximumSize = new Size(w * (4 / 5), h);
+                        break;
+                    case SPanelType.Text:
+                        this.SpotifyLabel.MaximumSize = value;
+                        break;
+                    case SPanelType.StackedImage:
+                        this.SpotifyPictureBox.MaximumSize = new Size(w, h * (3 / 4));
+                        this.SpotifyLabel.MaximumSize = new Size(w, h * (1 / 4));
+                        break;
+                    default:
+                        break;
+                }
+                base._resize();
+            }
         }
-        public SPanelType PanelType
+        new public SPanelType PanelType
         {
             get { return this._panelType; }
             set
@@ -56,13 +106,7 @@ namespace SongsAbout.Controls
             }
         }
 
-        protected SplitterPanel PicBoxPanel
-        {
-            get { return this.splitContainer.Panel1; }
-        }
-
-
-        public bool PictureCollapsed
+        new public bool PictureCollapsed
         {
             get { return this.splitContainer.Panel1Collapsed; }
             set
@@ -71,28 +115,56 @@ namespace SongsAbout.Controls
                 // if displaying as text panel
                 if (this.splitContainer.Panel1Collapsed = value)
                 {
-                    this._minSize = _textPanelMinSize;
-                    this._maxSize = _textPanelMaxSize;
+                    this.MinimumSize = _textPanelMinSize;
+                    this.MaximumSize = _textPanelMaxSize;
                 }
                 else
                 {
                     // if displaying as image panel
                     if (_panelType == SPanelType.StackedImage)
                     {
-                        this._minSize = _imageStackedPanelMinSize;
-                        this._maxSize = _imageStackedPanelMaxSize;
+                        this.MinimumSize = _imageStackedPanelMinSize;
+                        this.MaximumSize = _imageStackedPanelMaxSize;
                     }
                     // if displaying as image panel
                     else
                     {
-                      //  this.splitContainer.SplitterDistance = 70;
-                        this._minSize = _imagePanelMinSize;
-                        this._maxSize = _imagePanelMaxSize;
+                        //  this.splitContainer.SplitterDistance = 70;
+                        this.MinimumSize = _imagePanelMinSize;
+                        this.MaximumSize = _imagePanelMaxSize;
                     }
                 }
             }
         }
 
+        new public Size Size
+        {
+            get { return base.Size; }
+            set
+            {
+                base.Size = value;
+                this.splitContainer.Size = value;
+                int w = value.Width,
+                    h = value.Height;
+
+                switch (_panelType)
+                {
+                    case SPanelType.Image:
+                        this.SpotifyPictureBox.Size = new Size(w * (1 / 5), h);
+                        this.SpotifyLabel.Size = new Size(w * (4 / 5), h);
+                        break;
+                    case SPanelType.Text:
+                        this.SpotifyLabel.Size = value;
+                        break;
+                    case SPanelType.StackedImage:
+                        this.SpotifyPictureBox.Size = new Size(w, h * (3 / 4));
+                        this.SpotifyLabel.Size = new Size(w, h * (1 / 4));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
         public SpotifyImageStackedPanel()
         {

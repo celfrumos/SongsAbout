@@ -39,27 +39,32 @@ namespace SongsAbout.Controls
             // 
             // splitContainer
             // 
+            this.splitContainer.MaximumSize = new System.Drawing.Size(105, 135);
             this.splitContainer.MinimumSize = new System.Drawing.Size(70, 95);
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.splitContainer.Size = new System.Drawing.Size(70, 95);
-            this.splitContainer.SplitterDistance = 19;
+            this.splitContainer.Size = new System.Drawing.Size(105, 107);
+            this.splitContainer.SplitterDistance = 26;
             // 
             // SpotifyPictureBox
             // 
-            this.SpotifyPictureBox.Size = new System.Drawing.Size(20,20);            
+            this.SpotifyPictureBox.MaximumSize = new System.Drawing.Size(0, 135);
+            this.SpotifyPictureBox.MinimumSize = new System.Drawing.Size(70, 0);
+            this.SpotifyPictureBox.Size = new System.Drawing.Size(105, 26);
             // 
             // SpotifyLabel
             // 
-            this.SpotifyLabel.MinimumSize = new System.Drawing.Size(0, 0);
-            this.SpotifyLabel.Size = new System.Drawing.Size(140, 75);
+            this.SpotifyLabel.MaximumSize = new System.Drawing.Size(0, 135);
+            this.SpotifyLabel.MinimumSize = new System.Drawing.Size(70, 0);
+            this.SpotifyLabel.Size = new System.Drawing.Size(105, 80);
             // 
             // SpotifyImageStackedPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.DbEntityType = SongsAbout.Enums.DbEntityType.None;
+            this.MaximumSize = new System.Drawing.Size(105, 135);
             this.MinimumSize = new System.Drawing.Size(70, 95);
             this.Name = "SpotifyImageStackedPanel";
-            this.Size = new System.Drawing.Size(70, 95);
+            this.Size = new System.Drawing.Size(105, 107);
             this.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);

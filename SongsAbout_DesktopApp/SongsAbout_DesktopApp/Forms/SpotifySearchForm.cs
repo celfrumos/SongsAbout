@@ -22,7 +22,7 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
-                LoadArtists();
+                // LoadArtists();
                 //PromptOptions();
             }
             catch (Exception ex)
@@ -99,8 +99,8 @@ namespace SongsAbout.Forms
             }
             foreach (Artist a in artists)
             {
-                var lbl = new SpotifyPanel(a, SPanelType.StackedImage);
-                lbl.PanelType = SPanelType.StackedImage;
+                var lbl = new SpotifyPanel(a);//, SPanelType.StackedImage);
+                                              //    lbl.PanelType = SPanelType.StackedImage;
                 AddToFlow(lbl);
             }
         }
@@ -186,22 +186,28 @@ namespace SongsAbout.Forms
             //  var res = new List<BasicModel>();
             if (searchType == SearchType.All)
             {
+                foreach (var a in resultsList.Artists.Items)
+                {
+                    var label = new SpotifyPanel(a, SPanelType.Image, SpotifyPanel_Click);
+                    flpSpotifyControls.Controls.Add(label);
+                }
+
                 resultsList.Artists.Items.ForEach(a =>
                 {
                     AddToFlow(new SpotifyPanel(a, SPanelType.Image, SpotifyPanel_Click));
                 });
-                resultsList.Albums.Items.ForEach(al =>
-                {
-                    AddToFlow(new SpotifyPanel(al, SPanelType.Image, SpotifyPanel_Click));
-                });
-                resultsList.Tracks.Items.ForEach(t =>
-                {
-                    AddToFlow(new SpotifyPanel(t, SPanelType.Image, SpotifyPanel_Click));
-                });
-                resultsList.Playlists.Items.ForEach(p =>
-                {
-                    AddToFlow(new SpotifyPanel(p, SPanelType.Image, SpotifyPanel_Click));
-                });
+                //resultsList.Albums.Items.ForEach(al =>
+                //{
+                //    AddToFlow(new SpotifyPanel(al, SPanelType.Image, SpotifyPanel_Click));
+                //});
+                //resultsList.Tracks.Items.ForEach(t =>
+                //{
+                //    AddToFlow(new SpotifyPanel(t, SPanelType.Image, SpotifyPanel_Click));
+                //});
+                //resultsList.Playlists.Items.ForEach(p =>
+                //{
+                //    AddToFlow(new SpotifyPanel(p, SPanelType.Image, SpotifyPanel_Click));
+                //});
             }
             else
             {
