@@ -22,6 +22,7 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
+                AddToFlow(new SpotifyPanel());
                 // LoadArtists();
                 //PromptOptions();
             }

@@ -43,19 +43,20 @@ namespace SongsAbout.Controls
             this.splitContainer.MinimumSize = new System.Drawing.Size(70, 95);
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.splitContainer.Size = new System.Drawing.Size(105, 107);
-            this.splitContainer.SplitterDistance = 26;
+            this.splitContainer.SplitterDistance = 69;
+            this.splitContainer.SplitterWidth = 2;
             // 
             // SpotifyPictureBox
             // 
             this.SpotifyPictureBox.MaximumSize = new System.Drawing.Size(0, 135);
             this.SpotifyPictureBox.MinimumSize = new System.Drawing.Size(70, 0);
-            this.SpotifyPictureBox.Size = new System.Drawing.Size(105, 26);
+            this.SpotifyPictureBox.Size = new System.Drawing.Size(105, 69);
             // 
             // SpotifyLabel
             // 
             this.SpotifyLabel.MaximumSize = new System.Drawing.Size(0, 135);
             this.SpotifyLabel.MinimumSize = new System.Drawing.Size(70, 0);
-            this.SpotifyLabel.Size = new System.Drawing.Size(105, 80);
+            this.SpotifyLabel.Size = new System.Drawing.Size(105, 36);
             // 
             // SpotifyImageStackedPanel
             // 
@@ -65,6 +66,7 @@ namespace SongsAbout.Controls
             this.MinimumSize = new System.Drawing.Size(70, 95);
             this.Name = "SpotifyImageStackedPanel";
             this.Size = new System.Drawing.Size(105, 107);
+            this.SplitterDistance = 69;
             this.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);

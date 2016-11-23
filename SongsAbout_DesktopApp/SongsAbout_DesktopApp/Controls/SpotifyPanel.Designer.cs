@@ -53,12 +53,12 @@ namespace SongsAbout.Controls
             this.splitContainer.Panel1.AccessibleName = "PboxPanel";
             this.splitContainer.Panel1.Controls.Add(this.SpotifyPictureBox);
             this.splitContainer.Panel1.ForeColor = System.Drawing.Color.White;
+            this.splitContainer.Panel1MinSize = 20;
             // 
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.AccessibleName = "LabelPanel";
             this.splitContainer.Panel2.Controls.Add(this.SpotifyLabel);
-            this.splitContainer.Panel2MinSize = 75;
             this.splitContainer.Size = new System.Drawing.Size(170, 40);
             this.splitContainer.SplitterDistance = 41;
             this.splitContainer.SplitterWidth = 1;

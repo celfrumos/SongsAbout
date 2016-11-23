@@ -46,8 +46,8 @@ namespace SongsAbout.Forms
             //string uri = "spotify:track:6C7RJEIUDqKkJRZVWdkfkH";
             //MakeRequest(uri).Wait();
             //GetResults();
-       
-           
+
+
         }
 
         private void GetResults()
@@ -62,8 +62,8 @@ namespace SongsAbout.Forms
 
         private void msiSpotifySearch_Click(object sender, EventArgs e)
         {
-            SpotifySearchForm myLists = new SpotifySearchForm();
-            myLists.ShowDialog();
+            SpotifySearchForm spotifySearch = new SpotifySearchForm();
+            spotifySearch.ShowDialog();
         }
 
         private void msiAddTrack_Click(object sender, EventArgs e)
