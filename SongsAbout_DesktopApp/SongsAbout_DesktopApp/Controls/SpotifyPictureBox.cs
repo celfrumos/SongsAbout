@@ -28,10 +28,9 @@ namespace SongsAbout.Controls
         public DbEntityType DbEntityType { get; set; }
 
 
-        public SpotifyPictureBox(string text, string level = "Not Set", EventHandler clickEvent = null, object tag = null,
+        public SpotifyPictureBox(string text, EventHandler clickEvent = null, object tag = null,
             DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
         {
-            this.Level = level;
             this.Click += clickEvent;
             this.Tag = tag;
             this.DbEntityType = dbtype;
@@ -39,30 +38,30 @@ namespace SongsAbout.Controls
         }
 
         public SpotifyPictureBox(DbEntity entity, EventHandler clickEvent = null)
-            : this(entity.Name, entity.TypeName, clickEvent, entity, entity.DbEntityType, entity.SpotifyType)
+            : this(entity.Name, clickEvent, entity, entity.DbEntityType, entity.SpotifyType)
         {
             this.DbEntity = entity;
         }
 
         public SpotifyPictureBox(FullAlbum album, EventHandler clickEvent = null)
-            : this(album.Name, $"{typeof(FullAlbum)}", clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
+            : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
         {
             SetImage(album.Images);
         }
 
         public SpotifyPictureBox(SimpleAlbum album, EventHandler clickEvent = null)
-         : this(album.Name, $"{typeof(SimpleAlbum)}", clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
+         : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
         {
             SetImage(album.Images);
         }
 
         public SpotifyPictureBox(FullArtist artist, EventHandler clickEvent = null)
-         : this(artist.Name, $"{typeof(FullArtist)}", clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
+         : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
         {
             SetImage(artist.Images);
         }
         public SpotifyPictureBox(SimpleArtist artist, EventHandler clickEvent = null)
-            : this(artist.Name, $"{typeof(SimpleArtist)}", clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
+            : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
         {
             try
             {
@@ -76,22 +75,22 @@ namespace SongsAbout.Controls
 
 
         public SpotifyPictureBox(FullPlaylist playlist, EventHandler clickEvent = null)
-            : this(playlist.Name, $"{typeof(FullPlaylist)}", clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
+            : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
         {
             SetImage(playlist.Images);
         }
         public SpotifyPictureBox(SimplePlaylist playlist, EventHandler clickEvent = null)
-          : this(playlist.Name, $"{typeof(SimplePlaylist)}", clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
+          : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
         {
             SetImage(playlist.Images);
         }
         public SpotifyPictureBox(FullTrack track, EventHandler clickEvent = null)
-        : this(track.Name, $"{typeof(FullTrack)}", clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
+        : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
         {
             SetImage(track.Album.Images);
         }
         public SpotifyPictureBox(SimpleTrack track, EventHandler clickEvent = null)
-        : this(track.Name, $"{typeof(SimpleTrack)}", clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
+        : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
         {
             SetImage(Converter.GetFullTrack(track).Album.Images);
         }

@@ -124,11 +124,11 @@
     <Compile Include="Controls\SpotifyLabel.Designer.cs">
       <DependentUpon>SpotifyLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SpotifyPanel.cs">
+    <Compile Include="Controls\SPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\SpotifyPanel.Designer.cs">
-      <DependentUpon>SpotifyPanel.cs</DependentUpon>
+    <Compile Include="Controls\SPanel.Designer.cs">
+      <DependentUpon>SPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SpotifyPictureBox.cs">
       <SubType>Component</SubType>
@@ -282,8 +282,8 @@
     <EmbeddedResource Include="Controls\SpotifyLabel.resx">
       <DependentUpon>SpotifyLabel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SpotifyPanel.resx">
-      <DependentUpon>SpotifyPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\SPanel.resx">
+      <DependentUpon>SPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SpotifyPictureBox.resx">
       <DependentUpon>SpotifyPictureBox.cs</DependentUpon>

@@ -6,9 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        public string Level { get; set; }
-
+        
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>

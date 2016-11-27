@@ -22,7 +22,7 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
-                AddToFlow(new SpotifyPanel());
+                AddToFlow(new SPanel());
                 // LoadArtists();
                 //PromptOptions();
             }
@@ -38,9 +38,8 @@ namespace SongsAbout.Forms
             {
                 var control = sender as SpotifyLabel;
                 var objTag = control.Tag;
-                string objLevel = control.Level;
 
-                RedrawForm(objTag.ToString(), objLevel);
+                RedrawForm(objTag.ToString());
             }
             catch (Exception ex)
             {
@@ -56,7 +55,7 @@ namespace SongsAbout.Forms
 
             // RedrawForm(objTag, objLevel);
         }
-        private void RedrawForm(string objTag, string objLevel)
+        private void RedrawForm(string objTag)
         {
             flpSpotifyControls.Controls.Clear();
             try
@@ -76,6 +75,7 @@ namespace SongsAbout.Forms
                         _searchType = SearchType.Track;
                         break;
                     default:
+                        _searchType = SearchType.All;
                         break;
                 }
 
@@ -85,7 +85,7 @@ namespace SongsAbout.Forms
                 Console.WriteLine("Exception in RedrawForm(): " + ex.Message);
                 EventHandler clickEvent = SpotifyLabel_Click;
 
-                flpSpotifyControls.Controls.Add(new SpotifyLabel(objTag, objLevel, SpotifyLabel_Click));
+                flpSpotifyControls.Controls.Add(new SpotifyLabel(objTag, SpotifyLabel_Click));
             }
 
         }
@@ -100,8 +100,8 @@ namespace SongsAbout.Forms
             }
             foreach (Artist a in artists)
             {
-                var lbl = new SpotifyPanel(a);//, SPanelType.StackedImage);
-                                              //    lbl.PanelType = SPanelType.StackedImage;
+                var lbl = new SPanel(a);//, SPanelType.StackedImage);
+                                        //    lbl.PanelType = SPanelType.StackedImage;
                 AddToFlow(lbl);
             }
         }
@@ -123,7 +123,7 @@ namespace SongsAbout.Forms
                         if (playlist.Public)
                         {
                             FullPlaylist p = await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.PrivateId, playlist.Id);
-                            SpotifyPanel panel = new SpotifyPanel(p, SPanelType.Image, SpotifyLabel_Click);
+                            SPanel panel = new SPanel(p, SPanelType.Image, SpotifyLabel_Click);
                             flpSpotifyControls.Controls.Add(panel);
                         }
                     }
@@ -149,7 +149,7 @@ namespace SongsAbout.Forms
                     try
                     {
                         FullAlbum album = await UserSpotify.WebAPI.GetAlbumAsync(a.Album.Id);
-                        SpotifyPanel panel = new SpotifyPanel(album, SPanelType.Image, SpotifyPanel_Click);
+                        SPanel panel = new SPanel(album, SPanelType.Image, SpotifyPanel_Click);
 
                         flpSpotifyControls.Controls.Add(panel);
                     }
@@ -189,13 +189,13 @@ namespace SongsAbout.Forms
             {
                 foreach (var a in resultsList.Artists.Items)
                 {
-                    var label = new SpotifyPanel(a, SPanelType.Image, SpotifyPanel_Click);
+                    var label = new SPanel(a, SPanelType.Image, SpotifyPanel_Click);
                     flpSpotifyControls.Controls.Add(label);
                 }
 
                 resultsList.Artists.Items.ForEach(a =>
                 {
-                    AddToFlow(new SpotifyPanel(a, SPanelType.Image, SpotifyPanel_Click));
+                    AddToFlow(new SPanel(a, SPanelType.Image, SpotifyPanel_Click));
                 });
                 //resultsList.Albums.Items.ForEach(al =>
                 //{
@@ -216,35 +216,35 @@ namespace SongsAbout.Forms
                 {
                     resultsList.Artists.Items.ForEach(a =>
                     {
-                        AddToFlow(new SpotifyPanel(a, SPanelType.Image, SpotifyPanel_Click));
+                        AddToFlow(new SPanel(a, SPanelType.Image, SpotifyPanel_Click));
                     });
                 }
                 if (searchType == SearchType.Album)
                 {
                     resultsList.Albums.Items.ForEach(al =>
                     {
-                        AddToFlow(new SpotifyPanel(al, SPanelType.Image, SpotifyPanel_Click));
+                        AddToFlow(new SPanel(al, SPanelType.Image, SpotifyPanel_Click));
                     });
                 }
                 if (searchType == SearchType.Track)
                 {
                     resultsList.Tracks.Items.ForEach(t =>
                     {
-                        AddToFlow(new SpotifyPanel(t, SPanelType.Image, SpotifyPanel_Click));
+                        AddToFlow(new SPanel(t, SPanelType.Image, SpotifyPanel_Click));
                     });
                 }
                 if (searchType == SearchType.Playlist)
                 {
                     resultsList.Playlists.Items.ForEach(p =>
                     {
-                        AddToFlow(new SpotifyPanel(p, SPanelType.Image, SpotifyPanel_Click));
+                        AddToFlow(new SPanel(p, SPanelType.Image, SpotifyPanel_Click));
                     });
                 }
 
             }
         }
 
-        private async void AddToFlow(SpotifyPanel panel)
+        private async void AddToFlow(SPanel panel)
         {
             try
             {

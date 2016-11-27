@@ -14,7 +14,7 @@ namespace SongsAbout.Controls
     }
 
 
-    public partial class SpotifyImageStackedPanel : SongsAbout.Controls.SpotifyPanel
+    public partial class SpotifyImageStackedPanel : SongsAbout.Controls.SPanel
     {
 
         public SpotifyImageStackedPanel()
