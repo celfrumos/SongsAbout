@@ -18,13 +18,122 @@ namespace SongsAbout.Controls
     }
     public partial class SPanel : UserControl, IEntityControl
     {
+        #region Constants
+        #region Image Constants
+        ///
+        // Image Panel constants 
+        ///
+        protected const double
+            IMAGE_PANEL_IMAGE_RATIO = 1.0 / 5.0,
+            IMAGE_PANEL_LABEL_RATIO = 1.0 - IMAGE_PANEL_IMAGE_RATIO,
+            IMAGE_PANEL_RATIO = (double)IMAGE_PANEL_MAX_HEIGHT / (double)IMAGE_PANEL_MAX_WIDTH;
+
+        protected const int
+            IMAGE_PANEL_MAX_WIDTH = 200, IMAGE_PANEL_MAX_HEIGHT = 50,
+            IMAGE_PANEL_MED_WIDTH = 175, IMAGE_PANEL_MED_HEIGHT = 45,
+            IMAGE_PANEL_MIN_WIDTH = 160, IMAGE_PANEL_MIN_HEIGHT = 40;
+
+        protected const int
+            IMAGE_PANEL_MAX_LABEL_WIDTH = (int)(IMAGE_PANEL_MAX_HEIGHT / IMAGE_PANEL_LABEL_RATIO),
+            IMAGE_PANEL_MED_LABEL_WIDTH = (int)(IMAGE_PANEL_MED_HEIGHT / IMAGE_PANEL_LABEL_RATIO),
+            IMAGE_PANEL_MIN_LABEL_WIDTH = (int)(IMAGE_PANEL_MIN_HEIGHT / IMAGE_PANEL_LABEL_RATIO),
+
+            IMAGE_PANEL_MAX_IMAGE_LENGTH = IMAGE_PANEL_MAX_HEIGHT,
+            IMAGE_PANEL_MED_IMAGE_LENGTH = IMAGE_PANEL_MED_HEIGHT,
+            IMAGE_PANEL_MIN_IMAGE_LENGTH = IMAGE_PANEL_MIN_HEIGHT;
+
+        protected static readonly Size
+            _imagePanelMaxSize = new Size(IMAGE_PANEL_MAX_WIDTH, IMAGE_PANEL_MAX_HEIGHT),
+            _imagePanelMedSize = new Size(IMAGE_PANEL_MED_WIDTH, IMAGE_PANEL_MED_HEIGHT),
+            _imagePanelMinSize = new Size(IMAGE_PANEL_MIN_WIDTH, IMAGE_PANEL_MIN_HEIGHT);
+
+        protected static readonly Size
+            _imagePanelMaxImgSize = new Size(IMAGE_PANEL_MAX_IMAGE_LENGTH, IMAGE_PANEL_MAX_IMAGE_LENGTH),
+            _imagePanelMedImgSize = new Size(IMAGE_PANEL_MED_IMAGE_LENGTH, IMAGE_PANEL_MED_IMAGE_LENGTH),
+            _imagePanelMinImgSize = new Size(IMAGE_PANEL_MIN_IMAGE_LENGTH, IMAGE_PANEL_MIN_IMAGE_LENGTH);
+
+        protected static readonly Size
+            _imagePanelMaxLblSize = new Size(IMAGE_PANEL_MAX_LABEL_WIDTH, IMAGE_PANEL_MAX_HEIGHT),
+            _imagePanelMedLblSize = new Size(IMAGE_PANEL_MED_LABEL_WIDTH, IMAGE_PANEL_MED_HEIGHT),
+            _imagePanelMinLblSize = new Size(IMAGE_PANEL_MIN_LABEL_WIDTH, IMAGE_PANEL_MIN_HEIGHT);
+        #endregion
+        #region Stacked Constants
+        ///
+        /// Stacked Panel constants
+        /// 
+        protected const int
+            STACKED_MAX_WIDTH = 96, STACKED_MAX_HEIGHT = 135,
+            STACKED_MED_WIDTH = 90, STACKED_MED_HEIGHT = 110,
+            STACKED_MIN_WIDTH = 70, STACKED_MIN_HEIGHT = 95;
+
+        protected const double
+            STACKED_IMAGE_RATIO = 3.0 / 4.0,
+            STACKED_LABEL_RATIO = (1.0 - STACKED_IMAGE_RATIO),
+            STACKED_PANEL_RATIO = (double)STACKED_MAX_HEIGHT / (double)STACKED_MAX_WIDTH;
+
+
+        protected static readonly Size
+            _stackedPanelMaxSize = new Size(STACKED_MAX_WIDTH, STACKED_MAX_HEIGHT),
+            _stackedPanelMedSize = new Size(STACKED_MED_WIDTH, STACKED_MED_HEIGHT),
+            _stackedPanelMinSize = new Size(STACKED_MIN_WIDTH, STACKED_MIN_HEIGHT);
+
+        private const int
+            STACKED_MAX_LABEL_HEIGHT = (int)(STACKED_MAX_HEIGHT * STACKED_LABEL_RATIO),
+            STACKED_MED_LABEL_HEIGHT = (int)(STACKED_MED_HEIGHT * STACKED_LABEL_RATIO),
+            STACKED_MIN_LABEL_HEIGHT = (int)(STACKED_MIN_HEIGHT * STACKED_LABEL_RATIO);
+
+        private const int
+            STACKED_MAX_IMAGE_LENGTH = STACKED_MAX_WIDTH,
+            STACKED_MED_IMAGE_LENGTH = STACKED_MED_WIDTH,
+            STACKED_MIN_IMAGE_LENGTH = STACKED_MIN_WIDTH;
+
+        protected static readonly Size
+            _stackedPanelMaxImgSize = new Size(STACKED_MAX_IMAGE_LENGTH, STACKED_MAX_IMAGE_LENGTH),
+            _stackedPanelMedImgSize = new Size(STACKED_MED_IMAGE_LENGTH, STACKED_MED_IMAGE_LENGTH),
+            _stackedPanelMinImgSize = new Size(STACKED_MIN_IMAGE_LENGTH, STACKED_MIN_IMAGE_LENGTH);
+
+        protected static readonly Size
+            _stackedPanelMaxLblSize = new Size(STACKED_MAX_WIDTH, STACKED_MAX_LABEL_HEIGHT),
+            _stackedPanelMedLblSize = new Size(STACKED_MED_WIDTH, STACKED_MED_LABEL_HEIGHT),
+            _stackedPanelMinLblSize = new Size(STACKED_MIN_WIDTH, STACKED_MIN_LABEL_HEIGHT);
+        #endregion
+        #region Text Panel Constants
+        ///
+        /// Text Panel constants
+        /// 
+        private const int
+            TEXT_PANEL_MAX_WIDTH = 205, TEXT_PANEL_MAX_HEIGHT = 30,
+            TEXT_PANEL_MED_WIDTH = 150, TEXT_PANEL_MED_HEIGHT = 30,
+            TEXT_PANEL_MIN_WIDTH = 105, TEXT_PANEL_MIN_HEIGHT = 30;
+
+        protected const double
+            TEXT_PANEL_LABEL_RATIO = 1.0,
+            TEXT_PANEL_IMAGE_RATIO = 0.0,
+            TEXT_PANEL_RATIO = (double)TEXT_PANEL_MAX_HEIGHT / (double)TEXT_PANEL_MAX_WIDTH;
+
+        protected static readonly Size
+            _textPanelMaxSize = new Size(TEXT_PANEL_MAX_WIDTH, TEXT_PANEL_MAX_HEIGHT),
+            _textPanelMedSize = new Size(TEXT_PANEL_MED_WIDTH, TEXT_PANEL_MED_HEIGHT),
+            _textPanelMinSize = new Size(TEXT_PANEL_MIN_WIDTH, TEXT_PANEL_MIN_HEIGHT);
+
+        protected static readonly Size
+            _textPanelMaxImgSize = new Size(0, 0),
+            _textPanelMedImgSize = _textPanelMaxImgSize,
+            _textPanelMinImgSize = _textPanelMaxImgSize;
+
+        protected static readonly Size
+            _textPanelMaxLblSize = _textPanelMaxSize,
+            _textPanelMedLblSize = _textPanelMedSize,
+            _textPanelMinLblSize = _textPanelMinSize;
+        #endregion
+        #endregion
         #region Private Properties
         private DbEntity _dbEntity;
-        private SPanelType _sPanelType;
-        private bool _sizeChanged = false;
-        private Size _medLabelSize, _medImageSize;
-        private SPanelSize _sPanelSize;
-        private Size MaxLabelSize
+        private SPanelType _sPanelType = SPanelType.Image;
+        private SPanelSize _sPanelSize = SPanelSize.Small;
+        #endregion
+        #region Protected Properties
+        protected Size MaxLabelSize
         {
             get { return this.SpotifyLabel.MaximumSize; }
             set
@@ -39,16 +148,15 @@ namespace SongsAbout.Controls
                 }
             }
         }
-        private Size MinLabelSize
+        protected Size MinLabelSize
         {
             get { return this.SpotifyLabel.MinimumSize; }
             set { this.SpotifyLabel.MinimumSize = value; }
         }
-
         /// <summary>
         /// Get/Set the Max Size for the image, based on SPanelType
         /// </summary>
-        private Size MaxImageSize
+        protected Size MaxImageSize
         {
             get { return SpotifyPictureBox.MaximumSize; }
             set
@@ -56,15 +164,15 @@ namespace SongsAbout.Controls
                 SpotifyPictureBox.MaximumSize = value;
             }
         }
-
         /// <summary>
         /// Get/Set the Min Size for the image, based on SPanelType
         /// </summary>
-        private Size MinImageSize
+        protected Size MinImageSize
         {
             get { return SpotifyPictureBox.MinimumSize; }
             set { SpotifyPictureBox.MinimumSize = value; }
         }
+
         protected Size SmallPanelSize
         {
             get
@@ -82,7 +190,6 @@ namespace SongsAbout.Controls
                 }
             }
         }
-
         protected Size MedPanelSize
         {
             get
@@ -117,6 +224,7 @@ namespace SongsAbout.Controls
                 }
             }
         }
+
         protected Size SmallLabelSize
         {
             get
@@ -134,7 +242,6 @@ namespace SongsAbout.Controls
                 }
             }
         }
-
         protected Size MedLabelSize
         {
             get
@@ -169,6 +276,7 @@ namespace SongsAbout.Controls
                 }
             }
         }
+
         protected Size SmallImageSize
         {
             get
@@ -221,10 +329,19 @@ namespace SongsAbout.Controls
             }
         }
 
+        new public Size Size
+        {
+            get { return base.Size; }
+            set
+            {
+                base.Size = value;
+                this.splitContainer.Size = value;
+            }
+        }
         /// <summary>
         /// Get/Set the size of the SPanel 
         /// </summary>
-        new protected Size Size
+        protected Size OldSize
         {
             get { return base.Size; }
             set
@@ -260,323 +377,9 @@ namespace SongsAbout.Controls
                 // _resize();
             }
         }
-
-
-
-        #region Image Constants
-        ///
-        // Image Panel constants 
-        ///
-        protected const double
-            IMAGE_PANEL_IMAGE_RATIO = 1.0 / 5.0,
-            IMAGE_PANEL_LABEL_RATIO = 1.0 - IMAGE_PANEL_IMAGE_RATIO,
-            IMAGE_PANEL_RATIO = (double)IMAGE_PANEL_MAX_HEIGHT / (double)IMAGE_PANEL_MAX_WIDTH;
-
-        protected const int
-            IMAGE_PANEL_MAX_WIDTH = 200, IMAGE_PANEL_MAX_HEIGHT = 50,
-            IMAGE_PANEL_MED_WIDTH = 175, IMAGE_PANEL_MED_HEIGHT = 35,
-            IMAGE_PANEL_MIN_WIDTH = 140, IMAGE_PANEL_MIN_HEIGHT = 40;
-
-        protected const int
-            IMAGE_PANEL_MAX_LABEL_WIDTH = (int)(IMAGE_PANEL_MAX_WIDTH * IMAGE_PANEL_LABEL_RATIO),
-            IMAGE_PANEL_MED_LABEL_WIDTH = (int)(IMAGE_PANEL_MED_WIDTH * IMAGE_PANEL_LABEL_RATIO),
-            IMAGE_PANEL_MIN_LABEL_WIDTH = (int)(IMAGE_PANEL_MIN_WIDTH * IMAGE_PANEL_LABEL_RATIO),
-
-            IMAGE_PANEL_MAX_IMAGE_LENGTH = (int)(IMAGE_PANEL_MAX_WIDTH * IMAGE_PANEL_IMAGE_RATIO),
-            IMAGE_PANEL_MED_IMAGE_LENGTH = (int)(IMAGE_PANEL_MED_WIDTH * IMAGE_PANEL_IMAGE_RATIO),
-            IMAGE_PANEL_MIN_IMAGE_LENGTH = (int)(IMAGE_PANEL_MIN_WIDTH * IMAGE_PANEL_IMAGE_RATIO);
-
-        protected static readonly Size
-            _imagePanelMaxSize = new Size(IMAGE_PANEL_MAX_WIDTH, IMAGE_PANEL_MAX_HEIGHT),
-            _imagePanelMedSize = new Size(IMAGE_PANEL_MED_WIDTH, IMAGE_PANEL_MED_HEIGHT),
-            _imagePanelMinSize = new Size(IMAGE_PANEL_MIN_WIDTH, IMAGE_PANEL_MIN_HEIGHT);
-
-        protected static readonly Size
-            _imagePanelMaxImgSize = new Size(IMAGE_PANEL_MAX_IMAGE_LENGTH, IMAGE_PANEL_MAX_IMAGE_LENGTH),
-            _imagePanelMedImgSize = new Size(IMAGE_PANEL_MED_IMAGE_LENGTH, IMAGE_PANEL_MED_IMAGE_LENGTH),
-            _imagePanelMinImgSize = new Size(IMAGE_PANEL_MIN_IMAGE_LENGTH, IMAGE_PANEL_MIN_IMAGE_LENGTH);
-
-        protected static readonly Size
-            _imagePanelMaxLblSize = new Size(IMAGE_PANEL_MAX_LABEL_WIDTH, IMAGE_PANEL_MAX_HEIGHT),
-            _imagePanelMedLblSize = new Size(IMAGE_PANEL_MED_LABEL_WIDTH, IMAGE_PANEL_MED_HEIGHT),
-            _imagePanelMinLblSize = new Size(IMAGE_PANEL_MIN_LABEL_WIDTH, IMAGE_PANEL_MIN_HEIGHT);
-        #endregion
-        #region Stacked Constants
-        ///
-        /// Stacked Panel constants
-        /// 
-        protected const int
-            STACKED_MAX_WIDTH = 96, STACKED_MAX_HEIGHT = 135,
-            STACKED_MED_WIDTH = 90, STACKED_MED_HEIGHT = 110,
-            STACKED_MIN_WIDTH = 70, STACKED_MIN_HEIGHT = 95;
-
-        protected const double
-            STACKED_IMAGE_RATIO = 3.0 / 4.0,
-            STACKED_LABEL_RATIO = (1.0 - STACKED_IMAGE_RATIO),
-            STACKED_PANEL_RATIO = (double)STACKED_MAX_HEIGHT / (double)STACKED_MAX_WIDTH;
-
-
-        protected static readonly Size
-            _stackedPanelMaxSize = new Size(STACKED_MAX_WIDTH, STACKED_MAX_HEIGHT),
-            _stackedPanelMedSize = new Size(STACKED_MED_WIDTH, STACKED_MED_HEIGHT),
-            _stackedPanelMinSize = new Size(STACKED_MIN_WIDTH, STACKED_MIN_HEIGHT);
-
-        private const int
-            STACKED_MAX_LABEL_HEIGHT = (int)(STACKED_MAX_HEIGHT * STACKED_LABEL_RATIO),
-            STACKED_MED_LABEL_HEIGHT = (int)(STACKED_MED_HEIGHT * STACKED_LABEL_RATIO),
-            STACKED_MIN_LABEL_HEIGHT = (int)(STACKED_MIN_HEIGHT * STACKED_LABEL_RATIO);
-
-        private const int
-            STACKED_MAX_IMAGE_LENGTH = (int)(STACKED_MAX_HEIGHT * STACKED_IMAGE_RATIO),
-            STACKED_MED_IMAGE_LENGTH = (int)(STACKED_MED_HEIGHT * STACKED_IMAGE_RATIO),
-            STACKED_MIN_IMAGE_LENGTH = (int)(STACKED_MIN_HEIGHT * STACKED_IMAGE_RATIO);
-
-        protected static readonly Size
-            _stackedPanelMaxImgSize = new Size(STACKED_MAX_IMAGE_LENGTH, STACKED_MAX_IMAGE_LENGTH),
-            _stackedPanelMedImgSize = new Size(STACKED_MED_IMAGE_LENGTH, STACKED_MED_IMAGE_LENGTH),
-            _stackedPanelMinImgSize = new Size(STACKED_MIN_IMAGE_LENGTH, STACKED_MIN_IMAGE_LENGTH);
-
-        protected static readonly Size
-            _stackedPanelMaxLblSize = new Size(STACKED_MAX_WIDTH, STACKED_MAX_LABEL_HEIGHT),
-            _stackedPanelMedLblSize = new Size(STACKED_MED_WIDTH, STACKED_MED_LABEL_HEIGHT),
-            _stackedPanelMinLblSize = new Size(STACKED_MIN_WIDTH, STACKED_MIN_LABEL_HEIGHT);
-        #endregion
-        #region Text Panel Constants
-        ///
-        /// Text Panel constants
-        /// 
-        private const int
-            TEXT_PANEL_MAX_WIDTH = 205, TEXT_PANEL_MAX_HEIGHT = 30,
-            TEXT_PANEL_MED_WIDTH = 150, TEXT_PANEL_MED_HEIGHT = 30,
-            TEXT_PANEL_MIN_WIDTH = 105, TEXT_PANEL_MIN_HEIGHT = 30;
-
-        protected const double
-            TEXT_PANEL_LABEL_RATIO = 1.0,
-            TEXT_PANEL_IMAGE_RATIO = 0.0,
-            TEXT_PANEL_RATIO = (double)TEXT_PANEL_MAX_HEIGHT / (double)TEXT_PANEL_MAX_WIDTH;
-
-        protected static readonly Size
-            _textPanelMaxSize = new Size(TEXT_PANEL_MAX_WIDTH, TEXT_PANEL_MAX_HEIGHT),
-            _textPanelMedSize = new Size(TEXT_PANEL_MED_WIDTH, TEXT_PANEL_MED_HEIGHT),
-            _textPanelMinSize = new Size(TEXT_PANEL_MIN_WIDTH, TEXT_PANEL_MIN_HEIGHT);
-
-        protected static readonly Size
-            _textPanelMaxImgSize = new Size(0, 0),
-            _textPanelMedImgSize = _textPanelMaxImgSize,
-            _textPanelMinImgSize = _textPanelMaxImgSize;
-
-        protected static readonly Size
-            _textPanelMaxLblSize = _textPanelMaxSize,
-            _textPanelMedLblSize = _textPanelMedSize,
-            _textPanelMinLblSize = _textPanelMinSize;
-        #endregion
-
-        /// <summary>
-        /// Height / Width
-        /// </summary>
-        public double WidthToHeightRatio
-        {
-            get
-            {
-                switch (this.SPanelType)
-                {
-                    case SPanelType.Image:
-                        return IMAGE_PANEL_RATIO;
-                    case SPanelType.Text:
-                        return TEXT_PANEL_RATIO;
-                    case SPanelType.StackedImage:
-                        return STACKED_PANEL_RATIO;
-                    default:
-                        return IMAGE_PANEL_RATIO;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Image size / Panel Size
-        /// </summary>
-        public double ImageToPanelRatio
-        {
-            get
-            {
-                switch (this.SPanelType)
-                {
-                    case SPanelType.Image:
-                        return IMAGE_PANEL_IMAGE_RATIO;
-                    case SPanelType.Text:
-                        return TEXT_PANEL_IMAGE_RATIO;
-                    case SPanelType.StackedImage:
-                        return STACKED_IMAGE_RATIO;
-                    default:
-                        return IMAGE_PANEL_IMAGE_RATIO;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 1 - ImageToPanelRatio
-        /// </summary>
-        public double LabelToImageRatio
-        {
-            get
-            {
-                if (this.SPanelType == SPanelType.Text)
-                {
-                    return TEXT_PANEL_LABEL_RATIO;
-                }
-                else
-                {
-                    return 1 - this.ImageToPanelRatio;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Size of the image in the SPanel
-        /// </summary>
-        public Size ImageSize
-        {
-            get { return this.SpotifyPictureBox.Size; }
-            set
-            {
-                this.SpotifyPictureBox.Size = value;
-                switch (this.SPanelType)
-                {
-                    case SPanelType.Image:
-                        this.splitContainer.Panel1MinSize = value.Width;
-                        this.SplitterDistance = value.Width;
-                        break;
-                    case SPanelType.Text:
-                        break;
-                    case SPanelType.StackedImage:
-                        this.splitContainer.Panel1MinSize = value.Height;
-                        this.SplitterDistance = value.Height;
-                        break;
-                    default:
-                        this.splitContainer.Panel1MinSize = value.Width;
-                        this.SplitterDistance = value.Width;
-                        break;
-                }
-            }
-        }
-
-        public Size LabelSize
-        {
-            get { return this.SpotifyLabel.Size; }
-            set { this.SpotifyLabel.Size = value; }
-        }
-
-
-        /// <summary>
-        /// Get/Set whether to collapse the image.
-        /// </summary>
-        public bool PictureCollapsed
-        {
-            get { return this.splitContainer.Panel1Collapsed; }
-            set { this.splitContainer.Panel1Collapsed = value; }
-        }
-
-        /// <summary>
-        /// Where the image ends and the label begins
-        /// </summary>
-        public int SplitterDistance
-        {
-            get { return this.splitContainer.SplitterDistance; }
-            set { this.splitContainer.SplitterDistance = value; }
-        }
-
-        /// <summary>
-        /// The image displayed in the SPanel, for the entity that it will display
-        /// </summary>
-        public Image Image
-        {
-            get { return this.SpotifyPictureBox.Image; }
-            set
-            {
-                try
-                {
-                    this.SpotifyPictureBox.Image = value;
-                }
-                catch (Exception ex)
-                {
-                    this.SpotifyPictureBox.Image = this.SpotifyPictureBox.ErrorImage;
-                    Console.WriteLine(ex.Message);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Get/Set the text in the Label
-        /// </summary>
-        public override string Text
-        {
-            get { return this.SpotifyLabel.Text; }
-            set { this.SpotifyLabel.Text = value; }
-        }
-
-        /// <summary>
-        /// Represents the type of panel, and changes the Min/Max for the appropriate values upon change.
-        /// </summary>
-        public SPanelType SPanelType
-        {
-            get { return this._sPanelType; }
-            set
-            {
-                if (this._sPanelType != value)
-                {
-                    this._sPanelType = value;
-                    _assignEdgeSizes(value);
-                    _SetNewSize();
-                }
-            }
-
-        }
-
-        public SPanelSize SPanelSize
-        {
-            get { return _sPanelSize; }
-            set
-            {
-                if (_sPanelSize != value)
-                {
-                    _sPanelSize = value;
-                    _SetNewSize();
-                }
-
-            }
-        }
-
-        /// <summary>
-        /// Tag to identify what the SpotifyEntityType was that this was initialized with
-        /// </summary>
-        public SpotifyEntityType SpotifyEntityType { get; set; }
-
-        /// <summary>
-        /// Tag to identify what DbEntityType the SPanel maps to
-        /// </summary>
-        public DbEntityType DbEntityType { get; set; }
-
-        /// <summary>
-        /// Holds a copy of the DbEntity this SPanel represents, if any
-        /// </summary>
-        public DbEntity DbEntity
-        {
-            get { return this._dbEntity; }
-            set
-            {
-                try
-                {
-                    this._dbEntity = value;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-        }
         #endregion
         #region Private Methods
-        private void _SetNewSize(bool typeChanged = false)
+        private void _setNewSize()
         {
             switch (this.SPanelSize)
             {
@@ -725,8 +528,8 @@ namespace SongsAbout.Controls
         /// </summary>
         protected void _resize()
         {
-            int w = this.Size.Width,
-                h = this.Size.Height;
+            int w = this.Width,
+                h = this.Height;
 
             if (w == 0 && h == 0)
                 base.Size = MinimumSize;
@@ -741,6 +544,210 @@ namespace SongsAbout.Controls
         }
 
         #endregion
+        #region Public Properties
+        /// <summary>
+        /// Height / Width
+        /// </summary>
+        public double WidthToHeightRatio
+        {
+            get
+            {
+                switch (this.SPanelType)
+                {
+                    case SPanelType.Image:
+                        return IMAGE_PANEL_RATIO;
+                    case SPanelType.Text:
+                        return TEXT_PANEL_RATIO;
+                    case SPanelType.StackedImage:
+                        return STACKED_PANEL_RATIO;
+                    default:
+                        return IMAGE_PANEL_RATIO;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Image size / Panel Size
+        /// </summary>
+        public double ImageToPanelRatio
+        {
+            get
+            {
+                switch (this.SPanelType)
+                {
+                    case SPanelType.Image:
+                        return IMAGE_PANEL_IMAGE_RATIO;
+                    case SPanelType.Text:
+                        return TEXT_PANEL_IMAGE_RATIO;
+                    case SPanelType.StackedImage:
+                        return STACKED_IMAGE_RATIO;
+                    default:
+                        return IMAGE_PANEL_IMAGE_RATIO;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 1 - ImageToPanelRatio
+        /// </summary>
+        public double LabelToImageRatio
+        {
+            get
+            {
+                if (this.SPanelType == SPanelType.Text)
+                {
+                    return TEXT_PANEL_LABEL_RATIO;
+                }
+                else
+                {
+                    return 1 - this.ImageToPanelRatio;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Size of the image in the SPanel
+        /// </summary>
+        public Size ImageSize
+        {
+            get { return this.SpotifyPictureBox.Size; }
+            set
+            {
+                this.SpotifyPictureBox.Size = value;
+                switch (this.SPanelType)
+                {
+                    case SPanelType.Image:
+                        this.splitContainer.Panel1MinSize = value.Width;
+                        this.SplitterDistance = value.Width;
+                        break;
+                    case SPanelType.Text:
+                        break;
+                    case SPanelType.StackedImage:
+                        this.splitContainer.Panel1MinSize = value.Height;
+                        this.SplitterDistance = value.Height;
+                        break;
+                    default:
+                        this.splitContainer.Panel1MinSize = value.Width;
+                        this.SplitterDistance = value.Width;
+                        break;
+                }
+            }
+        }
+
+        public Size LabelSize
+        {
+            get { return this.SpotifyLabel.Size; }
+            set { this.SpotifyLabel.Size = value; }
+        }
+
+        /// <summary>
+        /// Get/Set whether to collapse the image.
+        /// </summary>
+        public bool PictureCollapsed
+        {
+            get { return this.splitContainer.Panel1Collapsed; }
+            set { this.splitContainer.Panel1Collapsed = value; }
+        }
+
+        /// <summary>
+        /// Where the image ends and the label begins
+        /// </summary>
+        public int SplitterDistance
+        {
+            get { return this.splitContainer.SplitterDistance; }
+            set { this.splitContainer.SplitterDistance = value; }
+        }
+
+        /// <summary>
+        /// The image displayed in the SPanel, for the entity that it will display
+        /// </summary>
+        public Image Image
+        {
+            get { return this.SpotifyPictureBox.Image; }
+            set
+            {
+                try
+                {
+                    this.SpotifyPictureBox.Image = value;
+                }
+                catch (Exception ex)
+                {
+                    this.SpotifyPictureBox.Image = this.SpotifyPictureBox.ErrorImage;
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get/Set the text in the Label
+        /// </summary>
+        public override string Text
+        {
+            get { return this.SpotifyLabel.Text; }
+            set { this.SpotifyLabel.Text = value; }
+        }
+
+        /// <summary>
+        /// Represents the type of panel, and changes the Min/Max for the appropriate values upon change.
+        /// </summary>
+        public SPanelType SPanelType
+        {
+            get { return this._sPanelType; }
+            set
+            {
+                if (this._sPanelType != value)
+                {
+                    this._sPanelType = value;
+                    _assignEdgeSizes(value);
+                    _setNewSize();
+                }
+            }
+
+        }
+
+        public SPanelSize SPanelSize
+        {
+            get { return _sPanelSize; }
+            set
+            {
+                if (_sPanelSize != value)
+                {
+                    _sPanelSize = value;
+                    _setNewSize();
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Tag to identify what the SpotifyEntityType was that this was initialized with
+        /// </summary>
+        public SpotifyEntityType SpotifyEntityType { get; set; }
+
+        /// <summary>
+        /// Tag to identify what DbEntityType the SPanel maps to
+        /// </summary>
+        public DbEntityType DbEntityType { get; set; }
+
+        /// <summary>
+        /// Holds a copy of the DbEntity this SPanel represents, if any
+        /// </summary>
+        public DbEntity DbEntity
+        {
+            get { return this._dbEntity; }
+            set
+            {
+                try
+                {
+                    this._dbEntity = value;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+        #endregion
         #region Constructors
 
         /// <summary>
@@ -751,7 +758,7 @@ namespace SongsAbout.Controls
             this.SPanelType = SPanelType.Image;
             this.SPanelSize = SPanelSize.Small;
             InitializeComponent();
-            _SetNewSize();
+            _setNewSize();
         }
 
 
@@ -764,7 +771,6 @@ namespace SongsAbout.Controls
             this.SPanelType = panelType;
             this.SPanelSize = panelSize;
             InitializeComponent();
-            _SetNewSize();
         }
 
         /// <summary>
@@ -811,7 +817,7 @@ namespace SongsAbout.Controls
         /// <param name="dbtype"></param>
         /// <param name="spotifyType"></param>
         public SPanel(string text, SPanelType type = SPanelType.Image, EventHandler clickEvent = null, object tag = null,
-          DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
+          DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) //: this()
         {
             try
             {
@@ -919,7 +925,7 @@ namespace SongsAbout.Controls
         {
             this.SpotifyLabel = new SpotifyLabel(artist, clickEvent);
             this.SpotifyPictureBox = new SpotifyPictureBox(artist, clickEvent);
-            this.Image = this.SpotifyPictureBox.Image;
+           // this.Image = this.SpotifyPictureBox.Image;
         }
 
         /// <summary>

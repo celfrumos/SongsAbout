@@ -22,7 +22,7 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
-                AddToFlow(new SPanel());
+                // AddToFlow(new SPanel());
                 // LoadArtists();
                 //PromptOptions();
             }

@@ -29,19 +29,15 @@ namespace SongsAbout.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpotifySearchForm));
             this.flpSpotifyControls = new System.Windows.Forms.FlowLayoutPanel();
             this.txtBoxSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.sPanel1 = new SongsAbout.Controls.SPanel();
-            this.flpSpotifyControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // flpSpotifyControls
             // 
             this.flpSpotifyControls.AllowDrop = true;
             this.flpSpotifyControls.AutoScroll = true;
-            this.flpSpotifyControls.Controls.Add(this.sPanel1);
             this.flpSpotifyControls.Location = new System.Drawing.Point(12, 79);
             this.flpSpotifyControls.Name = "flpSpotifyControls";
             this.flpSpotifyControls.Size = new System.Drawing.Size(405, 517);
@@ -64,30 +60,6 @@ namespace SongsAbout.Forms
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // sPanel1
-            // 
-            this.sPanel1.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.sPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.sPanel1.DbEntity = null;
-            this.sPanel1.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
-            this.sPanel1.ForeColor = System.Drawing.Color.White;
-            this.sPanel1.Image = ((System.Drawing.Image)(resources.GetObject("sPanel1.Image")));
-            this.sPanel1.ImageSize = new System.Drawing.Size(50, 50);
-            this.sPanel1.LabelSize = new System.Drawing.Size(149, 50);
-            this.sPanel1.Location = new System.Drawing.Point(3, 2);
-            this.sPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.sPanel1.MaximumSize = new System.Drawing.Size(200, 50);
-            this.sPanel1.MinimumSize = new System.Drawing.Size(110, 40);
-            this.sPanel1.Name = "sPanel1";
-            this.sPanel1.PictureCollapsed = false;
-            this.sPanel1.Size = new System.Drawing.Size(200, 50);
-            this.sPanel1.SPanelSize = SongsAbout.Controls.SPanelSize.Small;
-            this.sPanel1.SPanelType = SongsAbout.Controls.SPanelType.Image;
-            this.sPanel1.SplitterDistance = 50;
-            this.sPanel1.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
-            this.sPanel1.TabIndex = 0;
-            this.sPanel1.Tag = "Not Set";
-            // 
             // SpotifySearchForm
             // 
             this.AcceptButton = this.btnSearch;
@@ -100,7 +72,6 @@ namespace SongsAbout.Forms
             this.Controls.Add(this.flpSpotifyControls);
             this.Name = "SpotifySearchForm";
             this.Text = "Import From Spotify";
-            this.flpSpotifyControls.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,6 +82,5 @@ namespace SongsAbout.Forms
         private System.Windows.Forms.FlowLayoutPanel flpSpotifyControls = new System.Windows.Forms.FlowLayoutPanel();
         private System.Windows.Forms.TextBox txtBoxSearch = new System.Windows.Forms.TextBox();
         private System.Windows.Forms.Button btnSearch = new System.Windows.Forms.Button();
-        private Controls.SPanel sPanel1;
     }
 }

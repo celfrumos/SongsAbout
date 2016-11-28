@@ -111,7 +111,7 @@ namespace SongsAbout.Controls
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MinimumSize = new System.Drawing.Size(110, 40);
             this.Name = "SPanel";
-            this.Size = new System.Drawing.Size(175, 50);
+            base.Size = new System.Drawing.Size(175, 50);
             this.Tag = "Not Set";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
