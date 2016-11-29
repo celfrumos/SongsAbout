@@ -113,6 +113,10 @@ namespace SongsAbout.Classes
                     Console.WriteLine($"Track '{track.Name}' already exists");
                 }
             }
+            catch (SaveError ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -133,7 +137,7 @@ namespace SongsAbout.Classes
                         byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
 
                         systemPic = ImageFromBytes(imageBytes);
-                      
+
                         return systemPic;
                     }
 

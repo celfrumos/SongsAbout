@@ -216,32 +216,24 @@ namespace SongsAbout.Entities
         {
             try
             {
-              //  if (Exists(a_name))
-                //{
-                    Artist l = new Artist();
+                Artist result = new Artist();
                 try
                 {
                     using (var db = new DataClassesContext())
                     {
-                        l = (from a in db.Artists
-                             where a.name == a_name
-                             select a).ToList()[0];
+                        result = (Artist)(from Artist a in db.Artists
+                                          where a.name == a_name
+                                          select a).First();
                     }
                 }
                 catch (Exception)
                 {
-                    l = new Artist();
+                    result = new Artist();
                 }
-                    return l;
-               // }
-               // else
-                //{
-                 //   throw new EntityNotFoundError(typeof(Artist), a_name);
-                //}
+                return result;
             }
             catch (Exception ex)
             {
-
                 throw new LoadError(new Artist(), a_name, ex.Message);
             }
         }
@@ -252,14 +244,14 @@ namespace SongsAbout.Entities
             {
                 if (!Exists(a_id))
                 {
-                    Artist l;
+                    Artist result;
                     using (var db = new DataClassesContext())
                     {
-                        l = (Artist)(from a in db.Artists
-                                     where a.ID == a_id
-                                     select a);
+                        result = (Artist)(from Artist a in db.Artists
+                                          where a.ID == a_id
+                                          select a).First();
                     }
-                    return l;
+                    return result;
                 }
                 else
                 {

@@ -107,7 +107,10 @@ namespace SongsAbout.Classes
         public LoadError(DbEntity e, int id, string msg = defaultMsg)
             : base(loadDefMsg(e, id, msg))
         {
-            string se = $"Error Loading {_type} '{id}' from {_table} table: " + msg;
+        }
+        public LoadError(DbEntityType e, int id, string msg = defaultMsg)
+        : base(loadDefMsg(e, id, msg))
+        {
         }
 
         private static string loadDefMsg(DbEntity e, string name, string msg)
@@ -118,6 +121,44 @@ namespace SongsAbout.Classes
         private static string loadDefMsg(DbEntity e, int id, string msg)
         {
             return (msg == defaultMsg ? msg : $"Error Loading {e.TypeName} with id {id} from {e.TableName} table: " + msg);
+        }
+        private static string loadDefMsg(DbEntityType e, int id, string msg)
+        {
+            switch (e)
+            {
+                case DbEntityType.Artist:
+                    return (msg == defaultMsg ?
+                        msg : $"Error Loading {Artist.TypeString} with id {id} from {Artist.Table} table: " + msg);
+                case DbEntityType.Album:
+                    return (msg == defaultMsg ?
+                        msg : $"Error Loading {Album.TypeString} with id {id} from {Album.Table} table: " + msg);
+
+                case DbEntityType.Track:
+                    return (msg == defaultMsg ?
+                        msg : $"Error Loading {Track.TypeString} with id {id} from {Track.Table} table: " + msg);
+                default:
+                    return (msg == defaultMsg ?
+                        msg : defaultMsg + "\n" + msg);
+            }
+        }
+        private static string loadDefMsg(DbEntityType e, string name, string msg)
+        {
+            switch (e)
+            {
+                case DbEntityType.Artist:
+                    return (msg == defaultMsg ?
+                        msg : $"Error Loading {Artist.TypeString} with name {name} from {Artist.Table} table: " + msg);
+                case DbEntityType.Album:
+                    return (msg == defaultMsg ?
+                        msg : $"Error Loading {Album.TypeString} with name {name} from {Album.Table} table: " + msg);
+
+                case DbEntityType.Track:
+                    return (msg == defaultMsg ?
+                        msg : $"Error Loading {Track.TypeString} with name {name} from {Track.Table} table: " + msg);
+                default:
+                    return (msg == defaultMsg ?
+                        msg : defaultMsg + "\n" + msg);
+            }
         }
 
     }

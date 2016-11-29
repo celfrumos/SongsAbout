@@ -175,6 +175,19 @@ namespace SongsAbout.Forms
         {
 
         }
+
+        private void tsmiFollowedPlaylists_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Importer.ImportSavedPlaylists();
+                Console.WriteLine("Finished Importing Saved playlists");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error Importing Saved playlists from Spotify: {ex.StackTrace}");
+            }
+        }
     }
 
 }

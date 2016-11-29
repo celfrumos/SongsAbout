@@ -37,6 +37,7 @@ namespace SongsAbout.Entities
         }
         public Track(FullTrack t)
         {
+
             this.name = t.Name;
             this.track_length_minutes = (double)(t.DurationMs) / 60000;
             this.track_spotify_uri = t.Uri;
@@ -82,6 +83,7 @@ namespace SongsAbout.Entities
                         // db.Tracks.Add(this);
                         db.UpdateInsert_Track(this.ID, this.name, this.track_spotify_uri, this.track_length_minutes, this.track_artist_id, this.can_play, this.track_album_id);
                         db.SaveChanges();
+                        Console.WriteLine($"Successfully saved track '{name}'");
                     }
                 }
                 else
@@ -91,7 +93,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new EntityNotFoundError(this, this.Name, ex.Message);
+                throw new SaveError(this, this.Name, ex.Message);
 
             }
         }
@@ -147,19 +149,15 @@ namespace SongsAbout.Entities
             try
             {
                 Artist a;
-                if (Artist.Exists(artist.Name))
-                {
-                    a = Artist.Load(artist.Name);
-                }
-                else
+                if (!Artist.Exists(artist.Name))
                 {
                     a = new Artist(artist);
                     a.Save();
-                    //al.Save();
                 }
+                a = Artist.Load(artist.Name);
+
                 this.track_artist_id = a.ID;
 
-                //ta.Update(a.artist_id, this.track_id);
             }
             catch (Exception ex)
             {
@@ -199,58 +197,49 @@ namespace SongsAbout.Entities
         {
             try
             {
-                //AlbumTracks at = new AlbumTracks();
-
                 Album al;
-                if (Album.Exists(album.Name))
-                {
-                    al = Album.Load(album.Name);
-                    this.track_album_id = al.ID;
-                }
-                else
+                if (!Album.Exists(album.Name))
                 {
                     al = new Album(album);
                     al.Save();
-                    this.track_album_id = al.ID;
-                    //al.Save();
                 }
-                //at.Update(al.album_id, this.track_id);
-                ////at.Save();
+
+                al = Album.Load(album.Name);
+                this.track_album_id = al.ID;
             }
             catch (Exception ex)
             {
                 string msg = $"Error updating track album for track: {this.name}: {ex.Message}";
                 Console.WriteLine(msg);
-                //    throw new Exception(msg);
             }
         }
         private void UpdateAlbum(FullAlbum album)
         {
             try
             {
-                //AlbumTracks at = new AlbumTracks();
-
                 Album al;
                 if (Album.Exists(album.Name))
                 {
-                    al = Album.Load(album.Name);
-                    this.track_album_id = al.ID;
-                }
-                else
-                {
                     al = new Album(album);
                     al.Save();
-                    this.track_album_id = al.ID;
-                    //al.Save();
                 }
-                //at.Update(al.album_id, this.track_id);
-                ////at.Save();
+
+                al = Album.Load(album.Name);
+                this.track_album_id = al.ID;
+            }
+            catch (SaveError ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (LoadError ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
                 string msg = $"Error updating track album for track: {this.name}: {ex.Message}";
                 Console.WriteLine(msg);
-                //    throw new Exception(msg);
+                throw new Exception(msg);
             }
         }
 

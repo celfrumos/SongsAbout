@@ -183,6 +183,7 @@
     <Compile Include="Entities\DbEntity.cs" />
     <Compile Include="Controls\SpotifyControlEventHandlers.cs" />
     <Compile Include="Classes\DbExceptions.cs" />
+    <Compile Include="Entities\IDbEntity.cs" />
     <Compile Include="Entities\List.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>

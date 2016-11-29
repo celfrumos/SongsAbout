@@ -12,7 +12,7 @@ using SongsAbout.Controls;
 
 namespace SongsAbout.Entities
 {
-    public abstract class DbEntity
+    public abstract class DbEntity : IDbEntity
     {
         protected DbEntity()
         {
@@ -36,5 +36,6 @@ namespace SongsAbout.Entities
                 name = name.Insert(i, "'");
             }
         }
+
     }
 }

@@ -15,11 +15,12 @@ namespace SongsAbout.Entities
 {
     public partial class Album : DbEntity
     {
-        public static string Table = "Albums";
-        public static string TypeString = "Album";
-        public static string TitleColumn = "name";
+        public static readonly string Table = "Albums";
+        public static readonly string TypeString = "Album";
+        public static readonly string TitleColumn = "name";
         private SpotifyEntityType _spotifyType = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
 
+        private bool? _exists = null;
         public override SpotifyEntityType SpotifyType
         {
             get { return this._spotifyType; }
@@ -66,8 +67,8 @@ namespace SongsAbout.Entities
                 {
                     using (var context = new DataClassesContext())
                     {
-                        context.UpdateInsert_Album(this.ID,this.artist_id,this.name,this.al_year,this.al_spotify_uri,this.al_cover_art);
-                   //     context.Albums.Add(this);
+                        context.UpdateInsert_Album(this.ID, this.artist_id, this.name, this.al_year, this.al_spotify_uri, this.al_cover_art);
+                        //     context.Albums.Add(this);
                         context.SaveChanges();
                     }
 
@@ -84,27 +85,39 @@ namespace SongsAbout.Entities
             }
         }
 
-        public static bool Exists(string a)
+        /// <summary>
+        /// Checks if an album with the given name exists or not
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool Exists(string name)
         {
             int albums = 0;
             using (DataClassesContext context = new DataClassesContext())
             {
-                DbEntity.formatName(ref a);
+                DbEntity.formatName(ref name);
                 albums = (
                    from ab in context.Albums
-                   where ab.name == a
+                   where ab.name == name
                    select ab).Count();
+                int n = base.Exists(name, context.Albums);
             }
             return albums > 0;
         }
-        public static bool Exists(int a)
+
+        /// <summary>
+        /// Checks if an album with the given id exists or not
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool Exists(int id)
         {
             int albums = 0;
             using (DataClassesContext context = new DataClassesContext())
             {
                 albums = (
                    from ab in context.Albums
-                   where ab.ID == a
+                   where ab.ID == id
                    select ab).Count();
             }
             return albums > 0;
@@ -114,14 +127,40 @@ namespace SongsAbout.Entities
 
         public static Album Load(string al_title)
         {
-            throw new NotImplementedException();
-            // return Load(al_title);
+            Album result = new Album();
+            try
+            {
+                using (DataClassesContext context = new DataClassesContext())
+                {
+                    result = (Album)(from Album ab in context.Albums
+                                     where ab.name == al_title
+                                     select ab).First();
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new LoadError(result, al_title, ex.Message);
+            }
         }
 
         public static Album Load(int album_id)
         {
-            throw new NotImplementedException();
-            //return Load(album_id);
+            Album result = new Album();
+            try
+            {
+                using (DataClassesContext context = new DataClassesContext())
+                {
+                    result = (Album)(from Album ab in context.Albums
+                                     where ab.ID == album_id
+                                     select ab).First();
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new LoadError(result, album_id, ex.Message);
+            }
         }
 
         public void Update(SimpleAlbum album)
@@ -212,7 +251,7 @@ namespace SongsAbout.Entities
                 else
                 {
                     a = new Artist(simpleArtist);
-                      a.Save();
+                    a.Save();
                     Console.WriteLine($"Artist added: '{a.name}'");
                 }
                 this.artist_id = a.ID;
