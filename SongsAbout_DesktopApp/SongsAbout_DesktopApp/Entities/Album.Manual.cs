@@ -100,7 +100,7 @@ namespace SongsAbout.Entities
                    from ab in context.Albums
                    where ab.name == name
                    select ab).Count();
-                int n = base.Exists(name, context.Albums);
+               // int n = base.Exists(name, context.Albums);
             }
             return albums > 0;
         }
