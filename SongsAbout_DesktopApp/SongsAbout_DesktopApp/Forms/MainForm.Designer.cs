@@ -29,7 +29,6 @@ namespace SongsAbout.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtBoxQuery = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,23 +55,14 @@ namespace SongsAbout.Forms
             this.profileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(183, 48);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(177, 159);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // txtBoxQuery
             // 
-            this.txtBoxQuery.Location = new System.Drawing.Point(295, 256);
+            this.txtBoxQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxQuery.Location = new System.Drawing.Point(317, 48);
             this.txtBoxQuery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxQuery.Name = "txtBoxQuery";
             this.txtBoxQuery.Size = new System.Drawing.Size(216, 25);
@@ -80,11 +70,12 @@ namespace SongsAbout.Forms
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(36, 256);
+            this.label1.Location = new System.Drawing.Point(104, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(175, 19);
             this.label1.TabIndex = 5;
@@ -92,11 +83,12 @@ namespace SongsAbout.Forms
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(73, 315);
+            this.label2.Location = new System.Drawing.Point(125, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(154, 19);
             this.label2.TabIndex = 7;
@@ -104,6 +96,7 @@ namespace SongsAbout.Forms
             // 
             // lstBxGenres
             // 
+            this.lstBxGenres.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lstBxGenres.FormattingEnabled = true;
             this.lstBxGenres.ItemHeight = 18;
             this.lstBxGenres.Items.AddRange(new object[] {
@@ -115,7 +108,7 @@ namespace SongsAbout.Forms
             "Pop",
             "Rap",
             "Rock"});
-            this.lstBxGenres.Location = new System.Drawing.Point(295, 315);
+            this.lstBxGenres.Location = new System.Drawing.Point(317, 87);
             this.lstBxGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstBxGenres.Name = "lstBxGenres";
             this.lstBxGenres.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
@@ -125,11 +118,12 @@ namespace SongsAbout.Forms
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(170, 418);
+            this.label3.Location = new System.Drawing.Point(204, 159);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 19);
             this.label3.TabIndex = 9;
@@ -137,7 +131,8 @@ namespace SongsAbout.Forms
             // 
             // txtBoxKeywords
             // 
-            this.txtBoxKeywords.Location = new System.Drawing.Point(295, 418);
+            this.txtBoxKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxKeywords.Location = new System.Drawing.Point(317, 159);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
             this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
@@ -145,22 +140,22 @@ namespace SongsAbout.Forms
             // 
             // btnSearch
             // 
+            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.btnSearch.Location = new System.Drawing.Point(295, 461);
+            this.btnSearch.Location = new System.Drawing.Point(317, 198);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(216, 112);
+            this.btnSearch.Size = new System.Drawing.Size(216, 38);
             this.btnSearch.TabIndex = 11;
             this.btnSearch.Text = "Find me some songs!";
             this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // pBoxProfilePic
             // 
-            this.pBoxProfilePic.Location = new System.Drawing.Point(12, 39);
+            this.pBoxProfilePic.Location = new System.Drawing.Point(12, 142);
             this.pBoxProfilePic.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pBoxProfilePic.Name = "pBoxProfilePic";
-            this.pBoxProfilePic.Size = new System.Drawing.Size(65, 64);
+            this.pBoxProfilePic.Size = new System.Drawing.Size(106, 100);
             this.pBoxProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pBoxProfilePic.TabIndex = 16;
             this.pBoxProfilePic.TabStop = false;
@@ -175,7 +170,7 @@ namespace SongsAbout.Forms
             this.aboutToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(547, 28);
+            this.mainMenuStrip.Size = new System.Drawing.Size(545, 28);
             this.mainMenuStrip.TabIndex = 18;
             // 
             // fileToolStripMenuItem
@@ -193,14 +188,12 @@ namespace SongsAbout.Forms
             this.viewDatabaseToolStripMenuItem.Name = "viewDatabaseToolStripMenuItem";
             this.viewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.viewDatabaseToolStripMenuItem.Text = "View Database";
-            this.viewDatabaseToolStripMenuItem.Click += new System.EventHandler(this.msiViewData_Click);
             // 
             // addNewTrackToolStripMenuItem
             // 
             this.addNewTrackToolStripMenuItem.Name = "addNewTrackToolStripMenuItem";
             this.addNewTrackToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.addNewTrackToolStripMenuItem.Text = "Add New Track";
-            this.addNewTrackToolStripMenuItem.Click += new System.EventHandler(this.msiAddTrack_Click);
             // 
             // logOutToolStripMenuItem
             // 
@@ -222,9 +215,8 @@ namespace SongsAbout.Forms
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.connectToolStripMenuItem.Text = "Connect";
-            this.connectToolStripMenuItem.Click += new System.EventHandler(this.msiConncectSpotify_Click);
             // 
             // importToolStripMenuItem
             // 
@@ -234,7 +226,7 @@ namespace SongsAbout.Forms
             this.followedPlaylistsToolStripMenuItem,
             this.allToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // savedTracksToolStripMenuItem
@@ -242,42 +234,42 @@ namespace SongsAbout.Forms
             this.savedTracksToolStripMenuItem.Name = "savedTracksToolStripMenuItem";
             this.savedTracksToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.savedTracksToolStripMenuItem.Text = "Saved Tracks";
-            this.savedTracksToolStripMenuItem.Click += new System.EventHandler(this.msiImportSavedTracks_Click);
+            //this.savedTracksToolStripMenuItem.Click += new System.EventHandler(this.msiImportSavedTracks_Click);
             // 
             // followedArtistsToolStripMenuItem
             // 
             this.followedArtistsToolStripMenuItem.Name = "followedArtistsToolStripMenuItem";
             this.followedArtistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.followedArtistsToolStripMenuItem.Text = "Followed Artists";
-            this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(this.msiImportFollowedArtists_Click);
-            // 
+            //this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(this.msiImportFollowedArtists_Click);
+            //// 
             // followedPlaylistsToolStripMenuItem
             // 
             this.followedPlaylistsToolStripMenuItem.Name = "followedPlaylistsToolStripMenuItem";
             this.followedPlaylistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.followedPlaylistsToolStripMenuItem.Text = "Followed Playlists";
-            this.followedPlaylistsToolStripMenuItem.Click += new System.EventHandler(this.tsmiFollowedPlaylists_Click);
-            // 
+            //this.followedPlaylistsToolStripMenuItem.Click += new System.EventHandler(this.tsmiFollowedPlaylists_Click);
+            //// 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
             this.allToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.allToolStripMenuItem.Text = "All";
-            this.allToolStripMenuItem.Click += new System.EventHandler(this.msiImportAll_Click);
+            //  this.allToolStripMenuItem.Click += new System.EventHandler(this.msiImportAll_Click);
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.searchToolStripMenuItem.Text = "Search";
-            this.searchToolStripMenuItem.Click += new System.EventHandler(this.msiSpotifySearch_Click);
+            //this.searchToolStripMenuItem.Click += new System.EventHandler(this.msiSpotifySearch_Click);
             // 
             // disconnectToolStripMenuItem
             // 
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
-            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.msiDisconnect_Click);
+            // this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.msiDisconnect_Click);
             // 
             // profileToolStripMenuItem
             // 
@@ -311,7 +303,7 @@ namespace SongsAbout.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(547, 625);
+            this.ClientSize = new System.Drawing.Size(545, 253);
             this.Controls.Add(this.pBoxProfilePic);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtBoxKeywords);
@@ -320,7 +312,6 @@ namespace SongsAbout.Forms
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBoxQuery);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.mainMenuStrip);
             this.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.MainMenuStrip = this.mainMenuStrip;
@@ -328,7 +319,6 @@ namespace SongsAbout.Forms
             this.Name = "MainForm";
             this.Text = "SongsAbout";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
@@ -338,8 +328,6 @@ namespace SongsAbout.Forms
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtBoxQuery;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

@@ -25,7 +25,7 @@ namespace SongsAbout
             {
                 User.Default.Upgrade();
                 ConnectSpotify();
-                Application.Run(new MainForm());
+                Application.Run(new Form1());
             }
             catch (System.Resources.MissingManifestResourceException ex)
             {

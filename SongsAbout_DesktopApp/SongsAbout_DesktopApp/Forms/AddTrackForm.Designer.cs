@@ -1,4 +1,4 @@
-﻿namespace SongsAbout
+﻿namespace SongsAbout.Forms
 {
     partial class AddTrackForm
     {

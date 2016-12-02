@@ -10,7 +10,7 @@ using SongsAbout.Entities;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SongsAbout
+namespace SongsAbout.Forms
 {
     public partial class AddAlbumForm : Form
     {

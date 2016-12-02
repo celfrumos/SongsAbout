@@ -11,7 +11,7 @@ using System.IO;
 using SongsAbout.Entities;
 using SongsAbout.Classes;
 
-namespace SongsAbout
+namespace SongsAbout.Forms
 {
     public partial class AddArtistForm : Form
     {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SongsAbout.Entities;
 
-namespace SongsAbout
+namespace SongsAbout.Forms
 {
     public partial class ResultsForm : Form
     {
