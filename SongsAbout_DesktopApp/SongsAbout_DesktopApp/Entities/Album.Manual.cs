@@ -10,6 +10,7 @@ using SongsAbout.Classes;
 using SongsAbout.Enums;
 using SongsAbout.Properties;
 using SongsAbout.Controls;
+using Image = System.Drawing.Image;
 
 namespace SongsAbout.Entities
 {
@@ -39,6 +40,7 @@ namespace SongsAbout.Entities
         {
             get { return typeof(Artist).ToString(); }
         }
+        public Image Image { get { return Converter.ImageFromBytes(this.al_cover_art); } }
         public override string TitleColumnName
         {
             get { return TitleColumn; }
@@ -100,7 +102,7 @@ namespace SongsAbout.Entities
                    from ab in context.Albums
                    where ab.name == name
                    select ab).Count();
-               // int n = base.Exists(name, context.Albums);
+                // int n = base.Exists(name, context.Albums);
             }
             return albums > 0;
         }

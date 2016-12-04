@@ -10,6 +10,7 @@ using SongsAbout.Classes;
 using System.Windows.Forms;
 using SongsAbout.Properties;
 using System.IO;
+using Image = System.Drawing.Image;
 using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Collections;
@@ -51,6 +52,8 @@ namespace SongsAbout.Entities
             get { return this.name; }
             set { this.name = value; }
         }
+
+        public Image Image { get { return Converter.ImageFromBytes(this.a_profile_pic); } }
 
         public override string TypeName
         {

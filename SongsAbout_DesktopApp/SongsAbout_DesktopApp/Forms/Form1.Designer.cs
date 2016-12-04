@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pBoxProfilePic = new System.Windows.Forms.PictureBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtBoxKeywords = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,21 +38,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
-            // pBoxProfilePic
-            // 
-            this.pBoxProfilePic.Location = new System.Drawing.Point(12, 135);
-            this.pBoxProfilePic.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pBoxProfilePic.Name = "pBoxProfilePic";
-            this.pBoxProfilePic.Size = new System.Drawing.Size(106, 100);
-            this.pBoxProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pBoxProfilePic.TabIndex = 26;
-            this.pBoxProfilePic.TabStop = false;
-            // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.btnSearch.Location = new System.Drawing.Point(340, 191);
+            this.btnSearch.Location = new System.Drawing.Point(346, 191);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(216, 38);
@@ -64,7 +53,7 @@
             // txtBoxKeywords
             // 
             this.txtBoxKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxKeywords.Location = new System.Drawing.Point(340, 152);
+            this.txtBoxKeywords.Location = new System.Drawing.Point(346, 152);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
             this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
@@ -77,7 +66,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(227, 152);
+            this.label3.Location = new System.Drawing.Point(233, 152);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 19);
             this.label3.TabIndex = 23;
@@ -97,7 +86,7 @@
             "Pop",
             "Rap",
             "Rock"});
-            this.lstBxGenres.Location = new System.Drawing.Point(340, 80);
+            this.lstBxGenres.Location = new System.Drawing.Point(346, 80);
             this.lstBxGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstBxGenres.Name = "lstBxGenres";
             this.lstBxGenres.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
@@ -112,7 +101,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(148, 80);
+            this.label2.Location = new System.Drawing.Point(154, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(154, 19);
             this.label2.TabIndex = 21;
@@ -125,7 +114,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(127, 41);
+            this.label1.Location = new System.Drawing.Point(133, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(175, 19);
             this.label1.TabIndex = 20;
@@ -134,7 +123,7 @@
             // txtBoxQuery
             // 
             this.txtBoxQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxQuery.Location = new System.Drawing.Point(340, 41);
+            this.txtBoxQuery.Location = new System.Drawing.Point(346, 41);
             this.txtBoxQuery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxQuery.Name = "txtBoxQuery";
             this.txtBoxQuery.Size = new System.Drawing.Size(216, 25);
@@ -143,8 +132,7 @@
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
-            this.ClientSize = new System.Drawing.Size(568, 254);
-            this.Controls.Add(this.pBoxProfilePic);
+            this.ClientSize = new System.Drawing.Size(574, 254);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtBoxKeywords);
             this.Controls.Add(this.label3);
@@ -154,6 +142,14 @@
             this.Controls.Add(this.txtBoxQuery);
             this.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Form1";
+            this.Controls.SetChildIndex(this.txtBoxQuery, 0);
+            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.lstBxGenres, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.txtBoxKeywords, 0);
+            this.Controls.SetChildIndex(this.btnSearch, 0);
+            this.Controls.SetChildIndex(this.pBoxProfilePic, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -162,7 +158,6 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pBoxProfilePic;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtBoxKeywords;
         private System.Windows.Forms.Label label3;

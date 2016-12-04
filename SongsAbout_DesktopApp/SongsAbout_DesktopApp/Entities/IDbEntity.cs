@@ -4,7 +4,7 @@ namespace SongsAbout.Entities
 {
     public interface IDbEntity
     {
-        DbEntityType DbEntityType { get; set; }
+        DbEntityType DbEntityType { get; }
         string Name { get; set; }
         SpotifyEntityType SpotifyType { get; set; }
         string TableName { get; }

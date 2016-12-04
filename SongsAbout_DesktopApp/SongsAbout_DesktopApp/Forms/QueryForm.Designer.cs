@@ -40,7 +40,9 @@
             this.listsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TrackTags = new System.Windows.Forms.TabPage();
             this.dgvTrackTags = new System.Windows.Forms.DataGridView();
+            this.col_ttags_track_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tracksBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.col_ttag_tag_text = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tagsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.trackTagsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabTags = new System.Windows.Forms.TabPage();
@@ -48,6 +50,8 @@
             this.col_tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabTrackGenres = new System.Windows.Forms.TabPage();
             this.dgvTrackGenres = new System.Windows.Forms.DataGridView();
+            this.col_tg_track_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.col_tg_genre = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.genresBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.trackGenresBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabGenres = new System.Windows.Forms.TabPage();
@@ -55,7 +59,13 @@
             this.col_genre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabTracks = new System.Windows.Forms.TabPage();
             this.dgvTracks = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.albumsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tabAlbums = new System.Windows.Forms.TabPage();
             this.dgvAlbums = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,6 +83,8 @@
             this.tabControls = new System.Windows.Forms.TabControl();
             this.tabAlbumGenres = new System.Windows.Forms.TabPage();
             this.dgvAlbumGenres = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.albumGenresBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,18 +106,7 @@
             this.trackArtistsTableAdapter = new SongsAbout.DataSetTableAdapters.TrackArtistsTableAdapter();
             this.fKArtistTracksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.trackArtistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.col_tg_track_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.col_tg_genre = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.col_ttags_track_id = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.col_ttag_tag_text = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.tabLists.SuspendLayout();
@@ -139,6 +140,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackArtistsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
+            // pBoxProfilePic
+            // 
+            this.pBoxProfilePic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pBoxProfilePic.Location = new System.Drawing.Point(12, 718);
+            this.pBoxProfilePic.Size = new System.Drawing.Size(35, 35);
+            // 
             // artistsBindingSource
             // 
             this.artistsBindingSource.DataMember = "Artists";
@@ -152,10 +159,10 @@
             // btnSaveClose
             // 
             this.btnSaveClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveClose.Location = new System.Drawing.Point(861, 495);
+            this.btnSaveClose.Location = new System.Drawing.Point(799, 726);
             this.btnSaveClose.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSaveClose.Name = "btnSaveClose";
-            this.btnSaveClose.Size = new System.Drawing.Size(156, 24);
+            this.btnSaveClose.Size = new System.Drawing.Size(156, 27);
             this.btnSaveClose.TabIndex = 2;
             this.btnSaveClose.Text = "Save and Close";
             this.btnSaveClose.UseVisualStyleBackColor = true;
@@ -164,10 +171,10 @@
             // btnSaveContinue
             // 
             this.btnSaveContinue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveContinue.Location = new System.Drawing.Point(663, 495);
+            this.btnSaveContinue.Location = new System.Drawing.Point(600, 726);
             this.btnSaveContinue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSaveContinue.Name = "btnSaveContinue";
-            this.btnSaveContinue.Size = new System.Drawing.Size(156, 24);
+            this.btnSaveContinue.Size = new System.Drawing.Size(156, 27);
             this.btnSaveContinue.TabIndex = 3;
             this.btnSaveContinue.Text = "Save and Continue";
             this.btnSaveContinue.UseVisualStyleBackColor = true;
@@ -176,10 +183,10 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.Location = new System.Drawing.Point(12, 495);
+            this.btnCancel.Location = new System.Drawing.Point(73, 726);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(156, 24);
+            this.btnCancel.Size = new System.Drawing.Size(156, 27);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel and E&xit";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -188,11 +195,11 @@
             // tabLists
             // 
             this.tabLists.Controls.Add(this.dgvLists);
-            this.tabLists.Location = new System.Drawing.Point(4, 25);
+            this.tabLists.Location = new System.Drawing.Point(4, 27);
             this.tabLists.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabLists.Name = "tabLists";
             this.tabLists.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabLists.Size = new System.Drawing.Size(1013, 450);
+            this.tabLists.Size = new System.Drawing.Size(929, 647);
             this.tabLists.TabIndex = 7;
             this.tabLists.Text = "Lists";
             this.tabLists.UseVisualStyleBackColor = true;
@@ -209,7 +216,7 @@
             this.dgvLists.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvLists.Name = "dgvLists";
             this.dgvLists.RowTemplate.Height = 24;
-            this.dgvLists.Size = new System.Drawing.Size(1007, 446);
+            this.dgvLists.Size = new System.Drawing.Size(923, 643);
             this.dgvLists.TabIndex = 0;
             // 
             // col_list_name
@@ -226,11 +233,11 @@
             // TrackTags
             // 
             this.TrackTags.Controls.Add(this.dgvTrackTags);
-            this.TrackTags.Location = new System.Drawing.Point(4, 25);
+            this.TrackTags.Location = new System.Drawing.Point(4, 27);
             this.TrackTags.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.TrackTags.Name = "TrackTags";
             this.TrackTags.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.TrackTags.Size = new System.Drawing.Size(1013, 450);
+            this.TrackTags.Size = new System.Drawing.Size(929, 647);
             this.TrackTags.TabIndex = 6;
             this.TrackTags.Text = "TrackTags";
             this.TrackTags.UseVisualStyleBackColor = true;
@@ -248,13 +255,37 @@
             this.dgvTrackTags.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvTrackTags.Name = "dgvTrackTags";
             this.dgvTrackTags.RowTemplate.Height = 24;
-            this.dgvTrackTags.Size = new System.Drawing.Size(1007, 446);
+            this.dgvTrackTags.Size = new System.Drawing.Size(923, 643);
             this.dgvTrackTags.TabIndex = 0;
+            // 
+            // col_ttags_track_id
+            // 
+            this.col_ttags_track_id.DataPropertyName = "track_id";
+            this.col_ttags_track_id.DataSource = this.tracksBindingSource;
+            this.col_ttags_track_id.DisplayMember = "name";
+            this.col_ttags_track_id.DisplayStyleForCurrentCellOnly = true;
+            this.col_ttags_track_id.HeaderText = "Track";
+            this.col_ttags_track_id.Name = "col_ttags_track_id";
+            this.col_ttags_track_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_ttags_track_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_ttags_track_id.ValueMember = "ID";
             // 
             // tracksBindingSource
             // 
             this.tracksBindingSource.DataMember = "Tracks";
             this.tracksBindingSource.DataSource = this.dataSet;
+            // 
+            // col_ttag_tag_text
+            // 
+            this.col_ttag_tag_text.DataPropertyName = "tag_text";
+            this.col_ttag_tag_text.DataSource = this.tagsBindingSource;
+            this.col_ttag_tag_text.DisplayMember = "tag_text";
+            this.col_ttag_tag_text.DisplayStyleForCurrentCellOnly = true;
+            this.col_ttag_tag_text.HeaderText = "Tag Text";
+            this.col_ttag_tag_text.Name = "col_ttag_tag_text";
+            this.col_ttag_tag_text.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_ttag_tag_text.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_ttag_tag_text.ValueMember = "tag_text";
             // 
             // tagsBindingSource
             // 
@@ -269,11 +300,11 @@
             // tabTags
             // 
             this.tabTags.Controls.Add(this.dgvTags);
-            this.tabTags.Location = new System.Drawing.Point(4, 25);
+            this.tabTags.Location = new System.Drawing.Point(4, 27);
             this.tabTags.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabTags.Name = "tabTags";
             this.tabTags.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabTags.Size = new System.Drawing.Size(1013, 450);
+            this.tabTags.Size = new System.Drawing.Size(929, 647);
             this.tabTags.TabIndex = 5;
             this.tabTags.Text = "Tags";
             this.tabTags.UseVisualStyleBackColor = true;
@@ -290,7 +321,7 @@
             this.dgvTags.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvTags.Name = "dgvTags";
             this.dgvTags.RowTemplate.Height = 24;
-            this.dgvTags.Size = new System.Drawing.Size(1007, 446);
+            this.dgvTags.Size = new System.Drawing.Size(923, 643);
             this.dgvTags.TabIndex = 0;
             // 
             // col_tag
@@ -302,11 +333,11 @@
             // tabTrackGenres
             // 
             this.tabTrackGenres.Controls.Add(this.dgvTrackGenres);
-            this.tabTrackGenres.Location = new System.Drawing.Point(4, 25);
+            this.tabTrackGenres.Location = new System.Drawing.Point(4, 27);
             this.tabTrackGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabTrackGenres.Name = "tabTrackGenres";
             this.tabTrackGenres.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabTrackGenres.Size = new System.Drawing.Size(1013, 450);
+            this.tabTrackGenres.Size = new System.Drawing.Size(929, 647);
             this.tabTrackGenres.TabIndex = 4;
             this.tabTrackGenres.Text = "TrackGenres";
             this.tabTrackGenres.UseVisualStyleBackColor = true;
@@ -324,8 +355,36 @@
             this.dgvTrackGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvTrackGenres.Name = "dgvTrackGenres";
             this.dgvTrackGenres.RowTemplate.Height = 24;
-            this.dgvTrackGenres.Size = new System.Drawing.Size(1007, 446);
+            this.dgvTrackGenres.Size = new System.Drawing.Size(923, 643);
             this.dgvTrackGenres.TabIndex = 2;
+            // 
+            // col_tg_track_id
+            // 
+            this.col_tg_track_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_tg_track_id.DataPropertyName = "track_id";
+            this.col_tg_track_id.DataSource = this.tracksBindingSource;
+            this.col_tg_track_id.DisplayMember = "name";
+            this.col_tg_track_id.DisplayStyleForCurrentCellOnly = true;
+            this.col_tg_track_id.HeaderText = "Track";
+            this.col_tg_track_id.Name = "col_tg_track_id";
+            this.col_tg_track_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_tg_track_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_tg_track_id.ValueMember = "ID";
+            this.col_tg_track_id.Width = 74;
+            // 
+            // col_tg_genre
+            // 
+            this.col_tg_genre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_tg_genre.DataPropertyName = "genre";
+            this.col_tg_genre.DataSource = this.genresBindingSource;
+            this.col_tg_genre.DisplayMember = "genre";
+            this.col_tg_genre.DisplayStyleForCurrentCellOnly = true;
+            this.col_tg_genre.HeaderText = "Genre";
+            this.col_tg_genre.Name = "col_tg_genre";
+            this.col_tg_genre.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_tg_genre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_tg_genre.ValueMember = "genre";
+            this.col_tg_genre.Width = 78;
             // 
             // genresBindingSource
             // 
@@ -340,11 +399,11 @@
             // tabGenres
             // 
             this.tabGenres.Controls.Add(this.dgvGenres);
-            this.tabGenres.Location = new System.Drawing.Point(4, 25);
+            this.tabGenres.Location = new System.Drawing.Point(4, 27);
             this.tabGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabGenres.Name = "tabGenres";
             this.tabGenres.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabGenres.Size = new System.Drawing.Size(1013, 450);
+            this.tabGenres.Size = new System.Drawing.Size(929, 647);
             this.tabGenres.TabIndex = 3;
             this.tabGenres.Text = "Genres";
             this.tabGenres.UseVisualStyleBackColor = true;
@@ -361,7 +420,7 @@
             this.dgvGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvGenres.Name = "dgvGenres";
             this.dgvGenres.RowTemplate.Height = 24;
-            this.dgvGenres.Size = new System.Drawing.Size(1007, 446);
+            this.dgvGenres.Size = new System.Drawing.Size(923, 643);
             this.dgvGenres.TabIndex = 1;
             // 
             // col_genre
@@ -370,16 +429,16 @@
             this.col_genre.DataPropertyName = "genre";
             this.col_genre.HeaderText = "Genre";
             this.col_genre.Name = "col_genre";
-            this.col_genre.Width = 77;
+            this.col_genre.Width = 78;
             // 
             // tabTracks
             // 
             this.tabTracks.Controls.Add(this.dgvTracks);
-            this.tabTracks.Location = new System.Drawing.Point(4, 25);
+            this.tabTracks.Location = new System.Drawing.Point(4, 27);
             this.tabTracks.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabTracks.Name = "tabTracks";
             this.tabTracks.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabTracks.Size = new System.Drawing.Size(1013, 450);
+            this.tabTracks.Size = new System.Drawing.Size(929, 647);
             this.tabTracks.TabIndex = 2;
             this.tabTracks.Text = "Tracks";
             this.tabTracks.UseVisualStyleBackColor = true;
@@ -401,22 +460,79 @@
             this.dgvTracks.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvTracks.Name = "dgvTracks";
             this.dgvTracks.RowTemplate.Height = 24;
-            this.dgvTracks.Size = new System.Drawing.Size(1007, 446);
+            this.dgvTracks.Size = new System.Drawing.Size(923, 643);
             this.dgvTracks.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            this.dataGridViewTextBoxColumn19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dataGridViewTextBoxColumn19.DataPropertyName = "name";
+            this.dataGridViewTextBoxColumn19.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            this.dataGridViewTextBoxColumn19.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dataGridViewTextBoxColumn16.DataPropertyName = "track_artist_id";
+            this.dataGridViewTextBoxColumn16.DataSource = this.artistsBindingSource;
+            this.dataGridViewTextBoxColumn16.DisplayMember = "name";
+            this.dataGridViewTextBoxColumn16.HeaderText = "Artist";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn16.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn16.ValueMember = "ID";
+            this.dataGridViewTextBoxColumn16.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn20
+            // 
+            this.dataGridViewTextBoxColumn20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dataGridViewTextBoxColumn20.DataPropertyName = "track_album_id";
+            this.dataGridViewTextBoxColumn20.DataSource = this.albumsBindingSource;
+            this.dataGridViewTextBoxColumn20.DisplayMember = "name";
+            this.dataGridViewTextBoxColumn20.HeaderText = "Album";
+            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
+            this.dataGridViewTextBoxColumn20.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn20.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn20.ValueMember = "ID";
+            this.dataGridViewTextBoxColumn20.Width = 77;
             // 
             // albumsBindingSource
             // 
             this.albumsBindingSource.DataMember = "Albums";
             this.albumsBindingSource.DataSource = this.dataSet;
             // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.DataPropertyName = "track_spotify_uri";
+            this.dataGridViewTextBoxColumn14.HeaderText = "Spotify URI";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.DataPropertyName = "track_length_minutes";
+            this.dataGridViewTextBoxColumn15.HeaderText = "Length";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            // 
+            // dataGridViewTextBoxColumn17
+            // 
+            this.dataGridViewTextBoxColumn17.DataPropertyName = "can_play";
+            this.dataGridViewTextBoxColumn17.FalseValue = "0";
+            this.dataGridViewTextBoxColumn17.HeaderText = "Can Play";
+            this.dataGridViewTextBoxColumn17.IndeterminateValue = "NULL";
+            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            this.dataGridViewTextBoxColumn17.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn17.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn17.TrueValue = "1";
+            // 
             // tabAlbums
             // 
             this.tabAlbums.Controls.Add(this.dgvAlbums);
-            this.tabAlbums.Location = new System.Drawing.Point(4, 25);
+            this.tabAlbums.Location = new System.Drawing.Point(4, 27);
             this.tabAlbums.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabAlbums.Name = "tabAlbums";
             this.tabAlbums.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabAlbums.Size = new System.Drawing.Size(1013, 450);
+            this.tabAlbums.Size = new System.Drawing.Size(929, 647);
             this.tabAlbums.TabIndex = 1;
             this.tabAlbums.Text = "Albums";
             this.tabAlbums.UseVisualStyleBackColor = true;
@@ -438,7 +554,7 @@
             this.dgvAlbums.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvAlbums.Name = "dgvAlbums";
             this.dgvAlbums.RowTemplate.Height = 24;
-            this.dgvAlbums.Size = new System.Drawing.Size(1007, 446);
+            this.dgvAlbums.Size = new System.Drawing.Size(923, 643);
             this.dgvAlbums.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn7
@@ -460,7 +576,7 @@
             this.col_al_artist_Id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.col_al_artist_Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.col_al_artist_Id.ValueMember = "ID";
-            this.col_al_artist_Id.Width = 69;
+            this.col_al_artist_Id.Width = 70;
             // 
             // col_al_year
             // 
@@ -468,7 +584,7 @@
             this.col_al_year.DataPropertyName = "al_year";
             this.col_al_year.HeaderText = "Year";
             this.col_al_year.Name = "col_al_year";
-            this.col_al_year.Width = 67;
+            this.col_al_year.Width = 68;
             // 
             // col_al_cover_art
             // 
@@ -482,17 +598,17 @@
             this.col_al_spotify_uri.DataPropertyName = "al_spotify_uri";
             this.col_al_spotify_uri.HeaderText = "Spotify URI";
             this.col_al_spotify_uri.Name = "col_al_spotify_uri";
-            this.col_al_spotify_uri.Width = 107;
+            this.col_al_spotify_uri.Width = 108;
             // 
             // tabPage1
             // 
             this.tabPage1.AllowDrop = true;
             this.tabPage1.Controls.Add(this.dgvArtists);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(1013, 450);
+            this.tabPage1.Size = new System.Drawing.Size(929, 639);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Artists";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -513,7 +629,7 @@
             this.dgvArtists.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvArtists.Name = "dgvArtists";
             this.dgvArtists.RowTemplate.Height = 24;
-            this.dgvArtists.Size = new System.Drawing.Size(1007, 446);
+            this.dgvArtists.Size = new System.Drawing.Size(923, 635);
             this.dgvArtists.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn9
@@ -562,21 +678,21 @@
             this.tabControls.Controls.Add(this.TrackTags);
             this.tabControls.Controls.Add(this.tabLists);
             this.tabControls.Controls.Add(this.tabAlbumGenres);
-            this.tabControls.Location = new System.Drawing.Point(0, 12);
+            this.tabControls.Location = new System.Drawing.Point(18, 44);
             this.tabControls.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControls.Name = "tabControls";
             this.tabControls.SelectedIndex = 0;
-            this.tabControls.Size = new System.Drawing.Size(1021, 479);
+            this.tabControls.Size = new System.Drawing.Size(937, 670);
             this.tabControls.TabIndex = 1;
             // 
             // tabAlbumGenres
             // 
             this.tabAlbumGenres.Controls.Add(this.dgvAlbumGenres);
-            this.tabAlbumGenres.Location = new System.Drawing.Point(4, 25);
+            this.tabAlbumGenres.Location = new System.Drawing.Point(4, 27);
             this.tabAlbumGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabAlbumGenres.Name = "tabAlbumGenres";
             this.tabAlbumGenres.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabAlbumGenres.Size = new System.Drawing.Size(1013, 450);
+            this.tabAlbumGenres.Size = new System.Drawing.Size(929, 647);
             this.tabAlbumGenres.TabIndex = 9;
             this.tabAlbumGenres.Text = "Album Genres";
             this.tabAlbumGenres.UseVisualStyleBackColor = true;
@@ -594,8 +710,30 @@
             this.dgvAlbumGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvAlbumGenres.Name = "dgvAlbumGenres";
             this.dgvAlbumGenres.RowTemplate.Height = 24;
-            this.dgvAlbumGenres.Size = new System.Drawing.Size(1007, 446);
+            this.dgvAlbumGenres.Size = new System.Drawing.Size(923, 643);
             this.dgvAlbumGenres.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "album_id";
+            this.dataGridViewTextBoxColumn5.DataSource = this.albumsBindingSource;
+            this.dataGridViewTextBoxColumn5.DisplayMember = "name";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Album";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn5.ValueMember = "ID";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "genre";
+            this.dataGridViewTextBoxColumn6.DataSource = this.genresBindingSource;
+            this.dataGridViewTextBoxColumn6.DisplayMember = "genre";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Genre";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn6.ValueMember = "genre";
             // 
             // albumGenresBindingSource
             // 
@@ -717,151 +855,25 @@
             this.trackArtistsBindingSource.DataMember = "TrackArtists";
             this.trackArtistsBindingSource.DataSource = this.dataSet;
             // 
-            // col_tg_track_id
-            // 
-            this.col_tg_track_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_tg_track_id.DataPropertyName = "track_id";
-            this.col_tg_track_id.DataSource = this.tracksBindingSource;
-            this.col_tg_track_id.DisplayMember = "name";
-            this.col_tg_track_id.DisplayStyleForCurrentCellOnly = true;
-            this.col_tg_track_id.HeaderText = "Track";
-            this.col_tg_track_id.Name = "col_tg_track_id";
-            this.col_tg_track_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_tg_track_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_tg_track_id.ValueMember = "ID";
-            this.col_tg_track_id.Width = 73;
-            // 
-            // col_tg_genre
-            // 
-            this.col_tg_genre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_tg_genre.DataPropertyName = "genre";
-            this.col_tg_genre.DataSource = this.genresBindingSource;
-            this.col_tg_genre.DisplayMember = "genre";
-            this.col_tg_genre.DisplayStyleForCurrentCellOnly = true;
-            this.col_tg_genre.HeaderText = "Genre";
-            this.col_tg_genre.Name = "col_tg_genre";
-            this.col_tg_genre.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_tg_genre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_tg_genre.ValueMember = "genre";
-            this.col_tg_genre.Width = 77;
-            // 
-            // col_ttags_track_id
-            // 
-            this.col_ttags_track_id.DataPropertyName = "track_id";
-            this.col_ttags_track_id.DataSource = this.tracksBindingSource;
-            this.col_ttags_track_id.DisplayMember = "name";
-            this.col_ttags_track_id.DisplayStyleForCurrentCellOnly = true;
-            this.col_ttags_track_id.HeaderText = "Track";
-            this.col_ttags_track_id.Name = "col_ttags_track_id";
-            this.col_ttags_track_id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_ttags_track_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_ttags_track_id.ValueMember = "ID";
-            // 
-            // col_ttag_tag_text
-            // 
-            this.col_ttag_tag_text.DataPropertyName = "tag_text";
-            this.col_ttag_tag_text.DataSource = this.tagsBindingSource;
-            this.col_ttag_tag_text.DisplayMember = "tag_text";
-            this.col_ttag_tag_text.DisplayStyleForCurrentCellOnly = true;
-            this.col_ttag_tag_text.HeaderText = "Tag Text";
-            this.col_ttag_tag_text.Name = "col_ttag_tag_text";
-            this.col_ttag_tag_text.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_ttag_tag_text.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_ttag_tag_text.ValueMember = "tag_text";
-            // 
-            // dataGridViewTextBoxColumn19
-            // 
-            this.dataGridViewTextBoxColumn19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn19.DataPropertyName = "name";
-            this.dataGridViewTextBoxColumn19.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
-            this.dataGridViewTextBoxColumn19.Width = 74;
-            // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn16.DataPropertyName = "track_artist_id";
-            this.dataGridViewTextBoxColumn16.DataSource = this.artistsBindingSource;
-            this.dataGridViewTextBoxColumn16.DisplayMember = "name";
-            this.dataGridViewTextBoxColumn16.HeaderText = "Artist";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            this.dataGridViewTextBoxColumn16.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn16.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn16.ValueMember = "ID";
-            this.dataGridViewTextBoxColumn16.Width = 69;
-            // 
-            // dataGridViewTextBoxColumn20
-            // 
-            this.dataGridViewTextBoxColumn20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn20.DataPropertyName = "track_album_id";
-            this.dataGridViewTextBoxColumn20.DataSource = this.albumsBindingSource;
-            this.dataGridViewTextBoxColumn20.DisplayMember = "name";
-            this.dataGridViewTextBoxColumn20.HeaderText = "Album";
-            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
-            this.dataGridViewTextBoxColumn20.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn20.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn20.ValueMember = "ID";
-            this.dataGridViewTextBoxColumn20.Width = 76;
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.DataPropertyName = "track_spotify_uri";
-            this.dataGridViewTextBoxColumn14.HeaderText = "Spotify URI";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.DataPropertyName = "track_length_minutes";
-            this.dataGridViewTextBoxColumn15.HeaderText = "Length";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            // 
-            // dataGridViewTextBoxColumn17
-            // 
-            this.dataGridViewTextBoxColumn17.DataPropertyName = "can_play";
-            this.dataGridViewTextBoxColumn17.FalseValue = "0";
-            this.dataGridViewTextBoxColumn17.HeaderText = "Can Play";
-            this.dataGridViewTextBoxColumn17.IndeterminateValue = "NULL";
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            this.dataGridViewTextBoxColumn17.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn17.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn17.TrueValue = "1";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "album_id";
-            this.dataGridViewTextBoxColumn5.DataSource = this.albumsBindingSource;
-            this.dataGridViewTextBoxColumn5.DisplayMember = "name";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Album";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn5.ValueMember = "ID";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "genre";
-            this.dataGridViewTextBoxColumn6.DataSource = this.genresBindingSource;
-            this.dataGridViewTextBoxColumn6.DisplayMember = "genre";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Genre";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn6.ValueMember = "genre";
-            // 
             // QueryForm
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 530);
+            this.ClientSize = new System.Drawing.Size(967, 761);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveContinue);
             this.Controls.Add(this.btnSaveClose);
             this.Controls.Add(this.tabControls);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "QueryForm";
             this.Text = "QueryForm";
             this.Load += new System.EventHandler(this.QueryForm_Load);
+            this.Controls.SetChildIndex(this.tabControls, 0);
+            this.Controls.SetChildIndex(this.btnSaveClose, 0);
+            this.Controls.SetChildIndex(this.btnSaveContinue, 0);
+            this.Controls.SetChildIndex(this.btnCancel, 0);
+            this.Controls.SetChildIndex(this.pBoxProfilePic, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
             this.tabLists.ResumeLayout(false);
@@ -894,6 +906,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fKArtistTracksBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackArtistsBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

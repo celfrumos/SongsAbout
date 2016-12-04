@@ -136,7 +136,7 @@ namespace SongsAbout.Classes
                         Image systemPic;
                         byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
 
-                        systemPic = ImageFromBytes(imageBytes);
+                        systemPic = Converter.ImageFromBytes(imageBytes);
 
                         return systemPic;
                     }
@@ -153,21 +153,7 @@ namespace SongsAbout.Classes
             }
         }
 
-        public static Image ImageFromBytes(byte[] imageBytes)
-        {
-            try
-            {
-                using (MemoryStream stream = new MemoryStream(imageBytes))
-                {
-                    return Image.FromStream(stream);
 
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new SpotifyImageImportError(ex.Message);
-            }
-        }
 
         public static byte[] ImportSpotifyImageBytes(SpotifyAPI.Web.Models.Image pic)
         {

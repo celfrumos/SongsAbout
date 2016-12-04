@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using SongsAbout.Properties;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
@@ -25,7 +26,21 @@ namespace SongsAbout.Classes
                 throw new SpotifyConversionError(typeof(SimpleAlbum), typeof(FullAlbum), ex.Message);
             }
         }
+        public static Image ImageFromBytes(byte[] imageBytes)
+        {
+            try
+            {
+                using (MemoryStream stream = new MemoryStream(imageBytes))
+                {
+                    return Image.FromStream(stream);
 
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyImageImportError(ex.Message);
+            }
+        }
         public static FullArtist GetFullArtist(SimpleArtist artist)
         {
             try

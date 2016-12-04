@@ -11,7 +11,7 @@ using SongsAbout.Entities;
 
 namespace SongsAbout.Forms
 {
-    public partial class ResultsForm : Form
+    public partial class ResultsForm : SForm
     {
         public ResultsForm()
         {

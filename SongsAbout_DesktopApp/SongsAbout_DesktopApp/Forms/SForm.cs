@@ -21,13 +21,13 @@ namespace SongsAbout.Forms
 
         }
 
-        private void msiSpotifySearch_Click(object sender, EventArgs e)
+        private static void msiSpotifySearch_Click(object sender, EventArgs e)
         {
             SpotifySearchForm spotifySearch = new SpotifySearchForm();
             spotifySearch.ShowDialog();
         }
 
-        protected void msiAddTrack_Click(object sender, EventArgs e)
+        protected static void msiAddTrack_Click(object sender, EventArgs e)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected void msiViewData_Click(object sender, EventArgs e)
+        protected static void msiViewData_Click(object sender, EventArgs e)
         {
             QueryForm queryForm = new QueryForm();
             try
@@ -70,7 +70,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected void msiImportAll_Click(object sender, EventArgs e)
+        protected static void msiImportAll_Click(object sender, EventArgs e)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected void msiImportFollowedArtists_Click(object sender, EventArgs e)
+        protected static void msiImportFollowedArtists_Click(object sender, EventArgs e)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace SongsAbout.Forms
                 MessageBox.Show($"Error Importing Artists from Spotify: {ex.Message}");
             }
         }
-        protected void msiImportSavedTracks_Click(object sender, EventArgs e)
+        protected static void msiImportSavedTracks_Click(object sender, EventArgs e)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected void msiConncectSpotify_Click(object sender, EventArgs e)
+        protected static void msiConnectSpotify_Click(object sender, EventArgs e)
         {
             Task task = new Task(() => UserSpotify.Authenticate());
 
@@ -121,12 +121,12 @@ namespace SongsAbout.Forms
 
         }
 
-        protected void msiDisconnect_Click(object sender, EventArgs e)
+        protected static void msiDisconnect_Click(object sender, EventArgs e)
         {
 
         }
 
-        protected void tsmiFollowedPlaylists_Click(object sender, EventArgs e)
+        protected static void tsmiFollowedPlaylists_Click(object sender, EventArgs e)
         {
             try
             {

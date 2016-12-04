@@ -16,7 +16,7 @@ using SongsAbout.DataSetTableAdapters;
 
 namespace SongsAbout.Forms
 {
-    public partial class QueryForm : Form
+    public partial class QueryForm : SForm
     {
         const int THREAD_COUNT = 10;
         const int PORT = 13000;

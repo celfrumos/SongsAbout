@@ -12,7 +12,7 @@ using SongsAbout.Controls;
 
 namespace SongsAbout.Entities
 {
-    public abstract class DbEntity : IDbEntity
+    public abstract class DbEntity
     {
         protected DbEntity()
         {
@@ -24,8 +24,8 @@ namespace SongsAbout.Entities
         public abstract string Name { get; set; }
         public virtual string TypeName { get { return typeof(DbEntity).ToString(); } }
         public abstract void Save();
-        public virtual void Save(DataClassesContext db) { }
-        public virtual DbEntityType DbEntityType { get; set; }
+        public virtual void Save(DataClassesContext db) { throw new NotImplementedException(); }
+        public virtual DbEntityType DbEntityType { get; }
         public virtual SpotifyEntityType SpotifyType { get; set; }
 
         protected static void formatName(ref string name)
