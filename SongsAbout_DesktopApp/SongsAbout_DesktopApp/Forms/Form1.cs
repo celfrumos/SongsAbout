@@ -30,9 +30,6 @@ namespace SongsAbout.Forms
                 {
                     pBoxProfilePic.Image = await UserSpotify.ImportImageFromSpotify(User.Default.ProfilePic);
                 }
-
-
-
             }
             catch (Exception ex)
             {

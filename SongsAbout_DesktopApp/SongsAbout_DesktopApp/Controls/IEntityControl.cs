@@ -7,9 +7,9 @@ namespace SongsAbout.Controls
     {
         string Text { get; set; }
         DbEntity DbEntity { get; set; }
+        object SpotifyEntity { get; set; }
         SpotifyEntityType SpotifyEntityType { get; set; }
         DbEntityType DbEntityType { get; set; }
+        bool ImportEntity();
     }
-
-
 }

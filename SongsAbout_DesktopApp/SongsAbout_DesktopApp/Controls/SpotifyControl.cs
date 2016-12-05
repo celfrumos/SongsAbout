@@ -33,6 +33,18 @@ namespace SongsAbout.Controls
 
         public DbEntityType DbEntityType { get; set; }
 
+        public object SpotifyEntity
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public SpotifyControl(string text, string level)
         {
@@ -42,6 +54,10 @@ namespace SongsAbout.Controls
         }
         SpotifyAPI.Web.Models.FullAlbum a = new SpotifyAPI.Web.Models.FullAlbum();
 
+        public bool ImportEntity()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public interface ISpotifyEntity

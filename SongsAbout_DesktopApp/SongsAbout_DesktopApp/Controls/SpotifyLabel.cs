@@ -32,6 +32,7 @@ namespace SongsAbout.Controls
             }
         }
 
+        public object SpotifyEntity { get; set; }
         public SpotifyLabel()
         {
             InitializeComponent();
@@ -88,5 +89,9 @@ namespace SongsAbout.Controls
         {
         }
 
+        public bool ImportEntity()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

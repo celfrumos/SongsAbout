@@ -226,8 +226,8 @@ namespace SongsAbout.Forms
         }
 
         #endregion
-
-        protected System.Windows.Forms.PictureBox pBoxProfilePic;
+        
+        protected  System.Windows.Forms.PictureBox pBoxProfilePic;
         protected static System.Windows.Forms.MenuStrip mainMenuStrip;
         protected static System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         protected static System.Windows.Forms.ToolStripMenuItem viewDatabaseToolStripMenuItem;

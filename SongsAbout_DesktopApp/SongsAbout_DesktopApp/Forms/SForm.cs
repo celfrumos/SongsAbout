@@ -108,18 +108,14 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected static void msiConnectSpotify_Click(object sender, EventArgs e)
+        protected async static void msiConnectSpotify_Click(object sender, EventArgs e)
         {
-            Task task = new Task(() => UserSpotify.Authenticate());
+            await Task.Run(() => UserSpotify.Authenticate());
 
-            task.Wait();
-            if (task.IsCompleted)
-            {
-                //SetProfilePic();
 
-            }
 
         }
+
 
         protected static void msiDisconnect_Click(object sender, EventArgs e)
         {

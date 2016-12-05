@@ -38,11 +38,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
+            // pBoxProfilePic
+            // 
+            this.pBoxProfilePic.Location = new System.Drawing.Point(13, 114);
+            // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.btnSearch.Location = new System.Drawing.Point(346, 191);
+            this.btnSearch.Location = new System.Drawing.Point(346, 194);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(216, 38);

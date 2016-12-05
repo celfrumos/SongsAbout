@@ -14,7 +14,6 @@ namespace SongsAbout.Controls
     public partial class SpotifyPictureBox : PictureBox, IEntityControl
     {
         public DbEntity DbEntity { get; set; }
-
         public SpotifyPictureBox()
         {
             InitializeComponent();
@@ -27,6 +26,7 @@ namespace SongsAbout.Controls
 
         public DbEntityType DbEntityType { get; set; }
 
+        public object SpotifyEntity { get; set; }
 
         public SpotifyPictureBox(string text, EventHandler clickEvent = null, object tag = null,
             DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
@@ -133,5 +133,9 @@ namespace SongsAbout.Controls
             }
         }
 
+        public bool ImportEntity()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

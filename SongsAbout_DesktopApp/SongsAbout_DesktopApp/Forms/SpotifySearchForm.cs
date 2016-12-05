@@ -23,7 +23,7 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
-                LoadArtists();
+                // LoadDbArtists();
                 //  this.attributeViewer1 = new AttributeViewer(DbEntityType.Genre);
 
             }
@@ -49,10 +49,9 @@ namespace SongsAbout.Forms
         }
         private void SpotifyPanel_Click(object sender, EventArgs e)
         {
-            var control = sender as SpotifyControl;
+            var control = sender as IEntityControl;
 
-            var t = control.Tag;
-            MessageBox.Show(t.ToString(), "Panel CLicked");
+            MessageBox.Show(control.Text, "Panel CLicked");
 
             // RedrawForm(objTag, objLevel);
         }
@@ -91,7 +90,7 @@ namespace SongsAbout.Forms
 
         }
 
-        private async void LoadArtists()
+        private async void LoadDbArtists()
         {
             List<Artist> artists = new List<Artist>();
             using (var db = new DataClassesContext())
@@ -172,7 +171,7 @@ namespace SongsAbout.Forms
             {
                 if (txtBoxSearch.Text != "")
                 {
-                    // flpSpotifyControls.Controls.Clear();
+                    flpSpotifyControls.Controls.Clear();
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
                 }
             }
@@ -184,15 +183,14 @@ namespace SongsAbout.Forms
 
         private async void ExecuteSearch(string query, SearchType searchType, int limit = 20, int offset = 0)
         {
-            var resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
-            //  var res = new List<BasicModel>();
+            var resultsList = UserSpotify.Search(query, searchType, limit, offset);
             if (searchType == SearchType.All)
             {
                 if (resultsList.Artists.Items.Count > 0)
                 {
                     foreach (var item in resultsList.Artists.Items)
                     {
-                        await Task.Run(() => AddToFlow(new SPanel(item)));
+                        await Task.Run(() => AddToFlow(new SPanel(item, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
                     }
                     flpSpotifyControls.Refresh();
                 }

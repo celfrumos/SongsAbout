@@ -151,10 +151,27 @@ namespace SongsAbout.Controls
             }
         }
 
+        public object SpotifyEntity
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         private void ListBox_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public bool ImportEntity()
+        {
+            throw new NotImplementedException();
         }
     }
 }

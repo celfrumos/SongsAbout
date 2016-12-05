@@ -89,7 +89,7 @@ namespace SongsAbout.Controls
             this.SpotifyLabel.DbEntity = null;
             this.SpotifyLabel.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
             this.SpotifyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SpotifyLabel.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.SpotifyLabel.Font = new System.Drawing.Font("Arial Unicode MS", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpotifyLabel.ForeColor = System.Drawing.Color.White;
             this.SpotifyLabel.Location = new System.Drawing.Point(0, 0);
             this.SpotifyLabel.MinimumSize = new System.Drawing.Size(87, 19);
@@ -111,7 +111,7 @@ namespace SongsAbout.Controls
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MinimumSize = new System.Drawing.Size(110, 40);
             this.Name = "SPanel";
-            base.Size = new System.Drawing.Size(175, 50);
+            this.Size = new System.Drawing.Size(175, 50);
             this.Tag = "Not Set";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);

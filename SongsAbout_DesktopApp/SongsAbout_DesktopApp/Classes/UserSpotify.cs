@@ -148,7 +148,17 @@ namespace SongsAbout.Classes
 
 
         }
+        public static SearchItem Search(string query, SearchType searchType, int limit = 20, int offset = 0)
+        {
+            if (UserSpotify.WebAPI == null)
+            {
+                UserSpotify.Authenticate();
+            }
 
+            var resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
+            return resultsList;
+
+        }
         /// <summary>
         /// Returns a list of User's saved tracks
         /// </summary>
