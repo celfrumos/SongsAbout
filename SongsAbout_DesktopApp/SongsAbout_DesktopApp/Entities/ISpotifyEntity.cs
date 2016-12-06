@@ -36,12 +36,14 @@ namespace SongsAbout.Entities
             return new FArtist(artist);
         }
     }
-    public partial class SArtist : SpotifyAPI.Web.Models.SimpleArtist, ISpotifyEntity
+    public partial class SArtist : SpotifyAPI.Web.Models.SimpleArtist, ISpotifySimpleEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleArtist; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Artist; } }
+        private SimpleArtist _base;
         public SArtist(SimpleArtist artist)
         {
+            this._base = artist;
             this.Name = artist.Name;
             this.Type = artist.Type;
             this.Uri = artist.Uri;
@@ -52,6 +54,10 @@ namespace SongsAbout.Entities
         public static SArtist Convert(SimpleArtist artist)
         {
             return new SArtist(artist);
+        }
+        public ISpotifyFullEntity FullVersion()
+        {
+            return (ISpotifyFullEntity)(new FArtist(Classes.Converter.GetFullArtist(_base)));
         }
     }
     public partial class FAlbum : SpotifyAPI.Web.Models.FullAlbum, ISpotifyFullEntity
@@ -81,12 +87,14 @@ namespace SongsAbout.Entities
             return new FAlbum(album);
         }
     }
-    public partial class SAlbum : SpotifyAPI.Web.Models.SimpleAlbum, ISpotifyEntity
+    public partial class SAlbum : SpotifyAPI.Web.Models.SimpleAlbum, ISpotifySimpleEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleAlbum; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Album; } }
+        private SimpleAlbum _base;
         public SAlbum(SimpleAlbum album)
         {
+            this._base = album;
             this.AlbumType = album.AlbumType;
             this.AvailableMarkets = album.AvailableMarkets;
             this.Href = album.Href;
@@ -100,11 +108,30 @@ namespace SongsAbout.Entities
         {
             return new SAlbum(album);
         }
+        public ISpotifyFullEntity FullVersion()
+        {
+            return (ISpotifyFullEntity)(new FAlbum(Classes.Converter.GetFullAlbum(_base)));
+        }
     }
-    public partial class FTrack : SpotifyAPI.Web.Models.FullTrack, ISpotifyEntity
+    public partial class FTrack : SpotifyAPI.Web.Models.FullTrack, ISpotifyFullEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullTrack; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Track; } }
+
+        public List<string> Genres { get; set; }
+
+        public List<SpotifyAPI.Web.Models.Image> Images
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public Dictionary<string, string> ExternalUrls
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
         public FTrack(FullTrack track)
         {
             this.Album = track.Album;
@@ -131,12 +158,14 @@ namespace SongsAbout.Entities
             return new FTrack(track);
         }
     }
-    public partial class STrack : SpotifyAPI.Web.Models.SimpleTrack, ISpotifyEntity
+    public partial class STrack : SpotifyAPI.Web.Models.SimpleTrack, ISpotifySimpleEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleTrack; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Track; } }
+        private SimpleTrack _base;
         public STrack(SimpleTrack track)
         {
+            this._base = track;
             this.Artists = track.Artists;
             this.AvailableMarkets = track.AvailableMarkets;
             this.DiscNumber = track.DiscNumber;
@@ -155,11 +184,20 @@ namespace SongsAbout.Entities
         {
             return new STrack(track);
         }
+        public ISpotifyFullEntity FullVersion()
+        {
+            return (ISpotifyFullEntity)(new FTrack(Classes.Converter.GetFullTrack(_base)));
+        }
     }
-    public partial class FPlaylist : SpotifyAPI.Web.Models.FullPlaylist, ISpotifyEntity
+    public partial class FPlaylist : SpotifyAPI.Web.Models.FullPlaylist, ISpotifyFullEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullPlaylist; } }
         public DbEntityType DbEntityType { get { return DbEntityType.List; } }
+
+        public List<string> Genres { get; set; }
+
+        public int Popularity { get; set; }
+
         public FPlaylist(FullPlaylist playlist)
         {
             this.Collaborative = playlist.Collaborative;
@@ -177,17 +215,20 @@ namespace SongsAbout.Entities
             this.Uri = playlist.Uri;
 
         }
+
         public static FPlaylist Convert(FullPlaylist playlist)
         {
             return new FPlaylist(playlist);
         }
     }
-    public partial class SPlaylist : SpotifyAPI.Web.Models.SimplePlaylist, ISpotifyEntity
+    public partial class SPlaylist : SpotifyAPI.Web.Models.SimplePlaylist, ISpotifySimpleEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimplePlaylist; } }
         public DbEntityType DbEntityType { get { return DbEntityType.List; } }
+        private SimplePlaylist _base;
         public SPlaylist(SimplePlaylist playlist)
         {
+            this._base = playlist;
             this.Collaborative = playlist.Collaborative;
             this.ExternalUrls = playlist.ExternalUrls;
             this.Href = playlist.Href;
@@ -200,6 +241,11 @@ namespace SongsAbout.Entities
             this.Type = playlist.Type;
             this.Uri = playlist.Uri;
 
+        }
+
+        public ISpotifyFullEntity FullVersion()
+        {
+            return (ISpotifyFullEntity)(new FPlaylist(Classes.Converter.GetFullPlaylist(_base)));
         }
         public static SPlaylist Convert(SimplePlaylist playlist)
         {
@@ -217,7 +263,10 @@ namespace SongsAbout.Entities
         SpotifyEntityType SpotifyEntityType { get; }
         DbEntityType DbEntityType { get; }
     }
-
+    public interface ISpotifySimpleEntity : ISpotifyEntity
+    {
+        ISpotifyFullEntity FullVersion();
+    }
     public interface ISpotifyFullEntity : ISpotifyEntity
     {
         List<string> Genres { get; set; }

@@ -176,14 +176,14 @@ namespace SongsAbout.Classes
                     }
                     break;
                 case DbEntityType.Album:
-                    if (Album.Exists(name))
+                    if (!Album.Exists(name))
                     {
-                        var a = new Artist(spotifyEntity, spotifyEntityType);
+                        var a = new Album(spotifyEntity, spotifyEntityType);
                         a.Save();
                     }
                     break;
                 case DbEntityType.Track:
-                    if (Track.Exists(name))
+                    if (!Track.Exists(name))
                     {
                         var t = new Track(spotifyEntity, spotifyEntityType);
                         t.Save();

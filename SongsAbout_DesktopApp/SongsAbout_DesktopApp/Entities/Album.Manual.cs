@@ -54,7 +54,8 @@ namespace SongsAbout.Entities
             {
                 this.UpdateArtist(album.Artists[0]);
             }
-            this.al_year = album.ReleaseDate;
+            this.al_year = null;
+           // this.al_year = album.ReleaseDate;
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
         }
@@ -245,16 +246,13 @@ namespace SongsAbout.Entities
             try
             {
                 Artist a;
-                if (Artist.Exists(simpleArtist.Name))
-                {
-                    a = Artist.Load(simpleArtist.Name);
-                }
-                else
+                if (!Artist.Exists(simpleArtist.Name))
                 {
                     a = new Artist(simpleArtist);
                     a.Save();
                     Console.WriteLine($"Artist added: '{a.name}'");
                 }
+                a = Artist.Load(simpleArtist.Name);
                 this.artist_id = a.ID;
             }
             catch (Exception ex)
@@ -278,7 +276,7 @@ namespace SongsAbout.Entities
         {
             try
             {
-                if (type == SpotifyEntityType.SimpleTrack || type == SpotifyEntityType.FullTrack)
+                if (type == SpotifyEntityType.SimpleAlbum | type == SpotifyEntityType.FullAlbum)
                 {
                     FullAlbum album;
                     if (type == SpotifyEntityType.SimpleAlbum)
@@ -307,6 +305,6 @@ namespace SongsAbout.Entities
             }
         }
 
-      
+
     }
 }

@@ -137,7 +137,6 @@
   <ItemGroup>
     <Compile Include="Classes\TableAdapters.cs" />
     <Compile Include="Controls\IEntityControl.cs" />
-    <Compile Include="Controls\ISpotifyPictureBox.cs" />
     <Compile Include="Controls\SLabel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -237,11 +236,11 @@
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Enums\Enums.cs" />
-    <Compile Include="Controls\EntityDisplay.cs">
+    <Compile Include="Controls\AlbumDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\EntityDisplay.Designer.cs">
-      <DependentUpon>EntityDisplay.cs</DependentUpon>
+    <Compile Include="Controls\AlbumDisplay.Designer.cs">
+      <DependentUpon>AlbumDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
@@ -328,8 +327,8 @@
     <EmbeddedResource Include="Controls\SpotifyImageStackedPanel.resx">
       <DependentUpon>SpotifyImageStackedPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\EntityDisplay.resx">
-      <DependentUpon>EntityDisplay.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\AlbumDisplay.resx">
+      <DependentUpon>AlbumDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

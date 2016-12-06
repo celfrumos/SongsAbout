@@ -161,29 +161,29 @@ namespace SongsAbout.Forms
                 {
                     flpSpotifyControls.Controls.Clear();
 
-                    foreach (CheckBox item in pnlSearchType.Controls)
-                    {
-                        if (item == cboxAll)
-                        {
-                            if (item.Checked)
-                            {
-                                _searchType = SearchType.All;
-                                break;
-                            }
-                            else
-                                _searchType = new SearchType();
+                    //foreach (CheckBox item in pnlSearchType.Controls)
+                    //{
+                    //    if (item == cboxAll)
+                    //    {
+                    //        if (item.Checked)
+                    //        {
+                    //            _searchType = SearchType.All;
+                    //            break;
+                    //        }
+                    //        else
+                    //            _searchType = new SearchType();
 
-                        }
-                        else if (item.Checked)
-                        {
-                            if (_searchType == SearchType.All && (SearchType)item.Tag != SearchType.All)
-                            {
-                                _searchType = (SearchType)item.Tag;
-                            }
-                            else
-                                _searchType |= (SearchType)item.Tag;
-                        }
-                    }
+                    //    }
+                    //    else if (item.Checked)
+                    //    {
+                    //        if (_searchType == SearchType.All && (SearchType)item.Tag != SearchType.All)
+                    //        {
+                    //            _searchType = (SearchType)item.Tag;
+                    //        }
+                    //        else
+                    //            _searchType |= (SearchType)item.Tag;
+                    //    }
+                    //}
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
                 }
             }
@@ -210,8 +210,7 @@ namespace SongsAbout.Forms
             }
             else
             {
-
-                if (searchType == SearchType.Artist)
+                if (HasSearchType(SearchType.Artist))
                 {
                     foreach (FullArtist a in resultsList.Artists.Items)
                     {
@@ -219,21 +218,21 @@ namespace SongsAbout.Forms
 
                     }
                 }
-                if (searchType == SearchType.Album | searchType == SearchType.Artist)
+                if (HasSearchType(SearchType.Album))
                 {
                     foreach (var al in resultsList.Albums.Items)
                     {
                         AddToFlow(new SPanel(new SAlbum(al), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
                     }
                 }
-                if (searchType == SearchType.Track)
+                if ((searchType & SearchType.Track) == SearchType.Track)
                 {
                     foreach (var t in resultsList.Tracks.Items)
                     {
-                        AddToFlow(new SPanel(new FTrack(t), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+                        AddToFlow(new SPanel(new FTrack(t), SPanelType.Text, SPanelSize.Small, SpotifyPanel_Click));
                     }
                 }
-                if (searchType == SearchType.Playlist)
+                if (HasSearchType(SearchType.Playlist))
                 {
                     foreach (var p in resultsList.Playlists.Items)
                     {
@@ -269,6 +268,26 @@ namespace SongsAbout.Forms
                 Console.WriteLine(ex.Message);
             }
         }
+        private bool HasSearchType(SearchType targetType)
+        {
+            return (_searchType & targetType) == targetType;
+        }
+        private SearchType TogleSearchType(SearchType targetType)
+        {
+            return _searchType ^ targetType;
+        }
+
+        public SearchType SetSearchType(SearchType targetType)
+        {
+            return _searchType | targetType;
+        }
+
+        public SearchType UnsetSearchType(SearchType targetFlag)
+        {
+            return _searchType & (~targetFlag);
+        }
+
+
         private async void AddToFlow(SLabel label)
         {
             try
@@ -297,6 +316,7 @@ namespace SongsAbout.Forms
         private void cboxAll_CheckedChanged(object sender, EventArgs e)
         {
             var cBox = sender as CheckBox;
+            _searchType = SearchType.All;
             if (cBox.Checked)
             {
                 foreach (CheckBox item in pnlSearchType.Controls)
@@ -311,10 +331,15 @@ namespace SongsAbout.Forms
         private void cbox_SpecificCheckedChanged(object sender, EventArgs e)
         {
             var cBox = sender as CheckBox;
-            if (cBox.Checked)
+            if (cboxAll.Checked)
             {
-                cboxAll.Checked = false;
+                if (cBox.Checked)
+                {
+                    cboxAll.Checked = false;
+                    _searchType = UnsetSearchType(SearchType.All);
+                }
             }
+            _searchType = TogleSearchType((SearchType)cBox.Tag);
         }
     }
 }

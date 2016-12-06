@@ -842,7 +842,7 @@ namespace SongsAbout.Controls
         /// Set the SPanel Image from a spotify Image
         /// </summary>
         /// <param name="spotifyImageBytes"></param>
-        public void setImage(SpotifyAPI.Web.Models.Image spotifyImage)
+        public void SetImage(SpotifyAPI.Web.Models.Image spotifyImage)
         {
             try
             {
@@ -861,7 +861,7 @@ namespace SongsAbout.Controls
             {
                 if (spotifyImages.Count > 0)
                 {
-                    setImage(spotifyImages[0]);
+                    SetImage(spotifyImages[0]);
                 }
                 else
                 {
@@ -874,7 +874,7 @@ namespace SongsAbout.Controls
         /// Set the SPanel Image from the downloaded bytes
         /// </summary>
         /// <param name="spotifyImageBytes"></param>
-        public void setImage(byte[] spotifyImageBytes)
+        public void SetImage(byte[] spotifyImageBytes)
         {
             try
             {
@@ -979,11 +979,24 @@ namespace SongsAbout.Controls
             : this(spotifyEntity.Name, type, size, clickEvent, spotifyEntity, spotifyEntity.DbEntityType, spotifyEntity.SpotifyEntityType)
         {
             this.SpotifyEntity = spotifyEntity;
-            if (spotifyEntity is ISpotifyFullEntity)
-            {
-                var s = spotifyEntity as ISpotifyFullEntity;
-                SetImage(s.Images);
+            SetImage(spotifyEntity);
+        }
 
+        private void SetImage(ISpotifyEntity spotifyEntity)
+        {
+            if (spotifyEntity.DbEntityType != DbEntityType.Track)
+            {
+                List<SpotifyAPI.Web.Models.Image> images;
+                if (spotifyEntity is ISpotifyFullEntity)
+                {
+                    images = ((ISpotifyFullEntity)spotifyEntity).Images;
+                    SetImage(images);
+                }
+                else if (spotifyEntity is ISpotifySimpleEntity)
+                {
+                    images = ((ISpotifySimpleEntity)spotifyEntity).FullVersion().Images;
+                    SetImage(images);
+                }
             }
         }
 
