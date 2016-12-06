@@ -33,7 +33,8 @@ namespace SongsAbout.Controls
             }
         }
 
-        public object SpotifyEntity { get; set; }
+        public ISpotifyEntity SpotifyEntity { get; set; }
+        
         public SLabel()
         {
             InitializeComponent();
@@ -97,7 +98,7 @@ namespace SongsAbout.Controls
         {
             try
             {
-                return Importer.ImportFromSpotify(this.Text, this.SpotifyEntity, this.DbEntityType, this.SpotifyEntityType);
+                return Importer.ImportFromSpotify(this.SpotifyEntity);
             }
             catch (Exception ex)
             {

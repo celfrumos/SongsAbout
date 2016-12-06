@@ -26,7 +26,7 @@ namespace SongsAbout.Controls
 
         public DbEntityType DbEntityType { get; set; }
 
-        public object SpotifyEntity { get; set; }
+        public ISpotifyEntity SpotifyEntity { get; set; }
 
         public SPicturePox(string text, EventHandler clickEvent = null, object tag = null,
             DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
@@ -143,7 +143,7 @@ namespace SongsAbout.Controls
         {
             try
             {
-                return Importer.ImportFromSpotify(this.Text, this.SpotifyEntity, this.DbEntityType, this.SpotifyEntityType);
+                return Importer.ImportFromSpotify(this.SpotifyEntity);
             }
             catch (Exception ex)
             {

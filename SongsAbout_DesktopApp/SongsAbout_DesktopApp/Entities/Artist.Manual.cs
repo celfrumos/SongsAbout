@@ -34,52 +34,29 @@ namespace SongsAbout.Entities
         {
             get { return Table; }
         }
-
-        public Artist(FullArtist artist)
+        public Artist(string name, string uri, string website, string bio = null)
         {
-            this.name = artist.Name;
-            this.a_spotify_uri = artist.Uri;
-            this.a_website = artist.Href;
+            this.name = name;
+            this.a_spotify_uri = uri;
+            this.a_bio = bio;
+            this.a_website = website;
+
+        }
+        public Artist(FullArtist artist) : this(artist.Name, artist.Uri, artist.Href)
+        {
             this.UpdateProfilePic(artist);
-            this.a_website = artist.Href;
-
         }
-        public Artist(object SpotifyEntity, SpotifyEntityType type)
+
+        public Artist(ISpotifyEntity artist, SpotifyEntityType type) : this(artist.Name, artist.Uri, artist.Href)
         {
-            try
-            {
-                if (type == SpotifyEntityType.SimpleArtist || type == SpotifyEntityType.FullArtist)
-                {
-                    FullArtist artist;
-                    if (type == SpotifyEntityType.SimpleArtist)
-                        artist = Converter.GetFullArtist((SimpleArtist)SpotifyEntity);
-                    else
-                        artist = (FullArtist)SpotifyEntity;
-
-                    this.name = artist.Name;
-                    this.a_spotify_uri = artist.Uri;
-                    this.a_website = artist.Href;
-                    this.UpdateProfilePic(artist);
-                    this.a_website = artist.Href;
-                }
-                else
-                {
-                    throw new InitializationError(DbEntityType.Artist, type, "");
-                }
-            }
-            catch (InitializationError)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new InitializationError(DbEntityType.Artist, type, ex.Message);
-            }
+            this.UpdateProfilePic((ISpotifyFullEntity)artist);
         }
+
+
         public Artist(SimpleArtist artist) : this(Converter.GetFullArtist(artist))
         {
-
         }
+
         public override string Name
         {
             get { return this.name; }
@@ -247,7 +224,16 @@ namespace SongsAbout.Entities
 
             }
         }
-   
+        private void UpdateProfilePic(ISpotifyFullEntity artist)
+        {
+            if (artist.Images.Count > 0)
+            {
+                byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
+                this.a_profile_pic = pic; //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+
+            }
+        }
+
         public static Artist Load(string a_name)
         {
             try

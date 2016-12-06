@@ -125,8 +125,46 @@ namespace SongsAbout.Classes
             }
         }
 
-        public static bool ImportFromSpotify(string name, object spotifyEntity, DbEntityType dbType, SpotifyEntityType spotifyEntityType)
+        public static bool ImportFromSpotify(ISpotifyEntity spotifyEntity, DbEntityType dbType, SpotifyEntityType spotifyEntityType)
         {
+            var name = spotifyEntity.Name;
+
+            switch (dbType)
+            {
+                case DbEntityType.Artist:
+                    if (!Artist.Exists(name))
+                    {
+                        var a = new Artist(spotifyEntity, spotifyEntityType);
+                        a.Save();
+                        return true;
+                    }
+                    break;
+                case DbEntityType.Album:
+                    if (Album.Exists(name))
+                    {
+                        var a = new Artist(spotifyEntity, spotifyEntityType);
+                        a.Save();
+                    }
+                    break;
+                case DbEntityType.Track:
+                    if (Track.Exists(name))
+                    {
+                        var t = new Track(spotifyEntity, spotifyEntityType);
+                        t.Save();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+
+
+        public static bool ImportFromSpotify(ISpotifyEntity spotifyEntity)
+        {
+            var name = spotifyEntity.Name;
+            var spotifyEntityType = spotifyEntity.SpotifyEntityType;
+            var dbType = spotifyEntity.DbEntityType;
             switch (dbType)
             {
                 case DbEntityType.Artist:

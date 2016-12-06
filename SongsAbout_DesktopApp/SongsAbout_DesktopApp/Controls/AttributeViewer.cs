@@ -66,7 +66,7 @@ namespace SongsAbout.Controls
                         case DbEntityType.List:
                             foreach (var l in db.Lists)
                             {
-                                this.Items.Add(new SPanel(l.list_name, SPanelType.Text, SPanelSize.Small, null, l, DbEntityType.List));
+                                //this.Items.Add(new SPanel(l.list_name, SPanelType.Text, SPanelSize.Small, null, l, DbEntityType.List));
                             }
                             break;
                         case DbEntityType.Genre:
@@ -151,7 +151,7 @@ namespace SongsAbout.Controls
             }
         }
 
-        public object SpotifyEntity
+        public ISpotifyEntity SpotifyEntity
         {
             get
             {

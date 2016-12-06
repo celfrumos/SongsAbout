@@ -16,21 +16,17 @@ namespace SongsAbout.Forms
 {
     public partial class SpotifySearchForm : SForm
     {
-        private SearchType _searchType = SearchType.All;
+        private SearchType _searchType;
 
         public SpotifySearchForm()
         {
             InitializeComponent();
-            try
-            {
-                // LoadDbArtists();
-                //  this.attributeViewer1 = new AttributeViewer(DbEntityType.Genre);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            _searchType = SearchType.All;
+            cboxAlbums.Tag = SearchType.Album;
+            cboxAll.Tag = SearchType.All;
+            cboxArtists.Tag = SearchType.Artist;
+            cboxPlaylists.Tag = SearchType.Playlist;
+            cboxTracks.Tag = SearchType.Track;
         }
 
 
@@ -38,7 +34,7 @@ namespace SongsAbout.Forms
         {
             var control = sender as IEntityControl;
 
-            Console.WriteLine($"{control.Text} Panel Clicked");
+            Console.WriteLine($"{control.SpotifyEntity.Name} Panel Clicked");
             try
             {
                 control.ImportEntity();
@@ -164,6 +160,30 @@ namespace SongsAbout.Forms
                 if (txtBoxSearch.Text != "")
                 {
                     flpSpotifyControls.Controls.Clear();
+
+                    foreach (CheckBox item in pnlSearchType.Controls)
+                    {
+                        if (item == cboxAll)
+                        {
+                            if (item.Checked)
+                            {
+                                _searchType = SearchType.All;
+                                break;
+                            }
+                            else
+                                _searchType = new SearchType();
+
+                        }
+                        else if (item.Checked)
+                        {
+                            if (_searchType == SearchType.All && (SearchType)item.Tag != SearchType.All)
+                            {
+                                _searchType = (SearchType)item.Tag;
+                            }
+                            else
+                                _searchType |= (SearchType)item.Tag;
+                        }
+                    }
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
                 }
             }
@@ -190,6 +210,7 @@ namespace SongsAbout.Forms
             }
             else
             {
+
                 if (searchType == SearchType.Artist)
                 {
                     foreach (FullArtist a in resultsList.Artists.Items)
@@ -198,7 +219,7 @@ namespace SongsAbout.Forms
 
                     }
                 }
-                if (searchType == SearchType.Album)
+                if (searchType == SearchType.Album | searchType == SearchType.Artist)
                 {
                     foreach (var al in resultsList.Albums.Items)
                     {
@@ -273,5 +294,27 @@ namespace SongsAbout.Forms
             }
         }
 
+        private void cboxAll_CheckedChanged(object sender, EventArgs e)
+        {
+            var cBox = sender as CheckBox;
+            if (cBox.Checked)
+            {
+                foreach (CheckBox item in pnlSearchType.Controls)
+                {
+                    item.Checked = false;
+                }
+
+            }
+
+        }
+
+        private void cbox_SpecificCheckedChanged(object sender, EventArgs e)
+        {
+            var cBox = sender as CheckBox;
+            if (cBox.Checked)
+            {
+                cboxAll.Checked = false;
+            }
+        }
     }
 }
