@@ -19,7 +19,6 @@ namespace SongsAbout.Forms
         {
             InitializeComponent();
             SetProfilePic();
-
         }
 
         private async void SetProfilePic()
@@ -38,9 +37,5 @@ namespace SongsAbout.Forms
 
         }
 
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-        }
     }
 }

@@ -11,10 +11,10 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout.Controls
 {
-    public partial class SpotifyPictureBox : PictureBox, IEntityControl
+    public partial class SPicturePox : PictureBox, IEntityControl
     {
         public DbEntity DbEntity { get; set; }
-        public SpotifyPictureBox()
+        public SPicturePox()
         {
             InitializeComponent();
             this.Image = Resources.MusicNote;
@@ -28,7 +28,7 @@ namespace SongsAbout.Controls
 
         public object SpotifyEntity { get; set; }
 
-        public SpotifyPictureBox(string text, EventHandler clickEvent = null, object tag = null,
+        public SPicturePox(string text, EventHandler clickEvent = null, object tag = null,
             DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
         {
             this.Click += clickEvent;
@@ -37,30 +37,30 @@ namespace SongsAbout.Controls
             this.SpotifyEntityType = spotifyType;
         }
 
-        public SpotifyPictureBox(DbEntity entity, EventHandler clickEvent = null)
+        public SPicturePox(DbEntity entity, EventHandler clickEvent = null)
             : this(entity.Name, clickEvent, entity, entity.DbEntityType, entity.SpotifyType)
         {
             this.DbEntity = entity;
         }
 
-        public SpotifyPictureBox(FullAlbum album, EventHandler clickEvent = null)
+        public SPicturePox(FullAlbum album, EventHandler clickEvent = null)
             : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
         {
             SetImage(album.Images);
         }
 
-        public SpotifyPictureBox(SimpleAlbum album, EventHandler clickEvent = null)
+        public SPicturePox(SimpleAlbum album, EventHandler clickEvent = null)
          : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
         {
             SetImage(album.Images);
         }
 
-        public SpotifyPictureBox(FullArtist artist, EventHandler clickEvent = null)
+        public SPicturePox(FullArtist artist, EventHandler clickEvent = null)
          : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
         {
             SetImage(artist.Images);
         }
-        public SpotifyPictureBox(SimpleArtist artist, EventHandler clickEvent = null)
+        public SPicturePox(SimpleArtist artist, EventHandler clickEvent = null)
             : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
         {
             try
@@ -74,22 +74,22 @@ namespace SongsAbout.Controls
         }
 
 
-        public SpotifyPictureBox(FullPlaylist playlist, EventHandler clickEvent = null)
+        public SPicturePox(FullPlaylist playlist, EventHandler clickEvent = null)
             : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
         {
             SetImage(playlist.Images);
         }
-        public SpotifyPictureBox(SimplePlaylist playlist, EventHandler clickEvent = null)
+        public SPicturePox(SimplePlaylist playlist, EventHandler clickEvent = null)
           : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
         {
             SetImage(playlist.Images);
         }
-        public SpotifyPictureBox(FullTrack track, EventHandler clickEvent = null)
+        public SPicturePox(FullTrack track, EventHandler clickEvent = null)
         : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
         {
             SetImage(track.Album.Images);
         }
-        public SpotifyPictureBox(SimpleTrack track, EventHandler clickEvent = null)
+        public SPicturePox(SimpleTrack track, EventHandler clickEvent = null)
         : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
         {
             SetImage(Converter.GetFullTrack(track).Album.Images);
@@ -132,10 +132,18 @@ namespace SongsAbout.Controls
                 throw new SpotifyException("Error Setting Image");
             }
         }
-
         public bool ImportEntity()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Importer.ImportFromSpotify(this.Text, this.SpotifyEntity, this.DbEntityType, this.SpotifyEntityType);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Importing Entity: {ex.Message}");
+                return false;
+            }
+
         }
     }
 }

@@ -244,7 +244,7 @@ namespace SongsAbout.Classes
         }
     }
 
-    public class NullValueError : Exception
+    public class NullValueError : DbException
     {
         const string defaultMsg = "The value returned was null.";
 
@@ -257,5 +257,20 @@ namespace SongsAbout.Classes
             return
                 (msg == defaultMsg ? msg : $"The expected value in {e.TableName} table unexpectedly returned null.");
         }
+    }
+    public class InitializationError : DbException
+    {
+        const string defaultMsg = "Failed to initialize DbEntity from Spotify Entity.";
+
+        public InitializationError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = defaultMsg) : base(initErrDefMsg(dbType, spotifyType, msg))
+        {
+        }
+
+        private static string initErrDefMsg(DbEntityType dbType, SpotifyEntityType spotifyType, string msg)
+        {
+            return
+                (msg == defaultMsg ? msg : $"Failed to initialize DbEntity {dbType} from Spotify Entity {spotifyType}\n{msg}");
+        }
+
     }
 }

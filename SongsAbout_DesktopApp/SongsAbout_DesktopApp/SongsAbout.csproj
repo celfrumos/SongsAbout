@@ -136,13 +136,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\TableAdapters.cs" />
-    <Compile Include="Controls\ISAEntity.cs" />
+    <Compile Include="Controls\IEntityControl.cs" />
     <Compile Include="Controls\ISpotifyPictureBox.cs" />
-    <Compile Include="Controls\SpotifyLabel.cs">
+    <Compile Include="Controls\SLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SpotifyLabel.Designer.cs">
-      <DependentUpon>SpotifyLabel.cs</DependentUpon>
+    <Compile Include="Controls\SLabel.Designer.cs">
+      <DependentUpon>SLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SPanel.cs">
       <SubType>UserControl</SubType>
@@ -150,11 +150,11 @@
     <Compile Include="Controls\SPanel.Designer.cs">
       <DependentUpon>SPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SpotifyPictureBox.cs">
+    <Compile Include="Controls\SPicturePox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SpotifyPictureBox.Designer.cs">
-      <DependentUpon>SpotifyPictureBox.cs</DependentUpon>
+    <Compile Include="Controls\SPicturePox.Designer.cs">
+      <DependentUpon>SPicturePox.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Converter.cs" />
     <Compile Include="Controls\SpotifyImageStackedPanel.cs">
@@ -207,9 +207,9 @@
     </Compile>
     <Compile Include="Entities\Genre.Manual.cs" />
     <Compile Include="Entities\DbEntity.cs" />
-    <Compile Include="Controls\SpotifyControlEventHandlers.cs" />
     <Compile Include="Classes\DbExceptions.cs" />
     <Compile Include="Entities\IDbEntity.cs" />
+    <Compile Include="Entities\ISpotifyEntity.cs" />
     <Compile Include="Entities\List.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
@@ -229,12 +229,6 @@
     <Compile Include="Entities\TrackArtists.Manual.cs" />
     <Compile Include="Classes\Importer.cs" />
     <Compile Include="Classes\SpotifyExceptions.cs" />
-    <Compile Include="Controls\SpotifyControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\SpotifyControl.Designer.cs">
-      <DependentUpon>SpotifyControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\UserSpotify.cs" />
     <Compile Include="Entities\TrackGenre.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
@@ -322,20 +316,14 @@
     <EmbeddedResource Include="Controls\AttributeViewer.resx">
       <DependentUpon>AttributeViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SpotifyLabel.resx">
-      <DependentUpon>SpotifyLabel.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\SLabel.resx">
+      <DependentUpon>SLabel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SPanel.resx">
       <DependentUpon>SPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SpotifyPictureBox.resx">
-      <DependentUpon>SpotifyPictureBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SpotifyControlEventHandlers.resx">
-      <DependentUpon>SpotifyControlEventHandlers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SpotifyControl.resx">
-      <DependentUpon>SpotifyControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\SPicturePox.resx">
+      <DependentUpon>SPicturePox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SpotifyImageStackedPanel.resx">
       <DependentUpon>SpotifyImageStackedPanel.cs</DependentUpon>

@@ -37,8 +37,9 @@ namespace SongsAbout.Forms
             // 
             // pBoxProfilePic
             // 
-            this.pBoxProfilePic.Location = new System.Drawing.Point(12, 39);
-            this.pBoxProfilePic.Size = new System.Drawing.Size(43, 44);
+            this.pBoxProfilePic.Location = new System.Drawing.Point(15, 50);
+            this.pBoxProfilePic.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.pBoxProfilePic.Size = new System.Drawing.Size(54, 56);
             // 
             // flpSpotifyControls
             // 
@@ -47,25 +48,28 @@ namespace SongsAbout.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpSpotifyControls.AutoScroll = true;
-            this.flpSpotifyControls.Location = new System.Drawing.Point(12, 89);
+            this.flpSpotifyControls.Location = new System.Drawing.Point(15, 114);
+            this.flpSpotifyControls.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flpSpotifyControls.Name = "flpSpotifyControls";
-            this.flpSpotifyControls.Size = new System.Drawing.Size(941, 580);
+            this.flpSpotifyControls.Size = new System.Drawing.Size(1176, 741);
             this.flpSpotifyControls.TabIndex = 0;
             // 
             // txtBoxSearch
             // 
             this.txtBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxSearch.Location = new System.Drawing.Point(683, 40);
+            this.txtBoxSearch.Location = new System.Drawing.Point(854, 51);
+            this.txtBoxSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxSearch.Name = "txtBoxSearch";
-            this.txtBoxSearch.Size = new System.Drawing.Size(169, 25);
+            this.txtBoxSearch.Size = new System.Drawing.Size(210, 30);
             this.txtBoxSearch.TabIndex = 1;
             // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(867, 39);
+            this.btnSearch.Location = new System.Drawing.Point(1084, 50);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 26);
+            this.btnSearch.Size = new System.Drawing.Size(94, 33);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -74,13 +78,14 @@ namespace SongsAbout.Forms
             // SpotifySearchForm
             // 
             this.AcceptButton = this.btnSearch;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(965, 682);
+            this.ClientSize = new System.Drawing.Size(1206, 871);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtBoxSearch);
             this.Controls.Add(this.flpSpotifyControls);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "SpotifySearchForm";
             this.Text = "Import From Spotify";
             this.Controls.SetChildIndex(this.flpSpotifyControls, 0);

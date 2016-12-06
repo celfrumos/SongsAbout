@@ -32,8 +32,8 @@ namespace SongsAbout.Controls
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SPanel));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.SpotifyPictureBox = new SongsAbout.Controls.SpotifyPictureBox();
-            this.SpotifyLabel = new SongsAbout.Controls.SpotifyLabel();
+            this.SpotifyPictureBox = new SongsAbout.Controls.SPicturePox();
+            this.SpotifyLabel = new SongsAbout.Controls.SLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -77,12 +77,14 @@ namespace SongsAbout.Controls
             this.SpotifyPictureBox.Name = "SpotifyPictureBox";
             this.SpotifyPictureBox.Size = new System.Drawing.Size(51, 50);
             this.SpotifyPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.SpotifyPictureBox.SpotifyEntity = null;
             this.SpotifyPictureBox.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
             this.SpotifyPictureBox.TabIndex = 0;
             this.SpotifyPictureBox.TabStop = false;
             // 
             // SpotifyLabel
             // 
+            this.SpotifyLabel.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.SpotifyLabel.AutoEllipsis = true;
             this.SpotifyLabel.BackColor = System.Drawing.SystemColors.HotTrack;
             this.SpotifyLabel.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -95,6 +97,7 @@ namespace SongsAbout.Controls
             this.SpotifyLabel.MinimumSize = new System.Drawing.Size(87, 19);
             this.SpotifyLabel.Name = "SpotifyLabel";
             this.SpotifyLabel.Size = this.SpotifyLabel.MinimumSize;
+            this.SpotifyLabel.SpotifyEntity = null;
             this.SpotifyLabel.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
             this.SpotifyLabel.TabIndex = 0;
             this.SpotifyLabel.Text = "SpotifyLabel";
@@ -125,7 +128,7 @@ namespace SongsAbout.Controls
         #endregion
 
         protected System.Windows.Forms.SplitContainer splitContainer = new System.Windows.Forms.SplitContainer();
-        public SpotifyPictureBox SpotifyPictureBox = new SpotifyPictureBox();
-        public SpotifyLabel SpotifyLabel = new SpotifyLabel();
+        protected SPicturePox SpotifyPictureBox = new SPicturePox();
+        protected SLabel SpotifyLabel = new SLabel();
     }
 }

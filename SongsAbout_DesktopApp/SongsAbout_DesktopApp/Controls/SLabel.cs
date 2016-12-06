@@ -5,12 +5,13 @@ using SpotifyAPI.Web.Models;
 using SongsAbout.Properties;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
+using SongsAbout.Classes;
 using System.Windows.Forms;
 
 namespace SongsAbout.Controls
 {
 
-    public partial class SpotifyLabel : Label, IEntityControl
+    public partial class SLabel : Label, IEntityControl
     {
         public DbEntity DbEntity { get; set; }
 
@@ -33,12 +34,12 @@ namespace SongsAbout.Controls
         }
 
         public object SpotifyEntity { get; set; }
-        public SpotifyLabel()
+        public SLabel()
         {
             InitializeComponent();
         }
 
-        public SpotifyLabel(string text, EventHandler clickEvent = null, object tag = null,
+        public SLabel(string text, EventHandler clickEvent = null, object tag = null,
             DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
         {
             this.Text = text;
@@ -48,50 +49,58 @@ namespace SongsAbout.Controls
             this.DbEntityType = dbtype;
         }
 
-        public SpotifyLabel(DbEntity entity, EventHandler clickEvent = null)
+        public SLabel(DbEntity entity, EventHandler clickEvent = null)
             : this(entity.Name, clickEvent, entity, entity.DbEntityType, entity.SpotifyType)
         {
             this.DbEntity = entity;
         }
 
-        public SpotifyLabel(FullAlbum album, EventHandler clickEvent = null)
+        public SLabel(FullAlbum album, EventHandler clickEvent = null)
             : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
         {
         }
 
-        public SpotifyLabel(SimpleAlbum album, EventHandler clickEvent = null)
+        public SLabel(SimpleAlbum album, EventHandler clickEvent = null)
          : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
         {
         }
 
-        public SpotifyLabel(FullArtist artist, EventHandler clickEvent = null)
+        public SLabel(FullArtist artist, EventHandler clickEvent = null)
          : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
         {
         }
-        public SpotifyLabel(SimpleArtist artist, EventHandler clickEvent = null)
+        public SLabel(SimpleArtist artist, EventHandler clickEvent = null)
       : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
         {
         }
-        public SpotifyLabel(FullPlaylist playlist, EventHandler clickEvent = null)
+        public SLabel(FullPlaylist playlist, EventHandler clickEvent = null)
             : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
         {
         }
-        public SpotifyLabel(SimplePlaylist playlist, EventHandler clickEvent = null)
+        public SLabel(SimplePlaylist playlist, EventHandler clickEvent = null)
           : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
         {
         }
-        public SpotifyLabel(FullTrack track, EventHandler clickEvent = null)
+        public SLabel(FullTrack track, EventHandler clickEvent = null)
         : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
         {
         }
-        public SpotifyLabel(SimpleTrack track, EventHandler clickEvent = null)
+        public SLabel(SimpleTrack track, EventHandler clickEvent = null)
         : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
         {
         }
-
         public bool ImportEntity()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Importer.ImportFromSpotify(this.Text, this.SpotifyEntity, this.DbEntityType, this.SpotifyEntityType);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Importing Entity: {ex.Message}");
+                return false;
+            }
+
         }
     }
 }

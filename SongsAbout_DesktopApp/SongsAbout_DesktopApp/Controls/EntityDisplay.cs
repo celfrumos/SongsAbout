@@ -13,7 +13,7 @@ namespace SongsAbout.Controls
 {
     public partial class EntityDisplay : UserControl
     {
-        public virtual SpotifyPictureBox Image { get; set; }
+        public virtual SPicturePox Image { get; set; }
         public virtual string Name
         {
             get { return this.spotifyLabel1.Text; }

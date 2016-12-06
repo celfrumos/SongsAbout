@@ -7,9 +7,9 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        protected  Controls.SpotifyPictureBox spotifyPictureBox1;
-        protected Controls.SpotifyLabel sLabelEntityName;
-        protected Controls.SpotifyLabel spotifyLabel1;
+        protected  Controls.SPicturePox spotifyPictureBox1;
+        protected Controls.SLabel sLabelEntityName;
+        protected Controls.SLabel spotifyLabel1;
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -32,9 +32,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EntityDisplay));
-            this.spotifyPictureBox1 = new SongsAbout.Controls.SpotifyPictureBox();
-            this.sLabelEntityName = new SongsAbout.Controls.SpotifyLabel();
-            this.spotifyLabel1 = new SongsAbout.Controls.SpotifyLabel();
+            this.spotifyPictureBox1 = new SongsAbout.Controls.SPicturePox();
+            this.sLabelEntityName = new SongsAbout.Controls.SLabel();
+            this.spotifyLabel1 = new SongsAbout.Controls.SLabel();
             ((System.ComponentModel.ISupportInitialize)(this.spotifyPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 

@@ -206,28 +206,28 @@ namespace SongsAbout.Forms
             // 
             // SForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.SystemColors.HotTrack;
-            ClientSize = new System.Drawing.Size(681, 323);
-            Controls.Add(pBoxProfilePic);
-            Controls.Add(mainMenuStrip);
-            Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            MainMenuStrip = mainMenuStrip;
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "SForm";
-            Text = "SongsAbout";
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.Size = new System.Drawing.Size(681, 323);
+            this.Controls.Add(pBoxProfilePic);
+            this.Controls.Add(mainMenuStrip);
+            this.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainMenuStrip = mainMenuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "SForm";
+            this.Text = "SongsAbout";
             mainMenuStrip.ResumeLayout(false);
             mainMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(pBoxProfilePic)).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        
-        protected  System.Windows.Forms.PictureBox pBoxProfilePic;
+
+        protected System.Windows.Forms.PictureBox pBoxProfilePic;
         protected static System.Windows.Forms.MenuStrip mainMenuStrip;
         protected static System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         protected static System.Windows.Forms.ToolStripMenuItem viewDatabaseToolStripMenuItem;

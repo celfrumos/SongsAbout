@@ -15,6 +15,7 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
+using SongsAbout.Entities;
 using Image = System.Drawing.Image;
 
 namespace SongsAbout.Classes
@@ -163,20 +164,20 @@ namespace SongsAbout.Classes
         /// Returns a list of User's saved tracks
         /// </summary>
         /// <returns></returns>
-        public static List<FullTrack> GetSavedTracks()
+        public static List<FTrack> GetSavedTracks()
         {
             Paging<SavedTrack> savedTracks = new Paging<SavedTrack>();
-            List<FullTrack> list = new List<FullTrack>();
+           var list = new List<FTrack>();
             try
             {
                 savedTracks = WebAPI.GetSavedTracks();
 
-                list = savedTracks.Items.Select(track => track.Track).ToList();
+                list = savedTracks.Items.Select(track => (FTrack)track.Track).ToList();
 
                 while (savedTracks.Next != null)
                 {
                     savedTracks = User.Default.SpotifyWebAPI.GetSavedTracks(20, savedTracks.Offset + savedTracks.Limit);
-                    list.AddRange(savedTracks.Items.Select(track => track.Track));
+                    list.AddRange(savedTracks.Items.Select(track => (FTrack)track.Track));
                 }
 
                 return list;
@@ -319,7 +320,7 @@ namespace SongsAbout.Classes
             }
         }
 
-        internal static Paging<FullTrack> GetTopTracks()
+        public static List<FTrack> GetTopTracks()
         {
             try
             {
@@ -327,7 +328,11 @@ namespace SongsAbout.Classes
                 {
                     try
                     {
-                        return WebAPI.GetUsersTopTracks();
+                        List<FTrack> trackList = new List<FTrack>();
+                        var paging = WebAPI.GetUsersTopTracks();
+
+                        paging.Items.ForEach(track => trackList.Add((FTrack)track));
+                        return trackList;
 
                     }
                     catch (Exception ex)
@@ -401,16 +406,19 @@ namespace SongsAbout.Classes
 
         }
 
-        public static List<SimplePlaylist> GetPlaylists()
+        public static List<SPlaylist> GetPlaylists()
         {
             try
             {
                 if (User.Default.PrivateProfile != null)
                 {
 
-                    Paging<SimplePlaylist> playlists = User.Default.SpotifyWebAPI.GetUserPlaylists(User.Default.PrivateId);
+                    Paging<SimplePlaylist> playlists = UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId);
 
-                    return playlists.Items;
+                    List<SPlaylist> playlistList = new List<SPlaylist>();
+                    playlists.Items.ForEach(ss => playlistList.Add((SPlaylist)ss));
+
+                    return playlistList;
 
                 }
                 else

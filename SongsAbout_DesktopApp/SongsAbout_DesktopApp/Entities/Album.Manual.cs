@@ -125,8 +125,6 @@ namespace SongsAbout.Entities
             return albums > 0;
         }
 
-
-
         public static Album Load(string al_title)
         {
             Album result = new Album();
@@ -275,6 +273,39 @@ namespace SongsAbout.Entities
 
             //}
         }
+        public Album(object SpotifyEntity, SpotifyEntityType type)
+        {
+            try
+            {
+                if (type == SpotifyEntityType.SimpleTrack || type == SpotifyEntityType.FullTrack)
+                {
+                    FullAlbum album;
+                    if (type == SpotifyEntityType.SimpleAlbum)
+                        album = Converter.GetFullAlbum((SimpleAlbum)SpotifyEntity);
+                    else
+                        album = (FullAlbum)SpotifyEntity;
 
+                    this.name = album.Name;
+                    this.al_spotify_uri = album.Uri;
+                    UpdateArtist(album.Artists[0]);
+                    this.SetGenres(album.Genres);
+                    this.UpdateCoverArt(album);
+                }
+                else
+                {
+                    throw new InitializationError(DbEntityType.Track, type, "");
+                }
+            }
+            catch (InitializationError)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InitializationError(DbEntityType.Artist, type, ex.Message);
+            }
+        }
+
+      
     }
 }

@@ -9,6 +9,7 @@ using SpotifyAPI.Web.Models;
 using SongsAbout.Classes;
 using System.Windows.Forms;
 using SongsAbout.Properties;
+using SongsAbout.Enums;
 using System.IO;
 using Image = System.Drawing.Image;
 using System.Data.Sql;
@@ -42,6 +43,38 @@ namespace SongsAbout.Entities
             this.UpdateProfilePic(artist);
             this.a_website = artist.Href;
 
+        }
+        public Artist(object SpotifyEntity, SpotifyEntityType type)
+        {
+            try
+            {
+                if (type == SpotifyEntityType.SimpleArtist || type == SpotifyEntityType.FullArtist)
+                {
+                    FullArtist artist;
+                    if (type == SpotifyEntityType.SimpleArtist)
+                        artist = Converter.GetFullArtist((SimpleArtist)SpotifyEntity);
+                    else
+                        artist = (FullArtist)SpotifyEntity;
+
+                    this.name = artist.Name;
+                    this.a_spotify_uri = artist.Uri;
+                    this.a_website = artist.Href;
+                    this.UpdateProfilePic(artist);
+                    this.a_website = artist.Href;
+                }
+                else
+                {
+                    throw new InitializationError(DbEntityType.Artist, type, "");
+                }
+            }
+            catch (InitializationError)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InitializationError(DbEntityType.Artist, type, ex.Message);
+            }
         }
         public Artist(SimpleArtist artist) : this(Converter.GetFullArtist(artist))
         {
@@ -214,7 +247,7 @@ namespace SongsAbout.Entities
 
             }
         }
-
+   
         public static Artist Load(string a_name)
         {
             try

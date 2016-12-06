@@ -10,6 +10,7 @@ using SongsAbout.Properties;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 using SongsAbout.Entities;
+using SongsAbout.Enums;
 using Track = SongsAbout.Entities.Track;
 using Image = System.Drawing.Image;
 using System.Drawing;
@@ -122,6 +123,38 @@ namespace SongsAbout.Classes
                 Console.WriteLine(ex.Message);
                 //throw new Exception(ex.Message);
             }
+        }
+
+        public static bool ImportFromSpotify(string name, object spotifyEntity, DbEntityType dbType, SpotifyEntityType spotifyEntityType)
+        {
+            switch (dbType)
+            {
+                case DbEntityType.Artist:
+                    if (!Artist.Exists(name))
+                    {
+                        var a = new Artist(spotifyEntity, spotifyEntityType);
+                        a.Save();
+                        return true;
+                    }
+                    break;
+                case DbEntityType.Album:
+                    if (Album.Exists(name))
+                    {
+                        var a = new Artist(spotifyEntity, spotifyEntityType);
+                        a.Save();
+                    }
+                    break;
+                case DbEntityType.Track:
+                    if (Track.Exists(name))
+                    {
+                        var t = new Track(spotifyEntity, spotifyEntityType);
+                        t.Save();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return false;
         }
 
 
@@ -271,7 +304,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                Paging<FullTrack> topTracks = UserSpotify.GetTopTracks();
+                var topTracks = UserSpotify.GetTopTracks();
                 foreach (FullTrack t in topTracks.Items)
                 {
                     ImportTrack(t);
@@ -286,21 +319,6 @@ namespace SongsAbout.Classes
 
         }
 
-        //public static void ImportPlaylistTrackArtists(PlaylistTrack pt)
-        //{
-        //    foreach (SimpleArtist ar in pt.Track.Artists)
-        //    {
-        //        try
-        //        {
-        //            ImportArtist(ar);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine(ex.Message);
-        //            throw new Exception(ex.Message);
-        //        }
-        //    }
-        //}
 
         public static void ImportArtist(SimpleArtist ar)
         {
@@ -322,10 +340,6 @@ namespace SongsAbout.Classes
         }
 
 
-        //public static void ImportSavedAlbums()
-        //{
-        //    User.Default.SpotifyWebAPI.GetSavedAlbums();
-        //}
 
     }
 }

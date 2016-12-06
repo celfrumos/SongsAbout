@@ -242,6 +242,39 @@ namespace SongsAbout.Entities
                 throw new Exception(msg);
             }
         }
+        
+        public Track(object SpotifyEntity, SpotifyEntityType type)
+        {
+            try
+            {
+                if (type == SpotifyEntityType.SimpleTrack || type == SpotifyEntityType.FullTrack)
+                {
+                    FullTrack t;
+                    if (type == SpotifyEntityType.SimpleArtist)
+                        t = Converter.GetFullTrack((SimpleTrack)SpotifyEntity);
+                    else
+                        t = (FullTrack)SpotifyEntity;
 
+                    this.name = t.Name;
+                    this.track_length_minutes = (double)(t.DurationMs) / 60000;
+                    this.track_spotify_uri = t.Uri;
+                    UpdateAlbum(t.Album);
+                    UpdateArtist(t.Artists[0]);
+                }
+                else
+                {
+                    throw new InitializationError(DbEntityType.Track, type, "");
+                }
+            }
+            catch (InitializationError)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InitializationError(DbEntityType.Artist, type, ex.Message);
+            }
+        }
+     
     }
 }

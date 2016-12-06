@@ -30,10 +30,10 @@
         {
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtBoxKeywords = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblTitleKeywords = new System.Windows.Forms.Label();
             this.lstBxGenres = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitleGenres = new System.Windows.Forms.Label();
+            this.lblTitleTopic = new System.Windows.Forms.Label();
             this.txtBoxQuery = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +46,7 @@
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.btnSearch.Location = new System.Drawing.Point(346, 194);
+            this.btnSearch.Location = new System.Drawing.Point(420, 194);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(216, 38);
@@ -57,28 +57,29 @@
             // txtBoxKeywords
             // 
             this.txtBoxKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxKeywords.Location = new System.Drawing.Point(346, 152);
+            this.txtBoxKeywords.Location = new System.Drawing.Point(420, 156);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
             this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
-            this.txtBoxKeywords.TabIndex = 24;
+            this.txtBoxKeywords.TabIndex = 33;
             // 
-            // label3
+            // lblTitleKeywords
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(233, 152);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 19);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Keywords:";
+            this.lblTitleKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTitleKeywords.AutoSize = true;
+            this.lblTitleKeywords.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitleKeywords.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.lblTitleKeywords.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblTitleKeywords.Location = new System.Drawing.Point(291, 156);
+            this.lblTitleKeywords.Name = "lblTitleKeywords";
+            this.lblTitleKeywords.Size = new System.Drawing.Size(75, 19);
+            this.lblTitleKeywords.TabIndex = 32;
+            this.lblTitleKeywords.Text = "Keywords:";
             // 
             // lstBxGenres
             // 
-            this.lstBxGenres.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstBxGenres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstBxGenres.FormattingEnabled = true;
             this.lstBxGenres.ItemHeight = 18;
             this.lstBxGenres.Items.AddRange(new object[] {
@@ -90,70 +91,70 @@
             "Pop",
             "Rap",
             "Rock"});
-            this.lstBxGenres.Location = new System.Drawing.Point(346, 80);
+            this.lstBxGenres.Location = new System.Drawing.Point(420, 84);
             this.lstBxGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstBxGenres.Name = "lstBxGenres";
             this.lstBxGenres.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.lstBxGenres.Size = new System.Drawing.Size(216, 58);
             this.lstBxGenres.Sorted = true;
-            this.lstBxGenres.TabIndex = 22;
+            this.lstBxGenres.TabIndex = 31;
             // 
-            // label2
+            // lblTitleGenres
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(154, 80);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(154, 19);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "In any of these genres:";
+            this.lblTitleGenres.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTitleGenres.AutoSize = true;
+            this.lblTitleGenres.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitleGenres.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.lblTitleGenres.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblTitleGenres.Location = new System.Drawing.Point(212, 84);
+            this.lblTitleGenres.Name = "lblTitleGenres";
+            this.lblTitleGenres.Size = new System.Drawing.Size(154, 19);
+            this.lblTitleGenres.TabIndex = 30;
+            this.lblTitleGenres.Text = "In any of these genres:";
             // 
-            // label1
+            // lblTitleTopic
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(133, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 19);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "I want to find songs about:";
+            this.lblTitleTopic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTitleTopic.AutoSize = true;
+            this.lblTitleTopic.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitleTopic.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.lblTitleTopic.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblTitleTopic.Location = new System.Drawing.Point(191, 45);
+            this.lblTitleTopic.Name = "lblTitleTopic";
+            this.lblTitleTopic.Size = new System.Drawing.Size(175, 19);
+            this.lblTitleTopic.TabIndex = 29;
+            this.lblTitleTopic.Text = "I want to find songs about:";
             // 
             // txtBoxQuery
             // 
             this.txtBoxQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxQuery.Location = new System.Drawing.Point(346, 41);
+            this.txtBoxQuery.Location = new System.Drawing.Point(420, 45);
             this.txtBoxQuery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxQuery.Name = "txtBoxQuery";
             this.txtBoxQuery.Size = new System.Drawing.Size(216, 25);
-            this.txtBoxQuery.TabIndex = 19;
+            this.txtBoxQuery.TabIndex = 28;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
-            this.ClientSize = new System.Drawing.Size(574, 254);
-            this.Controls.Add(this.btnSearch);
+            this.ClientSize = new System.Drawing.Size(648, 254);
             this.Controls.Add(this.txtBoxKeywords);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblTitleKeywords);
             this.Controls.Add(this.lstBxGenres);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTitleGenres);
+            this.Controls.Add(this.lblTitleTopic);
             this.Controls.Add(this.txtBoxQuery);
+            this.Controls.Add(this.btnSearch);
             this.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Form1";
-            this.Controls.SetChildIndex(this.txtBoxQuery, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.lstBxGenres, 0);
-            this.Controls.SetChildIndex(this.label3, 0);
-            this.Controls.SetChildIndex(this.txtBoxKeywords, 0);
             this.Controls.SetChildIndex(this.btnSearch, 0);
             this.Controls.SetChildIndex(this.pBoxProfilePic, 0);
+            this.Controls.SetChildIndex(this.txtBoxQuery, 0);
+            this.Controls.SetChildIndex(this.lblTitleTopic, 0);
+            this.Controls.SetChildIndex(this.lblTitleGenres, 0);
+            this.Controls.SetChildIndex(this.lstBxGenres, 0);
+            this.Controls.SetChildIndex(this.lblTitleKeywords, 0);
+            this.Controls.SetChildIndex(this.txtBoxKeywords, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -164,10 +165,10 @@
 
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtBoxKeywords;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblTitleKeywords;
         private System.Windows.Forms.ListBox lstBxGenres;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTitleGenres;
+        private System.Windows.Forms.Label lblTitleTopic;
         private System.Windows.Forms.TextBox txtBoxQuery;
     }
 }
