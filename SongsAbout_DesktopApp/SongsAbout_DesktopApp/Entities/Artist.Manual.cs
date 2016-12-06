@@ -47,13 +47,14 @@ namespace SongsAbout.Entities
             this.UpdateProfilePic(artist);
         }
 
-        public Artist(ISpotifyEntity artist, SpotifyEntityType type) : this(artist.Name, artist.Uri, artist.Href)
+        public Artist(ISpotifyEntity artist) : this(artist.Name, artist.Uri, artist.Href)
         {
+            this.SpotifyType = artist.SpotifyEntityType;
             this.UpdateProfilePic((ISpotifyFullEntity)artist);
         }
 
 
-        public Artist(SimpleArtist artist) : this(Converter.GetFullArtist(artist))
+        public Artist(SArtist artist) : this(Converter.GetFullArtist(artist))
         {
         }
 
@@ -73,7 +74,7 @@ namespace SongsAbout.Entities
         {
             get { return TitleColumn; }
         }
-
+        
         /// <summary>
         /// Submit Changes to the Database
         /// </summary>
@@ -87,8 +88,6 @@ namespace SongsAbout.Entities
                     {
                         context.UpdateInsert_Artist(this.ID, this.name, a_bio, a_website, this.a_spotify_uri, this.a_profile_pic);
                         context.SaveChanges();
-                        //    context.Artists.Add(this);
-                        //  var e = context.SaveChanges();
                     }
                 }
                 else

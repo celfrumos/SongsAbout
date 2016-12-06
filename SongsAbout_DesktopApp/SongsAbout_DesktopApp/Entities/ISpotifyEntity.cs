@@ -131,11 +131,14 @@ namespace SongsAbout.Entities
             get { throw new NotImplementedException(); }
             set { throw new NotImplementedException(); }
         }
+         public List<SArtist> SArtists { get; set; }
 
         public FTrack(FullTrack track)
         {
             this.Album = track.Album;
+            this.SArtists = new List<SArtist>();
             this.Artists = track.Artists;
+            track.Artists.ForEach(a => this.SArtists.Add(new SArtist(a)));
             this.AvailableMarkets = track.AvailableMarkets;
             this.DiscNumber = track.DiscNumber;
             this.DurationMs = track.DurationMs;

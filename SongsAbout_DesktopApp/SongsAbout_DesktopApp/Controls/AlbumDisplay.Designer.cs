@@ -7,9 +7,6 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        protected  Controls.SPicturePox spotifyPictureBox1;
-        protected Controls.SLabel lblName;
-        protected Controls.SLabel lblArtist;
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -32,54 +29,50 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlbumDisplay));
-            this.spotifyPictureBox1 = new SongsAbout.Controls.SPicturePox();
-            this.lblName = new SongsAbout.Controls.SLabel();
+            this.listBoxTracks = new System.Windows.Forms.ListBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblArtist = new SongsAbout.Controls.SLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.spotifyPictureBox1)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.lblAlbumName = new SongsAbout.Controls.SLabel();
+            this.SPictureBox = new SongsAbout.Controls.SPicturePox();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // spotifyPictureBox1
+            // listBoxTracks
             // 
-            this.spotifyPictureBox1.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.spotifyPictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.spotifyPictureBox1.DbEntity = null;
-            this.spotifyPictureBox1.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
-            this.spotifyPictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spotifyPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("spotifyPictureBox1.Image")));
-            this.spotifyPictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("spotifyPictureBox1.InitialImage")));
-            this.spotifyPictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.spotifyPictureBox1.Name = "spotifyPictureBox1";
-            this.spotifyPictureBox1.Size = new System.Drawing.Size(205, 205);
-            this.spotifyPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.spotifyPictureBox1.SpotifyEntity = null;
-            this.spotifyPictureBox1.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
-            this.spotifyPictureBox1.TabIndex = 0;
-            this.spotifyPictureBox1.TabStop = false;
+            this.listBoxTracks.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.listBoxTracks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxTracks.ForeColor = System.Drawing.Color.White;
+            this.listBoxTracks.FormattingEnabled = true;
+            this.listBoxTracks.Location = new System.Drawing.Point(0, 0);
+            this.listBoxTracks.Name = "listBoxTracks";
+            this.listBoxTracks.Size = new System.Drawing.Size(424, 170);
+            this.listBoxTracks.TabIndex = 4;
             // 
-            // lblName
+            // splitContainer1
             // 
-            this.lblName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblName.AutoEllipsis = true;
-            this.lblName.AutoSize = true;
-            this.lblName.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.lblName.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblName.DbEntity = null;
-            this.lblName.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
-            this.lblName.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.lblName.ForeColor = System.Drawing.Color.White;
-            this.lblName.Location = new System.Drawing.Point(255, 18);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(46, 19);
-            this.lblName.SpotifyEntity = null;
-            this.lblName.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
-            this.lblName.TabIndex = 1;
-            this.lblName.Text = "Name";
-            this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.lblArtist);
+            this.splitContainer1.Panel1.Controls.Add(this.lblAlbumName);
+            this.splitContainer1.Panel1.Controls.Add(this.SPictureBox);
+            this.splitContainer1.Panel1.Controls.Add(this.splitter1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.listBoxTracks);
+            this.splitContainer1.Size = new System.Drawing.Size(424, 325);
+            this.splitContainer1.SplitterDistance = 151;
+            this.splitContainer1.TabIndex = 5;
             // 
             // lblArtist
             // 
@@ -92,58 +85,89 @@
             this.lblArtist.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblArtist.DbEntity = null;
             this.lblArtist.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
-            this.lblArtist.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
+            this.lblArtist.Font = new System.Drawing.Font("Arial Unicode MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblArtist.ForeColor = System.Drawing.Color.White;
-            this.lblArtist.Location = new System.Drawing.Point(255, 64);
+            this.lblArtist.Location = new System.Drawing.Point(194, 70);
             this.lblArtist.Name = "lblArtist";
-            this.lblArtist.Size = new System.Drawing.Size(41, 19);
+            this.lblArtist.Size = new System.Drawing.Size(55, 25);
             this.lblArtist.SpotifyEntity = null;
             this.lblArtist.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
-            this.lblArtist.TabIndex = 2;
+            this.lblArtist.TabIndex = 3;
             this.lblArtist.Text = "Artist";
             this.lblArtist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel1
+            // lblAlbumName
             // 
-            this.panel1.Controls.Add(this.spotifyPictureBox1);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(205, 205);
-            this.panel1.TabIndex = 3;
-            // 
-            // listBox1
-            // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblAlbumName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.listBox1.ForeColor = System.Drawing.Color.White;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(3, 203);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(592, 244);
-            this.listBox1.TabIndex = 4;
+            this.lblAlbumName.AutoEllipsis = true;
+            this.lblAlbumName.AutoSize = true;
+            this.lblAlbumName.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.lblAlbumName.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblAlbumName.DbEntity = null;
+            this.lblAlbumName.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
+            this.lblAlbumName.Font = new System.Drawing.Font("Arial Unicode MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlbumName.ForeColor = System.Drawing.Color.White;
+            this.lblAlbumName.Location = new System.Drawing.Point(194, 16);
+            this.lblAlbumName.Name = "lblAlbumName";
+            this.lblAlbumName.Size = new System.Drawing.Size(66, 25);
+            this.lblAlbumName.SpotifyEntity = null;
+            this.lblAlbumName.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
+            this.lblAlbumName.TabIndex = 2;
+            this.lblAlbumName.Text = "Album";
+            this.lblAlbumName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // sPicturePox1
+            // 
+            this.SPictureBox.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.SPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SPictureBox.DbEntity = null;
+            this.SPictureBox.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
+            this.SPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("sPicturePox1.Image")));
+            this.SPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("sPicturePox1.InitialImage")));
+            this.SPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.SPictureBox.Name = "sPicturePox1";
+            this.SPictureBox.Size = new System.Drawing.Size(173, 151);
+            this.SPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.SPictureBox.SpotifyEntity = null;
+            this.SPictureBox.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
+            this.SPictureBox.TabIndex = 1;
+            this.SPictureBox.TabStop = false;
+            // 
+            // splitter1
+            // 
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.splitter1.Location = new System.Drawing.Point(173, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(251, 151);
+            this.splitter1.TabIndex = 0;
+            this.splitter1.TabStop = false;
             // 
             // AlbumDisplay
             // 
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lblArtist);
-            this.Controls.Add(this.lblName);
+            this.Controls.Add(this.splitContainer1);
             this.Name = "AlbumDisplay";
-            this.Size = new System.Drawing.Size(598, 450);
-            ((System.ComponentModel.ISupportInitialize)(this.spotifyPictureBox1)).EndInit();
-            this.panel1.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(424, 325);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListBox listBox1;
+        
+        private System.Windows.Forms.ListBox listBoxTracks = new System.Windows.Forms.ListBox();
+        private System.Windows.Forms.SplitContainer splitContainer1 = new System.Windows.Forms.SplitContainer();
+        private System.Windows.Forms.Splitter splitter1 = new System.Windows.Forms.Splitter();
+        private SPicturePox SPictureBox = new SPicturePox();
+        private SLabel lblArtist = new SLabel();
+        private SLabel lblAlbumName = new SLabel();
     }
 }

@@ -137,6 +137,12 @@
   <ItemGroup>
     <Compile Include="Classes\TableAdapters.cs" />
     <Compile Include="Controls\IEntityControl.cs" />
+    <Compile Include="Controls\SControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SControl.Designer.cs">
+      <DependentUpon>SControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SLabel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -314,6 +320,9 @@
     </Compile>
     <EmbeddedResource Include="Controls\AttributeViewer.resx">
       <DependentUpon>AttributeViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SControl.resx">
+      <DependentUpon>SControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SLabel.resx">
       <DependentUpon>SLabel.cs</DependentUpon>

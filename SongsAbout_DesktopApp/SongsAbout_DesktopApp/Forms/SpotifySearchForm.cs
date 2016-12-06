@@ -27,6 +27,7 @@ namespace SongsAbout.Forms
             cboxArtists.Tag = SearchType.Artist;
             cboxPlaylists.Tag = SearchType.Playlist;
             cboxTracks.Tag = SearchType.Track;
+
         }
 
 
@@ -160,30 +161,6 @@ namespace SongsAbout.Forms
                 if (txtBoxSearch.Text != "")
                 {
                     flpSpotifyControls.Controls.Clear();
-
-                    //foreach (CheckBox item in pnlSearchType.Controls)
-                    //{
-                    //    if (item == cboxAll)
-                    //    {
-                    //        if (item.Checked)
-                    //        {
-                    //            _searchType = SearchType.All;
-                    //            break;
-                    //        }
-                    //        else
-                    //            _searchType = new SearchType();
-
-                    //    }
-                    //    else if (item.Checked)
-                    //    {
-                    //        if (_searchType == SearchType.All && (SearchType)item.Tag != SearchType.All)
-                    //        {
-                    //            _searchType = (SearchType)item.Tag;
-                    //        }
-                    //        else
-                    //            _searchType |= (SearchType)item.Tag;
-                    //    }
-                    //}
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
                 }
             }
@@ -196,15 +173,20 @@ namespace SongsAbout.Forms
         private async void ExecuteSearch(string query, SearchType searchType, int limit = 20, int offset = 0)
         {
             var resultsList = UserSpotify.Search(query, searchType, limit, offset);
+
+            this.albumDisplay1 = new AlbumDisplay((FAlbum)new SAlbum(resultsList.Albums.Items[0]).FullVersion());
+            return;
             if (searchType == SearchType.All)
             {
-                if (resultsList.Artists.Items.Count > 0)
+                if (resultsList.Albums.Items.Count > 0)
                 {
-                    foreach (var artist in resultsList.Artists.Items)
+                    foreach (var album in resultsList.Albums.Items)
                     {
-                        await Task.Run(() => AddToFlow(new SPanel(FArtist.Convert(artist), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
+                        await Task.Run(() => AddToFlow(new SPanel(new SAlbum(album), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
+                        break;
                     }
                     flpSpotifyControls.Refresh();
+                    return;
                 }
 
             }

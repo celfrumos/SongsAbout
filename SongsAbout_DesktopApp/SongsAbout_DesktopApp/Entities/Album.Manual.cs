@@ -45,7 +45,10 @@ namespace SongsAbout.Entities
         {
             get { return TitleColumn; }
         }
-        public Album(FullAlbum album)// : base("al_title", "Albums", "Album")
+        public Album(FullAlbum album) : this(new FAlbum(album))
+        {
+        }
+        public Album(FAlbum album)// : base("al_title", "Albums", "Album")
         {
             this.SpotifyType = SpotifyEntityType.FullAlbum;
             this.name = album.Name;
@@ -55,11 +58,11 @@ namespace SongsAbout.Entities
                 this.UpdateArtist(album.Artists[0]);
             }
             this.al_year = null;
-           // this.al_year = album.ReleaseDate;
+            // this.al_year = album.ReleaseDate;
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
         }
-        public Album(SimpleAlbum album) : this(Converter.GetFullAlbum(album))
+        public Album(SAlbum album) : this(new FAlbum(Converter.GetFullAlbum(album)))
         {
         }
 
@@ -165,11 +168,15 @@ namespace SongsAbout.Entities
             }
         }
 
-        public void Update(SimpleAlbum album)
+        public void Update(FullAlbum album)
+        {
+            Update(new FAlbum(album));
+        }
+        public void Update(SAlbum album)
         {
             try
             {
-                FullAlbum al = User.Default.SpotifyWebAPI.GetAlbum(album.Id);
+                FAlbum al = new FAlbum(User.Default.SpotifyWebAPI.GetAlbum(album.Id));
                 this.Update(al);
             }
             catch (Exception ex)
@@ -178,7 +185,7 @@ namespace SongsAbout.Entities
             }
         }
 
-        public void Update(FullAlbum album)
+        public void Update(FAlbum album)
         {
             try
             {
@@ -196,27 +203,11 @@ namespace SongsAbout.Entities
                 throw new UpdateError(this, album.Name, ex.Message);
             }
         }
-
-        public void Update(ref FullAlbum album)
-        {
-            try
-            {
-                this.name = album.Name;
-                this.al_spotify_uri = album.Uri;
-                this.UpdateArtist(album.Artists[0]);
-                this.SetGenres(album.Genres);
-                this.UpdateCoverArt(album);
-
-                this.Save();
-                Console.WriteLine($"Album updated: '{album.Name}'");
-            }
-            catch (Exception ex)
-            {
-                throw new UpdateError(this, album.Name, ex.Message);
-            }
-        }
-
         private void UpdateCoverArt(FullAlbum album)
+        {
+            UpdateCoverArt(new FAlbum(album));
+        }
+        private void UpdateCoverArt(FAlbum album)
         {
             if (album.Images.Count > 0)
             {
@@ -224,24 +215,11 @@ namespace SongsAbout.Entities
                 this.al_cover_art = pic;
             }
         }
-
-        //private void ImportAlbumTracks(Paging<SimpleTrack> tracks)
-        //{
-        //    foreach (SimpleTrack track in tracks.Items)
-        //    {
-        //        try
-        //        {
-        //            Importer.ImportTrack(track);
-        //            Console.WriteLine($"Imported track '{track.Name}'");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine(ex.Message);
-        //        }
-        //    }
-        //}
-
         private void UpdateArtist(SimpleArtist simpleArtist)
+        {
+            this.UpdateArtist(new SArtist(simpleArtist));
+        }
+        private void UpdateArtist(SArtist simpleArtist)
         {
             try
             {
@@ -264,13 +242,31 @@ namespace SongsAbout.Entities
 
         public void SetGenres(List<string> genres)
         {
-            //foreach (string g in genres)
-            //{
-            //    AlbumGenre ag = new AlbumGenre();
-            //    ag.album_id = this.album_id;
-            //    ag.genre = g;
-
-            //}
+            using (var db = new DataClassesContext())
+            {
+                foreach (string g in genres)
+                {
+                    var ag = new AlbumGenre();
+                    ag.album_id = this.ID;
+                    ag.genre = g;
+                    db.AlbumGenres.Add(ag);
+                }
+                db.SaveChanges();
+            }
+        }
+        public void SetGenres(ISpotifyFullEntity entity)
+        {
+            using (var db = new DataClassesContext())
+            {
+                foreach (string g in entity.Genres)
+                {
+                    var ag = new AlbumGenre();
+                    ag.album_id = this.ID;
+                    ag.genre = g;
+                    db.AlbumGenres.Add(ag);
+                }
+                db.SaveChanges();
+            }
         }
         public Album(object SpotifyEntity, SpotifyEntityType type)
         {

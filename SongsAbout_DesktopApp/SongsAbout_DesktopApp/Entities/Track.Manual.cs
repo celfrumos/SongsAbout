@@ -14,6 +14,7 @@ namespace SongsAbout.Entities
 {
     public partial class Track : DbEntity //: DbEntity<Track>
     {
+        private const double MS_TO_MINUTES = 60000D;
 
         public static string Table = "Tracks";
         public static string TypeString = "Track";
@@ -35,16 +36,17 @@ namespace SongsAbout.Entities
         {
             get { return TitleColumn; }
         }
-        public Track(FullTrack t)
+        public Track(string name, double length = 0, string uri = "", int artist_id = 0, int album_id = 0)
         {
-
-            this.name = t.Name;
-            this.track_length_minutes = (double)(t.DurationMs) / 60000;
-            this.track_spotify_uri = t.Uri;
-
+            this.name = name;
+            this.track_length_minutes = length / MS_TO_MINUTES;
+            this.track_spotify_uri = uri;
+        }
+        public Track(FTrack t) : this(t.Name, t.DurationMs, t.Uri)
+        {
             try
             {
-                SimpleArtist tArtist = t.Artists[0];
+                var tArtist = t.SArtists[0];
                 UpdateArtist(tArtist);
                 UpdateAlbum(t.Album);
             }
@@ -53,23 +55,35 @@ namespace SongsAbout.Entities
                 throw new UpdateError(this, t.Name, ex.Message);
             }
         }
-
-        public Track(SimpleTrack track)
+        public Track(FullTrack t) : this(new FTrack(t))
         {
-            FullTrack t = UserSpotify.WebAPI.GetTrack(track.Id);
-            this.name = t.Name;
-            this.track_length_minutes = (double)(t.DurationMs) / 60000;
-            this.track_spotify_uri = t.Uri;
-            try
+        }
+        public Track(SimpleTrack t) : this(new STrack(t))
+        {
+        }
+
+        public Track(ISpotifyEntity t) : this(t.Name, 0, t.Uri)
+        {
+            if (t.SpotifyEntityType == SpotifyEntityType.FullTrack)
             {
-                UpdateAlbum(t.Album);
-                SimpleArtist tArtist = t.Artists[0];
-                UpdateArtist(tArtist);
+                var track = t as FTrack;
+                this.track_length_minutes = track.DurationMs / MS_TO_MINUTES;
+                UpdateArtist(track.SArtists[0]);
+                UpdateAlbum(track.Album);
             }
-            catch (Exception ex)
+            else if (t.SpotifyEntityType == SpotifyEntityType.SimpleTrack)
             {
-                throw new UpdateError(this, track.Name, ex.Message);
+                var sTrack = t as STrack;
+                var track = sTrack.FullVersion() as FTrack;
+                this.track_length_minutes = track.DurationMs / MS_TO_MINUTES;
+                UpdateArtist(track.SArtists[0]);
+                UpdateAlbum(track.Album);
             }
+        }
+
+
+        public Track(STrack track) : this(track.FullVersion())
+        {
         }
 
         public override void Save()
@@ -126,15 +140,15 @@ namespace SongsAbout.Entities
 
         }
 
-        public void Update(FullTrack t)
+        public void Update(FTrack t)
         {
             try
             {
                 this.name = t.Name;
-                this.track_length_minutes = (double)(t.DurationMs) / 60000;
+                this.track_length_minutes = (t.DurationMs) / MS_TO_MINUTES;
                 this.track_spotify_uri = t.Uri;
                 UpdateAlbum(t.Album);
-                UpdateArtist(t.Artists[0]);
+                UpdateArtist(new SArtist(t.Artists[0]));
             }
             catch (Exception ex)
             {
@@ -144,7 +158,7 @@ namespace SongsAbout.Entities
             }
         }
 
-        public void UpdateArtist(SimpleArtist artist)
+        public void UpdateArtist(SArtist artist)
         {
             try
             {
@@ -192,8 +206,11 @@ namespace SongsAbout.Entities
                 //  throw new Exception(msg);
             }
         }
-
         private void UpdateAlbum(SimpleAlbum album)
+        {
+            UpdateAlbum(new SAlbum(album));
+        }
+        private void UpdateAlbum(SAlbum album)
         {
             try
             {
@@ -213,7 +230,7 @@ namespace SongsAbout.Entities
                 Console.WriteLine(msg);
             }
         }
-        private void UpdateAlbum(FullAlbum album)
+        private void UpdateAlbum(FAlbum album)
         {
             try
             {
@@ -242,24 +259,19 @@ namespace SongsAbout.Entities
                 throw new Exception(msg);
             }
         }
-        
-        public Track(object SpotifyEntity, SpotifyEntityType type)
+
+        public Track(FTrack t, SpotifyEntityType type)
         {
             try
             {
                 if (type == SpotifyEntityType.SimpleTrack || type == SpotifyEntityType.FullTrack)
                 {
-                    FullTrack t;
-                    if (type == SpotifyEntityType.SimpleArtist)
-                        t = Converter.GetFullTrack((SimpleTrack)SpotifyEntity);
-                    else
-                        t = (FullTrack)SpotifyEntity;
-
                     this.name = t.Name;
-                    this.track_length_minutes = (double)(t.DurationMs) / 60000;
+                    this.track_length_minutes = (t.DurationMs) / MS_TO_MINUTES;
                     this.track_spotify_uri = t.Uri;
-                    UpdateAlbum(t.Album);
-                    UpdateArtist(t.Artists[0]);
+
+                    UpdateAlbum(new SAlbum(t.Album));
+                    UpdateArtist(new SArtist(t.Artists[0]));
                 }
                 else
                 {
@@ -275,6 +287,6 @@ namespace SongsAbout.Entities
                 throw new InitializationError(DbEntityType.Artist, type, ex.Message);
             }
         }
-     
+
     }
 }

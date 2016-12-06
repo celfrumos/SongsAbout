@@ -27,6 +27,7 @@ namespace SongsAbout.Entities
         {
             get { return base.TypeName; }
         }
+
         public override SpotifyEntityType SpotifyType
         {
             get { return SpotifyEntityType.None; }

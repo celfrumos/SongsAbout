@@ -27,7 +27,7 @@ namespace SongsAbout.Entities
         public virtual void Save(DataClassesContext db) { throw new NotImplementedException(); }
         public virtual DbEntityType DbEntityType { get; }
         public virtual SpotifyEntityType SpotifyType { get; set; }
-
+        public virtual ISpotifyEntity ISpotifyEntity { get; set; }
         protected static void formatName(ref string name)
         {
             if (name.Contains("\'"))

@@ -102,6 +102,10 @@ namespace SongsAbout.Classes
 
         public static void ImportTrack(FullTrack track)
         {
+            ImportTrack(new FTrack(track));
+        }
+        public static void ImportTrack(FTrack track)
+        {
             try
             {
                 if (!Track.Exists(track.Name))
@@ -124,7 +128,6 @@ namespace SongsAbout.Classes
                 //throw new Exception(ex.Message);
             }
         }
-
         public static bool ImportFromSpotify(ISpotifyEntity spotifyEntity, DbEntityType dbType, SpotifyEntityType spotifyEntityType)
         {
             var name = spotifyEntity.Name;
@@ -134,7 +137,7 @@ namespace SongsAbout.Classes
                 case DbEntityType.Artist:
                     if (!Artist.Exists(name))
                     {
-                        var a = new Artist(spotifyEntity, spotifyEntityType);
+                        var a = new Artist(spotifyEntity);
                         a.Save();
                         return true;
                     }
@@ -142,14 +145,14 @@ namespace SongsAbout.Classes
                 case DbEntityType.Album:
                     if (Album.Exists(name))
                     {
-                        var a = new Artist(spotifyEntity, spotifyEntityType);
+                        var a = new Artist(spotifyEntity);
                         a.Save();
                     }
                     break;
                 case DbEntityType.Track:
                     if (Track.Exists(name))
                     {
-                        var t = new Track(spotifyEntity, spotifyEntityType);
+                        var t = new Track(spotifyEntity);
                         t.Save();
                     }
                     break;
@@ -170,7 +173,7 @@ namespace SongsAbout.Classes
                 case DbEntityType.Artist:
                     if (!Artist.Exists(name))
                     {
-                        var a = new Artist(spotifyEntity, spotifyEntityType);
+                        var a = new Artist(spotifyEntity);
                         a.Save();
                         return true;
                     }
@@ -185,7 +188,7 @@ namespace SongsAbout.Classes
                 case DbEntityType.Track:
                     if (!Track.Exists(name))
                     {
-                        var t = new Track(spotifyEntity, spotifyEntityType);
+                        var t = new Track(spotifyEntity);
                         t.Save();
                     }
                     break;
@@ -323,9 +326,9 @@ namespace SongsAbout.Classes
                 if (!Album.Exists(album.Name))
                 {
                     a = new Album(album);
-                    foreach (SimpleTrack track in album.Tracks.Items)
+                    foreach (var track in album.Tracks.Items)
                     {
-                        Track t = new Track(track);
+                        var t = new Track(track);
                         t.Save();
                     }
                     a.Save();

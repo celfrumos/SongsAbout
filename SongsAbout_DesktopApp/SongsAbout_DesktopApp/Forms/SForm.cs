@@ -14,10 +14,9 @@ namespace SongsAbout.Forms
 {
     public partial class SForm : Form
     {
-        public SForm()
+        public SForm(): base()
         {
             InitializeComponent();
-            //SetProfilePic();
 
         }
 
