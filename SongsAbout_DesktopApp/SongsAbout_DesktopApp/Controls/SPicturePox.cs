@@ -42,58 +42,65 @@ namespace SongsAbout.Controls
         {
             this.DbEntity = entity;
         }
-
-        public SPicturePox(FullAlbum album, EventHandler clickEvent = null)
-            : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
+        public SPicturePox(ISpotifyEntity spotifyEntity, EventHandler clickEvent = null)
+            : this(spotifyEntity.Name, clickEvent, spotifyEntity, DbEntityType.Album, SpotifyEntityType.FullAlbum)
         {
-            SetImage(album.Images);
-        }
-
-        public SPicturePox(SimpleAlbum album, EventHandler clickEvent = null)
-         : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
-        {
-            SetImage(album.Images);
-        }
-
-        public SPicturePox(FullArtist artist, EventHandler clickEvent = null)
-         : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
-        {
-            SetImage(artist.Images);
-        }
-        public SPicturePox(SimpleArtist artist, EventHandler clickEvent = null)
-            : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
-        {
-            try
+            this.SpotifyEntity = spotifyEntity;
+            if (spotifyEntity is ISpotifyFullEntity)
             {
-                SetImage(Converter.GetFullArtist(artist).Images);
-            }
-            catch (SpotifyConversionError)
-            {
-                this.Image = this.ErrorImage;
+                this.SetImage(((ISpotifyFullEntity)spotifyEntity).Images);
+
             }
         }
+        //public SPicturePox(FullAlbum album, EventHandler clickEvent = null)
+        //    : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
+        //{
+        //    SetImage(album.Images);
+        //}
 
+        //public SPicturePox(SimpleAlbum album, EventHandler clickEvent = null)
+        // : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
+        //{
+        //    SetImage(album.Images);
+        //}
 
-        public SPicturePox(FullPlaylist playlist, EventHandler clickEvent = null)
-            : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
-        {
-            SetImage(playlist.Images);
-        }
-        public SPicturePox(SimplePlaylist playlist, EventHandler clickEvent = null)
-          : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
-        {
-            SetImage(playlist.Images);
-        }
-        public SPicturePox(FullTrack track, EventHandler clickEvent = null)
-        : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
-        {
-            SetImage(track.Album.Images);
-        }
-        public SPicturePox(SimpleTrack track, EventHandler clickEvent = null)
-        : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
-        {
-            SetImage(Converter.GetFullTrack(track).Album.Images);
-        }
+        //public SPicturePox(FullArtist artist, EventHandler clickEvent = null)
+        // : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
+        //{
+        //    SetImage(artist.Images);
+        //}
+        //public SPicturePox(SimpleArtist artist, EventHandler clickEvent = null)
+        //    : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
+        //{
+        //    try
+        //    {
+        //        SetImage(Converter.GetFullArtist(artist).Images);
+        //    }
+        //    catch (SpotifyConversionError)
+        //    {
+        //        this.Image = this.ErrorImage;
+        //    }
+        //}
+        //public SPicturePox(FullPlaylist playlist, EventHandler clickEvent = null)
+        //    : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
+        //{
+        //    SetImage(playlist.Images);
+        //}
+        //public SPicturePox(SimplePlaylist playlist, EventHandler clickEvent = null)
+        //  : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
+        //{
+        //    SetImage(playlist.Images);
+        //}
+        //public SPicturePox(FullTrack track, EventHandler clickEvent = null)
+        //: this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
+        //{
+        //    SetImage(track.Album.Images);
+        //}
+        //public SPicturePox(SimpleTrack track, EventHandler clickEvent = null)
+        //: this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
+        //{
+        //    SetImage(Converter.GetFullTrack(track).Album.Images);
+        //}
 
         private void SetImage(List<SpotifyAPI.Web.Models.Image> images)
         {

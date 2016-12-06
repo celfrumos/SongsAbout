@@ -33,12 +33,12 @@ namespace SongsAbout.Forms
             }
         }
 
-      
+
         private void SpotifyPanel_Click(object sender, EventArgs e)
         {
             var control = sender as IEntityControl;
 
-           Console.WriteLine($"{control.Text} Panel Clicked");
+            Console.WriteLine($"{control.Text} Panel Clicked");
             try
             {
                 control.ImportEntity();
@@ -47,7 +47,7 @@ namespace SongsAbout.Forms
             {
                 throw;
             }
-            
+
         }
         private void RedrawForm(string objTag)
         {
@@ -135,7 +135,7 @@ namespace SongsAbout.Forms
         {
             try
             {
-               var albums = UserSpotify.WebAPI.GetSavedAlbums();
+                var albums = UserSpotify.WebAPI.GetSavedAlbums();
                 foreach (var a in albums.Items)
                 {
                     try
@@ -182,41 +182,42 @@ namespace SongsAbout.Forms
                 {
                     foreach (var artist in resultsList.Artists.Items)
                     {
-                        await Task.Run(() => AddToFlow(new SPanel(artist, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
+                        await Task.Run(() => AddToFlow(new SPanel(FArtist.Convert(artist), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
                     }
                     flpSpotifyControls.Refresh();
                 }
-                
+
             }
             else
             {
                 if (searchType == SearchType.Artist)
                 {
-                    resultsList.Artists.Items.ForEach(a =>
+                    foreach (FullArtist a in resultsList.Artists.Items)
                     {
-                        AddToFlow(new SPanel(a, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
-                    });
+                        AddToFlow(new SPanel(new FArtist(a), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+
+                    }
                 }
                 if (searchType == SearchType.Album)
                 {
-                    resultsList.Albums.Items.ForEach(al =>
+                    foreach (var al in resultsList.Albums.Items)
                     {
-                        AddToFlow(new SPanel(al, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
-                    });
+                        AddToFlow(new SPanel(new SAlbum(al), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+                    }
                 }
                 if (searchType == SearchType.Track)
                 {
-                    resultsList.Tracks.Items.ForEach(t =>
+                    foreach (var t in resultsList.Tracks.Items)
                     {
-                        AddToFlow(new SPanel(t, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
-                    });
+                        AddToFlow(new SPanel(new FTrack(t), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+                    }
                 }
                 if (searchType == SearchType.Playlist)
                 {
-                    resultsList.Playlists.Items.ForEach(p =>
+                    foreach (var p in resultsList.Playlists.Items)
                     {
-                        AddToFlow(new SPanel(p, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
-                    });
+                        AddToFlow(new SPanel(new SPlaylist(p), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+                    }
                 }
 
             }

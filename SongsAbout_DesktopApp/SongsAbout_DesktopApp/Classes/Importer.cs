@@ -305,7 +305,7 @@ namespace SongsAbout.Classes
             try
             {
                 var topTracks = UserSpotify.GetTopTracks();
-                foreach (FullTrack t in topTracks.Items)
+                foreach (FTrack t in topTracks)
                 {
                     ImportTrack(t);
                 }

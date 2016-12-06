@@ -54,41 +54,45 @@ namespace SongsAbout.Controls
         {
             this.DbEntity = entity;
         }
+        public SLabel(ISpotifyEntity spotifyEntity, EventHandler clickEvent = null)
+            : this(spotifyEntity.Name,  clickEvent, spotifyEntity, DbEntityType.Album, spotifyEntity.SpotifyEntityType)
+        {
+            this.SpotifyEntity = spotifyEntity;
+        }
+      //  public SLabel(FullAlbum album, EventHandler clickEvent = null)
+      //      : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
+      //  {
+      //  }
 
-        public SLabel(FullAlbum album, EventHandler clickEvent = null)
-            : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.FullAlbum)
-        {
-        }
+      //  public SLabel(SimpleAlbum album, EventHandler clickEvent = null)
+      //   : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
+      //  {
+      //  }
 
-        public SLabel(SimpleAlbum album, EventHandler clickEvent = null)
-         : this(album.Name, clickEvent, album, DbEntityType.Album, SpotifyEntityType.SimpleAlbum)
-        {
-        }
-
-        public SLabel(FullArtist artist, EventHandler clickEvent = null)
-         : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
-        {
-        }
-        public SLabel(SimpleArtist artist, EventHandler clickEvent = null)
-      : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
-        {
-        }
-        public SLabel(FullPlaylist playlist, EventHandler clickEvent = null)
-            : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
-        {
-        }
-        public SLabel(SimplePlaylist playlist, EventHandler clickEvent = null)
-          : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
-        {
-        }
-        public SLabel(FullTrack track, EventHandler clickEvent = null)
-        : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
-        {
-        }
-        public SLabel(SimpleTrack track, EventHandler clickEvent = null)
-        : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
-        {
-        }
+      //  public SLabel(FullArtist artist, EventHandler clickEvent = null)
+      //   : this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
+      //  {
+      //  }
+      //  public SLabel(SimpleArtist artist, EventHandler clickEvent = null)
+      //: this(artist.Name, clickEvent, artist, DbEntityType.Artist, SpotifyEntityType.FullArtist)
+      //  {
+      //  }
+      //  public SLabel(FullPlaylist playlist, EventHandler clickEvent = null)
+      //      : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.FullPlaylist)
+      //  {
+      //  }
+      //  public SLabel(SimplePlaylist playlist, EventHandler clickEvent = null)
+      //    : this(playlist.Name, clickEvent, playlist, DbEntityType.List, SpotifyEntityType.SimplePlaylist)
+      //  {
+      //  }
+      //  public SLabel(FullTrack track, EventHandler clickEvent = null)
+      //  : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.FullTrack)
+      //  {
+      //  }
+      //  public SLabel(SimpleTrack track, EventHandler clickEvent = null)
+      //  : this(track.Name, clickEvent, track, DbEntityType.Track, SpotifyEntityType.SimpleTrack)
+      //  {
+      //  }
         public bool ImportEntity()
         {
             try

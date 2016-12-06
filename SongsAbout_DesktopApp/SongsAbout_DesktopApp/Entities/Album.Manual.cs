@@ -54,6 +54,7 @@ namespace SongsAbout.Entities
             {
                 this.UpdateArtist(album.Artists[0]);
             }
+            this.al_year = album.ReleaseDate;
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
         }
