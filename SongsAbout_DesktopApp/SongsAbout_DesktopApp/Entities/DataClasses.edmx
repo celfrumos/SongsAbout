@@ -409,7 +409,7 @@
             <PropertyRef Name="genre" />
           </Key>
           <Property Name="album_id" Type="Int32" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="false" />
-          <Property Name="genre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="genre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="Album" Relationship="Self.FK_AlbumGenres_Albums" FromRole="AlbumGenres" ToRole="Albums" />
           <NavigationProperty Name="Genre" Relationship="Self.FK_AlbumGenres_Genres" FromRole="AlbumGenres" ToRole="Genres" />
         </EntityType>
@@ -424,30 +424,23 @@
           <Property Name="al_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="al_cover_art" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="AlbumGenres" Relationship="Self.FK_AlbumGenres_Albums" FromRole="Albums" ToRole="AlbumGenres" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Private" />
-          <NavigationProperty xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Name="AlbumTracks" a:GetterAccess="Private" a:SetterAccess="Private" Relationship="Self.FK__AlbumTracks_Album" FromRole="Albums" ToRole="AlbumTracks" />
           <NavigationProperty Name="Artist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" />
           <NavigationProperty Name="Tracks" Relationship="DataClasses.FK_Album_Tracks" FromRole="Album" ToRole="Track" />
-        </EntityType>
-        <EntityType Name="AlbumTrack">
-          <Key>
-            <PropertyRef Name="album_id" />
-            <PropertyRef Name="track_id" />
-          </Key>
-          <Property Name="album_id" Nullable="false" Type="Int32" />
-          <Property Name="track_id" Nullable="false" Type="Int32" />
-          <NavigationProperty Name="Album" Relationship="Self.FK__AlbumTracks_Album" FromRole="AlbumTracks" ToRole="Albums" />
-          <NavigationProperty Name="Track" Relationship="Self.FK__AlbumTracks_Track" FromRole="AlbumTracks" ToRole="Tracks" />
         </EntityType>
         <EntityType Name="Artist">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="a_bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="a_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="a_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="a_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" >
+            <Documentation>
+              <LongDescription>Name of the Artist</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="a_bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="a_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="a_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="a_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="Albums" Relationship="Self.FK_Albums_Artists" FromRole="Artists" ToRole="Albums" />
           <NavigationProperty Name="TrackArtists" Relationship="Self.FK__ArtistTra__artis__40058253" FromRole="Artists" ToRole="TrackArtists" />
         </EntityType>
@@ -494,12 +487,12 @@
         </EntityType>
         <EntityType Name="TrackGenre">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="track_id" />
+            <PropertyRef Name="genre" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="track_id" Type="Int32" Nullable="false" />
           <Property Name="genre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Genre1" Relationship="Self.FK_TrackGenres_Genres" FromRole="TrackGenres" ToRole="Genres" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_TrackGenres_Genres" FromRole="TrackGenres" ToRole="Genres" />
           <NavigationProperty Name="Track" Relationship="Self.FK_TrackGenres_Tracks" FromRole="TrackGenres" ToRole="Tracks" />
         </EntityType>
         <EntityType Name="Track">
@@ -507,13 +500,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="track_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="track_length_minutes" Type="Double" />
-          <Property Name="track_artist_id" Type="Int32" Nullable="false" />
-          <Property Name="can_play" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="track_album_id" Type="Int32" Nullable="false" />
-          <NavigationProperty xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Name="AlbumTracks" a:GetterAccess="Private" a:SetterAccess="Private" Relationship="Self.FK__AlbumTracks_Track" FromRole="Tracks" ToRole="AlbumTracks" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="track_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
+          <Property Name="track_length_minutes" Type="Double" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
+          <Property Name="track_artist_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="can_play" Type="String" MaxLength="1" FixedLength="true" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
+          <Property Name="track_album_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="TrackArtists" Relationship="Self.FK__ArtistTra__track__40F9A68C" FromRole="Tracks" ToRole="TrackArtists" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="TrackGenres" Relationship="Self.FK_TrackGenres_Tracks" FromRole="Tracks" ToRole="TrackGenres" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="TrackTopics" Relationship="Self.FK_TrackTopics_Tracks" FromRole="Tracks" ToRole="TrackTopics" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
@@ -559,20 +551,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AlbumTracks_Album">
-          <End Type="Self.Album" Multiplicity="1" Role="Albums">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Self.AlbumTrack" Multiplicity="*" Role="AlbumTracks" />
-          <ReferentialConstraint>
-            <Principal Role="Albums">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AlbumTracks">
-              <PropertyRef Name="album_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Albums_Artists">
           <End Role="Artists" Type="Self.Artist" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -584,20 +562,6 @@
             </Principal>
             <Dependent Role="Albums">
               <PropertyRef Name="artist_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__AlbumTracks_Track">
-          <End Type="Self.Track" Multiplicity="1" Role="Tracks">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Self.AlbumTrack" Multiplicity="*" Role="AlbumTracks" />
-          <ReferentialConstraint>
-            <Principal Role="Tracks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AlbumTracks">
-              <PropertyRef Name="track_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -688,7 +652,6 @@
         <EntityContainer Name="DataClassesContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AlbumGenres" EntityType="Self.AlbumGenre" />
           <EntitySet Name="Albums" EntityType="Self.Album" />
-          <EntitySet Name="AlbumTracks" EntityType="Self.AlbumTrack" />
           <EntitySet Name="Artists" EntityType="Self.Artist" />
           <EntitySet Name="Genres" EntityType="Self.Genre" />
           <EntitySet Name="Lists" EntityType="Self.List" />
@@ -706,17 +669,9 @@
             <End Role="Genres" EntitySet="Genres" />
             <End Role="AlbumGenres" EntitySet="AlbumGenres" />
           </AssociationSet>
-          <AssociationSet Name="FK__AlbumTracks_Album" Association="Self.FK__AlbumTracks_Album">
-            <End EntitySet="Albums" Role="Albums" />
-            <End EntitySet="AlbumTracks" Role="AlbumTracks" />
-          </AssociationSet>
           <AssociationSet Name="FK_Albums_Artists" Association="Self.FK_Albums_Artists">
             <End Role="Artists" EntitySet="Artists" />
             <End Role="Albums" EntitySet="Albums" />
-          </AssociationSet>
-          <AssociationSet Name="FK__AlbumTracks_Track" Association="Self.FK__AlbumTracks_Track">
-            <End EntitySet="Tracks" Role="Tracks" />
-            <End EntitySet="AlbumTracks" Role="AlbumTracks" />
           </AssociationSet>
           <AssociationSet Name="FK__ArtistTra__artis__40058253" Association="Self.FK__ArtistTra__artis__40058253">
             <End Role="Artists" EntitySet="Artists" />

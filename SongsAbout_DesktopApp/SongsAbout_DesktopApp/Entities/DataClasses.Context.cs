@@ -29,7 +29,6 @@ namespace SongsAbout.Entities
     
         public virtual DbSet<AlbumGenre> AlbumGenres { get; set; }
         public virtual DbSet<Album> Albums { get; set; }
-        public virtual DbSet<AlbumTrack> AlbumTracks { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<List> Lists { get; set; }

@@ -22,10 +22,10 @@ namespace SongsAbout
             Application.SetCompatibleTextRenderingDefault(false);
 
             try
-            {
-                
+            {                
                 User.Default.Upgrade();
                 ConnectSpotify();
+
                 Application.Run(new Form1());
             }
             catch (System.Resources.MissingManifestResourceException ex)

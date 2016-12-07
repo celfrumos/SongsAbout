@@ -58,10 +58,10 @@ namespace SongsAbout.Forms
                     try
                     {
                         int newArtistId;
-                        _newAlbum.name = txtBoxTitle.Text;
-                        _newAlbum.al_year = txtBoxYear.Text;
+                        _newAlbum.Name = txtBoxTitle.Text;
+                        _newAlbum.Year = txtBoxYear.Text;
                         int.TryParse(cBoxMainArtist.SelectedValue.ToString(), out newArtistId);
-                        _newAlbum.artist_id = newArtistId;
+                        _newAlbum.ID = newArtistId;
                         _newAlbum.Save();
                         this.DialogResult = DialogResult.OK;
                         this.Close();

@@ -135,7 +135,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Database.cs" />
+    <Compile Include="Classes\SongDatabase.cs" />
     <Compile Include="Classes\TableAdapters.cs" />
     <Compile Include="Controls\IEntityControl.cs" />
     <Compile Include="Controls\SControl.cs">
@@ -184,9 +184,6 @@
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\AlbumGenre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\AlbumTrack.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\AlbumTracks.Manual.cs" />
@@ -395,6 +392,7 @@
     <None Include="DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </None>
+    <Compile Include="Entities\AlbumGenre.Manual.cs" />
     <None Include="Entities\DataClasses.edmx.diagram">
       <DependentUpon>DataClasses.edmx</DependentUpon>
     </None>

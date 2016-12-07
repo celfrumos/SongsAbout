@@ -66,9 +66,9 @@ namespace SongsAbout.Forms
 
         private void SaveArtist()
         {
-            NewArtist.name = txtBoxName.Text;
-            NewArtist.a_bio = txtBoxBio.Text;
-            NewArtist.a_website = txtBoxWebsite.Text;
+            NewArtist.Name = txtBoxName.Text;
+            NewArtist.Bio = txtBoxBio.Text;
+            NewArtist.Website = txtBoxWebsite.Text;
             NewArtist.Save();
         }
     }

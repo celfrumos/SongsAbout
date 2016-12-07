@@ -17,7 +17,6 @@ namespace SongsAbout.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Track()
         {
-            this.AlbumTracks = new HashSet<AlbumTrack>();
             this.TrackArtists = new HashSet<TrackArtist>();
             this.TrackGenres = new HashSet<TrackGenre>();
             this.TrackTopics = new HashSet<TrackTopic>();
@@ -26,15 +25,13 @@ namespace SongsAbout.Entities
         }
     
         public int ID { get; set; }
-        public string name { get; set; }
-        public string track_spotify_uri { get; set; }
-        public Nullable<double> track_length_minutes { get; set; }
-        public int track_artist_id { get; set; }
-        public string can_play { get; set; }
-        public int track_album_id { get; set; }
+        private string name { get; set; }
+        private string track_spotify_uri { get; set; }
+        private Nullable<double> track_length_minutes { get; set; }
+        private int track_artist_id { get; set; }
+        private string can_play { get; set; }
+        private int track_album_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<AlbumTrack> AlbumTracks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         private ICollection<TrackArtist> TrackArtists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

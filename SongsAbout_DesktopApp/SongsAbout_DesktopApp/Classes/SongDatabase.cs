@@ -39,13 +39,13 @@ namespace SongsAbout.Classes
         {
             get
             {
-                List<string> genres;
+                List<Genre> genres;
                 using (var db = new DataClassesContext())
                 {
                     genres = (from Genre g in db.Genres
-                              select g.Name).ToList();
+                              select g).ToList();
                 }
-                return genres;
+                return new List<string>();
             }
         }
 
@@ -55,7 +55,7 @@ namespace SongsAbout.Classes
             {
                 using (var db = new DataClassesContext())
                 {
-                    db.UpdateInsert_Album(album.ID, album.Artist.ID, album.Name, album., album.al_spotify_uri, album.al_cover_art);
+                    db.UpdateInsert_Album(album.ID, album.Artist.ID, album.Name,album.Year, album.Uri, album.CoverArt);
                     db.SaveChanges();
 
                 }
@@ -76,7 +76,7 @@ namespace SongsAbout.Classes
             {
                 using (var db = new DataClassesContext())
                 {
-                    db.UpdateInsert_Artist(artist.ID, artist.name, artist.a_bio, artist.a_website, artist.a_spotify_uri, artist.a_profile_pic);
+                    db.UpdateInsert_Artist(artist.ID, artist.Name, artist.Bio, artist.Website, artist.Uri, artist.ProfilePicBytes);
                     db.SaveChanges();
 
                 }
@@ -98,6 +98,7 @@ namespace SongsAbout.Classes
                 using (var db = new DataClassesContext())
                 {
                     artists = (from a in db.Artists
+                               where a.ID != 0
                                select a).ToList();
                 }
                 return artists;

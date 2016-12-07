@@ -35,8 +35,32 @@ namespace SongsAbout.Forms
         public Form1() : base()
         {
             InitializeComponent();
-            SetProfilePic();
-            this.lstBxGenres.DataSource = SongDatabase.ExistingGenres;
+            try
+            {
+                SetProfilePic();
+                var artists = SongDatabase.ExistingArtists;
+                var a = artists[2];
+                var als = a.Albums;
+                foreach (var al in als)
+                {
+                    foreach (var track in al.Tracks)
+                    {
+                        Console.WriteLine($"Artist{a.Name}, Album: {al.Name}, Track: {track.Name}");
+                    }
+                }
+
+                using (var db = new DataClassesContext())
+                {
+                    var genres = (from Genre g in db.Genres
+                                  select g.Name).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+          //  this.lstBxGenres.DataSource = SongDatabase.ExistingGenres;
 
         }
 

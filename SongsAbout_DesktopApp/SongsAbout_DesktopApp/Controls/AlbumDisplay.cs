@@ -72,9 +72,9 @@ namespace SongsAbout.Controls
             get { return this._artist; }
              set
             {
-                this.ArtistName = value.Name;
                 this._artist = value;
-                this.Album.artist_id = value.ID; ;
+                this.ArtistName = value.Name;
+                this.Album.Artist = value;
                 this.Album.Save();
             }
         }
@@ -108,9 +108,9 @@ namespace SongsAbout.Controls
             this.lblAlbumName.DbEntity = album;
             this.lblArtist.Text = album.Artist.Name;
             this.lblAlbumName.Text = album.Name;
-            album.AlbumTracks.ToList().ForEach(t =>
+            album.Tracks.ToList().ForEach(t =>
             {
-                this.Tracks.Add(t.Track);
+                this.Tracks.Add(t);
             });
             this.listBoxTracks.DataSource = this.Tracks;
             this.SPictureBox = new SPicturePox(album);

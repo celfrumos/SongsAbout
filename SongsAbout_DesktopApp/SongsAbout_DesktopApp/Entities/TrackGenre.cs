@@ -14,11 +14,10 @@ namespace SongsAbout.Entities
     
     public partial class TrackGenre
     {
-        public int ID { get; set; }
         public int track_id { get; set; }
         public string genre { get; set; }
     
-        public virtual Genre Genre1 { get; set; }
+        public virtual Genre Genre { get; set; }
         public virtual Track Track { get; set; }
     }
 }

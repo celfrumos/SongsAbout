@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SongsAbout.Classes;
 using SongsAbout.Enums;
 using SpotifyAPI.Web.Models;
 
@@ -37,25 +38,45 @@ namespace SongsAbout.Entities
         public override string Name
         {
             get { return this.name; }
-            set { this.name = value; }
+            set
+            {
+                this.name = value;
+                _saved = false;
+            }
         }
-
+        private bool _saved = false;
         public override void Save()
         {
+            if (!this._saved && !Exists(this.Name))
+            {
+                using (var db = new DataClassesContext())
+                {
+                    db.Genres.Add(this);
+                    db.SaveChanges();
+                    this._saved = true;
+                }
+            }
         }
-
-        public bool Exists(string name)
+        public Genre(string name)
         {
-            int num;
+            this.Name = name;
+            if (!SongDatabase.ExistingGenres.Contains(name))
+            {
+                Save();
+            }
+        }
+        public static bool Exists(string name)
+        {
+            bool result = true;
             using (var db = new DataClassesContext())
             {
-                var query =
-                     from g in db.Genres
-                     where g.Name == name
-                     select g;
-                num = query.Count();
+                var genreNum =
+                     (from g in db.Genres
+                      where g.Name == name
+                      select g).Count();
+                result = genreNum > 0;
             }
-            return num > 0;
+            return result;
         }
     }
 }

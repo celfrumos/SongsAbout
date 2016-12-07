@@ -45,14 +45,59 @@ namespace SongsAbout.Entities
             get { return this.al_spotify_uri; }
             set { this.al_spotify_uri = value; }
         }
+        public byte[] CoverArt
+        {
+            get { return this.al_cover_art; }
+            set { this.al_cover_art = value; }
+        }
         public override string TypeName
         {
             get { return typeof(Artist).ToString(); }
+        }
+        public int ArtistId
+        {
+            get { return this.artist_id; }
+            set { this.artist_id = value; }
         }
         public Image Image
         {
             get { return Converter.ImageFromBytes(this.al_cover_art); }
             set { this.al_cover_art = Converter.ImageToBytes(value); }
+        }
+        public List<string> GetGenres()
+        {
+            return (from a in this.AlbumGenres
+                    select a.Genre.Name).ToList();
+
+        }
+        public void AddGenre(string genre)
+        {
+            if (!this.GetGenres().Contains(genre))
+            {
+                using (var db = new DataClassesContext())
+                {
+                    Genre newGenre;
+                    var existingGenres = SongDatabase.ExistingGenres;
+                    if (existingGenres.Contains(genre))
+                    {
+                        newGenre = (from g in db.Genres
+                                    where g.Name == genre
+                                    select g).First();
+                    }
+                    else
+                    {
+                        newGenre = new Genre(genre);
+                        db.Genres.Add(newGenre);
+                    }
+                    var ag = new AlbumGenre();
+                    ag.Album = this;
+                    ag.Genre = newGenre;
+                    db.AlbumGenres.Add(ag);
+
+                    this.AlbumGenres.Add(ag);
+                    db.SaveChanges();
+                }
+            }
         }
         public override string TitleColumnName
         {
@@ -241,7 +286,7 @@ namespace SongsAbout.Entities
                 {
                     a = new Artist(simpleArtist);
                     a.Save();
-                    Console.WriteLine($"Artist added: '{a.name}'");
+                    Console.WriteLine($"Artist added: '{a.Name}'");
                 }
                 a = Artist.Load(simpleArtist.Name);
                 this.artist_id = a.ID;
@@ -259,9 +304,7 @@ namespace SongsAbout.Entities
             {
                 foreach (string g in genres)
                 {
-                    var ag = new AlbumGenre();
-                    ag.ID = this.ID;
-                    ag.genre = g;
+                    var ag = new AlbumGenre(this, new Genre(g));
                     db.AlbumGenres.Add(ag);
                 }
                 db.SaveChanges();
@@ -273,9 +316,7 @@ namespace SongsAbout.Entities
             {
                 foreach (string g in entity.Genres)
                 {
-                    var ag = new AlbumGenre();
-                    ag.ID = this.ID;
-                    ag.genre = g;
+                    var ag = new AlbumGenre(this, new Genre(g));
                     db.AlbumGenres.Add(ag);
                 }
                 db.SaveChanges();

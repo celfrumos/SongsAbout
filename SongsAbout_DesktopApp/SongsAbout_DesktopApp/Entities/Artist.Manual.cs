@@ -64,7 +64,6 @@ namespace SongsAbout.Entities
             set { this.name = value; }
         }
 
-        public Image Image { get { return Converter.ImageFromBytes(this.a_profile_pic); } }
 
         public override string TypeName
         {
@@ -74,7 +73,32 @@ namespace SongsAbout.Entities
         {
             get { return TitleColumn; }
         }
-        
+
+        public string Bio
+        {
+            get { return this.a_bio; }
+            set { this.a_bio = value; }
+        }
+        public string Website
+        {
+            get { return this.a_website; }
+            set { this.a_website = value; }
+        }
+        public string Uri
+        {
+            get { return this.a_spotify_uri; }
+            set { this.a_spotify_uri = value; }
+        }
+        public byte[] ProfilePicBytes
+        {
+            get { return this.a_profile_pic; }
+            set { this.a_profile_pic = value; }
+        }
+        public Image ProfilePic
+        {
+            get { return Converter.ImageFromBytes(this.ProfilePicBytes); }
+            set { this.ProfilePicBytes = Converter.ImageToBytes(value); }
+        }
         /// <summary>
         /// Submit Changes to the Database
         /// </summary>

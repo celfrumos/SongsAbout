@@ -12,7 +12,7 @@ using SongsAbout.Classes;
 
 namespace SongsAbout.Entities
 {
-    public partial class Track : DbEntity //: DbEntity<Track>
+    public partial class Track : DbEntity
     {
         private const double MS_TO_MINUTES = 60000D;
 
@@ -26,7 +26,33 @@ namespace SongsAbout.Entities
             get { return Table; }
         }
 
-        public override string Name { get; set; }
+        public override string Name
+        {
+            get { return this.name; }
+            set { this.name = value; }
+        }
+        public double? Length
+        {
+            get { return this.track_length_minutes; }
+            set { this.track_length_minutes = value; }
+        }
+        public string Uri
+        {
+            get { return this.track_spotify_uri; }
+            set { this.track_spotify_uri = value; }
+        }
+
+        public int AlbumId
+        {
+            get { return this.track_album_id; }
+            set { this.track_album_id = value; }
+        }
+
+        public int ArtistId
+        {
+            get { return this.track_artist_id; }
+            set { this.track_artist_id = value; }
+        }
 
         public override string TypeName
         {
@@ -38,9 +64,9 @@ namespace SongsAbout.Entities
         }
         public Track(string name, double length = 0, string uri = "", int artist_id = 0, int album_id = 0)
         {
-            this.name = name;
-            this.track_length_minutes = length / MS_TO_MINUTES;
-            this.track_spotify_uri = uri;
+            this.Name = name;
+            this.Length = length / MS_TO_MINUTES;
+            this.Uri = uri;
         }
         public Track(FTrack t) : this(t.Name, t.DurationMs, t.Uri)
         {

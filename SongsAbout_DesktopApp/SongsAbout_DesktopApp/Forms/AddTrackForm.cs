@@ -32,14 +32,14 @@ namespace SongsAbout.Forms
         {
             try
             {
-                NewTrack.name = txtBoxName.Text;
-                NewTrack.track_length_minutes = double.Parse(txtBoxLength.Text);
+                NewTrack.Name = txtBoxName.Text;
+                NewTrack.Length = double.Parse(txtBoxLength.Text);
 
                 string newAlbumId = cBoxAlbum.SelectedValue.ToString();
                 //                NewTrack.album_id = int.Parse(newAlbumId);
 
                 string newArtistId = cBoxAlbum.SelectedValue.ToString();
-                NewTrack.track_artist_id = int.Parse(newArtistId);
+                NewTrack.ArtistId = int.Parse(newArtistId);
 
                 NewTrack.Save();
 

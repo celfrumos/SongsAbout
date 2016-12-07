@@ -926,7 +926,7 @@ namespace SongsAbout.Controls
         {
             if (entity is Artist)
             {
-                this.Image = ((Artist)entity).Image;
+                this.Image = ((Artist)entity).ProfilePic;
             }
             else if (entity is Album)
             {
