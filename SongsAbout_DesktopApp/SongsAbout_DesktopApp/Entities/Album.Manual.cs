@@ -27,7 +27,6 @@ namespace SongsAbout.Entities
             get { return this._spotifyType; }
             set { this._spotifyType = value; }
         }
-        Type a = typeof(Artist);
 
         public override string TableName
         {
@@ -192,7 +191,15 @@ namespace SongsAbout.Entities
                 {
                     result = (Album)(from Album ab in context.Albums
                                      where ab.name == al_title
-                                     select ab).First();
+                                     select ab).FirstOrDefault();
+
+                    foreach (var track in result.Tracks)
+                    {
+                        track.Genres = track.Genres;
+                        track.Artists = track.Artists;
+                        track.Topics = track.Topics;
+                        track.Lists = track.Lists;                        
+                    }
                 }
                 return result;
             }

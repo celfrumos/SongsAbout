@@ -37,9 +37,8 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
-                SetProfilePic();
-                var artists = SongDatabase.ExistingArtists;
-                var a = artists[2];
+                // SetProfilePic();
+                var a = Artist.Load("Jon Bellion");
                 var als = a.Albums;
                 foreach (var al in als)
                 {
@@ -48,6 +47,7 @@ namespace SongsAbout.Forms
                         Console.WriteLine($"Artist{a.Name}, Album: {al.Name}, Track: {track.Name}");
                     }
                 }
+
 
                 using (var db = new DataClassesContext())
                 {
@@ -60,7 +60,7 @@ namespace SongsAbout.Forms
             {
                 Console.WriteLine(ex.Message);
             }
-          //  this.lstBxGenres.DataSource = SongDatabase.ExistingGenres;
+            //  this.lstBxGenres.DataSource = SongDatabase.ExistingGenres;
 
         }
 

@@ -20,6 +20,7 @@ namespace SongsAbout.Entities
         public DataClassesContext()
             : base("name=DataClassesContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

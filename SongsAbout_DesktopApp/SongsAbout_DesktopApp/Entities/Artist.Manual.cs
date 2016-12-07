@@ -266,13 +266,22 @@ namespace SongsAbout.Entities
                 {
                     using (var db = new DataClassesContext())
                     {
-                        result = (Artist)(from Artist a in db.Artists
-                                          where a.name == a_name
-                                          select a).First();
+                        db.Configuration.LazyLoadingEnabled = true;
+                        result = (
+                            from Artist a in db.Artists
+                            where a.name == a_name
+                            select a).FirstOrDefault();
+                        foreach (var album in result.Albums)
+                        {
+                            album.Tracks = album.Tracks;
+                            album.Genres = album.Genres;
+                        }
+
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     result = new Artist();
                 }
                 return result;
@@ -292,9 +301,15 @@ namespace SongsAbout.Entities
                     Artist result;
                     using (var db = new DataClassesContext())
                     {
-                        result = (Artist)(from Artist a in db.Artists
-                                          where a.ID == a_id
-                                          select a).First();
+                        result = (from Artist a in db.Artists
+                                  where a.ID == a_id
+                                  select a).First();
+
+                        foreach (var album in result.Albums)
+                        {
+                            album.Tracks = album.Tracks;
+                            album.Genres = album.Genres;
+                        }
                     }
                     return result;
                 }

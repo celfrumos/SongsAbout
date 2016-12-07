@@ -14,19 +14,19 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout.Entities
 {
-    public partial class AlbumGenre
-    {
-        public AlbumGenre()
-        {
-            this.Album = new Album();
-            this.Genre = new Genre();
-        }
+    //public partial class AlbumGenre
+    //{
+    //    //public AlbumGenre()
+    //    //{
+    //    //    this.Album = new Album();
+    //    //    this.Genre = new Genre();
+    //    //}
 
-        public AlbumGenre(Album album, Genre genre)
-        {
-            this.Album = album;
-            this.Genre = genre;
+    //    //public AlbumGenre(Album album, Genre genre)
+    //    //{
+    //    //    this.Album = album;
+    //    //    this.Genre = genre;
 
-        }
-    }
+    //    //}
+    //}
 }

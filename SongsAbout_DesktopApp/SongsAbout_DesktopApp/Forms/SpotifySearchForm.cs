@@ -254,9 +254,9 @@ namespace SongsAbout.Forms
         {
             return (_searchType & targetType) == targetType;
         }
-        private SearchType TogleSearchType(SearchType targetType)
+        private SearchType ToggleSearchType(SearchType targetType)
         {
-            return _searchType ^ targetType;
+            return Flags.Spotify.Search.ToggleFlag(_searchType, targetType);
         }
 
         public SearchType SetSearchType(SearchType targetType)

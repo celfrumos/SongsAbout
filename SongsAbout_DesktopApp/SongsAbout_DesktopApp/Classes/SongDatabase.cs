@@ -55,7 +55,7 @@ namespace SongsAbout.Classes
             {
                 using (var db = new DataClassesContext())
                 {
-                    db.UpdateInsert_Album(album.ID, album.Artist.ID, album.Name,album.Year, album.Uri, album.CoverArt);
+                    db.UpdateInsert_Album(album.ID, album.Artist.ID, album.Name, album.Year, album.Uri, album.CoverArt);
                     db.SaveChanges();
 
                 }
@@ -100,6 +100,8 @@ namespace SongsAbout.Classes
                     artists = (from a in db.Artists
                                where a.ID != 0
                                select a).ToList();
+
+
                 }
                 return artists;
             }

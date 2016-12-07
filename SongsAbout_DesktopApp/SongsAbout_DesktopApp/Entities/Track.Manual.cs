@@ -62,6 +62,30 @@ namespace SongsAbout.Entities
         {
             get { return TitleColumn; }
         }
+        public static Track Load(Track track)
+        {
+            try
+            {
+                Track result = track;
+                using (var db = new DataClassesContext())
+                {
+                    result = (from Track a in db.Tracks
+                              where a == track
+                              select a).First();
+
+                    result.Genres = result.Genres;
+                    result.Artists = result.Artists;
+                    result.Topics = result.Topics;
+                    result.Lists = result.Lists;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new InitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+            }
+
+        }
         public Track(string name, double length = 0, string uri = "", int artist_id = 0, int album_id = 0)
         {
             this.Name = name;
