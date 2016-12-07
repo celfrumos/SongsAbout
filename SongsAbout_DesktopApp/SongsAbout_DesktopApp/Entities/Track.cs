@@ -21,6 +21,8 @@ namespace SongsAbout.Entities
             this.TrackArtists = new HashSet<TrackArtist>();
             this.TrackGenres = new HashSet<TrackGenre>();
             this.TrackTopics = new HashSet<TrackTopic>();
+            this.Lists = new HashSet<List>();
+            this.Tags = new HashSet<Tag>();
         }
     
         public int ID { get; set; }
@@ -32,12 +34,17 @@ namespace SongsAbout.Entities
         public int track_album_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlbumTrack> AlbumTracks { get; set; }
+        private ICollection<AlbumTrack> AlbumTracks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackArtist> TrackArtists { get; set; }
+        private ICollection<TrackArtist> TrackArtists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackGenre> TrackGenres { get; set; }
+        private ICollection<TrackGenre> TrackGenres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackTopic> TrackTopics { get; set; }
+        private ICollection<TrackTopic> TrackTopics { get; set; }
+        public virtual Album Album { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<List> Lists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

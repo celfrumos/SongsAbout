@@ -14,8 +14,7 @@ namespace SongsAbout.Entities
     
     public partial class AlbumGenre
     {
-        public int ID { get; set; }
-        private Nullable<int> album_id { get; set; }
+        private int album_id { get; set; }
         public string genre { get; set; }
     
         public virtual Album Album { get; set; }

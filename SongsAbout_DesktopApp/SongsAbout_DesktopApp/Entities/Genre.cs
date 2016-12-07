@@ -24,8 +24,8 @@ namespace SongsAbout.Entities
         private string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlbumGenre> AlbumGenres { get; set; }
+        private ICollection<AlbumGenre> AlbumGenres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackGenre> TrackGenres { get; set; }
+        private ICollection<TrackGenre> TrackGenres { get; set; }
     }
 }

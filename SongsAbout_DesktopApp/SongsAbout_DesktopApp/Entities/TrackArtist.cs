@@ -14,7 +14,6 @@ namespace SongsAbout.Entities
     
     public partial class TrackArtist
     {
-        public int ID { get; set; }
         public int artist_id { get; set; }
         public int track_id { get; set; }
     

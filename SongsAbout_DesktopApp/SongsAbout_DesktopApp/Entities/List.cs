@@ -14,7 +14,16 @@ namespace SongsAbout.Entities
     
     public partial class List
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public List()
+        {
+            this.Tracks = new HashSet<Track>();
+        }
+    
         public int list_id { get; set; }
         public string list_name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Track> Tracks { get; set; }
     }
 }

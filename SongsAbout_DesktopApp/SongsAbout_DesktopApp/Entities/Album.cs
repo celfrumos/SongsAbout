@@ -19,6 +19,7 @@ namespace SongsAbout.Entities
         {
             this.AlbumGenres = new HashSet<AlbumGenre>();
             this.AlbumTracks = new HashSet<AlbumTrack>();
+            this.Tracks = new HashSet<Track>();
         }
     
         public int ID { get; set; }
@@ -33,5 +34,7 @@ namespace SongsAbout.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         private ICollection<AlbumTrack> AlbumTracks { get; set; }
         public virtual Artist Artist { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Track> Tracks { get; set; }
     }
 }
