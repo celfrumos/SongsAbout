@@ -11,6 +11,7 @@ namespace SongsAbout.Entities
 {
     public partial class Genre : DbEntity
     {
+        public static List<string> ExistingGenres { get; set; }
         public override DbEntityType DbEntityType
         {
             get { return DbEntityType.Genre; }
@@ -35,13 +36,8 @@ namespace SongsAbout.Entities
         }
         public override string Name
         {
-            get { return this.genre; }
-            set { this.genre = value; }
-        }
-        public string genre
-        {
-            get { return this.genre1; }
-            set { this.genre1 = value; }
+            get { return this.name; }
+            set { this.name = value; }
         }
 
         public override void Save()
@@ -55,7 +51,7 @@ namespace SongsAbout.Entities
             {
                 var query =
                      from g in db.Genres
-                     where g.genre == name
+                     where g.Name == name
                      select g;
                 num = query.Count();
             }

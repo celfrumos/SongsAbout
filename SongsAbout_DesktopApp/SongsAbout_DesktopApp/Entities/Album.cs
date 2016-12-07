@@ -22,16 +22,16 @@ namespace SongsAbout.Entities
         }
     
         public int ID { get; set; }
-        public int artist_id { get; set; }
-        public string name { get; set; }
-        public string al_year { get; set; }
-        public string al_spotify_uri { get; set; }
-        public byte[] al_cover_art { get; set; }
+        private int artist_id { get; set; }
+        private string name { get; set; }
+        private string al_year { get; set; }
+        private string al_spotify_uri { get; set; }
+        private byte[] al_cover_art { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlbumGenre> AlbumGenres { get; set; }
+        private ICollection<AlbumGenre> AlbumGenres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlbumTrack> AlbumTracks { get; set; }
+        private ICollection<AlbumTrack> AlbumTracks { get; set; }
         public virtual Artist Artist { get; set; }
     }
 }

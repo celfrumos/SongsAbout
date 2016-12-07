@@ -34,13 +34,26 @@ namespace SongsAbout.Entities
             get { return Table; }
         }
 
-        public override string Name { get; set; }
-
+        public override string Name { get { return this.name; } set { this.name = value; } }
+        public string Year
+        {
+            get { return this.al_year; }
+            set { this.al_year = value; }
+        }
+        public string Uri
+        {
+            get { return this.al_spotify_uri; }
+            set { this.al_spotify_uri = value; }
+        }
         public override string TypeName
         {
             get { return typeof(Artist).ToString(); }
         }
-        public Image Image { get { return Converter.ImageFromBytes(this.al_cover_art); } }
+        public Image Image
+        {
+            get { return Converter.ImageFromBytes(this.al_cover_art); }
+            set { this.al_cover_art = Converter.ImageToBytes(value); }
+        }
         public override string TitleColumnName
         {
             get { return TitleColumn; }
@@ -247,7 +260,7 @@ namespace SongsAbout.Entities
                 foreach (string g in genres)
                 {
                     var ag = new AlbumGenre();
-                    ag.album_id = this.ID;
+                    ag.ID = this.ID;
                     ag.genre = g;
                     db.AlbumGenres.Add(ag);
                 }
@@ -261,7 +274,7 @@ namespace SongsAbout.Entities
                 foreach (string g in entity.Genres)
                 {
                     var ag = new AlbumGenre();
-                    ag.album_id = this.ID;
+                    ag.ID = this.ID;
                     ag.genre = g;
                     db.AlbumGenres.Add(ag);
                 }

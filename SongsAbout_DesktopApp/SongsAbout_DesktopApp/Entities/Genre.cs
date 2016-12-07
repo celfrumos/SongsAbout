@@ -21,7 +21,7 @@ namespace SongsAbout.Entities
             this.TrackGenres = new HashSet<TrackGenre>();
         }
     
-        public string genre1 { get; set; }
+        private string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlbumGenre> AlbumGenres { get; set; }

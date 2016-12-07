@@ -8,8 +8,10 @@ using SongsAbout.Properties;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 using SongsAbout.Entities;
+using SongsAbout.Enums;
 using Track = SongsAbout.Entities.Track;
 using Image = System.Drawing.Image;
+using System.Drawing;
 
 namespace SongsAbout.Classes
 {
@@ -23,22 +25,34 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(typeof(SimpleAlbum), typeof(FullAlbum), ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.SimpleAlbum, SpotifyEntityType.FullAlbum, ex.Message);
             }
         }
-        public static Image ImageFromBytes(byte[] imageBytes)
+        public static System.Drawing.Image ImageFromBytes(byte[] imageBytes)
         {
             try
             {
                 using (MemoryStream stream = new MemoryStream(imageBytes))
                 {
-                    return Image.FromStream(stream);
-
+                    return System.Drawing.Image.FromStream(stream);
                 }
             }
             catch (Exception ex)
             {
-                throw new SpotifyImageImportError(ex.Message);
+                throw new ConversionError(typeof(byte[]).FullName, typeof(Image).FullName, ex.Message);
+            }
+        }
+        public static byte[] ImageToBytes(System.Drawing.Image image)
+        {
+            try
+            {
+                MemoryStream stream = new MemoryStream();
+                image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+                return stream.ToArray();
+            }
+            catch (Exception ex)
+            {
+                throw new ConversionError("System.Drawing.Image", "byte[]", ex.Message);
             }
         }
         public static FullArtist GetFullArtist(SimpleArtist artist)
@@ -49,10 +63,11 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(typeof(SimpleArtist), typeof(FullArtist), ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.SimpleArtist, SpotifyEntityType.FullArtist, ex.Message);
             }
 
         }
+
 
         public static FullTrack GetFullTrack(SimpleTrack track)
         {
@@ -62,18 +77,18 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(typeof(SimpleTrack), typeof(FullTrack), ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.SimpleTrack, SpotifyEntityType.FullTrack, ex.Message);
             }
         }
         public static FullTrack GetFullTrack(SavedTrack track)
         {
             try
-            {                
+            {
                 return UserSpotify.WebAPI.GetTrack(track.Track.Id);
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(typeof(SimpleTrack), typeof(FullTrack), ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.SimpleTrack, SpotifyEntityType.FullTrack, ex.Message);
             }
         }
 
@@ -85,7 +100,7 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(typeof(SimpleTrack), typeof(FullTrack), ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.SimpleTrack, SpotifyEntityType.FullTrack, ex.Message);
             }
 
         }

@@ -7,6 +7,8 @@ using SpotifyAPI;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using System.Threading.Tasks;
+using SongsAbout.Entities;
+using SongsAbout.Enums;
 
 namespace SongsAbout.Classes
 {
@@ -92,15 +94,15 @@ namespace SongsAbout.Classes
     {
         private const string defMsg = "Spotify Conversion Error.";
 
-        public Type FromType { get; set; }
-        public Type ToType { get; set; }
+        public SpotifyEntityType FromType { get; set; }
+        public SpotifyEntityType ToType { get; set; }
 
         public override string Message
         {
             get { return $"Error converting {FromType} to {ToType}: {base.Message}"; }
         }
 
-        public SpotifyConversionError(Type fromType, Type toType, string msg = defMsg) : base(msg)
+        public SpotifyConversionError(SpotifyEntityType fromType, SpotifyEntityType toType, string msg = defMsg) : base(msg)
         {
             this.FromType = fromType;
             this.ToType = toType;

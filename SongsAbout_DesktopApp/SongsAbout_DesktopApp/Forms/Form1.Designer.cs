@@ -40,13 +40,13 @@
             // 
             // pBoxProfilePic
             // 
-            this.pBoxProfilePic.Location = new System.Drawing.Point(13, 114);
+            this.pBoxProfilePic.Location = new System.Drawing.Point(13, 45);
             // 
             // btnSearch
             // 
-            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.btnSearch.Location = new System.Drawing.Point(420, 194);
+            this.btnSearch.Location = new System.Drawing.Point(420, 303);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(216, 38);
@@ -56,8 +56,8 @@
             // 
             // txtBoxKeywords
             // 
-            this.txtBoxKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxKeywords.Location = new System.Drawing.Point(420, 156);
+            this.txtBoxKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxKeywords.Location = new System.Drawing.Point(420, 265);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
             this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
@@ -65,12 +65,12 @@
             // 
             // lblTitleKeywords
             // 
-            this.lblTitleKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTitleKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTitleKeywords.AutoSize = true;
             this.lblTitleKeywords.BackColor = System.Drawing.Color.Transparent;
             this.lblTitleKeywords.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.lblTitleKeywords.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblTitleKeywords.Location = new System.Drawing.Point(291, 156);
+            this.lblTitleKeywords.Location = new System.Drawing.Point(291, 265);
             this.lblTitleKeywords.Name = "lblTitleKeywords";
             this.lblTitleKeywords.Size = new System.Drawing.Size(75, 19);
             this.lblTitleKeywords.TabIndex = 32;
@@ -82,20 +82,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstBxGenres.FormattingEnabled = true;
             this.lstBxGenres.ItemHeight = 18;
-            this.lstBxGenres.Items.AddRange(new object[] {
-            "Acoustic",
-            "Country",
-            "Electronic",
-            "Folk",
-            "Opera",
-            "Pop",
-            "Rap",
-            "Rock"});
             this.lstBxGenres.Location = new System.Drawing.Point(420, 84);
             this.lstBxGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstBxGenres.Name = "lstBxGenres";
             this.lstBxGenres.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstBxGenres.Size = new System.Drawing.Size(216, 58);
+            this.lstBxGenres.Size = new System.Drawing.Size(216, 166);
             this.lstBxGenres.Sorted = true;
             this.lstBxGenres.TabIndex = 31;
             // 
@@ -137,7 +128,7 @@
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
-            this.ClientSize = new System.Drawing.Size(648, 254);
+            this.ClientSize = new System.Drawing.Size(648, 363);
             this.Controls.Add(this.txtBoxKeywords);
             this.Controls.Add(this.lblTitleKeywords);
             this.Controls.Add(this.lstBxGenres);

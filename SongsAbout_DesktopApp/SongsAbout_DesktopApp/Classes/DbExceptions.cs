@@ -11,82 +11,76 @@ namespace SongsAbout.Classes
 {
     public class DbException : Exception
     {
-        const string defMsg = "An Error Occurred while interacting with the database";
+        const string DEF_MSG = "An Error Occurred while interacting with the database";
         protected string _message;
 
         public override string Message { get { return _message; } }
 
-        public virtual SpotifyEntityType SpotifyType { get; set; }
+        public virtual DbEntityType DbEntityType { get; protected set; }
 
-        protected string _type
-        {
-            get { return _entity.TypeName; }
-            set { _type = value; }
-        }
+        public virtual DbEntity _entity { get; protected set; }
 
-        protected DbEntity _entity { get; set; }
-
-        protected string _table
+        protected string TableName
         {
             get { return _entity.TableName; }
-            set { _table = value; }
         }
 
-        protected string _titleColumn { get { return _entity.TitleColumnName; } }
+        public string EntityColumn { get { return _entity.TitleColumnName; } }
 
-        public DbException(DbEntity e, string msg = defMsg)
-        {
-            Initialize(e, msg);
-        }
-
-        protected void Initialize(DbEntity e, string msg)
+        public DbException(DbEntity e, string msg = DEF_MSG)
         {
             _message = msg;
-
             _entity = e;
-            _type = e.TypeName;
-            _table = e.TableName;
+            DbEntityType = e.DbEntityType;
         }
 
-        public DbException(string msg = defMsg) : base(msg)
+
+        public DbException(string msg = DEF_MSG) : base(msg)
         {
             _message = msg;
         }
-        public DbException(Type t, string msg = defMsg) : base(dbExDefMsg(t, msg))
+        public DbException(Type t, string msg = DEF_MSG) : base(dbExDefMsg(t, msg))
         {
             _message = msg;
         }
 
-        protected static string dbExDefMsg(DbEntity e, string msg = "")
+        public DbException(DbEntityType dbEntityType, string msg = DEF_MSG) : base(dbExDefMsg(dbEntityType, msg))
         {
-            return
-            (msg == defMsg ? msg : $"Error Updating {e.TypeName} from {e.TableName} table: " + msg);
+            _message = msg;
+        }
+        protected static string dbExDefMsg(DbEntity e, string msg = DEF_MSG)
+        {
+            return (msg == DEF_MSG ? msg : $"Error Updating {e.TypeName} from {e.TableName} table: " + msg);
 
         }
-        protected static string dbExDefMsg(Type t, string msg = "")
+        protected static string dbExDefMsg(DbEntityType e, string msg = DEF_MSG)
         {
-            return
-            (msg == defMsg ? msg : $"Error Updating {t} from  table. " + msg);
+            return (msg == DEF_MSG ? msg : $"An error occurred related to {e} table: " + msg);
+
+        }
+        protected static string dbExDefMsg(Type t, string msg = DEF_MSG)
+        {
+            return (msg == DEF_MSG ? msg : $"An error occured related to {t} table. " + msg);
 
         }
     }
 
     public class SaveError : DbException
     {
-        const string defaultMsg = "Error Saving to the database.";
-        public SaveError(string msg = defaultMsg) : base($"Save Error: {msg}")
+        const string DEF_MSG = "Error Saving to the database.";
+        public SaveError(string msg = DEF_MSG) : base($"Save Error: {msg}")
         {
 
         }
-        public SaveError(DbEntity e, string name, string msg = defaultMsg)
+        public SaveError(DbEntity e, string name, string msg = DEF_MSG)
             : base(e, saveErrDefMsg(e, name, msg))
         {
         }
 
-        private static string saveErrDefMsg(DbEntity e, string name, string msg)
+        private static string saveErrDefMsg(DbEntity e, string name, string msg = DEF_MSG)
         {
             return
-            (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from {e.TableName} table: " + msg);
+            (msg == DEF_MSG ? msg : $"Error Updating {e.TypeName} '{name}' from {e.TableName} table: " + msg);
 
         }
 
@@ -94,51 +88,43 @@ namespace SongsAbout.Classes
 
     public class LoadError : DbException
     {
-        const string defaultMsg = "Error Loading entity from Database";
+        const string DEF_MSG = "Error Loading entity from Database";
 
-        LoadError(string msg = defaultMsg) : base($"Load Error: {msg}") { }
+        LoadError(string msg = DEF_MSG) : base($"Load Error: {msg}") { }
 
-        public LoadError(DbEntity e, string name, string msg = defaultMsg)
+        public LoadError(DbEntity e, string name, string msg = DEF_MSG)
             : base(loadDefMsg(e, name, msg))
         {
         }
 
 
-        public LoadError(DbEntity e, int id, string msg = defaultMsg)
-            : base(loadDefMsg(e, id, msg))
+        public LoadError(DbEntity e, int id, string msg = DEF_MSG) : base(loadDefMsg(e, id, msg))
         {
         }
-        public LoadError(DbEntityType e, int id, string msg = defaultMsg)
-        : base(loadDefMsg(e, id, msg))
+        public LoadError(DbEntityType e, int id, string msg = DEF_MSG) : base(loadDefMsg(e, id, msg))
         {
         }
 
-        private static string loadDefMsg(DbEntity e, string name, string msg)
+        private static string loadDefMsg(DbEntity e, string name, string msg = DEF_MSG)
         {
-            return
-                (msg == defaultMsg ? msg : $"Error Loading {e.TypeName} '{name}' from {e.TableName} table: " + msg);
+            return (msg == DEF_MSG ? msg : $"Error Loading {e.TypeName} '{name}' from {e.TableName} table: " + msg);
         }
         private static string loadDefMsg(DbEntity e, int id, string msg)
         {
-            return (msg == defaultMsg ? msg : $"Error Loading {e.TypeName} with id {id} from {e.TableName} table: " + msg);
+            return (msg == DEF_MSG ? msg : $"Error Loading {e.TypeName} with id {id} from {e.TableName} table: " + msg);
         }
         private static string loadDefMsg(DbEntityType e, int id, string msg)
         {
             switch (e)
             {
                 case DbEntityType.Artist:
-                    return (msg == defaultMsg ?
-                        msg : $"Error Loading {Artist.TypeString} with id {id} from {Artist.Table} table: " + msg);
+                    return (msg == DEF_MSG ? msg : $"Error Loading {Artist.TypeString} with id {id} from {Artist.Table} table: " + msg);
                 case DbEntityType.Album:
-                    return (msg == defaultMsg ?
-                        msg : $"Error Loading {Album.TypeString} with id {id} from {Album.Table} table: " + msg);
-
+                    return (msg == DEF_MSG ? msg : $"Error Loading {Album.TypeString} with id {id} from {Album.Table} table: " + msg);
                 case DbEntityType.Track:
-                    return (msg == defaultMsg ?
-                        msg : $"Error Loading {Track.TypeString} with id {id} from {Track.Table} table: " + msg);
+                    return (msg == DEF_MSG ? msg : $"Error Loading {Track.TypeString} with id {id} from {Track.Table} table: " + msg);
                 default:
-                    return (msg == defaultMsg ?
-                        msg : defaultMsg + "\n" + msg);
+                    return (msg == DEF_MSG ? msg : DEF_MSG + "\n" + msg);
             }
         }
         private static string loadDefMsg(DbEntityType e, string name, string msg)
@@ -146,18 +132,13 @@ namespace SongsAbout.Classes
             switch (e)
             {
                 case DbEntityType.Artist:
-                    return (msg == defaultMsg ?
-                        msg : $"Error Loading {Artist.TypeString} with name {name} from {Artist.Table} table: " + msg);
+                    return (msg == DEF_MSG ? msg : $"Error Loading {Artist.TypeString} with name {name} from {Artist.Table} table: " + msg);
                 case DbEntityType.Album:
-                    return (msg == defaultMsg ?
-                        msg : $"Error Loading {Album.TypeString} with name {name} from {Album.Table} table: " + msg);
-
+                    return (msg == DEF_MSG ? msg : $"Error Loading {Album.TypeString} with name {name} from {Album.Table} table: " + msg);
                 case DbEntityType.Track:
-                    return (msg == defaultMsg ?
-                        msg : $"Error Loading {Track.TypeString} with name {name} from {Track.Table} table: " + msg);
+                    return (msg == DEF_MSG ? msg : $"Error Loading {Track.TypeString} with name {name} from {Track.Table} table: " + msg);
                 default:
-                    return (msg == defaultMsg ?
-                        msg : defaultMsg + "\n" + msg);
+                    return (msg == DEF_MSG ? msg : DEF_MSG + "\n" + msg);
             }
         }
 
@@ -230,9 +211,12 @@ namespace SongsAbout.Classes
     {
         const string defaultMsg = "Error importing data from spotify";
 
+        public SpotifyEntityType SpotifyEntityType { get; private set; }
         public SpotifyToDBImportException(SpotifyEntityType spotifyType, DbEntity e, string msg = defaultMsg)
             : base(e, ImportDefMsg(spotifyType, e, msg))
         {
+            this.SpotifyEntityType = spotifyType;
+            this.DbEntityType = e.DbEntityType;
 
         }
 
@@ -262,15 +246,35 @@ namespace SongsAbout.Classes
     {
         const string defaultMsg = "Failed to initialize DbEntity from Spotify Entity.";
 
+        public SpotifyEntityType SpotifyEntityType { get; private set; }
         public InitializationError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = defaultMsg) : base(initErrDefMsg(dbType, spotifyType, msg))
         {
+            this.DbEntityType = dbType;
+            this.SpotifyEntityType = spotifyType;
         }
 
         private static string initErrDefMsg(DbEntityType dbType, SpotifyEntityType spotifyType, string msg)
         {
-            return
-                (msg == defaultMsg ? msg : $"Failed to initialize DbEntity {dbType} from Spotify Entity {spotifyType}\n{msg}");
+            return (msg == defaultMsg ? msg : $"Failed to initialize DbEntity {dbType} from Spotify Entity {spotifyType}\n{msg}");
         }
 
+    }
+    public class ConversionError : DbException
+    {
+        const string DEF_MSG = "Failed to convert one DataType to another.";
+
+        public string FromType { get; set; }
+        public string ToType { get; set; }
+        public ConversionError(string fromType = "UnknownType", string toType = "UnknownType", string msg = DEF_MSG)
+            : base(_convErrDefMsg(fromType, toType, msg))
+        {
+            this.FromType = fromType;
+            this.ToType = toType;
+        }
+
+        private static string _convErrDefMsg(string fromType = "UnknownType", string toType = "UnknownType", string msg = DEF_MSG)
+        {
+            return (msg == DEF_MSG ? msg : $"Failed to convert {fromType} to {toType}\n{msg}");
+        }
     }
 }

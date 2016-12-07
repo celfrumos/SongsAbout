@@ -23,6 +23,7 @@ namespace SongsAbout
 
             try
             {
+                
                 User.Default.Upgrade();
                 ConnectSpotify();
                 Application.Run(new Form1());

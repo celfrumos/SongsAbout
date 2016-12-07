@@ -14,4 +14,5 @@ namespace SongsAbout.Enums
     {
         FullArtist, FullAlbum, FullTrack, FullPlaylist, SimpleArtist, SimpleAlbum, SimpleTrack, SimplePlaylist, None
     }
+    
 }
