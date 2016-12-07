@@ -27,17 +27,13 @@ namespace SongsAbout.Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AlbumGenre> AlbumGenres { get; set; }
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<List> Lists { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Topic> Topics { get; set; }
-        public virtual DbSet<TrackArtist> TrackArtists { get; set; }
-        public virtual DbSet<TrackGenre> TrackGenres { get; set; }
         public virtual DbSet<Track> Tracks { get; set; }
-        public virtual DbSet<TrackTopic> TrackTopics { get; set; }
     
         public virtual int UpdateInsert_Artist(Nullable<int> id, string name, string a_bio, string a_website, string a_spotify_uri, byte[] a_profile_pic)
         {

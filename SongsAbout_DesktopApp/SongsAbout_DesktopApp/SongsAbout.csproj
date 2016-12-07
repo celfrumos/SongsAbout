@@ -183,9 +183,6 @@
     <Compile Include="Entities\Album.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\AlbumGenre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\AlbumTracks.Manual.cs" />
     <Compile Include="Entities\Artist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
@@ -226,19 +223,10 @@
     <Compile Include="Entities\Track.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\TrackArtist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\TrackArtists.Manual.cs" />
     <Compile Include="Classes\Importer.cs" />
     <Compile Include="Classes\SpotifyExceptions.cs" />
     <Compile Include="Classes\UserSpotify.cs" />
-    <Compile Include="Entities\TrackGenre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TrackTopic.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Controls\AlbumDisplay.cs">
       <SubType>UserControl</SubType>

@@ -17,11 +17,11 @@ namespace SongsAbout.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Track()
         {
-            this.TrackArtists = new HashSet<TrackArtist>();
-            this.TrackGenres = new HashSet<TrackGenre>();
-            this.TrackTopics = new HashSet<TrackTopic>();
-            this.Lists = new HashSet<List>();
             this.Tags = new HashSet<Tag>();
+            this.Lists = new HashSet<List>();
+            this.Artists = new HashSet<Artist>();
+            this.Genres = new HashSet<Genre>();
+            this.Topics = new HashSet<Topic>();
         }
     
         public int ID { get; set; }
@@ -32,16 +32,16 @@ namespace SongsAbout.Entities
         private string can_play { get; set; }
         private int track_album_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<TrackArtist> TrackArtists { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<TrackGenre> TrackGenres { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<TrackTopic> TrackTopics { get; set; }
         public virtual Album Album { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tag> Tags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<List> Lists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Artist> Artists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Genre> Genres { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Topic> Topics { get; set; }
     }
 }

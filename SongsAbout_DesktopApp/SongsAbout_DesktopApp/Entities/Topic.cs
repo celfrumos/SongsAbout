@@ -17,13 +17,13 @@ namespace SongsAbout.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Topic()
         {
-            this.TrackTopics = new HashSet<TrackTopic>();
+            this.Tracks = new HashSet<Track>();
         }
     
         public int ID { get; set; }
         public string topic_text { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackTopic> TrackTopics { get; set; }
+        public virtual ICollection<Track> Tracks { get; set; }
     }
 }

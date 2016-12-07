@@ -17,15 +17,15 @@ namespace SongsAbout.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Genre()
         {
-            this.AlbumGenres = new HashSet<AlbumGenre>();
-            this.TrackGenres = new HashSet<TrackGenre>();
+            this.Tracks = new HashSet<Track>();
+            this.Albums = new HashSet<Album>();
         }
     
         private string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<AlbumGenre> AlbumGenres { get; set; }
+        public virtual ICollection<Track> Tracks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<TrackGenre> TrackGenres { get; set; }
+        public virtual ICollection<Album> Albums { get; set; }
     }
 }

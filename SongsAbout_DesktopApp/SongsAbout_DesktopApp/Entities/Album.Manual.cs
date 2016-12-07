@@ -60,14 +60,14 @@ namespace SongsAbout.Entities
             set { this.artist_id = value; }
         }
         public Image Image
-        {
+        {  
             get { return Converter.ImageFromBytes(this.al_cover_art); }
             set { this.al_cover_art = Converter.ImageToBytes(value); }
         }
         public List<string> GetGenres()
         {
-            return (from a in this.AlbumGenres
-                    select a.Genre.Name).ToList();
+            return (from a in this.Genres
+                    select a.Name).ToList();
 
         }
         public void AddGenre(string genre)
@@ -89,12 +89,7 @@ namespace SongsAbout.Entities
                         newGenre = new Genre(genre);
                         db.Genres.Add(newGenre);
                     }
-                    var ag = new AlbumGenre();
-                    ag.Album = this;
-                    ag.Genre = newGenre;
-                    db.AlbumGenres.Add(ag);
-
-                    this.AlbumGenres.Add(ag);
+                    this.Genres.Add(newGenre);
                     db.SaveChanges();
                 }
             }
@@ -297,15 +292,39 @@ namespace SongsAbout.Entities
 
             }
         }
-
+        public void SetGenres(List<Genre> genres)
+        {
+            using (var db = new DataClassesContext())
+            {
+                foreach (var g in genres)
+                {
+                    if (!this.Genres.Contains(g))
+                    {
+                        this.Genres.Add(g);
+                        if (!db.Genres.Contains(g))
+                        {
+                            db.Genres.Add(g);
+                        }
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
         public void SetGenres(List<string> genres)
         {
             using (var db = new DataClassesContext())
             {
-                foreach (string g in genres)
+                foreach (var g in genres)
                 {
-                    var ag = new AlbumGenre(this, new Genre(g));
-                    db.AlbumGenres.Add(ag);
+                    Genre newG = new Genre(g);
+                    if (!this.Genres.Contains(newG))
+                    {
+                        if (!db.Genres.Contains(newG))
+                        {
+                            db.Genres.Add(newG);
+                        }
+                        this.Genres.Add(newG);
+                    }
                 }
                 db.SaveChanges();
             }
@@ -316,8 +335,16 @@ namespace SongsAbout.Entities
             {
                 foreach (string g in entity.Genres)
                 {
-                    var ag = new AlbumGenre(this, new Genre(g));
-                    db.AlbumGenres.Add(ag);
+                    Genre newG = new Genre(g);
+                    if (!this.Genres.Contains(newG))
+                    {
+                        if (!db.Genres.Contains(newG))
+                        {
+                            db.Genres.Add(newG);
+                        }
+                        this.Genres.Add(newG);
+                    }
+                    db.Genres.Add(newG);
                 }
                 db.SaveChanges();
             }
