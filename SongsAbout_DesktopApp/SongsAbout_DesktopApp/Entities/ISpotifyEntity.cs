@@ -195,7 +195,7 @@ namespace SongsAbout.Entities
     public partial class FPlaylist : SpotifyAPI.Web.Models.FullPlaylist, ISpotifyFullEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullPlaylist; } }
-        public DbEntityType DbEntityType { get { return DbEntityType.List; } }
+        public DbEntityType DbEntityType { get { return DbEntityType.Playlist; } }
 
         public List<string> Genres { get; set; }
 
@@ -227,7 +227,7 @@ namespace SongsAbout.Entities
     public partial class SPlaylist : SpotifyAPI.Web.Models.SimplePlaylist, ISpotifySimpleEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimplePlaylist; } }
-        public DbEntityType DbEntityType { get { return DbEntityType.List; } }
+        public DbEntityType DbEntityType { get { return DbEntityType.Playlist; } }
         private SimplePlaylist _base;
         public SPlaylist(SimplePlaylist playlist)
         {

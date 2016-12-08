@@ -63,8 +63,8 @@ namespace SongsAbout.Controls
                                 this.Items.Add(new SPanel(t, SPanelType.Text));
                             }
                             break;
-                        case DbEntityType.List:
-                            foreach (var l in db.Lists)
+                        case DbEntityType.Playlist:
+                            foreach (var l in db.Playlists)
                             {
                                 //this.Items.Add(new SPanel(l.list_name, SPanelType.Text, SPanelSize.Small, null, l, DbEntityType.List));
                             }

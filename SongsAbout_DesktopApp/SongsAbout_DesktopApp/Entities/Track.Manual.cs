@@ -134,6 +134,147 @@ namespace SongsAbout.Entities
                 return new List<Tag>();
             }
         }
+        private List<Playlist> _loadPlaylists()
+        {
+            try
+            {
+                List<Playlist> res;
+                using (var db = new DataClassesContext())
+                {
+                    res = (List<Playlist>)(from t in db.Tracks
+                                           where t.ID == this.ID
+                                           select t.privatePlaylists);
+                }
+
+                if (res.Count > 0)
+                    return res;
+
+                else
+                    return new List<Playlist>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Error loading Playlists for Track {this.Name}: {ex.Message}");
+
+                return new List<Playlist>();
+            }
+        }
+
+        private Album _loadAlbum()
+        {
+            try
+            {
+                Album res;
+                using (var db = new DataClassesContext())
+                {
+                    res = (Album)(from t in db.Tracks
+                                  where t.ID == this.ID
+                                  select t.privateAlbum);
+                }
+
+                if (res != null)
+                    return res;
+
+                else
+                    return new Album();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Error loading Playlists for Track {this.Name}: {ex.Message}");
+
+                return new Album();
+            }
+
+        }
+        public Album Album
+        {
+            set
+            {
+                this.privateAlbum = value;
+                this.AlbumId = value.ID;
+            }
+            get
+            {
+                try
+                {
+                    try
+                    {
+                        if (this.privatePlaylists != null)
+                            return this.privateAlbum;
+                        else
+                            return new Album();
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+                        return this._loadAlbum();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+
+                    return this._loadAlbum();
+
+                }
+            }
+        }
+        private Artist _mainArtist { get; set; }
+        public Artist MainArtist
+        {
+            set { _mainArtist = value; }
+            get
+            {
+                try
+                {
+                    if (this._mainArtist != null)
+                        return this._mainArtist;
+
+                    else if (this.ArtistId != 0)
+                        return Artist.Load(this.ArtistId);
+
+                    else
+                        return new Artist();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error loading MainArtist for Track {this.Name}: {ex.Message}");
+
+                    return new Artist();
+                }
+            }
+        }
+        public List<Playlist> Playlists
+        {
+            set { this.privatePlaylists = value; }
+            get
+            {
+                try
+                {
+                    try
+                    {
+                        if (this.privatePlaylists != null)
+                            return (List<Playlist>)this.privatePlaylists;
+                        else
+                            return new List<Playlist>();
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+                        return this._loadPlaylists();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+
+                    return _loadPlaylists();
+
+                }
+            }
+        }
 
         public List<Tag> Tags
         {
@@ -224,14 +365,6 @@ namespace SongsAbout.Entities
 
                 }
             }
-        }
-        public List<Playlist> Playlists
-        {
-            get; set;
-        }
-        public Album Album
-        {
-            get; set;
         }
         public override string TypeName
         {

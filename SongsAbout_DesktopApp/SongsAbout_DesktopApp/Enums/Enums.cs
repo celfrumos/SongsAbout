@@ -198,7 +198,7 @@ namespace SongsAbout.Enums
         /// <summary>
         /// Matches to Lists table
         /// </summary>
-        List = 32,
+        Playlist = 32,
 
         /// <summary>
         /// Matches to either the Artists, Albums, or Tracks table
@@ -208,7 +208,7 @@ namespace SongsAbout.Enums
         /// <summary>
         /// Matches to either the Genres, Tags, or Lists table
         /// </summary>
-        Grouping = Genre | Tag | List
+        Grouping = Genre | Tag | Playlist
 
 
     }
