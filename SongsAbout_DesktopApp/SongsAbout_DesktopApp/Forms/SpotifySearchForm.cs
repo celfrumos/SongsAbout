@@ -321,7 +321,7 @@ namespace SongsAbout.Forms
                     _searchType = UnsetSearchType(SearchType.All);
                 }
             }
-            _searchType = TogleSearchType((SearchType)cBox.Tag);
+            _searchType = ToggleSearchType((SearchType)cBox.Tag);
         }
     }
 }

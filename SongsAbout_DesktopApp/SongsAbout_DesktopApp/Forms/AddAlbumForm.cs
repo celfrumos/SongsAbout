@@ -57,11 +57,14 @@ namespace SongsAbout.Forms
                 {
                     try
                     {
+
                         int newArtistId;
-                        _newAlbum.Name = txtBoxTitle.Text;
-                        _newAlbum.Year = txtBoxYear.Text;
+                       string _newAlbumName = txtBoxTitle.Text;
+                        string _newAlbumYear = txtBoxYear.Text;
+
                         int.TryParse(cBoxMainArtist.SelectedValue.ToString(), out newArtistId);
-                        _newAlbum.ID = newArtistId;
+                        int _newAlbumArtistId = newArtistId;
+                        Album newAlbum = new Album();
                         _newAlbum.Save();
                         this.DialogResult = DialogResult.OK;
                         this.Close();
@@ -93,16 +96,7 @@ namespace SongsAbout.Forms
 
         private void AddAlbumForm_Load(object sender, EventArgs e)
         {
-            try
-            {
-                // TODO: This line of code loads data into the 'dataSet.Artists' table. You can move, or remove it, as needed.
-                this.artistsTableAdapter.Fill(this.dataSet.Artists);
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error Encountered");
-            }
+           
         }
     }
 }

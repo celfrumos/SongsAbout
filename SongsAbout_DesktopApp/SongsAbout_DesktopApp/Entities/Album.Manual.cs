@@ -53,13 +53,163 @@ namespace SongsAbout.Entities
         {
             get { return typeof(Artist).ToString(); }
         }
+        private List<Track> _loadTracks()
+        {
+            try
+            {
+                List<Track> res;
+                using (var db = new DataClassesContext())
+                {
+                    res = (from t in db.Tracks
+                           where t.AlbumId == this.ID
+                           select t).ToList();
+                }
+                if (res.Count > 0)
+                    return res;
+
+                else
+                    return new List<Track>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Error loading Tracks for albums for {this.Name}: {ex.Message}");
+
+                return new List<Track>();
+            }
+        }
+
+        public List<Track> Tracks
+        {
+            get
+            {
+                try
+                {
+                    if (this.privateTracks != null)
+                        return (List<Track>)this.privateTracks;
+                    else
+                        return new List<Track>();
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    Console.WriteLine($" Error returning album artist for {this.Name}: {ex.Message}");
+                    return this._loadTracks();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning album artist for {this.Name}: {ex.Message}");
+
+                    return _loadTracks();
+
+                }
+            }
+            set { this.privateTracks = value; }
+        }
+
+        private List<Genre> _loadGenres()
+        {
+            try
+            {
+                List<Genre> res;
+                using (var db = new DataClassesContext())
+                {
+                    res = (List<Genre>)(from a in db.Albums
+                                        where a.ID == this.ID
+                                        select a.privateGenres);
+                }
+
+                if (res.Count > 0)
+                    return res;
+
+                else
+                    return new List<Genre>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Error loading Tracks for albums for {this.Name}: {ex.Message}");
+
+                return new List<Genre>();
+            }
+        }
+        public List<Genre> Genres
+        {
+            get
+            {
+                try
+                {
+                    if (this.privateGenres != null)
+                        return (List<Genre>)this.privateGenres;
+                    else
+                        return new List<Genre>();
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    Console.WriteLine($" Error returning album artist for {this.Name}: {ex.Message}");
+                    return this._loadGenres();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning album artist for {this.Name}: {ex.Message}");
+
+                    return _loadGenres();
+
+                }
+            }
+            set { this.privateGenres = value; }
+        }
+
+        public Artist Artist
+        {
+            get
+            {
+                try
+                {
+                    if (this.privateArtist != null)
+                        return this.privateArtist;
+
+                    else if (this.artist_id != 0)
+                        return Artist.Load(this.ArtistId);
+
+                    else
+                        return new Artist();
+
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    if (this.artist_id != 0)
+                        return Artist.Load(this.ArtistId);
+
+                    else
+                        return new Artist();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning album artist for {this.Name}: {ex.Message}");
+
+                    return new Artist();
+
+                }
+            }
+            set
+            {
+                this.privateArtist = value;
+                this.ArtistId = value.ID;
+            }
+        }
         public int ArtistId
         {
             get { return this.artist_id; }
-            set { this.artist_id = value; }
+            set
+            {
+                this.artist_id = value;
+
+                this.Artist = Artist.Load(value);
+
+            }
         }
         public Image Image
-        {  
+        {
             get { return Converter.ImageFromBytes(this.al_cover_art); }
             set { this.al_cover_art = Converter.ImageToBytes(value); }
         }
@@ -117,6 +267,15 @@ namespace SongsAbout.Entities
         public Album(SAlbum album) : this(new FAlbum(Converter.GetFullAlbum(album)))
         {
         }
+        public Album(int id, int artist_id, string name, string year, string uri, Image coverArt)
+        {
+            this.ID = id;
+            this.ArtistId = artist_id;
+            this.Name = name;
+            this.Year = year;
+            this.Uri = uri;
+            this.CoverArt = Converter.ImageToBytes(coverArt);
+        }
 
         public override void Save()
         {
@@ -126,7 +285,7 @@ namespace SongsAbout.Entities
                 {
                     using (var context = new DataClassesContext())
                     {
-                        context.UpdateInsert_Album(this.ID, this.artist_id, this.name, this.al_year, this.al_spotify_uri, this.al_cover_art);
+                        context.UpdateInsert_Album(this.ID, this.ArtistId, this.Name, this.Year, this.Uri, this.CoverArt);
                         //     context.Albums.Add(this);
                         context.SaveChanges();
                     }
@@ -198,7 +357,7 @@ namespace SongsAbout.Entities
                         track.Genres = track.Genres;
                         track.Artists = track.Artists;
                         track.Topics = track.Topics;
-                        track.Lists = track.Lists;                        
+                        track.Playlists = track.Playlists;
                     }
                 }
                 return result;

@@ -54,6 +54,185 @@ namespace SongsAbout.Entities
             set { this.track_artist_id = value; }
         }
 
+        public List<Artist> Artists
+        {
+            get; set;
+        }
+
+        private List<Genre> _loadGenres()
+        {
+            try
+            {
+                List<Genre> res;
+                using (var db = new DataClassesContext())
+                {
+                    res = (List<Genre>)(from t in db.Tracks
+                                        where t.ID == this.ID
+                                        select t.privateGenres);
+                }
+
+                if (res.Count > 0)
+                    return res;
+
+                else
+                    return new List<Genre>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Error loading Genres for Track {this.Name}: {ex.Message}");
+
+                return new List<Genre>();
+            }
+        }
+        private List<Topic> _loadTopics()
+        {
+            try
+            {
+                List<Topic> res;
+                using (var db = new DataClassesContext())
+                {
+                    res = (List<Topic>)(from t in db.Tracks
+                                        where t.ID == this.ID
+                                        select t.privateTopics);
+                }
+
+                if (res.Count > 0)
+                    return res;
+
+                else
+                    return new List<Topic>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Error loading Topics for Track {this.Name}: {ex.Message}");
+
+                return new List<Topic>();
+            }
+        }
+        private List<Tag> _loadTags()
+        {
+            try
+            {
+                List<Tag> res;
+                using (var db = new DataClassesContext())
+                {
+                    res = (List<Tag>)(from t in db.Tracks
+                                      where t.ID == this.ID
+                                      select t.privateTags);
+                }
+
+                if (res.Count > 0)
+                    return res;
+
+                else
+                    return new List<Tag>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Error loading Topics for Track {this.Name}: {ex.Message}");
+
+                return new List<Tag>();
+            }
+        }
+
+        public List<Tag> Tags
+        {
+            set { this.privateTags = value; }
+            get
+            {
+                try
+                {
+                    try
+                    {
+                        if (this.privateTags != null)
+                            return (List<Tag>)this.privateTags;
+                        else
+                            return new List<Tag>();
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+                        return this._loadTags();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+
+                    return _loadTags();
+
+                }
+            }
+        }
+        public List<Genre> Genres
+        {
+            set { this.privateGenres = value; }
+            get
+            {
+                try
+                {
+                    try
+                    {
+                        if (this.privateGenres != null)
+                            return (List<Genre>)this.privateGenres;
+                        else
+                            return new List<Genre>();
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+                        return this._loadGenres();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+
+                    return _loadGenres();
+
+                }
+            }
+        }
+        public List<Topic> Topics
+        {
+            set { this.privateTopics = value; }
+            get
+            {
+                try
+                {
+                    try
+                    {
+                        if (this.privateGenres != null)
+                            return (List<Topic>)this.privateTopics;
+                        else
+                            return new List<Topic>();
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+                        return this._loadTopics();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
+
+                    return _loadTopics();
+
+                }
+            }
+        }
+        public List<Playlist> Playlists
+        {
+            get; set;
+        }
+        public Album Album
+        {
+            get; set;
+        }
         public override string TypeName
         {
             get { return typeof(Artist).ToString(); }
@@ -76,7 +255,7 @@ namespace SongsAbout.Entities
                     result.Genres = result.Genres;
                     result.Artists = result.Artists;
                     result.Topics = result.Topics;
-                    result.Lists = result.Lists;
+                    result.Playlists = result.Playlists;
                 }
                 return result;
             }
