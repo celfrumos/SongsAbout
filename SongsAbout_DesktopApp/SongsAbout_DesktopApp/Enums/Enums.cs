@@ -8,7 +8,7 @@ using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Enums
 {
-    public static class Flags
+    public static class Flag
     {
         public static class DB
         {

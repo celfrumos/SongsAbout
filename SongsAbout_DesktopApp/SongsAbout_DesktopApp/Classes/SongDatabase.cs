@@ -97,9 +97,11 @@ namespace SongsAbout.Classes
                 List<Artist> artists;
                 using (var db = new DataClassesContext())
                 {
+                    db.Configuration.LazyLoadingEnabled = true;
                     artists = (from a in db.Artists
                                where a.ID != 0
                                select a).ToList();
+                    artists.ForEach(a => a = Artist.Load(a));
 
 
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -253,10 +254,15 @@ namespace SongsAbout.Entities
             {
                 byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
                 this.a_profile_pic = pic; //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
-
             }
         }
+        public static Artist Load(Artist a)
+        {
+            a.Albums.ToList().ForEach(al => al = Album.Load(al));
+            a.Tracks.ToList().ForEach(t => t = Track.Load(t));
+            return a;
 
+        }
         public static Artist Load(string a_name)
         {
             try

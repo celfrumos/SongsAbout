@@ -59,7 +59,7 @@ namespace SongsAbout.Entities
             set { this.artist_id = value; }
         }
         public Image Image
-        {  
+        {
             get { return Converter.ImageFromBytes(this.al_cover_art); }
             set { this.al_cover_art = Converter.ImageToBytes(value); }
         }
@@ -182,6 +182,15 @@ namespace SongsAbout.Entities
             return albums > 0;
         }
 
+        public static Album Load(Album album)
+        {
+            album.Tracks.ToList().ForEach(t => t = Track.Load(t));
+            album.Tracks = album.Tracks;
+            
+            album.Genres = album.Genres;
+            
+            return album;
+        }
         public static Album Load(string al_title)
         {
             Album result = new Album();
@@ -198,7 +207,7 @@ namespace SongsAbout.Entities
                         track.Genres = track.Genres;
                         track.Artists = track.Artists;
                         track.Topics = track.Topics;
-                        track.Lists = track.Lists;                        
+                        track.Lists = track.Lists;
                     }
                 }
                 return result;
