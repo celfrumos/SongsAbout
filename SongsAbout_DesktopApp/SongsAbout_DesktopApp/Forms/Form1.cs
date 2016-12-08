@@ -78,7 +78,5 @@ namespace SongsAbout.Forms
                 Console.WriteLine($"Error Setting Profile Picture: {ex.Message}");
             }
 
-        }
-
     }
 }

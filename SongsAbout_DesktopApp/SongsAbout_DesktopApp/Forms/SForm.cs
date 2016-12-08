@@ -14,16 +14,31 @@ namespace SongsAbout.Forms
 {
     public partial class SForm : Form
     {
-        public SForm(): base()
+        protected SForm()
         {
             InitializeComponent();
-
+            SetProfilePic();
         }
 
         private static void msiSpotifySearch_Click(object sender, EventArgs e)
         {
             SpotifySearchForm spotifySearch = new SpotifySearchForm();
             spotifySearch.ShowDialog();
+        }
+        protected async void SetProfilePic()
+        {
+            try
+            {
+                if (User.Default.ProfilePic != null)
+                {
+                    pBoxProfilePic.Image = await UserSpotify.ImportImageFromSpotify(User.Default.ProfilePic);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Setting Profile Picture: {ex.Message}");
+            }
+
         }
 
         protected static void msiAddTrack_Click(object sender, EventArgs e)
