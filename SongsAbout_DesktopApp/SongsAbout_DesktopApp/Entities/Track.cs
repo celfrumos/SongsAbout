@@ -17,11 +17,11 @@ namespace SongsAbout.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Track()
         {
-            this.Tags = new HashSet<Tag>();
-            this.Lists = new HashSet<List>();
-            this.Artists = new HashSet<Artist>();
-            this.Genres = new HashSet<Genre>();
-            this.Topics = new HashSet<Topic>();
+            this.privateTags = new HashSet<Tag>();
+            this.privatePlaylists = new HashSet<Playlist>();
+            this.privateArtists = new HashSet<Artist>();
+            this.privateGenres = new HashSet<Genre>();
+            this.privateTopics = new HashSet<Topic>();
         }
     
         public int ID { get; set; }
@@ -32,16 +32,16 @@ namespace SongsAbout.Entities
         private string can_play { get; set; }
         private int track_album_id { get; set; }
     
-        public virtual Album Album { get; set; }
+        private Album privateAlbum { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tag> Tags { get; set; }
+        private ICollection<Tag> privateTags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<List> Lists { get; set; }
+        private ICollection<Playlist> privatePlaylists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Artist> Artists { get; set; }
+        private ICollection<Artist> privateArtists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Genre> Genres { get; set; }
+        private ICollection<Genre> privateGenres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Topic> Topics { get; set; }
+        private ICollection<Topic> privateTopics { get; set; }
     }
 }

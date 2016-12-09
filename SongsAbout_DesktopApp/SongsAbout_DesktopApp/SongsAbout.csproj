@@ -210,7 +210,7 @@
     <Compile Include="Classes\DbExceptions.cs" />
     <Compile Include="Entities\IDbEntity.cs" />
     <Compile Include="Entities\ISpotifyEntity.cs" />
-    <Compile Include="Entities\List.cs">
+    <Compile Include="Entities\Playlist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Tag.cs">

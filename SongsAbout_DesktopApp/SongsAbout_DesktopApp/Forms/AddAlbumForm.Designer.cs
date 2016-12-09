@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -42,26 +41,16 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.cBoxMainArtist = new System.Windows.Forms.ComboBox();
             this.btnNewArtist = new System.Windows.Forms.Button();
-            this.dataSet = new SongsAbout.DataSet();
-            this.tableAdapterManager = new SongsAbout.DataSetTableAdapters.TableAdapterManager();
-            this.albumsTableAdapter = new SongsAbout.DataSetTableAdapters.AlbumsTableAdapter();
-            this.artistsTableAdapter = new SongsAbout.DataSetTableAdapters.ArtistsTableAdapter();
-            this.artistsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.artistsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSave.Location = new System.Drawing.Point(199, 322);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(149, 262);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(99, 28);
+            this.btnSave.Size = new System.Drawing.Size(74, 23);
             this.btnSave.TabIndex = 30;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -71,10 +60,9 @@
             // 
             this.btnOpenFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenFile.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnOpenFile.Location = new System.Drawing.Point(20, 52);
-            this.btnOpenFile.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOpenFile.Location = new System.Drawing.Point(15, 42);
             this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(100, 28);
+            this.btnOpenFile.Size = new System.Drawing.Size(75, 23);
             this.btnOpenFile.TabIndex = 28;
             this.btnOpenFile.Text = "Open File";
             this.btnOpenFile.UseVisualStyleBackColor = true;
@@ -86,18 +74,19 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label6.Location = new System.Drawing.Point(15, 14);
+            this.label6.Location = new System.Drawing.Point(11, 11);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(91, 23);
+            this.label6.Size = new System.Drawing.Size(78, 19);
             this.label6.TabIndex = 26;
             this.label6.Text = "Cover Art";
             // 
             // txtBoxYear
             // 
-            this.txtBoxYear.Location = new System.Drawing.Point(140, 284);
-            this.txtBoxYear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtBoxYear.Location = new System.Drawing.Point(105, 231);
+            this.txtBoxYear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtBoxYear.Name = "txtBoxYear";
-            this.txtBoxYear.Size = new System.Drawing.Size(216, 22);
+            this.txtBoxYear.Size = new System.Drawing.Size(163, 20);
             this.txtBoxYear.TabIndex = 27;
             // 
             // label5
@@ -106,9 +95,10 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label5.Location = new System.Drawing.Point(15, 287);
+            this.label5.Location = new System.Drawing.Point(11, 233);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 23);
+            this.label5.Size = new System.Drawing.Size(43, 19);
             this.label5.TabIndex = 26;
             this.label5.Text = "Year";
             // 
@@ -118,18 +108,19 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label4.Location = new System.Drawing.Point(15, 222);
+            this.label4.Location = new System.Drawing.Point(11, 180);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 23);
+            this.label4.Size = new System.Drawing.Size(87, 19);
             this.label4.TabIndex = 26;
             this.label4.Text = "Main Artist";
             // 
             // txtBoxTitle
             // 
-            this.txtBoxTitle.Location = new System.Drawing.Point(140, 192);
-            this.txtBoxTitle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtBoxTitle.Location = new System.Drawing.Point(105, 156);
+            this.txtBoxTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtBoxTitle.Name = "txtBoxTitle";
-            this.txtBoxTitle.Size = new System.Drawing.Size(216, 22);
+            this.txtBoxTitle.Size = new System.Drawing.Size(163, 20);
             this.txtBoxTitle.TabIndex = 27;
             // 
             // label3
@@ -138,9 +129,10 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(15, 192);
+            this.label3.Location = new System.Drawing.Point(11, 156);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 23);
+            this.label3.Size = new System.Drawing.Size(41, 19);
             this.label3.TabIndex = 26;
             this.label3.Text = "Title";
             // 
@@ -148,10 +140,9 @@
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnCancel.Location = new System.Drawing.Point(48, 322);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(36, 262);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(99, 28);
+            this.btnCancel.Size = new System.Drawing.Size(74, 23);
             this.btnCancel.TabIndex = 28;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -159,10 +150,9 @@
             // 
             // picBoxProfilePic
             // 
-            this.picBoxProfilePic.Location = new System.Drawing.Point(140, 15);
-            this.picBoxProfilePic.Margin = new System.Windows.Forms.Padding(4);
+            this.picBoxProfilePic.Location = new System.Drawing.Point(105, 12);
             this.picBoxProfilePic.Name = "picBoxProfilePic";
-            this.picBoxProfilePic.Size = new System.Drawing.Size(217, 164);
+            this.picBoxProfilePic.Size = new System.Drawing.Size(163, 133);
             this.picBoxProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBoxProfilePic.TabIndex = 33;
             this.picBoxProfilePic.TabStop = false;
@@ -173,12 +163,11 @@
             // 
             // cBoxMainArtist
             // 
-            this.cBoxMainArtist.DataSource = this.artistsBindingSource1;
-            this.cBoxMainArtist.DisplayMember = "name";
             this.cBoxMainArtist.FormattingEnabled = true;
-            this.cBoxMainArtist.Location = new System.Drawing.Point(140, 219);
+            this.cBoxMainArtist.Location = new System.Drawing.Point(105, 178);
+            this.cBoxMainArtist.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cBoxMainArtist.Name = "cBoxMainArtist";
-            this.cBoxMainArtist.Size = new System.Drawing.Size(216, 24);
+            this.cBoxMainArtist.Size = new System.Drawing.Size(163, 21);
             this.cBoxMainArtist.TabIndex = 34;
             this.cBoxMainArtist.ValueMember = "ID";
             // 
@@ -186,59 +175,20 @@
             // 
             this.btnNewArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewArtist.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnNewArtist.Location = new System.Drawing.Point(198, 250);
-            this.btnNewArtist.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNewArtist.Location = new System.Drawing.Point(148, 203);
             this.btnNewArtist.Name = "btnNewArtist";
-            this.btnNewArtist.Size = new System.Drawing.Size(100, 28);
+            this.btnNewArtist.Size = new System.Drawing.Size(75, 23);
             this.btnNewArtist.TabIndex = 28;
             this.btnNewArtist.Text = "New Artist";
             this.btnNewArtist.UseVisualStyleBackColor = true;
             this.btnNewArtist.Click += new System.EventHandler(this.btnNewArtist_Click);
             // 
-            // dataSet
-            // 
-            this.dataSet.DataSetName = "DataSet";
-            this.dataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.AlbumGenresTableAdapter = null;
-            this.tableAdapterManager.AlbumsTableAdapter = this.albumsTableAdapter;
-            this.tableAdapterManager.ArtistsTableAdapter = this.artistsTableAdapter;
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.GenresTableAdapter = null;
-            this.tableAdapterManager.ListsTableAdapter = null;
-            this.tableAdapterManager.TagsTableAdapter = null;
-            this.tableAdapterManager.TrackArtistsTableAdapter = null;
-            this.tableAdapterManager.TrackGenresTableAdapter = null;
-            this.tableAdapterManager.TracksTableAdapter = null;
-            this.tableAdapterManager.TrackTagsTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // albumsTableAdapter
-            // 
-            this.albumsTableAdapter.ClearBeforeFill = true;
-            // 
-            // artistsTableAdapter
-            // 
-            this.artistsTableAdapter.ClearBeforeFill = true;
-            // 
-            // artistsBindingSource
-            // 
-            this.artistsBindingSource.DataSource = this.dataSet;
-            this.artistsBindingSource.Position = 0;
-            // 
-            // artistsBindingSource1
-            // 
-            this.artistsBindingSource1.DataMember = "Artists";
-            this.artistsBindingSource1.DataSource = this.artistsBindingSource;
-            // 
             // AddAlbumForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(377, 364);
+            this.ClientSize = new System.Drawing.Size(283, 296);
             this.Controls.Add(this.cBoxMainArtist);
             this.Controls.Add(this.picBoxProfilePic);
             this.Controls.Add(this.btnSave);
@@ -252,16 +202,12 @@
             this.Controls.Add(this.txtBoxYear);
             this.Controls.Add(this.label5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddAlbumForm";
             this.Text = "AddAlbumForm";
             this.Load += new System.EventHandler(this.AddAlbumForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.artistsBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,11 +227,5 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ComboBox cBoxMainArtist;
         private System.Windows.Forms.Button btnNewArtist;
-        private SongsAbout.DataSet dataSet;
-        private DataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private DataSetTableAdapters.AlbumsTableAdapter albumsTableAdapter;
-        private DataSetTableAdapters.ArtistsTableAdapter artistsTableAdapter;
-        private System.Windows.Forms.BindingSource artistsBindingSource;
-        private System.Windows.Forms.BindingSource artistsBindingSource1;
     }
 }

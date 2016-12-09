@@ -41,6 +41,8 @@
             // pBoxProfilePic
             // 
             this.pBoxProfilePic.Location = new System.Drawing.Point(13, 45);
+            this.pBoxProfilePic.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pBoxProfilePic.Size = new System.Drawing.Size(99, 100);
             // 
             // btnSearch
             // 
@@ -53,6 +55,7 @@
             this.btnSearch.TabIndex = 25;
             this.btnSearch.Text = "Find me some songs!";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtBoxKeywords
             // 
@@ -60,7 +63,7 @@
             this.txtBoxKeywords.Location = new System.Drawing.Point(420, 265);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
-            this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
+            this.txtBoxKeywords.Size = new System.Drawing.Size(216, 21);
             this.txtBoxKeywords.TabIndex = 33;
             // 
             // lblTitleKeywords
@@ -72,7 +75,7 @@
             this.lblTitleKeywords.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblTitleKeywords.Location = new System.Drawing.Point(291, 265);
             this.lblTitleKeywords.Name = "lblTitleKeywords";
-            this.lblTitleKeywords.Size = new System.Drawing.Size(75, 19);
+            this.lblTitleKeywords.Size = new System.Drawing.Size(59, 15);
             this.lblTitleKeywords.TabIndex = 32;
             this.lblTitleKeywords.Text = "Keywords:";
             // 
@@ -81,12 +84,12 @@
             this.lstBxGenres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstBxGenres.FormattingEnabled = true;
-            this.lstBxGenres.ItemHeight = 18;
+            this.lstBxGenres.ItemHeight = 14;
             this.lstBxGenres.Location = new System.Drawing.Point(420, 84);
             this.lstBxGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstBxGenres.Name = "lstBxGenres";
             this.lstBxGenres.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstBxGenres.Size = new System.Drawing.Size(216, 166);
+            this.lstBxGenres.Size = new System.Drawing.Size(216, 158);
             this.lstBxGenres.Sorted = true;
             this.lstBxGenres.TabIndex = 31;
             // 
@@ -99,7 +102,7 @@
             this.lblTitleGenres.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblTitleGenres.Location = new System.Drawing.Point(212, 84);
             this.lblTitleGenres.Name = "lblTitleGenres";
-            this.lblTitleGenres.Size = new System.Drawing.Size(154, 19);
+            this.lblTitleGenres.Size = new System.Drawing.Size(119, 15);
             this.lblTitleGenres.TabIndex = 30;
             this.lblTitleGenres.Text = "In any of these genres:";
             // 
@@ -112,7 +115,7 @@
             this.lblTitleTopic.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblTitleTopic.Location = new System.Drawing.Point(191, 45);
             this.lblTitleTopic.Name = "lblTitleTopic";
-            this.lblTitleTopic.Size = new System.Drawing.Size(175, 19);
+            this.lblTitleTopic.Size = new System.Drawing.Size(134, 15);
             this.lblTitleTopic.TabIndex = 29;
             this.lblTitleTopic.Text = "I want to find songs about:";
             // 
@@ -122,12 +125,12 @@
             this.txtBoxQuery.Location = new System.Drawing.Point(420, 45);
             this.txtBoxQuery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxQuery.Name = "txtBoxQuery";
-            this.txtBoxQuery.Size = new System.Drawing.Size(216, 25);
+            this.txtBoxQuery.Size = new System.Drawing.Size(216, 21);
             this.txtBoxQuery.TabIndex = 28;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.ClientSize = new System.Drawing.Size(648, 363);
             this.Controls.Add(this.txtBoxKeywords);
             this.Controls.Add(this.lblTitleKeywords);

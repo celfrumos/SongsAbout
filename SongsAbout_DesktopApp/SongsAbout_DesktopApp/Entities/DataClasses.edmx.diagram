@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="DataClasses.Album" Width="1.5" PointX="4.375" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.Artist" Width="1.5" PointX="1.625" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.Genre" Width="1.5" PointX="8" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.List" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.Playlist" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.Tag" Width="1.5" PointX="7.5" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.Topic" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DataClasses.Track" Width="1.5" PointX="4.25" PointY="4.125" IsExpanded="true" />

@@ -30,6 +30,60 @@ namespace SongsAbout.Entities
             get { return base.TypeName; }
         }
 
+        private List<Album> _loadAlbums()
+        {
+            try
+            {
+                List<Album> res;
+                using (var db = new DataClassesContext())
+                {
+                    res = (List<Album>)(from g in db.Genres
+                                        where g.Name == this.Name
+                                        select g.privateAlbums);
+                }
+                if (res.Count > 0)
+                    return res;
+
+                else
+                    return new List<Album>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($" Error loading Albums for Genre {this.Name}: {ex.Message}");
+
+                return _loadAlbums();
+            }
+        }
+        public List<Album> Albums
+        {
+            set { this.privateAlbums = value; }
+            get
+            {
+                try
+                {
+                    try
+                    {
+                        if (this.privateAlbums != null)
+                            return (List<Album>)this.privateAlbums;
+                        else
+                            return new List<Album>();
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        Console.WriteLine($" Error returning Albums for Genre {this.Name}: {ex.Message}");
+                        return this._loadAlbums();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error returning Albums for Genre {this.Name}: {ex.Message}");
+
+                    return _loadAlbums();
+
+                }
+            }
+        }
+
         public override SpotifyEntityType SpotifyType
         {
             get { return SpotifyEntityType.None; }

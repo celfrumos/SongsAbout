@@ -1,24 +1,8 @@
 ﻿using System;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Linq;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System;
-using SpotifyAPI.Web.Models;
-using System.Data.Linq;
-using System.Data.Linq.Mapping;
-using System.Linq.Expressions;
-using System.Linq;
-using System.Collections.Generic;
-using SongsAbout.Classes;
-using SongsAbout.Enums;
-using SongsAbout.Properties;
-using SongsAbout.Controls;
 using System.Windows;
-using SongsAbout;
 using SongsAbout.Classes;
 using SongsAbout.Entities;
 using SongsAbout.Properties;
@@ -49,37 +33,15 @@ namespace SongsAbout.Forms
                     }
                 }
 
-
-                using (var db = new DataClassesContext())
-                {
-                    var genres = (from Genre g in db.Genres
-                                  select g.Name).ToList();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            //  this.lstBxGenres.DataSource = SongDatabase.ExistingGenres;
-
+            //Artist a = Artist.Load(4);
+            //var albums = a.Albums;
+           // var tracks = a.Tracks;
+            
         }
 
-        private async void SetProfilePic()
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (User.Default.ProfilePic != null)
-                {
-                    //  pBoxProfilePic.Image = await UserSpotify.ImportImageFromSpotify(User.Default.ProfilePic);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error Setting Profile Picture: {ex.Message}");
-            }
 
         }
-
     }
 }
