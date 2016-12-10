@@ -225,11 +225,10 @@ namespace SongsAbout.Entities
         {
             try
             {
-                this.name = artist.Name;
-                this.a_spotify_uri = artist.Uri;
-                this.a_website = artist.Href;
+                this.Name = artist.Name;
+                this.Uri = artist.Uri;
+                this.Website = artist.Href;
                 this.UpdateProfilePic(artist);
-                this.a_website = artist.Href;
 
                 this.Save();
             }
@@ -263,6 +262,9 @@ namespace SongsAbout.Entities
             return a;
 
         }
+
+      
+
         public static Artist Load(string a_name)
         {
             try

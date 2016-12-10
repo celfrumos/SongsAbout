@@ -12,6 +12,7 @@ namespace SongsAbout
 {
     static class Program
     {
+        public static SongDatabase Database { get; private set; }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,10 +23,10 @@ namespace SongsAbout
             Application.SetCompatibleTextRenderingDefault(false);
 
             try
-            {                
-               // User.Default.Upgrade();
+            {
+                // User.Default.Upgrade();
                 //ConnectSpotify();
-
+                Database = new SongDatabase();
                 Application.Run(new Form1());
             }
             catch (System.Resources.MissingManifestResourceException ex)
@@ -71,7 +72,7 @@ namespace SongsAbout
                     User.Default.Save();
                 }
             }
-            catch(SpotifyAuthError ex)
+            catch (SpotifyAuthError ex)
             {
                 MessageBox.Show(ex.Message);
             }

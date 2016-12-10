@@ -33,10 +33,14 @@ namespace SongsAbout.Forms
                     }
                 }
 
-            //Artist a = Artist.Load(4);
-            //var albums = a.Albums;
-           // var tracks = a.Tracks;
-            
+                //Artist a = Artist.Load(4);
+                //var albums = a.Albums;
+                // var tracks = a.Tracks;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

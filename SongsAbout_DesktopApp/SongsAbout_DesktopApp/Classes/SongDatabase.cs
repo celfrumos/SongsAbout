@@ -33,8 +33,37 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout.Classes
 {
-    public static class SongDatabase
+    public class SongDatabase
     {
+        private static bool isInitialized = false;
+        public SongDatabase()
+        {
+            if (isInitialized)
+            {
+                throw new Exception("Only one instance of the SongDatabase Class may be declared");
+            }
+            isInitialized = true;
+        }
+
+        public DbEntity this[int id, DbEntityType type]
+        {
+            get
+            {
+                switch (type)
+                {
+                    case DbEntityType.Artist:
+                        return Artist.Load(id);
+                    case DbEntityType.Album:
+                        return Album.Load(id);
+                    case DbEntityType.Track:
+                        return Track.Load(id);
+                    default:
+                        throw new Exception();
+                }
+            }
+        }
+
+
         public static List<string> ExistingGenres
         {
             get
@@ -137,7 +166,7 @@ namespace SongsAbout.Classes
             }
         }
 
-        public static List<string> ExistingAlbumNames
+        public List<string> ExistingAlbumNames
         {
             get
             {
@@ -149,6 +178,30 @@ namespace SongsAbout.Classes
                 }
                 return albums;
             }
+        }
+        public ArtistList Artists { get { return new ArtistList(); } }
+
+        public class ArtistList : List<Artist>
+        {
+            private static bool initialized { get; set; }
+            public ArtistList()
+            {
+
+                using (var db = new DataClassesContext())
+                {
+                    base.AddRange(from a in db.Artists
+                                  select Artist.Load(a));
+                }
+            }
+            new public Artist this[int i]
+            {
+                get { return Artist.Load(i); }
+            }
+            public Artist this[string i]
+            {
+                get { return Artist.Load(i); }
+            }
+
         }
     }
 }

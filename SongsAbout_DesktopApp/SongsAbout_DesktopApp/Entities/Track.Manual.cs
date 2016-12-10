@@ -398,6 +398,53 @@ namespace SongsAbout.Entities
             }
 
         }
+        public static Track Load(int id)
+        {
+            try
+            {
+                Track result;
+                using (var db = new DataClassesContext())
+                {
+                    result = (from Track t in db.Tracks
+                              where t.ID == id
+                              select t).First();
+
+                    result.Genres = result.Genres;
+                    result.Artists = result.Artists;
+                    result.Topics = result.Topics;
+                    result.Playlists = result.Playlists;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new InitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+            }
+        }
+        public static Track Load(string name)
+        {
+            try
+            {
+                Track result;
+                using (var db = new DataClassesContext())
+                {
+                    result = (from Track t in db.Tracks
+                              where t.Name == name
+                              select t).First();
+
+                    result.Genres = result.Genres;
+                    result.Artists = result.Artists;
+                    result.Topics = result.Topics;
+                    result.Playlists = result.Playlists;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new InitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+            }
+
+        }
         public Track(string name, double length = 0, string uri = "", int artist_id = 0, int album_id = 0)
         {
             this.Name = name;
