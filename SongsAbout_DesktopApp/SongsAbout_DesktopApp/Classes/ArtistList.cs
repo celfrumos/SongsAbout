@@ -10,39 +10,51 @@ using System.Text;
 using System.Data;
 using SongsAbout.Enums;
 using SongsAbout.Entities;
+using System.Collections;
 
 namespace SongsAbout.Classes
 {
     public partial class SongDatabase
     {
-        public class ArtistList : IIntegralEntityContainer<Artist>
+        public class ArtistList : EntityContainer<Artist>, IEntityIdAccessor<Artist>, IEntityNameAccessor<Artist>
         {
-            public DbEntityType EntityType { get { return DbEntityType.Artist; } }
+            public override DbEntityType EntityType { get { return DbEntityType.Artist; } }
             private static bool _initialized { get; set; }
             /// <summary>
             /// Initializes the connector to the ArtistList
             /// </summary>
-            /// <exception cref="AlreadyInitializedError"></exception>"
-            public ArtistList()
+            /// <exception cref="InvalidInitializedError"></exception>"
+            public ArtistList() : base("ArtistList")
             {
                 if (_initialized)
                 {
-                    throw new AlreadyInitializedError("ArtistList");
+                    throw new InvalidInitializedError("ArtistList");
                 }
                 _initialized = true;
 
             }
-            public int Count
+
+            /// <summary>
+            /// Returns the number of rows in the Artist Table
+            /// </summary>
+            /// <exception cref="DbException"></exception>
+            public override int Count
             {
                 get
                 {
-                    int count;
-                    using (var db = new DataClassesContext())
+                    try
                     {
-                        count = (from a in db.Artists
-                                 select true).Count();
+                        int count;
+                        using (var db = new DataClassesContext())
+                        {
+                            count = db.Artists.Count();
+                        }
+                        return count;
                     }
-                    return count;
+                    catch (Exception ex)
+                    {
+                        throw new DbException(this.EntityType, ex.Message);
+                    }
                 }
             }
             /// <summary>
@@ -188,12 +200,13 @@ namespace SongsAbout.Classes
                         DbException(EntityType, $"Error verifying if Database contains Artist with Name {name}{ex.Message}");
                 }
             }
+
             /// <summary>
             /// Returns A list of all Existing Artists in the database
             /// </summary>            
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public List<Artist> All
+            public override List<Artist> All
             {
                 get
                 {
@@ -217,7 +230,7 @@ namespace SongsAbout.Classes
             /// Loads the Names of the existing Artists to a List
             /// </summary>
             /// <exception cref="DbException"></exception>
-            public List<string> AllNames
+            public override List<string> AllNames
             {
                 get
                 {
@@ -238,14 +251,16 @@ namespace SongsAbout.Classes
                 }
             }
 
+
+
             /// <summary>
             /// Submit Changes to the Database
             /// </summary>
             /// <exception cref="NullValueError"></exception>
-            /// <exception cref="UpdateError"></exception>"
-            /// <exception cref="System.Data.Entity.Infrastructure.DbUpdateException"></exception>
+            /// <exception cref="UpdateFromSpotifyError"></exception>"
+            /// <exception cref="DbUpdateException"></exception>
             /// <exception cref="DbException"></exception>"
-            public void Save(Artist a)
+            public override void Save(Artist a)
             {
                 try
                 {
@@ -267,7 +282,7 @@ namespace SongsAbout.Classes
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
                     throw;
                 }
-                catch (UpdateError ex)
+                catch (UpdateFromSpotifyError ex)
                 {
                     Console.WriteLine(ex.Message + "\n");
                     throw;

@@ -137,6 +137,7 @@
   <ItemGroup>
     <Compile Include="Classes\AlbumList.cs" />
     <Compile Include="Classes\ArtistList.cs" />
+    <Compile Include="Classes\EntityContainer.cs" />
     <Compile Include="Classes\GenreList.cs" />
     <Compile Include="Classes\IEntityContainer.cs" />
     <Compile Include="Classes\SongDatabase.cs" />

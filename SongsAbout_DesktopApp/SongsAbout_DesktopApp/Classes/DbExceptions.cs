@@ -12,9 +12,6 @@ namespace SongsAbout.Classes
     public class DbException : Exception
     {
         const string DEF_MSG = "An Error Occurred while interacting with the database";
-        protected string _message;
-
-        public override string Message { get { return _message; } }
 
         public virtual DbEntityType DbEntityType { get; protected set; }
 
@@ -29,7 +26,6 @@ namespace SongsAbout.Classes
 
         public DbException(DbEntity e, string msg = DEF_MSG)
         {
-            _message = msg;
             _entity = e;
             DbEntityType = e.DbEntityType;
         }
@@ -37,20 +33,17 @@ namespace SongsAbout.Classes
 
         public DbException(string msg = DEF_MSG) : base(msg)
         {
-            _message = msg;
         }
         public DbException(Type t, string msg = DEF_MSG) : base(dbExDefMsg(t, msg))
         {
-            _message = msg;
         }
 
         public DbException(DbEntityType dbEntityType, string msg = DEF_MSG) : base(dbExDefMsg(dbEntityType, msg))
         {
-            _message = msg;
         }
         protected static string dbExDefMsg(DbEntity e, string msg = DEF_MSG)
         {
-            return (msg == DEF_MSG ? msg : $"Error Updating {e.TypeName} from {e.TableName} table: " + msg);
+            return (msg == DEF_MSG ? msg : $"Error Interacting with {e.TypeName} int {e.TableName} table: " + msg);
 
         }
         protected static string dbExDefMsg(DbEntityType e, string msg = DEF_MSG)
@@ -150,14 +143,11 @@ namespace SongsAbout.Classes
         }
 
     }
-    public class AlreadyInitializedError : DbException
+    public class InvalidInitializedError : DbException
     {
-        const string DEF_MSG = "Attempted to initialize an entity that must only have one instance.";
-        public AlreadyInitializedError(string msg = DEF_MSG) : base(msg)
-        {
-
-        }
-        public AlreadyInitializedError(string objectName, string msg = DEF_MSG)
+        const string DEF_MSG = "Attempt was made to initialize an entity when not all preconditions were met.";
+     
+        public InvalidInitializedError(string objectName, string msg = DEF_MSG)
             : base($"For Object {objectName}: {msg}")
         {
 
@@ -166,23 +156,28 @@ namespace SongsAbout.Classes
 
     }
 
-    public class UpdateError : DbException
+    public class UpdateFromSpotifyError : DbException
     {
         const string defaultMsg = "Error Updating Entity in Database";
 
-        public UpdateError(DbEntity e, string name, string msg = defaultMsg)
+        public UpdateFromSpotifyError(DbEntity e, string name, string msg = defaultMsg)
             : base(e, updateMsg(e, name, msg))
         {
         }
-        public UpdateError(DbEntity e, Type spotifyType, string name, string msg = defaultMsg)
+        public UpdateFromSpotifyError(DbEntity e, Type spotifyType, string name, string msg = defaultMsg)
         {
             string m =
-                (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from {spotifyType} in {e.TableName} table: " + msg);
+                (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from SpotifyType {spotifyType}: {msg}");
         }
         private static string updateMsg(DbEntity e, string name, string msg)
         {
             return
-                (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from {e.TableName} table: " + msg);
+                (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' in {e.TableName} table: {msg}");
+        }
+        public UpdateFromSpotifyError(DbEntityType e, SpotifyEntityType spotifyType, string name, string msg = defaultMsg)
+        {
+            string m =
+                (msg == defaultMsg ? msg : $"Error Updating {e} '{name}' from {spotifyType} in {e}s table: {msg}");
         }
     }
     public class EntityNotFoundError : DbException
@@ -325,12 +320,13 @@ namespace SongsAbout.Classes
             return ($"Attempted to insert a new {dbType} with name {name}, which already exists into the database. Try updating instead. \n{msg}");
         }
     }
-    public class InitializationError : DbException
+
+    public class DbFromSpotifyInitializationError : DbException
     {
         const string DEF_MSG = "Failed to initialize DbEntity from Spotify Entity.";
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
-        public InitializationError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG) : base(initErrDefMsg(dbType, spotifyType, msg))
+        public DbFromSpotifyInitializationError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG) : base(initErrDefMsg(dbType, spotifyType, msg))
         {
             this.DbEntityType = dbType;
             this.SpotifyEntityType = spotifyType;
@@ -338,7 +334,8 @@ namespace SongsAbout.Classes
 
         private static string initErrDefMsg(DbEntityType dbType, SpotifyEntityType spotifyType, string msg)
         {
-            return (msg == DEF_MSG ? msg : $"Failed to initialize DbEntity {dbType} from Spotify Entity {spotifyType}\n{msg}");
+            return
+                (msg == DEF_MSG ? $"Failed to initialize DbEntity {dbType} from Spotify Entity {spotifyType}\n{msg}" : msg);
         }
 
     }
@@ -357,7 +354,7 @@ namespace SongsAbout.Classes
 
         private static string _convErrDefMsg(string fromType = "UnknownType", string toType = "UnknownType", string msg = DEF_MSG)
         {
-            return (msg == DEF_MSG ? msg : $"Failed to convert {fromType} to {toType}\n{msg}");
+            return (msg == DEF_MSG ? $"Failed to convert {fromType} to {toType}\n{msg}" : msg);
         }
     }
 }

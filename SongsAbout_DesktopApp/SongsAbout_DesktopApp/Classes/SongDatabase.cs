@@ -11,20 +11,20 @@ namespace SongsAbout.Classes
     /// <summary>
     /// Wrapper class to interact with database easier
     /// </summary>
-    /// <exc cref="AlreadyInitializedError">Only </remarks>
+    /// <exc cref="InvalidInitializedError">Only </remarks>
     public partial class SongDatabase
     {
-        private static bool isInitialized = false;
+        static bool isInitialized = false;
         /// <summary>
         /// Single use Constructor at Program Start
         /// </summary>
-        /// <exception cref="AlreadyInitializedError"></exception>
+        /// <exception cref="InvalidInitializedError"></exception>
         public SongDatabase()
         {
             if (isInitialized)
             {
                 throw new
-                    AlreadyInitializedError("ArtistList", "Only one instance of the SongDatabase Class may be declared");
+                    InvalidInitializedError("ArtistList", "Only one instance of the SongDatabase Class may be declared");
             }
             isInitialized = true;
         }

@@ -106,7 +106,7 @@ namespace SongsAbout.Entities
         /// Submit Changes to the Database
         /// </summary>
         /// <exception cref="NullValueError"></exception>
-        /// <exception cref="UpdateError"></exception>"
+        /// <exception cref="UpdateFromSpotifyError"></exception>"
         /// <exception cref="System.Data.Entity.Infrastructure.DbUpdateException"></exception>
         /// <exception cref="DbException"></exception>"
         public override void Save()
@@ -128,7 +128,7 @@ namespace SongsAbout.Entities
         /// Initialize the member data from spotify Aritst
         /// </summary>
         /// <param name="artist"></param>
-        /// <exception cref="UpdateError"></exception>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
         public void Update(SimpleArtist artist)
         {
             try
@@ -137,7 +137,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError(this, artist.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this, artist.Name, ex.Message);
             }
         }
 
@@ -145,7 +145,7 @@ namespace SongsAbout.Entities
         /// Initialize the member data from spotify Aritst
         /// </summary>
         /// <param name="artist"></param>
-        /// <exception cref="UpdateError"></exception>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
         public void Update(FullArtist artist)
         {
             try
@@ -159,7 +159,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError(this, artist.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this, artist.Name, ex.Message);
             }
         }
 

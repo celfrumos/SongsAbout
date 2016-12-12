@@ -48,7 +48,7 @@ namespace SongsAbout.Entities
                         select tag).Count() > 0;
             }
         }
-        public override void Save(DataClassesContext db)
+        public void Save(DataClassesContext db)
         {
             if ((from tag in db.Tags
                  where tag.tag_text == this.tag_text

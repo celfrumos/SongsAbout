@@ -394,7 +394,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new InitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+                throw new DbFromSpotifyInitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
             }
 
         }
@@ -418,7 +418,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new InitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+                throw new DbFromSpotifyInitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
             }
         }
         public static Track Load(string name)
@@ -441,7 +441,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new InitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+                throw new DbFromSpotifyInitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
             }
 
         }
@@ -461,7 +461,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError(this, t.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this, t.Name, ex.Message);
             }
         }
         public Track(FullTrack t) : this(new FTrack(t))
@@ -684,16 +684,16 @@ namespace SongsAbout.Entities
                 }
                 else
                 {
-                    throw new InitializationError(DbEntityType.Track, type, "");
+                    throw new DbFromSpotifyInitializationError(DbEntityType.Track, type, "");
                 }
             }
-            catch (InitializationError)
+            catch (DbFromSpotifyInitializationError)
             {
                 throw;
             }
             catch (Exception ex)
             {
-                throw new InitializationError(DbEntityType.Artist, type, ex.Message);
+                throw new DbFromSpotifyInitializationError(DbEntityType.Artist, type, ex.Message);
             }
         }
 

@@ -226,7 +226,7 @@ namespace SongsAbout.Entities
                 using (var db = new DataClassesContext())
                 {
                     Genre newGenre;
-                    var existingGenres = SongDatabase.ExistingGenres;
+                    var existingGenres = Program.Database.ExistingGenres;
                     if (existingGenres.Contains(genre))
                     {
                         newGenre = (from g in db.Genres
@@ -345,9 +345,9 @@ namespace SongsAbout.Entities
         {
             album.Tracks.ToList().ForEach(t => t = Track.Load(t));
             album.Tracks = album.Tracks;
-            
+
             album.Genres = album.Genres;
-            
+
             return album;
         }
         public static Album Load(string al_title)
@@ -402,15 +402,7 @@ namespace SongsAbout.Entities
         }
         public void Update(SAlbum album)
         {
-            try
-            {
-                FAlbum al = new FAlbum(User.Default.SpotifyWebAPI.GetAlbum(album.Id));
-                this.Update(al);
-            }
-            catch (Exception ex)
-            {
-                throw new UpdateError(this, album.Name, ex.Message);
-            }
+            Update(new FAlbum(Converter.GetFullAlbum(album)));
         }
 
         public void Update(FAlbum album)
@@ -428,7 +420,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateError(this, album.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this.DbEntityType, SpotifyEntityType.FullAlbum, album.Name, ex.Message);
             }
         }
         private void UpdateCoverArt(FullAlbum album)
@@ -447,91 +439,127 @@ namespace SongsAbout.Entities
         {
             this.UpdateArtist(new SArtist(simpleArtist));
         }
-        private void UpdateArtist(SArtist simpleArtist)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
+        private void UpdateArtist(SArtist artist)
         {
             try
             {
                 Artist a;
-                if (!Artist.Exists(simpleArtist.Name))
+                if (!Artist.Exists(artist.Name))
                 {
-                    a = new Artist(simpleArtist);
+                    a = new Artist(artist);
                     a.Save();
                     Console.WriteLine($"Artist added: '{a.Name}'");
                 }
-                a = Artist.Load(simpleArtist.Name);
+                a = Artist.Load(artist.Name);
                 this.artist_id = a.ID;
             }
             catch (Exception ex)
             {
-                throw new UpdateError(this, typeof(SimpleArtist), this.name, ex.Message);
+                throw new
+                    UpdateFromSpotifyError(DbEntityType.Artist, SpotifyEntityType.SimpleArtist, artist.Name, $"For Album Artist on album '{this.Name}'{ex.Message}");
 
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="genres"></param>
         public void SetGenres(List<Genre> genres)
         {
-            using (var db = new DataClassesContext())
+            try
             {
-                foreach (var g in genres)
+                using (var db = new DataClassesContext())
                 {
-                    if (!this.Genres.Contains(g))
+                    foreach (var g in genres)
                     {
-                        this.Genres.Add(g);
-                        if (!db.Genres.Contains(g))
+                        if (!this.Genres.Contains(g))
                         {
-                            db.Genres.Add(g);
+                            if (!db.Genres.Contains(g))
+                            {
+                                db.Genres.Add(g);
+                            }
+                            this.Genres.Add(g);
+
                         }
                     }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new
+                    DbException(this.DbEntityType, $"Error Setting Album Genres for Album '{this.Name}\n{ex.Message}'");
             }
         }
         public void SetGenres(List<string> genres)
         {
-            using (var db = new DataClassesContext())
+            try
             {
-                foreach (var g in genres)
+                using (var db = new DataClassesContext())
                 {
-                    Genre newG = new Genre(g);
-                    if (!this.Genres.Contains(newG))
+                    foreach (var g in genres)
                     {
-                        if (!db.Genres.Contains(newG))
+                        Genre newG = new Genre(g);
+                        if (!this.Genres.Contains(newG))
                         {
-                            db.Genres.Add(newG);
+                            if (!db.Genres.Contains(newG))
+                            {
+                                db.Genres.Add(newG);
+                            }
+                            this.Genres.Add(newG);
                         }
-                        this.Genres.Add(newG);
                     }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new
+                    DbException(this.DbEntityType, $"Error Setting Album Genres for Album '{this.Name}\n{ex.Message}'");
             }
         }
         public void SetGenres(ISpotifyFullEntity entity)
         {
-            using (var db = new DataClassesContext())
+            try
             {
-                foreach (string g in entity.Genres)
+                using (var db = new DataClassesContext())
                 {
-                    Genre newG = new Genre(g);
-                    if (!this.Genres.Contains(newG))
+                    foreach (string g in entity.Genres)
                     {
-                        if (!db.Genres.Contains(newG))
+                        Genre newG = new Genre(g);
+                        if (!this.Genres.Contains(newG))
                         {
-                            db.Genres.Add(newG);
+                            if (!db.Genres.Contains(newG))
+                            {
+                                db.Genres.Add(newG);
+                            }
+                            this.Genres.Add(newG);
                         }
-                        this.Genres.Add(newG);
+                        db.Genres.Add(newG);
                     }
-                    db.Genres.Add(newG);
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new
+                    DbException(this.DbEntityType, $"Error Setting Album Genres for Album '{this.Name}\n{ex.Message}'");
             }
         }
-        public Album(object SpotifyEntity, SpotifyEntityType type)
+        public Album(object SpotifyEntity, SpotifyEntityType spotifyType)
         {
             try
             {
-                if (type == SpotifyEntityType.SimpleAlbum | type == SpotifyEntityType.FullAlbum)
+                if (spotifyType == SpotifyEntityType.SimpleAlbum | spotifyType == SpotifyEntityType.FullAlbum)
                 {
                     FullAlbum album;
-                    if (type == SpotifyEntityType.SimpleAlbum)
+                    if (spotifyType == SpotifyEntityType.SimpleAlbum)
                         album = Converter.GetFullAlbum((SimpleAlbum)SpotifyEntity);
                     else
                         album = (FullAlbum)SpotifyEntity;
@@ -544,16 +572,16 @@ namespace SongsAbout.Entities
                 }
                 else
                 {
-                    throw new InitializationError(DbEntityType.Track, type, "");
+                    throw new DbFromSpotifyInitializationError(this.DbEntityType, spotifyType);
                 }
             }
-            catch (InitializationError)
+            catch (DbFromSpotifyInitializationError)
             {
                 throw;
             }
             catch (Exception ex)
             {
-                throw new InitializationError(DbEntityType.Artist, type, ex.Message);
+                throw new DbFromSpotifyInitializationError(this.DbEntityType, spotifyType, ex.Message);
             }
         }
 

@@ -7,16 +7,29 @@ using System.Data.Entity.Infrastructure;
 using SongsAbout;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
+using System.Collections;
 
 namespace SongsAbout.Classes
 {
     public partial class SongDatabase
     {
-        public class GenreList : IEntityContainer<Genre>
+        public class GenreList : EntityContainer<Genre>, IEntityNameAccessor<Genre>
         {
-            public DbEntityType EntityType { get { return DbEntityType.Genre; } }
+            public override DbEntityType EntityType { get { return DbEntityType.Genre; } }
             private static bool _initialized { get; set; }
-    
+            public override int Count
+            {
+                get
+                {
+                    int count;
+                    using (var db = new DataClassesContext())
+                    {
+                        count = db.Genres.Count();
+                    }
+                    return count;
+                }
+            }
+
             /// <summary>
             /// Get the Genre of the given name if it exists, otherwise throws an exception
             /// </summary>
@@ -60,18 +73,18 @@ namespace SongsAbout.Classes
             /// <summary>
             /// Initializes the connector to the GenreList
             /// </summary>
-            /// <exception cref="AlreadyInitializedError"></exception>"
-            public GenreList()
+            /// <exception cref="InvalidInitializedError"></exception>"
+            public GenreList() : base("GenreList")
             {
                 if (_initialized)
                 {
-                    throw new AlreadyInitializedError("GenreList");
+                    throw new InvalidInitializedError("GenreList");
                 }
                 _initialized = true;
 
             }
 
-       
+
             /// <summary>
             /// Verifies if an Genre of the given name exists
             /// </summary>
@@ -97,24 +110,25 @@ namespace SongsAbout.Classes
                         DbException(EntityType, $"Error verifying if Database contains Genre with Name {name}{ex.Message}");
                 }
             }
+
             /// <summary>
             /// Returns A list of all Existing Genres in the database
             /// </summary>            
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public List<Genre> All
+            public override List<Genre> All
             {
                 get
                 {
                     try
                     {
-                        List<Genre> allGenres = new List<Genre>();
+                        _all = new List<Genre>();
                         using (var db = new DataClassesContext())
                         {
-                            allGenres.AddRange(from a in db.Genres
-                                               select a);
+                            _all.AddRange(from a in db.Genres
+                                          select a);
                         }
-                        return allGenres;
+                        return _all;
                     }
                     catch (Exception ex)
                     {
@@ -126,7 +140,7 @@ namespace SongsAbout.Classes
             /// Loads the Names of the existing Genres to a List
             /// </summary>
             /// <exception cref="DbException"></exception>
-            public List<string> AllNames
+            public override List<string> AllNames
             {
                 get
                 {
@@ -151,10 +165,10 @@ namespace SongsAbout.Classes
             /// Submit Changes to the Database
             /// </summary>
             /// <exception cref="NullValueError"></exception>
-            /// <exception cref="UpdateError"></exception>"
+            /// <exception cref="UpdateFromSpotifyError"></exception>"
             /// <exception cref="DbUpdateException"></exception>
             /// <exception cref="DbException"></exception>"
-            public void Save(Genre a)
+            public override void Save(Genre a)
             {
                 try
                 {
@@ -183,7 +197,7 @@ namespace SongsAbout.Classes
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
                     throw;
                 }
-                catch (UpdateError ex)
+                catch (UpdateFromSpotifyError ex)
                 {
                     Console.WriteLine(ex.Message + "\n");
                     throw;

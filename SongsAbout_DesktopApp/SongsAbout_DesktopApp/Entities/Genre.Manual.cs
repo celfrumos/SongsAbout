@@ -114,7 +114,7 @@ namespace SongsAbout.Entities
         public Genre(string name)
         {
             this.Name = name;
-            if (!SongDatabase.ExistingGenres.Contains(name))
+            if (!Program.Database.ExistingGenres.Contains(name))
             {
                 Save();
             }

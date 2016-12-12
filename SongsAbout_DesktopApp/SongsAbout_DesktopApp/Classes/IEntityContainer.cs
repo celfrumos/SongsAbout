@@ -15,6 +15,9 @@ namespace SongsAbout.Classes
     {
         DbEntityType EntityType { get; }
         List<string> AllNames { get; }
+        /// <summary>
+        /// The number of rows in the respective table
+        /// </summary>
         int Count { get; }
     }
 
@@ -40,10 +43,11 @@ namespace SongsAbout.Classes
         T this[string name] { get; set; }
     }
 
-    interface IEntityContainer<T> : IEntityContainer
+    interface IEntityContainer<T> : IEntityContainer, IEnumerator<T>, IEnumerable<T>
         where T : DbEntity
     {
         void Save(T entity);
+       
         List<T> All { get; }
     }
     /// <summary>

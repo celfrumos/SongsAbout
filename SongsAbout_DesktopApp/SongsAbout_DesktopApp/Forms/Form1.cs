@@ -22,7 +22,8 @@ namespace SongsAbout.Forms
             try
             {
                 // SetProfilePic();
-                var dd = SongDatabase.ExistingArtists;
+                var dd = Program.Database.Artists.All;
+                
                 var a = Artist.Load("Jon Bellion");
                 var als = a.Albums;
                 foreach (var al in als)

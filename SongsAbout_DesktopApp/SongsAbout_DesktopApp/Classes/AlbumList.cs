@@ -7,25 +7,25 @@ using System.Data.Entity.Infrastructure;
 using SongsAbout;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
+using System.Collections;
 
 namespace SongsAbout.Classes
 {
     public partial class SongDatabase
     {
-        public class AlbumList : IIntegralEntityContainer<Album>
+        public class AlbumList : EntityContainer<Album>, IEntityIdAccessor<Album>, IEntityNameAccessor<Album>
         {
-            public DbEntityType EntityType { get { return DbEntityType.Album; } }
-
+            public override DbEntityType EntityType { get { return DbEntityType.Album; } }
+      
             private static bool _initialized { get; set; }
-            public int Count
+            public override int Count
             {
                 get
                 {
                     int count;
                     using (var db = new DataClassesContext())
                     {
-                       count = (from a in db.Albums
-                                  select true).Count();
+                        count = db.Albums.Count();
                     }
                     return count;
                 }
@@ -114,12 +114,12 @@ namespace SongsAbout.Classes
             /// <summary>
             /// Initializes the connector to the AlbumList
             /// </summary>
-            /// <exception cref="AlreadyInitializedError"></exception>"
-            public AlbumList()
+            /// <exception cref="InvalidInitializedError"></exception>"
+            public AlbumList() : base("AlbumList")
             {
                 if (_initialized)
                 {
-                    throw new AlreadyInitializedError("AlbumList");
+                    throw new InvalidInitializedError("AlbumList");
                 }
                 _initialized = true;
 
@@ -180,19 +180,19 @@ namespace SongsAbout.Classes
             /// </summary>            
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public List<Album> All
+            public override List<Album> All
             {
                 get
                 {
                     try
                     {
-                        List<Album> allAlbums = new List<Album>();
+                        _all = new List<Album>();
                         using (var db = new DataClassesContext())
                         {
-                            allAlbums.AddRange(from a in db.Albums
-                                               select Album.Load(a));
+                            _all.AddRange(from a in db.Albums
+                                          select Album.Load(a));
                         }
-                        return allAlbums;
+                        return _all;
                     }
                     catch (Exception ex)
                     {
@@ -200,11 +200,12 @@ namespace SongsAbout.Classes
                     }
                 }
             }
+
             /// <summary>
             /// Loads the Names of the existing Albums to a List
             /// </summary>
             /// <exception cref="DbException"></exception>
-            public List<string> AllNames
+            public override List<string> AllNames
             {
                 get
                 {
@@ -229,10 +230,10 @@ namespace SongsAbout.Classes
             /// Submit Changes to the Database
             /// </summary>
             /// <exception cref="NullValueError"></exception>
-            /// <exception cref="UpdateError"></exception>"
+            /// <exception cref="UpdateFromSpotifyError"></exception>"
             /// <exception cref="DbUpdateException"></exception>
             /// <exception cref="DbException"></exception>"
-            public void Save(Album a)
+            public override void Save(Album a)
             {
                 try
                 {
@@ -255,7 +256,7 @@ namespace SongsAbout.Classes
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
                     throw;
                 }
-                catch (UpdateError ex)
+                catch (UpdateFromSpotifyError ex)
                 {
                     Console.WriteLine(ex.Message + "\n");
                     throw;
@@ -268,10 +269,10 @@ namespace SongsAbout.Classes
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-                    throw new DbException(ex.Message);
+                    throw new SaveError(ex.Message);
                 }
             }
-
+        
         }
     }
 }
