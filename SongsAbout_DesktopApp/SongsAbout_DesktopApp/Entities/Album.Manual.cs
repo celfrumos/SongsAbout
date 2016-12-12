@@ -44,7 +44,7 @@ namespace SongsAbout.Entities
             get { return this.al_spotify_uri; }
             set { this.al_spotify_uri = value; }
         }
-        public byte[] CoverArt
+        public byte[] CoverArtBytes
         {
             get { return this.al_cover_art; }
             set { this.al_cover_art = value; }
@@ -208,7 +208,7 @@ namespace SongsAbout.Entities
 
             }
         }
-        public Image Image
+        public Image CoverArt
         {
             get { return Converter.ImageFromBytes(this.al_cover_art); }
             set { this.al_cover_art = Converter.ImageToBytes(value); }
@@ -274,7 +274,7 @@ namespace SongsAbout.Entities
             this.Name = name;
             this.Year = year;
             this.Uri = uri;
-            this.CoverArt = Converter.ImageToBytes(coverArt);
+            this.CoverArtBytes = Converter.ImageToBytes(coverArt);
         }
 
         public override void Save()
@@ -285,7 +285,7 @@ namespace SongsAbout.Entities
                 {
                     using (var context = new DataClassesContext())
                     {
-                        context.UpdateInsert_Album(this.ID, this.ArtistId, this.Name, this.Year, this.Uri, this.CoverArt);
+                        context.UpdateInsert_Album(this.ID, this.ArtistId, this.Name, this.Year, this.Uri, this.CoverArtBytes);
                         //     context.Albums.Add(this);
                         context.SaveChanges();
                     }

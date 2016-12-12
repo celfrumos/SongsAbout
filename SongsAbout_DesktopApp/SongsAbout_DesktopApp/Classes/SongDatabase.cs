@@ -2,206 +2,69 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System;
 using System.Data;
-using System.Data.Entity;
-using System.Data.Linq;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System;
-using SpotifyAPI.Web.Models;
-using System.Data.Linq;
-using System.Data.Linq.Mapping;
-using System.Linq.Expressions;
-using System.Linq;
-using System.Collections.Generic;
-using SongsAbout.Classes;
 using SongsAbout.Enums;
-using SongsAbout.Properties;
-using SongsAbout.Controls;
-using System.Windows;
-using SongsAbout;
-using SongsAbout.Classes;
 using SongsAbout.Entities;
-using SongsAbout.Properties;
-using SpotifyAPI.Web;
-using SpotifyAPI.Web.Models;
-using Image = System.Drawing.Image;
 
 namespace SongsAbout.Classes
 {
-    public class SongDatabase
+    /// <summary>
+    /// Wrapper class to interact with database easier
+    /// </summary>
+    /// <exc cref="AlreadyInitializedError">Only </remarks>
+    public partial class SongDatabase
     {
         private static bool isInitialized = false;
+        /// <summary>
+        /// Single use Constructor at Program Start
+        /// </summary>
+        /// <exception cref="AlreadyInitializedError"></exception>
         public SongDatabase()
         {
             if (isInitialized)
             {
-                throw new Exception("Only one instance of the SongDatabase Class may be declared");
+                throw new
+                    AlreadyInitializedError("ArtistList", "Only one instance of the SongDatabase Class may be declared");
             }
             isInitialized = true;
         }
 
-        public DbEntity this[int id, DbEntityType type]
+
+        public List<string> ExistingGenres
         {
             get
             {
-                switch (type)
+                try
                 {
-                    case DbEntityType.Artist:
-                        return Artist.Load(id);
-                    case DbEntityType.Album:
-                        return Album.Load(id);
-                    case DbEntityType.Track:
-                        return Track.Load(id);
-                    default:
-                        throw new Exception();
+                    List<Genre> genres;
+                    using (var db = new DataClassesContext())
+                    {
+                        genres = (from Genre g in db.Genres
+                                  select g).ToList();
+                    }
+                    return new List<string>();
+                }
+                catch (Exception ex)
+                {
+
+                    throw new DbException($"Error Getting existing genres: {ex.Message}");
                 }
             }
         }
 
 
-        public static List<string> ExistingGenres
+        private AlbumList _albums = new AlbumList();
+        private ArtistList _artists = new ArtistList();
+        public AlbumList Albums
         {
-            get
-            {
-                List<Genre> genres;
-                using (var db = new DataClassesContext())
-                {
-                    genres = (from Genre g in db.Genres
-                              select g).ToList();
-                }
-                return new List<string>();
-            }
+            get { return _albums; }
         }
 
-        public static bool EditAlbum(Album album)
+        public ArtistList Artists
         {
-            try
-            {
-                using (var db = new DataClassesContext())
-                {
-                    db.UpdateInsert_Album(album.ID, album.Artist.ID, album.Name, album.Year, album.Uri, album.CoverArt);
-                    db.SaveChanges();
-
-                }
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error Editing Album: {ex.Message}");
-                return false;
-            }
-
+            get { return _artists; }
         }
 
-        public static bool EditArtist(Artist artist)
-        {
-            try
-            {
-                using (var db = new DataClassesContext())
-                {
-                    db.UpdateInsert_Artist(artist.ID, artist.Name, artist.Bio, artist.Website, artist.Uri, artist.ProfilePicBytes);
-                    db.SaveChanges();
-
-                }
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error Editing Artist: {ex.Message}");
-                return false;
-            }
-        }
-
-        public static List<Artist> ExistingArtists
-        {
-            get
-            {
-                List<Artist> artists;
-                using (var db = new DataClassesContext())
-                {
-                    db.Configuration.LazyLoadingEnabled = true;
-                    artists = (from a in db.Artists
-                               where a.ID != 0
-                               select a).ToList();
-                    artists.ForEach(a => a = Artist.Load(a));
-
-
-                }
-                return artists;
-            }
-        }
-
-        public static List<string> ExistingArtistNames
-        {
-            get
-            {
-                List<string> artists;
-                using (var db = new DataClassesContext())
-                {
-                    artists = (from a in db.Artists
-                               select a.Name).ToList();
-                }
-                return artists;
-            }
-        }
-
-        public static List<Album> ExistingAlbums
-        {
-            get
-            {
-                List<Album> albums;
-                using (var db = new DataClassesContext())
-                {
-                    albums = (from a in db.Albums
-                              select a).ToList();
-                }
-                return albums;
-            }
-        }
-
-        public List<string> ExistingAlbumNames
-        {
-            get
-            {
-                List<string> albums;
-                using (var db = new DataClassesContext())
-                {
-                    albums = (from a in db.Albums
-                              select a.Name).ToList();
-                }
-                return albums;
-            }
-        }
-        public ArtistList Artists { get { return new ArtistList(); } }
-
-        public class ArtistList : List<Artist>
-        {
-            private static bool initialized { get; set; }
-            public ArtistList()
-            {
-
-                using (var db = new DataClassesContext())
-                {
-                    base.AddRange(from a in db.Artists
-                                  select Artist.Load(a));
-                }
-            }
-            new public Artist this[int i]
-            {
-                get { return Artist.Load(i); }
-            }
-            public Artist this[string i]
-            {
-                get { return Artist.Load(i); }
-            }
-
-        }
     }
 }
+

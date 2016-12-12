@@ -930,7 +930,7 @@ namespace SongsAbout.Controls
             }
             else if (entity is Album)
             {
-                this.Image = ((Album)entity).Image;
+                this.Image = ((Album)entity).CoverArt;
 
             }
         }

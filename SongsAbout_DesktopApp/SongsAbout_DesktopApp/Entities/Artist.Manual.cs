@@ -25,6 +25,7 @@ namespace SongsAbout.Entities
     /// </summary>
     public partial class Artist : DbEntity// : DbEntity<Artist>
     {
+        private SongDatabase Database { get { return Program.Database; } }
         // DataClassesContext artistContext = new DataClassesContext();
         public static string Table = "Artists";
         public static string TypeString = "Artist";
@@ -35,6 +36,7 @@ namespace SongsAbout.Entities
         {
             get { return Table; }
         }
+    
         public Artist(string name, string uri, string website, string bio = null)
         {
             this.name = name;
@@ -103,117 +105,35 @@ namespace SongsAbout.Entities
         /// <summary>
         /// Submit Changes to the Database
         /// </summary>
+        /// <exception cref="NullValueError"></exception>
+        /// <exception cref="UpdateError"></exception>"
+        /// <exception cref="System.Data.Entity.Infrastructure.DbUpdateException"></exception>
+        /// <exception cref="DbException"></exception>"
         public override void Save()
         {
-            try
-            {
-                if (this.name != null)
-                {
-                    using (var context = new DataClassesContext())
-                    {
-                        context.UpdateInsert_Artist(this.ID, this.name, a_bio, a_website, this.a_spotify_uri, this.a_profile_pic);
-                        context.SaveChanges();
-                    }
-                }
-                else
-                {
-                    throw new Exception("Artist name cannot be null.");
-                }
-            }
-            catch (EntityNotFoundError ex)
-            {
-                Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-            }
-            catch (UpdateError ex)
-            {
-                Console.WriteLine(ex.Message + "\n");
-            }
-            catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
-            {
-                Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-            }
-        }
-        /// </summary>
-        public override void Save(DataClassesContext db)
-        {
-            try
-            {
-                if (this.name != null)
-                {
-                    if (!Exists(this.name))
-                    {
-                        db.Artists.Add(this);
-                        db.SaveChanges();
-
-                    }
-                    else
-                    {
-                        throw new EntityNotFoundError(this, this.name);
-                    }
-                }
-                else
-                {
-                    throw new Exception("Artist name cannot be null.");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new SaveError(this, this.name, ex.Message);
-            }
+            Program.Database.Artists.Save(this);
         }
 
         public static bool Exists(string name)
         {
-            try
-            {
-                int count = 0;
-                formatName(ref name);
-                using (var db = new DataClassesContext())
-                {
-                    var c = db.Artists.Where(a => a.name == name);
-                    count = c.Count();
-                }
-
-                return count > 0;
-            }
-            catch (Exception ex)
-            {
-                throw new DbException(typeof(Artist), ex.Message);
-            }
+            return Program.Database.Artists.Contains(name);
         }
 
-        public static bool Exists(int artist_id)
+        public static bool Exists(int id)
         {
-            try
-            {
-                int count = 0;
-                using (var db = new DataClassesContext())
-                {
-                    count = (from a in db.Artists
-                             where a.ID == artist_id
-                             select a).Count();
-                };
-                return count > 0;
-
-            }
-            catch (Exception ex)
-            {
-                throw new DbException(typeof(Artist), ex.Message);
-            }
-            //  return DbEntity<Artist>.Exists(artist_id);
+            return Program.Database.Artists.Contains(id);
         }
 
+        /// <summary>
+        /// Initialize the member data from spotify Aritst
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <exception cref="UpdateError"></exception>
         public void Update(SimpleArtist artist)
         {
             try
             {
-                FullArtist a;
-                a = User.Default.SpotifyWebAPI.GetArtist(artist.Id);
-                this.Update(a);
+                this.Update(Converter.GetFullArtist(artist));
             }
             catch (Exception ex)
             {
@@ -221,6 +141,11 @@ namespace SongsAbout.Entities
             }
         }
 
+        /// <summary>
+        /// Initialize the member data from spotify Aritst
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <exception cref="UpdateError"></exception>
         public void Update(FullArtist artist)
         {
             try
@@ -243,8 +168,8 @@ namespace SongsAbout.Entities
             if (artist.Images.Count > 0)
             {
                 byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
-                this.a_profile_pic = pic; //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
-
+                this.ProfilePicBytes = pic; //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+                this.ProfilePic = Converter.ImageFromBytes(pic);
             }
         }
         private void UpdateProfilePic(ISpotifyFullEntity artist)
@@ -252,7 +177,9 @@ namespace SongsAbout.Entities
             if (artist.Images.Count > 0)
             {
                 byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
-                this.a_profile_pic = pic; //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
+                this.ProfilePicBytes = pic;
+                this.ProfilePic = Converter.ImageFromBytes(pic);
+                //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
             }
         }
         public static Artist Load(Artist a)
@@ -260,76 +187,29 @@ namespace SongsAbout.Entities
             a.Albums.ToList().ForEach(al => al = Album.Load(al));
             a.Tracks.ToList().ForEach(t => t = Track.Load(t));
             return a;
-
         }
 
-      
-
-        public static Artist Load(string a_name)
+        /// <summary>
+        /// Get the Artist of the given name if it exists, otherwise throws an exception
+        /// </summary>
+        /// <param name="name"></param>
+        /// <exception cref="EntityNotFoundError"></exception>
+        /// <exception cref="LoadError"></exception>"
+        public static Artist Load(string name)
         {
-            try
-            {
-                Artist result = new Artist();
-                try
-                {
-                    using (var db = new DataClassesContext())
-                    {
-                        db.Configuration.LazyLoadingEnabled = true;
-                        result = (
-                            from Artist a in db.Artists
-                            where a.name == a_name
-                            select a).FirstOrDefault();
-                        foreach (var album in result.Albums)
-                        {
-                            album.Tracks = album.Tracks;
-                            album.Genres = album.Genres;
-                        }
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    result = new Artist();
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw new LoadError(new Artist(), a_name, ex.Message);
-            }
+            return Program.Database.Artists[name];
         }
 
-        public static Artist Load(int a_id)
+        /// <summary>
+        /// Load the artist of the given id from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <exception cref="EntityNotFoundError"></exception>
+        /// <exception cref="LoadError"></exception>"
+        /// <returns></returns>
+        public static Artist Load(int id)
         {
-            try
-            {
-                if (!Exists(a_id))
-                {
-                    Artist result;
-                    using (var db = new DataClassesContext())
-                    {
-                        result = (from Artist a in db.Artists
-                                  where a.ID == a_id
-                                  select a).First();
-
-                        foreach (var album in result.Albums)
-                        {
-                            album.Tracks = album.Tracks;
-                            album.Genres = album.Genres;
-                        }
-                    }
-                    return result;
-                }
-                else
-                {
-                    throw new EntityNotFoundError(typeof(Artist), a_id);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new LoadError(new Artist(), a_id, ex.Message);
-            }
+            return Program.Database.Artists[id];
         }
 
     }

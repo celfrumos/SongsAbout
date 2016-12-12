@@ -55,6 +55,12 @@ namespace SongsAbout.Classes
                 throw new ConversionError("System.Drawing.Image", "byte[]", ex.Message);
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <returns></returns>
+        /// <exception cref="SpotifyConversionError"></exception>
         public static FullArtist GetFullArtist(SimpleArtist artist)
         {
             try
