@@ -36,67 +36,69 @@ namespace SongsAbout.Classes.Database
             /// </summary>
             /// <returns></returns>
             /// <param name="id"></param>
-            /// <exception cref="EntityNotFoundError"></exception>
-            /// <exception cref="LoadError"></exception>"
+            /// <exception cref="LoadError"></exception>
             /// <exception cref="DbUpdateException"></exception>
             public Album this[int id]
             {
-                set { this.Add(value); }
+                set
+                {
+                    try { this.Add(value); }
+                    catch (DbUpdateException)
+                    { throw; }
+                }
                 get
                 {
                     if (!this.Contains(id))
                         throw new EntityNotFoundError(DbEntityType, id);
 
-                    else {
-                        try
-                        {
-                            Album result;
-                            using (var db = new DataClassesContext())
-                            {
-                                result = (from Album a in db.Albums
-                                          where a.ID == id
-                                          select a).First();
-                            }
-                            return result;
+                    try
+                    {
+                        var results =
+                            this.Items
+                            .Where(a => a.ID == id);
 
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new LoadError(DbEntityType, id, ex.Message);
-                        }
+                        if (results.Count() == 0)
+                            return null;
+
+                        return results.First();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new LoadError(DbEntityType, id, ex.Message);
                     }
                 }
             }
+
 
             /// <summary>
             /// Get the Album of the given name if it exists, otherwise throws an exception
             /// </summary>
             /// <param name="name"></param>
             /// <returns></returns>
-            /// <exception cref="EntityNotFoundError"></exception>
+            /// <exception cref="LoadError"></exception>
+            /// <exception cref="DbUpdateException"></exception>
             public Album this[string name]
             {
-                set { this.Add(value); }
+                set
+                {
+                    try { this.Add(value); }
+                    catch (DbUpdateException)
+                    { throw; }
+                }
                 get
                 {
-                    if (!this.Contains(name))
-                        throw new EntityNotFoundError(DbEntityType, name);
-
                     try
                     {
-                        Album result;
-                        using (var db = new DataClassesContext())
-                        {
-                            result = (from Album a in db.Albums
-                                      where a.Name == name
-                                      select a).First();
-                        }
-                        return result;
+                        var results =
+                            this.Items
+                            .Where(a => a.Name == name);
 
-                    }
-                    catch (EntityNotFoundError)
-                    {
-                        throw;
+                        if (results.Count() == 0)
+                            return null;
+
+                        return results.First();
+
                     }
                     catch (Exception ex)
                     {
@@ -127,13 +129,12 @@ namespace SongsAbout.Classes.Database
             /// <exception cref="DbException"></exception>
             public bool Contains(int id)
             {
+                if (id == 0)
+                    throw new NullValueError(DbEntityType, "name");
+
                 try
                 {
-                    int count = this.Items
-                        .Where(a => a.ID == id)
-                        .Count();
-
-                    return count > 0;
+                    return this[id] != null;
                 }
                 catch (Exception ex)
                 {
@@ -145,18 +146,18 @@ namespace SongsAbout.Classes.Database
             /// <summary>
             /// Verifies if an Album of the given name exists
             /// </summary>
-            /// <param name="id"></param>
+            /// <param name="name"></param>
             /// <returns></returns>
+            /// <exception cref="NullValueError"></exception>
             /// <exception cref="DbException"></exception>
             public bool Contains(string name)
             {
+                if (name == null || name == "")
+                    throw new NullValueError(DbEntityType, "name");
+
                 try
                 {
-                    int count = this.Items
-                        .Where(a => a.Name == name)
-                        .Count();
-
-                    return count > 0;
+                    return this[name] != null;
                 }
                 catch (Exception ex)
                 {
@@ -180,7 +181,7 @@ namespace SongsAbout.Classes.Database
                         {
                             _all.AddRange(from a in db.Albums
                                           where a.ID != 0
-                                          select Album.Load(a));
+                                          select a);
                         }
                         return _all;
                     }
@@ -220,19 +221,16 @@ namespace SongsAbout.Classes.Database
             /// <exception cref="SaveError"></exception>"
             public override void Add(Album a)
             {
+
+                if (a.Name == null || a.Name == "")
+                    throw new NullValueError(this.DbEntityType, "Name");
+
                 try
                 {
-                    if (a.Name != null)
+                    using (var context = new DataClassesContext())
                     {
-                        using (var context = new DataClassesContext())
-                        {
-                            context.UpdateInsert_Album(a.ID, a.ArtistId, a.Name, a.Year, a.Uri, a.CoverArtBytes);
-                            context.SaveChanges();
-                        }
-                    }
-                    else
-                    {
-                        throw new NullValueError(this.DbEntityType, "Name");
+                        context.UpdateInsert_Album(a.ID, a.ArtistId, a.Name, a.Year, a.Uri, a.CoverArtBytes);
+                        context.SaveChanges();
                     }
                 }
                 catch (DbUpdateException ex)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
 using SongsAbout.Properties;
@@ -149,11 +150,15 @@ namespace SongsAbout.Classes
 
 
         }
-        public static SearchItem Search(string query, SearchType searchType, int limit = 20, int offset = 0)
+        public static  SearchItem Search(string query, SearchType searchType, int limit = 20, int offset = 0)
         {
             if (UserSpotify.WebAPI == null)
             {
                 UserSpotify.Authenticate();
+                while (UserSpotify.WebAPI == null)
+                {
+                    Thread.Sleep(1);
+                }
             }
 
             var resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
@@ -167,7 +172,7 @@ namespace SongsAbout.Classes
         public static List<FTrack> GetSavedTracks()
         {
             Paging<SavedTrack> savedTracks = new Paging<SavedTrack>();
-           var list = new List<FTrack>();
+            var list = new List<FTrack>();
             try
             {
                 savedTracks = WebAPI.GetSavedTracks();

@@ -174,8 +174,7 @@ namespace SongsAbout.Classes
                 case DbEntityType.Artist:
                     if (!Program.Database.Artists.Contains(name))
                     {
-                        var a = new Artist(spotifyEntity);
-                        a.Save();
+                        Program.Database.Artists[spotifyEntity.Name] = new Artist(spotifyEntity);
                         return true;
                     }
                     break;
@@ -184,6 +183,7 @@ namespace SongsAbout.Classes
                     {
                         var a = new Album(spotifyEntity, spotifyEntityType);
                         a.Save();
+                        return true;
                     }
                     break;
                 case DbEntityType.Track:
@@ -191,6 +191,7 @@ namespace SongsAbout.Classes
                     {
                         var t = new Track(spotifyEntity);
                         t.Save();
+                        return true;
                     }
                     break;
                 default:

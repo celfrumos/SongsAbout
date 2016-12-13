@@ -65,6 +65,7 @@ namespace SongsAbout.Classes.Database
             /// Get the Artist of the given id if it exists, otherwise throws an exception
             /// </summary>
             /// <param name="id"></param>
+            /// <exception cref="NullValueError"></exception>
             /// <exception cref="EntityNotFoundError"></exception>
             /// <exception cref="LoadError"></exception>"
             /// <exception cref="DbUpdateException"></exception>
@@ -73,24 +74,17 @@ namespace SongsAbout.Classes.Database
                 set { this.Add(value); }
                 get
                 {
-                    if (!this.Contains(id))
-                        throw new EntityNotFoundError(DbEntityType, id);
-
+                    if (id == 0)
+                        throw new NullValueError();
                     try
                     {
-                        Artist result;
-                        using (var db = new DataClassesContext())
-                        {
-                            result = db.Artists.Where(a => a.ID == id).First();
+                        var results = this.Items
+                            .Where(a => a.ID == id);
 
-                            foreach (var album in result.Albums)
-                            {
-                                album.Tracks = album.Tracks;
-                                album.Genres = album.Genres;
-                            }
-                        }
-                        return result;
+                        if (results.Count() == 0)
+                            return null;
 
+                        return results.First();
                     }
                     catch (Exception ex)
                     {
@@ -98,34 +92,33 @@ namespace SongsAbout.Classes.Database
                     }
                 }
             }
+
             /// <summary>
             /// Get the Artist of the given name if it exists, otherwise throws an exception
             /// </summary>
             /// <param name="name"></param>
             /// <returns></returns>
+            /// <exception cref="NullValueError"></exception>
             /// <exception cref="EntityNotFoundError"></exception>
+            /// <exception cref="LoadError"></exception>"
+            /// <exception cref="DbUpdateException"></exception>
             public Artist this[string name]
             {
                 set { this.Add(value); }
                 get
                 {
-                    if (!this.Contains(name))
-                        throw new EntityNotFoundError(DbEntityType, name);
-
+                    if (name == null || name == "")
+                        throw new NullValueError();
                     try
                     {
-                        Artist result;
-                        using (var db = new DataClassesContext())
-                        {
-                            result = db.Artists.Where(a => a.Name == name).First();
+                        var results = 
+                            this.Items
+                            .Where(a => a.Name == name);
 
-                            foreach (var album in result.Albums)
-                            {
-                                album.Tracks = album.Tracks;
-                                album.Genres = album.Genres;
-                            }
-                        }
-                        return result;
+                        if (results.Count() == 0)
+                            return null;
+
+                        return results.First();
 
                     }
                     catch (Exception ex)
@@ -134,23 +127,22 @@ namespace SongsAbout.Classes.Database
                     }
                 }
             }
-
-
+            
             /// <summary>
             /// Verifies if an artist of the given id exists
             /// </summary>
             /// <param name="id"></param>
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
+            /// /// <exception cref="NullValueError"></exception>
             public bool Contains(int id)
             {
+                if (id == 0)
+                    throw new NullValueError();
+
                 try
                 {
-                    int count = this.Items
-                        .Where(a => a.ID == id)
-                        .Count();
-
-                    return count > 0;
+                    return this[id] == null;
                 }
                 catch (Exception ex)
                 {
@@ -165,18 +157,16 @@ namespace SongsAbout.Classes.Database
             /// <param name="name">The name of the intended Artist</param>
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
+            /// <exception cref="NullValueError"></exception>
             /// <seealso cref="Contains(int id)"/>
             public bool Contains(string name)
             {
                 if (name == null || name == "")
                     throw new NullValueError();
+
                 try
                 {
-                    int count = this.Items
-                        .Where(a => a.Name == name)
-                        .Count();
-
-                    return count > 0;
+                    return this[name] == null;
                 }
                 catch (Exception ex)
                 {
@@ -233,9 +223,7 @@ namespace SongsAbout.Classes.Database
                     }
                 }
             }
-
-
-
+            
             /// <summary>
             /// Submit Changes to the Database
             /// </summary>

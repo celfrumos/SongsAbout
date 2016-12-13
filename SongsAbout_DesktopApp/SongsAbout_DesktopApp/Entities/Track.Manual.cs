@@ -179,6 +179,8 @@ namespace SongsAbout.Entities
         /// <summary>
         /// 
         /// </summary>
+        /// <exception cref="EntityNotFoundError"></exception>
+        /// <exception cref="LoadError"></exception>
         public Album Album
         {
             set
@@ -193,7 +195,6 @@ namespace SongsAbout.Entities
                     if (this.privateAlbum == null)
                     {
                         this.privateAlbum = Program.Database.Albums[this.AlbumId];
-
                     }
                     return this.privateAlbum;
 

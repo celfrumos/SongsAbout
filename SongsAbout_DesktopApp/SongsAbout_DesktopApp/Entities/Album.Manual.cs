@@ -20,8 +20,7 @@ namespace SongsAbout.Entities
         public static readonly string TypeString = "Album";
         public static readonly string TitleColumn = "name";
         private const SpotifyEntityType SPOTIFY_TYPE = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
-
-        private bool? _exists = null;
+        
         public override SpotifyEntityType SpotifyType
         {
             get { return SPOTIFY_TYPE; }
@@ -32,7 +31,11 @@ namespace SongsAbout.Entities
             get { return Table; }
         }
 
-        public override string Name { get { return this.name; } set { this.name = value; } }
+        public override string Name
+        {
+            get { return this.name; }
+            set { this.name = value; }
+        }
         public string Year
         {
             get { return this.al_year; }
@@ -127,6 +130,17 @@ namespace SongsAbout.Entities
         }
         public List<Genre> Genres
         {
+            set
+            {
+                foreach (var genre in value)
+                {
+                    if (!this.privateGenres.Contains(genre))
+                    {
+                        this.privateGenres.Add(genre);
+                    }
+
+                }
+            }
             get
             {
                 try
@@ -150,57 +164,38 @@ namespace SongsAbout.Entities
 
                 }
             }
-            set { this.privateGenres = value; }
         }
 
         public Artist Artist
         {
-            get
-            {
-                try
-                {
-                    if (this.privateArtist != null)
-                        return this.privateArtist;
-
-                    else if (this.artist_id != 0)
-                        return Artist.Load(this.ArtistId);
-
-                    else
-                        return new Artist();
-
-                }
-                catch (ObjectDisposedException ex)
-                {
-                    if (this.artist_id != 0)
-                        return Artist.Load(this.ArtistId);
-
-                    else
-                        return new Artist();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($" Error returning album artist for {this.Name}: {ex.Message}");
-
-                    return new Artist();
-
-                }
-            }
             set
             {
                 this.privateArtist = value;
                 this.ArtistId = value.ID;
             }
+            get
+            {
+                try
+                {
+                    return Program.Database.Artists[this.ArtistId];
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    throw new LoadError(DbEntityType.Artist, this.ArtistId, ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    string msg = $" Error returning album artist for {this.Name}: {ex.Message}";
+
+                    throw new LoadError(DbEntityType.Artist, this.ArtistId, msg);
+
+                }
+            }
         }
         public int ArtistId
         {
             get { return this.artist_id; }
-            set
-            {
-                this.artist_id = value;
-
-                this.Artist = Artist.Load(value);
-
-            }
+            set { this.artist_id = value; }
         }
         public Image CoverArt
         {
@@ -437,8 +432,7 @@ namespace SongsAbout.Entities
                 Artist newArtist;
                 if (!Program.Database.Artists.Contains(artist.Name))
                 {
-                    Program.Database.Artists.Add(new Artist(artist));
-                    Console.WriteLine($"Artist added: '{artist.Name}'");
+                    Program.Database.Artists[artist.Name] = new Artist(artist);
                 }
 
                 newArtist = Program.Database.Artists[artist.Name];

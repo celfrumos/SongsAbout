@@ -38,11 +38,13 @@ namespace SongsAbout.Forms
             Console.WriteLine($"{control.SpotifyEntity.Name} Panel Clicked");
             try
             {
-                control.ImportEntity();
+                var spotify = control.SpotifyEntity;
+                var entity = control.DbEntity;
+                var imported = control.ImportEntity();
             }
             catch (Exception ex)
             {
-                throw;
+                Console.WriteLine(ex.Message);
             }
 
         }
@@ -174,8 +176,8 @@ namespace SongsAbout.Forms
         {
             var resultsList = UserSpotify.Search(query, searchType, limit, offset);
 
-            this.albumDisplay1 = new AlbumDisplay((FAlbum)new SAlbum(resultsList.Albums.Items[0]).FullVersion());
-            return;
+            // this.albumDisplay1 = new AlbumDisplay((FAlbum)new SAlbum(resultsList.Albums.Items[0]).FullVersion());
+            //return;
             if (searchType == SearchType.All)
             {
                 if (resultsList.Albums.Items.Count > 0)
@@ -183,7 +185,7 @@ namespace SongsAbout.Forms
                     foreach (var album in resultsList.Albums.Items)
                     {
                         await Task.Run(() => AddToFlow(new SPanel(new SAlbum(album), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
-                        break;
+                        //  break;
                     }
                     flpSpotifyControls.Refresh();
                     return;

@@ -25,12 +25,12 @@ namespace SongsAbout.Forms
               //  var dd = Program.Database.Artists.All;
 
                 
-                foreach (var item in Program.Database.Tracks)
-                {
-                    var album = item.Album;
-                    var artist = item.Artist;
+                //foreach (var item in Program.Database.Tracks)
+                //{
+                //    var album = item.Album;
+                //    var artist = item.Artist;
                     
-                }
+                //}
          
 
                 //Artist a = Artist.Load(4);
