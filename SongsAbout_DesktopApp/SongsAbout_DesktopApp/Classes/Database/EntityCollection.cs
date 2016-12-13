@@ -16,7 +16,7 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public abstract class EntityCollection<T> : IEntityCollection<T>
+        public abstract class EntityCollection<T> :  IEntityCollection<T>, IEntityNameAccessor<T>
             where T : DbEntity
         {
             protected EntityCollection(string childname)
@@ -30,13 +30,74 @@ namespace SongsAbout.Classes.Database
             }
             protected List<T> _all { get; set; }
             public abstract List<T> Items { get; }
-            public abstract List<string> AllNames { get; }
-
-            public virtual int Count { get; }
-            public abstract void Add(T entity);
-
+            public virtual List<string> AllNames
+            {
+                get
+                {
+                    return (from a in this.Items
+                            select a.Name).ToList();
+                }
+            }
             public abstract DbEntityType DbEntityType { get; }
+            /// <summary>
+            /// Get the Artist of the given name if it exists, otherwise throws an exception
+            /// </summary>
+            /// <param name="name"></param>
+            /// <exception cref="NullValueError"></exception>
+            /// <exception cref="LoadError"></exception>"
+            public virtual T this[string name]
+            {
+                set { this.Add(value); }
+                get
+                {
+                    if (name == null || name == "")
+                        throw new NullValueError();
 
+                    try
+                    {
+                        var results =
+                            this.Items
+                            .Where(a => a.Name == name);
+
+                        if (results.Count() == 0)
+                            return null;
+
+                        return results.First();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new LoadError(DbEntityType, name, ex.Message);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Verifies if an artist of the given name exists
+            /// </summary>
+            /// <param name="name">The name of the intended Artist</param>
+            /// <returns></returns>
+            /// <exception cref="DbException"></exception>
+            /// <exception cref="NullValueError"></exception>
+            /// <seealso cref="Contains(int id)"/>
+            public virtual bool Contains(string name)
+            {
+                if (name == null || name == "")
+                    throw new NullValueError();
+
+                try
+                {
+                    return this[name] == null;
+                }
+                catch (Exception ex)
+                {
+                    throw new
+                        DbException(DbEntityType, $"Error verifying if Database contains {typeof(T)} with Name {name}{ex.Message}");
+                }
+            }
+            public virtual int Count { get { return this.Items.Count; } }
+            public abstract void Add(T entity);
+            
             public virtual T Current
             {
                 get

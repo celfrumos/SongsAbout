@@ -13,24 +13,25 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class AlbumCollection : EntityCollection<Album>, IEntityIdAccessor<Album>, IEntityNameAccessor<Album>
+        public class AlbumCollection : EntityCollection<Album>, IEntityNameAccessor<Album>
         {
             public override DbEntityType DbEntityType { get { return DbEntityType.Album; } }
-
+            private const string COLLECTION_NAME = "AlbumList";
             private static bool _initialized { get; set; }
-            public override int Count
-            {
-                get
-                {
-                    int count;
-                    using (var db = new DataClassesContext())
-                    {
-                        count = db.Albums.Count();
-                    }
-                    return count;
-                }
-            }
 
+            /// <summary>
+            /// Initializes the connector to the AlbumList
+            /// </summary>
+            /// <exception cref="InvalidInitializedError"></exception>"
+            public AlbumCollection() : base(COLLECTION_NAME)
+            {
+                if (_initialized)
+                {
+                    throw new InvalidInitializedError(COLLECTION_NAME);
+                }
+                _initialized = true;
+
+            }
             /// <summary>
             /// Get the Album of the given id if it exists, otherwise throws an exception
             /// </summary>
@@ -72,56 +73,6 @@ namespace SongsAbout.Classes.Database
 
 
             /// <summary>
-            /// Get the Album of the given name if it exists, otherwise throws an exception
-            /// </summary>
-            /// <param name="name"></param>
-            /// <returns></returns>
-            /// <exception cref="LoadError"></exception>
-            /// <exception cref="DbUpdateException"></exception>
-            public Album this[string name]
-            {
-                set
-                {
-                    try { this.Add(value); }
-                    catch (DbUpdateException)
-                    { throw; }
-                }
-                get
-                {
-                    try
-                    {
-                        var results =
-                            this.Items
-                            .Where(a => a.Name == name);
-
-                        if (results.Count() == 0)
-                            return null;
-
-                        return results.First();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new LoadError(DbEntityType, name, ex.Message);
-                    }
-                }
-            }
-
-            /// <summary>
-            /// Initializes the connector to the AlbumList
-            /// </summary>
-            /// <exception cref="InvalidInitializedError"></exception>"
-            public AlbumCollection() : base("AlbumList")
-            {
-                if (_initialized)
-                {
-                    throw new InvalidInitializedError("AlbumList");
-                }
-                _initialized = true;
-
-            }
-
-            /// <summary>
             /// Verifies if an Album of the given id exists
             /// </summary>
             /// <param name="id"></param>
@@ -143,28 +94,6 @@ namespace SongsAbout.Classes.Database
                 }
             }
 
-            /// <summary>
-            /// Verifies if an Album of the given name exists
-            /// </summary>
-            /// <param name="name"></param>
-            /// <returns></returns>
-            /// <exception cref="NullValueError"></exception>
-            /// <exception cref="DbException"></exception>
-            public bool Contains(string name)
-            {
-                if (name == null || name == "")
-                    throw new NullValueError(DbEntityType, "name");
-
-                try
-                {
-                    return this[name] != null;
-                }
-                catch (Exception ex)
-                {
-                    throw new
-                        DbException(DbEntityType, $"Error verifying if Database contains Album with Name {name}{ex.Message}");
-                }
-            }
             /// <summary>
             /// Returns A list of all Existing Albums in the database
             /// </summary>            
@@ -192,27 +121,7 @@ namespace SongsAbout.Classes.Database
                 }
             }
 
-            /// <summary>
-            /// Loads the Names of the existing Albums to a List
-            /// </summary>
-            /// <exception cref="DbException"></exception>
-            public override List<string> AllNames
-            {
-                get
-                {
-                    try
-                    {
-                        List<string> Albums = (from a in this.Items
-                                               select a.Name).ToList();
-                        return Albums;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new DbException($"Error Loading existing Album Names: {ex.Message}");
-                    }
-                }
-            }
-
+        
             /// <summary>
             /// Submit Changes to the Database
             /// </summary>

@@ -16,51 +16,26 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class ArtistCollection : EntityCollection<Artist>, IEntityIdAccessor<Artist>, IEntityNameAccessor<Artist>
+        public class ArtistCollection : EntityCollection<Artist>, IEntityIdAccessor<Artist>
         {
+            private const string COLLECTION_NAME = "ArtistList";
             public override DbEntityType DbEntityType { get { return DbEntityType.Artist; } }
-            private static List<Artist> _allArtists
-            {
-                get; set;
-            }
+
             private static bool _initialized { get; set; }
             /// <summary>
             /// Initializes the connector to the ArtistList
             /// </summary>
             /// <exception cref="InvalidInitializedError"></exception>"
-            public ArtistCollection() : base("ArtistList")
+            public ArtistCollection() : base(COLLECTION_NAME)
             {
                 if (_initialized)
                 {
-                    throw new InvalidInitializedError("ArtistList");
+                    throw new InvalidInitializedError(COLLECTION_NAME);
                 }
                 _initialized = true;
 
             }
 
-            /// <summary>
-            /// Returns the number of rows in the Artist Table
-            /// </summary>
-            /// <exception cref="DbException"></exception>
-            public override int Count
-            {
-                get
-                {
-                    try
-                    {
-                        int count;
-                        using (var db = new DataClassesContext())
-                        {
-                            count = db.Artists.Count();
-                        }
-                        return count;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new DbException(this.DbEntityType, ex.Message);
-                    }
-                }
-            }
             /// <summary>
             /// Get the Artist of the given id if it exists, otherwise throws an exception
             /// </summary>
@@ -94,41 +69,6 @@ namespace SongsAbout.Classes.Database
             }
 
             /// <summary>
-            /// Get the Artist of the given name if it exists, otherwise throws an exception
-            /// </summary>
-            /// <param name="name"></param>
-            /// <returns></returns>
-            /// <exception cref="NullValueError"></exception>
-            /// <exception cref="EntityNotFoundError"></exception>
-            /// <exception cref="LoadError"></exception>"
-            /// <exception cref="DbUpdateException"></exception>
-            public Artist this[string name]
-            {
-                set { this.Add(value); }
-                get
-                {
-                    if (name == null || name == "")
-                        throw new NullValueError();
-                    try
-                    {
-                        var results = 
-                            this.Items
-                            .Where(a => a.Name == name);
-
-                        if (results.Count() == 0)
-                            return null;
-
-                        return results.First();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new LoadError(DbEntityType, name, ex.Message);
-                    }
-                }
-            }
-            
-            /// <summary>
             /// Verifies if an artist of the given id exists
             /// </summary>
             /// <param name="id"></param>
@@ -152,30 +92,6 @@ namespace SongsAbout.Classes.Database
             }
 
             /// <summary>
-            /// Verifies if an artist of the given name exists
-            /// </summary>
-            /// <param name="name">The name of the intended Artist</param>
-            /// <returns></returns>
-            /// <exception cref="DbException"></exception>
-            /// <exception cref="NullValueError"></exception>
-            /// <seealso cref="Contains(int id)"/>
-            public bool Contains(string name)
-            {
-                if (name == null || name == "")
-                    throw new NullValueError();
-
-                try
-                {
-                    return this[name] == null;
-                }
-                catch (Exception ex)
-                {
-                    throw new
-                        DbException(DbEntityType, $"Error verifying if Database contains Artist with Name {name}{ex.Message}");
-                }
-            }
-
-            /// <summary>
             /// Returns A list of all Existing Artists in the database
             /// </summary>            
             /// <returns></returns>
@@ -186,15 +102,14 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        _allArtists = new List<Artist>();
+                        base._all = new List<Artist>();
                         using (var db = new DataClassesContext())
                         {
-                            _allArtists.AddRange(from a in db.Artists
-                                                 where a.ID != 0
-                                                 select a);
+                            base._all.AddRange(from a in db.Artists
+                                               where a.ID != 0
+                                               select a);
                         }
-                        base._all = _allArtists;
-                        return _allArtists;
+                        return base._all;
                     }
                     catch (Exception ex)
                     {
@@ -202,33 +117,11 @@ namespace SongsAbout.Classes.Database
                     }
                 }
             }
-            /// <summary>
-            /// Loads the Names of the existing Artists to a List
-            /// </summary>
-            /// <exception cref="DbException"></exception>
-            public override List<string> AllNames
-            {
-                get
-                {
-                    try
-                    {
-                        List<string> artists = (from a in this.Items
-                                                select a.Name).ToList();
 
-                        return artists;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new DbException($"Error Loading existing Artist Names: {ex.Message}");
-                    }
-                }
-            }
-            
             /// <summary>
             /// Submit Changes to the Database
             /// </summary>
             /// <exception cref="NullValueError"></exception>
-            /// <exception cref="DbUpdateException"></exception>
             /// <exception cref="SaveError"></exception>"
             public override void Add(Artist a)
             {
@@ -243,11 +136,6 @@ namespace SongsAbout.Classes.Database
                         context.SaveChanges();
                     }
 
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
-                {
-                    Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-                    throw;
                 }
                 catch (Exception ex)
                 {

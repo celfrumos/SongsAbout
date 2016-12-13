@@ -1,32 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity.Infrastructure;
-using System.Text;
 using System.Data;
 using SongsAbout.Enums;
 using SongsAbout.Entities;
-using System.Collections;
 
 namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class TrackCollection : EntityCollection<Track>, IEntityIdAccessor<Track>, IEntityNameAccessor<Track>
+        public class TrackCollection : EntityCollection<Track>, IEntityIdAccessor<Track>
         {
             public override DbEntityType DbEntityType { get { return DbEntityType.Track; } }
-            private static List<Track> _allTracks
-            {
-                get; set;
-            }
+         
             private static bool _initialized { get; set; }
             /// <summary>
             /// Initializes the connector to the TrackList
@@ -43,63 +29,27 @@ namespace SongsAbout.Classes.Database
             }
 
             /// <summary>
-            /// Returns the number of rows in the Track Table
-            /// </summary>
-            /// <exception cref="DbException"></exception>
-            public override int Count
-            {
-                get
-                {
-                    try
-                    {
-                        int count;
-                        using (var db = new DataClassesContext())
-                        {
-                            count = db.Tracks.Count();
-                        }
-                        return count;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new DbException(this.DbEntityType, ex.Message);
-                    }
-                }
-            }
-            /// <summary>
             /// Get the Track of the given id if it exists, otherwise throws an exception
             /// </summary>
             /// <param name="id"></param>
-            /// <exception cref="EntityNotFoundError"></exception>
+            /// <exception cref="NullValueError"></exception>
             /// <exception cref="LoadError"></exception>"
-            /// <exception cref="DbUpdateException"></exception>
             public Track this[int id]
             {
                 set { this.Add(value); }
                 get
                 {
+                    if (id == 0)
+                        throw new NullValueError(this.DbEntityType, "name");
+
                     try
                     {
-                        if (!this.Contains(id))
-                        {
-                            Track result;
-                            using (var db = new DataClassesContext())
-                            {
-                                result = (from Track a in db.Tracks
-                                          where a.ID == id
-                                          select a).First();
+                        var results = this.Items.Where(t => t.ID == id);
 
+                        if (results.Count() == 0)
+                            return null;
 
-                            }
-                            return result;
-                        }
-                        else
-                        {
-                            throw new EntityNotFoundError(DbEntityType, id);
-                        }
-                    }
-                    catch (EntityNotFoundError)
-                    {
-                        throw;
+                        return results.First();
                     }
                     catch (Exception ex)
                     {
@@ -107,49 +57,7 @@ namespace SongsAbout.Classes.Database
                     }
                 }
             }
-            /// <summary>
-            /// Get the Track of the given name if it exists, otherwise throws an exception
-            /// </summary>
-            /// <param name="name"></param>
-            /// <returns></returns>
-            /// <exception cref="EntityNotFoundError"></exception>
-            public Track this[string name]
-            {
-                set { this.Add(value); }
-                get
-                {
-                    try
-                    {
-                        if (!this.Contains(name))
-                        {
-                            Track result;
-                            using (var db = new DataClassesContext())
-                            {
-                                result = (from Track a in db.Tracks
-                                          where a.Name == name
-                                          select a).First();
-
-
-                            }
-                            return result;
-                        }
-                        else
-                        {
-                            throw new EntityNotFoundError(DbEntityType, name);
-                        }
-                    }
-                    catch (EntityNotFoundError)
-                    {
-                        throw;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new LoadError(DbEntityType, name, ex.Message);
-                    }
-                }
-            }
-
-
+   
             /// <summary>
             /// Verifies if an Track of the given id exists
             /// </summary>
@@ -160,38 +68,14 @@ namespace SongsAbout.Classes.Database
             {
                 try
                 {
-                    int count = 0;
-                    count = this.Items.Where(t => t.ID == id).Count();
-                    return count > 0;
+                    return this.Items
+                           .Where(t => t.ID == id)
+                           .Count() > 0;
                 }
                 catch (Exception ex)
                 {
                     throw new
                         DbException(DbEntityType, $"Error verifying if Database contains Track with id {id}:\n{ex.Message}");
-                }
-            }
-
-            /// <summary>
-            /// Verifies if an Track of the given name exists
-            /// </summary>
-            /// <param name="id"></param>
-            /// <returns></returns>
-            /// <exception cref="DbException"></exception>
-            public bool Contains(string name)
-            {
-                if (name == null || name == "")
-                    throw new NullValueError();
-                try
-                {
-                    int count = 0;
-                    count = this.Items.Where(t => t.Name == name).Count();
-                
-                    return count > 0;
-                }
-                catch (Exception ex)
-                {
-                    throw new
-                        DbException(DbEntityType, $"Error verifying if Database contains Track with Name {name}{ex.Message}");
                 }
             }
 
@@ -206,15 +90,14 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        _allTracks = new List<Track>();
+                        base._all = new List<Track>();
                         using (var db = new DataClassesContext())
                         {
-                            _allTracks.AddRange(from a in db.Tracks
-                                                where a.ID != 0
-                                                select a);
+                            base._all.AddRange(from a in db.Tracks
+                                               where a.ID != 0
+                                               select a);
                         }
-                        base._all = _allTracks;
-                        return _allTracks;
+                        return base._all;
                     }
                     catch (Exception ex)
                     {
@@ -232,14 +115,8 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        List<string> Tracks;
-                        using (var db = new DataClassesContext())
-                        {
-                            Tracks = (from a in db.Tracks
-                                      where a.ID != 0
-                                      select a.Name).ToList();
-                        }
-                        return Tracks;
+                        return (from t in this.Items
+                                select t.Name).ToList();
                     }
                     catch (Exception ex)
                     {
@@ -254,7 +131,6 @@ namespace SongsAbout.Classes.Database
             /// Submit Changes to the Database
             /// </summary>
             /// <exception cref="NullValueError"></exception>
-            /// <exception cref="DbUpdateException"></exception>
             /// <exception cref="SaveError"></exception>"
             public override void Add(Track track)
             {
@@ -269,11 +145,6 @@ namespace SongsAbout.Classes.Database
                         context.SaveChanges();
                     }
 
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
-                {
-                    Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-                    throw;
                 }
                 catch (Exception ex)
                 {
