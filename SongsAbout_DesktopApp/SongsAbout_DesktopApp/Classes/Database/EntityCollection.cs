@@ -35,7 +35,7 @@ namespace SongsAbout.Classes.Database
             public virtual int Count { get; }
             public abstract void Add(T entity);
 
-            public abstract DbEntityType EntityType { get; }
+            public abstract DbEntityType DbEntityType { get; }
 
             public virtual T Current
             {

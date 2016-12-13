@@ -49,10 +49,6 @@ namespace SongsAbout.Entities
             get { return this.al_cover_art; }
             set { this.al_cover_art = value; }
         }
-        public override string TypeName
-        {
-            get { return typeof(Artist).ToString(); }
-        }
         private List<Track> _loadTracks()
         {
             try
@@ -298,7 +294,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                var e = new SaveError(this, ex.Message + "\n" + ex.InnerException.Message);
+                var e = new SaveError(this.DbEntityType, ex.Message + "\n" + ex.InnerException.Message);
                 Console.WriteLine(e.Message + e.StackTrace);
             }
         }
@@ -572,16 +568,16 @@ namespace SongsAbout.Entities
                 }
                 else
                 {
-                    throw new DbFromSpotifyInitializationError(this.DbEntityType, spotifyType);
+                    throw new DbInitFromSpotifyError(this.DbEntityType, spotifyType);
                 }
             }
-            catch (DbFromSpotifyInitializationError)
+            catch (DbInitFromSpotifyError)
             {
                 throw;
             }
             catch (Exception ex)
             {
-                throw new DbFromSpotifyInitializationError(this.DbEntityType, spotifyType, ex.Message);
+                throw new DbInitFromSpotifyError(this.DbEntityType, spotifyType, ex.Message);
             }
         }
 

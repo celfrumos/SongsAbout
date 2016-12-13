@@ -106,6 +106,7 @@ namespace SongsAbout.Entities
         public override void Save()
         {
             Program.Database.Artists.Add(this);
+            
         }
 
         public static bool Exists(string name)
@@ -131,7 +132,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateFromSpotifyError(this, artist.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this.DbEntityType,SpotifyEntityType.SimpleArtist, artist.Name, ex.Message);
             }
         }
 

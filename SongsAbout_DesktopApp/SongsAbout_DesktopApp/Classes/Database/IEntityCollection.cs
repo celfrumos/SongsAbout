@@ -13,7 +13,7 @@ namespace SongsAbout.Classes.Database
     /// </summary>
     interface IEntityCollection
     {
-        DbEntityType EntityType { get; }
+        DbEntityType DbEntityType { get; }
         List<string> AllNames { get; }
         /// <summary>
         /// The number of rows in the respective table

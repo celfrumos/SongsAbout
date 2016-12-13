@@ -34,26 +34,13 @@ namespace SongsAbout.Classes
         public DbException(string msg = DEF_MSG) : base(msg)
         {
         }
-        public DbException(Type t, string msg = DEF_MSG) : base(dbExDefMsg(t, msg))
-        {
-        }
 
         public DbException(DbEntityType dbEntityType, string msg = DEF_MSG) : base(dbExDefMsg(dbEntityType, msg))
         {
         }
-        protected static string dbExDefMsg(DbEntity e, string msg = DEF_MSG)
-        {
-            return (msg == DEF_MSG ? msg : $"Error Interacting with {e.TypeName} int {e.TableName} table: " + msg);
-
-        }
         protected static string dbExDefMsg(DbEntityType e, string msg = DEF_MSG)
         {
             return (msg == DEF_MSG ? msg : $"An error occurred related to {e} table: " + msg);
-
-        }
-        protected static string dbExDefMsg(Type t, string msg = DEF_MSG)
-        {
-            return (msg == DEF_MSG ? msg : $"An error occured related to {t} table. " + msg);
 
         }
     }
@@ -65,15 +52,15 @@ namespace SongsAbout.Classes
         {
 
         }
-        public SaveError(DbEntity e, string name, string msg = DEF_MSG)
-            : base(e, saveErrDefMsg(e, name, msg))
+        public SaveError(DbEntityType entityType, string name, string msg = DEF_MSG)
+            : base(entityType, saveErrDefMsg(entityType, name, msg))
         {
         }
 
-        private static string saveErrDefMsg(DbEntity e, string name, string msg = DEF_MSG)
+        private static string saveErrDefMsg(DbEntityType entityType, string name, string msg = DEF_MSG)
         {
             return
-            (msg == DEF_MSG ? msg : $"Error Updating {e.TypeName} '{name}' from {e.TableName} table: " + msg);
+            (msg == DEF_MSG ? msg : $"Error Updating {entityType} '{name}' from {entityType}s table: " + msg);
 
         }
 
@@ -146,7 +133,7 @@ namespace SongsAbout.Classes
     public class InvalidInitializedError : DbException
     {
         const string DEF_MSG = "Attempt was made to initialize an entity when not all preconditions were met.";
-     
+
         public InvalidInitializedError(string objectName, string msg = DEF_MSG)
             : base($"For Object {objectName}: {msg}")
         {
@@ -159,86 +146,42 @@ namespace SongsAbout.Classes
     public class UpdateFromSpotifyError : DbException
     {
         const string defaultMsg = "Error Updating Entity in Database";
-
-        public UpdateFromSpotifyError(DbEntity e, string name, string msg = defaultMsg)
-            : base(e, updateMsg(e, name, msg))
-        {
-        }
-        public UpdateFromSpotifyError(DbEntity e, Type spotifyType, string name, string msg = defaultMsg)
+        
+        public UpdateFromSpotifyError(DbEntityType entityType, SpotifyEntityType spotifyType, string name, string msg = defaultMsg)
         {
             string m =
-                (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' from SpotifyType {spotifyType}: {msg}");
+                (msg == defaultMsg ? msg : $"Error Updating {entityType} '{name}' from {spotifyType} in {entityType}s table: {msg}");
         }
-        private static string updateMsg(DbEntity e, string name, string msg)
+        private static string updateMsg(DbEntityType entityType, string name, string msg)
         {
             return
-                (msg == defaultMsg ? msg : $"Error Updating {e.TypeName} '{name}' in {e.TableName} table: {msg}");
-        }
-        public UpdateFromSpotifyError(DbEntityType e, SpotifyEntityType spotifyType, string name, string msg = defaultMsg)
-        {
-            string m =
-                (msg == defaultMsg ? msg : $"Error Updating {e} '{name}' from {spotifyType} in {e}s table: {msg}");
+                (msg == defaultMsg ? msg : $"Error Updating {entityType} '{name}' in {entityType}s table: {msg}");
         }
     }
     public class EntityNotFoundError : DbException
     {
         const string defaultMsg = "The expected entity was not found";
-        public EntityNotFoundError(Type t, string name, string msg = defaultMsg)
-            : base(notFoundMsg(t, name, msg))
+
+        public EntityNotFoundError(DbEntityType entityType, string name, string msg = defaultMsg)
+         : base(notFoundMsg(entityType, name, msg))
         {
         }
-        public EntityNotFoundError(Type t, int id, string msg = defaultMsg)
-        : base(notFoundMsg(t, id, msg))
-        {
-        }
-        public EntityNotFoundError(DbEntityType t, string name, string msg = defaultMsg)
-         : base(notFoundMsg(t, name, msg))
-        {
-        }
-        public EntityNotFoundError(DbEntityType t, int id, string msg = defaultMsg)
-        : base(notFoundMsg(t, id, msg))
+        public EntityNotFoundError(DbEntityType entityType, int id, string msg = defaultMsg)
+        : base(notFoundMsg(entityType, id, msg))
         {
         }
 
-        public EntityNotFoundError(DbEntity e, string name, string msg = defaultMsg)
-            : base(notFoundMsg(e, name, msg))
-        { }
-
-        public EntityNotFoundError(DbEntity e, int id, string msg = defaultMsg)
-            : base(notFoundMsg(e, id, msg))
-        { }
-
-        private static string notFoundMsg(Type t, string name, string msg)
+        private static string notFoundMsg(DbEntityType entityType, string name, string msg)
         {
             return (msg == defaultMsg ? msg
-                : $"Entity {t} named '{name}' not found in the intended table: " + msg);
+                : $"Entity {entityType} named '{name}' not found in the intended table: " + msg);
         }
-        private static string notFoundMsg(DbEntityType t, string name, string msg)
+        private static string notFoundMsg(DbEntityType entityType, int id, string msg)
         {
             return (msg == defaultMsg ? msg
-                : $"Entity {t} named '{name}' not found in the intended table: " + msg);
-        }
-        private static string notFoundMsg(Type t, int id, string msg)
-        {
-            return (msg == defaultMsg ? msg
-                : $"Entity '{t}' with id '{id}' not found in the intended table: " + msg);
-        }
-        private static string notFoundMsg(DbEntityType t, int id, string msg)
-        {
-            return (msg == defaultMsg ? msg
-                : $"Entity '{t}' with id '{id}' not found in the intended table: " + msg);
-        }
-        private static string notFoundMsg(DbEntity e, string name, string msg)
-        {
-            return (msg == defaultMsg ? msg
-                : $"Entity {e.TypeName} named '{name}' not found in {e.TableName} table: " + msg);
+                : $"Entity '{entityType}' with id '{id}' not found in the intended table: " + msg);
         }
 
-        private static string notFoundMsg(DbEntity e, int id, string msg)
-        {
-            return (msg == defaultMsg ? msg
-                : $"Entity {e.TypeName} with id '{id}' not found in {e.TableName} table: " + msg);
-        }
     }
 
     public class SpotifyToDBImportException : DbException
@@ -257,36 +200,24 @@ namespace SongsAbout.Classes
         private static string ImportDefMsg(SpotifyEntityType spotifyType, DbEntity e, string msg)
         {
             return (msg == defaultMsg ? msg
-                : $"Error importing {e.TypeName} data from spotify type '{spotifyType}'");
+                : $"Error importing {e.DbEntityType} data from spotify type '{spotifyType}'");
 
         }
     }
 
     public class NullValueError : DbException
     {
-        const string NULL_ERR_DEF_MSG = "The value returned was null.";
+        const string NULL_ERR_DEF_MSG = "Attempted to add a null value where it is not allowed.";
 
         public NullValueError(string msg = NULL_ERR_DEF_MSG) : base(msg)
         {
 
         }
-        public NullValueError(DbEntity e, string msg = NULL_ERR_DEF_MSG) : base(nullValDefMsg(e, msg))
-        {
-        }
-        public NullValueError(DbEntityType e, string msg = NULL_ERR_DEF_MSG) : base(nullValDefMsg(e, msg))
+        public NullValueError(DbEntityType entityType, string column, string msg = "")
+            : base(entityType, $"{entityType} {column} cannot be null:\n{msg}")
         {
         }
 
-        private static string nullValDefMsg(DbEntity e, string msg)
-        {
-            return
-                (msg == NULL_ERR_DEF_MSG ? msg : $"The expected value in {e.TableName} table unexpectedly returned null.");
-        }
-        private static string nullValDefMsg(DbEntityType e, string msg)
-        {
-            return
-                (msg == NULL_ERR_DEF_MSG ? msg : $"The expected value in {e}s table unexpectedly returned null: \n{msg}");
-        }
     }
     public class ValueAlreadyPresentException : DbException
     {
@@ -321,12 +252,12 @@ namespace SongsAbout.Classes
         }
     }
 
-    public class DbFromSpotifyInitializationError : DbException
+    public class DbInitFromSpotifyError : DbException
     {
         const string DEF_MSG = "Failed to initialize DbEntity from Spotify Entity.";
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
-        public DbFromSpotifyInitializationError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG) : base(initErrDefMsg(dbType, spotifyType, msg))
+        public DbInitFromSpotifyError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG) : base(initErrDefMsg(dbType, spotifyType, msg))
         {
             this.DbEntityType = dbType;
             this.SpotifyEntityType = spotifyType;

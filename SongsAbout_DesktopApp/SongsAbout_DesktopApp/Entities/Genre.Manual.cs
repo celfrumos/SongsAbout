@@ -25,10 +25,6 @@ namespace SongsAbout.Entities
         {
             get { return "genre"; }
         }
-        public override string TypeName
-        {
-            get { return base.TypeName; }
-        }
 
         private List<Album> _loadAlbums()
         {

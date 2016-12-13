@@ -15,7 +15,7 @@ namespace SongsAbout.Classes.Database
     {
         public class GenreList : EntityCollection<Genre>, IEntityNameAccessor<Genre>
         {
-            public override DbEntityType EntityType { get { return DbEntityType.Genre; } }
+            public override DbEntityType DbEntityType { get { return DbEntityType.Genre; } }
             private static bool _initialized { get; set; }
             public override int Count
             {
@@ -56,7 +56,7 @@ namespace SongsAbout.Classes.Database
                         }
                         else
                         {
-                            throw new EntityNotFoundError(EntityType, name);
+                            throw new EntityNotFoundError(DbEntityType, name);
                         }
                     }
                     catch (EntityNotFoundError)
@@ -65,7 +65,7 @@ namespace SongsAbout.Classes.Database
                     }
                     catch (Exception ex)
                     {
-                        throw new LoadError(EntityType, name, ex.Message);
+                        throw new LoadError(DbEntityType, name, ex.Message);
                     }
                 }
             }
@@ -107,7 +107,7 @@ namespace SongsAbout.Classes.Database
                 catch (Exception ex)
                 {
                     throw new
-                        DbException(EntityType, $"Error verifying if Database contains Genre with Name {name}{ex.Message}");
+                        DbException(DbEntityType, $"Error verifying if Database contains Genre with Name {name}{ex.Message}");
                 }
             }
 
@@ -183,7 +183,7 @@ namespace SongsAbout.Classes.Database
                             }
                             else
                             {
-                                throw new ValueAlreadyPresentException(EntityType, a.Name);
+                                throw new ValueAlreadyPresentException(DbEntityType, a.Name);
                             }
                         }
                     }

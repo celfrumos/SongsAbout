@@ -18,7 +18,7 @@ namespace SongsAbout.Classes.Database
     {
         public class ArtistCollection : EntityCollection<Artist>, IEntityIdAccessor<Artist>, IEntityNameAccessor<Artist>
         {
-            public override DbEntityType EntityType { get { return DbEntityType.Artist; } }
+            public override DbEntityType DbEntityType { get { return DbEntityType.Artist; } }
             private static List<Artist> _allArtists
             {
                 get; set;
@@ -57,7 +57,7 @@ namespace SongsAbout.Classes.Database
                     }
                     catch (Exception ex)
                     {
-                        throw new DbException(this.EntityType, ex.Message);
+                        throw new DbException(this.DbEntityType, ex.Message);
                     }
                 }
             }
@@ -94,7 +94,7 @@ namespace SongsAbout.Classes.Database
                         }
                         else
                         {
-                            throw new EntityNotFoundError(EntityType, id);
+                            throw new EntityNotFoundError(DbEntityType, id);
                         }
                     }
                     catch (EntityNotFoundError)
@@ -103,7 +103,7 @@ namespace SongsAbout.Classes.Database
                     }
                     catch (Exception ex)
                     {
-                        throw new LoadError(EntityType, id, ex.Message);
+                        throw new LoadError(DbEntityType, id, ex.Message);
                     }
                 }
             }
@@ -139,7 +139,7 @@ namespace SongsAbout.Classes.Database
                         }
                         else
                         {
-                            throw new EntityNotFoundError(EntityType, name);
+                            throw new EntityNotFoundError(DbEntityType, name);
                         }
                     }
                     catch (EntityNotFoundError)
@@ -148,7 +148,7 @@ namespace SongsAbout.Classes.Database
                     }
                     catch (Exception ex)
                     {
-                        throw new LoadError(EntityType, name, ex.Message);
+                        throw new LoadError(DbEntityType, name, ex.Message);
                     }
                 }
             }
@@ -159,7 +159,7 @@ namespace SongsAbout.Classes.Database
             /// </summary>
             /// <param name="id"></param>
             /// <returns></returns>
-            /// <exception cref="DbException"
+            /// <exception cref="DbException"></exception>
             public bool Contains(int id)
             {
                 try
@@ -176,17 +176,20 @@ namespace SongsAbout.Classes.Database
                 catch (Exception ex)
                 {
                     throw new
-                        DbException(EntityType, $"Error verifying if Database contains Artist with id {id}:\n{ex.Message}");
+                        DbException(DbEntityType, $"Error verifying if Database contains Artist with id {id}:\n{ex.Message}");
                 }
             }
+
             /// <summary>
             /// Verifies if an artist of the given name exists
             /// </summary>
             /// <param name="id"></param>
             /// <returns></returns>
-            /// <exception cref="DbException"
+            /// <exception cref="DbException"></exception>
             public bool Contains(string name)
             {
+                if (name == null || name == "")
+                    throw new NullValueError();
                 try
                 {
                     int count = 0;
@@ -201,7 +204,7 @@ namespace SongsAbout.Classes.Database
                 catch (Exception ex)
                 {
                     throw new
-                        DbException(EntityType, $"Error verifying if Database contains Artist with Name {name}{ex.Message}");
+                        DbException(DbEntityType, $"Error verifying if Database contains Artist with Name {name}{ex.Message}");
                 }
             }
 
@@ -216,7 +219,7 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                       _allArtists = new List<Artist>();
+                        _allArtists = new List<Artist>();
                         using (var db = new DataClassesContext())
                         {
                             _allArtists.AddRange(from a in db.Artists
@@ -262,35 +265,21 @@ namespace SongsAbout.Classes.Database
             /// Submit Changes to the Database
             /// </summary>
             /// <exception cref="NullValueError"></exception>
-            /// <exception cref="UpdateFromSpotifyError"></exception>"
             /// <exception cref="DbUpdateException"></exception>
-            /// <exception cref="DbException"></exception>"
+            /// <exception cref="SaveError"></exception>"
             public override void Add(Artist a)
             {
+                if (a.Name == null || a.Name == "")
+                    throw new NullValueError("Artist name cannot be null.");
+
                 try
                 {
-                    if (a.Name != null)
+                    using (var context = new DataClassesContext())
                     {
-                        using (var context = new DataClassesContext())
-                        {
-                            context.UpdateInsert_Artist(a.ID, a.Name, a.Bio, a.Website, a.Uri, a.ProfilePicBytes);
-                            context.SaveChanges();
-                        }
+                        context.UpdateInsert_Artist(a.ID, a.Name, a.Bio, a.Website, a.Uri, a.ProfilePicBytes);
+                        context.SaveChanges();
                     }
-                    else
-                    {
-                        throw new NullValueError("Artist name cannot be null.");
-                    }
-                }
-                catch (EntityNotFoundError ex)
-                {
-                    Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-                    throw;
-                }
-                catch (UpdateFromSpotifyError ex)
-                {
-                    Console.WriteLine(ex.Message + "\n");
-                    throw;
+
                 }
                 catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
                 {
@@ -300,8 +289,9 @@ namespace SongsAbout.Classes.Database
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-                    throw new DbException(ex.Message);
+                    throw new SaveError(ex.Message);
                 }
+
             }
 
         }

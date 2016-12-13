@@ -15,7 +15,7 @@ namespace SongsAbout.Classes.Database
     {
         public class AlbumCollection : EntityCollection<Album>, IEntityIdAccessor<Album>, IEntityNameAccessor<Album>
         {
-            public override DbEntityType EntityType { get { return DbEntityType.Album; } }
+            public override DbEntityType DbEntityType { get { return DbEntityType.Album; } }
       
             private static bool _initialized { get; set; }
             public override int Count
@@ -58,7 +58,7 @@ namespace SongsAbout.Classes.Database
                         }
                         else
                         {
-                            throw new EntityNotFoundError(EntityType, id);
+                            throw new EntityNotFoundError(DbEntityType, id);
                         }
                     }
                     catch (EntityNotFoundError)
@@ -67,7 +67,7 @@ namespace SongsAbout.Classes.Database
                     }
                     catch (Exception ex)
                     {
-                        throw new LoadError(EntityType, id, ex.Message);
+                        throw new LoadError(DbEntityType, id, ex.Message);
                     }
                 }
             }
@@ -97,7 +97,7 @@ namespace SongsAbout.Classes.Database
                         }
                         else
                         {
-                            throw new EntityNotFoundError(EntityType, name);
+                            throw new EntityNotFoundError(DbEntityType, name);
                         }
                     }
                     catch (EntityNotFoundError)
@@ -106,7 +106,7 @@ namespace SongsAbout.Classes.Database
                     }
                     catch (Exception ex)
                     {
-                        throw new LoadError(EntityType, name, ex.Message);
+                        throw new LoadError(DbEntityType, name, ex.Message);
                     }
                 }
             }
@@ -147,7 +147,7 @@ namespace SongsAbout.Classes.Database
                 catch (Exception ex)
                 {
                     throw new
-                        DbException(EntityType, $"Error verifying if Database contains Album with id {id}:\n{ex.Message}");
+                        DbException(DbEntityType, $"Error verifying if Database contains Album with id {id}:\n{ex.Message}");
                 }
             }
             /// <summary>
@@ -172,7 +172,7 @@ namespace SongsAbout.Classes.Database
                 catch (Exception ex)
                 {
                     throw new
-                        DbException(EntityType, $"Error verifying if Database contains Album with Name {name}{ex.Message}");
+                        DbException(DbEntityType, $"Error verifying if Database contains Album with Name {name}{ex.Message}");
                 }
             }
             /// <summary>
@@ -248,7 +248,7 @@ namespace SongsAbout.Classes.Database
                     }
                     else
                     {
-                        throw new NullValueError("Album name cannot be null.");
+                        throw new NullValueError(this.DbEntityType,"Name");
                     }
                 }
                 catch (EntityNotFoundError ex)

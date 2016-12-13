@@ -22,8 +22,7 @@ namespace SongsAbout.Entities
             get { return this.tag_text; }
             set { this.tag_text = value; }
         }
-        public override string TypeName { get { return typeof(Tag).ToString(); } }
-        public override void Save()
+         public override void Save()
         {
             if (!Exists(this.Name))
             {

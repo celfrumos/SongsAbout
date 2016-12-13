@@ -28,6 +28,13 @@ namespace SongsAbout.Classes
                 throw new SpotifyConversionError(SpotifyEntityType.SimpleAlbum, SpotifyEntityType.FullAlbum, ex.Message);
             }
         }
+
+        /// <summary>
+        /// Convert an image to a byte Array
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        /// <exception cref="ConversionError"></exception>
         public static System.Drawing.Image ImageFromBytes(byte[] imageBytes)
         {
             try
@@ -42,6 +49,12 @@ namespace SongsAbout.Classes
                 throw new ConversionError(typeof(byte[]).FullName, typeof(Image).FullName, ex.Message);
             }
         }
+        /// <summary>
+        /// Convert an image to a byte Array
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        /// <exception cref="ConversionError"></exception>
         public static byte[] ImageToBytes(System.Drawing.Image image)
         {
             try

@@ -366,10 +366,7 @@ namespace SongsAbout.Entities
                 }
             }
         }
-        public override string TypeName
-        {
-            get { return typeof(Artist).ToString(); }
-        }
+
         public override string TitleColumnName
         {
             get { return TitleColumn; }
@@ -394,7 +391,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new DbFromSpotifyInitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+                throw new DbInitFromSpotifyError(DbEntityType.Track, SpotifyEntityType.FullTrack, ex.Message);
             }
 
         }
@@ -418,7 +415,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new DbFromSpotifyInitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+                throw new DbInitFromSpotifyError(DbEntityType.Track, SpotifyEntityType.FullTrack, ex.Message);
             }
         }
         public static Track Load(string name)
@@ -441,7 +438,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new DbFromSpotifyInitializationError(DbEntityType.Track, SpotifyEntityType.FullTrack);
+                throw new DbInitFromSpotifyError(DbEntityType.Track, SpotifyEntityType.FullTrack,ex.Message);
             }
 
         }
@@ -516,7 +513,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new SaveError(this, this.Name, ex.Message);
+                throw new SaveError(this.DbEntityType, this.Name, ex.Message);
 
             }
         }
@@ -684,16 +681,16 @@ namespace SongsAbout.Entities
                 }
                 else
                 {
-                    throw new DbFromSpotifyInitializationError(DbEntityType.Track, type, "");
+                    throw new DbInitFromSpotifyError(DbEntityType.Track, type, "");
                 }
             }
-            catch (DbFromSpotifyInitializationError)
+            catch (DbInitFromSpotifyError)
             {
                 throw;
             }
             catch (Exception ex)
             {
-                throw new DbFromSpotifyInitializationError(DbEntityType.Artist, type, ex.Message);
+                throw new DbInitFromSpotifyError(DbEntityType.Artist, type, ex.Message);
             }
         }
 
