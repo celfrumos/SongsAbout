@@ -702,10 +702,7 @@ namespace SongsAbout.Controls
         public override string Text
         {
             get { return this.SpotifyLabel.Text; }
-            set
-            {
-                this.SpotifyLabel.Text = value;
-            }
+            set { this.SpotifyLabel.Text = value; }
         }
 
         /// <summary>

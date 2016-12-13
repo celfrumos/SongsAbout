@@ -14,7 +14,7 @@ using SongsAbout.Enums;
 
 namespace SongsAbout.Controls
 {
-    public partial class SControl : UserControl, IEntityControl
+    public abstract partial class SControl : UserControl, IEntityControl
     {
 
         new public static Color BackColor
@@ -29,13 +29,13 @@ namespace SongsAbout.Controls
             set { User.Default.TextColor = value; }
         }
 
-        public DbEntity DbEntity { get; set; }
+        public abstract DbEntity DbEntity { get; set; }
 
-        public ISpotifyEntity SpotifyEntity { get; set; }
+        public abstract ISpotifyEntity SpotifyEntity { get; set; }
 
-        public SpotifyEntityType SpotifyEntityType { get; set; }
+        public abstract SpotifyEntityType SpotifyEntityType { get; set; }
 
-        public DbEntityType DbEntityType { get; set; }
+        public abstract DbEntityType DbEntityType { get; set; }
 
         public SControl()
         {
@@ -44,9 +44,6 @@ namespace SongsAbout.Controls
             base.ForeColor = SControl.ForeColor;
         }
 
-        public bool ImportEntity()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract bool ImportEntity();
     }
 }
