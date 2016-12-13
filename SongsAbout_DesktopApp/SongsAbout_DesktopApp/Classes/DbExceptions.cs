@@ -118,7 +118,7 @@ namespace SongsAbout.Classes
             switch (e)
             {
                 case DbEntityType.Artist:
-                    return (msg == DEF_MSG ? msg : $"Error Loading {Artist.TypeString} with id {id} from {Artist.Table} table: " + msg);
+                    return (msg == DEF_MSG ? msg : $"Error Loading {Artist.TypeString} with id {id} from {Artist.TABLE_NAME} table: " + msg);
                 case DbEntityType.Album:
                     return (msg == DEF_MSG ? msg : $"Error Loading {Album.TypeString} with id {id} from {Album.Table} table: " + msg);
                 case DbEntityType.Track:
@@ -132,7 +132,7 @@ namespace SongsAbout.Classes
             switch (e)
             {
                 case DbEntityType.Artist:
-                    return (msg == DEF_MSG ? msg : $"Error Loading {Artist.TypeString} with name {name} from {Artist.Table} table: " + msg);
+                    return (msg == DEF_MSG ? msg : $"Error Loading {Artist.TypeString} with name {name} from {Artist.TABLE_NAME} table: " + msg);
                 case DbEntityType.Album:
                     return (msg == DEF_MSG ? msg : $"Error Loading {Album.TypeString} with name {name} from {Album.Table} table: " + msg);
                 case DbEntityType.Track:

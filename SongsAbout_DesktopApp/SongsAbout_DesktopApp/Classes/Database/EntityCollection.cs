@@ -12,14 +12,14 @@ using SongsAbout.Enums;
 using SongsAbout.Entities;
 using System.Collections;
 
-namespace SongsAbout.Classes
+namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public abstract class EntityContainer<T> : IEntityContainer<T>
+        public abstract class EntityCollection<T> : IEntityContainer<T>
             where T : DbEntity
         {
-            protected EntityContainer(string childname)
+            protected EntityCollection(string childname)
             {
                 if (!SongDatabase.isInitialized)
                 {
@@ -33,7 +33,7 @@ namespace SongsAbout.Classes
             public abstract List<string> AllNames { get; }
 
             public virtual int Count { get; }
-            public abstract void Save(T entity);
+            public abstract void Add(T entity);
 
             public abstract DbEntityType EntityType { get; }
 
@@ -62,9 +62,9 @@ namespace SongsAbout.Classes
             public virtual IEnumerator<T> GetEnumerator()
             {
                 if (_all != null)
-                    return ((IEnumerable<T>)this._all).GetEnumerator();
+                    return this._all.GetEnumerator();
                 else
-                    return ((IEnumerable<T>)this.All).GetEnumerator();
+                    return this.All.GetEnumerator();
             }
             public virtual bool MoveNext()
             {

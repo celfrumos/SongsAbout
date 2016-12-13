@@ -59,7 +59,7 @@ namespace SongsAbout.Classes
                     Artist a = new Artist(artist);
                     //a.Update(artist);
                     //a.Save();
-                    Program.Database.Artists.Save(a);
+                    Program.Database.Artists.Add(a);
                 }
             }
             catch (Exception ex)

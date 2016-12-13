@@ -135,12 +135,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AlbumList.cs" />
-    <Compile Include="Classes\ArtistList.cs" />
-    <Compile Include="Classes\EntityContainer.cs" />
-    <Compile Include="Classes\GenreList.cs" />
-    <Compile Include="Classes\IEntityContainer.cs" />
-    <Compile Include="Classes\SongDatabase.cs" />
+    <Compile Include="Classes\Database\AlbumCollection.cs" />
+    <Compile Include="Classes\Database\ArtistCollection.cs" />
+    <Compile Include="Classes\Database\EntityCollection.cs" />
+    <Compile Include="Classes\Database\GenreCollection.cs" />
+    <Compile Include="Classes\Database\IEntityCollection.cs" />
+    <Compile Include="Classes\Database\SongDatabase.cs" />
     <Compile Include="Classes\TableAdapters.cs" />
     <Compile Include="Controls\IEntityControl.cs" />
     <Compile Include="Controls\SControl.cs">

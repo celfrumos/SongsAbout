@@ -6,7 +6,7 @@ using System.Data;
 using SongsAbout.Enums;
 using SongsAbout.Entities;
 
-namespace SongsAbout.Classes
+namespace SongsAbout.Classes.Database
 {
     /// <summary>
     /// Wrapper class to interact with database easier
@@ -15,6 +15,8 @@ namespace SongsAbout.Classes
     public partial class SongDatabase
     {
         static bool isInitialized = false;
+        private AlbumCollection _albums;
+        private ArtistCollection _artists;
         /// <summary>
         /// Single use Constructor at Program Start
         /// </summary>
@@ -26,7 +28,14 @@ namespace SongsAbout.Classes
                 throw new
                     InvalidInitializedError("ArtistList", "Only one instance of the SongDatabase Class may be declared");
             }
-            isInitialized = true;
+            else
+            {
+                isInitialized = true;
+
+
+                _albums = new AlbumCollection();
+                _artists = new ArtistCollection();
+            }
         }
 
 
@@ -53,14 +62,12 @@ namespace SongsAbout.Classes
         }
 
 
-        private AlbumList _albums = new AlbumList();
-        private ArtistList _artists = new ArtistList();
-        public AlbumList Albums
+        public AlbumCollection Albums
         {
             get { return _albums; }
+            
         }
-
-        public ArtistList Artists
+        public ArtistCollection Artists
         {
             get { return _artists; }
         }

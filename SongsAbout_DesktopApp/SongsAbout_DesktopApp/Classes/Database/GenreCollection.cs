@@ -9,11 +9,11 @@ using SongsAbout.Entities;
 using SongsAbout.Enums;
 using System.Collections;
 
-namespace SongsAbout.Classes
+namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class GenreList : EntityContainer<Genre>, IEntityNameAccessor<Genre>
+        public class GenreList : EntityCollection<Genre>, IEntityNameAccessor<Genre>
         {
             public override DbEntityType EntityType { get { return DbEntityType.Genre; } }
             private static bool _initialized { get; set; }
@@ -38,7 +38,7 @@ namespace SongsAbout.Classes
             /// <exception cref="EntityNotFoundError"></exception>
             public Genre this[string name]
             {
-                set { this.Save(value); }
+                set { this.Add(value); }
                 get
                 {
                     try
@@ -168,7 +168,7 @@ namespace SongsAbout.Classes
             /// <exception cref="UpdateFromSpotifyError"></exception>"
             /// <exception cref="DbUpdateException"></exception>
             /// <exception cref="DbException"></exception>"
-            public override void Save(Genre a)
+            public override void Add(Genre a)
             {
                 try
                 {

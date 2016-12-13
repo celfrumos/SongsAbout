@@ -22,12 +22,11 @@ namespace SongsAbout.Entities
         public abstract string TitleColumnName { get; }
         public abstract string TableName { get; }
         public abstract string Name { get; set; }
-        public virtual string TypeName { get { return typeof(DbEntity).ToString(); } }
         public abstract void Save();
-      public virtual DbEntityType DbEntityType { get; }
+        public virtual DbEntityType DbEntityType { get; }
         public virtual SpotifyEntityType SpotifyType { get; set; }
         public virtual ISpotifyEntity ISpotifyEntity { get; set; }
-        protected static void formatName(ref string name)
+        protected static void FormatName(ref string name)
         {
             if (name.Contains("\'"))
             {
@@ -36,5 +35,5 @@ namespace SongsAbout.Entities
             }
         }
 
-   }
+    }
 }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using SongsAbout.Properties;
 using SongsAbout.Classes;
+using SongsAbout.Classes.Database;
 using SongsAbout.Forms;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 
 namespace SongsAbout
@@ -19,14 +21,14 @@ namespace SongsAbout
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
             try
             {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
                 // User.Default.Upgrade();
-                //ConnectSpotify();
+                ConnectSpotify();
                 Database = new SongDatabase();
+                
                 Application.Run(new Form1());
             }
             catch (System.Resources.MissingManifestResourceException ex)
@@ -36,6 +38,10 @@ namespace SongsAbout
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\nClosing Program.", "Fatal Error Running Application");
+            }
+            finally
+            {
+                Console.WriteLine("Closing Program");
             }
         }
 
@@ -47,10 +53,11 @@ namespace SongsAbout
                 {
                     try
                     {
-                        UserSpotify.Authenticate();
+                        await Task.Run(() => UserSpotify.Authenticate());
                     }
                     catch (System.Resources.MissingManifestResourceException ex)
                     {
+                        Console.WriteLine($"Error connecting to Spotify: {ex.Message}");
                         throw;
                     }
                     catch (SpotifyAuthError ex)
@@ -84,4 +91,6 @@ namespace SongsAbout
 
 
     }
+   
+ 
 }

@@ -21,10 +21,10 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
-                // SetProfilePic();
                 var dd = Program.Database.Artists.All;
-                
+
                 var a = Artist.Load("Jon Bellion");
+                var b = Program.Database.Artists["Jon Bellion"];
                 var als = a.Albums;
                 foreach (var al in als)
                 {
@@ -40,7 +40,7 @@ namespace SongsAbout.Forms
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"{ex.Message}");
             }
         }
 

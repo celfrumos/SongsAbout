@@ -25,24 +25,23 @@ namespace SongsAbout.Entities
     /// </summary>
     public partial class Artist : DbEntity// : DbEntity<Artist>
     {
-        private SongDatabase Database { get { return Program.Database; } }
         // DataClassesContext artistContext = new DataClassesContext();
-        public static string Table = "Artists";
-        public static string TypeString = "Artist";
-        public static string TitleColumn = "name";
+        public const string TABLE_NAME = "Artists";
+        public const string TypeString = "Artist";
+        public const string TitleColumn = "name";
         Type a = typeof(Artist);
 
         public override string TableName
         {
-            get { return Table; }
+            get { return TABLE_NAME; }
         }
-    
+
         public Artist(string name, string uri, string website, string bio = null)
         {
-            this.name = name;
-            this.a_spotify_uri = uri;
-            this.a_bio = bio;
-            this.a_website = website;
+            this.Name = name;
+            this.Uri = uri;
+            this.Bio = bio;
+            this.Website = website;
 
         }
         public Artist(FullArtist artist) : this(artist.Name, artist.Uri, artist.Href)
@@ -67,11 +66,6 @@ namespace SongsAbout.Entities
             set { this.name = value; }
         }
 
-
-        public override string TypeName
-        {
-            get { return typeof(Artist).ToString(); }
-        }
         public override string TitleColumnName
         {
             get { return TitleColumn; }
@@ -111,7 +105,7 @@ namespace SongsAbout.Entities
         /// <exception cref="DbException"></exception>"
         public override void Save()
         {
-            Program.Database.Artists.Save(this);
+            Program.Database.Artists.Add(this);
         }
 
         public static bool Exists(string name)

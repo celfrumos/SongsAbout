@@ -313,7 +313,7 @@ namespace SongsAbout.Entities
             int albums = 0;
             using (DataClassesContext context = new DataClassesContext())
             {
-                DbEntity.formatName(ref name);
+                DbEntity.FormatName(ref name);
                 albums = (
                    from ab in context.Albums
                    where ab.name == name

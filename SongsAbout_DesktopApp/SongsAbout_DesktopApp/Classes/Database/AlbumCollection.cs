@@ -3,88 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 using System.Data.Entity.Infrastructure;
-using System.Text;
-using System.Data;
-using SongsAbout.Enums;
+using SongsAbout;
 using SongsAbout.Entities;
+using SongsAbout.Enums;
 using System.Collections;
 
-namespace SongsAbout.Classes
+namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class ArtistList : EntityContainer<Artist>, IEntityIdAccessor<Artist>, IEntityNameAccessor<Artist>
+        public class AlbumCollection : EntityCollection<Album>, IEntityIdAccessor<Album>, IEntityNameAccessor<Album>
         {
-            public override DbEntityType EntityType { get { return DbEntityType.Artist; } }
+            public override DbEntityType EntityType { get { return DbEntityType.Album; } }
+      
             private static bool _initialized { get; set; }
-            /// <summary>
-            /// Initializes the connector to the ArtistList
-            /// </summary>
-            /// <exception cref="InvalidInitializedError"></exception>"
-            public ArtistList() : base("ArtistList")
-            {
-                if (_initialized)
-                {
-                    throw new InvalidInitializedError("ArtistList");
-                }
-                _initialized = true;
-
-            }
-
-            /// <summary>
-            /// Returns the number of rows in the Artist Table
-            /// </summary>
-            /// <exception cref="DbException"></exception>
             public override int Count
             {
                 get
                 {
-                    try
+                    int count;
+                    using (var db = new DataClassesContext())
                     {
-                        int count;
-                        using (var db = new DataClassesContext())
-                        {
-                            count = db.Artists.Count();
-                        }
-                        return count;
+                        count = db.Albums.Count();
                     }
-                    catch (Exception ex)
-                    {
-                        throw new DbException(this.EntityType, ex.Message);
-                    }
+                    return count;
                 }
             }
             /// <summary>
-            /// Get the Artist of the given id if it exists, otherwise throws an exception
+            /// Get the Album of the given id if it exists, otherwise throws an exception
             /// </summary>
             /// <param name="id"></param>
             /// <exception cref="EntityNotFoundError"></exception>
             /// <exception cref="LoadError"></exception>"
             /// <exception cref="DbUpdateException"></exception>
-            public Artist this[int id]
+            public Album this[int id]
             {
-                set { this.Save(value); }
+                set { this.Add(value); }
                 get
                 {
                     try
                     {
                         if (!this.Contains(id))
                         {
-                            Artist result;
+                            Album result;
                             using (var db = new DataClassesContext())
                             {
-                                result = (from Artist a in db.Artists
+                                result = (from Album a in db.Albums
                                           where a.ID == id
                                           select a).First();
 
-                                foreach (var album in result.Albums)
-                                {
-                                    album.Tracks = album.Tracks;
-                                    album.Genres = album.Genres;
-                                }
                             }
                             return result;
                         }
@@ -104,32 +72,26 @@ namespace SongsAbout.Classes
                 }
             }
             /// <summary>
-            /// Get the Artist of the given name if it exists, otherwise throws an exception
+            /// Get the Album of the given name if it exists, otherwise throws an exception
             /// </summary>
             /// <param name="name"></param>
             /// <returns></returns>
             /// <exception cref="EntityNotFoundError"></exception>
-            public Artist this[string name]
+            public Album this[string name]
             {
-                set { this.Save(value); }
+                set { this.Add(value); }
                 get
                 {
                     try
                     {
                         if (!this.Contains(name))
                         {
-                            Artist result;
+                            Album result;
                             using (var db = new DataClassesContext())
                             {
-                                result = (from Artist a in db.Artists
+                                result = (from Album a in db.Albums
                                           where a.Name == name
                                           select a).First();
-
-                                foreach (var album in result.Albums)
-                                {
-                                    album.Tracks = album.Tracks;
-                                    album.Genres = album.Genres;
-                                }
                             }
                             return result;
                         }
@@ -149,9 +111,22 @@ namespace SongsAbout.Classes
                 }
             }
 
+            /// <summary>
+            /// Initializes the connector to the AlbumList
+            /// </summary>
+            /// <exception cref="InvalidInitializedError"></exception>"
+            public AlbumCollection() : base("AlbumList")
+            {
+                if (_initialized)
+                {
+                    throw new InvalidInitializedError("AlbumList");
+                }
+                _initialized = true;
+
+            }
 
             /// <summary>
-            /// Verifies if an artist of the given id exists
+            /// Verifies if an Album of the given id exists
             /// </summary>
             /// <param name="id"></param>
             /// <returns></returns>
@@ -163,7 +138,7 @@ namespace SongsAbout.Classes
                     int count = 0;
                     using (var db = new DataClassesContext())
                     {
-                        count = (from a in db.Artists
+                        count = (from a in db.Albums
                                  where a.ID == id
                                  select a).Count();
                     };
@@ -172,11 +147,11 @@ namespace SongsAbout.Classes
                 catch (Exception ex)
                 {
                     throw new
-                        DbException(EntityType, $"Error verifying if Database contains Artist with id {id}:\n{ex.Message}");
+                        DbException(EntityType, $"Error verifying if Database contains Album with id {id}:\n{ex.Message}");
                 }
             }
             /// <summary>
-            /// Verifies if an artist of the given name exists
+            /// Verifies if an Album of the given name exists
             /// </summary>
             /// <param name="id"></param>
             /// <returns></returns>
@@ -188,7 +163,7 @@ namespace SongsAbout.Classes
                     int count = 0;
                     using (var db = new DataClassesContext())
                     {
-                        count = (from a in db.Artists
+                        count = (from a in db.Albums
                                  where a.Name == name
                                  select a).Count();
                     };
@@ -197,37 +172,37 @@ namespace SongsAbout.Classes
                 catch (Exception ex)
                 {
                     throw new
-                        DbException(EntityType, $"Error verifying if Database contains Artist with Name {name}{ex.Message}");
+                        DbException(EntityType, $"Error verifying if Database contains Album with Name {name}{ex.Message}");
                 }
             }
-
             /// <summary>
-            /// Returns A list of all Existing Artists in the database
+            /// Returns A list of all Existing Albums in the database
             /// </summary>            
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public override List<Artist> All
+            public override List<Album> All
             {
                 get
                 {
                     try
                     {
-                        List<Artist> allArtists = new List<Artist>();
+                        _all = new List<Album>();
                         using (var db = new DataClassesContext())
                         {
-                            allArtists.AddRange(from a in db.Artists
-                                                select Artist.Load(a));
+                            _all.AddRange(from a in db.Albums
+                                          select Album.Load(a));
                         }
-                        return allArtists;
+                        return _all;
                     }
                     catch (Exception ex)
                     {
-                        throw new DbException($"Error loading All Artists from database: {ex.Message}");
+                        throw new DbException($"Error loading All Albums from database: {ex.Message}");
                     }
                 }
             }
+
             /// <summary>
-            /// Loads the Names of the existing Artists to a List
+            /// Loads the Names of the existing Albums to a List
             /// </summary>
             /// <exception cref="DbException"></exception>
             public override List<string> AllNames
@@ -236,22 +211,20 @@ namespace SongsAbout.Classes
                 {
                     try
                     {
-                        List<string> artists;
+                        List<string> Albums;
                         using (var db = new DataClassesContext())
                         {
-                            artists = (from a in db.Artists
-                                       select a.Name).ToList();
+                            Albums = (from a in db.Albums
+                                      select a.Name).ToList();
                         }
-                        return artists;
+                        return Albums;
                     }
                     catch (Exception ex)
                     {
-                        throw new DbException($"Error Loading existing Artist Names: {ex.Message}");
+                        throw new DbException($"Error Loading existing Album Names: {ex.Message}");
                     }
                 }
             }
-
-
 
             /// <summary>
             /// Submit Changes to the Database
@@ -260,7 +233,7 @@ namespace SongsAbout.Classes
             /// <exception cref="UpdateFromSpotifyError"></exception>"
             /// <exception cref="DbUpdateException"></exception>
             /// <exception cref="DbException"></exception>"
-            public override void Save(Artist a)
+            public override void Add(Album a)
             {
                 try
                 {
@@ -268,13 +241,14 @@ namespace SongsAbout.Classes
                     {
                         using (var context = new DataClassesContext())
                         {
-                            context.UpdateInsert_Artist(a.ID, a.Name, a.Bio, a.Website, a.Uri, a.ProfilePicBytes);
+
+                            context.UpdateInsert_Album(a.ID, a.ArtistId, a.Name, a.Year, a.Uri, a.CoverArtBytes);
                             context.SaveChanges();
                         }
                     }
                     else
                     {
-                        throw new NullValueError("Artist name cannot be null.");
+                        throw new NullValueError("Album name cannot be null.");
                     }
                 }
                 catch (EntityNotFoundError ex)
@@ -287,7 +261,7 @@ namespace SongsAbout.Classes
                     Console.WriteLine(ex.Message + "\n");
                     throw;
                 }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+                catch (DbUpdateException ex)
                 {
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
                     throw;
@@ -295,11 +269,10 @@ namespace SongsAbout.Classes
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-                    throw new DbException(ex.Message);
+                    throw new SaveError(ex.Message);
                 }
             }
-
+        
         }
-
     }
 }

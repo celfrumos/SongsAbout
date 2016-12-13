@@ -526,7 +526,7 @@ namespace SongsAbout.Entities
             int tracks = 0;
             using (DataClassesContext context = new DataClassesContext())
             {
-                formatName(ref name);
+                FormatName(ref name);
                 tracks = (
                    from t in context.Tracks
                    where t.name == name

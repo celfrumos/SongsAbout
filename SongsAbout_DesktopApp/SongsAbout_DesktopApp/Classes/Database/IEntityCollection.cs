@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
 
-namespace SongsAbout.Classes
+namespace SongsAbout.Classes.Database
 {
     /// <summary>
     /// Provides simple functionality for interacting with Database tables
     /// </summary>
-    interface IEntityContainer
+    interface IEntityCollection
     {
         DbEntityType EntityType { get; }
         List<string> AllNames { get; }
@@ -43,10 +43,10 @@ namespace SongsAbout.Classes
         T this[string name] { get; set; }
     }
 
-    interface IEntityContainer<T> : IEntityContainer, IEnumerator<T>, IEnumerable<T>
+    interface IEntityContainer<T> : IEntityCollection, IEnumerator<T>, IEnumerable<T>
         where T : DbEntity
     {
-        void Save(T entity);
+        void Add(T entity);
        
         List<T> All { get; }
     }
