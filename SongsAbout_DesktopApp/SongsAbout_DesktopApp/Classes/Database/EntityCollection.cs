@@ -16,7 +16,7 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public abstract class EntityCollection<T> : IEntityContainer<T>
+        public abstract class EntityCollection<T> : IEntityCollection<T>
             where T : DbEntity
         {
             protected EntityCollection(string childname)
@@ -47,25 +47,19 @@ namespace SongsAbout.Classes.Database
                         return this._all.GetEnumerator().Current;
                 }
             }
-            object IEnumerator.Current
-            {
-                get
-                {
-                    if (_all == null)
-                        return this.All.GetEnumerator().Current;
-                    else
-                        return this._all.GetEnumerator().Current;
-                }
-            }
+
+            //object IEnumerator.Current
+            //{
+            //    get
+            //    {
+            //        if (_all == null)
+            //            return this.All.GetEnumerator().Current;
+            //        else
+            //            return this._all.GetEnumerator().Current;
+            //    }
+            //}
 
 
-            public virtual IEnumerator<T> GetEnumerator()
-            {
-                if (_all != null)
-                    return this._all.GetEnumerator();
-                else
-                    return this.All.GetEnumerator();
-            }
             public virtual bool MoveNext()
             {
                 return ((IEnumerator)_all).MoveNext();
@@ -80,12 +74,13 @@ namespace SongsAbout.Classes.Database
                 ((IDisposable)_all).Dispose();
             }
 
+            public virtual IEnumerator<T> GetEnumerator()
+            {
+                return this.All.GetEnumerator();
+            }
             IEnumerator IEnumerable.GetEnumerator()
             {
-                if (_all != null)
-                    return ((IEnumerable)this._all).GetEnumerator();
-                else
-                    return ((IEnumerable)this.All).GetEnumerator();
+                return ((IEnumerable)this.All).GetEnumerator();
             }
         }
     }

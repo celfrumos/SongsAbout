@@ -11,7 +11,7 @@ namespace SongsAbout.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Track
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,8 +22,9 @@ namespace SongsAbout.Entities
             this.privateArtists = new HashSet<Artist>();
             this.privateGenres = new HashSet<Genre>();
             this.privateTopics = new HashSet<Topic>();
+
         }
-    
+
         public int ID { get; set; }
         private string name { get; set; }
         private string track_spotify_uri { get; set; }
@@ -31,7 +32,28 @@ namespace SongsAbout.Entities
         private int track_artist_id { get; set; }
         private string can_play { get; set; }
         private int track_album_id { get; set; }
-    
+        public bool CanPlay
+        {
+            get
+            {
+                if (can_play == "1")
+                    return true;
+                else
+                    return false;
+            }
+            set
+            {
+                if (value)
+                    this.can_play = "1";
+                else
+                    this.can_play = "0";
+
+            }
+        }
+        public string CanPlayString
+        {
+            get { return this.can_play; }
+        }
         private Album privateAlbum { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         private ICollection<Tag> privateTags { get; set; }

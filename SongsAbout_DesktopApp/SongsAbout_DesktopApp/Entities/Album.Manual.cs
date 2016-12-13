@@ -19,13 +19,12 @@ namespace SongsAbout.Entities
         public static readonly string Table = "Albums";
         public static readonly string TypeString = "Album";
         public static readonly string TitleColumn = "name";
-        private SpotifyEntityType _spotifyType = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
+        private const SpotifyEntityType SPOTIFY_TYPE = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
 
         private bool? _exists = null;
         public override SpotifyEntityType SpotifyType
         {
-            get { return this._spotifyType; }
-            set { this._spotifyType = value; }
+            get { return SPOTIFY_TYPE; }
         }
 
         public override string TableName
@@ -122,9 +121,8 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                Console.WriteLine($" Error loading Tracks for albums for {this.Name}: {ex.Message}");
-
-                return new List<Genre>();
+                string msg = $" Error loading Tracks for albums for {this.Name}: {ex.Message}";
+                throw new LoadError(msg);
             }
         }
         public List<Genre> Genres
@@ -248,7 +246,6 @@ namespace SongsAbout.Entities
         }
         public Album(FAlbum album)// : base("al_title", "Albums", "Album")
         {
-            this.SpotifyType = SpotifyEntityType.FullAlbum;
             this.name = album.Name;
             this.al_spotify_uri = album.Uri;
             if (album.Artists.Count > 0)
@@ -348,9 +345,9 @@ namespace SongsAbout.Entities
         }
         public static Album Load(string al_title)
         {
-            Album result = new Album();
             try
             {
+                Album result = new Album();
                 using (DataClassesContext context = new DataClassesContext())
                 {
                     result = (Album)(from Album ab in context.Albums
@@ -369,15 +366,15 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new LoadError(result, al_title, ex.Message);
+                throw new LoadError(DbEntityType.Album, al_title, ex.Message);
             }
         }
 
         public static Album Load(int album_id)
         {
-            Album result = new Album();
             try
             {
+                Album result = new Album();
                 using (DataClassesContext context = new DataClassesContext())
                 {
                     result = (Album)(from Album ab in context.Albums
@@ -388,7 +385,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new LoadError(result, album_id, ex.Message);
+                throw new LoadError(DbEntityType.Album, album_id, ex.Message);
             }
         }
 
@@ -445,20 +442,21 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Artist a;
-                if (!Artist.Exists(artist.Name))
+                Artist newArtist;
+                if (!Program.Database.Artists.Contains(artist.Name))
                 {
-                    a = new Artist(artist);
-                    a.Save();
-                    Console.WriteLine($"Artist added: '{a.Name}'");
+                    Program.Database.Artists.Add(new Artist(artist));
+                    Console.WriteLine($"Artist added: '{artist.Name}'");
                 }
-                a = Artist.Load(artist.Name);
-                this.artist_id = a.ID;
+
+                newArtist = Program.Database.Artists[artist.Name];
+                this.artist_id = newArtist.ID;
             }
             catch (Exception ex)
             {
                 throw new
-                    UpdateFromSpotifyError(DbEntityType.Artist, SpotifyEntityType.SimpleArtist, artist.Name, $"For Album Artist on album '{this.Name}'{ex.Message}");
+                    UpdateFromSpotifyError(DbEntityType.Artist, SpotifyEntityType.SimpleArtist, artist.Name, 
+                    $"For Album Artist on album '{artist.Name}':\n{ex.Message}");
 
             }
         }

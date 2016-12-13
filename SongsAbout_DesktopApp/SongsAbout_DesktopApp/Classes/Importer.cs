@@ -23,10 +23,10 @@ namespace SongsAbout.Classes
         {
             try
             {
+                ImportFollowedArtists();
                 ImportTopTracks();
                 ImportSavedTracks();
                 ImportSavedPlaylists();
-                // ImportFollowedArtists();
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                if (!Artist.Exists(artist.Name))
+                if (!Program.Database.Artists.Contains(artist.Name))
                 {
                     Artist a = new Artist(artist);
                     //a.Update(artist);
@@ -136,7 +136,7 @@ namespace SongsAbout.Classes
             switch (dbType)
             {
                 case DbEntityType.Artist:
-                    if (!Artist.Exists(name))
+                    if (!Program.Database.Artists.Contains(name))
                     {
                         var a = new Artist(spotifyEntity);
                         a.Save();
@@ -172,7 +172,7 @@ namespace SongsAbout.Classes
             switch (dbType)
             {
                 case DbEntityType.Artist:
-                    if (!Artist.Exists(name))
+                    if (!Program.Database.Artists.Contains(name))
                     {
                         var a = new Artist(spotifyEntity);
                         a.Save();
@@ -368,7 +368,7 @@ namespace SongsAbout.Classes
             {
                 FullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
 
-                if (!Artist.Exists(artist.Name))
+                if (!Program.Database.Artists.Contains(artist.Name))
                 {
                     Artist a = new Artist();
                     a.Update(artist);

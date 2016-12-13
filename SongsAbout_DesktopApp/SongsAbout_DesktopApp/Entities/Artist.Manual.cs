@@ -51,7 +51,6 @@ namespace SongsAbout.Entities
 
         public Artist(ISpotifyEntity artist) : this(artist.Name, artist.Uri, artist.Href)
         {
-            this.SpotifyType = artist.SpotifyEntityType;
             this.UpdateProfilePic((ISpotifyFullEntity)artist);
         }
 
@@ -154,7 +153,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateFromSpotifyError(this, artist.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this.DbEntityType,SpotifyEntityType.FullArtist, artist.Name, ex.Message);
             }
         }
 
@@ -192,7 +191,14 @@ namespace SongsAbout.Entities
         /// <exception cref="LoadError"></exception>"
         public static Artist Load(string name)
         {
-            return Program.Database.Artists[name];
+            if (Program.Database.Artists.Contains(name))
+            {
+                return Program.Database.Artists[name];
+            }
+            else
+            {
+                throw new EntityNotFoundError(DbEntityType.Artist, name);
+            }
         }
 
         /// <summary>

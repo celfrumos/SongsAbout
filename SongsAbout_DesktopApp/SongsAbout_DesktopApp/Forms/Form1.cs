@@ -11,6 +11,7 @@ using SpotifyAPI.Web.Models;
 using Image = System.Drawing.Image;
 
 using SongsAbout.Forms;
+using System.Linq;
 
 namespace SongsAbout.Forms
 {
@@ -26,6 +27,12 @@ namespace SongsAbout.Forms
                 var a = Artist.Load("Jon Bellion");
                 var b = Program.Database.Artists["Jon Bellion"];
                 var als = a.Albums;
+                var srer = (from s in Program.Database.Artists
+                            select s);
+                foreach (var item in Program.Database.Artists)
+                {
+
+                }
                 foreach (var al in als)
                 {
                     foreach (var track in al.Tracks)

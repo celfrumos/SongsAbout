@@ -458,7 +458,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateFromSpotifyError(this, t.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this.DbEntityType, SpotifyEntityType.FullTrack, t.Name, ex.Message);
             }
         }
         public Track(FullTrack t) : this(new FTrack(t))

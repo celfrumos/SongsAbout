@@ -24,7 +24,7 @@ namespace SongsAbout.Entities
         public abstract string Name { get; set; }
         public abstract void Save();
         public virtual DbEntityType DbEntityType { get; }
-        public virtual SpotifyEntityType SpotifyType { get; set; }
+        public virtual SpotifyEntityType SpotifyType { get; }
         public virtual ISpotifyEntity ISpotifyEntity { get; set; }
         protected static void FormatName(ref string name)
         {

@@ -141,6 +141,7 @@
     <Compile Include="Classes\Database\GenreCollection.cs" />
     <Compile Include="Classes\Database\IEntityCollection.cs" />
     <Compile Include="Classes\Database\SongDatabase.cs" />
+    <Compile Include="Classes\Database\TrackCollection.cs" />
     <Compile Include="Classes\TableAdapters.cs" />
     <Compile Include="Controls\IEntityControl.cs" />
     <Compile Include="Controls\SControl.cs">

@@ -82,8 +82,7 @@ namespace SongsAbout.Entities
 
         public override SpotifyEntityType SpotifyType
         {
-            get { return SpotifyEntityType.None; }
-            set { }
+            get { return SpotifyEntityType.None; }            
         }
         public override string Name
         {

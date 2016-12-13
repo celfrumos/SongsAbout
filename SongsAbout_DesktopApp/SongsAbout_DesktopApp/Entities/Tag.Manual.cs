@@ -60,8 +60,7 @@ namespace SongsAbout.Entities
         public override DbEntityType DbEntityType { get { return DbEntityType.Tag; } }
         public override SpotifyEntityType SpotifyType
         {
-            get { return SpotifyEntityType.None; }
-            set { throw new InvalidOperationException("Tag does not have a changeable SpotifyEntityType"); }
+            get { return SpotifyEntityType.None; }            
         }
 
        

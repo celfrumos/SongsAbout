@@ -43,7 +43,7 @@ namespace SongsAbout.Classes.Database
         T this[string name] { get; set; }
     }
 
-    interface IEntityContainer<T> : IEntityCollection, IEnumerator<T>, IEnumerable<T>
+    interface IEntityCollection<T> : IEntityCollection, IEnumerable<T>
         where T : DbEntity
     {
         void Add(T entity);
@@ -54,7 +54,7 @@ namespace SongsAbout.Classes.Database
     /// Allows collection to be accessed by bracket notation for both name and id
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    interface IIntegralEntityContainer<T> : IEntityContainer<T>, IEntityIdAccessor<T>, IEntityNameAccessor<T>
+    interface IIntegralEntityCollection<T> : IEntityCollection<T>, IEntityIdAccessor<T>, IEntityNameAccessor<T>
         where T : DbEntity
     {
 
