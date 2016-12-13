@@ -17,6 +17,8 @@ namespace SongsAbout.Classes.Database
         static bool isInitialized = false;
         private AlbumCollection _albums;
         private ArtistCollection _artists;
+        private TrackCollection _tracks;
+        private GenreCollection _genres;
         /// <summary>
         /// Single use Constructor at Program Start
         /// </summary>
@@ -35,42 +37,15 @@ namespace SongsAbout.Classes.Database
 
                 _albums = new AlbumCollection();
                 _artists = new ArtistCollection();
+                _tracks = new TrackCollection();
+                _genres = new GenreCollection();
             }
         }
-
-
-        public List<string> ExistingGenres
-        {
-            get
-            {
-                try
-                {
-                    List<Genre> genres;
-                    using (var db = new DataClassesContext())
-                    {
-                        genres = (from Genre g in db.Genres
-                                  select g).ToList();
-                    }
-                    return new List<string>();
-                }
-                catch (Exception ex)
-                {
-
-                    throw new DbException($"Error Getting existing genres: {ex.Message}");
-                }
-            }
-        }
-
-
-        public AlbumCollection Albums
-        {
-            get { return _albums; }
-            
-        }
-        public ArtistCollection Artists
-        {
-            get { return _artists; }
-        }
+        
+        public GenreCollection Genres { get { return _genres; } }
+        public TrackCollection Tracks { get { return _tracks; } }
+        public AlbumCollection Albums { get { return _albums; } }
+        public ArtistCollection Artists { get { return _artists; } }
 
     }
 }

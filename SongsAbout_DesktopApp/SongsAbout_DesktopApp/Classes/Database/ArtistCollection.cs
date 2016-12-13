@@ -73,33 +73,24 @@ namespace SongsAbout.Classes.Database
                 set { this.Add(value); }
                 get
                 {
+                    if (!this.Contains(id))
+                        throw new EntityNotFoundError(DbEntityType, id);
+
                     try
                     {
-                        if (!this.Contains(id))
+                        Artist result;
+                        using (var db = new DataClassesContext())
                         {
-                            Artist result;
-                            using (var db = new DataClassesContext())
-                            {
-                                result = (from Artist a in db.Artists
-                                          where a.ID == id
-                                          select a).First();
+                            result = db.Artists.Where(a => a.ID == id).First();
 
-                                foreach (var album in result.Albums)
-                                {
-                                    album.Tracks = album.Tracks;
-                                    album.Genres = album.Genres;
-                                }
+                            foreach (var album in result.Albums)
+                            {
+                                album.Tracks = album.Tracks;
+                                album.Genres = album.Genres;
                             }
-                            return result;
                         }
-                        else
-                        {
-                            throw new EntityNotFoundError(DbEntityType, id);
-                        }
-                    }
-                    catch (EntityNotFoundError)
-                    {
-                        throw;
+                        return result;
+
                     }
                     catch (Exception ex)
                     {
@@ -118,33 +109,24 @@ namespace SongsAbout.Classes.Database
                 set { this.Add(value); }
                 get
                 {
+                    if (!this.Contains(name))
+                        throw new EntityNotFoundError(DbEntityType, name);
+
                     try
                     {
-                        if (!this.Contains(name))
+                        Artist result;
+                        using (var db = new DataClassesContext())
                         {
-                            Artist result;
-                            using (var db = new DataClassesContext())
-                            {
-                                result = (from Artist a in db.Artists
-                                          where a.Name == name
-                                          select a).First();
+                            result = db.Artists.Where(a => a.Name == name).First();
 
-                                foreach (var album in result.Albums)
-                                {
-                                    album.Tracks = album.Tracks;
-                                    album.Genres = album.Genres;
-                                }
+                            foreach (var album in result.Albums)
+                            {
+                                album.Tracks = album.Tracks;
+                                album.Genres = album.Genres;
                             }
-                            return result;
                         }
-                        else
-                        {
-                            throw new EntityNotFoundError(DbEntityType, name);
-                        }
-                    }
-                    catch (EntityNotFoundError)
-                    {
-                        throw;
+                        return result;
+
                     }
                     catch (Exception ex)
                     {
@@ -164,13 +146,10 @@ namespace SongsAbout.Classes.Database
             {
                 try
                 {
-                    int count = 0;
-                    using (var db = new DataClassesContext())
-                    {
-                        count = (from a in db.Artists
-                                 where a.ID == id
-                                 select a).Count();
-                    };
+                    int count = this.Items
+                        .Where(a => a.ID == id)
+                        .Count();
+
                     return count > 0;
                 }
                 catch (Exception ex)
@@ -183,22 +162,20 @@ namespace SongsAbout.Classes.Database
             /// <summary>
             /// Verifies if an artist of the given name exists
             /// </summary>
-            /// <param name="id"></param>
+            /// <param name="name">The name of the intended Artist</param>
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
+            /// <seealso cref="Contains(int id)"/>
             public bool Contains(string name)
             {
                 if (name == null || name == "")
                     throw new NullValueError();
                 try
                 {
-                    int count = 0;
-                    using (var db = new DataClassesContext())
-                    {
-                        count = (from a in db.Artists
-                                 where a.Name == name
-                                 select a).Count();
-                    };
+                    int count = this.Items
+                        .Where(a => a.Name == name)
+                        .Count();
+
                     return count > 0;
                 }
                 catch (Exception ex)
@@ -213,7 +190,7 @@ namespace SongsAbout.Classes.Database
             /// </summary>            
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public override List<Artist> All
+            public override List<Artist> Items
             {
                 get
                 {
@@ -223,6 +200,7 @@ namespace SongsAbout.Classes.Database
                         using (var db = new DataClassesContext())
                         {
                             _allArtists.AddRange(from a in db.Artists
+                                                 where a.ID != 0
                                                  select a);
                         }
                         base._all = _allArtists;
@@ -244,12 +222,9 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        List<string> artists;
-                        using (var db = new DataClassesContext())
-                        {
-                            artists = (from a in db.Artists
-                                       select a.Name).ToList();
-                        }
+                        List<string> artists = (from a in this.Items
+                                                select a.Name).ToList();
+
                         return artists;
                     }
                     catch (Exception ex)

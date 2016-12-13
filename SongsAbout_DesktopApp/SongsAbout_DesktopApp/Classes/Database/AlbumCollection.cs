@@ -129,13 +129,10 @@ namespace SongsAbout.Classes.Database
             {
                 try
                 {
-                    int count = 0;
-                    using (var db = new DataClassesContext())
-                    {
-                        count = (from a in db.Albums
-                                 where a.ID == id
-                                 select a).Count();
-                    };
+                    int count = this.Items
+                        .Where(a => a.ID == id)
+                        .Count();
+
                     return count > 0;
                 }
                 catch (Exception ex)
@@ -155,13 +152,10 @@ namespace SongsAbout.Classes.Database
             {
                 try
                 {
-                    int count = 0;
-                    using (var db = new DataClassesContext())
-                    {
-                        count = (from a in db.Albums
-                                 where a.Name == name
-                                 select a).Count();
-                    };
+                    int count = this.Items
+                        .Where(a => a.Name == name)
+                        .Count();
+
                     return count > 0;
                 }
                 catch (Exception ex)
@@ -175,7 +169,7 @@ namespace SongsAbout.Classes.Database
             /// </summary>            
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public override List<Album> All
+            public override List<Album> Items
             {
                 get
                 {
@@ -185,6 +179,7 @@ namespace SongsAbout.Classes.Database
                         using (var db = new DataClassesContext())
                         {
                             _all.AddRange(from a in db.Albums
+                                          where a.ID != 0
                                           select Album.Load(a));
                         }
                         return _all;
@@ -206,12 +201,8 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        List<string> Albums;
-                        using (var db = new DataClassesContext())
-                        {
-                            Albums = (from a in db.Albums
-                                      select a.Name).ToList();
-                        }
+                        List<string> Albums = (from a in this.Items
+                                               select a.Name).ToList();
                         return Albums;
                     }
                     catch (Exception ex)

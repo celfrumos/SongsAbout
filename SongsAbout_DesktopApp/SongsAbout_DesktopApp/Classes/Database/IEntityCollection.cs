@@ -48,7 +48,7 @@ namespace SongsAbout.Classes.Database
     {
         void Add(T entity);
        
-        List<T> All { get; }
+        List<T> Items { get; }
     }
     /// <summary>
     /// Allows collection to be accessed by bracket notation for both name and id

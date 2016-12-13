@@ -13,7 +13,7 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class GenreList : EntityCollection<Genre>, IEntityNameAccessor<Genre>
+        public class GenreCollection : EntityCollection<Genre>, IEntityNameAccessor<Genre>
         {
             public override DbEntityType DbEntityType { get { return DbEntityType.Genre; } }
             private static bool _initialized { get; set; }
@@ -74,7 +74,7 @@ namespace SongsAbout.Classes.Database
             /// Initializes the connector to the GenreList
             /// </summary>
             /// <exception cref="InvalidInitializedError"></exception>"
-            public GenreList() : base("GenreList")
+            public GenreCollection() : base("GenreList")
             {
                 if (_initialized)
                 {
@@ -95,13 +95,10 @@ namespace SongsAbout.Classes.Database
             {
                 try
                 {
-                    int count = 0;
-                    using (var db = new DataClassesContext())
-                    {
-                        count = (from a in db.Genres
-                                 where a.Name == name
-                                 select a).Count();
-                    };
+                    int count = this.Items
+                        .Where(g => g.Name == name)
+                        .Count();
+
                     return count > 0;
                 }
                 catch (Exception ex)
@@ -116,7 +113,7 @@ namespace SongsAbout.Classes.Database
             /// </summary>            
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public override List<Genre> All
+            public override List<Genre> Items
             {
                 get
                 {
@@ -125,7 +122,7 @@ namespace SongsAbout.Classes.Database
                         _all = new List<Genre>();
                         using (var db = new DataClassesContext())
                         {
-                            _all.AddRange(from a in db.Genres
+                            _all.AddRange(from a in db.Genres                                          
                                           select a);
                         }
                         return _all;
@@ -146,13 +143,9 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        List<string> Genres;
-                        using (var db = new DataClassesContext())
-                        {
-                            Genres = (from a in db.Genres
-                                      select a.Name).ToList();
-                        }
-                        return Genres;
+                        List<string> genres = (from g in this.Items
+                                               select g.Name).ToList();
+                        return genres;
                     }
                     catch (Exception ex)
                     {
@@ -174,12 +167,12 @@ namespace SongsAbout.Classes.Database
                 {
                     if (a.Name != null)
                     {
-                        using (var context = new DataClassesContext())
+                        using (var db = new DataClassesContext())
                         {
-                            if ((from g in context.Genres where g.Name == a.Name select true).Count() == 0)
+                            if (db.Genres.Where(g => g.Name == a.Name).Count() == 0)
                             {
-                                context.Genres.Add(a);
-                                context.SaveChanges();
+                                db.Genres.Add(a);
+                                db.SaveChanges();
                             }
                             else
                             {

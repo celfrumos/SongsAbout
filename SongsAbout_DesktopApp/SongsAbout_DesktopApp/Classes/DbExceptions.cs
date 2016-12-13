@@ -88,12 +88,12 @@ namespace SongsAbout.Classes
 
         private static string loadDefMsg(DbEntityType entityType, int id, string msg)
         {
-           return $"Error Loading {entityType} with id {id} from {entityType}s table: {msg}";
-        
+            return $"Error Loading {entityType} with id {id} from {entityType}s table: {msg}";
+
         }
         private static string loadDefMsg(DbEntityType entityType, string name, string msg)
         {
-            return $"Error Loading {entityType} with name {name} from {entityType}s table: {msg}";           
+            return $"Error Loading {entityType} with name {name} from {entityType}s table: {msg}";
         }
 
     }
@@ -112,17 +112,17 @@ namespace SongsAbout.Classes
 
     public class UpdateFromSpotifyError : DbException
     {
-        const string defaultMsg = "Error Updating Entity in Database";
+        const string DEF_MSG = "Error Updating Entity in Database";
+        public UpdateFromSpotifyError(string msg = DEF_MSG) : base(msg)
+        {
 
-        public UpdateFromSpotifyError(DbEntityType entityType, SpotifyEntityType spotifyType, string name, string msg = defaultMsg)
-        {
-            string m =
-                (msg == defaultMsg ? msg : $"Error Updating {entityType} '{name}' from {spotifyType} in {entityType}s table: {msg}");
         }
-        private static string updateMsg(DbEntityType entityType, string name, string msg)
+        public UpdateFromSpotifyError(DbEntityType entityType, SpotifyEntityType spotifyType, string name, string msg = DEF_MSG) : base(updateMsg(entityType, spotifyType, name, msg))
         {
-            return
-                (msg == defaultMsg ? msg : $"Error Updating {entityType} '{name}' in {entityType}s table: {msg}");
+        }
+        private static string updateMsg(DbEntityType entityType, SpotifyEntityType spotifyType, string name, string msg)
+        {
+            return $"Error Updating {entityType} '{name}' from {spotifyType}:\n{msg}";
         }
     }
     public class EntityNotFoundError : DbException
@@ -192,7 +192,7 @@ namespace SongsAbout.Classes
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
         public ValueAlreadyPresentException(string msg = DEF_MSG)
-            : base((msg == DEF_MSG ? msg : $"{DEF_MSG}\n{msg}"))
+            : base(msg == DEF_MSG ? msg : $"{DEF_MSG}\n{msg}")
         {
 
         }
@@ -224,7 +224,8 @@ namespace SongsAbout.Classes
         const string DEF_MSG = "Failed to initialize DbEntity from Spotify Entity.";
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
-        public DbInitFromSpotifyError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG) : base(initErrDefMsg(dbType, spotifyType, msg))
+        public DbInitFromSpotifyError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG) 
+            : base(initErrDefMsg(dbType, spotifyType, msg))
         {
             this.DbEntityType = dbType;
             this.SpotifyEntityType = spotifyType;

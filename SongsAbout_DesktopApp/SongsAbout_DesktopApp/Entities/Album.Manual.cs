@@ -217,24 +217,16 @@ namespace SongsAbout.Entities
         {
             if (!this.GetGenres().Contains(genre))
             {
-                using (var db = new DataClassesContext())
+                Genre newGenre;
+                if (!Program.Database.Genres.Contains(genre))
                 {
-                    Genre newGenre;
-                    var existingGenres = Program.Database.ExistingGenres;
-                    if (existingGenres.Contains(genre))
-                    {
-                        newGenre = (from g in db.Genres
-                                    where g.Name == genre
-                                    select g).First();
-                    }
-                    else
-                    {
-                        newGenre = new Genre(genre);
-                        db.Genres.Add(newGenre);
-                    }
-                    this.Genres.Add(newGenre);
-                    db.SaveChanges();
+                    Program.Database.Genres[genre] = new Genre(genre);
                 }
+                newGenre = Program.Database.Genres[genre];
+
+                this.Genres.Add(newGenre);
+
+
             }
         }
         public override string TitleColumnName
@@ -455,7 +447,7 @@ namespace SongsAbout.Entities
             catch (Exception ex)
             {
                 throw new
-                    UpdateFromSpotifyError(DbEntityType.Artist, SpotifyEntityType.SimpleArtist, artist.Name, 
+                    UpdateFromSpotifyError(DbEntityType.Artist, SpotifyEntityType.SimpleArtist, artist.Name,
                     $"For Album Artist on album '{artist.Name}':\n{ex.Message}");
 
             }

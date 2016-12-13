@@ -16,15 +16,10 @@ namespace SongsAbout.Entities
     {
         private const double MS_TO_MINUTES = 60000D;
 
-        public static string Table = "Tracks";
-        public static string TypeString = "Track";
-        public static string TitleColumn = "name";
-        Type a = typeof(Track);
+        private const string TABLE_NAME = "Tracks";
+        private const string TITLE_COLUMN = "name";
 
-        public override string TableName
-        {
-            get { return Table; }
-        }
+        public override string TableName { get { return TABLE_NAME; } }
 
         public override string Name
         {
@@ -56,7 +51,8 @@ namespace SongsAbout.Entities
 
         public List<Artist> Artists
         {
-            get; set;
+            get { return this.privateArtists.ToList(); }
+            set { this.privateArtists = value; }
         }
 
         private List<Genre> _loadGenres()
@@ -164,84 +160,88 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Album res;
-                using (var db = new DataClassesContext())
-                {
-                    res = (Album)(from t in db.Tracks
-                                  where t.ID == this.ID
-                                  select t.privateAlbum);
-                }
+                Album res = Program.Database.Albums[this.AlbumId];
+                this.privateAlbum = res;
+                return res;
 
-                if (res != null)
-                    return res;
-
-                else
-                    return new Album();
+            }
+            catch (EntityNotFoundError)
+            {
+                throw;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($" Error loading Playlists for Track {this.Name}: {ex.Message}");
-
-                return new Album();
+                string msg = $" Error loading Playlists for Track {this.Name}: {ex.Message}";
+                throw new LoadError(DbEntityType.Album, this.AlbumId, msg);
             }
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public Album Album
         {
             set
             {
-                this.privateAlbum = value;
                 this.AlbumId = value.ID;
+                this.privateAlbum = value;
             }
             get
             {
                 try
                 {
-                    try
+                    if (this.privateAlbum == null)
                     {
-                        if (this.privatePlaylists != null)
-                            return this.privateAlbum;
-                        else
-                            return new Album();
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
-                        return this._loadAlbum();
+                        this.privateAlbum = Program.Database.Albums[this.AlbumId];
 
                     }
+                    return this.privateAlbum;
+
+                }
+                catch (EntityNotFoundError)
+                {
+                    throw;
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    string msg = $" Error returning Genres for Track {this.Name}: {ex.Message}";
+                    throw new LoadError(DbEntityType.Album, this.ArtistId, msg);
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($" Error returning Genres for Track {this.Name}: {ex.Message}");
-
-                    return this._loadAlbum();
-
+                    throw new LoadError(DbEntityType.Album, this.AlbumId, ex.Message);
                 }
             }
         }
-        private Artist _mainArtist { get; set; }
-        public Artist MainArtist
+        /// <summary>
+        /// The Main artist of the track
+        /// </summary>
+        /// <exception cref="EntityNotFoundError"></exception>
+        /// <exception cref="LoadError"></exception>
+        public Artist Artist
         {
-            set { _mainArtist = value; }
+            set { Program.Database.Artists[this.ArtistId] = value; }
             get
             {
                 try
                 {
-                    if (this._mainArtist != null)
-                        return this._mainArtist;
-
-                    else if (this.ArtistId != 0)
-                        return Artist.Load(this.ArtistId);
-
-                    else
-                        return new Artist();
+                    return Program.Database.Artists[this.ArtistId];
+                }
+                catch (EntityNotFoundError)
+                {
+                    throw;
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    string msg = $" Error loading Artist for Track {this.Name}: {ex.Message}";
+                    throw new LoadError(DbEntityType.Artist, this.ArtistId, msg);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($" Error loading MainArtist for Track {this.Name}: {ex.Message}");
-
-                    return new Artist();
+                    string msg = $" Error loading Artist for Track {this.Name}: {ex.Message}";
+                    throw new LoadError(DbEntityType.Artist, this.ArtistId, msg);
                 }
             }
         }
@@ -369,7 +369,7 @@ namespace SongsAbout.Entities
 
         public override string TitleColumnName
         {
-            get { return TitleColumn; }
+            get { return TITLE_COLUMN; }
         }
         public static Track Load(Track track)
         {
@@ -438,7 +438,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new DbInitFromSpotifyError(DbEntityType.Track, SpotifyEntityType.FullTrack,ex.Message);
+                throw new DbInitFromSpotifyError(DbEntityType.Track, SpotifyEntityType.FullTrack, ex.Message);
             }
 
         }
@@ -448,10 +448,19 @@ namespace SongsAbout.Entities
             this.Length = length / MS_TO_MINUTES;
             this.Uri = uri;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
         public Track(FTrack t) : this(t.Name, t.DurationMs, t.Uri)
         {
             try
             {
+                if (Program.Database.Artists.Contains(""))
+                {
+
+                }
                 var tArtist = t.SArtists[0];
                 UpdateArtist(tArtist);
                 UpdateAlbum(t.Album);
@@ -532,19 +541,6 @@ namespace SongsAbout.Entities
             return tracks > 0;
         }
 
-        public static bool Exists(int a)
-        {
-            int tracks = 0;
-            using (DataClassesContext context = new DataClassesContext())
-            {
-                tracks = (
-                   from ab in context.Tracks
-                   where ab.ID == a
-                   select ab).Count();
-            }
-            return tracks > 0;
-
-        }
 
         public void Update(FTrack t)
         {
@@ -563,79 +559,111 @@ namespace SongsAbout.Entities
                 //throw new Exception(msg);
             }
         }
-
+        /// <summary>
+        /// Update the Track Artist from an SArtist
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
         public void UpdateArtist(SArtist artist)
+        {
+            try
+            {
+                Artist newArtist;
+                if (!Artist.Exists(artist.Name))
+                {
+                    Program.Database.Artists[artist.Name] = new Artist(artist);
+                }
+                newArtist = Program.Database.Artists[artist.Name];
+
+                this.track_artist_id = newArtist.ID;
+
+            }
+            catch (Exception ex)
+            {
+                string msg = $"Error updating track artist: {this.name}: {ex.Message}";
+                throw new UpdateFromSpotifyError(msg);
+            }
+        }
+
+        /// <summary>
+        /// Update the Track Artist from an SimpleArtist
+        /// </summary>
+        /// <param name="album"></param>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
+        private void UpdateAlbum(SimpleAlbum album)
+        {
+            try
+            {
+                UpdateAlbum(new SAlbum(album));
+            }
+            catch (UpdateFromSpotifyError)
+            {
+                throw;
+            }
+        }
+        /// <summary>
+        /// Update the Track Artist from an SAlbum
+        /// </summary>
+        /// <param name="album"></param>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
+        private void UpdateAlbum(SAlbum album)
+        {
+            try
+            {
+                UpdateAlbum((FAlbum)album.FullVersion());
+            }
+            catch (UpdateFromSpotifyError)
+            {
+                throw;
+            }
+
+        }
+        /// <summary>
+        /// Update the Track Artist from an FArtist
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
+        public void UpdateArtist(FArtist artist)
         {
             try
             {
                 Artist a;
                 if (!Artist.Exists(artist.Name))
                 {
-                    a = new Artist(artist);
-                    a.Save();
+                    Program.Database.Artists[artist.Name] = new Artist((FullArtist)artist);
                 }
-                a = Artist.Load(artist.Name);
-
+                a = Program.Database.Artists[artist.Name];
                 this.track_artist_id = a.ID;
 
             }
             catch (Exception ex)
             {
-                string msg = $"Error updating track artist: {this.name}: {ex.Message}";
-                Console.WriteLine(msg);
-                //  throw new Exception(msg);
+                throw new UpdateFromSpotifyError(DbEntityType.Artist, SpotifyEntityType.FullArtist, artist.Name, ex.Message);
             }
         }
+
+        /// <summary>
+        /// Update the Track Artist from an FullArtist
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
         public void UpdateArtist(FullArtist artist)
         {
             try
             {
-                Artist a;
-                if (Artist.Exists(artist.Name))
-                {
-                    a = Artist.Load(artist.Name);
-                }
-                else
-                {
-                    a = new Artist(artist);
-                    a.Save();
-                    //al.Save();
-                }
-                this.track_artist_id = a.ID;
+                UpdateArtist(new FArtist(artist));
+            }
+            catch (UpdateFromSpotifyError)
+            {
+                throw;
+            }
+        }
 
-                //ta.Update(a.artist_id, this.track_id);
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error updating track artist: {this.name}: {ex.Message}";
-                Console.WriteLine(msg);
-                //  throw new Exception(msg);
-            }
-        }
-        private void UpdateAlbum(SimpleAlbum album)
-        {
-            UpdateAlbum(new SAlbum(album));
-        }
-        private void UpdateAlbum(SAlbum album)
-        {
-            try
-            {
-                Album al;
-                if (!Album.Exists(album.Name))
-                {
-                    al = new Album(album);
-                    al.Save();
-                }
-
-                al = Album.Load(album.Name);
-                this.track_album_id = al.ID;
-            }
-            catch (Exception ex)
-            {
-                string msg = $"Error updating track album for track: {this.name}: {ex.Message}";
-                Console.WriteLine(msg);
-            }
-        }
+        /// <summary>
+        /// Update the Track Album from an FAlbum
+        /// </summary>
+        /// <param name="album"></param>
+        /// <exception cref="UpdateFromSpotifyError"></exception>
         private void UpdateAlbum(FAlbum album)
         {
             try
@@ -666,33 +694,6 @@ namespace SongsAbout.Entities
             }
         }
 
-        public Track(FTrack t, SpotifyEntityType type)
-        {
-            try
-            {
-                if (type == SpotifyEntityType.SimpleTrack || type == SpotifyEntityType.FullTrack)
-                {
-                    this.name = t.Name;
-                    this.track_length_minutes = (t.DurationMs) / MS_TO_MINUTES;
-                    this.track_spotify_uri = t.Uri;
-
-                    UpdateAlbum(new SAlbum(t.Album));
-                    UpdateArtist(new SArtist(t.Artists[0]));
-                }
-                else
-                {
-                    throw new DbInitFromSpotifyError(DbEntityType.Track, type, "");
-                }
-            }
-            catch (DbInitFromSpotifyError)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new DbInitFromSpotifyError(DbEntityType.Artist, type, ex.Message);
-            }
-        }
 
     }
 }

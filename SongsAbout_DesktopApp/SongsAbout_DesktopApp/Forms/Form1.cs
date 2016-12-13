@@ -22,24 +22,16 @@ namespace SongsAbout.Forms
             InitializeComponent();
             try
             {
-                var dd = Program.Database.Artists.All;
+              //  var dd = Program.Database.Artists.All;
 
-                var a = Artist.Load("Jon Bellion");
-                var b = Program.Database.Artists["Jon Bellion"];
-                var als = a.Albums;
-                var srer = (from s in Program.Database.Artists
-                            select s);
-                foreach (var item in Program.Database.Artists)
+                
+                foreach (var item in Program.Database.Tracks)
                 {
-
+                    var album = item.Album;
+                    var artist = item.Artist;
+                    
                 }
-                foreach (var al in als)
-                {
-                    foreach (var track in al.Tracks)
-                    {
-                        Console.WriteLine($"Artist{a.Name}, Album: {al.Name}, Track: {track.Name}");
-                    }
-                }
+         
 
                 //Artist a = Artist.Load(4);
                 //var albums = a.Albums;

@@ -29,7 +29,7 @@ namespace SongsAbout.Classes.Database
                 }
             }
             protected List<T> _all { get; set; }
-            public abstract List<T> All { get; }
+            public abstract List<T> Items { get; }
             public abstract List<string> AllNames { get; }
 
             public virtual int Count { get; }
@@ -42,7 +42,7 @@ namespace SongsAbout.Classes.Database
                 get
                 {
                     if (_all == null)
-                        return this.All.GetEnumerator().Current;
+                        return this.Items.GetEnumerator().Current;
                     else
                         return this._all.GetEnumerator().Current;
                 }
@@ -76,11 +76,11 @@ namespace SongsAbout.Classes.Database
 
             public virtual IEnumerator<T> GetEnumerator()
             {
-                return this.All.GetEnumerator();
+                return this.Items.GetEnumerator();
             }
             IEnumerator IEnumerable.GetEnumerator()
             {
-                return ((IEnumerable)this.All).GetEnumerator();
+                return ((IEnumerable)this.Items).GetEnumerator();
             }
         }
     }

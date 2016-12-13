@@ -20,7 +20,7 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        class TrackCollection : EntityCollection<Track>, IEntityIdAccessor<Track>, IEntityNameAccessor<Track>
+        public class TrackCollection : EntityCollection<Track>, IEntityIdAccessor<Track>, IEntityNameAccessor<Track>
         {
             public override DbEntityType DbEntityType { get { return DbEntityType.Track; } }
             private static List<Track> _allTracks
@@ -161,12 +161,7 @@ namespace SongsAbout.Classes.Database
                 try
                 {
                     int count = 0;
-                    using (var db = new DataClassesContext())
-                    {
-                        count = (from a in db.Tracks
-                                 where a.ID == id
-                                 select a).Count();
-                    };
+                    count = this.Items.Where(t => t.ID == id).Count();
                     return count > 0;
                 }
                 catch (Exception ex)
@@ -189,12 +184,8 @@ namespace SongsAbout.Classes.Database
                 try
                 {
                     int count = 0;
-                    using (var db = new DataClassesContext())
-                    {
-                        count = (from a in db.Tracks
-                                 where a.Name == name
-                                 select a).Count();
-                    };
+                    count = this.Items.Where(t => t.Name == name).Count();
+                
                     return count > 0;
                 }
                 catch (Exception ex)
@@ -209,7 +200,7 @@ namespace SongsAbout.Classes.Database
             /// </summary>            
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public override List<Track> All
+            public override List<Track> Items
             {
                 get
                 {
@@ -219,6 +210,7 @@ namespace SongsAbout.Classes.Database
                         using (var db = new DataClassesContext())
                         {
                             _allTracks.AddRange(from a in db.Tracks
+                                                where a.ID != 0
                                                 select a);
                         }
                         base._all = _allTracks;
@@ -244,6 +236,7 @@ namespace SongsAbout.Classes.Database
                         using (var db = new DataClassesContext())
                         {
                             Tracks = (from a in db.Tracks
+                                      where a.ID != 0
                                       select a.Name).ToList();
                         }
                         return Tracks;
