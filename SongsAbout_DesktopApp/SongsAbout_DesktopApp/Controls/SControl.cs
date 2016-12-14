@@ -31,11 +31,11 @@ namespace SongsAbout.Controls
 
         public abstract DbEntity DbEntity { get; set; }
 
-        public abstract ISpotifyEntity SpotifyEntity { get; set; }
+        public virtual ISpotifyEntity SpotifyEntity { get; set; }
 
-        public abstract SpotifyEntityType SpotifyEntityType { get; set; }
+        public virtual SpotifyEntityType SpotifyEntityType { get; set; }
 
-        public abstract DbEntityType DbEntityType { get; set; }
+        public virtual DbEntityType DbEntityType { get; set; }
 
         public SControl()
         {

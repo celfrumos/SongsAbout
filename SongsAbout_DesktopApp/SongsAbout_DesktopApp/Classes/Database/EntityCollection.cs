@@ -73,9 +73,9 @@ namespace SongsAbout.Classes.Database
             }
 
             /// <summary>
-            /// Verifies if an artist of the given name exists
+            /// Verifies if an entity of the given name exists
             /// </summary>
-            /// <param name="name">The name of the intended Artist</param>
+            /// <param name="name">The name of the intended entity</param>
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
             /// <exception cref="NullValueError"></exception>
@@ -87,7 +87,7 @@ namespace SongsAbout.Classes.Database
 
                 try
                 {
-                    return this[name] == null;
+                    return this[name] != null;
                 }
                 catch (Exception ex)
                 {

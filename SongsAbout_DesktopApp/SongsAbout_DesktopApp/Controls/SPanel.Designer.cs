@@ -107,10 +107,10 @@ namespace SongsAbout.Controls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.HotTrack;
+            BackColor = System.Drawing.SystemColors.HotTrack;
             this.Controls.Add(this.splitContainer);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ForeColor = System.Drawing.Color.White;
+            ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MinimumSize = new System.Drawing.Size(110, 40);
             this.Name = "SPanel";

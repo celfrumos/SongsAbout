@@ -150,7 +150,7 @@ namespace SongsAbout.Controls
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error assigning MaxLabelSize");
+                    Console.WriteLine($"Error assigning MaxLabelSize: {ex.Message}");
                 }
             }
         }
@@ -765,7 +765,7 @@ namespace SongsAbout.Controls
             }
         }
 
-        private EventHandler ClickEvent
+        public EventHandler ClickEvent
         {
             set
             {

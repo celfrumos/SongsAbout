@@ -89,6 +89,12 @@ namespace SongsAbout.Classes
             Console.WriteLine("Finished importing Saved Playlists.");
         }
 
+        /// <summary>
+        /// Import the Given Spotify Track into the Database
+        /// </summary>
+        /// <param name="track"></param>
+        /// <exception cref="SaveError"></exception>
+        /// <exception cref="SpotifyImportError"></exception>
         public static void ImportTrack(SimpleTrack track)
         {
             try
@@ -101,32 +107,54 @@ namespace SongsAbout.Classes
             }
         }
 
+        /// <summary>
+        /// Import the Given Spotify Track into the Database
+        /// </summary>
+        /// <param name="track"></param>
+        /// <exception cref="SaveError"></exception>
+        /// <exception cref="SpotifyImportError"></exception>
         public static void ImportTrack(FullTrack track)
         {
             ImportTrack(new FTrack(track));
         }
+
+        /// <summary>
+        /// Import the Given Spotify Track into the Database
+        /// </summary>
+        /// <param name="track"></param>
+        /// <exception cref="SaveError"></exception>
+        /// <exception cref="SpotifyImportError"></exception>
+        public static void ImportTrack(ISpotifyFullEntity track)
+        {
+            ImportTrack((FTrack)track);
+        }
+
+        /// <summary>
+        /// Import the Given Spotify Track into the Database
+        /// </summary>
+        /// <param name="track"></param>
+        /// <exception cref="SaveError"></exception>
+        /// <exception cref="SpotifyImportError"></exception>
         public static void ImportTrack(FTrack track)
         {
             try
             {
                 if (!Track.Exists(track.Name))
                 {
-                    Track newTrack = new Track(track);
-                    newTrack.Save();
+                    Program.Database.Tracks[track.Name] = new Track(track);
                 }
                 else
                 {
                     Console.WriteLine($"Track '{track.Name}' already exists");
                 }
             }
-            catch (SaveError ex)
+            catch (SaveError)
             {
-                Console.WriteLine(ex.Message);
+                throw;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                //throw new Exception(ex.Message);
+                throw new SpotifyImportError(ex.Message);
             }
         }
         public static bool ImportFromSpotify(ISpotifyEntity spotifyEntity, DbEntityType dbType, SpotifyEntityType spotifyEntityType)
@@ -230,10 +258,16 @@ namespace SongsAbout.Classes
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pic"></param>
+        /// <returns></returns>
+        /// <exception cref="SpotifyUndefinedAPIError"></exception>
+        /// <exception cref="ConversionError"></exception>
         public static byte[] ImportSpotifyImageBytes(SpotifyAPI.Web.Models.Image pic)
         {
-            if (User.Default.PrivateProfile != null)
+            if (UserSpotify.WebAPI != null)
             {
                 try
                 {
@@ -246,39 +280,48 @@ namespace SongsAbout.Classes
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error getting profile photo: {ex.Message}");
+                    throw new ConversionError("SpotifyImage", "byte[]", $"Error getting profile photo: {ex.Message}");
                 }
             }
             else
             {
-                throw new Exception("User WebAPI undefined");
+                throw new SpotifyUndefinedAPIError();
             }
         }
 
+        /// <summary>
+        /// Import All Saved Tracks into the datbase
+        /// </summary>
+        /// <exception cref="SpotifyUndefinedAPIError"></exception>
+        /// <exception cref="SpotifyException"></exception>
         public static void ImportSavedTracks()
         {
+            if (UserSpotify.WebAPI == null)
+                throw new SpotifyUndefinedAPIError();
+
             try
             {
-                if (UserSpotify.WebAPI == null)
-                {
-                    throw new SpotifyUndefinedAPIError();
-                }
                 Paging<SavedTrack> tracks = UserSpotify.WebAPI.GetSavedTracks();
+                var existingTracks = Program.Database.Tracks.AllNames;
+
                 foreach (SavedTrack track in tracks.Items)
                 {
-                    try
+                    if (!existingTracks.Contains(track.Track.Name))
                     {
-                        ImportTrack(Converter.GetFullTrack(track));
-                    }
-                    catch (SpotifyException)
-                    {
-                        throw;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
+                        try
+                        {
+                            ImportTrack(Converter.GetFullTrack(track));
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                     }
                 }
+            }
+            catch (SpotifyException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

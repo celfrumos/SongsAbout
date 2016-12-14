@@ -59,9 +59,21 @@ namespace SongsAbout.Classes
         {
             try
             {
-                MemoryStream stream = new MemoryStream();
-                image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-                return stream.ToArray();
+                byte[] array;
+                using (var stream = new MemoryStream())
+                {               
+                    image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    array = stream.ToArray();
+                }
+                return array;
+
+            }
+            catch (System.Runtime.InteropServices.ExternalException ex)
+            {
+                var f = ex.HelpLink;
+                Console.WriteLine(ex.Message);
+                return null;
+
             }
             catch (Exception ex)
             {

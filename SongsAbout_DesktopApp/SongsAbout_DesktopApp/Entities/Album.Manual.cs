@@ -20,7 +20,7 @@ namespace SongsAbout.Entities
         public static readonly string TypeString = "Album";
         public static readonly string TitleColumn = "name";
         private const SpotifyEntityType SPOTIFY_TYPE = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
-        
+
         public override SpotifyEntityType SpotifyType
         {
             get { return SPOTIFY_TYPE; }
@@ -233,13 +233,13 @@ namespace SongsAbout.Entities
         }
         public Album(FAlbum album)// : base("al_title", "Albums", "Album")
         {
-            this.name = album.Name;
-            this.al_spotify_uri = album.Uri;
+            this.Name = album.Name;
+            this.Uri = album.Uri;
             if (album.Artists.Count > 0)
             {
                 this.UpdateArtist(album.Artists[0]);
             }
-            this.al_year = null;
+            this.Year = null;
             // this.al_year = album.ReleaseDate;
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
@@ -257,29 +257,28 @@ namespace SongsAbout.Entities
             this.CoverArtBytes = Converter.ImageToBytes(coverArt);
         }
 
+        /// <summary>
+        /// Save the Album to the Database
+        /// </summary>
+        /// <exception cref="NullValueError"></exception>
+        /// <exception cref="SaveError"></exception>
         public override void Save()
         {
             try
             {
-                if (this.name != null)
-                {
-                    using (var context = new DataClassesContext())
-                    {
-                        context.UpdateInsert_Album(this.ID, this.ArtistId, this.Name, this.Year, this.Uri, this.CoverArtBytes);
-                        //     context.Albums.Add(this);
-                        context.SaveChanges();
-                    }
-
-                }
-                else
-                {
-                    Console.WriteLine($"Error saving album {this.name}, already exists");
-                }
+                Program.Database.Albums.Add(this);
+            }
+            catch (NullValueError)
+            {
+                throw;
+            }
+            catch (SaveError)
+            {
+                throw;
             }
             catch (Exception ex)
             {
-                var e = new SaveError(this.DbEntityType, ex.Message + "\n" + ex.InnerException.Message);
-                Console.WriteLine(e.Message + e.StackTrace);
+                throw new SaveError(DbEntityType.Album, this.name, ex.Message);
             }
         }
 
@@ -288,19 +287,12 @@ namespace SongsAbout.Entities
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <exception cref="NullValueError"></exception>
         public static bool Exists(string name)
         {
-            int albums = 0;
-            using (DataClassesContext context = new DataClassesContext())
-            {
-                DbEntity.FormatName(ref name);
-                albums = (
-                   from ab in context.Albums
-                   where ab.name == name
-                   select ab).Count();
-                // int n = base.Exists(name, context.Albums);
-            }
-            return albums > 0;
+            if (name == "" || name == null)
+                throw new NullValueError(DbEntityType.Album, "name");
+            return Program.Database.Albums[name] != null;
         }
 
         /// <summary>
@@ -308,71 +300,77 @@ namespace SongsAbout.Entities
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// /// <exception cref="NullValueError"></exception>
         public static bool Exists(int id)
         {
-            int albums = 0;
-            using (DataClassesContext context = new DataClassesContext())
-            {
-                albums = (
-                   from ab in context.Albums
-                   where ab.ID == id
-                   select ab).Count();
-            }
-            return albums > 0;
+            if (id == 0)
+                throw new NullValueError(DbEntityType.Album, "id");
+
+            return Program.Database.Albums[id] != null;
         }
 
         public static Album Load(Album album)
         {
-            album.Tracks.ToList().ForEach(t => t = Track.Load(t));
-            album.Tracks = album.Tracks;
+            //    album.Tracks.ToList().ForEach(t => t = Track.Load(t));
+            //    album.Tracks = album.Tracks;
 
-            album.Genres = album.Genres;
+            //    album.Genres = album.Genres;
 
             return album;
         }
-        public static Album Load(string al_title)
+        /// <summary>
+        /// Load an Artist From the database. Throws an error if it returns  null from the database
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        /// <exception cref="NullValueError"></exception>
+        /// <exception cref="EntityNotFoundError"></exception>
+        /// <exception cref="LoadError"></exception>
+        public static Album Load(string title)
         {
+            if (title == "" || title == null)
+                throw new NullValueError(DbEntityType.Album, "name");
+
             try
             {
-                Album result = new Album();
-                using (DataClassesContext context = new DataClassesContext())
-                {
-                    result = (Album)(from Album ab in context.Albums
-                                     where ab.name == al_title
-                                     select ab).FirstOrDefault();
+                var result = Program.Database.Albums[title];
 
-                    foreach (var track in result.Tracks)
-                    {
-                        track.Genres = track.Genres;
-                        track.Artists = track.Artists;
-                        track.Topics = track.Topics;
-                        track.Playlists = track.Playlists;
-                    }
-                }
+                if (result == null)
+                    throw new EntityNotFoundError(DbEntityType.Album, title);
+
                 return result;
             }
             catch (Exception ex)
             {
-                throw new LoadError(DbEntityType.Album, al_title, ex.Message);
+                throw new LoadError(DbEntityType.Album, title, ex.Message);
             }
         }
 
-        public static Album Load(int album_id)
+        /// <summary>
+        /// Load an Artist From the database. Throws an error if it returns  null from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NullValueError"></exception>
+        /// <exception cref="EntityNotFoundError"></exception>
+        /// <exception cref="LoadError"></exception>
+        public static Album Load(int id)
         {
+            if (id == 0 || id == null)
+                throw new NullValueError(DbEntityType.Album, "name");
+
             try
             {
-                Album result = new Album();
-                using (DataClassesContext context = new DataClassesContext())
-                {
-                    result = (Album)(from Album ab in context.Albums
-                                     where ab.ID == album_id
-                                     select ab).First();
-                }
+                var result = Program.Database.Albums[id];
+
+                if (result == null)
+                    throw new EntityNotFoundError(DbEntityType.Album, id);
+
                 return result;
             }
             catch (Exception ex)
             {
-                throw new LoadError(DbEntityType.Album, album_id, ex.Message);
+                throw new LoadError(DbEntityType.Album, id, ex.Message);
             }
         }
 
@@ -409,10 +407,17 @@ namespace SongsAbout.Entities
         }
         private void UpdateCoverArt(FAlbum album)
         {
-            if (album.Images.Count > 0)
+            try
             {
-                byte[] pic = Importer.ImportSpotifyImageBytes(album.Images[0]);
-                this.al_cover_art = pic;
+                if (album.Images.Count > 0)
+                {
+                    byte[] pic = Importer.ImportSpotifyImageBytes(album.Images[0]);
+                    this.al_cover_art = pic;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Updating Cover Art: {ex.Message}");
             }
         }
         private void UpdateArtist(SimpleArtist simpleArtist)
@@ -436,7 +441,8 @@ namespace SongsAbout.Entities
                 }
 
                 newArtist = Program.Database.Artists[artist.Name];
-                this.artist_id = newArtist.ID;
+                this.privateArtist = newArtist;
+                this.ArtistId = newArtist.ID;
             }
             catch (Exception ex)
             {
@@ -447,29 +453,26 @@ namespace SongsAbout.Entities
             }
         }
         /// <summary>
-        /// 
+        /// Sets the genres for this album from the passed in list
         /// </summary>
         /// <param name="genres"></param>
         public void SetGenres(List<Genre> genres)
         {
             try
             {
-                using (var db = new DataClassesContext())
+                var existingGenres = Program.Database.Genres.Items;
+                foreach (var g in genres)
                 {
-                    foreach (var g in genres)
+                    if (!this.Genres.Contains(g))
                     {
-                        if (!this.Genres.Contains(g))
+                        if (!existingGenres.Contains(g))
                         {
-                            if (!db.Genres.Contains(g))
-                            {
-                                db.Genres.Add(g);
-                            }
-                            this.Genres.Add(g);
-
+                            Program.Database.Genres.Add(g);
                         }
+                        this.Genres.Add(g);
                     }
-                    db.SaveChanges();
                 }
+
             }
             catch (Exception ex)
             {
@@ -479,51 +482,47 @@ namespace SongsAbout.Entities
         }
         public void SetGenres(List<string> genres)
         {
-            try
+            if (genres != null && genres.Count > 0)
             {
-                using (var db = new DataClassesContext())
+                try
                 {
+                    var existingGenres = Program.Database.Genres.AllNames;
                     foreach (var g in genres)
                     {
-                        Genre newG = new Genre(g);
-                        if (!this.Genres.Contains(newG))
+                        if (!this.Genres.Any(gen => gen.Name == g))
                         {
-                            if (!db.Genres.Contains(newG))
+                            Genre newG = new Genre(g);
+                            if (!existingGenres.Contains(g))
                             {
-                                db.Genres.Add(newG);
+                                Program.Database.Genres.Add(newG);
                             }
                             this.Genres.Add(newG);
                         }
                     }
-                    db.SaveChanges();
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new
-                    DbException(this.DbEntityType, $"Error Setting Album Genres for Album '{this.Name}\n{ex.Message}'");
+                catch (Exception ex)
+                {
+                    throw new
+                        DbException(this.DbEntityType, $"Error Setting Album Genres for Album '{this.Name}\n{ex.Message}'");
+                }
             }
         }
         public void SetGenres(ISpotifyFullEntity entity)
         {
             try
             {
-                using (var db = new DataClassesContext())
+                var existingGenres = Program.Database.Genres.AllNames;
+                foreach (var g in entity.Genres)
                 {
-                    foreach (string g in entity.Genres)
+                    if (!this.Genres.Any(gen => gen.Name == g))
                     {
                         Genre newG = new Genre(g);
-                        if (!this.Genres.Contains(newG))
+                        if (!existingGenres.Contains(g))
                         {
-                            if (!db.Genres.Contains(newG))
-                            {
-                                db.Genres.Add(newG);
-                            }
-                            this.Genres.Add(newG);
+                            Program.Database.Genres.Add(newG);
                         }
-                        db.Genres.Add(newG);
+                        this.Genres.Add(newG);
                     }
-                    db.SaveChanges();
                 }
             }
             catch (Exception ex)

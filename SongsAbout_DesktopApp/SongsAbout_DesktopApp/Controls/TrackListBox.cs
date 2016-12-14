@@ -11,7 +11,7 @@ using SongsAbout.Entities;
 
 namespace SongsAbout.Controls
 {
-    public partial class TrackListBox : SControl
+    public partial class TrackListBox :UserControl//: SControl
     {
         public TrackListBox()
         {

@@ -39,7 +39,6 @@ namespace SongsAbout.Forms
             this.cboxAlbums = new System.Windows.Forms.CheckBox();
             this.cboxArtists = new System.Windows.Forms.CheckBox();
             this.cboxAll = new System.Windows.Forms.CheckBox();
-            this.albumDisplay1 = new SongsAbout.Controls.AlbumDisplay();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.flpSpotifyControls.SuspendLayout();
             this.pnlSearchType.SuspendLayout();
@@ -57,7 +56,6 @@ namespace SongsAbout.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpSpotifyControls.AutoScroll = true;
-            this.flpSpotifyControls.Controls.Add(this.albumDisplay1);
             this.flpSpotifyControls.Location = new System.Drawing.Point(12, 94);
             this.flpSpotifyControls.Name = "flpSpotifyControls";
             this.flpSpotifyControls.Size = new System.Drawing.Size(941, 612);
@@ -160,21 +158,7 @@ namespace SongsAbout.Forms
             this.cboxAll.Text = "All";
             this.cboxAll.UseVisualStyleBackColor = true;
             this.cboxAll.CheckedChanged += new System.EventHandler(this.cboxAll_CheckedChanged);
-            // 
-            // albumDisplay1
-            // 
-            this.albumDisplay1.AlbumName = "Album";
-            this.albumDisplay1.AlbumType = SongsAbout.Controls.AlbumType.DB;
-            this.albumDisplay1.ArtistName = "Artist";
-            this.albumDisplay1.BackColor = System.Drawing.SystemColors.HotTrack;
-            //this.albumDisplay1.DbEntity = albumDisplay1.Album;
-            this.albumDisplay1.DbEntityType = SongsAbout.Enums.DbEntityType.Album;
-            this.albumDisplay1.Image = ((System.Drawing.Image)(resources.GetObject("albumDisplay1.Image")));
-            this.albumDisplay1.Location = new System.Drawing.Point(3, 3);
-            this.albumDisplay1.Name = "albumDisplay1";
-            this.albumDisplay1.Size = new System.Drawing.Size(424, 325);            
-            this.albumDisplay1.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
-            this.albumDisplay1.TabIndex = 0;
+          
             // 
             // SpotifySearchForm
             // 
@@ -216,6 +200,5 @@ namespace SongsAbout.Forms
         private System.Windows.Forms.CheckBox cboxAlbums;
         private System.Windows.Forms.CheckBox cboxArtists;
         private System.Windows.Forms.CheckBox cboxAll;
-        private Controls.AlbumDisplay albumDisplay1;
     }
 }

@@ -30,7 +30,7 @@ namespace SongsAbout.Entities
         public const string TypeString = "Artist";
         public const string TitleColumn = "name";
         Type a = typeof(Artist);
-
+        
         public override string TableName
         {
             get { return TABLE_NAME; }
@@ -93,7 +93,14 @@ namespace SongsAbout.Entities
         public Image ProfilePic
         {
             get { return Converter.ImageFromBytes(this.ProfilePicBytes); }
-            set { this.ProfilePicBytes = Converter.ImageToBytes(value); }
+            set
+            {
+                var newBytes = Converter.ImageToBytes(value);
+                if (newBytes != null)
+                {
+                    this.ProfilePicBytes = newBytes;
+                }
+            }
         }
         /// <summary>
         /// Submit Changes to the Database
@@ -105,7 +112,7 @@ namespace SongsAbout.Entities
         public override void Save()
         {
             Program.Database.Artists.Add(this);
-            
+
         }
 
         public static bool Exists(string name)
@@ -131,7 +138,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateFromSpotifyError(this.DbEntityType,SpotifyEntityType.SimpleArtist, artist.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this.DbEntityType, SpotifyEntityType.SimpleArtist, artist.Name, ex.Message);
             }
         }
 
@@ -153,7 +160,7 @@ namespace SongsAbout.Entities
             }
             catch (Exception ex)
             {
-                throw new UpdateFromSpotifyError(this.DbEntityType,SpotifyEntityType.FullArtist, artist.Name, ex.Message);
+                throw new UpdateFromSpotifyError(this.DbEntityType, SpotifyEntityType.FullArtist, artist.Name, ex.Message);
             }
         }
 
@@ -163,7 +170,7 @@ namespace SongsAbout.Entities
             {
                 byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
                 this.ProfilePicBytes = pic; //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
-                this.ProfilePic = Converter.ImageFromBytes(pic);
+                //this.ProfilePic = Converter.ImageFromBytes(pic);
             }
         }
         private void UpdateProfilePic(ISpotifyFullEntity artist)
@@ -172,7 +179,7 @@ namespace SongsAbout.Entities
             {
                 byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
                 this.ProfilePicBytes = pic;
-                this.ProfilePic = Converter.ImageFromBytes(pic);
+               // this.ProfilePic = Converter.ImageFromBytes(pic);
                 //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
             }
         }

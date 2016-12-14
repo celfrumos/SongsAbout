@@ -14,19 +14,29 @@ using SongsAbout.Enums;
 
 namespace SongsAbout.Forms
 {
+    public enum SSearchType
+    {
+        Artist = SearchType.Artist,
+        Album = SearchType.Album,
+        Track = SearchType.Track,
+        Playlist = SearchType.Playlist,
+        All = Artist | Album | Track | Playlist
+
+
+    }
     public partial class SpotifySearchForm : SForm
     {
-        private SearchType _searchType;
+        private SSearchType _searchType;
 
         public SpotifySearchForm()
         {
             InitializeComponent();
-            _searchType = SearchType.All;
-            cboxAlbums.Tag = SearchType.Album;
-            cboxAll.Tag = SearchType.All;
-            cboxArtists.Tag = SearchType.Artist;
-            cboxPlaylists.Tag = SearchType.Playlist;
-            cboxTracks.Tag = SearchType.Track;
+            _searchType = SSearchType.All;
+            cboxAlbums.Tag = SSearchType.Album;
+            cboxAll.Tag = SSearchType.All;
+            cboxArtists.Tag = SSearchType.Artist;
+            cboxPlaylists.Tag = SSearchType.Playlist;
+            cboxTracks.Tag = SSearchType.Track;
 
         }
 
@@ -56,19 +66,19 @@ namespace SongsAbout.Forms
                 switch (objTag)
                 {
                     case "Playlists":
-                        _searchType = SearchType.Playlist;
+                        _searchType = SSearchType.Playlist;
                         break;
                     case "Artists":
-                        _searchType = SearchType.Artist;
+                        _searchType = SSearchType.Artist;
                         break;
                     case "Albums":
-                        _searchType = SearchType.Album;
+                        _searchType = SSearchType.Album;
                         break;
                     case "Tracks":
-                        _searchType = SearchType.Track;
+                        _searchType = SSearchType.Track;
                         break;
                     default:
-                        _searchType = SearchType.All;
+                        _searchType = SSearchType.All;
                         break;
                 }
 
@@ -172,62 +182,60 @@ namespace SongsAbout.Forms
             }
         }
 
-        private async void ExecuteSearch(string query, SearchType searchType, int limit = 20, int offset = 0)
+        private async void ExecuteSearch(string query, SSearchType searchType, int limit = 20, int offset = 0)
         {
-            var resultsList = UserSpotify.Search(query, searchType, limit, offset);
+            var resultsList = UserSpotify.Search(query, (SearchType)searchType, limit, offset);
 
             // this.albumDisplay1 = new AlbumDisplay((FAlbum)new SAlbum(resultsList.Albums.Items[0]).FullVersion());
             //return;
-            if (searchType == SearchType.All)
+
+            //if (resultsList.Albums.Items.Count > 0)
+            //{
+            //    foreach (var album in resultsList.Albums.Items)
+            //    {
+            //        await Task.Run(() => AddToFlow(new SPanel(new SAlbum(album), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
+            //        //  break;
+            //    }
+            //    flpSpotifyControls.Refresh();
+            //    return;
+            //}
+
+            //if (HasSearchType(SSearchType.Artist))
+            //{
+            //    foreach (FullArtist a in resultsList.Artists.Items)
+            //    {
+            //        AddToFlow(new SPanel(new FArtist(a), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+
+            //    }
+            //}
+            //if (HasSearchType(SSearchType.Album))
+            //{
+            //    foreach (var al in resultsList.Albums.Items)
+            //    {
+            //        AddToFlow(new SPanel(new SAlbum(al), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+            //    }
+            //}
+            if (HasSearchType(SSearchType.Track))
             {
-                if (resultsList.Albums.Items.Count > 0)
+                foreach (var t in resultsList.Tracks.Items)
                 {
-                    foreach (var album in resultsList.Albums.Items)
-                    {
-                        await Task.Run(() => AddToFlow(new SPanel(new SAlbum(album), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
-                        //  break;
-                    }
-                    flpSpotifyControls.Refresh();
+                    var row = new TrackRow(t);
+                    AddToFlow(row);
                     return;
                 }
-
             }
-            else
+            if (HasSearchType(SSearchType.Playlist))
             {
-                if (HasSearchType(SearchType.Artist))
+                foreach (var p in resultsList.Playlists.Items)
                 {
-                    foreach (FullArtist a in resultsList.Artists.Items)
-                    {
-                        AddToFlow(new SPanel(new FArtist(a), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
-
-                    }
+                    // AddToFlow(new SPanel(new SPlaylist(p), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
                 }
-                if (HasSearchType(SearchType.Album))
-                {
-                    foreach (var al in resultsList.Albums.Items)
-                    {
-                        AddToFlow(new SPanel(new SAlbum(al), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
-                    }
-                }
-                if ((searchType & SearchType.Track) == SearchType.Track)
-                {
-                    foreach (var t in resultsList.Tracks.Items)
-                    {
-                        AddToFlow(new SPanel(new FTrack(t), SPanelType.Text, SPanelSize.Small, SpotifyPanel_Click));
-                    }
-                }
-                if (HasSearchType(SearchType.Playlist))
-                {
-                    foreach (var p in resultsList.Playlists.Items)
-                    {
-                        AddToFlow(new SPanel(new SPlaylist(p), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
-                    }
-                }
-
             }
+
+
         }
 
-        private void AddToFlow(SPanel panel)
+        private void AddToFlow(IEntityControl panel)
         {
             try
             {
@@ -236,13 +244,13 @@ namespace SongsAbout.Forms
                     {
                         flpSpotifyControls.Invoke(new MethodInvoker(delegate
                         {
-                            flpSpotifyControls.Controls.Add(panel);
+                            flpSpotifyControls.Controls.Add((Control)panel);
                             flpSpotifyControls.Refresh();
                         }));
                     }
                     else
                     {
-                        flpSpotifyControls.Controls.Add(panel);
+                        flpSpotifyControls.Controls.Add((Control)panel);
                         flpSpotifyControls.Refresh();
                     }
                 }
@@ -252,21 +260,21 @@ namespace SongsAbout.Forms
                 Console.WriteLine(ex.Message);
             }
         }
-        private bool HasSearchType(SearchType targetType)
+        private bool HasSearchType(SSearchType targetType)
         {
             return (_searchType & targetType) == targetType;
         }
-        private SearchType ToggleSearchType(SearchType targetType)
+        private SSearchType ToggleSearchType(SSearchType targetType)
         {
-            return Flag.Spotify.Search.ToggleFlag(_searchType, targetType);
+            return (SSearchType)Flag.Spotify.Search.ToggleFlag((SearchType)_searchType, (SearchType)targetType);
         }
 
-        public SearchType SetSearchType(SearchType targetType)
+        public SSearchType SetSearchType(SSearchType targetType)
         {
             return _searchType | targetType;
         }
 
-        public SearchType UnsetSearchType(SearchType targetFlag)
+        public SSearchType UnsetSearchType(SSearchType targetFlag)
         {
             return _searchType & (~targetFlag);
         }
@@ -300,7 +308,7 @@ namespace SongsAbout.Forms
         private void cboxAll_CheckedChanged(object sender, EventArgs e)
         {
             var cBox = sender as CheckBox;
-            _searchType = SearchType.All;
+            _searchType = SSearchType.All;
             if (cBox.Checked)
             {
                 foreach (CheckBox item in pnlSearchType.Controls)
@@ -320,10 +328,10 @@ namespace SongsAbout.Forms
                 if (cBox.Checked)
                 {
                     cboxAll.Checked = false;
-                    _searchType = UnsetSearchType(SearchType.All);
+                    _searchType = UnsetSearchType(SSearchType.All);
                 }
             }
-            _searchType = ToggleSearchType((SearchType)cBox.Tag);
+            _searchType = ToggleSearchType((SSearchType)cBox.Tag);
         }
     }
 }

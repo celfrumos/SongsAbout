@@ -49,19 +49,16 @@ namespace SongsAbout.Classes.Database
                 }
                 get
                 {
-                    if (!this.Contains(id))
-                        throw new EntityNotFoundError(DbEntityType, id);
-
                     try
                     {
-                        var results =
-                            this.Items
+                        var results = this
+                            .Items
                             .Where(a => a.ID == id);
 
                         if (results.Count() == 0)
                             return null;
 
-                        return results.First();
+                        return results.FirstOrDefault();
 
                     }
                     catch (Exception ex)
@@ -121,7 +118,7 @@ namespace SongsAbout.Classes.Database
                 }
             }
 
-        
+
             /// <summary>
             /// Submit Changes to the Database
             /// </summary>
