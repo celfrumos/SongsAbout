@@ -61,9 +61,12 @@ namespace SongsAbout.Controls
             get { return (Artist)this.lblsArtist.DbEntity; }
             set
             {
-                this.ArtistName = value.Name;
-                this.lblsArtist.DbEntity = value;
-                this.Track.Artist = value;
+                if (value != null)
+                {
+                    this.lblsArtist.DbEntity = value;
+                    this.Track.Artist = value;
+                    this.ArtistName = value.Name;
+                }
                 // this.Track.Save();
             }
         }
@@ -98,10 +101,14 @@ namespace SongsAbout.Controls
             get { return (Album)this.lblsAlbum.DbEntity; }
             set
             {
-                this.lblsAlbum.DbEntity = value;
-                this.AlbumName = value.Name;
-                this.Track.Album = value;
-                // this.Track.Save();
+                if (value != null)
+                {
+                    this.lblsAlbum.DbEntity = value;
+
+                    this.AlbumName = value.Name;
+
+                    this.Track.Album = value;
+                }// this.Track.Save();
             }
         }
 
@@ -145,24 +152,27 @@ namespace SongsAbout.Controls
             get { return this._spotifyTrack; }
             set
             {
-                if (value.SpotifyEntityType == SpotifyEntityType.FullTrack)
+                if (value != null)
                 {
-                    this._spotifyTrack = (FTrack)value;
-                    this.SpotifyArtist = (FArtist)_spotifyTrack.SArtists[0].FullVersion();
-                    this.SpotifyAlbum = new FAlbum(Converter.GetFullAlbum(_spotifyTrack.Album));
-
-
-                    if (this._spotifyTrack != null)
+                    if (value.SpotifyEntityType == SpotifyEntityType.FullTrack)
                     {
-                        this.Track = Program.Database.Tracks[this._spotifyTrack.Name];
-                        if (this.Track == null)
-                            this.Track = new Track(this._spotifyTrack);
-                    }
+                        this._spotifyTrack = (FTrack)value;
+                        this.SpotifyArtist = (FArtist)_spotifyTrack.SArtists[0].FullVersion();
+                        this.SpotifyAlbum = new FAlbum(Converter.GetFullAlbum(_spotifyTrack.Album));
 
-                }
-                else
-                {
-                    throw new DbException("Error Assigning TrackRow SpotifyEntity");
+
+                        if (this._spotifyTrack != null)
+                        {
+                            this.Track = Program.Database.Tracks[this._spotifyTrack.Name];
+                            if (this.Track == null)
+                                this.Track = new Track(this._spotifyTrack);
+                        }
+
+                    }
+                    else
+                    {
+                        throw new DbException("Error Assigning TrackRow SpotifyEntity");
+                    }
                 }
             }
         }

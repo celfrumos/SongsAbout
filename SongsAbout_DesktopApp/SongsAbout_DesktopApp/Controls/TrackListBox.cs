@@ -18,6 +18,7 @@ namespace SongsAbout.Controls
     [DefaultBindingProperty("SelectedItem")]
     [DefaultEvent("ItemAdded")]
     [DefaultProperty("Items")]
+    [Docking(DockingBehavior.Ask)]
     public partial class TrackListBox : SControl, IExtenderProvider, IContainerControl
     {
         public TrackRowCollection Items
@@ -81,7 +82,7 @@ namespace SongsAbout.Controls
 
             foreach (Track track in tracks)
             {
-                this.Items.Add(new TrackRow(track));
+                this.Items.Add(new TrackRow(track) { Dock = DockStyle.Fill});
             }
         }
 
@@ -98,9 +99,10 @@ namespace SongsAbout.Controls
         private void newItemAdded(object sender, TrackRowAddedEventArgs e)
         {
             var newRow = sender as TrackRow;
-            newRow.Width = this.flowLayoutPanel.Width;
             newRow.Click += Row_Click;
-            this.flowLayoutPanel.Controls.Add(newRow);
+            newRow.Dock = DockStyle.Fill;
+            this.panel.Controls.Add(newRow);
+            this.panel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             OnControlAdded(new ControlEventArgs(newRow));
         }
         private void Row_ControlAdded(object sender, ControlEventArgs e)
@@ -116,7 +118,7 @@ namespace SongsAbout.Controls
         }
         public bool CanExtend(object extendee)
         {
-            return ((IExtenderProvider)flowLayoutPanel).CanExtend(extendee);
+            return ((IExtenderProvider)panel).CanExtend(extendee);
         }
 
         [Bindable(BindableSupport.Yes)]
@@ -169,5 +171,6 @@ namespace SongsAbout.Controls
                 this.Index = index;
             }
         }
+        
     }
 }
