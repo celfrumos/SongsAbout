@@ -13,10 +13,30 @@ using SpotifyAPI.Web.Models;
 namespace SongsAbout.Controls
 {
     [DesignTimeVisible(true)]
-    [Docking(DockingBehavior.Ask)]    
+    [Docking(DockingBehavior.Ask)]
     public partial class TrackRow : SControl, IExtenderProvider, IContainerControl
     {
         private string _trackName;
+        private bool _selected;
+        private Color HoverColor = Color.Black;
+        public bool Selected
+        {
+            get { return _selected; }
+            set
+            {
+                _selected = value;
+                Color compColor;
+                if (_selected)
+                    compColor = HoverColor;
+                else
+                    compColor = Color.Transparent;
+
+                foreach (Control item in tableLayoutPanel1.Controls)
+                {
+                    item.BackColor = compColor;
+                }
+            }
+        }
 
         [Browsable(false)]
         public Track Track

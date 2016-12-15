@@ -29,27 +29,39 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblTitle = new System.Windows.Forms.Label();
+            this.trackRow1 = new SongsAbout.Controls.TrackRow();
             this.flowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel
             // 
-            this.flowLayoutPanel.Controls.Add(this.lblTitle);
+            this.flowLayoutPanel.Controls.Add(this.trackRow1);
             this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(654, 206);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(662, 202);
             this.flowLayoutPanel.TabIndex = 0;
             // 
-            // lblTitle
+            // trackRow1
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(3, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(84, 17);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "trackListBox";
+            this.trackRow1.Album = null;
+            this.trackRow1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackRow1.Artist = null;
+            this.trackRow1.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.trackRow1.DbEntity = null;
+            this.trackRow1.DbEntityType = SongsAbout.Enums.DbEntityType.Track;
+            this.trackRow1.ForeColor = System.Drawing.Color.White;
+            this.trackRow1.Location = new System.Drawing.Point(4, 4);
+            this.trackRow1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trackRow1.MinimumSize = new System.Drawing.Size(548, 40);
+            this.trackRow1.Name = "trackRow1";
+            this.trackRow1.Size = new System.Drawing.Size(645, 40);
+            this.trackRow1.SpotifyAlbum = null;
+            this.trackRow1.SpotifyArtist = null;
+            this.trackRow1.SpotifyEntity = null;
+            this.trackRow1.SpotifyEntityType = ((SongsAbout.Enums.SpotifyEntityType)((SongsAbout.Enums.SpotifyEntityType.FullTrack | SongsAbout.Enums.SpotifyEntityType.SimpleTrack)));
+            this.trackRow1.TabIndex = 0;
+            this.trackRow1.Track = null;
             // 
             // TrackListBox
             // 
@@ -57,16 +69,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowLayoutPanel);
             this.Name = "TrackListBox";
-            this.Size = new System.Drawing.Size(654, 206);
+            this.Size = new System.Drawing.Size(662, 202);
             this.flowLayoutPanel.ResumeLayout(false);
-            this.flowLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private TrackRowCollection _items= new TrackRowCollection();
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
-        private System.Windows.Forms.Label lblTitle;
+        private TrackRow trackRow1;
     }
 }

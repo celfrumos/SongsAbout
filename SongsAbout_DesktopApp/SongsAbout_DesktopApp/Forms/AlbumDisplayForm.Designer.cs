@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlbumDisplayForm));
             this.lblArtist = new SongsAbout.Controls.SLabel();
             this.lblAlbumName = new SongsAbout.Controls.SLabel();
-            this.SPictureBox = new SongsAbout.Controls.SPicturePox();
+            this.sPicturePox1 = new SongsAbout.Controls.SPicturePox();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sPicturePox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pBoxProfilePic
@@ -86,37 +86,38 @@
             this.lblAlbumName.Text = "Album";
             this.lblAlbumName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SPictureBox
+            // sPicturePox1
             // 
-            this.SPictureBox.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.SPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SPictureBox.DbEntity = null;
-            this.SPictureBox.DbEntityType = SongsAbout.Enums.DbEntityType.Artist;
-            this.SPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("SPictureBox.Image")));
-            this.SPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("SPictureBox.InitialImage")));
-            this.SPictureBox.Location = new System.Drawing.Point(12, 42);
-            this.SPictureBox.Name = "SPictureBox";
-            this.SPictureBox.Size = new System.Drawing.Size(98, 95);
-            this.SPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.SPictureBox.SpotifyEntity = null;
-            this.SPictureBox.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
-            this.SPictureBox.TabIndex = 28;
-            this.SPictureBox.TabStop = false;
+            this.sPicturePox1.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.sPicturePox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.sPicturePox1.DbEntity = null;
+            this.sPicturePox1.DbEntityType = SongsAbout.Enums.DbEntityType.None;
+            this.sPicturePox1.Dock = System.Windows.Forms.DockStyle.None;
+            this.sPicturePox1.Image = ((System.Drawing.Image)(resources.GetObject("sPicturePox1.Image")));
+            this.sPicturePox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("sPicturePox1.InitialImage")));
+            this.sPicturePox1.Location = new System.Drawing.Point(12, 46);
+            this.sPicturePox1.Name = "sPicturePox1";
+            this.sPicturePox1.Size = new System.Drawing.Size(96, 82);
+            this.sPicturePox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.sPicturePox1.SpotifyEntity = null;
+            this.sPicturePox1.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.sPicturePox1.TabIndex = 31;
+            this.sPicturePox1.TabStop = false;
             // 
             // AlbumDisplayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.ClientSize = new System.Drawing.Size(635, 399);
-            this.Controls.Add(this.SPictureBox);
+            this.Controls.Add(this.sPicturePox1);
             this.Controls.Add(this.lblArtist);
             this.Controls.Add(this.lblAlbumName);
             this.Name = "AlbumDisplayForm";
             this.Controls.SetChildIndex(this.pBoxProfilePic, 0);
             this.Controls.SetChildIndex(this.lblAlbumName, 0);
             this.Controls.SetChildIndex(this.lblArtist, 0);
-            this.Controls.SetChildIndex(this.SPictureBox, 0);
+            this.Controls.SetChildIndex(this.sPicturePox1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sPicturePox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,6 +126,6 @@
         #endregion
         private Controls.SLabel lblArtist;
         private Controls.SLabel lblAlbumName;
-        private Controls.SPicturePox SPictureBox;
+        private Controls.SPicturePox sPicturePox1;
     }
 }

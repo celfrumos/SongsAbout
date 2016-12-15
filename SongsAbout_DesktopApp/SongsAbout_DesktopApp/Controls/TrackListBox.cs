@@ -9,34 +9,36 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SongsAbout.Entities;
 using System.Collections;
+using Size = System.Drawing.Size;
 using System.Windows;
 
 namespace SongsAbout.Controls
 {
     [ListBindable(BindableSupport.Yes)]
-    [DefaultBindingProperty("SelectedValue")]
+    [DefaultBindingProperty("SelectedItem")]
     [DefaultEvent("ItemAdded")]
     [DefaultProperty("Items")]
     public partial class TrackListBox : SControl, IExtenderProvider, IContainerControl
     {
-        public event EventHandler<TrackRowAddedEventArgs> ItemAdded
-        {
-            add { this.Items.ItemAdded += value; }
-            remove { this.Items.ItemAdded -= value; }
-        }
-
-        public TrackListBox()
-        {
-            InitializeComponent();
-            this.Items.ItemAdded += this.newItemAdded;
-        }
-
-        private TrackRowCollection _items;
         public TrackRowCollection Items
         {
             get { return _items; }
             set { _items = value; }
         }
+        private System.Windows.Forms.Label lblTitle { get; set; }
+
+        public event EventHandler<TrackRowAddedEventArgs> ItemAdded
+        {
+            add { this.Items.ItemAdded += value; }
+            remove { this.Items.ItemAdded -= value; }
+        }
+        public event EventHandler RowClick;
+
+        public TrackRow SelectedItem
+        {
+            get; set;
+        }
+
         new public int Width
         {
             get { return base.Width; }
@@ -46,20 +48,35 @@ namespace SongsAbout.Controls
                 this.Items.ForEach(a => a.Width = value);
             }
         }
-
+        
+        new public Size Size
+        {
+            get { return base.Size; }
+            set
+            {
+                base.Size = value;
+                if (this.Items != null)
+                {
+                    this.Items.ForEach(a => a.Width = value.Width);
+                }
+            }
+        }
+        public int SelectedIndex { get; set; }
         public override AnchorStyles Anchor
         {
             get { return base.Anchor; }
             set { base.Anchor = value; }
         }
-        private void resizeRows(object sender, EventArgs e)
+
+        public TrackListBox()
         {
-            this.lblTitle.Text = sender.GetType().ToString();
+            InitializeComponent();
+            this.Items.ItemAdded += this.newItemAdded;
+            this.ControlAdded += Row_ControlAdded;            
         }
 
-        public TrackListBox(List<Track> tracks)
+        public TrackListBox(List<Track> tracks) : this()
         {
-            this.Resize += resizeRows;
             ListBox a = new ListBox();
 
             foreach (Track track in tracks)
@@ -68,16 +85,30 @@ namespace SongsAbout.Controls
             }
         }
 
+        private void Row_Click(object sender, EventArgs e)
+        {
+            var row = sender as TrackRow;
+
+            row.Selected = true;
+            this.SelectedItem = row;
+            this.SelectedIndex = this.Items.IndexOf(row);
+            ((IContainerControl)this).ActivateControl(row);            
+        }
+
         private void newItemAdded(object sender, TrackRowAddedEventArgs e)
         {
             var newRow = sender as TrackRow;
             newRow.Width = this.flowLayoutPanel.Width;
+            newRow.Click += Row_Click;
             this.flowLayoutPanel.Controls.Add(newRow);
             OnControlAdded(new ControlEventArgs(newRow));
         }
-        private void rowControlAdded(object sender, ControlEventArgs e)
+        private void Row_ControlAdded(object sender, ControlEventArgs e)
         {
-
+            if (this.lblTitle != null)
+            {
+                this.lblTitle.Dispose();
+            }
         }
         public void Clear()
         {
@@ -97,6 +128,7 @@ namespace SongsAbout.Controls
             }
 
             public event EventHandler<TrackRowAddedEventArgs> ItemAdded;
+
             public TrackRowCollection()
             {
                 this.ItemAdded += TrackRowList_Default_ItemAdded;

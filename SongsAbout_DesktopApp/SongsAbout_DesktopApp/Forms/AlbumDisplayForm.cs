@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using SongsAbout.Controls;
 
 namespace SongsAbout.Forms
 {
@@ -13,6 +14,7 @@ namespace SongsAbout.Forms
         public AlbumDisplayForm()
         {
             InitializeComponent();
+            TrackListBox t = new TrackListBox();
         }
     }
 }

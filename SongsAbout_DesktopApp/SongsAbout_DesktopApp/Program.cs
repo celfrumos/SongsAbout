@@ -26,10 +26,10 @@ namespace SongsAbout
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 // User.Default.Upgrade();
-                ConnectSpotify();
-                Database = new SongDatabase();
+               // ConnectSpotify();
+              //  Database = new SongDatabase();
                 
-                Application.Run(new Form1());
+                Application.Run(new AlbumDisplayForm());
             }
             catch (System.Resources.MissingManifestResourceException ex)
             {

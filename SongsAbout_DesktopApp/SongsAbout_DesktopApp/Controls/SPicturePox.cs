@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Drawing;
 using SongsAbout.Classes;
@@ -12,9 +13,15 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout.Controls
 {
-    [Docking(DockingBehavior.Ask)]
+    [Docking(DockingBehavior.Ask)]    
     public partial class SPicturePox : PictureBox, IEntityControl
     {
+       [DefaultValue(DockStyle.Fill)]
+        public override DockStyle Dock
+        {
+            get { return base.Dock; }
+            set { base.Dock = value; }
+        }
         public DbEntity DbEntity { get; set; }
         public SPicturePox()
         {
