@@ -28,40 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.table = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.flowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // table
+            // flowLayoutPanel
             // 
-            this.table.ColumnCount = 5;
-            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.table.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.table.Location = new System.Drawing.Point(0, 0);
-            this.table.Name = "table";
-            this.table.RowCount = 3;
-            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.table.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.table.Size = new System.Drawing.Size(654, 206);
-            this.table.TabIndex = 0;
+            this.flowLayoutPanel.Controls.Add(this.lblTitle);
+            this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Size = new System.Drawing.Size(654, 206);
+            this.flowLayoutPanel.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(3, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(84, 17);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "trackListBox";
             // 
             // TrackListBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.table);
+            this.Controls.Add(this.flowLayoutPanel);
             this.Name = "TrackListBox";
             this.Size = new System.Drawing.Size(654, 206);
+            this.flowLayoutPanel.ResumeLayout(false);
+            this.flowLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel table;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
+        private System.Windows.Forms.Label lblTitle;
     }
 }

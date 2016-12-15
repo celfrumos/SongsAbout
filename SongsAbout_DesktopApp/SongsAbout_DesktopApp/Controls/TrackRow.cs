@@ -12,15 +12,19 @@ using SpotifyAPI.Web.Models;
 
 namespace SongsAbout.Controls
 {
-    public partial class TrackRow : UserControl, IEntityControl
+    [DesignTimeVisible(true)]
+    [Docking(DockingBehavior.Ask)]    
+    public partial class TrackRow : SControl, IExtenderProvider, IContainerControl
     {
         private string _trackName;
+
+        [Browsable(false)]
         public Track Track
         {
             get { return (Track)this.DbEntity; }
             set
             {
-                this.DbEntity = value;
+                DbEntity = value;
                 if (value != null)
                 {
                     this.TrackName = value.Name;
@@ -31,7 +35,7 @@ namespace SongsAbout.Controls
                 }
             }
         }
-
+        [Browsable(false)]
         public Artist Artist
         {
             get { return (Artist)this.lblsArtist.DbEntity; }
@@ -40,19 +44,35 @@ namespace SongsAbout.Controls
                 this.ArtistName = value.Name;
                 this.lblsArtist.DbEntity = value;
                 this.Track.Artist = value;
-               // this.Track.Save();
+                // this.Track.Save();
             }
         }
+        [Browsable(true)]
         public double? Length
         {
             get { return this.Track.Length; }
-            private set { this.lblsLength.Text = value.ToString(); }
+            private set
+            {
+                if (value == null)
+                {
+                    this.lblsLength.Text = "--";
+                }
+                else
+                {
+                    this.lblsLength.Text = value.ToString();
+                    this.Track.Length = value;
+
+                }
+            }
         }
+
+        [Browsable(true)]
         public string Uri
         {
             get { return this.lblsUri.Text; }
             private set { this.lblsUri.Text = value; }
         }
+        [Browsable(false)]
         public Album Album
         {
             get { return (Album)this.lblsAlbum.DbEntity; }
@@ -61,9 +81,11 @@ namespace SongsAbout.Controls
                 this.lblsAlbum.DbEntity = value;
                 this.AlbumName = value.Name;
                 this.Track.Album = value;
-               // this.Track.Save();
+                // this.Track.Save();
             }
         }
+
+        [Browsable(true)]
         public string ArtistName
         {
             get { return this.lblsArtist.Text; }
@@ -71,22 +93,34 @@ namespace SongsAbout.Controls
             //TODO: implement updating other entities from TrackRow
         }
 
+        [Browsable(true)]
         public string AlbumName
         {
             get { return this.lblsAlbum.Text; }
             private set { this.lblsAlbum.Text = value; }
             //TODO: implement updating other entities from TrackRow
         }
+
+        [Browsable(true)]
         public string TrackName
         {
-            get { return this.lblsName.Text; }
-            private set { this.lblsName.Text = value; }
+            get { return this._trackName; }
+            private set
+            {
+                this._trackName = value;
+                this.lblsName.Text = this._trackName;
+            }
         }
 
         private FTrack _spotifyTrack { get; set; }
+        [Browsable(true)]
         public FArtist SpotifyArtist { get; set; }
+
+        [Browsable(true)]
         public FAlbum SpotifyAlbum { get; set; }
-        public ISpotifyEntity SpotifyEntity
+
+        [Browsable(false)]
+        public override ISpotifyEntity SpotifyEntity
         {
             get { return this._spotifyTrack; }
             set
@@ -113,7 +147,7 @@ namespace SongsAbout.Controls
             }
         }
 
-        public SpotifyEntityType SpotifyEntityType { get; set; }
+        public override SpotifyEntityType SpotifyEntityType { get; set; }
         public TrackRow()
         {
             this.SpotifyEntityType = SpotifyEntityType.Track;
@@ -157,7 +191,9 @@ namespace SongsAbout.Controls
 
         }
         private DbEntity _dbEntity;
-        public DbEntity DbEntity
+
+        [Browsable(true)]
+        public override DbEntity DbEntity
         {
             get { return this._dbEntity; }
             set
@@ -170,14 +206,20 @@ namespace SongsAbout.Controls
             }
         }
 
-        public DbEntityType DbEntityType
+        public override DbEntityType DbEntityType
         {
             get { return DbEntityType.Track; }
-            set { throw new DbException($"TrackRow can only have DbEntityType of Track."); }
+            set
+            {
+                if ((value & DbEntityType.Track) != DbEntityType.Track)
+                {
+                    throw new DbException($"TrackRow can only have DbEntityType of Track.");
+                }
+            }
         }
 
 
-        public bool ImportEntity()
+        public override bool ImportEntity()
         {
             if (this.SpotifyEntity != null)
             {
@@ -197,7 +239,7 @@ namespace SongsAbout.Controls
 
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error Importing TrackRow Track");
+                    Console.WriteLine($"Error Importing TrackRow Track: {ex.Message}");
                 }
                 return false;
             }
@@ -211,6 +253,16 @@ namespace SongsAbout.Controls
         private void TrackRow_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void TrackRow_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public bool CanExtend(object extendee)
+        {
+            return ((IExtenderProvider)tableLayoutPanel1).CanExtend(extendee);
         }
     }
 }

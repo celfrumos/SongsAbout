@@ -3,7 +3,7 @@ using SongsAbout.Entities;
 
 namespace SongsAbout.Controls
 {
-    public interface IEntityControl
+        public interface IEntityControl
     {
         string Text { get; set; }
         DbEntity DbEntity { get; set; }

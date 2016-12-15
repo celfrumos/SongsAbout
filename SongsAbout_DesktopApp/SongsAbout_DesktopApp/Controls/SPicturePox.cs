@@ -9,8 +9,10 @@ using SongsAbout.Enums;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 
+
 namespace SongsAbout.Controls
 {
+    [Docking(DockingBehavior.Ask)]
     public partial class SPicturePox : PictureBox, IEntityControl
     {
         public DbEntity DbEntity { get; set; }

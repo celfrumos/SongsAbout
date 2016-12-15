@@ -112,7 +112,7 @@ namespace SongsAbout.Controls
             {
                 this.Tracks.Add(t);
             });
-            this.listBoxTracks.DataSource = this.Tracks;
+           // this.listBoxTracks.DataSource = this.Tracks;
             this.SPictureBox = new SPicturePox(album);
         }
         public AlbumDisplay(FAlbum album) //: this()
@@ -124,7 +124,7 @@ namespace SongsAbout.Controls
             {
                 this.SpotifyTracks.Add((FTrack)new STrack(t).FullVersion());
             });
-            this.listBoxTracks.DataSource = this.SpotifyTracks;
+            //this.listBoxTracks.DataSource = this.SpotifyTracks;
             this.SPictureBox = new SPicturePox(album);
         }
 
