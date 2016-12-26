@@ -14,7 +14,7 @@ namespace SongsAbout.Entities
 {
     public partial class SpotifyArtist : SpotifyAPI.Web.Models.FullArtist, ISpotifyFullEntity
     {
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullArtist; } }
+       // public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullArtist; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Artist; } }
         public SpotifyArtist() : base()
         {
@@ -66,7 +66,7 @@ namespace SongsAbout.Entities
     {
         private List<SpotifyTrack> _trackList;
         private List<SpotifyArtist> _artists;
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.Album; } }
+     //   public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.Album; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Album; } }
         public List<SpotifyTrack> TrackList { get { return _trackList; } }
 

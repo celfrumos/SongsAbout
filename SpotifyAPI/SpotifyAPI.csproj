@@ -109,6 +109,7 @@
     <Compile Include="Web\Models\SimpleTrack.cs" />
     <Compile Include="Web\Models\Snapshot.cs" />
     <Compile Include="Web\Models\SpotifyIntegralEntity.cs" />
+    <Compile Include="Web\Models\SpotifyTrack.cs" />
     <Compile Include="Web\Models\Token.cs" />
     <Compile Include="Web\Models\SimplePlaylist.cs" />
     <Compile Include="Web\Models\Paging.cs" />
