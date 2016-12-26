@@ -247,7 +247,7 @@ namespace SongsAbout.Entities
             this.DurationMs = track.DurationMs;
             this.Explicit = track.Explicit;
             this.ExternalIds = track.ExternalIds;
-            this.ExternUrls = track.ExternUrls;
+            this.ExternalUrls = track.ExternalUrls;
             this.Href = track.Href;
             this.Id = track.Id;
             this.IsPlayable = track.IsPlayable;

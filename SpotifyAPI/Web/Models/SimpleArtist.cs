@@ -1,27 +1,30 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using SpotifyAPI.Web.Enums;
 
 namespace SpotifyAPI.Web.Models
 {
-    public class SimpleArtist : BasicModel
+    public class SimpleArtist : SpotifyIntegralEntity
     {
-        [JsonProperty("external_urls")]
-        public Dictionary<string, string> ExternalUrls { get; set; }
+        public override SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleArtist; } }
 
-        [JsonProperty("href")]
-        public string Href { get; set; }
+    //[JsonProperty("external_urls")]
+    //public Dictionary<string, string> ExternalUrls { get; set; }
 
-        [JsonProperty("id")]
-        public string Id { get; set; }
+    //[JsonProperty("href")]
+    //public string Href { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+    //[JsonProperty("id")]
+    //public string Id { get; set; }
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
+    //[JsonProperty("name")]
+    //public string Name { get; set; }
 
-        [JsonProperty("uri")]
-        public string Uri { get; set; }
-    }
+    //[JsonProperty("type")]
+    //public string Type { get; set; }
+
+    //[JsonProperty("uri")]
+    //public string Uri { get; set; }
+}
 }

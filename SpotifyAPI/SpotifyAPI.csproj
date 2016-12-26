@@ -59,6 +59,7 @@
     <Compile Include="Local\Models\SpotifyUri.cs" />
     <Compile Include="Local\VolumeMixerControl.cs" />
     <Compile Include="Web\Auth\WebAPIFactory.cs" />
+    <Compile Include="Web\Enums\SpotifyEntityType.cs" />
     <Compile Include="Web\Enums\TimeRangeType.cs" />
     <Compile Include="Web\IClient.cs" />
     <Compile Include="Local\Models\CFID.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Web\Models\SimpleArtist.cs" />
     <Compile Include="Web\Models\SimpleTrack.cs" />
     <Compile Include="Web\Models\Snapshot.cs" />
+    <Compile Include="Web\Models\SpotifyIntegralEntity.cs" />
     <Compile Include="Web\Models\Token.cs" />
     <Compile Include="Web\Models\SimplePlaylist.cs" />
     <Compile Include="Web\Models\Paging.cs" />

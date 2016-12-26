@@ -56,16 +56,16 @@ namespace SongsAbout.Enums
             }
             public static class Search
             {
-                public static bool HasFlag(SpotifyAPI.Web.Enums.SearchType existingFlag, SpotifyAPI.Web.Enums.SearchType targetFlag)
+                public static bool HasFlag(SearchType existingFlag, SearchType targetFlag)
                 {
                     return (existingFlag & targetFlag) == targetFlag;
                 }
-                public static SpotifyAPI.Web.Enums.SearchType ToggleFlag(SpotifyAPI.Web.Enums.SearchType existingFlag, SpotifyAPI.Web.Enums.SearchType targetFlag)
+                public static SearchType ToggleFlag(SearchType existingFlag, SearchType targetFlag)
                 {
                     return existingFlag ^ targetFlag;
                 }
 
-                public static SpotifyAPI.Web.Enums.SearchType SetFlag(SpotifyAPI.Web.Enums.SearchType existingFlag, SpotifyAPI.Web.Enums.SearchType targetFlag)
+                public static SearchType SetFlag(SearchType existingFlag, SearchType targetFlag)
                 {
                     return existingFlag | targetFlag;
                 }
@@ -210,40 +210,6 @@ namespace SongsAbout.Enums
         /// </summary>
         Grouping = Genre | Tag | Playlist
 
-
-    }
-
-    [Flags]
-    public enum SpotifyEntityType : ulong
-    {
-
-        None = 0,
-        FullArtist = 1,
-        FullAlbum = 2,
-        FullTrack = 4,
-        FullPlaylist = 8,
-
-        SimpleArtist = 16,
-        SimpleAlbum = 32,
-        SimpleTrack = 64,
-        SimplePlaylist = 128,
-
-        /// <summary>
-        /// Either a FullArtist or SimpleArtist
-        /// </summary>
-        Artist = FullArtist | SimpleArtist,
-        Track = FullTrack | SimpleTrack,
-        Album = FullAlbum | SimpleAlbum,
-        Playlist = FullPlaylist | SimplePlaylist,
-
-        FullType = FullArtist | FullAlbum | FullTrack | FullPlaylist,
-        SimpleType = SimpleArtist | SimpleAlbum | SimpleTrack | SimplePlaylist,
-
-        SavedItem = 256,
-
-        SavedTrack = Track | SavedItem,
-        SavedAlbum = Album | SavedItem,
-        PlaylistTrack = Playlist | Track,
 
     }
 

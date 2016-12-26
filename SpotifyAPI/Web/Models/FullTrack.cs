@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using SpotifyAPI.Web.Enums;
 
 namespace SpotifyAPI.Web.Models
 {
-    public class FullTrack : BasicModel
+    public class FullTrack : SpotifyIntegralEntity
     {
+        public override SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullTrack; } }
+
         [JsonProperty("album")]
         public SimpleAlbum Album { get; set; }
 
@@ -27,18 +30,6 @@ namespace SpotifyAPI.Web.Models
         [JsonProperty("external_ids")]
         public Dictionary<string, string> ExternalIds { get; set; }
 
-        [JsonProperty("external_urls")]
-        public Dictionary<string, string> ExternUrls { get; set; }
-
-        [JsonProperty("href")]
-        public string Href { get; set; }
-
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
         [JsonProperty("popularity")]
         public int Popularity { get; set; }
 
@@ -47,12 +38,6 @@ namespace SpotifyAPI.Web.Models
 
         [JsonProperty("track_number")]
         public int TrackNumber { get; set; }
-
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        [JsonProperty("uri")]
-        public string Uri { get; set; }
 
         /// <summary>
         ///     Only filled when the "market"-parameter was supplied!
@@ -65,5 +50,24 @@ namespace SpotifyAPI.Web.Models
         /// </summary>
         [JsonProperty("linked_from")]
         public LinkedFrom LinkedFrom { get; set; }
+
+        //[JsonProperty("type")]
+        //public string Type { get; set; }
+
+        //[JsonProperty("external_urls")]
+        //public Dictionary<string, string> ExternalUrls { get; set; }
+
+        //[JsonProperty("uri")]
+        //public string Uri { get; set; }
+
+        //[JsonProperty("href")]
+        //public string Href { get; set; }
+
+        //[JsonProperty("id")]
+        //public string Id { get; set; }
+
+        //[JsonProperty("name")]
+        //public string Name { get; set; }
+
     }
 }
