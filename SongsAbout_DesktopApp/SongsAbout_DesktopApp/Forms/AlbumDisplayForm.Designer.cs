@@ -32,6 +32,7 @@
             this.lblArtist = new SongsAbout.Controls.SLabel();
             this.lblAlbumName = new SongsAbout.Controls.SLabel();
             this.sPicturePox1 = new SongsAbout.Controls.SPicturePox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sPicturePox1)).BeginInit();
             this.SuspendLayout();
@@ -104,18 +105,60 @@
             this.sPicturePox1.TabIndex = 31;
             this.sPicturePox1.TabStop = false;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33406F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33406F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33187F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 147);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 25;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(612, 485);
+            this.tableLayoutPanel1.TabIndex = 32;
+            // 
             // AlbumDisplayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            this.ClientSize = new System.Drawing.Size(635, 399);
+            this.ClientSize = new System.Drawing.Size(635, 644);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.sPicturePox1);
             this.Controls.Add(this.lblArtist);
             this.Controls.Add(this.lblAlbumName);
             this.Name = "AlbumDisplayForm";
-            this.Controls.SetChildIndex(this.pBoxProfilePic, 0);
             this.Controls.SetChildIndex(this.lblAlbumName, 0);
             this.Controls.SetChildIndex(this.lblArtist, 0);
             this.Controls.SetChildIndex(this.sPicturePox1, 0);
+            this.Controls.SetChildIndex(this.pBoxProfilePic, 0);
+            this.Controls.SetChildIndex(this.tableLayoutPanel1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sPicturePox1)).EndInit();
             this.ResumeLayout(false);
@@ -124,8 +167,9 @@
         }
 
         #endregion
-        private Controls.SLabel lblArtist;
-        private Controls.SLabel lblAlbumName;
-        private Controls.SPicturePox sPicturePox1;
+        private Controls.SLabel lblArtist = new SongsAbout.Controls.SLabel();
+        private Controls.SLabel lblAlbumName = new SongsAbout.Controls.SLabel();
+        private Controls.SPicturePox sPicturePox1 = new SongsAbout.Controls.SPicturePox();
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

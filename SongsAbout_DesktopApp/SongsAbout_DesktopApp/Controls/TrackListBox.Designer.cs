@@ -42,7 +42,7 @@
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
             this.panel.RowCount = 6;
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -55,7 +55,6 @@
             // 
             this.trackRow1.Album = null;
             this.trackRow1.Artist = null;
-            this.trackRow1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.trackRow1.BackColor = System.Drawing.SystemColors.HotTrack;
             this.trackRow1.DbEntity = null;
             this.trackRow1.DbEntityType = SongsAbout.Enums.DbEntityType.Track;
@@ -63,8 +62,9 @@
             this.trackRow1.ForeColor = System.Drawing.Color.White;
             this.trackRow1.Location = new System.Drawing.Point(4, 4);
             this.trackRow1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.trackRow1.MinimumSize = new System.Drawing.Size(548, 40);
+            this.trackRow1.MinimumSize = new System.Drawing.Size(200, 40);
             this.trackRow1.Name = "trackRow1";
+            this.trackRow1.Selected = false;
             this.trackRow1.Size = new System.Drawing.Size(842, 40);
             this.trackRow1.SpotifyAlbum = null;
             this.trackRow1.SpotifyArtist = null;
@@ -87,7 +87,7 @@
 
         #endregion
 
-        private TrackRowCollection _items= new TrackRowCollection();
+        private TrackRowCollection _items = new TrackRowCollection();
         private System.Windows.Forms.TableLayoutPanel panel;
         private TrackRow trackRow1;
     }

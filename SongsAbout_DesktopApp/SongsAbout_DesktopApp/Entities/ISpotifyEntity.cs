@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 using System.Drawing;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Enums;
+using SongsAbout.Classes;
 using FullArtist = SpotifyAPI.Web.Models.FullArtist;
 
 
 namespace SongsAbout.Entities
 {
-    public partial class FArtist : SpotifyAPI.Web.Models.FullArtist, ISpotifyFullEntity
+    public partial class SpotifyArtist : SpotifyAPI.Web.Models.FullArtist, ISpotifyFullEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullArtist; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Artist; } }
-        public FArtist() : base()
+        public SpotifyArtist() : base()
         {
         }
-        public FArtist(FullArtist artist)
+        public SpotifyArtist(FullArtist artist)
         {
             this.ExternalUrls = artist.ExternalUrls;
             this.Followers = artist.Followers;
@@ -31,40 +32,72 @@ namespace SongsAbout.Entities
             this.Type = artist.Type;
             this.Uri = artist.Uri;
         }
-        public static FArtist Convert(FullArtist artist)
+        public SpotifyArtist(SimpleArtist artist) : this(Converter.GetFullArtist(artist))
         {
-            return new FArtist(artist);
+
         }
     }
-    public partial class SArtist : SpotifyAPI.Web.Models.SimpleArtist, ISpotifySimpleEntity
+    //public partial class SArtist : SpotifyAPI.Web.Models.SimpleArtist, ISpotifySimpleEntity
+    //{
+    //    public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleArtist; } }
+    //    public DbEntityType DbEntityType { get { return DbEntityType.Artist; } }
+    //    private SimpleArtist _base;
+    //    public SArtist(SimpleArtist artist)
+    //    {
+    //        this._base = artist;
+    //        this.Name = artist.Name;
+    //        this.Type = artist.Type;
+    //        this.Uri = artist.Uri;
+    //        this.Id = artist.Id;
+    //        this.Href = artist.Href;
+    //        this.ExternalUrls = artist.ExternalUrls;
+    //    }
+    //    public static SArtist Convert(SimpleArtist artist)
+    //    {
+    //        return new SArtist(artist);
+    //    }
+    //    public ISpotifyFullEntity FullVersion()
+    //    {
+    //        return (ISpotifyFullEntity)(new SpotifyArtist(Classes.Converter.GetFullArtist(_base)));
+    //    }
+    //}
+
+    public partial class SpotifyAlbum : FullAlbum, ISpotifyFullEntity
     {
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleArtist; } }
-        public DbEntityType DbEntityType { get { return DbEntityType.Artist; } }
-        private SimpleArtist _base;
-        public SArtist(SimpleArtist artist)
-        {
-            this._base = artist;
-            this.Name = artist.Name;
-            this.Type = artist.Type;
-            this.Uri = artist.Uri;
-            this.Id = artist.Id;
-            this.Href = artist.Href;
-            this.ExternalUrls = artist.ExternalUrls;
-        }
-        public static SArtist Convert(SimpleArtist artist)
-        {
-            return new SArtist(artist);
-        }
-        public ISpotifyFullEntity FullVersion()
-        {
-            return (ISpotifyFullEntity)(new FArtist(Classes.Converter.GetFullArtist(_base)));
-        }
-    }
-    public partial class FAlbum : SpotifyAPI.Web.Models.FullAlbum, ISpotifyFullEntity
-    {
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullAlbum; } }
+        private List<SpotifyTrack> _trackList;
+        private List<SpotifyArtist> _artists;
+        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.Album; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Album; } }
-        public FAlbum(FullAlbum album)
+        public List<SpotifyTrack> TrackList { get { return _trackList; } }
+
+        /// <summary>
+        /// Get the name of the Main Artist for the album
+        /// </summary>
+        /// <exception cref="SpotifyException"></exception>
+        public string ArtistName
+        {
+            get
+            {
+                try
+                {
+                    return this.Artists[0].Name;
+                }
+                catch (NullReferenceException)
+                {
+                    return "Not Found";
+                }
+                catch (Exception ex)
+                {
+                    throw new SpotifyException(
+                        $"Something went wrong getting artist name for Spotify FAlbum '{this.Name}': {ex.Message}");
+                }
+            }
+        }
+        public SpotifyAlbum() : base()
+        {
+        }
+        public List<SpotifyArtist> ArtistList { get { return this._artists; } }
+        public SpotifyAlbum(FullAlbum album)
         {
             this.AlbumType = album.AlbumType;
             this.Artists = album.Artists;
@@ -81,39 +114,109 @@ namespace SongsAbout.Entities
             this.Type = album.Type;
             this.Tracks = album.Tracks;
             this.Uri = album.Uri;
+
+            _trackList = new List<SpotifyTrack>();
+            foreach (var track in this.Tracks.Items)
+            {
+                this._trackList.Add(new SpotifyTrack(Converter.GetFullTrack(track)));
+            }
+            _artists = new List<SpotifyArtist>();
+            foreach (var item in this.Artists)
+            {
+                this._artists.Add(new SpotifyArtist(Converter.GetFullArtist(item)));
+            }
         }
-        public static FAlbum Convert(FullAlbum album)
+        public SpotifyAlbum(SimpleAlbum album) : this(Converter.GetFullAlbum(album))
         {
-            return new FAlbum(album);
+
+        }
+        public SpotifyAlbum(SavedAlbum album) : this(Converter.GetFullAlbum(album))
+        {
+
+        }
+        public static SpotifyAlbum Convert(FullAlbum album)
+        {
+            return new SpotifyAlbum(album);
         }
     }
-    public partial class SAlbum : SpotifyAPI.Web.Models.SimpleAlbum, ISpotifySimpleEntity
-    {
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleAlbum; } }
-        public DbEntityType DbEntityType { get { return DbEntityType.Album; } }
-        private SimpleAlbum _base;
-        public SAlbum(SimpleAlbum album)
-        {
-            this._base = album;
-            this.AlbumType = album.AlbumType;
-            this.AvailableMarkets = album.AvailableMarkets;
-            this.Href = album.Href;
-            this.Id = album.Id;
-            this.Images = album.Images;
-            this.Name = album.Name;
-            this.Type = album.Type;
-            this.Uri = album.Uri;
-        }
-        public static SAlbum Convert(SimpleAlbum album)
-        {
-            return new SAlbum(album);
-        }
-        public ISpotifyFullEntity FullVersion()
-        {
-            return (ISpotifyFullEntity)(new FAlbum(Classes.Converter.GetFullAlbum(_base)));
-        }
-    }
-    public partial class FTrack : SpotifyAPI.Web.Models.FullTrack, ISpotifyFullEntity
+    //public partial class SAlbum : FAlbum  /*:SpotifyAPI.Web.Models.SimpleAlbum, ISpotifyAlbum, ISpotifySimpleEntity*/
+    //{
+    //    public SAlbum(FullAlbum album):base(album)
+    //    {
+
+    //    }
+    //    public SAlbum(SimpleAlbum album) : base(album)
+    //    {
+
+    //    }
+    //    //private List<FTrack> _trackList;
+    //    //public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleAlbum; } }
+    //    //SpotifyEntityType ISpotifyAlbum.AlbumType { get { return this.SpotifyEntityType; } }
+    //    //public DbEntityType DbEntityType { get { return DbEntityType.Album; } }
+    //    //List<FTrack> ISpotifyAlbum.TrackList { get { return _trackList; } }
+
+    //    //private List<FArtist> _artists;
+    //    //List<FArtist> ISpotifyAlbum.Artists { get { return this._artists; } }
+
+    //    //private SimpleAlbum _base;
+    //    ///// <summary>
+    //    ///// Get the name of the Main Artist for the album
+    //    ///// </summary>
+    //    ///// <exception cref="SpotifyException"></exception>
+    //    //public string ArtistName
+    //    //{
+    //    //    get
+    //    //    {
+    //    //        try
+    //    //        {
+    //    //            return this.Artists[0].Name;
+    //    //        }
+    //    //        catch (NullReferenceException)
+    //    //        {
+    //    //            return "Not Found";
+    //    //        }
+    //    //        catch (Exception ex)
+    //    //        {
+    //    //            throw new SpotifyException(
+    //    //                $"Something went wrong getting artist name for Spotify FAlbum '{this.Name}': {ex.Message}");
+    //    //        }
+    //    //    }
+    //    //}
+
+    //    //public SAlbum(SimpleAlbum album)
+    //    //{
+    //    //    this._base = album;
+    //    //    this.AlbumType = album.AlbumType;
+    //    //    this.AvailableMarkets = album.AvailableMarkets;
+    //    //    this.Href = album.Href;
+    //    //    this.Id = album.Id;
+    //    //    this.Images = album.Images;
+    //    //    this.Name = album.Name;
+    //    //    this.Type = album.Type;
+    //    //    this.Uri = album.Uri;
+    //    //    _trackList = new List<FTrack>();
+    //    //    _artists = new List<FArtist>();
+    //    //    var full = Converter.GetFullAlbum(album);
+    //    //    foreach (var track in full.Tracks.Items)
+    //    //    {
+    //    //        this._trackList.Add(new FTrack(Converter.GetFullTrack(track)));
+    //    //    }
+    //    //    foreach (var item in full.Artists)
+    //    //    {
+    //    //        this._artists.Add(new FArtist(Converter.GetFullArtist(item)));
+    //    //    }
+    //    //}
+    //    //public static SAlbum Convert(SimpleAlbum album)
+    //    //{
+    //    //    return new SAlbum(album);
+    //    //}
+    //    //public ISpotifyFullEntity FullVersion()
+    //    //{
+    //    //    return (ISpotifyFullEntity)(new FAlbum(Classes.Converter.GetFullAlbum(_base)));
+    //    //}
+    //}
+
+    public partial class SpotifyTrack : SpotifyAPI.Web.Models.FullTrack, ISpotifyFullEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullTrack; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Track; } }
@@ -131,14 +234,14 @@ namespace SongsAbout.Entities
             get { throw new NotImplementedException(); }
             set { throw new NotImplementedException(); }
         }
-         public List<SArtist> SArtists { get; set; }
+        public List<SpotifyArtist> ArtistList { get; set; }
 
-        public FTrack(FullTrack track)
+        public SpotifyTrack(FullTrack track)
         {
             this.Album = track.Album;
-            this.SArtists = new List<SArtist>();
+            this.ArtistList = new List<SpotifyArtist>();
             this.Artists = track.Artists;
-            track.Artists.ForEach(a => this.SArtists.Add(new SArtist(a)));
+            track.Artists.ForEach(a => this.ArtistList.Add(new SpotifyArtist(a)));
             this.AvailableMarkets = track.AvailableMarkets;
             this.DiscNumber = track.DiscNumber;
             this.DurationMs = track.DurationMs;
@@ -156,42 +259,51 @@ namespace SongsAbout.Entities
             this.Type = track.Type;
             this.Uri = track.Uri;
         }
-        public static FTrack Convert(FullTrack track)
+        public SpotifyTrack(SimpleTrack track) : this(Converter.GetFullTrack(track))
         {
-            return new FTrack(track);
+
+        }
+        public SpotifyTrack(SavedTrack track) : this(Converter.GetFullTrack(track))
+        {
+
+        }
+        public SpotifyTrack()
+        {
+
         }
     }
-    public partial class STrack : SpotifyAPI.Web.Models.SimpleTrack, ISpotifySimpleEntity
-    {
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleTrack; } }
-        public DbEntityType DbEntityType { get { return DbEntityType.Track; } }
-        private SimpleTrack _base;
-        public STrack(SimpleTrack track)
-        {
-            this._base = track;
-            this.Artists = track.Artists;
-            this.AvailableMarkets = track.AvailableMarkets;
-            this.DiscNumber = track.DiscNumber;
-            this.DurationMs = track.DurationMs;
-            this.Explicit = track.Explicit;
-            this.ExternUrls = track.ExternUrls;
-            this.Href = track.Href;
-            this.Id = track.Id;
-            this.Name = track.Name;
-            this.PreviewUrl = track.PreviewUrl;
-            this.TrackNumber = track.TrackNumber;
-            this.Type = track.Type;
-            this.Uri = track.Uri;
-        }
-        public static STrack Convert(SimpleTrack track)
-        {
-            return new STrack(track);
-        }
-        public ISpotifyFullEntity FullVersion()
-        {
-            return (ISpotifyFullEntity)(new FTrack(Classes.Converter.GetFullTrack(_base)));
-        }
-    }
+    //public partial class STrack : SpotifyAPI.Web.Models.SimpleTrack, ISpotifySimpleEntity
+    //{
+    //    public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimpleTrack; } }
+    //    public DbEntityType DbEntityType { get { return DbEntityType.Track; } }
+    //    private SimpleTrack _base;
+    //    public STrack(SimpleTrack track)
+    //    {
+    //        this._base = track;
+    //        this.Artists = track.Artists;
+    //        this.AvailableMarkets = track.AvailableMarkets;
+    //        this.DiscNumber = track.DiscNumber;
+    //        this.DurationMs = track.DurationMs;
+    //        this.Explicit = track.Explicit;
+    //        this.ExternUrls = track.ExternUrls;
+    //        this.Href = track.Href;
+    //        this.Id = track.Id;
+    //        this.Name = track.Name;
+    //        this.PreviewUrl = track.PreviewUrl;
+    //        this.TrackNumber = track.TrackNumber;
+    //        this.Type = track.Type;
+    //        this.Uri = track.Uri;
+    //    }
+    //    public static STrack Convert(SimpleTrack track)
+    //    {
+    //        return new STrack(track);
+    //    }
+    //    public ISpotifyFullEntity FullVersion()
+    //    {
+    //        return (ISpotifyFullEntity)(new SpotifyTrack(Classes.Converter.GetFullTrack(_base)));
+    //    }
+    //}
+
     public partial class FPlaylist : SpotifyAPI.Web.Models.FullPlaylist, ISpotifyFullEntity
     {
         public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullPlaylist; } }

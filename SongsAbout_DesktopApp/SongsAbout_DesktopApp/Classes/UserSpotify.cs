@@ -150,39 +150,67 @@ namespace SongsAbout.Classes
 
 
         }
-        public static  SearchItem Search(string query, SearchType searchType, int limit = 20, int offset = 0)
+        public static SearchItem Search(string query, SearchType searchType, int retryCount = 5, int limit = 20, int offset = 0)
         {
-            if (UserSpotify.WebAPI == null)
+            try
             {
-                UserSpotify.Authenticate();
-                while (UserSpotify.WebAPI == null)
+                if (UserSpotify.WebAPI == null)
                 {
-                    Thread.Sleep(1);
+                    UserSpotify.Authenticate();
+                    while (UserSpotify.WebAPI == null)
+                    {
+                        Thread.Sleep(1);
+                    }
                 }
-            }
+                Thread.Sleep(5);
+                bool failed = true;
+                SearchItem resultsList = new SearchItem();
+                int attempts = 0;
+                do
+                {
+                    try
+                    {
+                        resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
+                        failed = false;
+                    }
+                    catch (Exception)
+                    {
+                        failed = true;
+                    }
+                    finally
+                    {
+                        attempts++;
+                    }
+                } while (failed && attempts < retryCount);
 
-            var resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
-            return resultsList;
+                Console.WriteLine($"Search Attempted {attempts} times. Failed = {failed}");
+                return resultsList;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error searching from spotify:{ex.Message}");
+                return new SearchItem() { Error = new Error() { Message = ex.Message } };
+            }
 
         }
         /// <summary>
         /// Returns a list of User's saved tracks
         /// </summary>
         /// <returns></returns>
-        public static List<FTrack> GetSavedTracks()
+        public static List<SpotifyTrack> GetSavedTracks()
         {
             Paging<SavedTrack> savedTracks = new Paging<SavedTrack>();
-            var list = new List<FTrack>();
+            var list = new List<SpotifyTrack>();
             try
             {
                 savedTracks = WebAPI.GetSavedTracks();
 
-                list = savedTracks.Items.Select(track => (FTrack)track.Track).ToList();
+                list = savedTracks.Items.Select(track => (SpotifyTrack)track.Track).ToList();
 
                 while (savedTracks.Next != null)
                 {
                     savedTracks = User.Default.SpotifyWebAPI.GetSavedTracks(20, savedTracks.Offset + savedTracks.Limit);
-                    list.AddRange(savedTracks.Items.Select(track => (FTrack)track.Track));
+                    list.AddRange(savedTracks.Items.Select(track => (SpotifyTrack)track.Track));
                 }
 
                 return list;
@@ -325,7 +353,7 @@ namespace SongsAbout.Classes
             }
         }
 
-        public static List<FTrack> GetTopTracks()
+        public static List<SpotifyTrack> GetTopTracks()
         {
             try
             {
@@ -333,10 +361,10 @@ namespace SongsAbout.Classes
                 {
                     try
                     {
-                        List<FTrack> trackList = new List<FTrack>();
+                        List<SpotifyTrack> trackList = new List<SpotifyTrack>();
                         var paging = WebAPI.GetUsersTopTracks();
 
-                        paging.Items.ForEach(track => trackList.Add((FTrack)track));
+                        paging.Items.ForEach(track => trackList.Add((SpotifyTrack)track));
                         return trackList;
 
                     }

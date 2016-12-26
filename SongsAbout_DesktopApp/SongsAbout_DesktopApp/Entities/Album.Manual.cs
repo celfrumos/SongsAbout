@@ -228,10 +228,10 @@ namespace SongsAbout.Entities
         {
             get { return TitleColumn; }
         }
-        public Album(FullAlbum album) : this(new FAlbum(album))
+        public Album(FullAlbum album) : this(new SpotifyAlbum(album))
         {
         }
-        public Album(FAlbum album)// : base("al_title", "Albums", "Album")
+        public Album(SpotifyAlbum album)// : base("al_title", "Albums", "Album")
         {
             this.Name = album.Name;
             this.Uri = album.Uri;
@@ -244,9 +244,7 @@ namespace SongsAbout.Entities
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
         }
-        public Album(SAlbum album) : this(new FAlbum(Converter.GetFullAlbum(album)))
-        {
-        }
+      
         public Album(int id, int artist_id, string name, string year, string uri, Image coverArt)
         {
             this.ID = id;
@@ -376,14 +374,14 @@ namespace SongsAbout.Entities
 
         public void Update(FullAlbum album)
         {
-            Update(new FAlbum(album));
+            Update(new SpotifyAlbum(album));
         }
-        public void Update(SAlbum album)
-        {
-            Update(new FAlbum(Converter.GetFullAlbum(album)));
-        }
+        //public void Update(FAlbum album)
+        //{
+        //    Update(new FAlbum(Converter.GetFullAlbum(album)));
+        //}
 
-        public void Update(FAlbum album)
+        public void Update(SpotifyAlbum album)
         {
             try
             {
@@ -403,9 +401,9 @@ namespace SongsAbout.Entities
         }
         private void UpdateCoverArt(FullAlbum album)
         {
-            UpdateCoverArt(new FAlbum(album));
+            UpdateCoverArt(new SpotifyAlbum(album));
         }
-        private void UpdateCoverArt(FAlbum album)
+        private void UpdateCoverArt(SpotifyAlbum album)
         {
             try
             {
@@ -422,7 +420,7 @@ namespace SongsAbout.Entities
         }
         private void UpdateArtist(SimpleArtist simpleArtist)
         {
-            this.UpdateArtist(new SArtist(simpleArtist));
+            this.UpdateArtist(new SpotifyArtist(simpleArtist));
         }
 
         /// <summary>
@@ -430,7 +428,7 @@ namespace SongsAbout.Entities
         /// </summary>
         /// <param name="artist"></param>
         /// <exception cref="UpdateFromSpotifyError"></exception>
-        private void UpdateArtist(SArtist artist)
+        private void UpdateArtist(SpotifyArtist artist)
         {
             try
             {

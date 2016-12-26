@@ -14,7 +14,7 @@ namespace SongsAbout.Controls
 {
     [DesignTimeVisible(true)]
     [Docking(DockingBehavior.Ask)]
-    public partial class TrackRow : SControl, IExtenderProvider, IContainerControl
+    public partial class TrackRow : SControl, IExtenderProvider, IContainerControl, IEntityControl
     {
         private string _trackName;
         private bool _selected;
@@ -139,12 +139,12 @@ namespace SongsAbout.Controls
             }
         }
 
-        private FTrack _spotifyTrack { get; set; }
+        private SpotifyTrack _spotifyTrack { get; set; }
         [Browsable(true)]
-        public FArtist SpotifyArtist { get; set; }
+        public SpotifyArtist SpotifyArtist { get; set; }
 
         [Browsable(true)]
-        public FAlbum SpotifyAlbum { get; set; }
+        public SpotifyAlbum SpotifyAlbum { get; set; }
 
         [Browsable(false)]
         public override ISpotifyEntity SpotifyEntity
@@ -156,9 +156,9 @@ namespace SongsAbout.Controls
                 {
                     if (value.SpotifyEntityType == SpotifyEntityType.FullTrack)
                     {
-                        this._spotifyTrack = (FTrack)value;
-                        this.SpotifyArtist = (FArtist)_spotifyTrack.SArtists[0].FullVersion();
-                        this.SpotifyAlbum = new FAlbum(Converter.GetFullAlbum(_spotifyTrack.Album));
+                        this._spotifyTrack = (SpotifyTrack)value;
+                        this.SpotifyArtist = (SpotifyArtist)_spotifyTrack.ArtistList[0];
+                        this.SpotifyAlbum = new SpotifyAlbum(Converter.GetFullAlbum(_spotifyTrack.Album));
 
 
                         if (this._spotifyTrack != null)
@@ -187,11 +187,11 @@ namespace SongsAbout.Controls
         {
             this.Track = track;
         }
-        public TrackRow(FullTrack track) : this(new FTrack(track))
+        public TrackRow(FullTrack track) : this(new SpotifyTrack(track))
         {
         }
 
-        public TrackRow(FTrack track) : this()
+        public TrackRow(SpotifyTrack track) : this()
         {
             this.SpotifyEntity = track;
         }
@@ -204,22 +204,7 @@ namespace SongsAbout.Controls
                     $"Unable to initialize TrackRow from artist name '{trackName}'");
 
         }
-        public TrackRow(ISpotifyFullEntity track) : this()
-        {
-            try
-            {
-                if (Program.Database.Tracks.Contains(track.Name))
-                    this.Track = Program.Database.Tracks[track.Name];
-                else
-                    this.Track = new Track(track);
-            }
-            catch (Exception ex)
-            {
-                throw new DbException(
-                    $"Error initializint TrackRow from ISpotifyEntity track {track.Name}.\n{ex.Message}");
-            }
 
-        }
         private DbEntity _dbEntity;
 
         [Browsable(true)]
@@ -258,7 +243,7 @@ namespace SongsAbout.Controls
                     if (!Program.Database.Tracks.Contains(this.SpotifyEntity.Name))
                     {
                         if (this.Track == null)
-                            this.Track = new Track(this.SpotifyEntity);
+                            this.Track = new Track((SpotifyTrack)this.SpotifyEntity);
 
                         this.Track.Save();
                         return true;

@@ -7,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SongsAbout.Classes;
 using SongsAbout.Entities;
+using SongsAbout.Enums;
+using SongsAbout;
 using System.Collections;
 using Size = System.Drawing.Size;
 using System.Windows;
@@ -15,10 +18,11 @@ using System.Windows;
 namespace SongsAbout.Controls
 {
     [ListBindable(BindableSupport.Yes)]
-    [DefaultBindingProperty("SelectedItem")]
+    [DefaultBindingProperty("SelectedIndex")]
     [DefaultEvent("ItemAdded")]
     [DefaultProperty("Items")]
     [Docking(DockingBehavior.Ask)]
+    [DesignerCategory("TableLayoutPanel")]
     public partial class TrackListBox : SControl, IExtenderProvider, IContainerControl
     {
         public TrackRowCollection Items
@@ -33,12 +37,83 @@ namespace SongsAbout.Controls
             add { this.Items.ItemAdded += value; }
             remove { this.Items.ItemAdded -= value; }
         }
-        public event EventHandler RowClick;
-
-        public TrackRow SelectedItem
+        public override Size MinimumSize
         {
-            get; set;
+            get { return base.MinimumSize; }
+
+            set
+            {
+                base.MinimumSize = value;
+                foreach (var item in this.Items)
+                {
+                    item.MinimumSize = value;
+                }
+            }
         }
+        public override Size MaximumSize
+        {
+            get { return base.MaximumSize; }
+
+            set
+            {
+                base.MaximumSize = value;
+                foreach (var item in this.Items)
+                {
+                    item.MaximumSize = value;
+                }
+            }
+        }
+
+        public event EventHandler RowClicked
+        {
+            add
+            {
+                foreach (var item in this.Items)
+                {
+                    item.Click += value;
+                }
+
+            }
+            remove
+            {
+                foreach (var item in this.Items)
+                {
+                    item.Click -= value;
+                }
+
+            }
+        }
+        public event EventHandler<TrackRowAddedEventArgs> RowAdded
+        {
+            add { this.Items.ItemAdded += value; }
+            remove { this.Items.ItemAdded -= value; }
+
+        }
+        public override DbEntityType DbEntityType
+        {
+            get { return DbEntityType.Track; }
+        }
+
+        public override DbEntity DbEntity
+        {
+            get { return this.SelectedItem.DbEntity; }
+            set
+            {
+                if (value != null && value.DbEntityType == DbEntityType.Track)
+                {
+                    this.SelectedItem.DbEntity = value;
+                }
+                else
+                    throw new DbException(value,
+                        "DbEntity for TrackListBox and Track Row must be of type DbEntityType.Track");
+            }
+        }
+        public override bool ImportEntity()
+        {
+            return ((IEntityControl)this.SelectedItem).ImportEntity();
+        }
+
+        public TrackRow SelectedItem { get; set; }
 
         new public int Width
         {
@@ -49,7 +124,7 @@ namespace SongsAbout.Controls
                 this.Items.ForEach(a => a.Width = value);
             }
         }
-        
+
         new public Size Size
         {
             get { return base.Size; }
@@ -71,9 +146,11 @@ namespace SongsAbout.Controls
 
         public TrackListBox()
         {
+            this.Items = new TrackRowCollection();
+
             InitializeComponent();
-            this.Items.ItemAdded += this.newItemAdded;
-            this.ControlAdded += Row_ControlAdded;            
+            this.ItemAdded += this.TrackListBox_ItemAdded;
+            this.ControlAdded += Row_ControlAdded;
         }
 
         public TrackListBox(List<Track> tracks) : this()
@@ -82,7 +159,7 @@ namespace SongsAbout.Controls
 
             foreach (Track track in tracks)
             {
-                this.Items.Add(new TrackRow(track) { Dock = DockStyle.Fill});
+                this.Items.Add(new TrackRow(track) { Dock = DockStyle.Fill });
             }
         }
 
@@ -93,10 +170,10 @@ namespace SongsAbout.Controls
             row.Selected = true;
             this.SelectedItem = row;
             this.SelectedIndex = this.Items.IndexOf(row);
-            ((IContainerControl)this).ActivateControl(row);            
+            ((IContainerControl)this).ActivateControl(row);
         }
 
-        private void newItemAdded(object sender, TrackRowAddedEventArgs e)
+        private void TrackListBox_ItemAdded(object sender, TrackRowAddedEventArgs e)
         {
             var newRow = sender as TrackRow;
             newRow.Click += Row_Click;
@@ -107,7 +184,7 @@ namespace SongsAbout.Controls
         }
         private void Row_ControlAdded(object sender, ControlEventArgs e)
         {
-            if (this.lblTitle != null)
+            if (this.lblTitle != null && !lblTitle.IsDisposed)
             {
                 this.lblTitle.Dispose();
             }
@@ -116,7 +193,7 @@ namespace SongsAbout.Controls
         {
             this.Items.Clear();
         }
-        public bool CanExtend(object extendee)
+        bool IExtenderProvider.CanExtend(object extendee)
         {
             return ((IExtenderProvider)panel).CanExtend(extendee);
         }
@@ -137,7 +214,7 @@ namespace SongsAbout.Controls
             }
 
             /// <summary>
-            /// Adds a new item to the TrackRowList
+            /// Adds a new item to the TrackRowCollection
             /// </summary>
             /// <param name="row"></param>
             new public void Add(TrackRow row)
@@ -171,6 +248,6 @@ namespace SongsAbout.Controls
                 this.Index = index;
             }
         }
-        
+
     }
 }

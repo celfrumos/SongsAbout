@@ -28,7 +28,17 @@ namespace SongsAbout.Classes
                 throw new SpotifyConversionError(SpotifyEntityType.SimpleAlbum, SpotifyEntityType.FullAlbum, ex.Message);
             }
         }
-
+        public static FullAlbum GetFullAlbum(SavedAlbum album)
+        {
+            try
+            {
+                return UserSpotify.WebAPI.GetAlbum(album.Album.Id);
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyConversionError(SpotifyEntityType.SimpleAlbum, SpotifyEntityType.FullAlbum, ex.Message);
+            }
+        }
         /// <summary>
         /// Convert an image to a byte Array
         /// </summary>
@@ -136,5 +146,6 @@ namespace SongsAbout.Classes
 
         }
 
+       
     }
 }

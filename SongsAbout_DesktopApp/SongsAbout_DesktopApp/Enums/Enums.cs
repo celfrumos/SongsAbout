@@ -233,10 +233,17 @@ namespace SongsAbout.Enums
         /// </summary>
         Artist = FullArtist | SimpleArtist,
         Track = FullTrack | SimpleTrack,
+        Album = FullAlbum | SimpleAlbum,
         Playlist = FullPlaylist | SimplePlaylist,
 
         FullType = FullArtist | FullAlbum | FullTrack | FullPlaylist,
-        SimpleType = SimpleArtist | SimpleAlbum | SimpleTrack | SimplePlaylist
+        SimpleType = SimpleArtist | SimpleAlbum | SimpleTrack | SimplePlaylist,
+
+        SavedItem = 256,
+
+        SavedTrack = Track | SavedItem,
+        SavedAlbum = Album | SavedItem,
+        PlaylistTrack = Playlist | Track,
 
     }
 

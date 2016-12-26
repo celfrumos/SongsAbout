@@ -18,7 +18,7 @@ namespace SongsAbout.Controls
     public partial class AlbumDisplay : UserControl, IEntityControl
     {
         public AlbumType AlbumType { get; set; }
-        public List<FTrack> SpotifyTracks = new List<FTrack>();
+        public List<SpotifyTrack> SpotifyTracks = new List<SpotifyTrack>();
         public virtual string ArtistName
         {
             get { return this.lblArtist.Text; }
@@ -45,9 +45,9 @@ namespace SongsAbout.Controls
                 this._artist = value.Artist;
             }
         }
-        private FAlbum _spotifyAlbum;
-        private FArtist _spotifyArtist;
-        public FArtist SpotifyArtist
+        private SpotifyAlbum _spotifyAlbum;
+        private SpotifyArtist _spotifyArtist;
+        public SpotifyArtist SpotifyArtist
         {
             get { return this._spotifyArtist; }
             set
@@ -56,21 +56,21 @@ namespace SongsAbout.Controls
                 this.ArtistName = value.Name;
             }
         }
-        public FAlbum SpotifyAlbum
+        public SpotifyAlbum SpotifyAlbum
         {
             get { return this._spotifyAlbum; }
             set
             {
                 this._spotifyAlbum = value;
                 this.AlbumName = value.Name;
-                this.SpotifyArtist = new FArtist(Converter.GetFullArtist(value.Artists[0]));
+                this.SpotifyArtist = new SpotifyArtist(Converter.GetFullArtist(value.Artists[0]));
             }
         }
         private Artist _artist = new Artist();
         public Artist Artist
         {
             get { return this._artist; }
-             set
+            set
             {
                 this._artist = value;
                 this.ArtistName = value.Name;
@@ -82,7 +82,7 @@ namespace SongsAbout.Controls
         public List<Track> Tracks
         {
             get { return _tracks; }
-             set { this._tracks = value; }
+            set { this._tracks = value; }
         }
 
         private ISpotifyEntity _spotifyEntity;
@@ -98,7 +98,7 @@ namespace SongsAbout.Controls
 
         public AlbumDisplay()
         {
-            
+
             InitializeComponent();
         }
         public AlbumDisplay(Album album)// : this()
@@ -112,17 +112,17 @@ namespace SongsAbout.Controls
             {
                 this.Tracks.Add(t);
             });
-           // this.listBoxTracks.DataSource = this.Tracks;
+            // this.listBoxTracks.DataSource = this.Tracks;
             this.SPictureBox = new SPicturePox(album);
         }
-        public AlbumDisplay(FAlbum album) //: this()
+        public AlbumDisplay(SpotifyAlbum album) //: this()
         {
             this.SpotifyAlbum = album;
             this.lblAlbumName = new SLabel(album);
-            this.lblArtist = new SLabel(new SArtist(album.Artists[0]));
+            this.lblArtist = new SLabel(album.ArtistList[0]);
             album.Tracks.Items.ForEach(t =>
             {
-                this.SpotifyTracks.Add((FTrack)new STrack(t).FullVersion());
+                this.SpotifyTracks.Add(new SpotifyTrack(t));
             });
             //this.listBoxTracks.DataSource = this.SpotifyTracks;
             this.SPictureBox = new SPicturePox(album);

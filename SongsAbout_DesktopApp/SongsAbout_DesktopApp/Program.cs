@@ -4,6 +4,7 @@ using System.Linq;
 using SongsAbout.Properties;
 using SongsAbout.Classes;
 using SongsAbout.Classes.Database;
+using SongsAbout.Enums;
 using SongsAbout.Forms;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,11 +26,16 @@ namespace SongsAbout
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                // User.Default.Upgrade();
-               // ConnectSpotify();
-              //  Database = new SongDatabase();
-                
-                Application.Run(new AlbumDisplayForm());
+                //   User.Default.Upgrade();
+                ConnectSpotify();
+                Database = new SongDatabase();
+
+                var search = UserSpotify.Search("A moon shaped pool", SpotifyAPI.Web.Enums.SearchType.Album);
+
+                var s = search.Albums.Items[0];
+               // const string id ="6vuykQgDLUCiZ7YggIpLM9";
+             //   var album = UserSpotify.WebAPI.GetAlbum(id);
+                Application.Run(new AlbumDisplayForm(s));
             }
             catch (System.Resources.MissingManifestResourceException ex)
             {
@@ -37,7 +43,7 @@ namespace SongsAbout
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\nClosing Program.", "Fatal Error Running Application");
+                MessageBox.Show($"{ex.Message}\nStack Trace:\n{ex.StackTrace}\nClosing Program.", "Fatal Error Running Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -53,7 +59,8 @@ namespace SongsAbout
                 {
                     try
                     {
-                        await Task.Run(() => UserSpotify.Authenticate());
+                        /*  await Task.Run(() => */
+                        UserSpotify.Authenticate();//);
                     }
                     catch (System.Resources.MissingManifestResourceException ex)
                     {
@@ -91,6 +98,6 @@ namespace SongsAbout
 
 
     }
-   
- 
+
+
 }

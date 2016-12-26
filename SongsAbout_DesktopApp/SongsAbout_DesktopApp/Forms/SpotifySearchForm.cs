@@ -149,7 +149,7 @@ namespace SongsAbout.Forms
                 {
                     try
                     {
-                        var album = (FAlbum)await UserSpotify.WebAPI.GetAlbumAsync(a.Album.Id);
+                        var album = (SpotifyAlbum)await UserSpotify.WebAPI.GetAlbumAsync(a.Album.Id);
                         SPanel panel = new SPanel(album, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click);
 
                         flpSpotifyControls.Controls.Add(panel);

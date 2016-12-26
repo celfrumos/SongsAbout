@@ -156,18 +156,18 @@ namespace SongsAbout.Classes
         const string defaultMsg = "Error importing data from spotify";
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
-        public SpotifyToDBImportException(SpotifyEntityType spotifyType, DbEntity e, string msg = defaultMsg)
+        public SpotifyToDBImportException(SpotifyEntityType spotifyType, DbEntityType e, string msg = defaultMsg)
             : base(e, ImportDefMsg(spotifyType, e, msg))
         {
             this.SpotifyEntityType = spotifyType;
-            this.DbEntityType = e.DbEntityType;
+            this.DbEntityType = e;
 
         }
 
-        private static string ImportDefMsg(SpotifyEntityType spotifyType, DbEntity e, string msg)
+        private static string ImportDefMsg(SpotifyEntityType spotifyType, DbEntityType e, string msg)
         {
             return (msg == defaultMsg ? msg
-                : $"Error importing {e.DbEntityType} data from spotify type '{spotifyType}'");
+                : $"Error importing {e} data from spotify type '{spotifyType}'");
 
         }
     }

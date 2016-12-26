@@ -787,7 +787,7 @@ namespace SongsAbout.Controls
             set
             {
                 this._entityName = value;
-                this.Text = value;
+                this.EntityName = value;
             }
         }
 
@@ -1009,7 +1009,7 @@ namespace SongsAbout.Controls
         public void Set(string text, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, ISpotifyEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
         {
             InitializeComponent();
-            this.Text = text;
+            this.EntityName = text;
             this.Tag = entity;
             this.Click += clickEvent;
             this.SpotifyEntityType = spotifyType;
@@ -1020,7 +1020,7 @@ namespace SongsAbout.Controls
         public void Set(string text, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, DbEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
         {
             InitializeComponent();
-            this.Text = text;
+            this.EntityName = text;
             this.Tag = entity;
             this.Click += clickEvent;
             this.SpotifyEntityType = spotifyType;
