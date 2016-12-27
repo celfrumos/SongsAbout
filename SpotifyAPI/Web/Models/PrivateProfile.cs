@@ -31,7 +31,7 @@ namespace SpotifyAPI.Web.Models
         public string Id { get; set; }
 
         [JsonProperty("images")]
-        public List<Image> Images { get; set; }
+        public List<SpotifyImage> Images { get; set; }
 
         [JsonProperty("product")]
         public string Product { get; set; }

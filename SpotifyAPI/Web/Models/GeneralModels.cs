@@ -2,10 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Net;
+using SpotifyAPI.Web;
 
 namespace SpotifyAPI.Web.Models
 {
-    public class Image
+    public class SpotifyImage
     {
         [JsonProperty("url")]
         public string Url { get; set; }
@@ -15,6 +18,33 @@ namespace SpotifyAPI.Web.Models
 
         [JsonProperty("height")]
         public int Height { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public System.Drawing.Image Get()
+        {
+            try
+            {
+                using (var wc = new WebClient())
+                {
+                    System.Drawing.Image systemPic;
+                    byte[] imageBytes = wc.DownloadData(new Uri(this.Url));
+                    
+                    using (var stream = new MemoryStream(imageBytes))
+                    {
+                        systemPic = System.Drawing.Image.FromStream(stream);
+                    }
+                    return systemPic;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyImageImportError(ex.Message);
+            }
+        }
     }
 
     public class ErrorResponse : BasicModel

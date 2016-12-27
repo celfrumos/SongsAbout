@@ -111,7 +111,7 @@ namespace SongsAbout.Controls
         //    SetImage(Converter.GetFullTrack(track).Album.Images);
         //}
 
-        private void SetImage(List<SpotifyAPI.Web.Models.Image> images)
+        private void SetImage(List<SpotifyAPI.Web.Models.SpotifyImage> images)
         {
             try
             {

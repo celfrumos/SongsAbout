@@ -223,7 +223,7 @@ namespace SongsAbout.Classes
             }
         }
 
-        public async static Task<Image> ImportImageFromSpotify(SpotifyAPI.Web.Models.Image SpotifyPic)
+        public async static Task<Image> ImportImageFromSpotify(SpotifyAPI.Web.Models.SpotifyImage SpotifyPic)
         {
             try
             {

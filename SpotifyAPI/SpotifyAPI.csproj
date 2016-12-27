@@ -117,6 +117,7 @@
     <Compile Include="Web\Enums\SearchType.cs" />
     <Compile Include="Web\Models\TuneableTrack.cs" />
     <Compile Include="Web\SimpleHttpServer.cs" />
+    <Compile Include="Web\SpotifyExceptions.cs" />
     <Compile Include="Web\SpotifyWebAPI.cs" />
     <Compile Include="Web\SpotifyWebBuilder.cs" />
     <Compile Include="Web\Util.cs" />

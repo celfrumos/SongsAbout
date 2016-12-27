@@ -845,7 +845,7 @@ namespace SongsAbout.Controls
         /// Set the SPanel Image from a spotify Image
         /// </summary>
         /// <param name="spotifyImageBytes"></param>
-        public void SetImage(SpotifyAPI.Web.Models.Image spotifyImage)
+        public void SetImage(SpotifyAPI.Web.Models.SpotifyImage spotifyImage)
         {
             try
             {
@@ -858,7 +858,7 @@ namespace SongsAbout.Controls
             }
         }
 
-        public void SetImage(List<SpotifyAPI.Web.Models.Image> spotifyImages)
+        public void SetImage(List<SpotifyAPI.Web.Models.SpotifyImage> spotifyImages)
         {
             if (spotifyImages != null)
             {
@@ -990,7 +990,7 @@ namespace SongsAbout.Controls
         {
             if (spotifyEntity.DbEntityType != DbEntityType.Track)
             {
-                List<SpotifyAPI.Web.Models.Image> images;
+                List<SpotifyAPI.Web.Models.SpotifyImage> images;
                 if (spotifyEntity is ISpotifyFullEntity)
                 {
                     images = ((ISpotifyFullEntity)spotifyEntity).Images;

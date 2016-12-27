@@ -6,6 +6,7 @@ using SongsAbout.Entities;
 using SongsAbout.Controls;
 using SongsAbout.Enums;
 using System.Threading.Tasks;
+using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Classes
 {

@@ -239,7 +239,6 @@
     </Compile>
     <Compile Include="Entities\TrackArtists.Manual.cs" />
     <Compile Include="Classes\Importer.cs" />
-    <Compile Include="Classes\SpotifyExceptions.cs" />
     <Compile Include="Classes\UserSpotify.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Controls\AlbumDisplay.cs">

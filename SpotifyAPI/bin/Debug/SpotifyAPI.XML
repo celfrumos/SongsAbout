@@ -235,6 +235,11 @@
                 This will stop the internal HTTP-Server (Should be called after you got the Token)
             </summary>
         </member>
+        <member name="F:SpotifyAPI.Web.Enums.SpotifyEntityType.Artist">
+            <summary>
+            Either a FullArtist or SimpleArtist
+            </summary>
+        </member>
         <member name="T:SpotifyAPI.Web.Enums.TimeRangeType">
             <summary>
                 Only one value allowed
@@ -368,6 +373,12 @@
             <summary>
                 Only filled when the "market"-parameter was supplied!
             </summary>
+        </member>
+        <member name="M:SpotifyAPI.Web.Models.SpotifyImage.Get">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:SpotifyAPI.Web.Models.DeleteTrackUri.#ctor(System.String,System.Int32[])">
             <summary>

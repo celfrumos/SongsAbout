@@ -8,7 +8,7 @@ using SpotifyAPI.Web.Models;
 using SongsAbout.Enums;
 using SongsAbout.Classes;
 using FullArtist = SpotifyAPI.Web.Models.FullArtist;
-
+using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Entities
 {
@@ -218,22 +218,22 @@ namespace SongsAbout.Entities
 
     public partial class SpotifyTrack : SpotifyAPI.Web.Models.FullTrack, ISpotifyFullEntity
     {
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullTrack; } }
+        public override SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullTrack; } }
         public DbEntityType DbEntityType { get { return DbEntityType.Track; } }
 
         public List<string> Genres { get; set; }
 
-        public List<SpotifyAPI.Web.Models.Image> Images
+        public List<SpotifyAPI.Web.Models.SpotifyImage> Images
         {
             get { throw new NotImplementedException(); }
             set { throw new NotImplementedException(); }
         }
 
-        public Dictionary<string, string> ExternalUrls
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
+        //public Dictionary<string, string> ExternalUrls
+        //{
+        //    get { throw new NotImplementedException(); }
+        //    set { throw new NotImplementedException(); }
+        //}
         public List<SpotifyArtist> ArtistList { get; set; }
 
         public SpotifyTrack(FullTrack track)
@@ -306,8 +306,7 @@ namespace SongsAbout.Entities
 
     public partial class FPlaylist : SpotifyAPI.Web.Models.FullPlaylist, ISpotifyFullEntity
     {
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullPlaylist; } }
-        public DbEntityType DbEntityType { get { return DbEntityType.Playlist; } }
+       public DbEntityType DbEntityType { get { return DbEntityType.Playlist; } }
 
         public List<string> Genres { get; set; }
 
@@ -338,8 +337,7 @@ namespace SongsAbout.Entities
     }
     public partial class SPlaylist : SpotifyAPI.Web.Models.SimplePlaylist, ISpotifySimpleEntity
     {
-        public SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimplePlaylist; } }
-        public DbEntityType DbEntityType { get { return DbEntityType.Playlist; } }
+      public DbEntityType DbEntityType { get { return DbEntityType.Playlist; } }
         private SimplePlaylist _base;
         public SPlaylist(SimplePlaylist playlist)
         {
@@ -385,7 +383,7 @@ namespace SongsAbout.Entities
     public interface ISpotifyFullEntity : ISpotifyEntity
     {
         List<string> Genres { get; set; }
-        List<SpotifyAPI.Web.Models.Image> Images { get; set; }
+        List<SpotifyAPI.Web.Models.SpotifyImage> Images { get; set; }
         Dictionary<string, string> ExternalUrls { get; set; }
         int Popularity { get; set; }
     }

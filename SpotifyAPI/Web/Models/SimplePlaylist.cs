@@ -13,7 +13,7 @@ namespace SpotifyAPI.Web.Models
         public Boolean Collaborative { get; set; }
 
         [JsonProperty("images")]
-        public List<Image> Images { get; set; }
+        public List<SpotifyImage> Images { get; set; }
 
         [JsonProperty("owner")]
         public PublicProfile Owner { get; set; }

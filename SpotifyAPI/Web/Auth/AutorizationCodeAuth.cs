@@ -13,7 +13,7 @@ namespace SpotifyAPI.Web.Auth
 {
     public class AutorizationCodeAuth
     {
-        public delegate void OnResponseReceived(AutorizationCodeAuthResponse response);
+        public delegate void OnResponseReceived(AuthorizationCodeAuthResponse response);
 
         private SimpleHttpServer _httpServer;
         private Thread _httpThread;
@@ -98,7 +98,7 @@ namespace SpotifyAPI.Web.Auth
 
         private void HttpServerOnOnAuth(AuthEventArgs e)
         {
-            OnResponseReceivedEvent?.Invoke(new AutorizationCodeAuthResponse()
+            OnResponseReceivedEvent?.Invoke(new AuthorizationCodeAuthResponse()
             {
                 Code = e.Code,
                 State = e.State,
@@ -154,7 +154,7 @@ namespace SpotifyAPI.Web.Auth
         }
     }
 
-    public struct AutorizationCodeAuthResponse
+    public struct AuthorizationCodeAuthResponse
     {
         public string Code { get; set; }
         public string State { get; set; }

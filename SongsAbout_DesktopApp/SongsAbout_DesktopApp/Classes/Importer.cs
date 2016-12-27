@@ -236,7 +236,7 @@ namespace SongsAbout.Classes
         }
 
 
-        public static Image ImportSpotifyImage(SpotifyAPI.Web.Models.Image pic)
+        public static Image ImportSpotifyImage(SpotifyAPI.Web.Models.SpotifyImage pic)
         {
             if (User.Default.PrivateProfile != null)
             {
@@ -272,7 +272,7 @@ namespace SongsAbout.Classes
         /// <returns></returns>
         /// <exception cref="SpotifyUndefinedAPIError"></exception>
         /// <exception cref="ConversionError"></exception>
-        public static byte[] ImportSpotifyImageBytes(SpotifyAPI.Web.Models.Image pic)
+        public static byte[] ImportSpotifyImageBytes(SpotifyAPI.Web.Models.SpotifyImage pic)
         {
             if (UserSpotify.WebAPI != null)
             {

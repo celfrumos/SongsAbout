@@ -22,7 +22,7 @@ namespace SpotifyAPI.Web.Models
         public string Id { get; set; }
 
         [JsonProperty("images")]
-        public List<Image> Images { get; set; }
+        public List<SpotifyImage> Images { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }

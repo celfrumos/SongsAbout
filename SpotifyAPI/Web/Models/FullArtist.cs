@@ -17,7 +17,7 @@ namespace SpotifyAPI.Web.Models
         public List<string> Genres { get; set; }
 
         [JsonProperty("images")]
-        public List<Image> Images { get; set; }
+        public List<SpotifyImage> Images { get; set; }
 
         [JsonProperty("popularity")]
         public int Popularity { get; set; }
