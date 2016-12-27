@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using SongsAbout.Properties;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
+
+using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Controls
@@ -152,17 +154,11 @@ namespace SongsAbout.Controls
             }
         }
 
-        public ISpotifyEntity SpotifyEntity
+        private SpotifyIntegralEntity _spotifyEntity;
+        public SpotifyIntegralEntity SpotifyEntity
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { return this._spotifyEntity; }
+            set { this._spotifyEntity = value; }
         }
 
         private void ListBox_Click(object sender, EventArgs e)

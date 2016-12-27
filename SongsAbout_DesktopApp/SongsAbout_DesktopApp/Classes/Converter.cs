@@ -18,7 +18,7 @@ namespace SongsAbout.Classes
 {
     public static class Converter
     {
-        public static FullAlbum GetFullAlbum(SimpleAlbum album)
+        public static SpotifyFullAlbum GetFullAlbum(SpotifyAlbum album)
         {
             try
             {
@@ -26,10 +26,10 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(SpotifyEntityType.SimpleAlbum, SpotifyEntityType.FullAlbum, ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.BaseAlbum, SpotifyEntityType.FullAlbum, ex.Message);
             }
         }
-        public static FullAlbum GetFullAlbum(SavedAlbum album)
+        public static SpotifyFullAlbum GetFullAlbum(SavedAlbum album)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(SpotifyEntityType.SimpleAlbum, SpotifyEntityType.FullAlbum, ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.BaseAlbum, SpotifyEntityType.FullAlbum, ex.Message);
             }
         }
         /// <summary>
@@ -97,7 +97,7 @@ namespace SongsAbout.Classes
         /// <param name="artist"></param>
         /// <returns></returns>
         /// <exception cref="SpotifyConversionError"></exception>
-        public static FullArtist GetFullArtist(SimpleArtist artist)
+        public static SpotifyFullArtist GetFullArtist(SpotifyArtist artist)
         {
             try
             {
@@ -105,13 +105,13 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(SpotifyEntityType.SimpleArtist, SpotifyEntityType.FullArtist, ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.BaseArtist, SpotifyEntityType.FullArtist, ex.Message);
             }
 
         }
 
 
-        public static FullTrack GetFullTrack(SimpleTrack track)
+        public static SpotifyFullTrack GetFullTrack(SpotifyTrack track)
         {
             try
             {
@@ -119,10 +119,10 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(SpotifyEntityType.SimpleTrack, SpotifyEntityType.FullTrack, ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.BaseTrack, SpotifyEntityType.FullTrack, ex.Message);
             }
         }
-        public static FullTrack GetFullTrack(SavedTrack track)
+        public static SpotifyFullTrack GetFullTrack(SavedTrack track)
         {
             try
             {
@@ -130,11 +130,11 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(SpotifyEntityType.SimpleTrack, SpotifyEntityType.FullTrack, ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.BaseTrack, SpotifyEntityType.FullTrack, ex.Message);
             }
         }
 
-        public static FullPlaylist GetFullPlaylist(SimplePlaylist playlist)
+        public static SpotifyFullPlaylist GetFullPlaylist(SpotifyPlaylist playlist)
         {
             try
             {
@@ -142,7 +142,7 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyConversionError(SpotifyEntityType.SimpleTrack, SpotifyEntityType.FullTrack, ex.Message);
+                throw new SpotifyConversionError(SpotifyEntityType.BaseTrack, SpotifyEntityType.FullTrack, ex.Message);
             }
 
         }

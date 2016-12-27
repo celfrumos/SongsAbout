@@ -366,12 +366,12 @@
         </member>
         <member name="P:SpotifyAPI.Web.Models.FullTrack.IsPlayable">
             <summary>
-                Only filled when the "market"-parameter was supplied!
+            Only filled when the "market"-parameter was supplied!
             </summary>
         </member>
         <member name="P:SpotifyAPI.Web.Models.FullTrack.LinkedFrom">
             <summary>
-                Only filled when the "market"-parameter was supplied!
+            Only filled when the "market"-parameter was supplied!
             </summary>
         </member>
         <member name="M:SpotifyAPI.Web.Models.SpotifyImage.Get">
@@ -379,6 +379,7 @@
             Gets a System.Drawing.Image represented by this SpotifyImage
             </summary>
             <returns></returns>
+            <exception cref="T:SpotifyAPI.Web.SpotifyImageImportError"></exception>
         </member>
         <member name="M:SpotifyAPI.Web.Models.DeleteTrackUri.#ctor(System.String,System.Int32[])">
             <summary>

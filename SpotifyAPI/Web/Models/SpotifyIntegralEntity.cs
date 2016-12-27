@@ -4,8 +4,10 @@ using SpotifyAPI.Web.Enums;
 
 namespace SpotifyAPI.Web.Models
 {
-    public abstract class SpotifyIntegralEntity : BasicModel
+    public abstract class SpotifyIntegralEntity : BasicModel, ISpotifyEntity
     {
+        public abstract bool CanHaveImages { get; }
+        
         [JsonProperty("href")]
         public virtual string Href { get; set; }
 
@@ -26,6 +28,7 @@ namespace SpotifyAPI.Web.Models
 
         public abstract SpotifyEntityType SpotifyEntityType { get; }
         
+        public abstract SpotifyEntityType DbEntityType { get; }
 
     }
 }

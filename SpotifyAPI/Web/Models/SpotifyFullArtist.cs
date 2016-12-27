@@ -5,10 +5,11 @@ using SpotifyAPI.Web.Enums;
 
 namespace SpotifyAPI.Web.Models
 {
-    public class FullArtist : SpotifyIntegralEntity
+    public class SpotifyFullArtist : SpotifyArtist, ISpotifyImageList
     {
         public override SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullArtist; } }
 
+        public override bool CanHaveImages { get { return true; } }
 
         [JsonProperty("followers")]
         public Followers Followers { get; set; }

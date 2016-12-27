@@ -173,17 +173,17 @@ namespace SongsAbout.Enums
         /// <summary>
         /// Matches to Artists table
         /// </summary>
-        Artist = 1,
+        Artist = SpotifyEntityType.Artist,
 
         /// <summary>
         /// Matches to Albums table
         /// </summary>
-        Album = 2,
+        Album = SpotifyEntityType.Album,
 
         /// <summary>
         /// Matches to Tracks table
         /// </summary>
-        Track = 4,
+        Track = SpotifyEntityType.Track,
 
 
         /// <summary>

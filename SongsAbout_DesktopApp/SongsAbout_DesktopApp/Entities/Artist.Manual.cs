@@ -25,7 +25,7 @@ namespace SongsAbout.Entities
     /// <summary>
     /// Partial Class to hold Artist Functions
     /// </summary>
-    public partial class Artist : DbEntity// : DbEntity<Artist>
+    public partial class Artist : DbEntity
     {
         // DataClassesContext artistContext = new DataClassesContext();
         public const string TABLE_NAME = "Artists";
@@ -46,7 +46,7 @@ namespace SongsAbout.Entities
             this.Website = website;
 
         }
-        public Artist(FullArtist artist) : this(new SpotifyArtist(artist))
+        public Artist(SpotifyFullArtist artist) : this(new SpotifyArtist(artist))
         {
         }
 
@@ -154,7 +154,7 @@ namespace SongsAbout.Entities
         /// </summary>
         /// <param name="artist"></param>
         /// <exception cref="UpdateFromSpotifyError"></exception>
-        public void Update(FullArtist artist)
+        public void Update(SpotifyFullArtist artist)
         {
             try
             {

@@ -20,7 +20,7 @@ namespace SongsAbout.Forms
             SetProfilePic();
         }
 
-        private static void msiSpotifySearch_Click(object sender, EventArgs e)
+        protected static void msiSpotifySearch_Click(object sender, EventArgs e)
         {
             SpotifySearchForm spotifySearch = new SpotifySearchForm();
             spotifySearch.ShowDialog();
@@ -58,7 +58,7 @@ namespace SongsAbout.Forms
                     MessageBox.Show("Successfully saved ", "Success!");
 
                 else
-                    MessageBox.Show("Something Happened");
+                    MessageBox.Show("Something stopped the track from saving.");
 
             }
             catch (Exception ex)

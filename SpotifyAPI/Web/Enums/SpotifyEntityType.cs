@@ -11,26 +11,27 @@ namespace SpotifyAPI.Web.Enums
     {
 
         None = 0,
-        FullArtist = 1,
-        FullAlbum = 2,
-        FullTrack = 4,
-        FullPlaylist = 8,
 
-        SimpleArtist = 16,
-        SimpleAlbum = 32,
-        SimpleTrack = 64,
-        SimplePlaylist = 128,
+        BaseArtist = 1,
+        BaseAlbum = 2,
+        BaseTrack = 4,
+        BasePlaylist = 8,
+
+        FullArtist = 16,
+        FullAlbum = 32,
+        FullTrack = 64,
+        FullPlaylist = 128,
 
         /// <summary>
         /// Either a FullArtist or SimpleArtist
         /// </summary>
-        Artist = FullArtist | SimpleArtist,
-        Track = FullTrack | SimpleTrack,
-        Album = FullAlbum | SimpleAlbum,
-        Playlist = FullPlaylist | SimplePlaylist,
+        Artist = FullArtist | BaseArtist,
+        Track = FullTrack | BaseTrack,
+        Album = FullAlbum | BaseAlbum,
+        Playlist = FullPlaylist | BasePlaylist,
 
         FullType = FullArtist | FullAlbum | FullTrack | FullPlaylist,
-        SimpleType = SimpleArtist | SimpleAlbum | SimpleTrack | SimplePlaylist,
+        SimpleType = BaseArtist | BaseAlbum | BaseTrack | BasePlaylist,
 
         SavedItem = 256,
 

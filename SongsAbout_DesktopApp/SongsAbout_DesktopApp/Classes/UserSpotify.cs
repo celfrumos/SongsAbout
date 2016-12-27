@@ -370,7 +370,7 @@ namespace SongsAbout.Classes
                     }
                     catch (Exception ex)
                     {
-                        throw new SpotifyImportError<Paging<FullTrack>>($"Error getting user's top tracks: {ex.Message}");
+                        throw new SpotifyImportError<Paging<SpotifyFullTrack>>($"Error getting user's top tracks: {ex.Message}");
                     }
                 }
                 else
@@ -396,7 +396,7 @@ namespace SongsAbout.Classes
                 {
                     var myPlaylists = await UserSpotify.WebAPI.GetUserPlaylistsAsync(User.Default.PrivateId, 5, 0);
 
-                    foreach (SimplePlaylist playlist in myPlaylists.Items)
+                    foreach (SpotifyPlaylist playlist in myPlaylists.Items)
                     {
                         string playlistTrack = "";
                         string uri = playlist.Uri;
@@ -410,7 +410,7 @@ namespace SongsAbout.Classes
                                 string name = t.Track.Name;
                                 string alName = t.Track.Album.Name;
                                 var artists = t.Track.Artists;
-                                SimpleArtist firstArtist = artists[0];
+                                SpotifyArtist firstArtist = artists[0];
                                 string aName = firstArtist.Name;
                                 playlistTrack += name + " " + alName + " " + aName;
                                 //  MessageBox.Show(playlistTrack);
@@ -418,7 +418,7 @@ namespace SongsAbout.Classes
                         }
                         else
                         {
-                            throw new SpotifyImportError<Paging<SimplePlaylist>>(tracks.Error.Message);
+                            throw new SpotifyImportError<Paging<SpotifyPlaylist>>(tracks.Error.Message);
                         }
                     }
 
@@ -439,19 +439,16 @@ namespace SongsAbout.Classes
 
         }
 
-        public static List<SPlaylist> GetPlaylists()
+        public static List<SpotifyPlaylist> GetPlaylists()
         {
             try
             {
                 if (User.Default.PrivateProfile != null)
                 {
 
-                    Paging<SimplePlaylist> playlists = UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId);
+                    Paging<SpotifyPlaylist> playlists = UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId);
 
-                    List<SPlaylist> playlistList = new List<SPlaylist>();
-                    playlists.Items.ForEach(ss => playlistList.Add((SPlaylist)ss));
-
-                    return playlistList;
+                    return playlists.Items;
 
                 }
                 else

@@ -6,6 +6,6 @@ namespace SpotifyAPI.Web.Models
     public class SeveralTracks : BasicModel
     {
         [JsonProperty("tracks")]
-        public List<FullTrack> Tracks { get; set; }
+        public List<SpotifyFullTrack> Tracks { get; set; }
     }
 }

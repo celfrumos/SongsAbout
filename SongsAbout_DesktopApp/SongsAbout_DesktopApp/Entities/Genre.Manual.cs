@@ -21,6 +21,11 @@ namespace SongsAbout.Entities
         public override string TableName { get { return "Genres"; } }
         public override string TitleColumnName { get { return "genre"; } }
 
+        static public implicit operator Genre(string name)
+        {
+            return new Genre(name);
+        }
+
         private List<Album> _loadAlbums()
         {
             try

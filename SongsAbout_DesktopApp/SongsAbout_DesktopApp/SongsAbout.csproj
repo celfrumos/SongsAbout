@@ -136,6 +136,7 @@
     <Compile Include="Classes\Database\EntityCollection.cs" />
     <Compile Include="Classes\Database\GenreCollection.cs" />
     <Compile Include="Classes\Database\IEntityCollection.cs" />
+    <Compile Include="Classes\Database\PlaylistCollection.cs" />
     <Compile Include="Classes\Database\SongDatabase.cs" />
     <Compile Include="Classes\Database\TrackCollection.cs" />
     <Compile Include="Classes\TableAdapters.cs" />
@@ -223,10 +224,10 @@
     <Compile Include="Entities\DbEntity.cs" />
     <Compile Include="Classes\DbExceptions.cs" />
     <Compile Include="Entities\IDbEntity.cs" />
-    <Compile Include="Entities\ISpotifyEntity.cs" />
     <Compile Include="Entities\Playlist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Playlist.Manual.cs" />
     <Compile Include="Entities\Tag.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>

@@ -9,6 +9,6 @@ namespace SpotifyAPI.Web.Models
         public string Message { get; set; }
 
         [JsonProperty("playlists")]
-        public Paging<SimplePlaylist> Playlists { get; set; }
+        public Paging<SpotifyPlaylist> Playlists { get; set; }
     }
 }

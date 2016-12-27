@@ -117,7 +117,7 @@ namespace SongsAbout.Forms
             {
                 var playlists = UserSpotify.GetPlaylists();
 
-                foreach (SimplePlaylist playlist in playlists)
+                foreach (SpotifyPlaylist playlist in playlists)
                 {
                     try
                     {

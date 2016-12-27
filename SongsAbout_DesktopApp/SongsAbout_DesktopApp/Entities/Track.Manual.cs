@@ -463,17 +463,29 @@ namespace SongsAbout.Entities
         {
             try
             {
-                this.Artist = Program.Database.Artists[t.Artists[0].Name];
-                this.Album = Program.Database.Albums[t.Album.Name];
-                if (this.Artist == null)
+                SpotifyFullTrack track;
+                if (t.SpotifyEntityType == SpotifyEntityType.FullTrack)
                 {
-                    UpdateArtist(t.ArtistList[0]);
+                    track = (SpotifyFullTrack)t;
                 }
-                if (this.Album == null)
+                else //if (t.SpotifyEntityType == SpotifyEntityType.BaseTrack)
                 {
-                    UpdateAlbum(t.Album);
+                    track = t.FullVersion(UserSpotify.WebAPI);
 
                 }
+                this.Album = Program.Database.Albums[track.Album.Name];
+
+                if (this.Album == null)
+                {
+                    UpdateAlbum(track.Album);
+
+                }
+                if (this.Artist == null)
+                {
+                    UpdateArtist(track.Artists[0]);
+                }
+                this.Artist = Program.Database.Artists[track.Artists[0].Name];
+
             }
             catch (Exception ex)
             {
@@ -481,12 +493,12 @@ namespace SongsAbout.Entities
             }
         }
 
-        public Track(FullTrack t) : this(new SpotifyTrack(t))
-        {
-        }
-        public Track(SimpleTrack t) : this(new SpotifyTrack(t))
-        {
-        }
+        //public Track(SpotifyFullTrack t) : this(new SpotifyTrack(t))
+        //{
+        //}
+        //public Track(SpotifyTrack t) : this(new SpotifyTrack(t))
+        //{
+        //}
 
         public override void Save()
         {
@@ -528,7 +540,7 @@ namespace SongsAbout.Entities
                 this.track_length_minutes = (t.DurationMs) / MS_TO_MINUTES;
                 this.track_spotify_uri = t.Uri;
                 UpdateAlbum(t.Album);
-                UpdateArtist(new SpotifyArtist(t.Artists[0]));
+                UpdateArtist(t.Artists[0]);
             }
             catch (Exception ex)
             {
@@ -538,22 +550,23 @@ namespace SongsAbout.Entities
             }
         }
 
-        /// <summary>
-        /// Update the Track Artist from an SimpleArtist
-        /// </summary>
-        /// <param name="album"></param>
-        /// <exception cref="UpdateFromSpotifyError"></exception>
-        private void UpdateAlbum(SimpleAlbum album)
-        {
-            try
-            {
-                UpdateAlbum(new SpotifyAlbum(album));
-            }
-            catch (UpdateFromSpotifyError)
-            {
-                throw;
-            }
-        }
+        ///// <summary>
+        ///// Update the Track Artist from an SimpleArtist
+        ///// </summary>
+        ///// <param name="album"></param>
+        ///// <exception cref="UpdateFromSpotifyError"></exception>
+        //private void UpdateAlbum(SpotifyFullAlbum album)
+        //{
+        //    try
+        //    {
+        //        UpdateAlbum(new SpotifyAlbum(album));
+        //    }
+        //    catch (UpdateFromSpotifyError)
+        //    {
+        //        throw;
+        //    }
+        //}
+
         /// <summary>
         /// Update the Track Artist from an FArtist
         /// </summary>
@@ -566,7 +579,7 @@ namespace SongsAbout.Entities
                 Artist a;
                 if (!Artist.Exists(artist.Name))
                 {
-                    Program.Database.Artists[artist.Name] = new Artist((FullArtist)artist);
+                    Program.Database.Artists[artist.Name] = new Artist((SpotifyFullArtist)artist);
                 }
                 a = Program.Database.Artists[artist.Name];
                 this.track_artist_id = a.ID;
@@ -578,22 +591,22 @@ namespace SongsAbout.Entities
             }
         }
 
-        /// <summary>
-        /// Update the Track Artist from an FullArtist
-        /// </summary>
-        /// <param name="artist"></param>
-        /// <exception cref="UpdateFromSpotifyError"></exception>
-        public void UpdateArtist(FullArtist artist)
-        {
-            try
-            {
-                UpdateArtist(new SpotifyArtist(artist));
-            }
-            catch (UpdateFromSpotifyError)
-            {
-                throw;
-            }
-        }
+        ///// <summary>
+        ///// Update the Track Artist from an FullArtist
+        ///// </summary>
+        ///// <param name="artist"></param>
+        ///// <exception cref="UpdateFromSpotifyError"></exception>
+        //public void UpdateArtist(SpotifyFullArtist artist)
+        //{
+        //    try
+        //    {
+        //        UpdateArtist(new SpotifyArtist(artist));
+        //    }
+        //    catch (UpdateFromSpotifyError)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         /// <summary>
         /// Update the Track Album from an FAlbum

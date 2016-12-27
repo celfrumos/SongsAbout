@@ -189,7 +189,7 @@ namespace SongsAbout.Controls
         {
             this.Track = track;
         }
-        public TrackRow(FullTrack track) : this(new SpotifyTrack(track))
+        public TrackRow(SpotifyFullTrack track) : this(new SpotifyTrack(track))
         {
         }
 

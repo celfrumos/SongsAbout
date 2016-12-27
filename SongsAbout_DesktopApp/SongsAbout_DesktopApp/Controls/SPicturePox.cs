@@ -30,14 +30,18 @@ namespace SongsAbout.Controls
             InitializeComponent();
             this.Image = Resources.MusicNote;
         }
+        public SPicturePox(SpotifyIntegralEntity entity)
+        {
+            
 
+        }
         private EventHandler ClickEvent { set { this.Click += value; } }
 
         public SpotifyEntityType SpotifyEntityType { get; set; }
 
         public DbEntityType DbEntityType { get; set; }
 
-        public ISpotifyEntity SpotifyEntity { get; set; }
+        public SpotifyIntegralEntity SpotifyEntity { get; set; }
 
         public SPicturePox(string text, EventHandler clickEvent = null, object tag = null,
             DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()
@@ -53,7 +57,7 @@ namespace SongsAbout.Controls
         {
             this.DbEntity = entity;
         }
-        public SPicturePox(ISpotifyEntity spotifyEntity, EventHandler clickEvent = null)
+        public SPicturePox(SpotifyIntegralEntity spotifyEntity, EventHandler clickEvent = null)
             : this(spotifyEntity.Name, clickEvent, spotifyEntity, DbEntityType.Album, SpotifyEntityType.FullAlbum)
         {
             this.SpotifyEntity = spotifyEntity;

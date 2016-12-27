@@ -34,7 +34,7 @@ namespace SongsAbout.Controls
             }
         }
 
-        public ISpotifyEntity SpotifyEntity { get; set; }
+        public SpotifyIntegralEntity SpotifyEntity { get; set; }
         
         public SLabel()
         {
@@ -56,7 +56,7 @@ namespace SongsAbout.Controls
         {
             this.DbEntity = entity;
         }
-        public SLabel(ISpotifyEntity spotifyEntity, EventHandler clickEvent = null)
+        public SLabel(SpotifyIntegralEntity spotifyEntity, EventHandler clickEvent = null)
             : this(spotifyEntity.Name,  clickEvent, spotifyEntity, DbEntityType.Album, spotifyEntity.SpotifyEntityType)
         {
             this.SpotifyEntity = spotifyEntity;

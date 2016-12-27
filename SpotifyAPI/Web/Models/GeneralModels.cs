@@ -23,6 +23,7 @@ namespace SpotifyAPI.Web.Models
         /// Gets a System.Drawing.Image represented by this SpotifyImage
         /// </summary>
         /// <returns></returns>
+        /// <exception cref="SpotifyImageImportError"></exception>
         public System.Drawing.Image Get()
         {
             try
@@ -87,7 +88,7 @@ namespace SpotifyAPI.Web.Models
         public PublicProfile AddedBy { get; set; }
 
         [JsonProperty("track")]
-        public FullTrack Track { get; set; }
+        public SpotifyFullTrack Track { get; set; }
 
         [JsonProperty("is_local")]
         public Boolean IsLocal { get; set; }
@@ -151,7 +152,7 @@ namespace SpotifyAPI.Web.Models
         public DateTime AddedAt { get; set; }
 
         [JsonProperty("track")]
-        public FullTrack Track { get; set; }
+        public SpotifyFullTrack Track { get; set; }
     }
 
     public class SavedAlbum
@@ -160,7 +161,7 @@ namespace SpotifyAPI.Web.Models
         public DateTime AddedAt { get; set; }
 
         [JsonProperty("album")]
-        public FullAlbum Album { get; set; }
+        public SpotifyFullAlbum Album { get; set; }
     }
 
     public class Cursor

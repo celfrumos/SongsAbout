@@ -19,6 +19,7 @@ namespace SongsAbout.Classes.Database
         private ArtistCollection _artists;
         private TrackCollection _tracks;
         private GenreCollection _genres;
+        private PlaylistCollection _playlists;
         /// <summary>
         /// Single use Constructor at Program Start
         /// </summary>
@@ -39,6 +40,7 @@ namespace SongsAbout.Classes.Database
                 _artists = new ArtistCollection();
                 _tracks = new TrackCollection();
                 _genres = new GenreCollection();
+                _playlists = new PlaylistCollection();
             }
         }
         
@@ -46,6 +48,7 @@ namespace SongsAbout.Classes.Database
         public TrackCollection Tracks { get { return _tracks; } }
         public AlbumCollection Albums { get { return _albums; } }
         public ArtistCollection Artists { get { return _artists; } }
+        public PlaylistCollection Playlists { get { return _playlists; } }
 
     }
 }

@@ -5,11 +5,12 @@ using SpotifyAPI.Web.Enums;
 
 namespace SpotifyAPI.Web.Models
 {
-    public class SimplePlaylist : SpotifyIntegralEntity
+    public class SpotifyPlaylist : SpotifyIntegralEntity, ISpotifyImageList
     {
-        public override SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.SimplePlaylist; } }
-
-    [JsonProperty("collaborative")]
+        public override SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.BasePlaylist; } }
+        public override bool CanHaveImages { get { return true; } }
+        public override SpotifyEntityType DbEntityType { get { return SpotifyEntityType.Playlist; } }
+        [JsonProperty("collaborative")]
         public Boolean Collaborative { get; set; }
 
         [JsonProperty("images")]

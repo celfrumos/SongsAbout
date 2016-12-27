@@ -128,9 +128,9 @@ namespace SpotifyAPI.Web
         /// <param name="offset">The index of the first track to return. Default: 0 (the first object).</param>
         /// <param name="market">An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.</param>
         /// <returns></returns>
-        public Paging<SimpleTrack> GetAlbumTracks(string id, int limit = 20, int offset = 0, string market = "")
+        public Paging<SpotifyTrack> GetAlbumTracks(string id, int limit = 20, int offset = 0, string market = "")
         {
-            return DownloadData<Paging<SimpleTrack>>(_builder.GetAlbumTracks(id, limit, offset, market));
+            return DownloadData<Paging<SpotifyTrack>>(_builder.GetAlbumTracks(id, limit, offset, market));
         }
 
         /// <summary>
@@ -142,9 +142,9 @@ namespace SpotifyAPI.Web
         /// <param name="offset">The index of the first track to return. Default: 0 (the first object).</param>
         /// <param name="market">An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.</param>
         /// <returns></returns>
-        public Task<Paging<SimpleTrack>> GetAlbumTracksAsync(string id, int limit = 20, int offset = 0, string market = "")
+        public Task<Paging<SpotifyTrack>> GetAlbumTracksAsync(string id, int limit = 20, int offset = 0, string market = "")
         {
-            return DownloadDataAsync<Paging<SimpleTrack>>(_builder.GetAlbumTracks(id, limit, offset, market));
+            return DownloadDataAsync<Paging<SpotifyTrack>>(_builder.GetAlbumTracks(id, limit, offset, market));
         }
 
         /// <summary>
@@ -153,9 +153,9 @@ namespace SpotifyAPI.Web
         /// <param name="id">The Spotify ID for the album.</param>
         /// <param name="market">An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.</param>
         /// <returns></returns>
-        public FullAlbum GetAlbum(string id, string market = "")
+        public SpotifyFullAlbum GetAlbum(string id, string market = "")
         {
-            return DownloadData<FullAlbum>(_builder.GetAlbum(id, market));
+            return DownloadData<SpotifyFullAlbum>(_builder.GetAlbum(id, market));
         }
 
         /// <summary>
@@ -164,9 +164,9 @@ namespace SpotifyAPI.Web
         /// <param name="id">The Spotify ID for the album.</param>
         /// <param name="market">An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.</param>
         /// <returns></returns>
-        public Task<FullAlbum> GetAlbumAsync(string id, string market = "")
+        public Task<SpotifyFullAlbum> GetAlbumAsync(string id, string market = "")
         {
-            return DownloadDataAsync<FullAlbum>(_builder.GetAlbum(id, market));
+            return DownloadDataAsync<SpotifyFullAlbum>(_builder.GetAlbum(id, market));
         }
 
         /// <summary>
@@ -200,9 +200,9 @@ namespace SpotifyAPI.Web
         /// </summary>
         /// <param name="id">The Spotify ID for the artist.</param>
         /// <returns></returns>
-        public FullArtist GetArtist(string id)
+        public SpotifyFullArtist GetArtist(string id)
         {
-            return DownloadData<FullArtist>(_builder.GetArtist(id));
+            return DownloadData<SpotifyFullArtist>(_builder.GetArtist(id));
         }
 
         /// <summary>
@@ -210,9 +210,9 @@ namespace SpotifyAPI.Web
         /// </summary>
         /// <param name="id">The Spotify ID for the artist.</param>
         /// <returns></returns>
-        public Task<FullArtist> GetArtistAsync(string id)
+        public Task<SpotifyFullArtist> GetArtistAsync(string id)
         {
-            return DownloadDataAsync<FullArtist>(_builder.GetArtist(id));
+            return DownloadDataAsync<SpotifyFullArtist>(_builder.GetArtist(id));
         }
 
         /// <summary>
@@ -275,9 +275,9 @@ namespace SpotifyAPI.Web
         ///     geographical market
         /// </param>
         /// <returns></returns>
-        public Paging<SimpleAlbum> GetArtistsAlbums(string id, AlbumType type = AlbumType.All, int limit = 20, int offset = 0, string market = "")
+        public Paging<SpotifyAlbum> GetArtistsAlbums(string id, AlbumType type = AlbumType.All, int limit = 20, int offset = 0, string market = "")
         {
-            return DownloadData<Paging<SimpleAlbum>>(_builder.GetArtistsAlbums(id, type, limit, offset, market));
+            return DownloadData<Paging<SpotifyAlbum>>(_builder.GetArtistsAlbums(id, type, limit, offset, market));
         }
 
         /// <summary>
@@ -296,9 +296,9 @@ namespace SpotifyAPI.Web
         ///     geographical market
         /// </param>
         /// <returns></returns>
-        public Task<Paging<SimpleAlbum>> GetArtistsAlbumsAsync(string id, AlbumType type = AlbumType.All, int limit = 20, int offset = 0, string market = "")
+        public Task<Paging<SpotifyAlbum>> GetArtistsAlbumsAsync(string id, AlbumType type = AlbumType.All, int limit = 20, int offset = 0, string market = "")
         {
-            return DownloadDataAsync<Paging<SimpleAlbum>>(_builder.GetArtistsAlbums(id, type, limit, offset, market));
+            return DownloadDataAsync<Paging<SpotifyAlbum>>(_builder.GetArtistsAlbums(id, type, limit, offset, market));
         }
 
         /// <summary>
@@ -1190,9 +1190,9 @@ namespace SpotifyAPI.Web
         /// <param name="offest">The index of the first entity to return. Default: 0 (i.e., the first track). Use with limit to get the next set of entities.</param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public Paging<FullTrack> GetUsersTopTracks(TimeRangeType timeRange = TimeRangeType.MediumTerm, int limit = 20, int offest = 0)
+        public Paging<SpotifyFullTrack> GetUsersTopTracks(TimeRangeType timeRange = TimeRangeType.MediumTerm, int limit = 20, int offest = 0)
         {
-            return DownloadData<Paging<FullTrack>>(_builder.GetUsersTopTracks(timeRange, limit, offest));
+            return DownloadData<Paging<SpotifyFullTrack>>(_builder.GetUsersTopTracks(timeRange, limit, offest));
         }
 
         /// <summary>
@@ -1205,9 +1205,9 @@ namespace SpotifyAPI.Web
         /// <param name="offest">The index of the first entity to return. Default: 0 (i.e., the first track). Use with limit to get the next set of entities.</param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public Task<Paging<FullTrack>> GetUsersTopTracksAsync(TimeRangeType timeRange = TimeRangeType.MediumTerm, int limit = 20, int offest = 0)
+        public Task<Paging<SpotifyFullTrack>> GetUsersTopTracksAsync(TimeRangeType timeRange = TimeRangeType.MediumTerm, int limit = 20, int offest = 0)
         {
-            return DownloadDataAsync<Paging<FullTrack>>(_builder.GetUsersTopTracks(timeRange, limit, offest));
+            return DownloadDataAsync<Paging<SpotifyFullTrack>>(_builder.GetUsersTopTracks(timeRange, limit, offest));
         }
 
         /// <summary>
@@ -1220,9 +1220,9 @@ namespace SpotifyAPI.Web
         /// <param name="offest">The index of the first entity to return. Default: 0 (i.e., the first track). Use with limit to get the next set of entities.</param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public Paging<FullArtist> GetUsersTopArtists(TimeRangeType timeRange = TimeRangeType.MediumTerm, int limit = 20, int offest = 0)
+        public Paging<SpotifyFullArtist> GetUsersTopArtists(TimeRangeType timeRange = TimeRangeType.MediumTerm, int limit = 20, int offest = 0)
         {
-            return DownloadData<Paging<FullArtist>>(_builder.GetUsersTopArtists(timeRange, limit, offest));
+            return DownloadData<Paging<SpotifyFullArtist>>(_builder.GetUsersTopArtists(timeRange, limit, offest));
         }
 
         /// <summary>
@@ -1235,9 +1235,9 @@ namespace SpotifyAPI.Web
         /// <param name="offest">The index of the first entity to return. Default: 0 (i.e., the first track). Use with limit to get the next set of entities.</param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public Task<Paging<FullArtist>> GetUsersTopArtistsAsync(TimeRangeType timeRange = TimeRangeType.MediumTerm, int limit = 20, int offest = 0)
+        public Task<Paging<SpotifyFullArtist>> GetUsersTopArtistsAsync(TimeRangeType timeRange = TimeRangeType.MediumTerm, int limit = 20, int offest = 0)
         {
-            return DownloadDataAsync<Paging<FullArtist>>(_builder.GetUsersTopArtists(timeRange, limit, offest));
+            return DownloadDataAsync<Paging<SpotifyFullArtist>>(_builder.GetUsersTopArtists(timeRange, limit, offest));
         }
 
         #endregion
@@ -1252,11 +1252,11 @@ namespace SpotifyAPI.Web
         /// <param name="offset">The index of the first playlist to return. Default: 0 (the first object)</param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public Paging<SimplePlaylist> GetUserPlaylists(string userId, int limit = 20, int offset = 0)
+        public Paging<SpotifyPlaylist> GetUserPlaylists(string userId, int limit = 20, int offset = 0)
         {
             if (!UseAuth)
                 throw new InvalidOperationException("Auth is required for GetUserPlaylists");
-            return DownloadData<Paging<SimplePlaylist>>(_builder.GetUserPlaylists(userId, limit, offset));
+            return DownloadData<Paging<SpotifyPlaylist>>(_builder.GetUserPlaylists(userId, limit, offset));
         }
 
         /// <summary>
@@ -1267,11 +1267,11 @@ namespace SpotifyAPI.Web
         /// <param name="offset">The index of the first playlist to return. Default: 0 (the first object)</param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public Task<Paging<SimplePlaylist>> GetUserPlaylistsAsync(string userId, int limit = 20, int offset = 0)
+        public Task<Paging<SpotifyPlaylist>> GetUserPlaylistsAsync(string userId, int limit = 20, int offset = 0)
         {
             if (!UseAuth)
                 throw new InvalidOperationException("Auth is required for GetUserPlaylists");
-            return DownloadDataAsync<Paging<SimplePlaylist>>(_builder.GetUserPlaylists(userId, limit, offset));
+            return DownloadDataAsync<Paging<SpotifyPlaylist>>(_builder.GetUserPlaylists(userId, limit, offset));
         }
 
         /// <summary>
@@ -1286,11 +1286,11 @@ namespace SpotifyAPI.Web
         /// <param name="market">An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.</param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public FullPlaylist GetPlaylist(string userId, string playlistId, string fields = "", string market = "")
+        public SpotifyFullPlaylist GetPlaylist(string userId, string playlistId, string fields = "", string market = "")
         {
             if (!UseAuth)
                 throw new InvalidOperationException("Auth is required for GetPlaylist");
-            return DownloadData<FullPlaylist>(_builder.GetPlaylist(userId, playlistId, fields, market));
+            return DownloadData<SpotifyFullPlaylist>(_builder.GetPlaylist(userId, playlistId, fields, market));
         }
 
         /// <summary>
@@ -1305,11 +1305,11 @@ namespace SpotifyAPI.Web
         /// <param name="market">An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.</param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public Task<FullPlaylist> GetPlaylistAsync(string userId, string playlistId, string fields = "", string market = "")
+        public Task<SpotifyFullPlaylist> GetPlaylistAsync(string userId, string playlistId, string fields = "", string market = "")
         {
             if (!UseAuth)
                 throw new InvalidOperationException("Auth is required for GetPlaylist");
-            return DownloadDataAsync<FullPlaylist>(_builder.GetPlaylist(userId, playlistId, fields, market));
+            return DownloadDataAsync<SpotifyFullPlaylist>(_builder.GetPlaylist(userId, playlistId, fields, market));
         }
 
         /// <summary>
@@ -1368,14 +1368,14 @@ namespace SpotifyAPI.Web
         /// </param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public FullPlaylist CreatePlaylist(string userId, string playlistName, bool isPublic = true)
+        public SpotifyFullPlaylist CreatePlaylist(string userId, string playlistName, bool isPublic = true)
         {
             JObject body = new JObject
             {
                 {"name", playlistName},
                 {"public", isPublic}
             };
-            return UploadData<FullPlaylist>(_builder.CreatePlaylist(userId, playlistName, isPublic), body.ToString(Formatting.None));
+            return UploadData<SpotifyFullPlaylist>(_builder.CreatePlaylist(userId, playlistName, isPublic), body.ToString(Formatting.None));
         }
 
         /// <summary>
@@ -1392,14 +1392,14 @@ namespace SpotifyAPI.Web
         /// </param>
         /// <returns></returns>
         /// <remarks>AUTH NEEDED</remarks>
-        public Task<FullPlaylist> CreatePlaylistAsync(string userId, string playlistName, bool isPublic = true)
+        public Task<SpotifyFullPlaylist> CreatePlaylistAsync(string userId, string playlistName, bool isPublic = true)
         {
             JObject body = new JObject
             {
                 {"name", playlistName},
                 {"public", isPublic}
             };
-            return UploadDataAsync<FullPlaylist>(_builder.CreatePlaylist(userId, playlistName, isPublic), body.ToString(Formatting.None));
+            return UploadDataAsync<SpotifyFullPlaylist>(_builder.CreatePlaylist(userId, playlistName, isPublic), body.ToString(Formatting.None));
         }
 
         /// <summary>
@@ -1735,9 +1735,9 @@ namespace SpotifyAPI.Web
         /// <param name="id">The Spotify ID for the track.</param>
         /// <param name="market">An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.</param>
         /// <returns></returns>
-        public FullTrack GetTrack(string id, string market = "")
+        public SpotifyFullTrack GetTrack(string id, string market = "")
         {
-            return DownloadData<FullTrack>(_builder.GetTrack(id, market));
+            return DownloadData<SpotifyFullTrack>(_builder.GetTrack(id, market));
         }
 
         /// <summary>
@@ -1746,9 +1746,9 @@ namespace SpotifyAPI.Web
         /// <param name="id">The Spotify ID for the track.</param>
         /// <param name="market">An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking.</param>
         /// <returns></returns>
-        public Task<FullTrack> GetTrackAsync(string id, string market = "")
+        public Task<SpotifyFullTrack> GetTrackAsync(string id, string market = "")
         {
-            return DownloadDataAsync<FullTrack>(_builder.GetTrack(id, market));
+            return DownloadDataAsync<SpotifyFullTrack>(_builder.GetTrack(id, market));
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ using SongsAbout.Classes;
 using SongsAbout.Enums;
 using SongsAbout.Controls;
 using SpotifyAPI.Web;
+using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Entities
@@ -25,6 +26,7 @@ namespace SongsAbout.Entities
         public abstract string TableName { get; }
         public abstract string Name { get; set; }
         public abstract void Save();
+        
         public virtual DbEntityType DbEntityType { get; }
         public virtual SpotifyEntityType SpotifyType { get; }
         public virtual ISpotifyEntity ISpotifyEntity { get; set; }

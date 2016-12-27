@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using SongsAbout.Controls;
 using System.Windows.Forms;
+using SongsAbout.Properties;
 using SongsAbout.Classes;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
+using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Controls
@@ -64,7 +66,16 @@ namespace SongsAbout.Controls
             {
                 this._spotifyAlbum = value;
                 this.AlbumName = value.Name;
-                this.SpotifyArtist = new SpotifyArtist(Converter.GetFullArtist(value.Artists[0]));
+                SpotifyFullAlbum album;
+                if (value.SpotifyEntityType == SpotifyEntityType.FullAlbum)
+                {
+                    album = (SpotifyFullAlbum)value;
+                }
+                else
+                {
+                    album = value.GetFullVersion(UserSpotify.WebAPI);
+                }
+                this.SpotifyArtist = album.Artists[0];
             }
         }
         private Artist _artist = new Artist();
@@ -86,8 +97,8 @@ namespace SongsAbout.Controls
             set { this._tracks = value; }
         }
 
-        private ISpotifyEntity _spotifyEntity;
-        public ISpotifyEntity SpotifyEntity
+        private SpotifyIntegralEntity _spotifyEntity;
+        public SpotifyIntegralEntity SpotifyEntity
         {
             get { return this._spotifyEntity; }
             set { this._spotifyEntity = value; }
@@ -116,19 +127,21 @@ namespace SongsAbout.Controls
             // this.listBoxTracks.DataSource = this.Tracks;
             this.SPictureBox = new SPicturePox(album);
         }
-        public AlbumDisplay(SpotifyAlbum album) //: this()
+        public AlbumDisplay(SpotifyAlbum album)
+            : this(album.SpotifyEntityType == SpotifyEntityType.FullAlbum ? (SpotifyFullAlbum)album
+                  : album.GetFullVersion((UserSpotify.WebAPI)))
+        {
+
+        }
+        public AlbumDisplay(SpotifyFullAlbum album) //: this()
         {
             this.SpotifyAlbum = album;
             this.lblAlbumName = new SLabel(album);
-            this.lblArtist = new SLabel(album.ArtistList[0]);
-            album.Tracks.Items.ForEach(t =>
-            {
-                this.SpotifyTracks.Add(new SpotifyTrack(t));
-            });
+            this.lblArtist = new SLabel(album.Artists[0]);
+            this.SpotifyTracks.AddRange(album.Tracks.Items);
             //this.listBoxTracks.DataSource = this.SpotifyTracks;
             this.SPictureBox = new SPicturePox(album);
         }
-
         public Image Image
         {
             get { return this.SPictureBox.Image; }

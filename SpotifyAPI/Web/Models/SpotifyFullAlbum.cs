@@ -5,19 +5,14 @@ using SpotifyAPI.Web.Enums;
 
 namespace SpotifyAPI.Web.Models
 {
-    public class FullAlbum : SpotifyIntegralEntity
+    public class SpotifyFullAlbum : SpotifyAlbum
     {
         public override SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.FullAlbum; } }
 
-        [JsonProperty("album_type")]
-        public string AlbumType { get; set; }
 
         [JsonProperty("artists")]
-        public List<SimpleArtist> Artists { get; set; }
-
-        [JsonProperty("available_markets")]
-        public List<string> AvailableMarkets { get; set; }
-
+        public List<SpotifyArtist> Artists { get; set; }
+        
         [JsonProperty("copyrights")]
         public List<Copyright> Copyrights { get; set; }
 
@@ -26,9 +21,6 @@ namespace SpotifyAPI.Web.Models
 
         [JsonProperty("genres")]
         public List<string> Genres { get; set; }
-
-        [JsonProperty("images")]
-        public List<SpotifyImage> Images { get; set; }
 
         [JsonProperty("popularity")]
         public int Popularity { get; set; }
@@ -40,7 +32,16 @@ namespace SpotifyAPI.Web.Models
         public string ReleaseDatePrecision { get; set; }
 
         [JsonProperty("tracks")]
-        public Paging<SimpleTrack> Tracks { get; set; }
+        public Paging<SpotifyTrack> Tracks { get; set; }
+
+        //[JsonProperty("available_markets")]
+        //public List<string> AvailableMarkets { get; set; }
+
+        //[JsonProperty("album_type")]
+        //public string AlbumType { get; set; }
+
+        //[JsonProperty("images")]
+        //public List<SpotifyImage> Images { get; set; }
 
         //[JsonProperty("name")]
         //public string Name { get; set; }

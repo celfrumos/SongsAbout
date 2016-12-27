@@ -21,7 +21,7 @@ namespace SongsAbout.Entities
         public static readonly string Table = "Albums";
         public static readonly string TypeString = "Album";
         public static readonly string TitleColumn = "name";
-        private const SpotifyEntityType SPOTIFY_TYPE = SpotifyEntityType.FullAlbum | SpotifyEntityType.SimpleAlbum;
+        private const SpotifyEntityType SPOTIFY_TYPE = SpotifyEntityType.FullAlbum | SpotifyEntityType.BaseAlbum;
 
         public override SpotifyEntityType SpotifyType
         {
@@ -230,7 +230,7 @@ namespace SongsAbout.Entities
         {
             get { return TitleColumn; }
         }
-        public Album(FullAlbum album) : this(new SpotifyAlbum(album))
+        public Album(SpotifyFullAlbum album) : this(new SpotifyAlbum(album))
         {
         }
         public Album(SpotifyAlbum album)// : base("al_title", "Albums", "Album")
@@ -374,7 +374,7 @@ namespace SongsAbout.Entities
             }
         }
 
-        public void Update(FullAlbum album)
+        public void Update(SpotifyFullAlbum album)
         {
             Update(new SpotifyAlbum(album));
         }
@@ -401,7 +401,7 @@ namespace SongsAbout.Entities
                 throw new UpdateFromSpotifyError(this.DbEntityType, SpotifyEntityType.FullAlbum, album.Name, ex.Message);
             }
         }
-        private void UpdateCoverArt(FullAlbum album)
+        private void UpdateCoverArt(SpotifyFullAlbum album)
         {
             UpdateCoverArt(new SpotifyAlbum(album));
         }
@@ -420,7 +420,7 @@ namespace SongsAbout.Entities
                 Console.WriteLine($"Error Updating Cover Art: {ex.Message}");
             }
         }
-        private void UpdateArtist(SimpleArtist simpleArtist)
+        private void UpdateArtist(SpotifyArtist simpleArtist)
         {
             this.UpdateArtist(new SpotifyArtist(simpleArtist));
         }
@@ -447,7 +447,7 @@ namespace SongsAbout.Entities
             catch (Exception ex)
             {
                 throw new
-                    UpdateFromSpotifyError(DbEntityType.Artist, SpotifyEntityType.SimpleArtist, artist.Name,
+                    UpdateFromSpotifyError(DbEntityType.Artist, SpotifyEntityType.BaseArtist, artist.Name,
                     $"For Album Artist on album '{artist.Name}':\n{ex.Message}");
 
             }
@@ -535,13 +535,13 @@ namespace SongsAbout.Entities
         {
             try
             {
-                if (spotifyType == SpotifyEntityType.SimpleAlbum | spotifyType == SpotifyEntityType.FullAlbum)
+                if (spotifyType == SpotifyEntityType.BaseAlbum | spotifyType == SpotifyEntityType.FullAlbum)
                 {
-                    FullAlbum album;
-                    if (spotifyType == SpotifyEntityType.SimpleAlbum)
-                        album = Converter.GetFullAlbum((SimpleAlbum)SpotifyEntity);
+                    SpotifyFullAlbum album;
+                    if (spotifyType == SpotifyEntityType.BaseAlbum)
+                        album = Converter.GetFullAlbum((SpotifyAlbum)SpotifyEntity);
                     else
-                        album = (FullAlbum)SpotifyEntity;
+                        album = (SpotifyFullAlbum)SpotifyEntity;
 
                     this.name = album.Name;
                     this.al_spotify_uri = album.Uri;

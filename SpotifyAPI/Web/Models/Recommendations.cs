@@ -10,6 +10,6 @@ namespace SpotifyAPI.Web.Models
         public List<RecommendationSeed> Seeds { get; set; }
 
         [JsonProperty("tracks")]
-        public List<SimpleTrack> Tracks { get; set; }
+        public List<SpotifyTrack> Tracks { get; set; }
     }
 }

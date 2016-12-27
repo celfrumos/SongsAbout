@@ -102,8 +102,8 @@ namespace SongsAbout.Forms
       
         }
 
-        public AlbumDisplayForm(SimpleAlbum album) : this(new SpotifyAlbum(album)) { }
-        public AlbumDisplayForm(FullAlbum album) : this(new SpotifyAlbum(album)) { }
+        public AlbumDisplayForm(SpotifyAlbum album) : this(new SpotifyAlbum(album)) { }
+        public AlbumDisplayForm(SpotifyFullAlbum album) : this(new SpotifyAlbum(album)) { }
 
         public AlbumDisplayForm(Album album)
         {
