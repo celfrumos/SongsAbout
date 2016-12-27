@@ -80,7 +80,7 @@
             this.lblArtist.Name = "lblArtist";
             this.lblArtist.Size = new System.Drawing.Size(70, 33);
             this.lblArtist.SpotifyEntity = null;
-            this.lblArtist.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
+            this.lblArtist.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
             this.lblArtist.TabIndex = 3;
             this.lblArtist.Text = "Artist";
             this.lblArtist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -102,7 +102,7 @@
             this.lblAlbumName.Name = "lblAlbumName";
             this.lblAlbumName.Size = new System.Drawing.Size(81, 33);
             this.lblAlbumName.SpotifyEntity = null;
-            this.lblAlbumName.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
+            this.lblAlbumName.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
             this.lblAlbumName.TabIndex = 2;
             this.lblAlbumName.Text = "Album";
             this.lblAlbumName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -121,7 +121,7 @@
             this.SPictureBox.Size = new System.Drawing.Size(173, 151);
             this.SPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.SPictureBox.SpotifyEntity = null;
-            this.SPictureBox.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
+            this.SPictureBox.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
             this.SPictureBox.TabIndex = 1;
             this.SPictureBox.TabStop = false;
             // 

@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
 using SongsAbout.Classes;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 
 namespace SongsAbout.Controls

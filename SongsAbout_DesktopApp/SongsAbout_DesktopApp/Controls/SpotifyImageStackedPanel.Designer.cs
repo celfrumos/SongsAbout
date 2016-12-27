@@ -53,7 +53,7 @@ namespace SongsAbout.Controls
             this.SpotifyPictureBox.MaximumSize = new System.Drawing.Size(96, 96);
             this.SpotifyPictureBox.MinimumSize = new System.Drawing.Size(70, 70);
             this.SpotifyPictureBox.Size = new System.Drawing.Size(96, 96);
-            this.SpotifyPictureBox.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.SpotifyPictureBox.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             // 
             // SpotifyLabel
             // 
@@ -61,7 +61,7 @@ namespace SongsAbout.Controls
             this.SpotifyLabel.MaximumSize = new System.Drawing.Size(96, 33);
             this.SpotifyLabel.MinimumSize = new System.Drawing.Size(70, 23);
             this.SpotifyLabel.Size = new System.Drawing.Size(96, 33);
-            this.SpotifyLabel.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.SpotifyLabel.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             // 
             // SpotifyImageStackedPanel
             // 

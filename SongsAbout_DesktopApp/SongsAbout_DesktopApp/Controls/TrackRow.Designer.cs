@@ -78,7 +78,7 @@
             this.lblsName.Name = "lblsName";
             this.lblsName.Size = new System.Drawing.Size(94, 40);
             this.lblsName.SpotifyEntity = null;
-            this.lblsName.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.lblsName.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             this.lblsName.TabIndex = 0;
             this.lblsName.Text = "Name";
             this.lblsName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -100,7 +100,7 @@
             this.lblsGenres.Name = "lblsGenres";
             this.lblsGenres.Size = new System.Drawing.Size(95, 40);
             this.lblsGenres.SpotifyEntity = null;
-            this.lblsGenres.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.lblsGenres.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             this.lblsGenres.TabIndex = 5;
             this.lblsGenres.Text = "Genres";
             this.lblsGenres.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -122,7 +122,7 @@
             this.lblsArtist.Name = "lblsArtist";
             this.lblsArtist.Size = new System.Drawing.Size(94, 40);
             this.lblsArtist.SpotifyEntity = null;
-            this.lblsArtist.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.lblsArtist.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             this.lblsArtist.TabIndex = 1;
             this.lblsArtist.Text = "Artist";
             this.lblsArtist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -144,7 +144,7 @@
             this.lblsUri.Name = "lblsUri";
             this.lblsUri.Size = new System.Drawing.Size(94, 40);
             this.lblsUri.SpotifyEntity = null;
-            this.lblsUri.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.lblsUri.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             this.lblsUri.TabIndex = 4;
             this.lblsUri.Text = "Uri";
             this.lblsUri.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -166,7 +166,7 @@
             this.lblsAlbum.Name = "lblsAlbum";
             this.lblsAlbum.Size = new System.Drawing.Size(94, 40);
             this.lblsAlbum.SpotifyEntity = null;
-            this.lblsAlbum.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.lblsAlbum.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             this.lblsAlbum.TabIndex = 2;
             this.lblsAlbum.Text = "Album";
             this.lblsAlbum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -188,7 +188,7 @@
             this.lblsLength.Name = "lblsLength";
             this.lblsLength.Size = new System.Drawing.Size(94, 40);
             this.lblsLength.SpotifyEntity = null;
-            this.lblsLength.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.None;
+            this.lblsLength.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             this.lblsLength.TabIndex = 3;
             this.lblsLength.Text = "Length";
             this.lblsLength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

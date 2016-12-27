@@ -376,7 +376,7 @@
         </member>
         <member name="M:SpotifyAPI.Web.Models.SpotifyImage.Get">
             <summary>
-            
+            Gets a System.Drawing.Image represented by this SpotifyImage
             </summary>
             <returns></returns>
         </member>

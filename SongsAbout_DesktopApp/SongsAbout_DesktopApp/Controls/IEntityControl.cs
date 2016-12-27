@@ -1,5 +1,6 @@
 ﻿using SongsAbout.Enums;
 using SongsAbout.Entities;
+using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Controls
 {

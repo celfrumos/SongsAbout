@@ -8,6 +8,8 @@ using SongsAbout.Enums;
 using SongsAbout.Forms;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Enums;
 
 
 
@@ -30,12 +32,12 @@ namespace SongsAbout
                 ConnectSpotify();
                 Database = new SongDatabase();
 
-                var search = UserSpotify.Search("A moon shaped pool", SpotifyAPI.Web.Enums.SearchType.Album);
+                //var search = UserSpotify.Search("A moon shaped pool", SpotifyAPI.Web.Enums.SearchType.Album);
 
-                var s = search.Albums.Items[0];
-               // const string id ="6vuykQgDLUCiZ7YggIpLM9";
-             //   var album = UserSpotify.WebAPI.GetAlbum(id);
-                Application.Run(new AlbumDisplayForm(s));
+                //var s = search.Albums.Items[0];
+                // const string id ="6vuykQgDLUCiZ7YggIpLM9";
+                //   var album = UserSpotify.WebAPI.GetAlbum(id);
+                Application.Run(new Form1());
             }
             catch (System.Resources.MissingManifestResourceException ex)
             {
@@ -59,8 +61,7 @@ namespace SongsAbout
                 {
                     try
                     {
-                        /*  await Task.Run(() => */
-                        UserSpotify.Authenticate();//);
+                        await Task.Run(() => UserSpotify.Authenticate());
                     }
                     catch (System.Resources.MissingManifestResourceException ex)
                     {

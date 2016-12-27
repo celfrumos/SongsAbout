@@ -1,4 +1,6 @@
 ﻿using SongsAbout.Enums;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Entities
 {

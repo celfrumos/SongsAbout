@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SongsAbout.Classes;
 using SongsAbout.Enums;
+using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;
+using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Entities
 {

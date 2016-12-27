@@ -69,7 +69,7 @@
             this.trackRow1.SpotifyAlbum = null;
             this.trackRow1.SpotifyArtist = null;
             this.trackRow1.SpotifyEntity = null;
-            this.trackRow1.SpotifyEntityType = ((SongsAbout.Enums.SpotifyEntityType)((SongsAbout.Enums.SpotifyEntityType.FullTrack | SongsAbout.Enums.SpotifyEntityType.SimpleTrack)));
+            this.trackRow1.SpotifyEntityType = ((SpotifyAPI.Web.Enums.SpotifyEntityType)((SpotifyAPI.Web.Enums.SpotifyEntityType.FullTrack | SpotifyAPI.Web.Enums.SpotifyEntityType.SimpleTrack)));
             this.trackRow1.TabIndex = 0;
             this.trackRow1.Track = null;
             // 

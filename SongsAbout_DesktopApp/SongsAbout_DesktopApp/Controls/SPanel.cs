@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Image = System.Drawing.Image;
 using Size = System.Drawing.Size;
 using SongsAbout.Enums;
+using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Controls
 {

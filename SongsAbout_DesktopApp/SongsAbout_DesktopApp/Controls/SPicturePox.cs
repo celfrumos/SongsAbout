@@ -5,6 +5,8 @@ using System.Drawing;
 using SongsAbout.Classes;
 using SongsAbout.Properties;
 using SongsAbout.Entities;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Enums;
 using System.Windows.Forms;

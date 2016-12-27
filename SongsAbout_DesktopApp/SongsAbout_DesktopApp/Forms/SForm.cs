@@ -31,7 +31,7 @@ namespace SongsAbout.Forms
             {
                 if (User.Default.ProfilePic != null)
                 {
-                    pBoxProfilePic.Image = await UserSpotify.ImportImageFromSpotify(User.Default.ProfilePic);
+                    pBoxProfilePic.Image = await Task.Run(() => User.Default.ProfilePic.Get());
                 }
             }
             catch (Exception ex)

@@ -3,12 +3,13 @@ using System.Data;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
-using SpotifyAPI.Web.Models;
 using System.Windows.Forms;
 using System.IO;
 using SongsAbout.Properties;
 using SongsAbout.Enums;
 using SongsAbout.Classes;
+using SpotifyAPI.Web.Enums;
+using SpotifyAPI.Web.Models;
 
 namespace SongsAbout.Entities
 {

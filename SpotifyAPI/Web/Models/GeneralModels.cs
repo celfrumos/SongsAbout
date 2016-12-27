@@ -20,7 +20,7 @@ namespace SpotifyAPI.Web.Models
         public int Height { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets a System.Drawing.Image represented by this SpotifyImage
         /// </summary>
         /// <returns></returns>
         public System.Drawing.Image Get()

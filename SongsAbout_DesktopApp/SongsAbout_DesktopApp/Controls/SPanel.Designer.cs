@@ -78,7 +78,7 @@ namespace SongsAbout.Controls
             this.SpotifyPictureBox.Size = new System.Drawing.Size(51, 50);
             this.SpotifyPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.SpotifyPictureBox.SpotifyEntity = null;
-            this.SpotifyPictureBox.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
+            this.SpotifyPictureBox.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
             this.SpotifyPictureBox.TabIndex = 0;
             this.SpotifyPictureBox.TabStop = false;
             // 
@@ -98,7 +98,7 @@ namespace SongsAbout.Controls
             this.SpotifyLabel.Name = "SpotifyLabel";
             this.SpotifyLabel.Size = this.SpotifyLabel.MinimumSize;
             this.SpotifyLabel.SpotifyEntity = null;
-            this.SpotifyLabel.SpotifyEntityType = SongsAbout.Enums.SpotifyEntityType.FullArtist;
+            this.SpotifyLabel.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
             this.SpotifyLabel.TabIndex = 0;
             this.SpotifyLabel.Text = "SpotifyLabel";
             this.SpotifyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
