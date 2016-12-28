@@ -26,9 +26,9 @@ namespace SongsAbout.Forms
             InitializeComponent();
             _localApi = new SpotifyLocalAPI();
         }
-  
+
         private List<SpotifyTrack> _spotifyTracks;
-        private SpotifyAlbum _spotifyAlbum;
+        private SpotifyFullAlbum _spotifyAlbum;
         private SpotifyArtist _spotifyArtist;
         public SpotifyArtist SpotifyArtist
         {
@@ -44,14 +44,23 @@ namespace SongsAbout.Forms
             get { return _spotifyAlbum; }
             set
             {
-                _spotifyAlbum = value;
-                this.lblAlbumName.Text = value.Name;
-                this.SpotifyArtist = value.Artists[0];
-                this.SpotifyTracks = value.TrackList;
+                SpotifyFullAlbum fullAlbum;
+                if (value.SpotifyEntityType == SpotifyAPI.Web.Enums.SpotifyEntityType.FullAlbum)
+                {
+                    fullAlbum = (SpotifyFullAlbum)value;
+                }
+                else
+                {
+                    fullAlbum = value.GetFullVersion(UserSpotify.WebAPI);
+                }
+                _spotifyAlbum = fullAlbum;
+                this.lblAlbumName.Text = fullAlbum.Name;
+                this.SpotifyArtist = fullAlbum.Artists[0];
+                this.SpotifyTracks = fullAlbum.Tracks.Items;
 
             }
         }
-        
+
         public List<SpotifyTrack> SpotifyTracks
         {
             get { return _spotifyTracks; }
@@ -63,7 +72,7 @@ namespace SongsAbout.Forms
                     Control[] row = {
                         new SLabel() { Text = track.Name, SpotifyEntity = track },
                         new SLabel() { Text = Math.Round( (track.DurationMs / 60000d),2).ToString(), SpotifyEntity = track},
-                        new SLabel() { Text = track.ArtistList[0].Name , SpotifyEntity = track.ArtistList[0]}
+                        new SLabel() { Text = track.Artists[0].Name , SpotifyEntity = track.Artists[0]}
                     };
                     tableLayoutPanel1.Controls.AddRange(row);
 
@@ -80,7 +89,7 @@ namespace SongsAbout.Forms
                 this.SpotifyAlbum = album;
                 SpotifyAPI.Local.Models.Track a = new SpotifyAPI.Local.Models.Track();
                 SpotifyAPI.Local.Models.SpotifyResource r = new SpotifyResource();
-                
+
                 try
                 {
                     this.sPicturePox1.Image = Importer.ImportSpotifyImage(album.Images[0]);
@@ -97,7 +106,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        
+
         private void sizeChanged(object sender, EventArgs e)
         {
 
