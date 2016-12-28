@@ -25,6 +25,10 @@ namespace SongsAbout.Entities
         {
             return new Genre(name);
         }
+        static public implicit operator string(Genre genre)
+        {
+            return genre.Name;
+        }
 
         private List<Album> _loadAlbums()
         {

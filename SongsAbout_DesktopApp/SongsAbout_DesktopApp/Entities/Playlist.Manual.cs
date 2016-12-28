@@ -17,7 +17,6 @@ namespace SongsAbout.Entities
         {
             return new Playlist(name);
         }
-
         public Playlist(string name)
         {
             this.Name = name;
