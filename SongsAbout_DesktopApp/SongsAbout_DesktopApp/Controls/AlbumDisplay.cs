@@ -20,6 +20,19 @@ namespace SongsAbout.Controls
     public enum AlbumType { DB, Spotify }
     public partial class AlbumDisplay : UserControl, IEntityControl
     {
+        public string EntityName
+        {
+            get
+            {
+                if (this.DbEntity != null)
+                    return this.DbEntity.Name;
+
+                else if (this.SpotifyEntity != null)
+                    return this.SpotifyEntity.Name;
+                else
+                    return "Not Set";
+            }
+        }
         public AlbumType AlbumType { get; set; }
         public List<SpotifyTrack> SpotifyTracks = new List<SpotifyTrack>();
         public virtual string ArtistName

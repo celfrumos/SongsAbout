@@ -50,8 +50,8 @@ namespace SpotifyAPI.Web.Models
 
         public byte[] ToByteArray()
         {
-            Image image = this.Get();
             byte[] array;
+            Bitmap image = new Bitmap( this.Get());
             using (var stream = new MemoryStream())
             {
                 image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);

@@ -19,8 +19,10 @@ namespace SongsAbout.Entities
 {
     public abstract class DbEntity
     {
+        public bool isInitialized { get; set; }
         protected DbEntity()
         {
+            isInitialized = false;
             this.SpotifyType = SpotifyEntityType.None;
             this.DbEntityType = DbEntityType.None;
         }

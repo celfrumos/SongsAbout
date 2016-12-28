@@ -24,6 +24,19 @@ namespace SongsAbout.Controls
             get { return base.Dock; }
             set { base.Dock = value; }
         }
+        public string EntityName
+        {
+            get
+            {
+                if (this.DbEntity != null)
+                    return this.DbEntity.Name;
+
+                else if (this.SpotifyEntity != null)
+                    return this.SpotifyEntity.Name;
+                else
+                    return "Not Set";
+            }
+        }
         public DbEntity DbEntity { get; set; }
         public SPicturePox()
         {
@@ -32,7 +45,7 @@ namespace SongsAbout.Controls
         }
         public SPicturePox(SpotifyIntegralEntity entity)
         {
-
+            this.SpotifyEntity = entity;
 
         }
         private EventHandler ClickEvent { set { this.Click += value; } }
@@ -40,8 +53,15 @@ namespace SongsAbout.Controls
         public SpotifyEntityType SpotifyEntityType { get; set; }
 
         public DbEntityType DbEntityType { get; set; }
-
-        public SpotifyIntegralEntity SpotifyEntity { get; set; }
+        private SpotifyIntegralEntity _spotifyEntity;
+        public SpotifyIntegralEntity SpotifyEntity
+        {
+            get { return _spotifyEntity; }
+            set
+            {
+                _spotifyEntity = value;
+            }
+        }
 
         public SPicturePox(string text, EventHandler clickEvent = null, object tag = null,
             DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this()

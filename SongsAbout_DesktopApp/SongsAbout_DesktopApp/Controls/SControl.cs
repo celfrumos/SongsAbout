@@ -18,7 +18,19 @@ namespace SongsAbout.Controls
 {
     public partial class SControl : UserControl, IEntityControl
     {
+        public string EntityName
+        {
+            get
+            {
+                if (this.DbEntity != null)
+                    return this.DbEntity.Name;
 
+                else if (this.SpotifyEntity != null)
+                    return this.SpotifyEntity.Name;
+                else
+                    return "Not Set";
+            }
+        }
         new public Color BackColor
         {
             get { return User.Default.BackColor; }

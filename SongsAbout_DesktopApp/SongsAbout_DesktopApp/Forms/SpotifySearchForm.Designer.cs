@@ -29,7 +29,6 @@ namespace SongsAbout.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.flpSpotifyControls = new System.Windows.Forms.FlowLayoutPanel();
             this.txtBoxSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -40,14 +39,8 @@ namespace SongsAbout.Forms
             this.cboxArtists = new System.Windows.Forms.CheckBox();
             this.cboxAll = new System.Windows.Forms.CheckBox();
             this.m = new System.Windows.Forms.ComboBox();
-            this.contxtMnuStrpEntity = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setGenresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addToListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.pnlSearchType.SuspendLayout();
-            this.contxtMnuStrpEntity.SuspendLayout();
             this.SuspendLayout();
             // 
             // pBoxProfilePic
@@ -229,45 +222,6 @@ namespace SongsAbout.Forms
             this.m.Size = new System.Drawing.Size(69, 31);
             this.m.TabIndex = 29;
             // 
-            // contextMenuStrip1
-            // 
-            this.contxtMnuStrpEntity.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contxtMnuStrpEntity.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem,
-            this.setGenresToolStripMenuItem,
-            this.setTagsToolStripMenuItem,
-            this.addToListToolStripMenuItem});
-            this.contxtMnuStrpEntity.Name = "contextMenuStrip1";
-            this.contxtMnuStrpEntity.Size = new System.Drawing.Size(182, 136);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.ctsmi_Import);
-            // 
-            // setGenresToolStripMenuItem
-            // 
-            this.setGenresToolStripMenuItem.Name = "setGenresToolStripMenuItem";
-            this.setGenresToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.setGenresToolStripMenuItem.Text = "Set Genres";
-            this.setGenresToolStripMenuItem.Click += new System.EventHandler(this.ctsmi_SetGenres);
-            // 
-            // setTagsToolStripMenuItem
-            // 
-            this.setTagsToolStripMenuItem.Name = "setTagsToolStripMenuItem";
-            this.setTagsToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.setTagsToolStripMenuItem.Text = "Set Tags";
-            this.setTagsToolStripMenuItem.Click += new System.EventHandler(this.ctsmi_SetTags);
-            // 
-            // addToListToolStripMenuItem
-            // 
-            this.addToListToolStripMenuItem.Name = "addToListToolStripMenuItem";
-            this.addToListToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.addToListToolStripMenuItem.Text = "Add To List";
-            this.addToListToolStripMenuItem.Click += new System.EventHandler(this.ctsmi_AddToList);
-            // 
             // SpotifySearchForm
             // 
             this.AcceptButton = this.btnSearch;
@@ -294,7 +248,6 @@ namespace SongsAbout.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.pnlSearchType.ResumeLayout(false);
             this.pnlSearchType.PerformLayout();
-            this.contxtMnuStrpEntity.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,10 +265,5 @@ namespace SongsAbout.Forms
         private System.Windows.Forms.CheckBox cboxArtists;
         private System.Windows.Forms.CheckBox cboxAll;
         private System.Windows.Forms.ComboBox m;
-        private System.Windows.Forms.ContextMenuStrip contxtMnuStrpEntity;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setGenresToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setTagsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addToListToolStripMenuItem;
     }
 }

@@ -71,9 +71,13 @@ namespace SongsAbout.Classes
             try
             {
                 byte[] array;
+              //const string tempPath = "tempImagefile.bmp";
+                //var i = Image.FromFile(tempPath);
+                var img = new Bitmap(image);
+                
                 using (var stream = new MemoryStream())
                 {               
-                    image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    img.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
                     array = stream.ToArray();
                 }
                 return array;

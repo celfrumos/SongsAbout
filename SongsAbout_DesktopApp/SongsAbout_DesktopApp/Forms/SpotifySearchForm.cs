@@ -39,13 +39,13 @@ namespace SongsAbout.Forms
             Console.WriteLine($"{control.SpotifyEntity.Name} Panel Clicked");
             try
             {
-                var spotify = control.SpotifyEntity;
-                var entity = control.DbEntity;
-                var imported = control.ImportEntity();
-                if (imported)
-                {
-                    MessageBox.Show($"Successfully Imported {control.DbEntityType}", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                //var spotify = control.SpotifyEntity;
+                //var entity = control.DbEntity;
+                //var imported = control.ImportEntity();
+                //if (imported)
+                //{
+                //    MessageBox.Show($"Successfully Imported {control.DbEntityType}", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
             }
             catch (Exception ex)
             {
@@ -266,12 +266,6 @@ namespace SongsAbout.Forms
                 }
                 else
                 {
-                    panel.ContextMenuStrip = this.contxtMnuStrpEntity;
-                    // panel.ContextMenuStrip.Tag = panel;
-                    foreach (ToolStripMenuItem item in panel.ContextMenuStrip.Items)
-                    {
-                        item.Tag = panel;
-                    }
                     flpSpotifyControls.Controls.Add(panel);
                     flpSpotifyControls.Refresh();
                 }
@@ -355,37 +349,6 @@ namespace SongsAbout.Forms
             _searchType = ToggleSearchType((SearchType)cBox.Tag);
         }
 
-        private void ctsmi_Import(object sender, EventArgs e)
-        {
-            var menu = sender as ToolStripMenuItem;
-            var type = sender.GetType();
-
-            var control = (SPanel)menu.Tag;
-            bool succeeded = control.ImportEntity();
-            if (succeeded)
-            {
-                MessageBox.Show($"Successfully imported {control.DbEntityType} '{control.Text}' into database");
-            }
-            else
-            {
-                MessageBox.Show($"{control.DbEntityType} '{control.Text}' not imported.");
-            }
-
-        }
-
-        private void ctsmi_SetGenres(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ctsmi_SetTags(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ctsmi_AddToList(object sender, EventArgs e)
-        {
-
-        }
+     
     }
 }

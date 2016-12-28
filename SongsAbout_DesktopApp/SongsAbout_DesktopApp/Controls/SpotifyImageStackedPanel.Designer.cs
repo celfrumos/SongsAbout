@@ -34,7 +34,7 @@ namespace SongsAbout.Controls
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -49,19 +49,19 @@ namespace SongsAbout.Controls
             // 
             // SpotifyPictureBox
             // 
-            this.SpotifyPictureBox.DbEntityType = SongsAbout.Enums.DbEntityType.None;
-            this.SpotifyPictureBox.MaximumSize = new System.Drawing.Size(96, 96);
-            this.SpotifyPictureBox.MinimumSize = new System.Drawing.Size(70, 70);
-            this.SpotifyPictureBox.Size = new System.Drawing.Size(96, 96);
-            this.SpotifyPictureBox.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
+            this.SPictureBox.DbEntityType = SongsAbout.Enums.DbEntityType.None;
+            this.SPictureBox.MaximumSize = new System.Drawing.Size(96, 96);
+            this.SPictureBox.MinimumSize = new System.Drawing.Size(70, 70);
+            this.SPictureBox.Size = new System.Drawing.Size(96, 96);
+            this.SPictureBox.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             // 
             // SpotifyLabel
             // 
-            this.SpotifyLabel.DbEntityType = SongsAbout.Enums.DbEntityType.None;
-            this.SpotifyLabel.MaximumSize = new System.Drawing.Size(96, 33);
-            this.SpotifyLabel.MinimumSize = new System.Drawing.Size(70, 23);
-            this.SpotifyLabel.Size = new System.Drawing.Size(96, 33);
-            this.SpotifyLabel.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
+            this.SLabel.DbEntityType = SongsAbout.Enums.DbEntityType.None;
+            this.SLabel.MaximumSize = new System.Drawing.Size(96, 33);
+            this.SLabel.MinimumSize = new System.Drawing.Size(70, 23);
+            this.SLabel.Size = new System.Drawing.Size(96, 33);
+            this.SLabel.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
             // 
             // SpotifyImageStackedPanel
             // 
@@ -79,7 +79,7 @@ namespace SongsAbout.Controls
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }

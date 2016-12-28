@@ -6,7 +6,7 @@ using SongsAbout.Classes;
 using SongsAbout.Properties;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Entities;
-using System.Windows;
+//using System.Windows;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 using Size = System.Drawing.Size;
@@ -142,12 +142,12 @@ namespace SongsAbout.Controls
         #region Protected Properties
         protected Size MaxLabelSize
         {
-            get { return this.SpotifyLabel.MaximumSize; }
+            get { return this.SLabel.MaximumSize; }
             set
             {
                 try
                 {
-                    this.SpotifyLabel.MaximumSize = value;
+                    this.SLabel.MaximumSize = value;
                 }
                 catch (Exception ex)
                 {
@@ -157,27 +157,28 @@ namespace SongsAbout.Controls
         }
         protected Size MinLabelSize
         {
-            get { return this.SpotifyLabel.MinimumSize; }
-            set { this.SpotifyLabel.MinimumSize = value; }
+            get { return this.SLabel.MinimumSize; }
+            set { this.SLabel.MinimumSize = value; }
         }
         /// <summary>
         /// Get/Set the Max Size for the image, based on SPanelType
         /// </summary>
         protected Size MaxImageSize
         {
-            get { return SpotifyPictureBox.MaximumSize; }
+            get { return SPictureBox.MaximumSize; }
             set
             {
-                SpotifyPictureBox.MaximumSize = value;
+                SPictureBox.MaximumSize = value;
             }
         }
+
         /// <summary>
         /// Get/Set the Min Size for the image, based on SPanelType
         /// </summary>
         protected Size MinImageSize
         {
-            get { return SpotifyPictureBox.MinimumSize; }
-            set { SpotifyPictureBox.MinimumSize = value; }
+            get { return SPictureBox.MinimumSize; }
+            set { SPictureBox.MinimumSize = value; }
         }
 
         protected Size SmallPanelSize
@@ -249,6 +250,12 @@ namespace SongsAbout.Controls
                 }
             }
         }
+
+        private void SpotifyLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
         protected Size MedLabelSize
         {
             get
@@ -486,7 +493,7 @@ namespace SongsAbout.Controls
 
         private void _resizeLabel()
         {
-            this.SpotifyLabel.Size =
+            this.SLabel.Size =
                 _resizeX(
                     this.LabelSize.Width, this.LabelSize.Height,
                     this.MaxLabelSize.Width, this.MaxLabelSize.Height,
@@ -511,7 +518,7 @@ namespace SongsAbout.Controls
                     break;
             }
 
-            this.SpotifyPictureBox.Size =
+            this.SPictureBox.Size =
 
             _resizeX(w, h,
                 this.MaxImageSize.Width, this.MaxImageSize.Height,
@@ -551,6 +558,55 @@ namespace SongsAbout.Controls
         }
         #endregion
         #region Public Properties
+        #region EventHandlers
+        new public event EventHandler Click
+        {
+            add
+            {
+                base.Click += value;
+                this.SPictureBox.Click += value;
+                this.SLabel.Click += value;
+            }
+            remove
+            {
+                base.Click -= value;
+                this.SPictureBox.Click -= value;
+                this.SLabel.Click -= value;
+            }
+        }
+
+
+        private void ctsmi_Import(object sender, EventArgs e)
+        {
+            bool succeeded = this.ImportEntity();
+            if (succeeded)
+            {
+                MessageBox.Show($"Successfully imported {this.DbEntityType} '{this.Text}' into database");
+            }
+            else
+            {
+                MessageBox.Show($"{this.DbEntityType} '{this.Text}' not imported.");
+            }
+
+        }
+
+        private void ctsmi_SetGenres(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ctsmi_SetTags(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ctsmi_AddToList(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+
         /// <summary>
         /// Height / Width
         /// </summary>
@@ -616,8 +672,8 @@ namespace SongsAbout.Controls
             set
             {
                 this._spotifyEntity = value;
-                this.SpotifyLabel.SpotifyEntity = value;
-                this.SpotifyPictureBox.SpotifyEntity = value;
+                this.SLabel.SpotifyEntity = value;
+                this.SPictureBox.SpotifyEntity = value;
             }
         }
         /// <summary>
@@ -625,10 +681,10 @@ namespace SongsAbout.Controls
         /// </summary>
         public Size ImageSize
         {
-            get { return this.SpotifyPictureBox.Size; }
+            get { return this.SPictureBox.Size; }
             set
             {
-                this.SpotifyPictureBox.Size = value;
+                this.SPictureBox.Size = value;
                 switch (this.SPanelType)
                 {
                     case SPanelType.Image:
@@ -651,8 +707,8 @@ namespace SongsAbout.Controls
 
         public Size LabelSize
         {
-            get { return this.SpotifyLabel.Size; }
-            set { this.SpotifyLabel.Size = value; }
+            get { return this.SLabel.Size; }
+            set { this.SLabel.Size = value; }
         }
 
         /// <summary>
@@ -678,20 +734,20 @@ namespace SongsAbout.Controls
         /// </summary>
         public Image Image
         {
-            get { return this.SpotifyPictureBox.Image; }
+            get { return this.SPictureBox.Image; }
             set
             {
                 try
                 {
-                    if (this.SpotifyPictureBox == null)
+                    if (this.SPictureBox == null)
                     {
-                        this.SpotifyPictureBox = new SPicturePox();
+                        this.SPictureBox = new SPicturePox();
                     }
-                    this.SpotifyPictureBox.Image = value;
+                    this.SPictureBox.Image = value;
                 }
                 catch (Exception ex)
                 {
-                    this.SpotifyPictureBox.Image = this.SpotifyPictureBox.ErrorImage;
+                    this.SPictureBox.Image = this.SPictureBox.ErrorImage;
                     Console.WriteLine(ex.Message);
                 }
             }
@@ -702,8 +758,8 @@ namespace SongsAbout.Controls
         /// </summary>
         public override string Text
         {
-            get { return this.SpotifyLabel.Text; }
-            set { this.SpotifyLabel.Text = value; }
+            get { return this.SLabel.Text; }
+            set { this.SLabel.Text = value; }
         }
 
         /// <summary>
@@ -747,8 +803,8 @@ namespace SongsAbout.Controls
             set
             {
                 this._spotifyEntityType = value;
-                this.SpotifyLabel.SpotifyEntityType = value;
-                this.SpotifyPictureBox.SpotifyEntityType = value;
+                this.SLabel.SpotifyEntityType = value;
+                this.SPictureBox.SpotifyEntityType = value;
             }
         }
 
@@ -761,26 +817,12 @@ namespace SongsAbout.Controls
             set
             {
                 this._dbEntityType = value;
-                this.SpotifyLabel.DbEntityType = value;
-                this.SpotifyPictureBox.DbEntityType = value;
+                this.SLabel.DbEntityType = value;
+                this.SPictureBox.DbEntityType = value;
             }
         }
 
-        new public event EventHandler Click
-        {
-            add
-            {
-                base.Click += value;
-                this.SpotifyPictureBox.Click += value;
-                this.SpotifyLabel.Click += value;
-            }
-            remove
-            {
-                base.Click -= value;
-                this.SpotifyPictureBox.Click -= value;
-                this.SpotifyLabel.Click -= value;
-            }
-        }
+
 
         public string EntityName
         {
@@ -788,7 +830,7 @@ namespace SongsAbout.Controls
             set
             {
                 this._entityName = value;
-                this.SpotifyLabel.Text = value;
+                this.SLabel.Text = value;
             }
         }
 
@@ -803,8 +845,8 @@ namespace SongsAbout.Controls
                 try
                 {
                     this._dbEntity = value;
-                    this.SpotifyLabel.DbEntity = value;
-                    this.SpotifyPictureBox.DbEntity = value;
+                    this.SLabel.DbEntity = value;
+                    this.SPictureBox.DbEntity = value;
                 }
                 catch (Exception ex)
                 {
@@ -1062,24 +1104,4 @@ namespace SongsAbout.Controls
     }
 
 }
-//namespace SpotifyAPI.Web.Models
-//{
-//    public interface ISpotifyEntity
-//    {
-//        string Name { get; set; }
-//        string ID { get; set; }
-//        string URI { get; set; }
 
-//    }
-//    public partial class FullArtist
-//    {
-//        public FullArtist()
-//        {
-
-//        }
-//        public void d()
-//        {
-//            this.
-//        }
-//    }
-//}

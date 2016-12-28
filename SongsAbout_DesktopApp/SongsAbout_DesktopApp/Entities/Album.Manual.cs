@@ -38,7 +38,7 @@ namespace SongsAbout.Entities
             get { return this.name; }
             set { this.name = value; }
         }
-        
+
         public DateTime? ReleaseDate
         {
             get { return this.al_release_date; }
@@ -217,10 +217,22 @@ namespace SongsAbout.Entities
             get { return this.artist_id; }
             set { this.artist_id = value; }
         }
+        private Image _coverArtImage;
         public Image CoverArt
         {
-            get { return Converter.ImageFromBytes(this.al_cover_art); }
-            set { this.al_cover_art = Converter.ImageToBytes(value); }
+            get
+            {
+                if (this._coverArtImage != null)
+                    return this._coverArtImage;
+
+                else
+                    return Converter.ImageFromBytes(al_cover_art);
+            }
+            set
+            {
+                _coverArtImage = value;
+                this.al_cover_art = Converter.ImageToBytes(_coverArtImage);
+            }
         }
         public List<string> GetGenres()
         {
@@ -436,8 +448,8 @@ namespace SongsAbout.Entities
             {
                 if (album.Images.Count > 0)
                 {
-                    byte[] pic = Importer.ImportSpotifyImageBytes(album.Images[0]);
-                    this.al_cover_art = pic;
+                    UpdateCoverArt(album.Images[0]);
+
                 }
             }
             catch (Exception ex)
@@ -445,6 +457,11 @@ namespace SongsAbout.Entities
                 Console.WriteLine($"Error Updating Cover Art: {ex.Message}");
             }
 
+        }
+
+        private void UpdateCoverArt(SpotifyImage spotifyImage)
+        {
+            this.CoverArt = spotifyImage;
         }
 
 
@@ -457,15 +474,15 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Artist newArtist;
-                if (!Program.Database.Artists.Contains(artist.Name))
+                Artist newArtist = Program.Database.Artists[artist.Name];
+                if (newArtist == null)
                 {
                     Program.Database.Artists[artist.Name] = new Artist(artist);
                 }
 
                 newArtist = Program.Database.Artists[artist.Name];
-                this.privateArtist = newArtist;
-                this.ArtistId = newArtist.ID;
+                this.Artist = newArtist;
+                //  this.ArtistId = newArtist.ID;
             }
             catch (Exception ex)
             {

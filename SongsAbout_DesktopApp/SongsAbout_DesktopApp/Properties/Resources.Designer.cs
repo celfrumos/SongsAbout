@@ -63,6 +63,26 @@ namespace SongsAbout.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap check_mark_md {
+            get {
+                object obj = ResourceManager.GetObject("check-mark-md", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CheckMark {
+            get {
+                object obj = ResourceManager.GetObject("CheckMark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap MusicNote {
             get {
                 object obj = ResourceManager.GetObject("MusicNote", resourceCulture);
@@ -76,6 +96,36 @@ namespace SongsAbout.Properties {
         public static System.Drawing.Bitmap ProfilePic {
             get {
                 object obj = ResourceManager.GetObject("ProfilePic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Spotify_Icon_Black {
+            get {
+                object obj = ResourceManager.GetObject("Spotify_Icon_Black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Spotify_Icon_Green {
+            get {
+                object obj = ResourceManager.GetObject("Spotify_Icon_Green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Spotify_Icon_White {
+            get {
+                object obj = ResourceManager.GetObject("Spotify_Icon_White", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

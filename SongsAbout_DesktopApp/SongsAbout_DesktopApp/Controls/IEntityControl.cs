@@ -9,6 +9,7 @@ namespace SongsAbout.Controls
     {
         string Text { get; set; }
         DbEntity DbEntity { get; set; }
+        string EntityName { get;  }
         SpotifyIntegralEntity SpotifyEntity { get; set; }
         SpotifyEntityType SpotifyEntityType { get; set; }
         DbEntityType DbEntityType { get; }

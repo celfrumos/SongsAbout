@@ -18,6 +18,19 @@ namespace SongsAbout.Controls
 {
     public partial class AttributeViewer : UserControl, IEntityControl
     {
+        public string EntityName
+        {
+            get
+            {
+                if (this.DbEntity != null)
+                    return this.DbEntity.Name;
+
+                else if (this.SpotifyEntity != null)
+                    return this.SpotifyEntity.Name;
+                else
+                    return "Not Set";
+            }
+        }
         private DbEntity _dbEntity;
         private DbEntityType _dbEntityType;
         public DbEntity DbEntity
