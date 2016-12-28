@@ -230,10 +230,7 @@ namespace SongsAbout.Entities
         {
             get { return TitleColumn; }
         }
-        public Album(SpotifyFullAlbum album) : this(new SpotifyAlbum(album))
-        {
-        }
-        public Album(SpotifyAlbum album)// : base("al_title", "Albums", "Album")
+        public Album(SpotifyFullAlbum album)// : this(new SpotifyAlbum(album))
         {
             this.Name = album.Name;
             this.Uri = album.Uri;
@@ -246,7 +243,14 @@ namespace SongsAbout.Entities
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
         }
-      
+
+        public Album(SpotifyAlbum album) : this(
+            album.SpotifyEntityType == SpotifyEntityType.FullAlbum
+            ? (SpotifyFullAlbum)album
+            : album.GetFullVersion(UserSpotify.WebAPI))// : base("al_title", "Albums", "Album")
+        {
+        }
+
         public Album(int id, int artist_id, string name, string year, string uri, Image coverArt)
         {
             this.ID = id;
@@ -376,15 +380,6 @@ namespace SongsAbout.Entities
 
         public void Update(SpotifyFullAlbum album)
         {
-            Update(new SpotifyAlbum(album));
-        }
-        //public void Update(FAlbum album)
-        //{
-        //    Update(new FAlbum(Converter.GetFullAlbum(album)));
-        //}
-
-        public void Update(SpotifyAlbum album)
-        {
             try
             {
                 this.name = album.Name;
@@ -401,13 +396,26 @@ namespace SongsAbout.Entities
                 throw new UpdateFromSpotifyError(this.DbEntityType, SpotifyEntityType.FullAlbum, album.Name, ex.Message);
             }
         }
-        private void UpdateCoverArt(SpotifyFullAlbum album)
+        //public void Update(FAlbum album)
+        //{
+        //    Update(new FAlbum(Converter.GetFullAlbum(album)));
+        //}
+
+        public void Update(SpotifyAlbum album)
         {
-            UpdateCoverArt(new SpotifyAlbum(album));
+            if (album.SpotifyEntityType == SpotifyEntityType.FullAlbum)
+            {
+                Update((SpotifyFullAlbum)album);
+            }
+            else
+            {
+                Update(album.GetFullVersion(UserSpotify.WebAPI));
+            }
+        
         }
+ 
         private void UpdateCoverArt(SpotifyAlbum album)
-        {
-            try
+        {  try
             {
                 if (album.Images.Count > 0)
                 {
@@ -419,11 +427,9 @@ namespace SongsAbout.Entities
             {
                 Console.WriteLine($"Error Updating Cover Art: {ex.Message}");
             }
+          
         }
-        private void UpdateArtist(SpotifyArtist simpleArtist)
-        {
-            this.UpdateArtist(new SpotifyArtist(simpleArtist));
-        }
+
 
         /// <summary>
         /// 

@@ -46,7 +46,7 @@ namespace SongsAbout.Forms
             {
                 _spotifyAlbum = value;
                 this.lblAlbumName.Text = value.Name;
-                this.SpotifyArtist = value.ArtistList[0];
+                this.SpotifyArtist = value.Artists[0];
                 this.SpotifyTracks = value.TrackList;
 
             }
@@ -97,14 +97,11 @@ namespace SongsAbout.Forms
             }
         }
 
+        
         private void sizeChanged(object sender, EventArgs e)
         {
-      
+
         }
-
-        public AlbumDisplayForm(SpotifyAlbum album) : this(new SpotifyAlbum(album)) { }
-        public AlbumDisplayForm(SpotifyFullAlbum album) : this(new SpotifyAlbum(album)) { }
-
         public AlbumDisplayForm(Album album)
         {
             this.lblArtist.Text = album.Artist.Name;
