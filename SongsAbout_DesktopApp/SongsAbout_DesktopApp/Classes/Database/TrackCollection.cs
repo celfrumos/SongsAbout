@@ -12,7 +12,7 @@ namespace SongsAbout.Classes.Database
         public class TrackCollection : EntityCollection<Track>, IEntityIdAccessor<Track>
         {
             public override DbEntityType DbEntityType { get { return DbEntityType.Track; } }
-         
+
             private static bool _initialized { get; set; }
             /// <summary>
             /// Initializes the connector to the TrackList
@@ -57,7 +57,7 @@ namespace SongsAbout.Classes.Database
                     }
                 }
             }
-   
+
             /// <summary>
             /// Verifies if an Track of the given id exists
             /// </summary>
@@ -141,7 +141,7 @@ namespace SongsAbout.Classes.Database
                 {
                     using (var context = new DataClassesContext())
                     {
-                        context.UpdateInsert_Track(track.ID, track.Name, track.Uri, track.Length, track.ArtistId, track.CanPlayString, track.AlbumId);
+                        context.UpdateInsert_Track(track.ID, track.Name, track.Uri, track.Length, track.ArtistId, track.CanPlay, track.AlbumId);
                         context.SaveChanges();
                     }
 

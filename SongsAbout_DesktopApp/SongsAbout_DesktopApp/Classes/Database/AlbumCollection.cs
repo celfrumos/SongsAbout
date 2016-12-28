@@ -135,7 +135,7 @@ namespace SongsAbout.Classes.Database
                 {
                     using (var context = new DataClassesContext())
                     {
-                        context.UpdateInsert_Album(a.ID, a.ArtistId, a.Name, a.Year, a.Uri, a.CoverArtBytes);
+                        context.UpdateInsert_Album(a.ID, a.ArtistId, a.Name, a.ReleaseDate, a.Uri, a.CoverArtBytes);
                         context.SaveChanges();
                     }
                 }

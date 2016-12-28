@@ -24,7 +24,7 @@ namespace SongsAbout.Entities
         public int ID { get; set; }
         private int artist_id { get; set; }
         private string name { get; set; }
-        private string al_year { get; set; }
+        private Nullable<System.DateTime> al_year { get; set; }
         private string al_spotify_uri { get; set; }
         private byte[] al_cover_art { get; set; }
     

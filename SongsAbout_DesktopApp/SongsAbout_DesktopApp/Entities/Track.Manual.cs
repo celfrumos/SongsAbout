@@ -46,7 +46,11 @@ namespace SongsAbout.Entities
             get { return this.track_album_id; }
             set { this.track_album_id = value; }
         }
-
+        public bool CanPlay
+        {
+            get { return this.can_play; }
+            set { this.can_play = value; }
+        }
         public int ArtistId
         {
             get { return this.track_artist_id; }

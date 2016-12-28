@@ -65,7 +65,7 @@ namespace SongsAbout.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateInsert_Artist", idParameter, nameParameter, a_bioParameter, a_websiteParameter, a_spotify_uriParameter, a_profile_picParameter);
         }
     
-        public virtual int UpdateInsert_Album(Nullable<int> id, Nullable<int> artist_id, string name, string al_year, string al_spotify_uri, byte[] al_cover_art)
+        public virtual int UpdateInsert_Album(Nullable<int> id, Nullable<int> artist_id, string name, Nullable<System.DateTime> al_year, string al_spotify_uri, byte[] al_cover_art)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -79,9 +79,9 @@ namespace SongsAbout.Entities
                 new ObjectParameter("name", name) :
                 new ObjectParameter("name", typeof(string));
     
-            var al_yearParameter = al_year != null ?
+            var al_yearParameter = al_year.HasValue ?
                 new ObjectParameter("al_year", al_year) :
-                new ObjectParameter("al_year", typeof(string));
+                new ObjectParameter("al_year", typeof(System.DateTime));
     
             var al_spotify_uriParameter = al_spotify_uri != null ?
                 new ObjectParameter("al_spotify_uri", al_spotify_uri) :
@@ -94,7 +94,7 @@ namespace SongsAbout.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateInsert_Album", idParameter, artist_idParameter, nameParameter, al_yearParameter, al_spotify_uriParameter, al_cover_artParameter);
         }
     
-        public virtual int UpdateInsert_Track(Nullable<int> id, string name, string track_spotify_uri, Nullable<double> track_length_minutes, Nullable<int> track_artist_id, string can_play, Nullable<int> track_album_id)
+        public virtual int UpdateInsert_Track(Nullable<int> id, string name, string track_spotify_uri, Nullable<double> track_length_minutes, Nullable<int> track_artist_id, Nullable<bool> can_play, Nullable<int> track_album_id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -116,9 +116,9 @@ namespace SongsAbout.Entities
                 new ObjectParameter("track_artist_id", track_artist_id) :
                 new ObjectParameter("track_artist_id", typeof(int));
     
-            var can_playParameter = can_play != null ?
+            var can_playParameter = can_play.HasValue ?
                 new ObjectParameter("can_play", can_play) :
-                new ObjectParameter("can_play", typeof(string));
+                new ObjectParameter("can_play", typeof(bool));
     
             var track_album_idParameter = track_album_id.HasValue ?
                 new ObjectParameter("track_album_id", track_album_id) :

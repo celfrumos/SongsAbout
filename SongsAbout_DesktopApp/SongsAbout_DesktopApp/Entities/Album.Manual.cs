@@ -38,10 +38,28 @@ namespace SongsAbout.Entities
             get { return this.name; }
             set { this.name = value; }
         }
-        public string Year
+
+        public DateTime? ReleaseDate
         {
             get { return this.al_year; }
             set { this.al_year = value; }
+        }
+        public string Year
+        {
+            get { return this.al_year.Value.Year.ToString(); }
+            set
+            {
+                var date = new DateTime();
+                if (DateTime.TryParse(value, out date))
+                {
+                    this.al_year = date;
+                }
+                //else
+                //{
+
+                //}
+                //this.al_year = value;
+            }
         }
         public string Uri
         {
@@ -214,14 +232,11 @@ namespace SongsAbout.Entities
         {
             if (!this.GetGenres().Contains(genre))
             {
-                Genre newGenre;
                 if (!Program.Database.Genres.Contains(genre))
                 {
-                    Program.Database.Genres[genre] = new Genre(genre);
+                    Program.Database.Genres.Add(genre);
                 }
-                newGenre = Program.Database.Genres[genre];
-
-                this.Genres.Add(newGenre);
+                this.Genres.Add(genre);
 
 
             }
@@ -411,11 +426,12 @@ namespace SongsAbout.Entities
             {
                 Update(album.GetFullVersion(UserSpotify.WebAPI));
             }
-        
+
         }
- 
+
         private void UpdateCoverArt(SpotifyAlbum album)
-        {  try
+        {
+            try
             {
                 if (album.Images.Count > 0)
                 {
@@ -427,7 +443,7 @@ namespace SongsAbout.Entities
             {
                 Console.WriteLine($"Error Updating Cover Art: {ex.Message}");
             }
-          
+
         }
 
 
@@ -493,16 +509,15 @@ namespace SongsAbout.Entities
                 try
                 {
                     var existingGenres = Program.Database.Genres.AllNames;
-                    foreach (var g in genres)
+                    foreach (var genre in genres)
                     {
-                        if (!this.Genres.Any(gen => gen.Name == g))
+                        if (!this.Genres.Contains(genre))
                         {
-                            Genre newG = new Genre(g);
-                            if (!existingGenres.Contains(g))
+                            if (!existingGenres.Contains(genre))
                             {
-                                Program.Database.Genres.Add(newG);
+                                Program.Database.Genres.Add(genre);
                             }
-                            this.Genres.Add(newG);
+                            this.Genres.Add(genre);
                         }
                     }
                 }
@@ -513,31 +528,7 @@ namespace SongsAbout.Entities
                 }
             }
         }
-        public void SetGenres(ISpotifyFullEntity entity)
-        {
-            try
-            {
-                var existingGenres = Program.Database.Genres.AllNames;
-                foreach (var g in entity.Genres)
-                {
-                    if (!this.Genres.Any(gen => gen.Name == g))
-                    {
-                        Genre newG = new Genre(g);
-                        if (!existingGenres.Contains(g))
-                        {
-                            Program.Database.Genres.Add(newG);
-                        }
-                        this.Genres.Add(newG);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new
-                    DbException(this.DbEntityType, $"Error Setting Album Genres for Album '{this.Name}\n{ex.Message}'");
-            }
-        }
-        public Album(object SpotifyEntity, SpotifyEntityType spotifyType)
+        public Album(SpotifyAlbum spotifyAlbum, SpotifyEntityType spotifyType)
         {
             try
             {
@@ -545,9 +536,9 @@ namespace SongsAbout.Entities
                 {
                     SpotifyFullAlbum album;
                     if (spotifyType == SpotifyEntityType.BaseAlbum)
-                        album = Converter.GetFullAlbum((SpotifyAlbum)SpotifyEntity);
+                        album = spotifyAlbum.GetFullVersion(UserSpotify.WebAPI);
                     else
-                        album = (SpotifyFullAlbum)SpotifyEntity;
+                        album = (SpotifyFullAlbum)spotifyAlbum;
 
                     this.name = album.Name;
                     this.al_spotify_uri = album.Uri;

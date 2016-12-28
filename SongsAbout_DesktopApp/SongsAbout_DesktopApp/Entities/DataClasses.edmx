@@ -20,7 +20,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="artist_id" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="al_year" Type="nvarchar" MaxLength="4" />
+          <Property Name="al_year" Type="date" />
           <Property Name="al_spotify_uri" Type="nvarchar" MaxLength="255" />
           <Property Name="al_cover_art" Type="image" />
         </EntityType>
@@ -94,7 +94,7 @@
           <Property Name="track_spotify_uri" Type="nvarchar" MaxLength="255" />
           <Property Name="track_length_minutes" Type="float" />
           <Property Name="track_artist_id" Type="int" Nullable="false" />
-          <Property Name="can_play" Type="nchar" MaxLength="1" />
+          <Property Name="can_play" Type="bit" Nullable="false" />
           <Property Name="track_album_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TrackTags">
@@ -113,7 +113,21 @@
           <Property Name="topic_id" Type="int" Nullable="false" />
           <Property Name="track_id" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ArtistTracks_Tracks">
+        <Association Name="FK__TrackArtists_Artists">
+          <End Role="Artists" Type="Self.Artists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TrackArtists" Type="Self.TrackArtists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrackArtists">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TrackArtists_Tracks">
           <End Role="Tracks" Type="Self.Tracks" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -205,20 +219,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TrackArtists_Artists">
-          <End Role="Artists" Type="Self.Artists" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TrackArtists" Type="Self.TrackArtists" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Artists">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TrackArtists">
-              <PropertyRef Name="artist_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TrackGenres_Genres">
           <End Role="Genres" Type="Self.Genres" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -307,7 +307,7 @@
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="artist_id" Type="int" Mode="In" />
           <Parameter Name="name" Type="nvarchar" Mode="In" />
-          <Parameter Name="al_year" Type="nvarchar" Mode="In" />
+          <Parameter Name="al_year" Type="date" Mode="In" />
           <Parameter Name="al_spotify_uri" Type="nvarchar" Mode="In" />
           <Parameter Name="al_cover_art" Type="image" Mode="In" />
         </Function>
@@ -325,7 +325,7 @@
           <Parameter Name="track_spotify_uri" Type="nvarchar" Mode="In" />
           <Parameter Name="track_length_minutes" Type="float" Mode="In" />
           <Parameter Name="track_artist_id" Type="int" Mode="In" />
-          <Parameter Name="can_play" Type="nchar" Mode="In" />
+          <Parameter Name="can_play" Type="bit" Mode="In" />
           <Parameter Name="track_album_id" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="DataClassesContextStoreContainer">
@@ -342,7 +342,11 @@
           <EntitySet Name="Tracks" EntityType="Self.Tracks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrackTags" EntityType="Self.TrackTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrackTopics" EntityType="Self.TrackTopics" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ArtistTracks_Tracks" Association="Self.FK__ArtistTracks_Tracks">
+          <AssociationSet Name="FK__TrackArtists_Artists" Association="Self.FK__TrackArtists_Artists">
+            <End Role="Artists" EntitySet="Artists" />
+            <End Role="TrackArtists" EntitySet="TrackArtists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TrackArtists_Tracks" Association="Self.FK__TrackArtists_Tracks">
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="TrackArtists" EntitySet="TrackArtists" />
           </AssociationSet>
@@ -369,10 +373,6 @@
           <AssociationSet Name="FK_ListTracks_Tracks" Association="Self.FK_ListTracks_Tracks">
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="ListTracks" EntitySet="ListTracks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrackArtists_Artists" Association="Self.FK_TrackArtists_Artists">
-            <End Role="Artists" EntitySet="Artists" />
-            <End Role="TrackArtists" EntitySet="TrackArtists" />
           </AssociationSet>
           <AssociationSet Name="FK_TrackGenres_Genres" Association="Self.FK_TrackGenres_Genres">
             <End Role="Genres" EntitySet="Genres" />
@@ -410,7 +410,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
           <Property Name="artist_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="al_year" Type="String" MaxLength="4" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="al_year" Type="DateTime" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Precision="0" />
           <Property Name="al_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="al_cover_art" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateArtist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
@@ -474,7 +474,7 @@
           <Property Name="track_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
           <Property Name="track_length_minutes" Type="Double" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
           <Property Name="track_artist_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="can_play" Type="String" MaxLength="1" FixedLength="true" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
+          <Property Name="can_play" Type="Boolean" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="false" />
           <Property Name="track_album_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateAlbum" Relationship="DataClasses.FK_Album_Tracks" FromRole="Track" ToRole="Album" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateTags" Relationship="DataClasses.TrackTags" FromRole="Track" ToRole="Tag" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
@@ -521,7 +521,7 @@
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="artist_id" Mode="In" Type="Int32" />
             <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="al_year" Mode="In" Type="String" />
+            <Parameter Name="al_year" Mode="In" Type="DateTime" />
             <Parameter Name="al_spotify_uri" Mode="In" Type="String" />
             <Parameter Name="al_cover_art" Mode="In" Type="Binary" />
           </FunctionImport>
@@ -531,7 +531,7 @@
             <Parameter Name="track_spotify_uri" Mode="In" Type="String" />
             <Parameter Name="track_length_minutes" Mode="In" Type="Double" />
             <Parameter Name="track_artist_id" Mode="In" Type="Int32" />
-            <Parameter Name="can_play" Mode="In" Type="String" />
+            <Parameter Name="can_play" Mode="In" Type="Boolean" />
             <Parameter Name="track_album_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <AssociationSet Name="AlbumTracks" Association="DataClasses.FK_Album_Tracks">
