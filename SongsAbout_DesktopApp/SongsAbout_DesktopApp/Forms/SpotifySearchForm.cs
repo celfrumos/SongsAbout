@@ -123,7 +123,7 @@ namespace SongsAbout.Forms
                     {
                         if (playlist.Public)
                         {
-                            var p = (FPlaylist)await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.PrivateId, playlist.Id);
+                            var p = await UserSpotify.WebAPI.GetPlaylistAsync(User.Default.PrivateId, playlist.Id);
                             SPanel panel = new SPanel(p, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click);
                             flpSpotifyControls.Controls.Add(panel);
                         }
