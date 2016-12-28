@@ -166,11 +166,6 @@ namespace SongsAbout.Enums
     public enum DbEntityType : ulong
     {
         /// <summary>
-        /// Doesn't match to any table in the database
-        /// </summary>
-        None = 0,
-
-        /// <summary>
         /// Matches to Artists table
         /// </summary>
         Artist = SpotifyEntityType.Artist,
@@ -198,7 +193,7 @@ namespace SongsAbout.Enums
         /// <summary>
         /// Matches to Lists table
         /// </summary>
-        Playlist = 32,
+        Playlist = SpotifyEntityType.Playlist,
 
         /// <summary>
         /// Matches to either the Artists, Albums, or Tracks table
@@ -208,7 +203,12 @@ namespace SongsAbout.Enums
         /// <summary>
         /// Matches to either the Genres, Tags, or Lists table
         /// </summary>
-        Grouping = Genre | Tag | Playlist
+        Grouping = Genre | Tag | Playlist,
+
+        /// <summary>
+        /// Doesn't match to any table in the database
+        /// </summary>
+        None = 0
 
 
     }

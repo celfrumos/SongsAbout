@@ -8,6 +8,7 @@ using SongsAbout.Enums;
 using SongsAbout.Forms;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SongsAbout.Controls;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 
@@ -31,7 +32,7 @@ namespace SongsAbout
                 //   User.Default.Upgrade();
                 ConnectSpotify();
                 Database = new SongDatabase();
-
+                SPanel.LargeQuery = false;
                 //var search = UserSpotify.Search("A moon shaped pool", SpotifyAPI.Web.Enums.SearchType.Album);
 
                 //var s = search.Albums.Items[0];

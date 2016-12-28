@@ -43,32 +43,35 @@ namespace SongsAbout.Controls
             get { return _dbEntity; }
             set
             {
-                _dbEntity = value;
-                if (Enums.Flag.DB.HasFlag(value.DbEntityType, DbEntityType.Integral))
+                if (value != null)
                 {
-                    try
+                    _dbEntity = value;
+                    if (Enums.Flag.DB.HasFlag(value.DbEntityType, DbEntityType.Integral))
                     {
-                        if (value is Artist)
+                        try
                         {
-                            this.Image = ((Artist)value).ProfilePic;
+                            if (value is Artist)
+                            {
+                                this.Image = ((Artist)value).ProfilePic;
+                            }
+                            else if (value is Album)
+                            {
+                                this.Image = ((Album)value).CoverArt;
+                            }
+                            else if (value is Track)
+                            {
+                                this.Image = ((Track)value).Album.CoverArt;
+                            }
                         }
-                        else if (value is Album)
+                        catch (Exception ex)
                         {
-                            this.Image = ((Album)value).CoverArt;
-                        }
-                        else if (value is Track)
-                        {
-                            this.Image = ((Track)value).Album.CoverArt;
+                            Console.WriteLine($"Error Setting SPictureBox Image:{ex.Message}");
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Console.WriteLine($"Error Setting SPictureBox Image:{ex.Message}");
+                        Console.WriteLine($"Unsupported DbEntityType attempted to set SPictureBox image: {value.DbEntityType}");
                     }
-                }
-                else
-                {
-                    Console.WriteLine($"Unsupported DbEntityType attempted to set SPictureBox image: {value.DbEntityType}");
                 }
             }
         }

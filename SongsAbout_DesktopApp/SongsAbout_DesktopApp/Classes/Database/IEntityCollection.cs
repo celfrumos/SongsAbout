@@ -39,7 +39,7 @@ namespace SongsAbout.Classes.Database
     interface IEntityNameAccessor<T>
         where T : DbEntity
     {
-        bool Contains(string name);
+        bool Contains(string name, bool checkCache);
         T this[string name] { get; set; }
     }
 
@@ -47,7 +47,7 @@ namespace SongsAbout.Classes.Database
         where T : DbEntity
     {
         void Add(T entity);
-       
+
         List<T> Items { get; }
     }
     /// <summary>

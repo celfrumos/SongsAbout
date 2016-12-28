@@ -168,7 +168,9 @@ namespace SongsAbout.Forms
                 if (txtBoxSearch.Text != "")
                 {
                     flpSpotifyControls.Controls.Clear();
+                    SPanel.LargeQuery = true;
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
+                    SPanel.LargeQuery = false;
                 }
             }
             catch (Exception ex)

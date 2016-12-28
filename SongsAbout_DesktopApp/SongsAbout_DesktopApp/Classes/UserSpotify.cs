@@ -265,12 +265,15 @@ namespace SongsAbout.Classes
                 {
                     try
                     {
-                        Task profileFetcher
+                        Task profileFetcher = new Task(FetchProfilePic);
                         if (User.Default.ProfilePic == null)
                         {
-                            await Task.Run(() => FetchProfilePic());
+                            profileFetcher.Start();
                         }
-
+                        while (!profileFetcher.IsCompleted)
+                        {
+                            Thread.Sleep(1);
+                        }
                         Image _profilePic = User.Default.ProfilePic;
 
                         return _profilePic;

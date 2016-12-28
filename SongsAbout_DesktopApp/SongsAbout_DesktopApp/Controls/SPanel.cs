@@ -400,19 +400,19 @@ namespace SongsAbout.Controls
             switch (this.DbEntityType)
             {
                 case DbEntityType.Artist:
-                    exists = Program.Database.Artists.Contains(this.EntityName);
+                    exists = Program.Database.Artists.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Album:
-                    exists = Program.Database.Albums.Contains(this.EntityName);
+                    exists = Program.Database.Albums.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Track:
-                    exists = Program.Database.Tracks.Contains(this.EntityName);
+                    exists = Program.Database.Tracks.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Genre:
-                    exists = Program.Database.Genres.Contains(this.EntityName);
+                    exists = Program.Database.Genres.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Playlist:
-                    exists = Program.Database.Playlists.Contains(this.EntityName);
+                    exists = Program.Database.Playlists.Contains(this.EntityName, LargeQuery);
                     break;
                 //TODO: Write Program.Database.Tags
                 //  case DbEntityType.Tag:
@@ -423,7 +423,6 @@ namespace SongsAbout.Controls
                     break;
             }
             this.pBoxCheckMark.Visible = exists;
-
         }
 
         private void _setNewSize()
@@ -638,7 +637,7 @@ namespace SongsAbout.Controls
         }
         #endregion
         #region Public Properties
-
+        public static bool LargeQuery { get; set; }
         /// <summary>
         /// Height / Width
         /// </summary>
@@ -706,6 +705,62 @@ namespace SongsAbout.Controls
                 this._spotifyEntity = value;
                 this.SLabel.SpotifyEntity = value;
                 this.SPictureBox.SpotifyEntity = value;
+                if (value != null)
+                {
+                    this.EntityName = value.Name;
+                    this.SpotifyEntityType = value.SpotifyEntityType;
+                    SetImage(value);
+                    switch (value.SpotifyEntityType)
+                    {
+                        case SpotifyEntityType.BaseArtist:
+                            this.DbEntityType = DbEntityType.Artist;
+                            break;
+                        case SpotifyEntityType.BaseAlbum:
+                            this.DbEntityType = DbEntityType.Album;
+                            break;
+                        case SpotifyEntityType.BaseTrack:
+                            this.DbEntityType = DbEntityType.Track;
+                            break;
+                        case SpotifyEntityType.BasePlaylist:
+                            this.DbEntityType = DbEntityType.Playlist;
+                            break;
+                        case SpotifyEntityType.FullArtist:
+                            this.DbEntityType = DbEntityType.Artist;
+                            break;
+                        case SpotifyEntityType.FullAlbum:
+                            this.DbEntityType = DbEntityType.Album;
+                            break;
+                        case SpotifyEntityType.FullTrack:
+                            this.DbEntityType = DbEntityType.Track;
+                            break;
+                        case SpotifyEntityType.FullPlaylist:
+                            this.DbEntityType = DbEntityType.Playlist;
+                            break;
+                        case SpotifyEntityType.Artist:
+                            this.DbEntityType = DbEntityType.Artist;
+                            break;
+                        case SpotifyEntityType.Track:
+                            this.DbEntityType = DbEntityType.Track;
+                            break;
+                        case SpotifyEntityType.Album:
+                            this.DbEntityType = DbEntityType.Album;
+                            break;
+                        case SpotifyEntityType.Playlist:
+                            this.DbEntityType = DbEntityType.Playlist;
+                            break;
+                        case SpotifyEntityType.SavedTrack:
+                            this.DbEntityType = DbEntityType.Track;
+                            break;
+                        case SpotifyEntityType.SavedAlbum:
+                            break;
+                        case SpotifyEntityType.PlaylistTrack:
+                            this.DbEntityType = DbEntityType.Track;
+                            break;
+                        default:
+                            this.DbEntityType = DbEntityType.None;
+                            break;
+                    }
+                }
             }
         }
         /// <summary>
@@ -872,7 +927,10 @@ namespace SongsAbout.Controls
             {
                 try
                 {
-                    this._dbEntity = value; 
+                    this._dbEntity = value;
+                    this.DbEntityType = value.DbEntityType;
+                    this.SpotifyEntityType = value.SpotifyType;
+
                     this.EntityName = value.Name;
                     this.SLabel.DbEntity = value;
                     this.SPictureBox.DbEntity = value;
@@ -905,11 +963,10 @@ namespace SongsAbout.Controls
         /// Construct an empty SPanel by type
         /// </summary>
         /// <param name="panelType"></param>
-        public SPanel(string name, SPanelType panelType = SPanelType.Image, SPanelSize panelSize = SPanelSize.Small, DbEntityType type = DbEntityType.None) : this(type)
+        public SPanel(string name, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, DbEntityType entityType = DbEntityType.None) : this(type, size)
         {
+            this.DbEntityType = entityType;
             this.EntityName = name;
-            this.SPanelType = panelType;
-            this.SPanelSize = panelSize;
             InitializeComponent();
             CheckMarkIfInDatabase();
             _setNewSize();
@@ -924,102 +981,115 @@ namespace SongsAbout.Controls
         /// </summary>
         /// <param name="entityName"></param>
         /// <param name="type"></param>
+        /// <param name="size"></param>
         /// <param name="clickEvent"></param>
-        /// <param name="tag"></param>
         /// <param name="dbtype"></param>
         /// <param name="spotifyType"></param>
-        public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, SpotifyIntegralEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
+        public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
             : this(entityName, type, size, dbtype)
         {
             this.Click += clickEvent;
 
             this.SpotifyEntityType = spotifyType;
             this.DbEntityType = dbtype;
-            this.SpotifyEntity = entity;
-            this.DbEntity = null;
+            switch (dbtype)
+            {
+                case DbEntityType.Artist:
+                    this.DbEntity = new Artist();
+                    break;
+                case DbEntityType.Album:
+                    this.DbEntity = new Album();
+                    break;
+                case DbEntityType.Track:
+                    this.DbEntity = new Track();
+                    break;
+                case DbEntityType.Genre:
+                    this.DbEntity = new Genre();
+                    break;
+                case DbEntityType.Tag:
+                    this.DbEntity = new Tag();
+                    break;
+                case DbEntityType.Playlist:
+                    this.DbEntity = new Playlist();
+                    break;
+                default:
+                    break;
+            }
+            switch (spotifyType)
+            {
+                case SpotifyEntityType.BaseArtist:
+                    this.SpotifyEntity = new SpotifyArtist();
+                    break;
+                case SpotifyEntityType.BaseAlbum:
+                    this.SpotifyEntity = new SpotifyAlbum();
+                    break;
+                case SpotifyEntityType.BaseTrack:
+                    this.SpotifyEntity = new SpotifyTrack();
+                    break;
+                case SpotifyEntityType.BasePlaylist:
+                    this.SpotifyEntity = new SpotifyPlaylist();
+                    break;
+                case SpotifyEntityType.FullArtist:
+                    this.SpotifyEntity = new SpotifyFullArtist();
+                    break;
+                case SpotifyEntityType.FullAlbum:
+                    this.SpotifyEntity = new SpotifyFullAlbum();
+                    break;
+                case SpotifyEntityType.FullTrack:
+                    this.SpotifyEntity = new SpotifyFullTrack();
+                    break;
+                case SpotifyEntityType.FullPlaylist:
+                    this.SpotifyEntity = new SpotifyFullPlaylist();
+                    break;
+                default:
+                    break;
+            }
 
         }
-        public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
-            : this(entityName, type, size, dbtype)
+
+
+        private SPanel(SPanelType type, SPanelSize size, EventHandler clickevent = null)
         {
-            this.Click += clickEvent;
-            this.SpotifyEntityType = spotifyType;
-            this.SpotifyEntity = null;
+            this.SPanelType = type;
+            this.SPanelSize = size;
+            this.Click += clickevent;
         }
-
-
         /// <summary>
         /// Construct a simple SPanel from any DbEntity
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="type"></param>
         /// <param name="clickEvent"></param>
-        public SPanel(DbEntity entity, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null)
-            : this(entity.Name, type, size, clickEvent,  entity.DbEntityType, entity.SpotifyType)
+        public SPanel(DbEntity entity, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null) : this(type, size, clickEvent)
         {
             this.DbEntity = entity;
-         
+            CheckMarkIfInDatabase();
+
         }
 
         /// <summary>
-        /// Construct an SPanel from a DB Artist
-        /// </summary>
-        /// <param name="artist"></param>
-        /// <param name="type"></param>
-        /// <param name="clickEvent"></param>
-        //public SPanel(Artist artist, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null)
-        //    : this(artist.name, type, size, clickEvent, artist, DbEntityType.Artist)
-        //{
-        //    this.Image = artist.Image;
-        //}
-
-        ///// <summary>
-        ///// Construct an SPanel from a DB Album
-        ///// </summary>
-        ///// <param name="album"></param>
-        ///// <param name="type"></param>
-        ///// <param name="clickEvent"></param>
-        //public SPanel(Album album, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null)
-        //    : this(album.name, type, size, clickEvent, album, DbEntityType.Artist)
-        //{
-        //    this.Image = album.Image;
-        //}
-        ///// <summary>
-        ///// Construct an SPanel from a DB Track
-        ///// </summary>
-        ///// <param name="track"></param>
-        ///// <param name="type"></param>
-        ///// <param name="clickEvent"></param>
-        //public SPanel(Track track, SPanelType type = SPanelType.Text, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null)
-        //    : this(track.name, type, size, clickEvent, track, DbEntityType.Artist)
-        //{
-
-        //}
-        /// <summary>
-        /// Construct an SPanel from a Spotify FullAlbum
+        /// Construct an SPanel from a Spotify Entity
         /// </summary>
         /// <param name="spotifyEntity"></param>
         /// <param name="type"></param>
         /// <param name="clickEvent"></param>
-        public SPanel(SpotifyIntegralEntity spotifyEntity, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null)
-            : this(spotifyEntity.Name, type, size, clickEvent, spotifyEntity, (DbEntityType)spotifyEntity.DbEntityType, spotifyEntity.SpotifyEntityType)
+        public SPanel(SpotifyIntegralEntity spotifyEntity, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null) : this(type, size, clickEvent)
         {
-            //this.SpotifyEntity = spotifyEntity;
-            SetImage(spotifyEntity);
+            this.SpotifyEntity = spotifyEntity;
+            CheckMarkIfInDatabase();
         }
+
+        #endregion
+        #region Public Methods
 
         private void SetImage(SpotifyIntegralEntity spotifyEntity)
         {
-
             if (spotifyEntity.CanHaveImages)
             {
                 SetImage(((ISpotifyImageList)spotifyEntity).Images);
             }
 
         }
-
-        #endregion
-        #region Public Methods
 
         /// <summary>
         /// Set the SPanel Image from a spotify Image

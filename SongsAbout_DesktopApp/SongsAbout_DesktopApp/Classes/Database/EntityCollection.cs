@@ -88,14 +88,22 @@ namespace SongsAbout.Classes.Database
             /// <exception cref="DbException"></exception>
             /// <exception cref="NullValueError"></exception>
             /// <seealso cref="Contains(int id)"/>
-            public virtual bool Contains(string name)
+            public virtual bool Contains(string name, bool checkCache = false)
             {
                 if (name == null || name == "")
                     throw new NullValueError();
 
                 try
                 {
-                    return this[name] != null;
+                    if (checkCache && this.CachedItems != null && CachedItems.Count == 0)
+                    {
+                        return this.AllCachedNames.Contains(name);
+                    }
+                    else
+                    {
+                        return this[name] != null;
+                    }
+
                 }
                 catch (Exception ex)
                 {
