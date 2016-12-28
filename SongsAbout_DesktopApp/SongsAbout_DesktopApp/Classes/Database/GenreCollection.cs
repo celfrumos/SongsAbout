@@ -45,13 +45,13 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        base._all = new List<Genre>();
+                        base.CachedItems = new List<Genre>();
                         using (var db = new DataClassesContext())
                         {
-                            base._all.AddRange(from a in db.Genres
+                            base.CachedItems.AddRange(from a in db.Genres
                                                select a);
                         }
-                        return base._all;
+                        return base.CachedItems;
                     }
                     catch (Exception ex)
                     {

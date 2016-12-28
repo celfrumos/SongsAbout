@@ -16,7 +16,7 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public abstract class EntityCollection<T> :  IEntityCollection<T>, IEntityNameAccessor<T>
+        public abstract class EntityCollection<T> : IEntityCollection<T>, IEntityNameAccessor<T>
             where T : DbEntity
         {
             protected EntityCollection(string childname)
@@ -28,8 +28,16 @@ namespace SongsAbout.Classes.Database
                         $"An attempt was made to initialize entity container {childname} when the program database had not been initialized");
                 }
             }
-            protected List<T> _all { get; set; }
+            public List<T> CachedItems { get; set; }
             public abstract List<T> Items { get; }
+            public virtual List<string> AllCachedNames
+            {
+                get
+                {
+                    return (from a in this.CachedItems
+                            select a.Name).ToList();
+                }
+            }
             public virtual List<string> AllNames
             {
                 get
@@ -97,15 +105,15 @@ namespace SongsAbout.Classes.Database
             }
             public virtual int Count { get { return this.Items.Count; } }
             public abstract void Add(T entity);
-            
+
             public virtual T Current
             {
                 get
                 {
-                    if (_all == null)
+                    if (CachedItems == null)
                         return this.Items.GetEnumerator().Current;
                     else
-                        return this._all.GetEnumerator().Current;
+                        return this.CachedItems.GetEnumerator().Current;
                 }
             }
 
@@ -123,16 +131,16 @@ namespace SongsAbout.Classes.Database
 
             public virtual bool MoveNext()
             {
-                return ((IEnumerator)_all).MoveNext();
+                return ((IEnumerator)CachedItems).MoveNext();
             }
             public virtual void Reset()
             {
-                ((IEnumerator)_all).Reset();
+                ((IEnumerator)CachedItems).Reset();
             }
 
             public virtual void Dispose()
             {
-                ((IDisposable)_all).Dispose();
+                ((IDisposable)CachedItems).Dispose();
             }
 
             public virtual IEnumerator<T> GetEnumerator()

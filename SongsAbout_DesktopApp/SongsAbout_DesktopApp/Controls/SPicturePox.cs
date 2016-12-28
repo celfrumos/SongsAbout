@@ -37,7 +37,41 @@ namespace SongsAbout.Controls
                     return "Not Set";
             }
         }
-        public DbEntity DbEntity { get; set; }
+        private DbEntity _dbEntity;
+        public DbEntity DbEntity
+        {
+            get { return _dbEntity; }
+            set
+            {
+                _dbEntity = value;
+                if (Enums.Flag.DB.HasFlag(value.DbEntityType, DbEntityType.Integral))
+                {
+                    try
+                    {
+                        if (value is Artist)
+                        {
+                            this.Image = ((Artist)value).ProfilePic;
+                        }
+                        else if (value is Album)
+                        {
+                            this.Image = ((Album)value).CoverArt;
+                        }
+                        else if (value is Track)
+                        {
+                            this.Image = ((Track)value).Album.CoverArt;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error Setting SPictureBox Image:{ex.Message}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Unsupported DbEntityType attempted to set SPictureBox image: {value.DbEntityType}");
+                }
+            }
+        }
         public SPicturePox()
         {
             InitializeComponent();

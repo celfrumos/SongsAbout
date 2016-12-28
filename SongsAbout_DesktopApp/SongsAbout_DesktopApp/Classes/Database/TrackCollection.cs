@@ -90,14 +90,14 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        base._all = new List<Track>();
+                        base.CachedItems = new List<Track>();
                         using (var db = new DataClassesContext())
                         {
-                            base._all.AddRange(from a in db.Tracks
+                            base.CachedItems.AddRange(from a in db.Tracks
                                                where a.ID != 0
                                                select a);
                         }
-                        return base._all;
+                        return base.CachedItems;
                     }
                     catch (Exception ex)
                     {

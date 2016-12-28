@@ -42,13 +42,13 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        base._all = new List<Playlist>();
+                        base.CachedItems = new List<Playlist>();
                         using (var db = new DataClassesContext())
                         {
-                            base._all.AddRange(from a in db.Playlists
+                            base.CachedItems.AddRange(from a in db.Playlists
                                                select a);
                         }
-                        return base._all;
+                        return base.CachedItems;
                     }
                     catch (Exception ex)
                     {

@@ -174,8 +174,8 @@ namespace SongsAbout.Classes
                     {
                         resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
 
-                        succeeded = !resultsList.HasError(); 
-                        
+                        succeeded = !resultsList.HasError();
+
                     }
                     catch (Exception)
                     {
@@ -254,6 +254,9 @@ namespace SongsAbout.Classes
         /// Async method to get Profile image as a System.Drawing.Image
         /// </summary>
         /// <returns></returns>
+        /// <exception cref="SpotifyException"></exception>
+        /// <exception cref="SpotifyUndefinedAPIError"></exception>
+        /// <exception cref="SpotifyImageImportError"></exception>
         public async static Task<Image> ImportLocalProfilePic()
         {
             try
@@ -262,21 +265,16 @@ namespace SongsAbout.Classes
                 {
                     try
                     {
+                        Task profileFetcher
                         if (User.Default.ProfilePic == null)
                         {
-                            FetchProfilePic();
+                            await Task.Run(() => FetchProfilePic());
                         }
 
-                        using (WebClient wc = new WebClient())
-                        {
-                            Image _profilePic;
-                            byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(User.Default.ProfilePic.Url));
-                            using (MemoryStream stream = new MemoryStream(imageBytes))
-                            {
-                                _profilePic = Image.FromStream(stream);
-                                return _profilePic;
-                            }
-                        }
+                        Image _profilePic = User.Default.ProfilePic;
+
+                        return _profilePic;
+
 
                     }
                     catch (Exception ex)
@@ -302,6 +300,9 @@ namespace SongsAbout.Classes
         /// <summary>
         /// Assign User Setting ProfilePic
         /// </summary>
+        /// <exception cref="SpotifyException"></exception>
+        /// <exception cref="SpotifyUndefinedAPIError"></exception>
+        /// <exception cref="SpotifyImageImportError"></exception>
         public static void FetchProfilePic()
         {
             try
@@ -310,7 +311,7 @@ namespace SongsAbout.Classes
                 {
                     if (User.Default.PrivateProfile.Images.Count > 0)
                     {
-                        User.Default["ProfilePic"] = User.Default.PrivateProfile.Images[0];
+                        User.Default.ProfilePic = User.Default.PrivateProfile.Images[0];
                     }
                     else
                     {

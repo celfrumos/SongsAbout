@@ -22,6 +22,7 @@ namespace SongsAbout.Controls
     public partial class SPanel : UserControl, IEntityControl
     {
         #region Constants
+        private const string DEFAULT_ENTITY_NAME = "Not Set";
         #region Image Constants
         ///
         // Image Panel constants 
@@ -393,6 +394,38 @@ namespace SongsAbout.Controls
         }
         #endregion
         #region Private Methods
+        private void CheckMarkIfInDatabase()
+        {
+            bool exists = false;
+            switch (this.DbEntityType)
+            {
+                case DbEntityType.Artist:
+                    exists = Program.Database.Artists.Contains(this.EntityName);
+                    break;
+                case DbEntityType.Album:
+                    exists = Program.Database.Albums.Contains(this.EntityName);
+                    break;
+                case DbEntityType.Track:
+                    exists = Program.Database.Tracks.Contains(this.EntityName);
+                    break;
+                case DbEntityType.Genre:
+                    exists = Program.Database.Genres.Contains(this.EntityName);
+                    break;
+                case DbEntityType.Playlist:
+                    exists = Program.Database.Playlists.Contains(this.EntityName);
+                    break;
+                //TODO: Write Program.Database.Tags
+                //  case DbEntityType.Tag:
+                //  exists = Program.Database.Tags.Contains(this.EntityName);
+                //    break;
+                default:
+                    exists = false;
+                    break;
+            }
+            this.pBoxCheckMark.Visible = exists;
+
+        }
+
         private void _setNewSize()
         {
             switch (this.SPanelSize)
@@ -557,7 +590,6 @@ namespace SongsAbout.Controls
 
         }
         #endregion
-        #region Public Properties
         #region EventHandlers
         new public event EventHandler Click
         {
@@ -605,7 +637,7 @@ namespace SongsAbout.Controls
 
         }
         #endregion
-
+        #region Public Properties
 
         /// <summary>
         /// Height / Width
@@ -826,12 +858,8 @@ namespace SongsAbout.Controls
 
         public string EntityName
         {
-            get { return this._entityName; }
-            set
-            {
-                this._entityName = value;
-                this.SLabel.Text = value;
-            }
+            get { return this.SLabel.Text; }
+            set { this.SLabel.Text = value; }
         }
 
         /// <summary>
@@ -844,7 +872,8 @@ namespace SongsAbout.Controls
             {
                 try
                 {
-                    this._dbEntity = value;
+                    this._dbEntity = value; 
+                    this.EntityName = value.Name;
                     this.SLabel.DbEntity = value;
                     this.SPictureBox.DbEntity = value;
                 }
@@ -869,69 +898,27 @@ namespace SongsAbout.Controls
             this.SPanelSize = SPanelSize.Small;
             InitializeComponent();
             _setNewSize();
+            this.EntityName = DEFAULT_ENTITY_NAME;
         }
 
         /// <summary>
         /// Construct an empty SPanel by type
         /// </summary>
         /// <param name="panelType"></param>
-        public SPanel(SPanelType panelType = SPanelType.Image, SPanelSize panelSize = SPanelSize.Small)
+        public SPanel(string name, SPanelType panelType = SPanelType.Image, SPanelSize panelSize = SPanelSize.Small, DbEntityType type = DbEntityType.None) : this(type)
         {
+            this.EntityName = name;
             this.SPanelType = panelType;
             this.SPanelSize = panelSize;
             InitializeComponent();
+            CheckMarkIfInDatabase();
             _setNewSize();
         }
-
-        /// <summary>
-        /// Set the SPanel Image from a spotify Image
-        /// </summary>
-        /// <param name="spotifyImageBytes"></param>
-        public void SetImage(SpotifyImage spotifyImage)
+        private SPanel(DbEntityType type)//, SpotifyEntityType spotifyType)
         {
-            try
-            {
-                this.Image = spotifyImage.Get();/* Importer.ImportSpotifyImage(spotifyImage);*/
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error assignming SPanel Image: {ex.Message}");
-                this.Image = Resources.MusicNote;
-            }
-        }
+            this.DbEntityType = type;
 
-        public void SetImage(List<SpotifyImage> spotifyImages)
-        {
-            if (spotifyImages != null)
-            {
-                if (spotifyImages.Count > 0)
-                {
-                    SetImage(spotifyImages[0]);
-                }
-                else
-                {
-                    this.Image = Resources.MusicNote;
-                    Console.WriteLine($"SpotifyImage List came up empty.");
-                }
-            }
         }
-        /// <summary>
-        /// Set the SPanel Image from the downloaded bytes
-        /// </summary>
-        /// <param name="spotifyImageBytes"></param>
-        public void SetImage(byte[] spotifyImageBytes)
-        {
-            try
-            {
-                this.Image = Converter.ImageFromBytes(spotifyImageBytes);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error assignming SPanel Image: {ex.Message}");
-                this.Image = Resources.MusicNote;
-            }
-        }
-
         /// <summary>
         /// Main Constructor for SPanel
         /// </summary>
@@ -942,23 +929,22 @@ namespace SongsAbout.Controls
         /// <param name="dbtype"></param>
         /// <param name="spotifyType"></param>
         public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, SpotifyIntegralEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
-            : this(type, size)
+            : this(entityName, type, size, dbtype)
         {
-            this.EntityName = entityName;
             this.Click += clickEvent;
 
             this.SpotifyEntityType = spotifyType;
             this.DbEntityType = dbtype;
             this.SpotifyEntity = entity;
+            this.DbEntity = null;
 
         }
-        public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, DbEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this(type, size)
+        public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
+            : this(entityName, type, size, dbtype)
         {
-            this.EntityName = entityName;
             this.Click += clickEvent;
             this.SpotifyEntityType = spotifyType;
-            this.DbEntityType = dbtype;
-            this.DbEntity = entity as DbEntity;
+            this.SpotifyEntity = null;
         }
 
 
@@ -969,17 +955,10 @@ namespace SongsAbout.Controls
         /// <param name="type"></param>
         /// <param name="clickEvent"></param>
         public SPanel(DbEntity entity, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null)
-            : this(entity.Name, type, size, clickEvent, entity, entity.DbEntityType, entity.SpotifyType)
+            : this(entity.Name, type, size, clickEvent,  entity.DbEntityType, entity.SpotifyType)
         {
-            if (entity is Artist)
-            {
-                this.Image = ((Artist)entity).ProfilePic;
-            }
-            else if (entity is Album)
-            {
-                this.Image = ((Album)entity).CoverArt;
-
-            }
+            this.DbEntity = entity;
+         
         }
 
         /// <summary>
@@ -1041,6 +1020,55 @@ namespace SongsAbout.Controls
 
         #endregion
         #region Public Methods
+
+        /// <summary>
+        /// Set the SPanel Image from a spotify Image
+        /// </summary>
+        /// <param name="spotifyImageBytes"></param>
+        public void SetImage(SpotifyImage spotifyImage)
+        {
+            try
+            {
+                this.Image = spotifyImage.Get();/* Importer.ImportSpotifyImage(spotifyImage);*/
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error assignming SPanel Image: {ex.Message}");
+                this.Image = Resources.MusicNote;
+            }
+        }
+
+        public void SetImage(List<SpotifyImage> spotifyImages)
+        {
+            if (spotifyImages != null)
+            {
+                if (spotifyImages.Count > 0)
+                {
+                    SetImage(spotifyImages[0]);
+                }
+                else
+                {
+                    this.Image = Resources.MusicNote;
+                    Console.WriteLine($"SpotifyImage List came up empty.");
+                }
+            }
+        }
+        /// <summary>
+        /// Set the SPanel Image from the downloaded bytes
+        /// </summary>
+        /// <param name="spotifyImageBytes"></param>
+        public void SetImage(byte[] spotifyImageBytes)
+        {
+            try
+            {
+                this.Image = Converter.ImageFromBytes(spotifyImageBytes);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error assignming SPanel Image: {ex.Message}");
+                this.Image = Resources.MusicNote;
+            }
+        }
         public void Set(string text, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, SpotifyIntegralEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
         {
             InitializeComponent();

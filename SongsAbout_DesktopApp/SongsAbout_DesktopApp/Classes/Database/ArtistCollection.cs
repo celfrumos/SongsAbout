@@ -102,14 +102,14 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        base._all = new List<Artist>();
+                        base.CachedItems = new List<Artist>();
                         using (var db = new DataClassesContext())
                         {
-                            base._all.AddRange(from a in db.Artists
+                            base.CachedItems.AddRange(from a in db.Artists
                                                where a.ID != 0
                                                select a);
                         }
-                        return base._all;
+                        return base.CachedItems;
                     }
                     catch (Exception ex)
                     {

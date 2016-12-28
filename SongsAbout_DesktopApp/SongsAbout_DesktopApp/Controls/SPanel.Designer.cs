@@ -34,20 +34,20 @@ namespace SongsAbout.Controls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SPanel));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.SPictureBox = new SongsAbout.Controls.SPicturePox();
-            this.sPicturePox1 = new SongsAbout.Controls.SPicturePox();
             this.SLabel = new SongsAbout.Controls.SLabel();
             this.sPanelMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setGenresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pBoxCheckMark = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sPicturePox1)).BeginInit();
             this.sPanelMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxCheckMark)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -60,7 +60,7 @@ namespace SongsAbout.Controls
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.AccessibleName = "PboxPanel";
-            this.splitContainer.Panel1.Controls.Add(this.sPicturePox1);
+            this.splitContainer.Panel1.Controls.Add(this.pBoxCheckMark);
             this.splitContainer.Panel1.Controls.Add(this.SPictureBox);
             this.splitContainer.Panel1.ForeColor = System.Drawing.Color.White;
             this.splitContainer.Panel1MinSize = 20;
@@ -91,24 +91,6 @@ namespace SongsAbout.Controls
             this.SPictureBox.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
             this.SPictureBox.TabIndex = 0;
             this.SPictureBox.TabStop = false;
-            // 
-            // sPicturePox1
-            // 
-            this.sPicturePox1.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.sPicturePox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.sPicturePox1.DbEntity = null;
-            this.sPicturePox1.DbEntityType = SongsAbout.Enums.DbEntityType.None;
-            this.sPicturePox1.Dock = System.Windows.Forms.DockStyle.None;
-            this.sPicturePox1.Image = global::SongsAbout.Properties.Resources.CheckMark;
-            this.sPicturePox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("sPicturePox1.InitialImage")));
-            this.sPicturePox1.Location = new System.Drawing.Point(18, 25);
-            this.sPicturePox1.Name = "sPicturePox1";
-            this.sPicturePox1.Size = new System.Drawing.Size(28, 25);
-            this.sPicturePox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.sPicturePox1.SpotifyEntity = null;
-            this.sPicturePox1.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
-            this.sPicturePox1.TabIndex = 1;
-            this.sPicturePox1.TabStop = false;
             // 
             // SLabel
             // 
@@ -171,6 +153,19 @@ namespace SongsAbout.Controls
             this.addToListToolStripMenuItem.Text = "Add To List";
             this.addToListToolStripMenuItem.Click += new System.EventHandler(this.ctsmi_AddToList);
             // 
+            // pBoxCheckMark
+            // 
+            this.pBoxCheckMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pBoxCheckMark.BackColor = System.Drawing.Color.Transparent;
+            this.pBoxCheckMark.Image = global::SongsAbout.Properties.Resources.CheckMark;
+            this.pBoxCheckMark.Location = new System.Drawing.Point(0, 35);
+            this.pBoxCheckMark.Name = "pBoxCheckMark";
+            this.pBoxCheckMark.Size = new System.Drawing.Size(15, 15);
+            this.pBoxCheckMark.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pBoxCheckMark.TabIndex = 1;
+            this.pBoxCheckMark.TabStop = false;
+            this.pBoxCheckMark.Visible = false;
+            // 
             // SPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -190,8 +185,8 @@ namespace SongsAbout.Controls
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sPicturePox1)).EndInit();
             this.sPanelMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxCheckMark)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -206,6 +201,6 @@ namespace SongsAbout.Controls
         private System.Windows.Forms.ToolStripMenuItem setGenresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setTagsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToListToolStripMenuItem;
-        private SPicturePox sPicturePox1;
+        private System.Windows.Forms.PictureBox pBoxCheckMark;
     }
 }

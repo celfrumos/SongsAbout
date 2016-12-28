@@ -36,7 +36,7 @@
             this.BackColor = System.Drawing.SystemColors.HotTrack;
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Image = global::SongsAbout.Properties.Resources.MusicNote;
-            this.InitialImage = global::SongsAbout.Properties.Resources.MusicNote;
+            this.InitialImage = global::SongsAbout.Properties.Resources.MusicNote;            
             this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
