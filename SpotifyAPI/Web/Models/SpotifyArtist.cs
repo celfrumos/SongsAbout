@@ -11,6 +11,14 @@ namespace SpotifyAPI.Web.Models
         public override SpotifyEntityType SpotifyEntityType { get { return SpotifyEntityType.BaseArtist; } }
         public override SpotifyEntityType DbEntityType { get { return SpotifyEntityType.Artist; } }
 
+        public SpotifyFullArtist GetFullVersion(SpotifyWebAPI api)
+        {
+            if (api == null)
+                throw new SpotifyUndefinedAPIError();
+
+            return api.GetArtist(this.Id);
+        }
+
         //[JsonProperty("external_urls")]
         //public Dictionary<string, string> ExternalUrls { get; set; }
 

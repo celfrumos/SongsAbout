@@ -46,9 +46,7 @@ namespace SongsAbout.Entities
             this.Website = website;
 
         }
-        public Artist(SpotifyFullArtist artist) : this(new SpotifyArtist(artist))
-        {
-        }
+
 
         //public Artist(ISpotifyEntity artist) : this(artist.Name, artist.Uri, artist.Href)
         //{
@@ -92,11 +90,19 @@ namespace SongsAbout.Entities
             get { return this.a_profile_pic; }
             set { this.a_profile_pic = value; }
         }
+        private Image _profilePic;
         public Image ProfilePic
         {
-            get { return Converter.ImageFromBytes(this.ProfilePicBytes); }
+            get
+            {
+                if (_profilePic != null)
+                    return _profilePic;
+                else
+                    return Converter.ImageFromBytes(this.ProfilePicBytes);
+            }
             set
             {
+                _profilePic = value;
                 var newBytes = Converter.ImageToBytes(value);
                 if (newBytes != null)
                 {
@@ -149,42 +155,20 @@ namespace SongsAbout.Entities
             }
         }
 
-        /// <summary>
-        /// Initialize the member data from spotify Aritst
-        /// </summary>
-        /// <param name="artist"></param>
-        /// <exception cref="UpdateFromSpotifyError"></exception>
-        public void Update(SpotifyFullArtist artist)
+        private void UpdateProfilePic(SpotifyArtist artist)
         {
-            try
+            SpotifyFullArtist fullArtist;
+            if (artist.SpotifyEntityType == SpotifyEntityType.FullArtist)
+                fullArtist = (SpotifyFullArtist)artist;
+            else
+                fullArtist = artist.GetFullVersion(UserSpotify.WebAPI);
+
+            if (fullArtist.Images.Count > 0)
             {
-                this.Update(new SpotifyArtist(artist));
-            }
-            catch (Exception ex)
-            {
-                throw new UpdateFromSpotifyError(this.DbEntityType, SpotifyEntityType.FullArtist, artist.Name, ex.Message);
+                this.ProfilePic = fullArtist.Images[0].Get();
             }
         }
 
-        private void UpdateProfilePic(SpotifyArtist artist)
-        {
-            if (artist.Images.Count > 0)
-            {
-                byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
-                this.ProfilePicBytes = pic; //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
-                //this.ProfilePic = Converter.ImageFromBytes(pic);
-            }
-        }
-        private void UpdateProfilePic(ISpotifyFullEntity artist)
-        {
-            if (artist.Images.Count > 0)
-            {
-                byte[] pic = Importer.ImportSpotifyImageBytes(artist.Images[0]);
-                this.ProfilePicBytes = pic;
-                // this.ProfilePic = Converter.ImageFromBytes(pic);
-                //await UserSpotify.ConvertSpotifyImageToBytes(artist.Images[0]);
-            }
-        }
         public static Artist Load(Artist a)
         {
             a.Albums.ToList().ForEach(al => al = Album.Load(al));
