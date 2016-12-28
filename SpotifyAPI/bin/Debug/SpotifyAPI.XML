@@ -364,12 +364,12 @@
             </summary>
             <returns>A collection of Header KeyValue Pairs</returns>
         </member>
-        <member name="P:SpotifyAPI.Web.Models.FullTrack.IsPlayable">
+        <member name="P:SpotifyAPI.Web.Models.SpotifyFullTrack.IsPlayable">
             <summary>
             Only filled when the "market"-parameter was supplied!
             </summary>
         </member>
-        <member name="P:SpotifyAPI.Web.Models.FullTrack.LinkedFrom">
+        <member name="P:SpotifyAPI.Web.Models.SpotifyFullTrack.LinkedFrom">
             <summary>
             Only filled when the "market"-parameter was supplied!
             </summary>
@@ -387,6 +387,14 @@
             </summary>
             <param name="uri">An Spotify-URI</param>
             <param name="positions">Optional positions</param>
+        </member>
+        <member name="M:SpotifyAPI.Web.Models.SpotifyTrack.FullVersion(SpotifyAPI.Web.SpotifyWebAPI)">
+            <summary> 
+            Get the full version of this track 
+            </summary> 
+            <param name="api"></param> 
+            <returns></returns> 
+            <exception cref="T:SpotifyAPI.Web.SpotifyUndefinedAPIError"></exception> 
         </member>
         <member name="M:SpotifyAPI.Web.Models.Token.IsExpired">
             <summary>

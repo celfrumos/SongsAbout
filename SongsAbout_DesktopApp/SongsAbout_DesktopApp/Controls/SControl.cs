@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 
 using SongsAbout.Properties;
@@ -36,7 +37,7 @@ namespace SongsAbout.Controls
 
         public virtual DbEntity DbEntity { get; set; }
 
-        public virtual ISpotifyEntity SpotifyEntity { get; set; }
+        public virtual SpotifyIntegralEntity SpotifyEntity { get; set; }
 
         public virtual SpotifyEntityType SpotifyEntityType { get; set; }
 

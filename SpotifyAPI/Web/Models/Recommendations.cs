@@ -11,5 +11,6 @@ namespace SpotifyAPI.Web.Models
 
         [JsonProperty("tracks")]
         public List<SpotifyTrack> Tracks { get; set; }
+        
     }
 }
