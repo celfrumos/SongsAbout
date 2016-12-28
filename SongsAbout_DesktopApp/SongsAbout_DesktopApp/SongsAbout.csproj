@@ -472,6 +472,7 @@
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <LastGenOutput>DataClasses.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\CheckMarkBlue.png" />
     <None Include="Resources\CheckMark.png" />
     <None Include="Resources\check-mark-md.png" />
     <None Include="Resources\Spotify_Icon_White.png" />

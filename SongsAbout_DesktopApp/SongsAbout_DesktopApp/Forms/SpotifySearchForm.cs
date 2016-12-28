@@ -161,7 +161,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        private async void btnSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             try
             {
@@ -170,7 +170,6 @@ namespace SongsAbout.Forms
                     flpSpotifyControls.Controls.Clear();
                     SPanel.LargeQuery = true;
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
-                    SPanel.LargeQuery = false;
                 }
             }
             catch (Exception ex)
@@ -182,20 +181,6 @@ namespace SongsAbout.Forms
         private async void ExecuteSearch(string query, SearchType searchType, int limit = 20, int offset = 0, int retryCount = 5)
         {
             var resultsList = UserSpotify.Search(query, searchType, limit, offset, retryCount);
-
-            /*// this.albumDisplay1 = new AlbumDisplay((FAlbum)new SAlbum(resultsList.Albums.Items[0]).FullVersion());
-            //return;
-
-            //if (resultsList.Albums.Items.Count > 0)
-            //{
-            //    foreach (SpotifyAlbum album in resultsList.Albums.Items)
-            //    {
-            //        await Task.Run(() => AddToFlow(new SPanel(album, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
-            //          break;
-            //    }
-            //    flpSpotifyControls.Refresh();
-            //    return;
-            //}*/
 
             if (HaSearchType(SearchType.Artist))
             {
@@ -229,6 +214,7 @@ namespace SongsAbout.Forms
                 }
             }
 
+            SPanel.LargeQuery = false;
 
         }
 

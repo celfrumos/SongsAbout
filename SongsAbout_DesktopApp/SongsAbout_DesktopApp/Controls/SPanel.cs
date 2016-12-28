@@ -971,7 +971,7 @@ namespace SongsAbout.Controls
             CheckMarkIfInDatabase();
             _setNewSize();
         }
-        private SPanel(DbEntityType type)//, SpotifyEntityType spotifyType)
+        private SPanel(DbEntityType type) : this()//, SpotifyEntityType spotifyType)
         {
             this.DbEntityType = type;
 
@@ -1048,7 +1048,7 @@ namespace SongsAbout.Controls
         }
 
 
-        private SPanel(SPanelType type, SPanelSize size, EventHandler clickevent = null)
+        private SPanel(SPanelType type, SPanelSize size, EventHandler clickevent = null) : this()
         {
             this.SPanelType = type;
             this.SPanelSize = size;
