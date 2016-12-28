@@ -149,7 +149,7 @@ namespace SongsAbout.Controls
         public SpotifyAlbum SpotifyAlbum { get; set; }
 
         [Browsable(false)]
-        public override ISpotifyEntity SpotifyEntity
+        public override SpotifyIntegralEntity SpotifyEntity
         {
             get { return this._spotifyTrack; }
             set
@@ -159,8 +159,8 @@ namespace SongsAbout.Controls
                     if (value.SpotifyEntityType == SpotifyEntityType.FullTrack)
                     {
                         this._spotifyTrack = (SpotifyTrack)value;
-                        this.SpotifyArtist = (SpotifyArtist)_spotifyTrack.ArtistList[0];
-                        this.SpotifyAlbum = new SpotifyAlbum(Converter.GetFullAlbum(_spotifyTrack.Album));
+                        this.SpotifyArtist = (SpotifyArtist)_spotifyTrack.Artists[0];
+                        this.SpotifyAlbum = _spotifyTrack.Album;
 
 
                         if (this._spotifyTrack != null)
@@ -188,9 +188,6 @@ namespace SongsAbout.Controls
         public TrackRow(Track track) : this()
         {
             this.Track = track;
-        }
-        public TrackRow(SpotifyFullTrack track) : this(new SpotifyTrack(track))
-        {
         }
 
         public TrackRow(SpotifyTrack track) : this()
