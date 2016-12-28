@@ -24,9 +24,9 @@ namespace SongsAbout.Entities
         public int ID { get; set; }
         private int artist_id { get; set; }
         private string name { get; set; }
-        private Nullable<System.DateTime> al_year { get; set; }
         private string al_spotify_uri { get; set; }
         private byte[] al_cover_art { get; set; }
+        public Nullable<System.DateTime> al_release_date { private get; set; }
     
         private Artist privateArtist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

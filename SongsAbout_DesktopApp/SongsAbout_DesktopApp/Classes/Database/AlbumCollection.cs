@@ -113,6 +113,7 @@ namespace SongsAbout.Classes.Database
                     }
                     catch (Exception ex)
                     {
+                        var inner = ex.InnerException;
                         throw new DbException($"Error loading All Albums from database: {ex.Message}");
                     }
                 }

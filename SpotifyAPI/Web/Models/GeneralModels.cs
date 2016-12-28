@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Net;
+using System.Drawing;
 using SpotifyAPI.Web;
 
 namespace SpotifyAPI.Web.Models
@@ -24,18 +25,18 @@ namespace SpotifyAPI.Web.Models
         /// </summary>
         /// <returns></returns>
         /// <exception cref="SpotifyImageImportError"></exception>
-        public System.Drawing.Image Get()
+        public Image Get()
         {
             try
             {
                 using (var wc = new WebClient())
                 {
-                    System.Drawing.Image systemPic;
+                    Image systemPic;
                     byte[] imageBytes = wc.DownloadData(new Uri(this.Url));
-                    
+
                     using (var stream = new MemoryStream(imageBytes))
                     {
-                        systemPic = System.Drawing.Image.FromStream(stream);
+                        systemPic = Image.FromStream(stream);
                     }
                     return systemPic;
                 }
@@ -45,6 +46,26 @@ namespace SpotifyAPI.Web.Models
             {
                 throw new SpotifyImageImportError(ex.Message);
             }
+        }
+
+        public byte[] ToByteArray()
+        {
+            Image image = this.Get();
+            byte[] array;
+            using (var stream = new MemoryStream())
+            {
+                image.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+                array = stream.ToArray();
+            }
+            return array;
+        }
+        static public implicit operator byte[] (SpotifyImage image)
+        {
+            return image.ToByteArray();
+        }
+        static public implicit operator Image(SpotifyImage spotifyImage)
+        {
+            return spotifyImage.Get();
         }
     }
 

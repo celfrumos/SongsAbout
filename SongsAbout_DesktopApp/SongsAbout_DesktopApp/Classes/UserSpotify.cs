@@ -150,20 +150,22 @@ namespace SongsAbout.Classes
 
 
         }
-        public static SearchItem Search(string query, SearchType searchType, int retryCount = 5, int limit = 20, int offset = 0)
+        public static SearchItem Search(string query, SearchType searchType, int limit = 20, int offset = 0, int retryCount = 5)
         {
+            limit = limit < 1 ? 1 : limit;
+            retryCount = retryCount < 1 ? 1 : retryCount;
             try
             {
                 if (UserSpotify.WebAPI == null)
                 {
-                    UserSpotify.Authenticate();
+                    Authenticate();
                     while (UserSpotify.WebAPI == null)
                     {
                         Thread.Sleep(1);
                     }
                 }
                 Thread.Sleep(5);
-                bool failed = true;
+                bool succeeded = false;
                 SearchItem resultsList = new SearchItem();
                 int attempts = 0;
                 do
@@ -171,19 +173,22 @@ namespace SongsAbout.Classes
                     try
                     {
                         resultsList = UserSpotify.WebAPI.SearchItems(query, searchType, limit, offset);
-                        failed = false;
+
+                        succeeded = !resultsList.HasError(); 
+                        
                     }
                     catch (Exception)
                     {
-                        failed = true;
+                        succeeded = false;
                     }
                     finally
                     {
                         attempts++;
                     }
-                } while (failed && attempts < retryCount);
 
-                Console.WriteLine($"Search Attempted {attempts} times. Failed = {failed}");
+                } while (!succeeded && attempts < retryCount);
+
+                Console.WriteLine($"Search Attempted {attempts} times. Succeeded = {succeeded}");
                 return resultsList;
             }
             catch (Exception ex)

@@ -38,21 +38,21 @@ namespace SongsAbout.Entities
             get { return this.name; }
             set { this.name = value; }
         }
-
+        
         public DateTime? ReleaseDate
         {
-            get { return this.al_year; }
-            set { this.al_year = value; }
+            get { return this.al_release_date; }
+            set { this.al_release_date = value; }
         }
         public string Year
         {
-            get { return this.al_year.Value.Year.ToString(); }
+            get { return this.al_release_date.Value.Year.ToString(); }
             set
             {
                 var date = new DateTime();
                 if (DateTime.TryParse(value, out date))
                 {
-                    this.al_year = date;
+                    this.al_release_date = date;
                 }
                 //else
                 //{
@@ -253,8 +253,9 @@ namespace SongsAbout.Entities
             {
                 this.UpdateArtist(album.Artists[0]);
             }
-            this.Year = null;
-            // this.al_year = album.ReleaseDate;
+            // var s = DateTime.Parse( album.ReleaseDate).Date;
+            // this.Year = null;
+            this.ReleaseDate = album.ReleaseDate;
             this.SetGenres(album.Genres);
             this.UpdateCoverArt(album);
         }

@@ -788,10 +788,13 @@ namespace SongsAbout.Controls
             set
             {
                 this._entityName = value;
-                this.EntityName = value;
+                this.SpotifyLabel.Text = value;
             }
         }
 
+        /// <summary>
+        /// Holds a copy of the DbEntity this SPanel represents, if any
+        /// </summary>
         public DbEntity DbEntity
         {
             get { return this._dbEntity; }
@@ -810,10 +813,6 @@ namespace SongsAbout.Controls
             }
         }
 
-
-        /// <summary>
-        /// Holds a copy of the DbEntity this SPanel represents, if any
-        /// </summary>
 
 
         #endregion
@@ -846,11 +845,11 @@ namespace SongsAbout.Controls
         /// Set the SPanel Image from a spotify Image
         /// </summary>
         /// <param name="spotifyImageBytes"></param>
-        public void SetImage(SpotifyAPI.Web.Models.SpotifyImage spotifyImage)
+        public void SetImage(SpotifyImage spotifyImage)
         {
             try
             {
-                this.Image = Importer.ImportSpotifyImage(spotifyImage);
+                this.Image = spotifyImage.Get();/* Importer.ImportSpotifyImage(spotifyImage);*/
             }
             catch (Exception ex)
             {
@@ -859,7 +858,7 @@ namespace SongsAbout.Controls
             }
         }
 
-        public void SetImage(List<SpotifyAPI.Web.Models.SpotifyImage> spotifyImages)
+        public void SetImage(List<SpotifyImage> spotifyImages)
         {
             if (spotifyImages != null)
             {
@@ -900,7 +899,8 @@ namespace SongsAbout.Controls
         /// <param name="tag"></param>
         /// <param name="dbtype"></param>
         /// <param name="spotifyType"></param>
-        public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, SpotifyIntegralEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None) : this(type, size)
+        public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, SpotifyIntegralEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
+            : this(type, size)
         {
             this.EntityName = entityName;
             this.Click += clickEvent;
@@ -983,29 +983,20 @@ namespace SongsAbout.Controls
         public SPanel(SpotifyIntegralEntity spotifyEntity, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null)
             : this(spotifyEntity.Name, type, size, clickEvent, spotifyEntity, (DbEntityType)spotifyEntity.DbEntityType, spotifyEntity.SpotifyEntityType)
         {
-            this.SpotifyEntity = spotifyEntity;
+            //this.SpotifyEntity = spotifyEntity;
             SetImage(spotifyEntity);
         }
 
         private void SetImage(SpotifyIntegralEntity spotifyEntity)
         {
-            
-            if ((DbEntityType)spotifyEntity.DbEntityType != DbEntityType.Track)
+
+            if (spotifyEntity.CanHaveImages)
             {
-                List<SpotifyAPI.Web.Models.SpotifyImage> images;
-                if (spotifyEntity is ISpotifyFullEntity)
-                {
-                    images = ((ISpotifyFullEntity)spotifyEntity).Images;
-                    SetImage(images);
-                }
-                else if (spotifyEntity is ISpotifySimpleEntity)
-                {
-                    images = ((ISpotifySimpleEntity)spotifyEntity).FullVersion().Images;
-                    SetImage(images);
-                }
+                SetImage(((ISpotifyImageList)spotifyEntity).Images);
             }
+
         }
-            
+
         #endregion
         #region Public Methods
         public void Set(string text, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, SpotifyIntegralEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)

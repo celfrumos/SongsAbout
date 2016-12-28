@@ -12,7 +12,7 @@ namespace SpotifyAPI.Web.Models
 
         [JsonProperty("artists")]
         public List<SpotifyArtist> Artists { get; set; }
-        
+
         [JsonProperty("copyrights")]
         public List<Copyright> Copyrights { get; set; }
 
@@ -26,7 +26,11 @@ namespace SpotifyAPI.Web.Models
         public int Popularity { get; set; }
 
         [JsonProperty("release_date")]
-        public string ReleaseDate { get; set; }
+        public DateTime ReleaseDate
+        {
+            get;
+            set;
+        }
 
         [JsonProperty("release_date_precision")]
         public string ReleaseDatePrecision { get; set; }

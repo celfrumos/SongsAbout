@@ -15,10 +15,10 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout.Controls
 {
-    [Docking(DockingBehavior.Ask)]    
+    [Docking(DockingBehavior.Ask)]
     public partial class SPicturePox : PictureBox, IEntityControl
     {
-       [DefaultValue(DockStyle.Fill)]
+        [DefaultValue(DockStyle.Fill)]
         public override DockStyle Dock
         {
             get { return base.Dock; }
@@ -32,7 +32,7 @@ namespace SongsAbout.Controls
         }
         public SPicturePox(SpotifyIntegralEntity entity)
         {
-            
+
 
         }
         private EventHandler ClickEvent { set { this.Click += value; } }
@@ -123,7 +123,7 @@ namespace SongsAbout.Controls
             {
                 if (images.Count > 0)
                 {
-                    Image i = Importer.ImportSpotifyImage(images[0]);
+                    Image i = images[0];
                     if (i != null)
                     {
                         this.Image = i;

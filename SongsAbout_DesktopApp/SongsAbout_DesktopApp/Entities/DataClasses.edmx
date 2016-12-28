@@ -20,7 +20,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="artist_id" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="al_year" Type="date" />
+          <Property Name="al_release_date" Type="date" />
           <Property Name="al_spotify_uri" Type="nvarchar" MaxLength="255" />
           <Property Name="al_cover_art" Type="image" />
         </EntityType>
@@ -410,12 +410,12 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
           <Property Name="artist_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="al_year" Type="DateTime" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Precision="0" />
           <Property Name="al_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="al_cover_art" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateArtist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateTracks" Relationship="DataClasses.FK_Album_Tracks" FromRole="Album" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateGenres" Relationship="DataClasses.AlbumGenres" FromRole="Album" ToRole="Genre" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="al_release_date" Type="DateTime" Precision="0" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <EntityType Name="Artist">
           <Key>
@@ -608,10 +608,10 @@
           <EntitySetMapping Name="Albums">
             <EntityTypeMapping TypeName="DataClasses.Album">
               <MappingFragment StoreEntitySet="Albums">
+                <ScalarProperty Name="al_release_date" ColumnName="al_release_date" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="artist_id" ColumnName="artist_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="al_year" ColumnName="al_year" />
                 <ScalarProperty Name="al_spotify_uri" ColumnName="al_spotify_uri" />
                 <ScalarProperty Name="al_cover_art" ColumnName="al_cover_art" />
               </MappingFragment>

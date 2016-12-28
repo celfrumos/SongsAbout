@@ -14,29 +14,20 @@ using SongsAbout.Enums;
 
 namespace SongsAbout.Forms
 {
-    public enum SSearchType
-    {
-        Artist = SearchType.Artist,
-        Album = SearchType.Album,
-        Track = SearchType.Track,
-        Playlist = SearchType.Playlist,
-        All = Artist | Album | Track | Playlist
 
-
-    }
     public partial class SpotifySearchForm : SForm
     {
-        private SSearchType _searchType;
+        private SearchType _searchType;
 
         public SpotifySearchForm()
         {
             InitializeComponent();
-            _searchType = SSearchType.All;
-            cboxAlbums.Tag = SSearchType.Album;
-            cboxAll.Tag = SSearchType.All;
-            cboxArtists.Tag = SSearchType.Artist;
-            cboxPlaylists.Tag = SSearchType.Playlist;
-            cboxTracks.Tag = SSearchType.Track;
+            _searchType = SearchType.All;
+            cboxAlbums.Tag = SearchType.Album;
+            cboxAll.Tag = SearchType.All;
+            cboxArtists.Tag = SearchType.Artist;
+            cboxPlaylists.Tag = SearchType.Playlist;
+            cboxTracks.Tag = SearchType.Track;
 
         }
 
@@ -51,6 +42,10 @@ namespace SongsAbout.Forms
                 var spotify = control.SpotifyEntity;
                 var entity = control.DbEntity;
                 var imported = control.ImportEntity();
+                if (imported)
+                {
+                    MessageBox.Show($"Successfully Imported {control.DbEntityType}", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
@@ -66,19 +61,19 @@ namespace SongsAbout.Forms
                 switch (objTag)
                 {
                     case "Playlists":
-                        _searchType = SSearchType.Playlist;
+                        _searchType = SearchType.Playlist;
                         break;
                     case "Artists":
-                        _searchType = SSearchType.Artist;
+                        _searchType = SearchType.Artist;
                         break;
                     case "Albums":
-                        _searchType = SSearchType.Album;
+                        _searchType = SearchType.Album;
                         break;
                     case "Tracks":
-                        _searchType = SSearchType.Track;
+                        _searchType = SearchType.Track;
                         break;
                     default:
-                        _searchType = SSearchType.All;
+                        _searchType = SearchType.All;
                         break;
                 }
 
@@ -182,40 +177,40 @@ namespace SongsAbout.Forms
             }
         }
 
-        private async void ExecuteSearch(string query, SSearchType searchType, int limit = 20, int offset = 0)
+        private async void ExecuteSearch(string query, SearchType searchType, int limit = 20, int offset = 0, int retryCount = 5)
         {
-            var resultsList = UserSpotify.Search(query, (SearchType)searchType, limit, offset);
+            var resultsList = UserSpotify.Search(query, searchType, limit, offset, retryCount);
 
-            // this.albumDisplay1 = new AlbumDisplay((FAlbum)new SAlbum(resultsList.Albums.Items[0]).FullVersion());
+            /*// this.albumDisplay1 = new AlbumDisplay((FAlbum)new SAlbum(resultsList.Albums.Items[0]).FullVersion());
             //return;
 
             //if (resultsList.Albums.Items.Count > 0)
             //{
-            //    foreach (var album in resultsList.Albums.Items)
+            //    foreach (SpotifyAlbum album in resultsList.Albums.Items)
             //    {
-            //        await Task.Run(() => AddToFlow(new SPanel(new SAlbum(album), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
-            //        //  break;
+            //        await Task.Run(() => AddToFlow(new SPanel(album, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
+            //          break;
             //    }
             //    flpSpotifyControls.Refresh();
             //    return;
-            //}
+            //}*/
 
-            //if (HasSearchType(SSearchType.Artist))
-            //{
-            //    foreach (FullArtist a in resultsList.Artists.Items)
-            //    {
-            //        AddToFlow(new SPanel(new FArtist(a), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+            if (HaSearchType(SearchType.Artist))
+            {
+                foreach (SpotifyArtist a in resultsList.Artists.Items)
+                {
+                    AddToFlow(new SPanel(a, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
 
-            //    }
-            //}
-            //if (HasSearchType(SSearchType.Album))
-            //{
-            //    foreach (var al in resultsList.Albums.Items)
-            //    {
-            //        AddToFlow(new SPanel(new SAlbum(al), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
-            //    }
-            //}
-            if (HasSearchType(SSearchType.Track))
+                }
+            }
+            if (HaSearchType(SearchType.Album))
+            {
+                foreach (var al in resultsList.Albums.Items)
+                {
+                    await Task.Run(() => AddToFlow(new SPanel(al, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click)));
+                }
+            }
+            if (HaSearchType(SearchType.Track))
             {
                 foreach (var t in resultsList.Tracks.Items)
                 {
@@ -224,11 +219,11 @@ namespace SongsAbout.Forms
                     return;
                 }
             }
-            if (HasSearchType(SSearchType.Playlist))
+            if (HaSearchType(SearchType.Playlist))
             {
                 foreach (var p in resultsList.Playlists.Items)
                 {
-                    // AddToFlow(new SPanel(new SPlaylist(p), SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
+                    AddToFlow(new SPanel(p, SPanelType.Image, SPanelSize.Small, SpotifyPanel_Click));
                 }
             }
 
@@ -239,20 +234,17 @@ namespace SongsAbout.Forms
         {
             try
             {
+                if (flpSpotifyControls.InvokeRequired)
                 {
-                    if (flpSpotifyControls.InvokeRequired)
+
+                    flpSpotifyControls.Invoke(new MethodInvoker(delegate
                     {
-                        flpSpotifyControls.Invoke(new MethodInvoker(delegate
-                        {
-                            flpSpotifyControls.Controls.Add((Control)panel);
-                            flpSpotifyControls.Refresh();
-                        }));
-                    }
-                    else
-                    {
-                        flpSpotifyControls.Controls.Add((Control)panel);
-                        flpSpotifyControls.Refresh();
-                    }
+                        AddToFlow(panel);
+                    }));
+                }
+                else {
+                    flpSpotifyControls.Controls.Add((Control)panel);
+                    flpSpotifyControls.Refresh();
                 }
             }
             catch (Exception ex)
@@ -260,21 +252,50 @@ namespace SongsAbout.Forms
                 Console.WriteLine(ex.Message);
             }
         }
-        private bool HasSearchType(SSearchType targetType)
+        private void AddToFlow(SPanel panel)
+        {
+            try
+            {
+                if (flpSpotifyControls.InvokeRequired)
+                {
+
+                    flpSpotifyControls.Invoke(new MethodInvoker(delegate
+                    {
+                        AddToFlow(panel);
+                    }));
+                }
+                else
+                {
+                    panel.ContextMenuStrip = this.contxtMnuStrpEntity;
+                    // panel.ContextMenuStrip.Tag = panel;
+                    foreach (ToolStripMenuItem item in panel.ContextMenuStrip.Items)
+                    {
+                        item.Tag = panel;
+                    }
+                    flpSpotifyControls.Controls.Add(panel);
+                    flpSpotifyControls.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        private bool HaSearchType(SearchType targetType)
         {
             return (_searchType & targetType) == targetType;
         }
-        private SSearchType ToggleSearchType(SSearchType targetType)
+        private SearchType ToggleSearchType(SearchType targetType)
         {
-            return (SSearchType)Flag.Spotify.Search.ToggleFlag((SearchType)_searchType, (SearchType)targetType);
+            return Flag.Spotify.Search.ToggleFlag(_searchType, targetType);
         }
 
-        public SSearchType SetSearchType(SSearchType targetType)
+        public SearchType SetSearchType(SearchType targetType)
         {
             return _searchType | targetType;
         }
 
-        public SSearchType UnsetSearchType(SSearchType targetFlag)
+        public SearchType UnsetSearchType(SearchType targetFlag)
         {
             return _searchType & (~targetFlag);
         }
@@ -308,7 +329,7 @@ namespace SongsAbout.Forms
         private void cboxAll_CheckedChanged(object sender, EventArgs e)
         {
             var cBox = sender as CheckBox;
-            _searchType = SSearchType.All;
+            _searchType = SearchType.All;
             if (cBox.Checked)
             {
                 foreach (CheckBox item in pnlSearchType.Controls)
@@ -328,10 +349,43 @@ namespace SongsAbout.Forms
                 if (cBox.Checked)
                 {
                     cboxAll.Checked = false;
-                    _searchType = UnsetSearchType(SSearchType.All);
+                    _searchType = UnsetSearchType(SearchType.All);
                 }
             }
-            _searchType = ToggleSearchType((SSearchType)cBox.Tag);
+            _searchType = ToggleSearchType((SearchType)cBox.Tag);
+        }
+
+        private void ctsmi_Import(object sender, EventArgs e)
+        {
+            var menu = sender as ToolStripMenuItem;
+            var type = sender.GetType();
+
+            var control = (SPanel)menu.Tag;
+            bool succeeded = control.ImportEntity();
+            if (succeeded)
+            {
+                MessageBox.Show($"Successfully imported {control.DbEntityType} '{control.Text}' into database");
+            }
+            else
+            {
+                MessageBox.Show($"{control.DbEntityType} '{control.Text}' not imported.");
+            }
+
+        }
+
+        private void ctsmi_SetGenres(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ctsmi_SetTags(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ctsmi_AddToList(object sender, EventArgs e)
+        {
+
         }
     }
 }

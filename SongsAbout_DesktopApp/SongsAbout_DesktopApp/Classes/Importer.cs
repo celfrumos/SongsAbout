@@ -197,13 +197,13 @@ namespace SongsAbout.Classes
             var name = spotifyEntity.Name;
             var spotifyEntityType = spotifyEntity.SpotifyEntityType;
             var dbType = spotifyEntity.DbEntityType;
-            DbEntityType actualDbType = DbEntityType.None;
+           // DbEntityType actualDbType = DbEntityType.None;
             try
             {
                 switch (dbType)
                 {
                     case SpotifyEntityType.Artist:
-                        actualDbType = DbEntityType.Artist;
+                       // actualDbType = DbEntityType.Artist;
                         if (!Program.Database.Artists.Contains(name))
                         {
                             Program.Database.Artists[spotifyEntity.Name] = new Artist((SpotifyArtist)spotifyEntity);
@@ -211,24 +211,29 @@ namespace SongsAbout.Classes
                         }
                         break;
                     case SpotifyEntityType.Album:
-                        actualDbType = DbEntityType.Album;
-                        if (!Program.Database.Albums.Contains(name))
+                        // actualDbType = DbEntityType.Album;
+                        Album a = Program.Database.Albums[name];
+                        if (a == null)
                         {
-                            var a = new Album((SpotifyAlbum)spotifyEntity);
-                            a.Save();
+                            a = new Album((SpotifyAlbum)spotifyEntity);
+                            Program.Database.Albums.Add(a);
+                            //a.Save();
                             return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Album named {name} already in database.");
+                            return true; 
                         }
                         break;
                     case SpotifyEntityType.Track:
-                        actualDbType = DbEntityType.Track;
+                       // actualDbType = DbEntityType.Track;
                         if (!Program.Database.Tracks.Contains(name))
                         {
                             var t = new Track((SpotifyTrack)spotifyEntity);
                             t.Save();
                             return true;
                         }
-                        break;
-                    default:
                         break;
                 }
                 return false;
@@ -240,33 +245,34 @@ namespace SongsAbout.Classes
         }
 
 
-        public static Image ImportSpotifyImage(SpotifyAPI.Web.Models.SpotifyImage pic)
-        {
-            if (User.Default.PrivateProfile != null)
-            {
-                try
-                {
-                    using (WebClient wc = new WebClient())
-                    {
-                        Image systemPic;
-                        byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
+        //public static Image ImportSpotifyImage(SpotifyAPI.Web.Models.SpotifyImage pic)
+        //{
+        //    if (User.Default.PrivateProfile != null)
+        //    {
+        //        try
+        //        {
+        //            using (WebClient wc = new WebClient())
+        //            {
+        //                var s = new SpotifyImage();
+        //                Image systemPic;
+        //                byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
 
-                        systemPic = Converter.ImageFromBytes(imageBytes);
+        //                systemPic = Converter.ImageFromBytes(imageBytes);
 
-                        return systemPic;
-                    }
+        //                return systemPic;
+        //            }
 
-                }
-                catch (Exception ex)
-                {
-                    throw new SpotifyImageImportError(ex.Message);
-                }
-            }
-            else
-            {
-                throw new SpotifyUndefinedProfileError();
-            }
-        }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw new SpotifyImageImportError(ex.Message);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        throw new SpotifyUndefinedProfileError();
+        //    }
+        //}
 
 
         /// <summary>

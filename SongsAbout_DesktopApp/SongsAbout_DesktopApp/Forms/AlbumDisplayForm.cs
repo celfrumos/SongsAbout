@@ -92,7 +92,7 @@ namespace SongsAbout.Forms
 
                 try
                 {
-                    this.sPicturePox1.Image = Importer.ImportSpotifyImage(album.Images[0]);
+                    this.sPicturePox1.Image = album.Images[0];
 
                 }
                 catch (Exception ex)
