@@ -90,7 +90,7 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        base.CachedItems = new List<Track>();
+                        this.Items = new List<Track>();
                         using (var db = new DataClassesContext())
                         {
                             base.CachedItems.AddRange(from a in db.Tracks
@@ -103,6 +103,10 @@ namespace SongsAbout.Classes.Database
                     {
                         throw new DbException($"Error loading All Tracks from database: {ex.Message}");
                     }
+                }
+                protected set
+                {
+                    this.CachedItems = value;
                 }
             }
             /// <summary>

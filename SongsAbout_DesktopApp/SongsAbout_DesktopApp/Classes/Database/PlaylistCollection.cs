@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
@@ -41,22 +42,17 @@ namespace SongsAbout.Classes.Database
             {
                 get
                 {
-                    try
+                    using (var db = new DataClassesContext())
                     {
-                        base.CachedItems = new List<Playlist>();
-                        using (var db = new DataClassesContext())
-                        {
-                            base.CachedItems.AddRange(from a in db.Playlists
-                                               select a);
-                        }
-                        return base.CachedItems;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new DbException($"Error loading All Genres from database: {ex.Message}");
+                        return GetItems(db.Playlists);
                     }
                 }
+                protected set
+                {
+                    this.CachedItems = value;
+                }
             }
+
 
             /// <summary>
             /// Submit Changes to the Database

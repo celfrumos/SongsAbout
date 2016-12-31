@@ -54,6 +54,10 @@ namespace SongsAbout.Classes.Database
                         throw new DbException($"Error loading All Genres from database: {ex.Message}");
                     }
                 }
+                protected set
+                {
+                    this.CachedItems = value;
+                }
             }
 
             /// <summary>

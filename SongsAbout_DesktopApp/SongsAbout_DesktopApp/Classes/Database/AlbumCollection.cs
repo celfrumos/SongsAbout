@@ -8,6 +8,7 @@ using SongsAbout;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
 using System.Collections;
+using System.Data.Entity;
 
 namespace SongsAbout.Classes.Database
 {
@@ -104,20 +105,20 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        this.CachedItems = new List<Album>();
                         using (var db = new DataClassesContext())
                         {
-                            this.CachedItems.AddRange(from a in db.Albums
-                                                      where a.ID != 0
-                                                      select a);
+                            return GetItems((DbSet<Album>)(db.Albums.Where(a => a.ID != 0)));
                         }
-                        return this.CachedItems;
                     }
                     catch (Exception ex)
                     {
                         var inner = ex.InnerException;
                         throw new DbException($"Error loading All Albums from database: {ex.Message}");
                     }
+                }
+                protected set
+                {
+                    this.CachedItems = value;
                 }
             }
 

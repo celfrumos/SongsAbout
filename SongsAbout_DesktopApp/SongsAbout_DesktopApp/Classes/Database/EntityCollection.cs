@@ -5,12 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Data;
+using SongsAbout.Enums;
+using SongsAbout.Entities;
 using System.Data.Entity.Infrastructure;
 using System.Text;
 using System.Data;
 using SongsAbout.Enums;
 using SongsAbout.Entities;
 using System.Collections;
+using System.Data.Entity;
 
 namespace SongsAbout.Classes.Database
 {
@@ -30,8 +37,24 @@ namespace SongsAbout.Classes.Database
                         $"An attempt was made to initialize entity container {childname} when the program database had not been initialized");
                 }
             }
-            public virtual List<T> CachedItems { get; set; }
-            public abstract List<T> Items { get; }
+
+            protected List<T> GetItems(DbSet<T> table)
+            {
+                try
+                {
+                    CachedItems.AddRange(from row in table
+                                         select row);
+                    return CachedItems;
+
+                }
+                catch (Exception ex)
+                {
+                    throw new DbException($"Error loading All Genres from database: {ex.Message}");
+                }
+            }
+            public virtual List<T> CachedItems { get; protected set; }
+
+            public abstract List<T> Items { get; protected set; }
             public virtual List<string> CachedNames
             {
                 get
