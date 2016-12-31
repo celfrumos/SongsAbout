@@ -13,6 +13,7 @@ namespace SpotifyAPI.Web
     public class SpotifyException : SpotifyWebApiException
     {
         private const string defMsg = "An unknown Spotify Error has occurred";
+        public SpotifyEntityType SpotifyEntityType { get; protected set; }
         public override string Message
         {
             get { return $"SpotifyException: {GetType()}: {base.Message}"; }
@@ -62,6 +63,7 @@ namespace SpotifyAPI.Web
         }
         public SpotifyAuthError(string msg = defMsg) : base(msg)
         {
+            this.SpotifyEntityType = SpotifyEntityType.None;
         }
 
     }
@@ -70,12 +72,19 @@ namespace SpotifyAPI.Web
         private const string defMsg = "Spotify entity not imported correctly.";
         public override string Message
         {
-            get { return $"Error importing from the API: {base.Message}"; }
+            get { return $"Error importing {this.SpotifyEntityType} from the API: {base.Message}"; }
         }
         public SpotifyImportError(string msg = defMsg) : base(msg)
         {
         }
+        public SpotifyImportError(SpotifyEntityType spotifyType, string msg = defMsg) : base(msg)
+        {
+            this.SpotifyEntityType = spotifyType;
+        }
+
     }
+
+    [Obsolete("Use Non-Generic SpotifyImportError.")]
     public class SpotifyImportError<SpotifyType> : SpotifyImportError
     {
         private const string defMsg = "Spotify entity not imported correctly.";
@@ -104,11 +113,12 @@ namespace SpotifyAPI.Web
         {
             this.FromType = fromType;
             this.ToType = toType;
+            this.SpotifyEntityType = fromType | toType;
         }
 
     }
 
-    public class SpotifyImageImportError : SpotifyImportError<SpotifyAPI.Web.Models.SpotifyImage>
+    public class SpotifyImageImportError : SpotifyException
     {
         private const string defMsg = "Unknown image import error.";
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using SongsAbout.Enums;
 using SongsAbout.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SongsAbout.Classes.Database
 {
@@ -20,6 +21,7 @@ namespace SongsAbout.Classes.Database
         private TrackCollection _tracks;
         private GenreCollection _genres;
         private PlaylistCollection _playlists;
+        private TagCollection _tags;
         /// <summary>
         /// Single use Constructor at Program Start
         /// </summary>
@@ -41,14 +43,16 @@ namespace SongsAbout.Classes.Database
                 _tracks = new TrackCollection();
                 _genres = new GenreCollection();
                 _playlists = new PlaylistCollection();
+                _tags = new TagCollection();
             }
         }
-        
+
         public GenreCollection Genres { get { return _genres; } }
         public TrackCollection Tracks { get { return _tracks; } }
         public AlbumCollection Albums { get { return _albums; } }
         public ArtistCollection Artists { get { return _artists; } }
         public PlaylistCollection Playlists { get { return _playlists; } }
+        public TagCollection Tags { get { return _tags; } }
 
     }
 }

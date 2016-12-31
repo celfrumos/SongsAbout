@@ -54,13 +54,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                if (!Program.Database.Artists.Contains(artist.Name))
-                {
-                    Artist a = new Artist(artist);
-                    //a.Update(artist);
-                    //a.Save();
-                    Program.Database.Artists.Add(a);
-                }
+                Program.Database.Artists.Add(new Artist(artist));
             }
             catch (Exception ex)
             {
@@ -89,46 +83,6 @@ namespace SongsAbout.Classes
             Console.WriteLine("Finished importing Saved Playlists.");
         }
 
-        ///// <summary>
-        ///// Import the Given Spotify Track into the Database
-        ///// </summary>
-        ///// <param name="track"></param>
-        ///// <exception cref="SaveError"></exception>
-        ///// <exception cref="SpotifyImportError"></exception>
-        //public static void ImportTrack(SpotifyTrack track)
-        //{
-        //    try
-        //    {
-        //        ImportTrack(track);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Import the Given Spotify Track into the Database
-        ///// </summary>
-        ///// <param name="track"></param>
-        ///// <exception cref="SaveError"></exception>
-        ///// <exception cref="SpotifyImportError"></exception>
-        //public static void ImportTrack(SpotifyFullTrack track)
-        //{
-        //    ImportTrack(new SpotifyTrack(track));
-        //}
-
-        ///// <summary>
-        ///// Import the Given Spotify Track into the Database
-        ///// </summary>
-        ///// <param name="track"></param>
-        ///// <exception cref="SaveError"></exception>
-        ///// <exception cref="SpotifyImportError"></exception>
-        //public static void ImportTrack(ISpotifyFullEntity track)
-        //{
-        //    ImportTrack((SpotifyTrack)track);
-        //}
-
         /// <summary>
         /// Import the Given Spotify Track into the Database
         /// </summary>
@@ -139,14 +93,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                if (!Track.Exists(track.Name))
-                {
-                    Program.Database.Tracks[track.Name] = new Track(track);
-                }
-                else
-                {
-                    Console.WriteLine($"Track '{track.Name}' already exists");
-                }
+                Program.Database.Tracks.Add(new Track(track));
             }
             catch (SaveError)
             {
@@ -157,39 +104,6 @@ namespace SongsAbout.Classes
                 throw new SpotifyImportError(ex.Message);
             }
         }
-        //public static bool ImportFromSpotify(ISpotifyEntity spotifyEntity, DbEntityType dbType, SpotifyEntityType spotifyEntityType)
-        //{
-        //    var name = spotifyEntity.Name;
-
-        //    switch (dbType)
-        //    {
-        //        case DbEntityType.Artist:
-        //            if (!Program.Database.Artists.Contains(name))
-        //            {
-        //                var a = new Artist((SpotifyArtist)spotifyEntity);
-        //                a.Save();
-        //                return true;
-        //            }
-        //            break;
-        //        case DbEntityType.Album:
-        //            if (!Program.Database.Albums.Contains(name))
-        //            {
-        //                var a = new Album((SpotifyAlbum)spotifyEntity);
-        //                a.Save();
-        //            }
-        //            break;
-        //        case DbEntityType.Track:
-        //            if (!Program.Database.Tracks.Contains(name))
-        //            {
-        //                var t = new Track((SpotifyTrack)spotifyEntity);
-        //                t.Save();
-        //            }
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    return false;
-        //}
 
 
         public static bool ImportFromSpotify(SpotifyIntegralEntity spotifyEntity)
@@ -197,44 +111,21 @@ namespace SongsAbout.Classes
             var name = spotifyEntity.Name;
             var spotifyEntityType = spotifyEntity.SpotifyEntityType;
             var dbType = spotifyEntity.DbEntityType;
-           // DbEntityType actualDbType = DbEntityType.None;
+            // DbEntityType actualDbType = DbEntityType.None;
             try
             {
                 switch (dbType)
                 {
                     case SpotifyEntityType.Artist:
-                       // actualDbType = DbEntityType.Artist;
-                        if (!Program.Database.Artists.Contains(name))
-                        {
-                            Program.Database.Artists[spotifyEntity.Name] = new Artist((SpotifyArtist)spotifyEntity);
-                            return true;
-                        }
-                        break;
+                        ImportArtist((SpotifyArtist)spotifyEntity);
+
+                        return true;
                     case SpotifyEntityType.Album:
-                        // actualDbType = DbEntityType.Album;
-                        Album a = Program.Database.Albums[name];
-                        if (a == null)
-                        {
-                            a = new Album((SpotifyAlbum)spotifyEntity);
-                            Program.Database.Albums.Add(a);
-                            //a.Save();
-                            return true;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Album named {name} already in database.");
-                            return true; 
-                        }
-                        break;
+                        Program.Database.Albums.Add(new Album((SpotifyAlbum)spotifyEntity));
+                        return true;
                     case SpotifyEntityType.Track:
-                       // actualDbType = DbEntityType.Track;
-                        if (!Program.Database.Tracks.Contains(name))
-                        {
-                            var t = new Track((SpotifyTrack)spotifyEntity);
-                            t.Save();
-                            return true;
-                        }
-                        break;
+                        Program.Database.Tracks.Add(new Track((SpotifyTrack)spotifyEntity));
+                        return true;
                 }
                 return false;
             }
@@ -245,66 +136,6 @@ namespace SongsAbout.Classes
         }
 
 
-        //public static Image ImportSpotifyImage(SpotifyAPI.Web.Models.SpotifyImage pic)
-        //{
-        //    if (User.Default.PrivateProfile != null)
-        //    {
-        //        try
-        //        {
-        //            using (WebClient wc = new WebClient())
-        //            {
-        //                var s = new SpotifyImage();
-        //                Image systemPic;
-        //                byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
-
-        //                systemPic = Converter.ImageFromBytes(imageBytes);
-
-        //                return systemPic;
-        //            }
-
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw new SpotifyImageImportError(ex.Message);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        throw new SpotifyUndefinedProfileError();
-        //    }
-        //}
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pic"></param>
-        /// <returns></returns>
-        /// <exception cref="SpotifyUndefinedAPIError"></exception>
-        /// <exception cref="ConversionError"></exception>
-        public static byte[] ImportSpotifyImageBytes(SpotifyAPI.Web.Models.SpotifyImage pic)
-        {
-            if (UserSpotify.WebAPI != null)
-            {
-                try
-                {
-                    WebClient wc = new WebClient();
-                    //TODO: test out non-async downloading
-                    byte[] imageBytes = wc.DownloadData(new Uri(pic.Url));
-
-                    return imageBytes;
-
-                }
-                catch (Exception ex)
-                {
-                    throw new ConversionError("SpotifyImage", "byte[]", $"Error getting profile photo: {ex.Message}");
-                }
-            }
-            else
-            {
-                throw new SpotifyUndefinedAPIError();
-            }
-        }
 
         /// <summary>
         /// Import All Saved Tracks into the datbase
@@ -362,39 +193,27 @@ namespace SongsAbout.Classes
             }
         }
 
-        public static void ImportAlbum(SpotifyFullAlbum album)
+        public static void ImportAlbum(SpotifyFullAlbum album, bool importTracks = false)
         {
             try
             {
-                Album a = new Album();
-                if (!Album.Exists(album.Name))
-                {
-                    a.Update(album);
-                    a.Save();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw new Exception(ex.Message);
-            }
-        }
+                Album a = Program.Database.Albums[album.Name];
 
-        public static void ImportEntireAlbum(SpotifyFullAlbum album)
-        {
-            try
-            {
-                Album a;
-                if (!Album.Exists(album.Name))
+                if (a == null)
                 {
                     a = new Album(album);
+                    Program.Database.Albums.Add(a);
+                    a = Program.Database.Albums[album.Name];
+                }
+
+                if (importTracks)
+                {
                     foreach (var track in album.Tracks.Items)
                     {
-                        var t = new Track(track);
-                        t.Save();
+                        Program.Database.Tracks.Add(new Track(track));
                     }
-                    a.Save();
                 }
+
             }
             catch (Exception ex)
             {
@@ -427,18 +246,22 @@ namespace SongsAbout.Classes
         {
             try
             {
-                SpotifyFullArtist artist = User.Default.SpotifyWebAPI.GetArtist(ar.Id);
+                SpotifyFullArtist artist = ar.GetFullVersion(UserSpotify.WebAPI);
+                Program.Database.Artists.Add(new Artist(artist));              
 
-                if (!Program.Database.Artists.Contains(artist.Name))
-                {
-                    Artist a = new Artist();
-                    a.Update(artist);
-                    a.Save();
-                }
+            }
+            catch (NullValueError)
+            {
+                throw;
+            }
+            catch (SaveError)
+            {
+                throw;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message, $"Error importing artist '{ar.Name}'");
+                throw new SpotifyImportError();
             }
         }
 

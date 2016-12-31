@@ -25,7 +25,7 @@ namespace SpotifyAPI.Web.Models
         /// </summary>
         /// <returns></returns>
         /// <exception cref="SpotifyImageImportError"></exception>
-        public Image Get()
+        private Image Get()
         {
             try
             {
