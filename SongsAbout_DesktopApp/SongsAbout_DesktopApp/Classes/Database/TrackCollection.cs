@@ -12,7 +12,7 @@ namespace SongsAbout.Classes.Database
         public class TrackCollection : EntityCollection<Track>, IEntityIdAccessor<Track>
         {
             public override DbEntityType DbEntityType { get { return DbEntityType.Track; } }
-
+            public override bool HasIntId { get { return true; } }
             private static bool _initialized { get; set; }
             /// <summary>
             /// Initializes the connector to the TrackList
@@ -64,7 +64,7 @@ namespace SongsAbout.Classes.Database
             /// <param name="id"></param>
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public bool Contains(int id)
+            public bool Contains(int id, bool checkCache)
             {
                 try
                 {
@@ -94,8 +94,8 @@ namespace SongsAbout.Classes.Database
                         using (var db = new DataClassesContext())
                         {
                             base.CachedItems.AddRange(from a in db.Tracks
-                                               where a.ID != 0
-                                               select a);
+                                                      where a.ID != 0
+                                                      select a);
                         }
                         return base.CachedItems;
                     }

@@ -13,10 +13,12 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class AlbumCollection : EntityCollection<Album>, IEntityNameAccessor<Album>
+        public class AlbumCollection : EntityCollection<Album>, IEntityIdAccessor<Album>
         {
             public override DbEntityType DbEntityType { get { return DbEntityType.Album; } }
             private const string COLLECTION_NAME = "AlbumList";
+
+            public override bool HasIntId { get { return true; } }
             private static bool _initialized { get; set; }
 
             /// <summary>
@@ -75,7 +77,7 @@ namespace SongsAbout.Classes.Database
             /// <param name="id"></param>
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
-            public bool Contains(int id)
+            public bool Contains(int id, bool checkCache = false)
             {
                 if (id == 0)
                     throw new NullValueError(DbEntityType, "name");

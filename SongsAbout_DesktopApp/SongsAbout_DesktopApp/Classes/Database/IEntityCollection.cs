@@ -15,6 +15,8 @@ namespace SongsAbout.Classes.Database
     {
         DbEntityType DbEntityType { get; }
         List<string> AllNames { get; }
+        List<string> CachedNames { get; }
+        bool HasIntId { get; }
         /// <summary>
         /// The number of rows in the respective table
         /// </summary>
@@ -28,7 +30,7 @@ namespace SongsAbout.Classes.Database
     interface IEntityIdAccessor<T>
         where T : DbEntity
     {
-        bool Contains(int id);
+        bool Contains(int id, bool CheckCache);
         T this[int id] { get; set; }
     }
 
@@ -49,14 +51,7 @@ namespace SongsAbout.Classes.Database
         void Add(T entity);
 
         List<T> Items { get; }
+        List<T> CachedItems { get; }
     }
-    /// <summary>
-    /// Allows collection to be accessed by bracket notation for both name and id
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    interface IIntegralEntityCollection<T> : IEntityCollection<T>, IEntityIdAccessor<T>, IEntityNameAccessor<T>
-        where T : DbEntity
-    {
 
-    }
 }

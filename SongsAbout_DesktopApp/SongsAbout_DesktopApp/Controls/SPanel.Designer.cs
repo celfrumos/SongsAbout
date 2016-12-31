@@ -76,6 +76,7 @@ namespace SongsAbout.Controls
             // 
             // pBoxDbOrSpotify
             // 
+            this.pBoxDbOrSpotify = new System.Windows.Forms.PictureBox();
             this.pBoxDbOrSpotify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pBoxDbOrSpotify.BackColor = System.Drawing.Color.Transparent;
             this.pBoxDbOrSpotify.Image = global::SongsAbout.Properties.Resources.Spotify_Icon_Green;
@@ -194,11 +195,11 @@ namespace SongsAbout.Controls
         protected System.Windows.Forms.SplitContainer splitContainer = new System.Windows.Forms.SplitContainer();
         protected SPicturePox SPictureBox = new SPicturePox();
         protected SLabel SLabel = new SLabel();
-        private System.Windows.Forms.ContextMenuStrip sPanelMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setGenresToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setTagsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addToListToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pBoxDbOrSpotify;
+        private System.Windows.Forms.ContextMenuStrip sPanelMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        private System.Windows.Forms.ToolStripMenuItem setGenresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        private System.Windows.Forms.ToolStripMenuItem setTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        private System.Windows.Forms.ToolStripMenuItem addToListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        private System.Windows.Forms.PictureBox pBoxDbOrSpotify;// = new System.Windows.Forms.PictureBox();
     }
 }

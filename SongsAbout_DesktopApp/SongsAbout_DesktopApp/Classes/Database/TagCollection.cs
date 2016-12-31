@@ -8,8 +8,9 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class TagCollection : EntityCollection<Tag>, IEntityNameAccessor<Tag>
+        public class TagCollection : EntityCollection<Tag>
         {
+            public override bool HasIntId { get { return false; } }
             public override DbEntityType DbEntityType { get { return DbEntityType.Tag; } }
             private static bool _initialized { get; set; }
 

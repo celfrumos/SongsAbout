@@ -19,6 +19,8 @@ namespace SongsAbout.Classes.Database
         public abstract class EntityCollection<T> : IEntityCollection<T>, IEntityNameAccessor<T>
             where T : DbEntity
         {
+            public abstract bool HasIntId { get; }
+
             protected EntityCollection(string childname)
             {
                 if (!SongDatabase.isInitialized)
@@ -28,9 +30,9 @@ namespace SongsAbout.Classes.Database
                         $"An attempt was made to initialize entity container {childname} when the program database had not been initialized");
                 }
             }
-            public List<T> CachedItems { get; set; }
+            public virtual List<T> CachedItems { get; set; }
             public abstract List<T> Items { get; }
-            public virtual List<string> AllCachedNames
+            public virtual List<string> CachedNames
             {
                 get
                 {
@@ -47,6 +49,7 @@ namespace SongsAbout.Classes.Database
                 }
             }
             public abstract DbEntityType DbEntityType { get; }
+
             /// <summary>
             /// Get the Artist of the given name if it exists, otherwise throws an exception
             /// </summary>
@@ -95,14 +98,11 @@ namespace SongsAbout.Classes.Database
 
                 try
                 {
-                    if (checkCache && this.CachedItems != null && CachedItems.Count == 0)
-                    {
-                        return this.AllCachedNames.Contains(name);
-                    }
+                    if (checkCache && this.CachedNames != null && CachedNames.Count == 0)
+                        return this.CachedNames.Contains(name);
+
                     else
-                    {
-                        return this[name] != null;
-                    }
+                        return this.AllNames.Contains(name);
 
                 }
                 catch (Exception ex)
@@ -124,17 +124,6 @@ namespace SongsAbout.Classes.Database
                         return this.CachedItems.GetEnumerator().Current;
                 }
             }
-
-            //object IEnumerator.Current
-            //{
-            //    get
-            //    {
-            //        if (_all == null)
-            //            return this.All.GetEnumerator().Current;
-            //        else
-            //            return this._all.GetEnumerator().Current;
-            //    }
-            //}
 
 
             public virtual bool MoveNext()

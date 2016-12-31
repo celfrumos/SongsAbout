@@ -20,6 +20,7 @@ namespace SongsAbout.Classes.Database
         {
             private const string COLLECTION_NAME = "ArtistList";
             public override DbEntityType DbEntityType { get { return DbEntityType.Artist; } }
+            public override bool HasIntId { get { return true; } }
 
             private static bool _initialized { get; set; }
             /// <summary>
@@ -75,7 +76,7 @@ namespace SongsAbout.Classes.Database
             /// <returns></returns>
             /// <exception cref="DbException"></exception>
             /// /// <exception cref="NullValueError"></exception>
-            public bool Contains(int id)
+            public bool Contains(int id, bool checkCache = false)
             {
                 if (id == 0)
                     throw new NullValueError();

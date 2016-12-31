@@ -8,8 +8,9 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class PlaylistCollection : EntityCollection<Playlist>, IEntityNameAccessor<Playlist>
+        public class PlaylistCollection : EntityCollection<Playlist>
         {
+            public override bool HasIntId { get { return false; } }
             public override DbEntityType DbEntityType { get { return DbEntityType.Playlist; } }
             private static bool _initialized { get; set; }
 

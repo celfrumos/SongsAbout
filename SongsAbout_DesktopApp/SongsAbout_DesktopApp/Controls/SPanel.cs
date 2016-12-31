@@ -971,8 +971,8 @@ namespace SongsAbout.Controls
         {
             this.SPanelType = DEFAULT_PANEL_TYPE;
             this.SPanelSize = DEFAULT_PANEL_SIZE;
-            this.ExistsInDatabase = false;
             InitializeComponent();
+            this.ExistsInDatabase = false;
             _setNewSize();
             this.EntityName = DEFAULT_ENTITY_NAME;
         }

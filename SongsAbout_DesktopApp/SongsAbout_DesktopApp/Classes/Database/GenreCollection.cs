@@ -13,8 +13,9 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public class GenreCollection : EntityCollection<Genre>, IEntityNameAccessor<Genre>
+        public class GenreCollection : EntityCollection<Genre>
         {
+            public override bool HasIntId { get { return false; } }
             public override DbEntityType DbEntityType { get { return DbEntityType.Genre; } }
             private static bool _initialized { get; set; }
 
