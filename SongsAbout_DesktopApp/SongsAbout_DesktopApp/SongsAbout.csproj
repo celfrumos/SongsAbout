@@ -474,7 +474,6 @@
     </Content>
     <None Include="Resources\CheckMarkBlue.png" />
     <None Include="Resources\CheckMark.png" />
-    <None Include="Resources\check-mark-md.png" />
     <None Include="Resources\Spotify_Icon_White.png" />
     <None Include="Resources\Spotify_Icon_Green.png" />
     <None Include="Resources\Spotify_Icon_Black.png" />

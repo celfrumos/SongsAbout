@@ -139,10 +139,7 @@
   <data name="MusicNote" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Pictures\black-simple-music-note-vector_318-10095.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="check-mark-md" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\check-mark-md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="CheckMarkBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CheckMarkBlue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\CheckMarkBlue1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
