@@ -31,7 +31,7 @@ namespace SongsAbout.Forms
             {
                 if (User.Default.ProfilePic != null)
                 {
-                    pBoxProfilePic.Image = await Task.Run(() => User.Default.ProfilePic.Get());
+                    pBoxProfilePic.Image = await Task.Run(() => User.Default.ProfilePic);
                 }
             }
             catch (Exception ex)

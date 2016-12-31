@@ -23,6 +23,8 @@ namespace SongsAbout.Controls
     {
         #region Constants
         private const string DEFAULT_ENTITY_NAME = "Not Set";
+        private const SPanelSize DEFAULT_PANEL_SIZE = SPanelSize.Medium;
+        private const SPanelType DEFAULT_PANEL_TYPE = SPanelType.Image;
         #region Image Constants
         ///
         // Image Panel constants 
@@ -33,8 +35,8 @@ namespace SongsAbout.Controls
             IMAGE_PANEL_RATIO = (double)IMAGE_PANEL_MAX_HEIGHT / (double)IMAGE_PANEL_MAX_WIDTH;
 
         protected const int
-            IMAGE_PANEL_MAX_WIDTH = 200, IMAGE_PANEL_MAX_HEIGHT = 50,
-            IMAGE_PANEL_MED_WIDTH = 175, IMAGE_PANEL_MED_HEIGHT = 45,
+            IMAGE_PANEL_MAX_WIDTH = 366, IMAGE_PANEL_MAX_HEIGHT = 109,
+            IMAGE_PANEL_MED_WIDTH = 272, IMAGE_PANEL_MED_HEIGHT = 70,
             IMAGE_PANEL_MIN_WIDTH = 160, IMAGE_PANEL_MIN_HEIGHT = 40;
 
         protected const int
@@ -139,6 +141,7 @@ namespace SongsAbout.Controls
         private SpotifyIntegralEntity _spotifyEntity;
         private SpotifyEntityType _spotifyEntityType;
         private string _entityName;
+        private bool _existsInDatabase;
         #endregion
         #region Protected Properties
         protected Size MaxLabelSize
@@ -394,7 +397,7 @@ namespace SongsAbout.Controls
         }
         #endregion
         #region Private Methods
-        private void CheckMarkIfInDatabase()
+        private void CheckIfInDatabase()
         {
             switch (this.DbEntityType)
             {
@@ -420,7 +423,6 @@ namespace SongsAbout.Controls
                     this.ExistsInDatabase = false;
                     break;
             }
-            this.pBoxCheckMark.Visible = this.ExistsInDatabase;
         }
 
         private void _setNewSize()
@@ -637,7 +639,22 @@ namespace SongsAbout.Controls
         #region Public Properties
         public static bool LargeQuery { get; set; }
 
-        public bool ExistsInDatabase { get; private set; }
+        public bool ExistsInDatabase
+        {
+            get { return _existsInDatabase; }
+            private set
+            {
+                _existsInDatabase = value;
+                if (value)
+                {
+                    this.pBoxDbOrSpotify.Image = Resources.CheckMarkBlue1;
+                }
+                else
+                {
+                    this.pBoxDbOrSpotify.Image = Resources.Spotify_Icon_Green;
+                }
+            }
+        }
         /// <summary>
         /// Height / Width
         /// </summary>
@@ -952,24 +969,26 @@ namespace SongsAbout.Controls
         /// </summary>
         public SPanel()
         {
-            this.SPanelType = SPanelType.Image;
-            this.SPanelSize = SPanelSize.Small;
+            this.SPanelType = DEFAULT_PANEL_TYPE;
+            this.SPanelSize = DEFAULT_PANEL_SIZE;
             this.ExistsInDatabase = false;
             InitializeComponent();
             _setNewSize();
             this.EntityName = DEFAULT_ENTITY_NAME;
         }
+        private const SpotifyEntityType DEFAULT_SPOTIFY_TYPE = SpotifyEntityType.None;
+        private const DbEntityType DEFAULT_DB_ENTITY_TYPE = DbEntityType.None;
 
         /// <summary>
         /// Construct an empty SPanel by type
         /// </summary>
         /// <param name="panelType"></param>
-        public SPanel(string name, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, DbEntityType entityType = DbEntityType.None) : this(type, size)
+        public SPanel(string name, SPanelType type = DEFAULT_PANEL_TYPE, SPanelSize size = DEFAULT_PANEL_SIZE, DbEntityType entityType = DbEntityType.None) : this(type, size)
         {
             this.DbEntityType = entityType;
             this.EntityName = name;
             InitializeComponent();
-            CheckMarkIfInDatabase();
+            CheckIfInDatabase();
             _setNewSize();
         }
         private SPanel(DbEntityType type) : this()//, SpotifyEntityType spotifyType)
@@ -986,7 +1005,7 @@ namespace SongsAbout.Controls
         /// <param name="clickEvent"></param>
         /// <param name="dbtype"></param>
         /// <param name="spotifyType"></param>
-        public SPanel(string entityName, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
+        public SPanel(string entityName, SPanelType type = DEFAULT_PANEL_TYPE, SPanelSize size = DEFAULT_PANEL_SIZE, EventHandler clickEvent = null, DbEntityType dbtype = DEFAULT_DB_ENTITY_TYPE, SpotifyEntityType spotifyType = DEFAULT_SPOTIFY_TYPE)
             : this(entityName, type, size, dbtype)
         {
             this.Click += clickEvent;
@@ -1061,10 +1080,10 @@ namespace SongsAbout.Controls
         /// <param name="entity"></param>
         /// <param name="type"></param>
         /// <param name="clickEvent"></param>
-        public SPanel(DbEntity entity, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null) : this(type, size, clickEvent)
+        public SPanel(DbEntity entity, SPanelType type = DEFAULT_PANEL_TYPE, SPanelSize size = DEFAULT_PANEL_SIZE, EventHandler clickEvent = null) : this(type, size, clickEvent)
         {
             this.DbEntity = entity;
-            CheckMarkIfInDatabase();
+            CheckIfInDatabase();
 
         }
 
@@ -1074,10 +1093,10 @@ namespace SongsAbout.Controls
         /// <param name="spotifyEntity"></param>
         /// <param name="type"></param>
         /// <param name="clickEvent"></param>
-        public SPanel(SpotifyIntegralEntity spotifyEntity, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null) : this(type, size, clickEvent)
+        public SPanel(SpotifyIntegralEntity spotifyEntity, SPanelType type = DEFAULT_PANEL_TYPE, SPanelSize size = DEFAULT_PANEL_SIZE, EventHandler clickEvent = null) : this(type, size, clickEvent)
         {
             this.SpotifyEntity = spotifyEntity;
-            CheckMarkIfInDatabase();
+            CheckIfInDatabase();
         }
 
         #endregion
@@ -1120,59 +1139,27 @@ namespace SongsAbout.Controls
                 else
                 {
                     this.Image = Resources.MusicNote;
-                    Console.WriteLine($"SpotifyImage List came up empty.");
+                    Console.WriteLine($"SpotifyImage List was empty.");
                 }
             }
+            else
+            {
+                this.Image = this.SPictureBox.ErrorImage;
+            }
         }
-        ///// <summary>
-        ///// Set the SPanel Image from the downloaded bytes
-        ///// </summary>
-        ///// <param name="spotifyImageBytes"></param>
-        //[Obsolete]
-        //public void SetImage(byte[] spotifyImageBytes)
-        //{
-        //    try
-        //    {
-        //        this.Image = Converter.ImageFromBytes(spotifyImageBytes);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error assignming SPanel Image: {ex.Message}");
-        //        this.Image = Resources.MusicNote;
-        //    }
-        //}
-        ////public void Set(string text, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, SpotifyIntegralEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
-        //{
-        //    this.SPanelType = type;
-        //    this.SPanelSize = size;
-        //    InitializeComponent();
-        //    this.EntityName = text;
-        //    this.Tag = entity;
-        //    this.Click += clickEvent;
-        //    this.SpotifyEntityType = spotifyType;
-        //    this.DbEntityType = dbtype;
-        //    _setNewSize();
-        //    this.SpotifyEntity = entity;
-        //}
-        //public void Set(string text, SPanelType type = SPanelType.Image, SPanelSize size = SPanelSize.Small, EventHandler clickEvent = null, DbEntity entity = null, DbEntityType dbtype = DbEntityType.None, SpotifyEntityType spotifyType = SpotifyEntityType.None)
-        //{
-        //    this.SPanelType = type;
-        //    this.SPanelSize = size;
-        //    InitializeComponent();
-        //    this.EntityName = text;
-        //    this.Tag = entity;
-        //    this.Click += clickEvent;
-        //    this.SpotifyEntityType = spotifyType;
-        //    this.DbEntityType = dbtype;
-        //    _setNewSize();
-        //    this.DbEntity = entity;
-        //}
 
+        /// <summary>
+        /// Import the Spotify Entity Represented by this SPanl
+        /// </summary>
+        /// <returns></returns>
         public bool ImportEntity()
         {
             try
             {
-                return Importer.ImportFromSpotify(this.SpotifyEntity);
+                if (this.SpotifyEntity == null)
+                    return false;
+                else
+                    return Importer.ImportFromSpotify(this.SpotifyEntity);
             }
             catch (Exception ex)
             {

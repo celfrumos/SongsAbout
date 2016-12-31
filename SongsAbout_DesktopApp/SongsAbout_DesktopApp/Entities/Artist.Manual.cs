@@ -165,7 +165,7 @@ namespace SongsAbout.Entities
 
             if (fullArtist.Images.Count > 0)
             {
-                this.ProfilePic = fullArtist.Images[0].Get();
+                this.ProfilePic = fullArtist.Images[0];
             }
         }
 

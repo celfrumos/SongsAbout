@@ -33,21 +33,21 @@ namespace SongsAbout.Controls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SPanel));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.SPictureBox = new SongsAbout.Controls.SPicturePox();
-            this.SLabel = new SongsAbout.Controls.SLabel();
+            this.pBoxDbOrSpotify = new System.Windows.Forms.PictureBox();
             this.sPanelMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setGenresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pBoxCheckMark = new System.Windows.Forms.PictureBox();
+            this.SPictureBox = new SongsAbout.Controls.SPicturePox();
+            this.SLabel = new SongsAbout.Controls.SLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxDbOrSpotify)).BeginInit();
             this.sPanelMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBoxCheckMark)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -60,7 +60,6 @@ namespace SongsAbout.Controls
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.AccessibleName = "PboxPanel";
-            this.splitContainer.Panel1.Controls.Add(this.pBoxCheckMark);
             this.splitContainer.Panel1.Controls.Add(this.SPictureBox);
             this.splitContainer.Panel1.ForeColor = System.Drawing.Color.White;
             this.splitContainer.Panel1MinSize = 20;
@@ -68,51 +67,24 @@ namespace SongsAbout.Controls
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.AccessibleName = "LabelPanel";
+            this.splitContainer.Panel2.Controls.Add(this.pBoxDbOrSpotify);
             this.splitContainer.Panel2.Controls.Add(this.SLabel);
-            this.splitContainer.Size = new System.Drawing.Size(175, 50);
-            this.splitContainer.SplitterDistance = 51;
+            this.splitContainer.Size = new System.Drawing.Size(272, 70);
+            this.splitContainer.SplitterDistance = 70;
             this.splitContainer.SplitterWidth = 1;
             this.splitContainer.TabIndex = 0;
             // 
-            // SPictureBox
+            // pBoxDbOrSpotify
             // 
-            this.SPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.SPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SPictureBox.DbEntity = null;
-            this.SPictureBox.DbEntityType = SongsAbout.Enums.DbEntityType.None;
-            this.SPictureBox.Dock = System.Windows.Forms.DockStyle.None;
-            this.SPictureBox.Image = global::SongsAbout.Properties.Resources.MusicNote;
-            this.SPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("SPictureBox.InitialImage")));
-            this.SPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.SPictureBox.Name = "SPictureBox";
-            this.SPictureBox.Size = new System.Drawing.Size(51, 50);
-            this.SPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.SPictureBox.SpotifyEntity = null;
-            this.SPictureBox.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
-            this.SPictureBox.TabIndex = 0;
-            this.SPictureBox.TabStop = false;
-            // 
-            // SLabel
-            // 
-            this.SLabel.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
-            this.SLabel.AutoEllipsis = true;
-            this.SLabel.BackColor = System.Drawing.Color.Transparent;
-            this.SLabel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SLabel.DbEntity = null;
-            this.SLabel.DbEntityType = SongsAbout.Enums.DbEntityType.None;
-            this.SLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SLabel.Font = new System.Drawing.Font("Arial Unicode MS", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SLabel.ForeColor = System.Drawing.Color.White;
-            this.SLabel.Location = new System.Drawing.Point(0, 0);
-            this.SLabel.MinimumSize = new System.Drawing.Size(87, 19);
-            this.SLabel.Name = "SLabel";
-            this.SLabel.Size = this.SLabel.MinimumSize;
-            this.SLabel.SpotifyEntity = null;
-            this.SLabel.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
-            this.SLabel.TabIndex = 0;
-            this.SLabel.Text = "SpotifyLabel";
-            this.SLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.SLabel.Click += new System.EventHandler(this.SpotifyLabel_Click);
+            this.pBoxDbOrSpotify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pBoxDbOrSpotify.BackColor = System.Drawing.Color.Transparent;
+            this.pBoxDbOrSpotify.Image = global::SongsAbout.Properties.Resources.Spotify_Icon_Green;
+            this.pBoxDbOrSpotify.Location = new System.Drawing.Point(181, 50);
+            this.pBoxDbOrSpotify.Name = "pBoxDbOrSpotify";
+            this.pBoxDbOrSpotify.Size = new System.Drawing.Size(20, 20);
+            this.pBoxDbOrSpotify.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pBoxDbOrSpotify.TabIndex = 1;
+            this.pBoxDbOrSpotify.TabStop = false;
             // 
             // sPanelMenuStrip
             // 
@@ -153,18 +125,44 @@ namespace SongsAbout.Controls
             this.addToListToolStripMenuItem.Text = "Add To List";
             this.addToListToolStripMenuItem.Click += new System.EventHandler(this.ctsmi_AddToList);
             // 
-            // pBoxCheckMark
+            // SPictureBox
             // 
-            this.pBoxCheckMark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pBoxCheckMark.BackColor = System.Drawing.Color.White;
-            this.pBoxCheckMark.Image = global::SongsAbout.Properties.Resources.CheckMark;
-            this.pBoxCheckMark.Location = new System.Drawing.Point(0, 32);
-            this.pBoxCheckMark.Name = "pBoxCheckMark";
-            this.pBoxCheckMark.Size = new System.Drawing.Size(20, 20);
-            this.pBoxCheckMark.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pBoxCheckMark.TabIndex = 1;
-            this.pBoxCheckMark.TabStop = false;
-            this.pBoxCheckMark.Visible = false;
+            this.SPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.SPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SPictureBox.DbEntity = null;
+            this.SPictureBox.DbEntityType = SongsAbout.Enums.DbEntityType.None;
+            this.SPictureBox.Image = global::SongsAbout.Properties.Resources.MusicNote;
+            this.SPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("SPictureBox.InitialImage")));
+            this.SPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.SPictureBox.Name = "SPictureBox";
+            this.SPictureBox.Size = new System.Drawing.Size(70, 70);
+            this.SPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.SPictureBox.SpotifyEntity = null;
+            this.SPictureBox.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
+            this.SPictureBox.TabIndex = 0;
+            this.SPictureBox.TabStop = false;
+            // 
+            // SLabel
+            // 
+            this.SLabel.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
+            this.SLabel.AutoEllipsis = true;
+            this.SLabel.BackColor = System.Drawing.Color.Transparent;
+            this.SLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SLabel.DbEntity = null;
+            this.SLabel.DbEntityType = SongsAbout.Enums.DbEntityType.None;
+            this.SLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SLabel.Font = new System.Drawing.Font("Arial Unicode MS", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SLabel.ForeColor = System.Drawing.Color.White;
+            this.SLabel.Location = new System.Drawing.Point(0, 0);
+            this.SLabel.MinimumSize = new System.Drawing.Size(87, 19);
+            this.SLabel.Name = "SLabel";
+            this.SLabel.Size = this.SLabel.MinimumSize;
+            this.SLabel.SpotifyEntity = null;
+            this.SLabel.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.FullArtist;
+            this.SLabel.TabIndex = 0;
+            this.SLabel.Text = "SpotifyLabel";
+            this.SLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SLabel.Click += new System.EventHandler(this.SpotifyLabel_Click);
             // 
             // SPanel
             // 
@@ -176,17 +174,17 @@ namespace SongsAbout.Controls
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MinimumSize = new System.Drawing.Size(110, 40);
+            this.MinimumSize = new System.Drawing.Size(160, 40);
             this.Name = "SPanel";
-            this.Size = new System.Drawing.Size(175, 50);
+            this.Size = new System.Drawing.Size(272, 70);
             this.Tag = "Not Set";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxDbOrSpotify)).EndInit();
             this.sPanelMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pBoxCheckMark)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -201,6 +199,6 @@ namespace SongsAbout.Controls
         private System.Windows.Forms.ToolStripMenuItem setGenresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setTagsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToListToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pBoxCheckMark;
+        private System.Windows.Forms.PictureBox pBoxDbOrSpotify;
     }
 }
