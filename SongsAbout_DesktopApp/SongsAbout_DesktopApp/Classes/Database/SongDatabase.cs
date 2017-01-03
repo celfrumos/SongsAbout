@@ -22,6 +22,7 @@ namespace SongsAbout.Classes.Database
         private GenreCollection _genres;
         private PlaylistCollection _playlists;
         private TagCollection _tags;
+        public bool LargeQuery { get; set; }
         /// <summary>
         /// Single use Constructor at Program Start
         /// </summary>
@@ -36,7 +37,7 @@ namespace SongsAbout.Classes.Database
             else
             {
                 isInitialized = true;
-
+                LargeQuery = false;
 
                 _albums = new AlbumCollection();
                 _artists = new ArtistCollection();

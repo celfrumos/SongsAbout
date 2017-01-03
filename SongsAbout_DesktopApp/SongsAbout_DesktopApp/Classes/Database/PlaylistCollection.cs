@@ -49,7 +49,7 @@ namespace SongsAbout.Classes.Database
                 }
                 protected set
                 {
-                    this.CachedItems = value;
+                    base.CachedItems = value;
                 }
             }
 
@@ -66,6 +66,28 @@ namespace SongsAbout.Classes.Database
                     throw new NullValueError("Genre name cannot be null.");
 
                 if (this.Contains(playlist.Name))
+                    throw new ValueAlreadyPresentException(DbEntityType, playlist.Name);
+
+                try
+                {
+                    using (var db = new DataClassesContext())
+                    {
+                        db.Playlists.Add(playlist);
+                        db.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
+                    throw new DbException(ex.Message);
+                }
+            }
+            public  void Add(Playlist playlist, bool checkFirst = true)
+            {
+                if (playlist.Name == "" || playlist.Name == null)
+                    throw new NullValueError("Genre name cannot be null.");
+
+                if (checkFirst && this.Contains(playlist.Name))
                     throw new ValueAlreadyPresentException(DbEntityType, playlist.Name);
 
                 try

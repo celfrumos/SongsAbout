@@ -36,20 +36,24 @@ namespace SongsAbout.Classes.Database
                         InvalidInitializedError(childname,
                         $"An attempt was made to initialize entity container {childname} when the program database had not been initialized");
                 }
+                this.CachedItems = new List<T>();
+                this.Items = new List<T>();
             }
 
             protected List<T> GetItems(DbSet<T> table)
             {
                 try
                 {
-                    CachedItems.AddRange(from row in table
-                                         select row);
-                    return CachedItems;
+                    this.CachedItems = new List<T>();
+
+                    this.CachedItems.AddRange(from row in table
+                                              select row);
+                    return this.CachedItems;
 
                 }
                 catch (Exception ex)
                 {
-                    throw new DbException($"Error loading All Genres from database: {ex.Message}");
+                    throw new DbException($"Error loading All {typeof(T)}s from database: {ex.Message}");
                 }
             }
             public virtual List<T> CachedItems { get; protected set; }
@@ -121,7 +125,7 @@ namespace SongsAbout.Classes.Database
 
                 try
                 {
-                    if (checkCache && this.CachedNames != null && CachedNames.Count == 0)
+                    if ((Program.Database.LargeQuery || checkCache) && this.CachedNames != null && CachedNames.Count == 0)
                         return this.CachedNames.Contains(name);
 
                     else

@@ -637,7 +637,11 @@ namespace SongsAbout.Controls
         }
         #endregion
         #region Public Properties
-        public static bool LargeQuery { get; set; }
+        public static bool LargeQuery
+        {
+            get { return Program.Database.LargeQuery; }
+            set { Program.Database.LargeQuery = value; }
+        }
 
         public bool ExistsInDatabase
         {

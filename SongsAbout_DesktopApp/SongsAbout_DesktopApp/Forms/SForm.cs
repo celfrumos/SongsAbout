@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SongsAbout.Forms;
 using SongsAbout.Classes;
+using SongsAbout.Enums;
 
 using SongsAbout.Properties;
 using SpotifyAPI.Web;
@@ -15,18 +16,18 @@ namespace SongsAbout.Forms
 
     public partial class SForm : Form
     {
-        protected SForm()
+        public SForm()
         {
             InitializeComponent();
             SetProfilePic();
         }
 
-        protected static void msiSpotifySearch_Click(object sender, EventArgs e)
+        public static void msiSpotifySearch_Click(object sender, EventArgs e)
         {
             SpotifySearchForm spotifySearch = new SpotifySearchForm();
             spotifySearch.ShowDialog();
         }
-        protected async void SetProfilePic()
+        public async void SetProfilePic()
         {
             try
             {
@@ -42,7 +43,7 @@ namespace SongsAbout.Forms
 
         }
 
-        protected static void msiAddTrack_Click(object sender, EventArgs e)
+        public static void msiAddTrack_Click(object sender, EventArgs e)
         {
             try
             {
@@ -72,7 +73,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected static void msiViewData_Click(object sender, EventArgs e)
+        public static void msiViewData_Click(object sender, EventArgs e)
         {
             QueryForm queryForm = new QueryForm();
             try
@@ -85,7 +86,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected static void msiImportAll_Click(object sender, EventArgs e)
+        public static void msiImportAll_Click(object sender, EventArgs e)
         {
             try
             {
@@ -97,7 +98,7 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected static void msiImportFollowedArtists_Click(object sender, EventArgs e)
+        public static void msiImportFollowedArtists_Click(object sender, EventArgs e)
         {
             try
             {
@@ -110,7 +111,7 @@ namespace SongsAbout.Forms
                 MessageBox.Show($"Error Importing Artists from Spotify: {ex.Message}");
             }
         }
-        protected static void msiImportSavedTracks_Click(object sender, EventArgs e)
+        public static void msiImportSavedTracks_Click(object sender, EventArgs e)
         {
             try
             {
@@ -123,18 +124,18 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected async static void msiConnectSpotify_Click(object sender, EventArgs e)
+        public async static void msiConnectSpotify_Click(object sender, EventArgs e)
         {
             await Task.Run(() => UserSpotify.Authenticate());
         }
 
 
-        protected static void msiDisconnect_Click(object sender, EventArgs e)
+        public static void msiDisconnect_Click(object sender, EventArgs e)
         {
 
         }
 
-        protected static void tsmiFollowedPlaylists_Click(object sender, EventArgs e)
+        public static void tsmiFollowedPlaylists_Click(object sender, EventArgs e)
         {
             try
             {
@@ -147,18 +148,23 @@ namespace SongsAbout.Forms
             }
         }
 
-        protected static void tagsToolStripMenuItem_Click(object sender, EventArgs e)
+        public static void tagsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var tagsImport = new BulkImportForm() { DbEntityType = DbEntityType.Tag };
+            tagsImport.ShowDialog();
         }
 
-        protected static void playlistsToolStripMenuItem_Click(object sender, EventArgs e)
+        public static void playlistsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var playlistImport = new BulkImportForm() { DbEntityType = DbEntityType.Playlist };
+            playlistImport.ShowDialog();
 
         }
 
         private void genresToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var genresImport = new BulkImportForm() { DbEntityType = DbEntityType.Genre };
+            genresImport.ShowDialog();
 
         }
     }
