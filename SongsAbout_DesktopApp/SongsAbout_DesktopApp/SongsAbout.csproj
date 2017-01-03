@@ -259,6 +259,12 @@
     <Compile Include="Forms\AlbumDisplayForm.Designer.cs">
       <DependentUpon>AlbumDisplayForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\BulkImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BulkImportForm.Designer.cs">
+      <DependentUpon>BulkImportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -361,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AlbumDisplayForm.resx">
       <DependentUpon>AlbumDisplayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BulkImportForm.resx">
+      <DependentUpon>BulkImportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

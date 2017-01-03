@@ -12,6 +12,7 @@ using Image = System.Drawing.Image;
 
 using SongsAbout.Forms;
 using System.Linq;
+using System.ComponentModel;
 
 namespace SongsAbout.Forms
 {
@@ -19,28 +20,7 @@ namespace SongsAbout.Forms
     {
         public Form1() : base()
         {
-            InitializeComponent();
-            try
-            {
-              //  var dd = Program.Database.Artists.All;
-
-                
-                //foreach (var item in Program.Database.Tracks)
-                //{
-                //    var album = item.Album;
-                //    var artist = item.Artist;
-                    
-                //}
-         
-
-                //Artist a = Artist.Load(4);
-                //var albums = a.Albums;
-                // var tracks = a.Tracks;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{ex.Message}");
-            }
+            InitializeComponent();         
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

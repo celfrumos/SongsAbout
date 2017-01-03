@@ -48,7 +48,7 @@
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
-            this.btnSearch.Location = new System.Drawing.Point(420, 303);
+            this.btnSearch.Location = new System.Drawing.Point(360, 591);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(216, 38);
@@ -60,10 +60,10 @@
             // txtBoxKeywords
             // 
             this.txtBoxKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxKeywords.Location = new System.Drawing.Point(420, 265);
+            this.txtBoxKeywords.Location = new System.Drawing.Point(360, 553);
             this.txtBoxKeywords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxKeywords.Name = "txtBoxKeywords";
-            this.txtBoxKeywords.Size = new System.Drawing.Size(216, 21);
+            this.txtBoxKeywords.Size = new System.Drawing.Size(216, 25);
             this.txtBoxKeywords.TabIndex = 33;
             // 
             // lblTitleKeywords
@@ -73,9 +73,9 @@
             this.lblTitleKeywords.BackColor = System.Drawing.Color.Transparent;
             this.lblTitleKeywords.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.lblTitleKeywords.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblTitleKeywords.Location = new System.Drawing.Point(291, 265);
+            this.lblTitleKeywords.Location = new System.Drawing.Point(231, 553);
             this.lblTitleKeywords.Name = "lblTitleKeywords";
-            this.lblTitleKeywords.Size = new System.Drawing.Size(59, 15);
+            this.lblTitleKeywords.Size = new System.Drawing.Size(75, 19);
             this.lblTitleKeywords.TabIndex = 32;
             this.lblTitleKeywords.Text = "Keywords:";
             // 
@@ -84,12 +84,12 @@
             this.lstBxGenres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstBxGenres.FormattingEnabled = true;
-            this.lstBxGenres.ItemHeight = 14;
-            this.lstBxGenres.Location = new System.Drawing.Point(420, 84);
+            this.lstBxGenres.ItemHeight = 18;
+            this.lstBxGenres.Location = new System.Drawing.Point(360, 90);
             this.lstBxGenres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lstBxGenres.Name = "lstBxGenres";
             this.lstBxGenres.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstBxGenres.Size = new System.Drawing.Size(216, 158);
+            this.lstBxGenres.Size = new System.Drawing.Size(216, 418);
             this.lstBxGenres.Sorted = true;
             this.lstBxGenres.TabIndex = 31;
             // 
@@ -100,9 +100,9 @@
             this.lblTitleGenres.BackColor = System.Drawing.Color.Transparent;
             this.lblTitleGenres.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.lblTitleGenres.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblTitleGenres.Location = new System.Drawing.Point(212, 84);
+            this.lblTitleGenres.Location = new System.Drawing.Point(152, 90);
             this.lblTitleGenres.Name = "lblTitleGenres";
-            this.lblTitleGenres.Size = new System.Drawing.Size(119, 15);
+            this.lblTitleGenres.Size = new System.Drawing.Size(154, 19);
             this.lblTitleGenres.TabIndex = 30;
             this.lblTitleGenres.Text = "In any of these genres:";
             // 
@@ -113,25 +113,25 @@
             this.lblTitleTopic.BackColor = System.Drawing.Color.Transparent;
             this.lblTitleTopic.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F);
             this.lblTitleTopic.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblTitleTopic.Location = new System.Drawing.Point(191, 45);
+            this.lblTitleTopic.Location = new System.Drawing.Point(131, 51);
             this.lblTitleTopic.Name = "lblTitleTopic";
-            this.lblTitleTopic.Size = new System.Drawing.Size(134, 15);
+            this.lblTitleTopic.Size = new System.Drawing.Size(175, 19);
             this.lblTitleTopic.TabIndex = 29;
             this.lblTitleTopic.Text = "I want to find songs about:";
             // 
             // txtBoxQuery
             // 
             this.txtBoxQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxQuery.Location = new System.Drawing.Point(420, 45);
+            this.txtBoxQuery.Location = new System.Drawing.Point(360, 51);
             this.txtBoxQuery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBoxQuery.Name = "txtBoxQuery";
-            this.txtBoxQuery.Size = new System.Drawing.Size(216, 21);
+            this.txtBoxQuery.Size = new System.Drawing.Size(216, 25);
             this.txtBoxQuery.TabIndex = 28;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
-            this.ClientSize = new System.Drawing.Size(648, 363);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.ClientSize = new System.Drawing.Size(1035, 645);
             this.Controls.Add(this.txtBoxKeywords);
             this.Controls.Add(this.lblTitleKeywords);
             this.Controls.Add(this.lstBxGenres);

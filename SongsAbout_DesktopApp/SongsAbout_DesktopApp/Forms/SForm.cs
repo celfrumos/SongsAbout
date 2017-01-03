@@ -12,6 +12,7 @@ using Image = System.Drawing.Image;
 
 namespace SongsAbout.Forms
 {
+
     public partial class SForm : Form
     {
         protected SForm()
@@ -144,6 +145,21 @@ namespace SongsAbout.Forms
             {
                 MessageBox.Show($"Error Importing Saved playlists from Spotify: {ex.StackTrace}");
             }
+        }
+
+        protected static void tagsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected static void playlistsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void genresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

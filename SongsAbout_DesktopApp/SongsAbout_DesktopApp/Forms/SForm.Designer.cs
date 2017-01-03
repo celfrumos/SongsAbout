@@ -29,197 +29,226 @@ namespace SongsAbout.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            mainMenuStrip = new System.Windows.Forms.MenuStrip();
-            fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            viewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            addNewTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            spotifyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            savedTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            followedArtistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            followedPlaylistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            profileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            pBoxProfilePic = new System.Windows.Forms.PictureBox();
-            mainMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(pBoxProfilePic)).BeginInit();
-            SuspendLayout();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spotifyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savedTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.followedArtistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.followedPlaylistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pBoxProfilePic = new System.Windows.Forms.PictureBox();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bulkAddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.genresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playlistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
+            this.SuspendLayout();
             // 
             // mainMenuStrip
             // 
-            mainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            fileToolStripMenuItem,
-            spotifyToolStripMenuItem,
-            profileToolStripMenuItem,
-            aboutToolStripMenuItem});
-            mainMenuStrip.Location = new System.Drawing.Point(0, 0);
-            mainMenuStrip.Name = "mainMenuStrip";
-            mainMenuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
-            mainMenuStrip.Size = new System.Drawing.Size(681, 30);
-            mainMenuStrip.TabIndex = 18;
+            this.mainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
+            this.mainMenuStrip.Size = new System.Drawing.Size(663, 30);
+            this.mainMenuStrip.TabIndex = 18;
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            viewDatabaseToolStripMenuItem,
-            addNewTrackToolStripMenuItem,
-            logOutToolStripMenuItem});
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "File";
             // 
             // viewDatabaseToolStripMenuItem
             // 
-            viewDatabaseToolStripMenuItem.Name = "viewDatabaseToolStripMenuItem";
-            viewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            viewDatabaseToolStripMenuItem.Text = "View Database";
-            viewDatabaseToolStripMenuItem.Click += new System.EventHandler(msiViewData_Click);
+            this.viewDatabaseToolStripMenuItem.Name = "viewDatabaseToolStripMenuItem";
+            this.viewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.viewDatabaseToolStripMenuItem.Text = "View Database";
+            this.viewDatabaseToolStripMenuItem.Click += new System.EventHandler(this.msiViewData_Click);
             // 
             // addNewTrackToolStripMenuItem
             // 
-            addNewTrackToolStripMenuItem.Name = "addNewTrackToolStripMenuItem";
-            addNewTrackToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            addNewTrackToolStripMenuItem.Text = "Add New Track";
-            addNewTrackToolStripMenuItem.Click += new System.EventHandler(msiAddTrack_Click);
+            this.addNewTrackToolStripMenuItem.Name = "addNewTrackToolStripMenuItem";
+            this.addNewTrackToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.addNewTrackToolStripMenuItem.Text = "Add New Track";
+            this.addNewTrackToolStripMenuItem.Click += new System.EventHandler(this.msiAddTrack_Click);
             // 
             // logOutToolStripMenuItem
             // 
-            logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            logOutToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            logOutToolStripMenuItem.Text = "Log Out";
+            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.logOutToolStripMenuItem.Text = "Log Out";
             // 
             // spotifyToolStripMenuItem
             // 
-            spotifyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            connectToolStripMenuItem,
-            importToolStripMenuItem,
-            searchToolStripMenuItem,
-            disconnectToolStripMenuItem});
-            spotifyToolStripMenuItem.Name = "spotifyToolStripMenuItem";
-            spotifyToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
-            spotifyToolStripMenuItem.Text = "Spotify";
+            this.spotifyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectToolStripMenuItem,
+            this.importToolStripMenuItem,
+            this.searchToolStripMenuItem,
+            this.disconnectToolStripMenuItem});
+            this.spotifyToolStripMenuItem.Name = "spotifyToolStripMenuItem";
+            this.spotifyToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
+            this.spotifyToolStripMenuItem.Text = "Spotify";
             // 
             // connectToolStripMenuItem
             // 
-            connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            connectToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            connectToolStripMenuItem.Text = "Connect";
-            connectToolStripMenuItem.Click += new System.EventHandler(msiConnectSpotify_Click);
+            this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.connectToolStripMenuItem.Text = "Connect";
+            this.connectToolStripMenuItem.Click += new System.EventHandler(this.msiConnectSpotify_Click);
             // 
             // importToolStripMenuItem
             // 
-            importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            savedTracksToolStripMenuItem,
-            followedArtistsToolStripMenuItem,
-            followedPlaylistsToolStripMenuItem,
-            allToolStripMenuItem});
-            importToolStripMenuItem.Name = "importToolStripMenuItem";
-            importToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.savedTracksToolStripMenuItem,
+            this.followedArtistsToolStripMenuItem,
+            this.followedPlaylistsToolStripMenuItem,
+            this.allToolStripMenuItem});
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.importToolStripMenuItem.Text = "Import";
             // 
             // savedTracksToolStripMenuItem
             // 
-            savedTracksToolStripMenuItem.Name = "savedTracksToolStripMenuItem";
-            savedTracksToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
-            savedTracksToolStripMenuItem.Text = "Saved Tracks";
-            savedTracksToolStripMenuItem.Click += new System.EventHandler(msiImportSavedTracks_Click);
+            this.savedTracksToolStripMenuItem.Name = "savedTracksToolStripMenuItem";
+            this.savedTracksToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.savedTracksToolStripMenuItem.Text = "Saved Tracks";
+            this.savedTracksToolStripMenuItem.Click += new System.EventHandler(this.msiImportSavedTracks_Click);
             // 
             // followedArtistsToolStripMenuItem
             // 
-            followedArtistsToolStripMenuItem.Name = "followedArtistsToolStripMenuItem";
-            followedArtistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
-            followedArtistsToolStripMenuItem.Text = "Followed Artists";
-            followedArtistsToolStripMenuItem.Click += new System.EventHandler(msiImportFollowedArtists_Click);
+            this.followedArtistsToolStripMenuItem.Name = "followedArtistsToolStripMenuItem";
+            this.followedArtistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.followedArtistsToolStripMenuItem.Text = "Followed Artists";
+            this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(this.msiImportFollowedArtists_Click);
             // 
             // followedPlaylistsToolStripMenuItem
             // 
-            followedPlaylistsToolStripMenuItem.Name = "followedPlaylistsToolStripMenuItem";
-            followedPlaylistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
-            followedPlaylistsToolStripMenuItem.Text = "Followed Playlists";
-            followedPlaylistsToolStripMenuItem.Click += new System.EventHandler(tsmiFollowedPlaylists_Click);
+            this.followedPlaylistsToolStripMenuItem.Name = "followedPlaylistsToolStripMenuItem";
+            this.followedPlaylistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.followedPlaylistsToolStripMenuItem.Text = "Followed Playlists";
+            this.followedPlaylistsToolStripMenuItem.Click += new System.EventHandler(this.tsmiFollowedPlaylists_Click);
             // 
             // allToolStripMenuItem
             // 
-            allToolStripMenuItem.Name = "allToolStripMenuItem";
-            allToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
-            allToolStripMenuItem.Text = "All";
-            allToolStripMenuItem.Click += new System.EventHandler(msiImportAll_Click);
+            this.allToolStripMenuItem.Name = "allToolStripMenuItem";
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.allToolStripMenuItem.Text = "All";
+            this.allToolStripMenuItem.Click += new System.EventHandler(this.msiImportAll_Click);
             // 
             // searchToolStripMenuItem
             // 
-            searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            searchToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            searchToolStripMenuItem.Text = "Search";
-            searchToolStripMenuItem.Click += new System.EventHandler(msiSpotifySearch_Click);
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.searchToolStripMenuItem.Text = "Search";
+            this.searchToolStripMenuItem.Click += new System.EventHandler(this.msiSpotifySearch_Click);
             // 
             // disconnectToolStripMenuItem
             // 
-            disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            disconnectToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
-            disconnectToolStripMenuItem.Text = "Disconnect";
-            disconnectToolStripMenuItem.Click += new System.EventHandler(msiDisconnect_Click);
+            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.disconnectToolStripMenuItem.Text = "Disconnect";
+            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.msiDisconnect_Click);
             // 
             // profileToolStripMenuItem
             // 
-            profileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            profileToolStripMenuItem1,
-            themeToolStripMenuItem});
-            profileToolStripMenuItem.Name = "profileToolStripMenuItem";
-            profileToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
-            profileToolStripMenuItem.Text = "Settings";
+            this.profileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.profileToolStripMenuItem1,
+            this.themeToolStripMenuItem});
+            this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
+            this.profileToolStripMenuItem.Text = "Settings";
             // 
             // profileToolStripMenuItem1
             // 
-            profileToolStripMenuItem1.Name = "profileToolStripMenuItem1";
-            profileToolStripMenuItem1.Size = new System.Drawing.Size(129, 26);
-            profileToolStripMenuItem1.Text = "Profile";
+            this.profileToolStripMenuItem1.Name = "profileToolStripMenuItem1";
+            this.profileToolStripMenuItem1.Size = new System.Drawing.Size(129, 26);
+            this.profileToolStripMenuItem1.Text = "Profile";
             // 
             // themeToolStripMenuItem
             // 
-            themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            themeToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
-            themeToolStripMenuItem.Text = "Theme";
+            this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.themeToolStripMenuItem.Text = "Theme";
             // 
             // aboutToolStripMenuItem
             // 
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
-            aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // pBoxProfilePic
             // 
-            pBoxProfilePic.Location = new System.Drawing.Point(15, 51);
-            pBoxProfilePic.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pBoxProfilePic.Name = "pBoxProfilePic";
-            pBoxProfilePic.Size = new System.Drawing.Size(132, 128);
-            pBoxProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            pBoxProfilePic.TabIndex = 27;
-            pBoxProfilePic.TabStop = false;
+            this.pBoxProfilePic.Location = new System.Drawing.Point(15, 51);
+            this.pBoxProfilePic.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.pBoxProfilePic.Name = "pBoxProfilePic";
+            this.pBoxProfilePic.Size = new System.Drawing.Size(132, 128);
+            this.pBoxProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pBoxProfilePic.TabIndex = 27;
+            this.pBoxProfilePic.TabStop = false;
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // bulkAddToolStripMenuItem
+            // 
+            this.bulkAddToolStripMenuItem.Name = "bulkAddToolStripMenuItem";
+            this.bulkAddToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.bulkAddToolStripMenuItem.Text = "Bulk Add";
+            // 
+            // genresToolStripMenuItem
+            // 
+            this.genresToolStripMenuItem.Name = "genresToolStripMenuItem";
+            this.genresToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.genresToolStripMenuItem.Text = "Genres";
+            this.genresToolStripMenuItem.Click += new System.EventHandler(this.genresToolStripMenuItem_Click);
+            // 
+            // tagsToolStripMenuItem
+            // 
+            this.tagsToolStripMenuItem.Name = "tagsToolStripMenuItem";
+            this.tagsToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.tagsToolStripMenuItem.Text = "Tags";
+            this.tagsToolStripMenuItem.Click += new System.EventHandler(this.tagsToolStripMenuItem_Click);
+            // 
+            // playlistsToolStripMenuItem
+            // 
+            this.playlistsToolStripMenuItem.Name = "playlistsToolStripMenuItem";
+            this.playlistsToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.playlistsToolStripMenuItem.Text = "Playlists";
+            this.playlistsToolStripMenuItem.Click += new System.EventHandler(this.playlistsToolStripMenuItem_Click);
             // 
             // SForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.Size = new System.Drawing.Size(681, 323);
-            this.Controls.Add(pBoxProfilePic);
-            this.Controls.Add(mainMenuStrip);
+            this.ClientSize = new System.Drawing.Size(663, 276);
+            this.Controls.Add(this.pBoxProfilePic);
+            this.Controls.Add(this.mainMenuStrip);
             this.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MainMenuStrip = mainMenuStrip;
+            this.MainMenuStrip = this.mainMenuStrip;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "SForm";
             this.Text = "SongsAbout";
-            mainMenuStrip.ResumeLayout(false);
-            mainMenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(pBoxProfilePic)).EndInit();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,24 +257,29 @@ namespace SongsAbout.Forms
         #endregion
 
         protected System.Windows.Forms.PictureBox pBoxProfilePic;
-        protected static System.Windows.Forms.MenuStrip mainMenuStrip;
-        protected static System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem viewDatabaseToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem spotifyToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem savedTracksToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem followedArtistsToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem followedPlaylistsToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem1;
-        protected static System.Windows.Forms.ToolStripMenuItem addNewTrackToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
-        protected static System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bulkAddToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem genresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tagsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playlistsToolStripMenuItem;
+        protected System.Windows.Forms.MenuStrip mainMenuStrip;
+        protected System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem viewDatabaseToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem spotifyToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem savedTracksToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem followedArtistsToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem followedPlaylistsToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem1;
+        protected System.Windows.Forms.ToolStripMenuItem addNewTrackToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
     }
 }
 
