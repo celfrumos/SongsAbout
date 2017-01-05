@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using SongsAbout.Controls;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
+using SpotifyAPI.Local;
 
 
 
@@ -19,6 +20,7 @@ namespace SongsAbout
     static class Program
     {
         public static SongDatabase Database { get; private set; }
+        public static SpotifyLocalAPI LocalAPI { get; private set; }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -29,16 +31,13 @@ namespace SongsAbout
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                //   User.Default.Upgrade();
                 ConnectSpotify();
                 Database = new SongDatabase();
                 SPanel.LargeQuery = false;
-                //var search = UserSpotify.Search("A moon shaped pool", SpotifyAPI.Web.Enums.SearchType.Album);
+                Program.LocalAPI = new SpotifyLocalAPI();
+                Program.LocalAPI.Connect();
 
-                //var s = search.Albums.Items[0];
-                // const string id ="6vuykQgDLUCiZ7YggIpLM9";
-                //   var album = UserSpotify.WebAPI.GetAlbum(id);
-                Application.Run(new Form1());
+                Application.Run(new AlbumDisplayForm());
             }
             catch (System.Resources.MissingManifestResourceException ex)
             {

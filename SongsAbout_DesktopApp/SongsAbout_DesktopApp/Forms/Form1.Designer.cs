@@ -35,6 +35,7 @@
             this.lblTitleGenres = new System.Windows.Forms.Label();
             this.lblTitleTopic = new System.Windows.Forms.Label();
             this.txtBoxQuery = new System.Windows.Forms.TextBox();
+            this.songModule1 = new SongsAbout.Controls.SongModule();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,10 +129,18 @@
             this.txtBoxQuery.Size = new System.Drawing.Size(216, 25);
             this.txtBoxQuery.TabIndex = 28;
             // 
+            // songModule1
+            // 
+            this.songModule1.Location = new System.Drawing.Point(641, 332);
+            this.songModule1.Name = "songModule1";
+            this.songModule1.Size = new System.Drawing.Size(216, 140);
+            this.songModule1.TabIndex = 34;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.ClientSize = new System.Drawing.Size(1035, 645);
+            this.Controls.Add(this.songModule1);
             this.Controls.Add(this.txtBoxKeywords);
             this.Controls.Add(this.lblTitleKeywords);
             this.Controls.Add(this.lstBxGenres);
@@ -149,6 +158,7 @@
             this.Controls.SetChildIndex(this.lstBxGenres, 0);
             this.Controls.SetChildIndex(this.lblTitleKeywords, 0);
             this.Controls.SetChildIndex(this.txtBoxKeywords, 0);
+            this.Controls.SetChildIndex(this.songModule1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -164,5 +174,6 @@
         private System.Windows.Forms.Label lblTitleGenres;
         private System.Windows.Forms.Label lblTitleTopic;
         private System.Windows.Forms.TextBox txtBoxQuery;
+        private Controls.SongModule songModule1;
     }
 }

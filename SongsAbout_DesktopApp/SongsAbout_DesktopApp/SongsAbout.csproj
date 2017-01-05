@@ -202,7 +202,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\TrackListBox.cs">
-      <SubType>UserControl</SubType>
+      <SubType>TableLayoutPanel</SubType>
     </Compile>
     <Compile Include="Controls\TrackListBox.Designer.cs">
       <DependentUpon>TrackListBox.cs</DependentUpon>
@@ -289,6 +289,12 @@
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -367,6 +373,9 @@
     <EmbeddedResource Include="Controls\SLabel.resx">
       <DependentUpon>SLabel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SongButton.resx">
+      <DependentUpon>SongButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SongModule.resx">
       <DependentUpon>SongModule.cs</DependentUpon>
     </EmbeddedResource>
@@ -399,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SForm.resx">
       <DependentUpon>SForm.cs</DependentUpon>

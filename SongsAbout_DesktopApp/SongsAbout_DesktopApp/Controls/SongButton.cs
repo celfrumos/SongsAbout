@@ -26,24 +26,23 @@ namespace SongsAbout.Controls
         Play, Pause, Stop, SkipForward, SkipBack, FastForward, FastBackward
     }
 
-    public partial class SongButton : PictureBox, IButtonControl, ISpotifyEntityControl
+
+    public partial class SongButton : Button, IButtonControl
     {
         private SongButtonType _songButtonType;
+
         public SongButton()
         {
             _songButtonType = SongButtonType.Play;
             InitializeComponent();
+            this.Text = "";
+        }
+        public override string Text
+        {
+            get { return base.Text; }
+            set { base.Text = ""; }
         }
 
-        new public Image Image
-        {
-            get { return base.Image; }
-            set
-            {
-                Image i = value;
-                base.Image = value;
-            }
-        }
         public SongButtonType SongButtonType
         {
             get { return _songButtonType; }
@@ -53,88 +52,37 @@ namespace SongsAbout.Controls
                 switch (value)
                 {
                     case SongButtonType.Play:
-                        this.Image = ButtonImages.Play;
+                        this.BackgroundImage = ButtonImages.Play;
                         break;
                     case SongButtonType.Pause:
-                        this.Image = ButtonImages.Pause;
+                        this.BackgroundImage = ButtonImages.Pause;
                         break;
                     case SongButtonType.Stop:
-                        this.Image = ButtonImages.Stop;
+                        this.BackgroundImage = ButtonImages.Stop;
                         break;
                     case SongButtonType.SkipForward:
-                        this.Image = ButtonImages.SkipForward;
+                        this.BackgroundImage = ButtonImages.SkipForward;
                         break;
                     case SongButtonType.SkipBack:
-                        this.Image = ButtonImages.SkipBack;
+                        this.BackgroundImage = ButtonImages.SkipBack;
                         break;
                     case SongButtonType.FastForward:
-                        this.Image = ButtonImages.FastForward;
+                        this.BackgroundImage = ButtonImages.FastForward;
                         break;
                     case SongButtonType.FastBackward:
-                        this.Image = ButtonImages.FastBackward;
+                        this.BackgroundImage = ButtonImages.FastBackward;
                         break;
                 }
             }
         }
-
-        public SpotifyFullTrack Track { get; set; }
-
-        public string EntityName
-        {
-            get { return this.SpotifyEntity.Name; }
-        }
-
-        public SpotifyIntegralEntity SpotifyEntity { get; set; }
-
-        public SpotifyEntityType SpotifyEntityType { get; set; }
-
-        /// <summary>
+/// <summary>
         /// Gets or sets the value returned to the parent form when the button is clicked.
         /// Returns:
         ///     One of the System.Windows.Forms.DialogResult values.
         /// </summary>
-        public DialogResult DialogResult { get; set; }
+        public override DialogResult DialogResult { get; set; }
 
-        public void ImportEntity()
-        {
-            if (this.SpotifyEntity != null)
-                Importer.ImportFromSpotify(this.SpotifyEntity);
-        }
 
-        protected override void OnClick(EventArgs e)
-        {
-            base.OnClick(e);
-        }
-
-        protected override void OnMouseEnter(EventArgs e)
-        {
-            base.OnMouseEnter(e);
-        }
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            base.OnMouseLeave(e);
-        }
-
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
-            base.OnMouseUp(e);
-        }
-        /// <summary>
-        ///   Notifies a control that it is the default button so that its appearance and behavior
-        /// </summary>
-        /// <param name="value">true if the control should behave as a default button; otherwise false.</param>
-        public void NotifyDefault(bool value)
-        {
-        }
-
-        /// <summary>
-        ///     Generates a System.Windows.Forms.Control.Click event for the control.
-        /// </summary>        
-        public void PerformClick()
-        {
-            this.InvokeOnClick(this, new EventArgs());
-
-        }
     }
 
 }

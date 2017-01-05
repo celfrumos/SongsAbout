@@ -28,7 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SongButton));
+            this.SuspendLayout();
+            // 
+            // SongButton
+            // 
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.FlatAppearance.BorderSize = 0;
+            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Size = new System.Drawing.Size(50, 50);
+            this.UseVisualStyleBackColor = false;
+            this.ResumeLayout(false);
+
         }
 
         #endregion

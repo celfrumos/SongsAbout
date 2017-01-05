@@ -39,6 +39,7 @@ namespace SongsAbout.Forms
                 this.lblArtist.Text = value.Name;
             }
         }
+
         public SpotifyAlbum SpotifyAlbum
         {
             get { return _spotifyAlbum; }
@@ -85,10 +86,8 @@ namespace SongsAbout.Forms
             this.tableLayoutPanel1.SizeChanged += sizeChanged;
             try
             {
-                //   this.SpotifyArtist = album.ArtistList[0];
                 this.SpotifyAlbum = album;
                 SpotifyAPI.Local.Models.Track a = new SpotifyAPI.Local.Models.Track();
-                SpotifyAPI.Local.Models.SpotifyResource r = new SpotifyResource();
 
                 try
                 {
@@ -111,6 +110,7 @@ namespace SongsAbout.Forms
         {
 
         }
+
         public AlbumDisplayForm(Album album)
         {
             this.lblArtist.Text = album.Artist.Name;
