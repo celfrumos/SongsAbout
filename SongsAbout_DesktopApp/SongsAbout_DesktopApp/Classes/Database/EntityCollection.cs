@@ -23,10 +23,23 @@ namespace SongsAbout.Classes.Database
 {
     public partial class SongDatabase
     {
-        public abstract class EntityCollection<T> : IEntityCollection<T>, IEntityNameAccessor<T>
+        public abstract class EntityCollection : IEntityCollection
+        {
+            public abstract List<string> AllNames { get; }
+
+            public abstract List<string> CachedNames { get; }
+
+            public abstract int Count { get; }
+
+            public abstract DbEntityType DbEntityType { get; }
+
+            public abstract bool HasIntId { get; }
+        }
+
+        public abstract class EntityCollection<T> : EntityCollection, IEntityCollection<T>, IEntityNameAccessor<T>
             where T : DbEntity
         {
-            public abstract bool HasIntId { get; }
+            public override bool HasIntId { get; }
 
             protected EntityCollection(string childname)
             {
@@ -59,7 +72,7 @@ namespace SongsAbout.Classes.Database
             public virtual List<T> CachedItems { get; protected set; }
 
             public abstract List<T> Items { get; protected set; }
-            public virtual List<string> CachedNames
+            public override List<string> CachedNames
             {
                 get
                 {
@@ -67,7 +80,7 @@ namespace SongsAbout.Classes.Database
                             select a.Name).ToList();
                 }
             }
-            public virtual List<string> AllNames
+            public override List<string> AllNames
             {
                 get
                 {
@@ -75,8 +88,6 @@ namespace SongsAbout.Classes.Database
                             select a.Name).ToList();
                 }
             }
-            public abstract DbEntityType DbEntityType { get; }
-
             /// <summary>
             /// Get the Artist of the given name if it exists, otherwise throws an exception
             /// </summary>
@@ -138,7 +149,7 @@ namespace SongsAbout.Classes.Database
                         DbException(DbEntityType, $"Error verifying if Database contains {typeof(T)} with Name {name}{ex.Message}");
                 }
             }
-            public virtual int Count { get { return this.Items.Count; } }
+            public override int Count { get { return this.Items.Count; } }
             public abstract void Add(T entity);
 
             public virtual T Current

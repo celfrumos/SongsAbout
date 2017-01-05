@@ -142,7 +142,13 @@
     <Compile Include="Classes\Database\TagCollection.cs" />
     <Compile Include="Classes\Database\TrackCollection.cs" />
     <Compile Include="Classes\TableAdapters.cs" />
+    <Compile Include="Controls\ButtonImages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ButtonImages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IEntityControl.cs" />
+    <Compile Include="Controls\ISpotifyEntityControl.cs" />
     <Compile Include="Controls\SControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,6 +160,18 @@
     </Compile>
     <Compile Include="Controls\SLabel.Designer.cs">
       <DependentUpon>SLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SongButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SongButton.Designer.cs">
+      <DependentUpon>SongButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SongModule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SongModule.Designer.cs">
+      <DependentUpon>SongModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SPanel.cs">
       <SubType>UserControl</SubType>
@@ -335,6 +353,11 @@
     <Compile Include="WebAuthForm.Designer.cs">
       <DependentUpon>WebAuthForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\ButtonImages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ButtonImages.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>SongsAbout</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\AttributeViewer.resx">
       <DependentUpon>AttributeViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -343,6 +366,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SLabel.resx">
       <DependentUpon>SLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SongModule.resx">
+      <DependentUpon>SongModule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SPanel.resx">
       <DependentUpon>SPanel.cs</DependentUpon>
@@ -473,6 +499,20 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Stop.png" />
+    <None Include="Resources\SkipForward.png" />
+    <None Include="Resources\SkipBack.png" />
+    <None Include="Resources\Play.png" />
+    <None Include="Resources\Pause.png" />
+    <None Include="Resources\FastForward.png" />
+    <None Include="Resources\FastBackward.png" />
+    <None Include="Resources\BackButton.png" />
+    <None Include="Resources\StopButton.png" />
+    <None Include="Resources\SkipButton.png" />
+    <None Include="Resources\PlayButton.png" />
+    <None Include="Resources\PauseButton.png" />
+    <None Include="Resources\Forward.png" />
+    <None Include="Resources\Backwards.png" />
     <Content Include="Entities\DataClasses.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataClasses.edmx</DependentUpon>
@@ -483,6 +523,7 @@
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <LastGenOutput>DataClasses.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\PlayButton1.png" />
     <None Include="Resources\CheckMarkBlue.png" />
     <None Include="Resources\CheckMark.png" />
     <None Include="Resources\Spotify_Icon_White.png" />
