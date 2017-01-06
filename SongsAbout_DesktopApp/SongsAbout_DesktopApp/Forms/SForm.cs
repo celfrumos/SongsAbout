@@ -148,20 +148,20 @@ namespace SongsAbout.Forms
             }
         }
 
-        public static void tagsToolStripMenuItem_Click(object sender, EventArgs e)
+        public static void tsmiBulkTags_Click(object sender, EventArgs e)
         {
             var tagsImport = new BulkImportForm() { DbEntityType = DbEntityType.Tag };
             tagsImport.ShowDialog();
         }
 
-        public static void playlistsToolStripMenuItem_Click(object sender, EventArgs e)
+        public static void tsmiBulkPlaylists_Click(object sender, EventArgs e)
         {
             var playlistImport = new BulkImportForm() { DbEntityType = DbEntityType.Playlist };
             playlistImport.ShowDialog();
 
         }
 
-        private void genresToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsmiBulkGenres_Click(object sender, EventArgs e)
         {
             var genresImport = new BulkImportForm() { DbEntityType = DbEntityType.Genre };
             genresImport.ShowDialog();

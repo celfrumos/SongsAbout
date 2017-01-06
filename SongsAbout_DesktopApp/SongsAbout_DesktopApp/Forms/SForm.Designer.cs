@@ -22,18 +22,20 @@ namespace SongsAbout.Forms
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            System.Windows.Forms.MenuStrip mainMenuStrip;
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bulkAddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.genresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playlistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spotifyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,67 +45,84 @@ namespace SongsAbout.Forms
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pBoxProfilePic = new System.Windows.Forms.PictureBox();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bulkAddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.genresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playlistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainMenuStrip.SuspendLayout();
+            this.SongModule = new SongsAbout.Controls.SongModule();
+            mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenuStrip
             // 
-            this.mainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.fileToolStripMenuItem,
-                this.spotifyToolStripMenuItem,
-                this.aboutToolStripMenuItem,
-                this.profileToolStripMenuItem
-               
-            });
-            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
-            this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
-            this.mainMenuStrip.Size = new System.Drawing.Size(663, 30);
-            this.mainMenuStrip.TabIndex = 18;
+            mainMenuStrip.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
+            mainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.spotifyToolStripMenuItem,
+            this.aboutToolStripMenuItem,
+            this.profileToolStripMenuItem});
+            mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            mainMenuStrip.Name = "mainMenuStrip";
+            mainMenuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
+            mainMenuStrip.Size = new System.Drawing.Size(527, 30);
+            mainMenuStrip.TabIndex = 18;
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewDatabaseToolStripMenuItem,
+            this.addNewTrackToolStripMenuItem,
+            this.bulkAddToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
-            {
-                this.viewDatabaseToolStripMenuItem,
-                this.addNewTrackToolStripMenuItem,
-                this.bulkAddToolStripMenuItem
-            });
             // 
             // viewDatabaseToolStripMenuItem
             // 
             this.viewDatabaseToolStripMenuItem.Name = "viewDatabaseToolStripMenuItem";
             this.viewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.viewDatabaseToolStripMenuItem.Text = "View Database";
-            this.viewDatabaseToolStripMenuItem.Click += new System.EventHandler(msiViewData_Click);
             // 
             // addNewTrackToolStripMenuItem
             // 
             this.addNewTrackToolStripMenuItem.Name = "addNewTrackToolStripMenuItem";
             this.addNewTrackToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.addNewTrackToolStripMenuItem.Text = "Add New Track";
-            this.addNewTrackToolStripMenuItem.Click += new System.EventHandler(msiAddTrack_Click);
             // 
-            // logOutToolStripMenuItem
+            // bulkAddToolStripMenuItem
             // 
-            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.logOutToolStripMenuItem.Text = "Log Out";
+            this.bulkAddToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.genresToolStripMenuItem,
+            this.tagsToolStripMenuItem,
+            this.playlistsToolStripMenuItem});
+            this.bulkAddToolStripMenuItem.Name = "bulkAddToolStripMenuItem";
+            this.bulkAddToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.bulkAddToolStripMenuItem.Text = "Bulk Add";
+            // 
+            // genresToolStripMenuItem
+            // 
+            this.genresToolStripMenuItem.Name = "genresToolStripMenuItem";
+            this.genresToolStripMenuItem.Size = new System.Drawing.Size(136, 26);
+            this.genresToolStripMenuItem.Text = "Genres";
+            this.genresToolStripMenuItem.Click += new System.EventHandler(this.tsmiBulkGenres_Click);
+            // 
+            // tagsToolStripMenuItem
+            // 
+            this.tagsToolStripMenuItem.Name = "tagsToolStripMenuItem";
+            this.tagsToolStripMenuItem.Size = new System.Drawing.Size(136, 26);
+            this.tagsToolStripMenuItem.Text = "Tags";
+            // 
+            // playlistsToolStripMenuItem
+            // 
+            this.playlistsToolStripMenuItem.Name = "playlistsToolStripMenuItem";
+            this.playlistsToolStripMenuItem.Size = new System.Drawing.Size(136, 26);
+            this.playlistsToolStripMenuItem.Text = "Playlists";
             // 
             // spotifyToolStripMenuItem
             // 
@@ -119,9 +138,8 @@ namespace SongsAbout.Forms
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.connectToolStripMenuItem.Text = "Connect";
-            this.connectToolStripMenuItem.Click += new System.EventHandler(msiConnectSpotify_Click);
             // 
             // importToolStripMenuItem
             // 
@@ -131,7 +149,7 @@ namespace SongsAbout.Forms
             this.followedPlaylistsToolStripMenuItem,
             this.allToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // savedTracksToolStripMenuItem
@@ -146,7 +164,7 @@ namespace SongsAbout.Forms
             this.followedArtistsToolStripMenuItem.Name = "followedArtistsToolStripMenuItem";
             this.followedArtistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.followedArtistsToolStripMenuItem.Text = "Followed Artists";
-            this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(msiImportFollowedArtists_Click);
+            this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(msiImportSavedTracks_Click);
             // 
             // followedPlaylistsToolStripMenuItem
             // 
@@ -165,16 +183,20 @@ namespace SongsAbout.Forms
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.searchToolStripMenuItem.Text = "Search";
-            this.searchToolStripMenuItem.Click += new System.EventHandler(msiSpotifySearch_Click);
             // 
             // disconnectToolStripMenuItem
             // 
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
-            this.disconnectToolStripMenuItem.Click += new System.EventHandler(msiDisconnect_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // profileToolStripMenuItem
             // 
@@ -197,11 +219,11 @@ namespace SongsAbout.Forms
             this.themeToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
-            // aboutToolStripMenuItem
+            // logOutToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.logOutToolStripMenuItem.Text = "Log Out";
             // 
             // pBoxProfilePic
             // 
@@ -219,55 +241,36 @@ namespace SongsAbout.Forms
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.viewToolStripMenuItem.Text = "View";
             // 
-            // bulkAddToolStripMenuItem
+            // SongModule
             // 
-            this.bulkAddToolStripMenuItem.Name = "bulkAddToolStripMenuItem";
-            this.bulkAddToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.bulkAddToolStripMenuItem.Text = "Bulk Add";
-            this.bulkAddToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[]
-            {
-                genresToolStripMenuItem,
-                tagsToolStripMenuItem,
-                playlistsToolStripMenuItem
-            });
-            // 
-            // genresToolStripMenuItem
-            // 
-            this.genresToolStripMenuItem.Name = "genresToolStripMenuItem";
-            this.genresToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.genresToolStripMenuItem.Text = "Genres";
-            this.genresToolStripMenuItem.Click += new System.EventHandler(genresToolStripMenuItem_Click);
-            // 
-            // tagsToolStripMenuItem
-            // 
-            this.tagsToolStripMenuItem.Name = "tagsToolStripMenuItem";
-            this.tagsToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.tagsToolStripMenuItem.Text = "Tags";
-            this.tagsToolStripMenuItem.Click += new System.EventHandler(tagsToolStripMenuItem_Click);
-            // 
-            // playlistsToolStripMenuItem
-            // 
-            this.playlistsToolStripMenuItem.Name = "playlistsToolStripMenuItem";
-            this.playlistsToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.playlistsToolStripMenuItem.Text = "Playlists";
-            this.playlistsToolStripMenuItem.Click += new System.EventHandler(playlistsToolStripMenuItem_Click);
-          
+            this.SongModule.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.SongModule.IsPlaying = false;
+            this.SongModule.Location = new System.Drawing.Point(206, 574);
+            this.SongModule.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.SongModule.MaximumSize = new System.Drawing.Size(121, 53);
+            this.SongModule.Name = "SongModule";
+            this.SongModule.Size = new System.Drawing.Size(115, 52);
+            this.SongModule.SpotifyEntity = null;
+            this.SongModule.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
+            this.SongModule.TabIndex = 29;
+            this.SongModule.Track = null;
             // 
             // SForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ClientSize = new System.Drawing.Size(663, 276);
+            this.ClientSize = new System.Drawing.Size(527, 641);
+            this.Controls.Add(this.SongModule);
             this.Controls.Add(this.pBoxProfilePic);
-            this.Controls.Add(this.mainMenuStrip);
+            this.Controls.Add(mainMenuStrip);
             this.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MainMenuStrip = this.mainMenuStrip;
+            this.MainMenuStrip = mainMenuStrip;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "SForm";
             this.Text = "SongsAbout";
-            this.mainMenuStrip.ResumeLayout(false);
-            this.mainMenuStrip.PerformLayout();
+            mainMenuStrip.ResumeLayout(false);
+            mainMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -282,7 +285,6 @@ namespace SongsAbout.Forms
         protected System.Windows.Forms.ToolStripMenuItem genresToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem tagsToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem playlistsToolStripMenuItem;
-        protected System.Windows.Forms.MenuStrip mainMenuStrip;
         protected System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem viewDatabaseToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem spotifyToolStripMenuItem;
@@ -300,6 +302,7 @@ namespace SongsAbout.Forms
         protected System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
+        protected Controls.SongModule SongModule;
     }
 }
 

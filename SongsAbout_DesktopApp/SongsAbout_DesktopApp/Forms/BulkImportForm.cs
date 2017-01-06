@@ -75,7 +75,7 @@ namespace SongsAbout.Forms
                 {
                     try
                     {
-                        Program.Database.Playlists.Add(list, false);
+                        Program.Database.Playlists.Add(list);
                     }
                     catch (Exception ex)
                     {

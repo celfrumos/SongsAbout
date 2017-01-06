@@ -33,7 +33,6 @@
             this.lblAlbumName = new SongsAbout.Controls.SLabel();
             this.sPicturePox1 = new SongsAbout.Controls.SPicturePox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.songModule1 = new SongsAbout.Controls.SongModule();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sPicturePox1)).BeginInit();
             this.SuspendLayout();
@@ -43,6 +42,10 @@
             this.pBoxProfilePic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pBoxProfilePic.Location = new System.Drawing.Point(569, 42);
             this.pBoxProfilePic.Size = new System.Drawing.Size(54, 54);
+            // 
+            // SongModule
+            // 
+            this.SongModule.Location = new System.Drawing.Point(260, 574);
             // 
             // lblArtist
             // 
@@ -146,36 +149,21 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(612, 421);
             this.tableLayoutPanel1.TabIndex = 32;
             // 
-            // songModule1
-            // 
-            this.songModule1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.songModule1.IsPlaying = false;
-            this.songModule1.Location = new System.Drawing.Point(246, 580);
-            this.songModule1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.songModule1.Name = "songModule1";
-            this.songModule1.Size = new System.Drawing.Size(142, 53);
-            this.songModule1.SpotifyEntity = null;
-            this.songModule1.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
-            this.songModule1.TabIndex = 33;
-            this.songModule1.Track = null;
-            // 
             // AlbumDisplayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.ClientSize = new System.Drawing.Size(635, 644);
-            this.Controls.Add(this.songModule1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.sPicturePox1);
             this.Controls.Add(this.lblArtist);
             this.Controls.Add(this.lblAlbumName);
             this.Name = "AlbumDisplayForm";
+            this.Controls.SetChildIndex(this.SongModule, 0);
             this.Controls.SetChildIndex(this.lblAlbumName, 0);
             this.Controls.SetChildIndex(this.lblArtist, 0);
             this.Controls.SetChildIndex(this.sPicturePox1, 0);
             this.Controls.SetChildIndex(this.tableLayoutPanel1, 0);
             this.Controls.SetChildIndex(this.pBoxProfilePic, 0);
-            this.Controls.SetChildIndex(this.songModule1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sPicturePox1)).EndInit();
             this.ResumeLayout(false);
@@ -188,6 +176,5 @@
         private Controls.SLabel lblAlbumName = new SongsAbout.Controls.SLabel();
         private Controls.SPicturePox sPicturePox1 = new SongsAbout.Controls.SPicturePox();
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private Controls.SongModule songModule1;
     }
 }

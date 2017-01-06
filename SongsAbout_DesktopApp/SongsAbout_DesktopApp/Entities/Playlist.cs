@@ -17,13 +17,15 @@ namespace SongsAbout.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Playlist()
         {
-            this.Tracks = new HashSet<Track>();
+            this.privateTracks = new HashSet<Track>();
         }
     
-        public int list_id { get; set; }
-        public string list_name { get; set; }
+        private string list_name { get; set; }
+        private string list_spotify_uri { get; set; }
+        private string list_spotify_id { get; set; }
+        private string list_spotify_href { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Track> Tracks { get; set; }
+        private ICollection<Track> privateTracks { get; set; }
     }
 }

@@ -47,11 +47,10 @@ namespace SongsAbout.Entities
 
         }
 
-
-        //public Artist(ISpotifyEntity artist) : this(artist.Name, artist.Uri, artist.Href)
-        //{
-        //    this.UpdateProfilePic((ISpotifyFullEntity)artist);
-        //}
+        public static implicit operator Artist(SpotifyArtist a)
+        {
+            return new Artist(a);
+        }
 
 
         public Artist(SpotifyArtist artist) : this(artist.Name, artist.Uri, artist.Href)

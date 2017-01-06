@@ -43,17 +43,19 @@
         </EntityType>
         <EntityType Name="Lists">
           <Key>
-            <PropertyRef Name="list_id" />
+            <PropertyRef Name="list_name" />
           </Key>
-          <Property Name="list_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="list_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="list_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="list_spotify_uri" Type="varchar" MaxLength="100" />
+          <Property Name="list_spotify_id" Type="varchar" MaxLength="100" />
+          <Property Name="list_spotify_href" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ListTracks">
           <Key>
-            <PropertyRef Name="list_id" />
+            <PropertyRef Name="list_name" />
             <PropertyRef Name="track_id" />
           </Key>
-          <Property Name="list_id" Type="int" Nullable="false" />
+          <Property Name="list_name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="track_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tags">
@@ -192,18 +194,6 @@
             </Principal>
             <Dependent Role="Albums">
               <PropertyRef Name="artist_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ListTracks_Lists">
-          <End Role="Lists" Type="Self.Lists" Multiplicity="1" />
-          <End Role="ListTracks" Type="Self.ListTracks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lists">
-              <PropertyRef Name="list_id" />
-            </Principal>
-            <Dependent Role="ListTracks">
-              <PropertyRef Name="list_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -366,10 +356,6 @@
             <End Role="Artists" EntitySet="Artists" />
             <End Role="Albums" EntitySet="Albums" />
           </AssociationSet>
-          <AssociationSet Name="FK_ListTracks_Lists" Association="Self.FK_ListTracks_Lists">
-            <End Role="Lists" EntitySet="Lists" />
-            <End Role="ListTracks" EntitySet="ListTracks" />
-          </AssociationSet>
           <AssociationSet Name="FK_ListTracks_Tracks" Association="Self.FK_ListTracks_Tracks">
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="ListTracks" EntitySet="ListTracks" />
@@ -444,11 +430,13 @@
         </EntityType>
         <EntityType Name="Playlist">
           <Key>
-            <PropertyRef Name="list_id" />
+            <PropertyRef Name="list_name" />
           </Key>
-          <Property Name="list_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="list_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tracks" Relationship="DataClasses.ListTracks" FromRole="List" ToRole="Track" />
+          <Property Name="list_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privateTracks" Relationship="DataClasses.ListTracks" FromRole="List" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="list_spotify_uri" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="list_spotify_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="list_spotify_href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -639,7 +627,9 @@
           <EntitySetMapping Name="Playlists">
             <EntityTypeMapping TypeName="DataClasses.Playlist">
               <MappingFragment StoreEntitySet="Lists">
-                <ScalarProperty Name="list_id" ColumnName="list_id" />
+                <ScalarProperty Name="list_spotify_href" ColumnName="list_spotify_href" />
+                <ScalarProperty Name="list_spotify_id" ColumnName="list_spotify_id" />
+                <ScalarProperty Name="list_spotify_uri" ColumnName="list_spotify_uri" />
                 <ScalarProperty Name="list_name" ColumnName="list_name" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -684,11 +674,11 @@
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="ListTracks" TypeName="DataClasses.ListTracks" StoreEntitySet="ListTracks">
+            <EndProperty Name="List">
+              <ScalarProperty Name="list_name" ColumnName="list_name" />
+            </EndProperty>
             <EndProperty Name="Track">
               <ScalarProperty Name="ID" ColumnName="track_id" />
-            </EndProperty>
-            <EndProperty Name="List">
-              <ScalarProperty Name="list_id" ColumnName="list_id" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="TrackArtists" TypeName="DataClasses.TrackArtists" StoreEntitySet="TrackArtists">

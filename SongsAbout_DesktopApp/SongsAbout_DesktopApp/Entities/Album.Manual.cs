@@ -464,6 +464,10 @@ namespace SongsAbout.Entities
             this.CoverArt = spotifyImage;
         }
 
+        public static implicit operator Album(SpotifyAlbum a)
+        {
+            return new Album(a);
+        }
 
         /// <summary>
         /// 

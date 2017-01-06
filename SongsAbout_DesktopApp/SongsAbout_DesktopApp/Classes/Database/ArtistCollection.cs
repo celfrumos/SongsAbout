@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity.Infrastructure;
-using System.Text;
 using System.Data;
 using SongsAbout.Enums;
 using SongsAbout.Entities;
-using System.Collections;
+using System.Data.Entity;
 
 namespace SongsAbout.Classes.Database
 {
@@ -103,12 +97,17 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        base.CachedItems = new List<Artist>();
+
+                        if (Program.Database.LargeQuery)
+                        {
+                            return this.CachedItems;
+                        }
                         using (var db = new DataClassesContext())
                         {
-                            base.CachedItems.AddRange(from a in db.Artists
-                                               where a.ID != 0
-                                               select a);
+                            base.CachedItems = db.Artists
+                                                    .Where(a => a.ID != 0)
+                                                    .Include(a => a.)
+                                                    .ToList();
                         }
                         return base.CachedItems;
                     }

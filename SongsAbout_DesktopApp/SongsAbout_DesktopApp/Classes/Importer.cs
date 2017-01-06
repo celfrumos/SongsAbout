@@ -50,7 +50,7 @@ namespace SongsAbout.Classes
             }
         }
 
-        private static void ImportArtist(SpotifyFullArtist artist)
+        public static void ImportArtist(SpotifyFullArtist artist)
         {
             try
             {
@@ -64,23 +64,58 @@ namespace SongsAbout.Classes
 
         public static void ImportSavedPlaylists()
         {
+            Program.Database.LargeQuery = true;
             foreach (SpotifyPlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId).Items)
             {
                 try
                 {
-                    Paging<PlaylistTrack> playlists = UserSpotify.WebAPI.GetPlaylistTracks(User.Default.PrivateId, playlist.Id);
-                    foreach (PlaylistTrack pt in playlists.Items)
+                    if (!Program.Database.Playlists.AllNames.Contains(playlist.Name))
                     {
-                        ImportTrack(pt.Track);
+                        Program.Database.Playlists.Add(playlist);
+                    }
+
+                        Playlist newList = Program.Database.Playlists[playlist.Name];
+                    var playlistTracks = UserSpotify.WebAPI.GetPlaylistTracks(User.Default.PrivateId, playlist.Id);
+
+                    foreach (PlaylistTrack pt in playlistTracks.Items)
+                    {
+
+                        Track track = Program.Database.Tracks[pt.Track.Name];
+                        if (track == null)
+                        {
+                            track = pt.Track;
+                            track.Save();
+                            track = Program.Database.Tracks[pt.Track.Name];
+                        }
+                        if (!newList.Tracks.Contains(track))
+                        {
+                            newList.Tracks.Add(track);
+                        }
+
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error importing Playlist: {playlist.Name}, {ex.Message}");
-                    //throw new Exception(ex.Message);
                 }
             }
+            Program.Database.LargeQuery = false;
             Console.WriteLine("Finished importing Saved Playlists.");
+        }
+
+        private static void ImportPlaylist(SpotifyPlaylist playlist)
+        {
+            try
+            {
+                if (!Program.Database.Playlists.AllNames.Contains(playlist.Name))
+                {
+                    Program.Database.Playlists.Add(playlist);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new SpotifyToDBImportException(SpotifyEntityType.Playlist, DbEntityType.Playlist, ex.Message);
+            }
         }
 
         /// <summary>
@@ -93,7 +128,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                Program.Database.Tracks.Add(new Track(track));
+                Program.Database.Tracks.Add(track);
             }
             catch (SaveError)
             {
@@ -177,6 +212,17 @@ namespace SongsAbout.Classes
             }
         }
 
+        public static void ImportAllPlaylists()
+        {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public static void ImportAlbum(SpotifyAlbum album)
         {
             try
@@ -189,7 +235,7 @@ namespace SongsAbout.Classes
             }
             catch (Exception ex)
             {
-                throw new SpotifyImportError<SpotifyAlbum>($"Error getting full album '{album.Name}': {ex.Message}");
+                throw new SpotifyImportError(SpotifyEntityType.Album, $"Error getting full album '{album.Name}': {ex.Message}");
             }
         }
 
@@ -247,7 +293,7 @@ namespace SongsAbout.Classes
             try
             {
                 SpotifyFullArtist artist = ar.GetFullVersion(UserSpotify.WebAPI);
-                Program.Database.Artists.Add(new Artist(artist));              
+                Program.Database.Artists.Add(new Artist(artist));
 
             }
             catch (NullValueError)

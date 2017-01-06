@@ -42,9 +42,18 @@ namespace SongsAbout.Classes.Database
             {
                 get
                 {
-                    using (var db = new DataClassesContext())
+                    if (Program.Database.LargeQuery && this.CachedItems != null)
                     {
-                        return GetItems(db.Playlists);
+                        return this.CachedItems;
+                    }
+                    else
+                    {
+                        using (var db = new DataClassesContext())
+                        {
+                            this.CachedItems = db.Playlists.Include(p => p.Tracks).ToList();
+
+                            return this.CachedItems;
+                        }
                     }
                 }
                 protected set
@@ -62,32 +71,10 @@ namespace SongsAbout.Classes.Database
             /// <exception cref="DbException"></exception>"
             public override void Add(Playlist playlist)
             {
-                if (playlist.Name == "" || playlist.Name == null)
+                if (playlist.Name == null || playlist.Name == "")
                     throw new NullValueError("Genre name cannot be null.");
 
-                if (this.Contains(playlist.Name))
-                    throw new ValueAlreadyPresentException(DbEntityType, playlist.Name);
-
-                try
-                {
-                    using (var db = new DataClassesContext())
-                    {
-                        db.Playlists.Add(playlist);
-                        db.SaveChanges();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
-                    throw new DbException(ex.Message);
-                }
-            }
-            public  void Add(Playlist playlist, bool checkFirst = true)
-            {
-                if (playlist.Name == "" || playlist.Name == null)
-                    throw new NullValueError("Genre name cannot be null.");
-
-                if (checkFirst && this.Contains(playlist.Name))
+                if (!Program.Database.LargeQuery && this.Contains(playlist.Name))
                     throw new ValueAlreadyPresentException(DbEntityType, playlist.Name);
 
                 try

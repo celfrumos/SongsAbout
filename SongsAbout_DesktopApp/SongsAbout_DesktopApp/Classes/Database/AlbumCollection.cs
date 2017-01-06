@@ -105,9 +105,21 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        using (var db = new DataClassesContext())
+                        if (this.CachedItems != null && Program.Database.LargeQuery)
                         {
-                            return GetItems((DbSet<Album>)(db.Albums.Where(a => a.ID != 0)));
+                            return this.CachedItems;
+                        }
+                        else
+                        {
+                            using (var db = new DataClassesContext())
+                            {
+                                this.CachedItems = db.Albums
+                                    .Where(a => a.ID != 0)
+                                    .Include(a => a.Tracks)
+                                    .ToList();
+
+                                return GetItems((DbSet<Album>)(db.Albums.Where(a => a.ID != 0)));
+                            }
                         }
                     }
                     catch (Exception ex)

@@ -472,38 +472,24 @@ namespace SongsAbout.Entities
                 {
                     track = (SpotifyFullTrack)t;
                 }
-                else //if (t.SpotifyEntityType == SpotifyEntityType.BaseTrack)
+                else
                 {
                     track = t.FullVersion(UserSpotify.WebAPI);
-
                 }
-                this.Album = Program.Database.Albums[track.Album.Name];
 
-                if (this.Album == null)
-                {
-                    UpdateAlbum(track.Album);
-
-                }
-                if (this.Artist == null)
-                {
-                    UpdateArtist(track.Artists[0]);
-                }
-                this.Artist = Program.Database.Artists[track.Artists[0].Name];
+                UpdateAlbum(track.Album);
+                UpdateArtist(track.Artists[0]);
 
             }
             catch (Exception ex)
             {
-               // throw new UpdateFromSpotifyError(this.DbEntityType, SpotifyEntityType.FullTrack, t.Name, ex.Message);
+                throw new DbInitFromSpotifyError(DbEntityType.Track, t.SpotifyEntityType,ex.Message);
             }
         }
-
-        //public Track(SpotifyFullTrack t) : this(new SpotifyTrack(t))
-        //{
-        //}
-        //public Track(SpotifyTrack t) : this(new SpotifyTrack(t))
-        //{
-        //}
-
+        public static implicit operator Track(SpotifyTrack t)
+        {
+            return new Track(t);
+        }
         public override void Save()
         {
             try
@@ -512,7 +498,6 @@ namespace SongsAbout.Entities
                 {
                     using (var db = new DataClassesContext())
                     {
-                        // db.Tracks.Add(this);
                         db.UpdateInsert_Track(this.ID, this.name, this.track_spotify_uri, this.track_length_minutes, this.track_artist_id, this.can_play, this.track_album_id);
                         db.SaveChanges();
                         Console.WriteLine($"Successfully saved track '{name}'");
@@ -554,22 +539,6 @@ namespace SongsAbout.Entities
             }
         }
 
-        ///// <summary>
-        ///// Update the Track Artist from an SimpleArtist
-        ///// </summary>
-        ///// <param name="album"></param>
-        ///// <exception cref="UpdateFromSpotifyError"></exception>
-        //private void UpdateAlbum(SpotifyFullAlbum album)
-        //{
-        //    try
-        //    {
-        //        UpdateAlbum(new SpotifyAlbum(album));
-        //    }
-        //    catch (UpdateFromSpotifyError)
-        //    {
-        //        throw;
-        //    }
-        //}
 
         /// <summary>
         /// Update the Track Artist from an FArtist
@@ -581,12 +550,16 @@ namespace SongsAbout.Entities
             try
             {
                 Artist a;
-                if (!Artist.Exists(artist.Name))
-                {
-                    Program.Database.Artists[artist.Name] = new Artist((SpotifyFullArtist)artist);
-                }
                 a = Program.Database.Artists[artist.Name];
-                this.track_artist_id = a.ID;
+
+                if (a == null)
+                {
+                    a = artist;
+                    a.Save();
+                    a = Program.Database.Artists[artist.Name];
+                    this.AlbumId = a.ID;
+                }
+                this.Artist = a;
 
             }
             catch (Exception ex)
@@ -595,22 +568,6 @@ namespace SongsAbout.Entities
             }
         }
 
-        ///// <summary>
-        ///// Update the Track Artist from an FullArtist
-        ///// </summary>
-        ///// <param name="artist"></param>
-        ///// <exception cref="UpdateFromSpotifyError"></exception>
-        //public void UpdateArtist(SpotifyFullArtist artist)
-        //{
-        //    try
-        //    {
-        //        UpdateArtist(new SpotifyArtist(artist));
-        //    }
-        //    catch (UpdateFromSpotifyError)
-        //    {
-        //        throw;
-        //    }
-        //}
 
         /// <summary>
         /// Update the Track Album from an FAlbum
@@ -622,14 +579,17 @@ namespace SongsAbout.Entities
             try
             {
                 Album al;
-                if (!Album.Exists(album.Name))
-                {
-                    al = new Album(album);
-                    al.Save();
-                }
+                al = Program.Database.Albums[album.Name];
 
-                al = Album.Load(album.Name);
-                this.AlbumId = al.ID;
+                if (al == null)
+                {
+                    al = album;
+                    al.Save();
+                    al = Program.Database.Albums[album.Name];
+                    this.AlbumId = al.ID;
+                }
+                this.Album = al;
+
             }
             catch (SaveError ex)
             {

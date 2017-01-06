@@ -28,30 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.songModule1 = new SongsAbout.Controls.SongModule();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
-            // songModule1
+            // pBoxProfilePic
             // 
-            this.songModule1.IsPlaying = false;
-            this.songModule1.Location = new System.Drawing.Point(259, 592);
-            this.songModule1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.songModule1.Name = "songModule1";
-            this.songModule1.Size = new System.Drawing.Size(142, 53);
-            this.songModule1.SpotifyEntity = null;
-            this.songModule1.SpotifyEntityType = SpotifyAPI.Web.Enums.SpotifyEntityType.None;
-            this.songModule1.TabIndex = 28;
-            this.songModule1.Track = null;
+            this.pBoxProfilePic.Size = new System.Drawing.Size(50, 50);
+            // 
+            // SongModule
+            // 
+            this.SongModule.Location = new System.Drawing.Point(200, 605);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            this.ClientSize = new System.Drawing.Size(661, 658);
-            this.Controls.Add(this.songModule1);
+            this.ClientSize = new System.Drawing.Size(514, 658);
             this.Name = "MainForm";
             this.Controls.SetChildIndex(this.pBoxProfilePic, 0);
-            this.Controls.SetChildIndex(this.songModule1, 0);
+            this.Controls.SetChildIndex(this.SongModule, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -59,7 +53,5 @@
         }
 
         #endregion
-
-        private Controls.SongModule songModule1;
     }
 }

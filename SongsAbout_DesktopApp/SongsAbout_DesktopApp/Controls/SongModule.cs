@@ -60,6 +60,7 @@ namespace SongsAbout.Controls
 
         public SongModule()
         {
+            this.SpotifyEntity = new SpotifyFullTrack();
             InitializeComponent();
             this.btnSkipForward.Click += OnSkipForward;
             this.btnSkipBack.Click += OnSkipBack;
