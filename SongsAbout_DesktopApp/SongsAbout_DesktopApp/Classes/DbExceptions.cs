@@ -14,7 +14,7 @@ namespace SongsAbout.Classes
     {
         const string DEF_MSG = "An Error Occurred while interacting with the database";
 
-        public virtual DbEntityType DbEntityType { get; protected set; }
+        public virtual DbEntityType DbEntityType { get; set; }
 
         public virtual DbEntity _entity { get; protected set; }
 
@@ -77,7 +77,9 @@ namespace SongsAbout.Classes
         public LoadError(string msg = DEF_MSG)
               : base($"Load Error: {msg}")
         { }
-
+        public LoadError(DbEntityType type, string msg = DEF_MSG)
+           : base($"Error Loading {type} from the database: {msg}")
+        { }
         public LoadError(DbEntityType entityType, int id, string msg) : base(loadDefMsg(entityType, id, msg))
         {
         }
@@ -225,7 +227,7 @@ namespace SongsAbout.Classes
         const string DEF_MSG = "Failed to initialize DbEntity from Spotify Entity.";
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
-        public DbInitFromSpotifyError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG) 
+        public DbInitFromSpotifyError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG)
             : base(initErrDefMsg(dbType, spotifyType, msg))
         {
             this.DbEntityType = dbType;

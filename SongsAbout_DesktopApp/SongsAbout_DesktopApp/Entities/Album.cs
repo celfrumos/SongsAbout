@@ -17,8 +17,8 @@ namespace SongsAbout.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Album()
         {
-            this.privateTracks = new HashSet<Track>();
-            this.privateGenres = new HashSet<Genre>();
+            this.Tracks = new HashSet<Track>();
+            this.Genres = new HashSet<Genre>();
         }
     
         public int ID { get; set; }
@@ -30,8 +30,8 @@ namespace SongsAbout.Entities
     
         private Artist privateArtist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<Track> privateTracks { get; set; }
+        public virtual ICollection<Track> Tracks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<Genre> privateGenres { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
     }
 }

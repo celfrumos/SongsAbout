@@ -116,9 +116,10 @@ namespace SongsAbout.Classes.Database
                                 this.CachedItems = db.Albums
                                     .Where(a => a.ID != 0)
                                     .Include(a => a.Tracks)
+                                    .Include(a=> a.Genres)
                                     .ToList();
 
-                                return GetItems((DbSet<Album>)(db.Albums.Where(a => a.ID != 0)));
+                                return this.CachedItems;
                             }
                         }
                     }

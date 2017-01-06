@@ -62,36 +62,43 @@ namespace SongsAbout.Classes
             }
         }
 
-        public static void ImportSavedPlaylists()
+        public static void ImportSavedPlaylists(bool includeAllTracks = false)
         {
+
             Program.Database.LargeQuery = true;
+            var existingEntries = Program.Database.Playlists.Items;
             foreach (SpotifyPlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId).Items)
             {
                 try
                 {
-                    if (!Program.Database.Playlists.AllNames.Contains(playlist.Name))
+                    Playlist newList = Program.Database.Playlists[playlist.Name];
+
+                    if (newList == null)
                     {
                         Program.Database.Playlists.Add(playlist);
+                        newList = Program.Database.Playlists[playlist.Name];
                     }
 
-                        Playlist newList = Program.Database.Playlists[playlist.Name];
+
                     var playlistTracks = UserSpotify.WebAPI.GetPlaylistTracks(User.Default.PrivateId, playlist.Id);
-
-                    foreach (PlaylistTrack pt in playlistTracks.Items)
+                    if (includeAllTracks)
                     {
-
-                        Track track = Program.Database.Tracks[pt.Track.Name];
-                        if (track == null)
+                        foreach (PlaylistTrack pt in playlistTracks.Items)
                         {
-                            track = pt.Track;
-                            track.Save();
-                            track = Program.Database.Tracks[pt.Track.Name];
-                        }
-                        if (!newList.Tracks.Contains(track))
-                        {
-                            newList.Tracks.Add(track);
-                        }
 
+                            Track track = Program.Database.Tracks[pt.Track.Name];
+                            if (track == null)
+                            {
+                                track = pt.Track;
+                                track.Save();
+                                track = Program.Database.Tracks[pt.Track.Name];
+                            }
+                            if (!newList.Tracks.Contains(track))
+                            {
+                                newList.Tracks.Add(track);
+                            }
+
+                        }
                     }
                 }
                 catch (Exception ex)

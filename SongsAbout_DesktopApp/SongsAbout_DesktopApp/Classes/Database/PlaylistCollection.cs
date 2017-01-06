@@ -14,10 +14,20 @@ namespace SongsAbout.Classes.Database
             public override bool HasIntId { get { return false; } }
             public override DbEntityType DbEntityType { get { return DbEntityType.Playlist; } }
             private static bool _initialized { get; set; }
+            private static bool _itemsHaveBeen { get; set; }
 
             private const string COLLECTION_NAME = "PlaylistCollection";
 
 
+            protected override Playlist FindByName(string name)
+            {
+                Playlist result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Playlists.Find(name);
+                }
+                return result;
+            }
 
             /// <summary>
             /// Initializes the connector to the GenreList
@@ -30,6 +40,7 @@ namespace SongsAbout.Classes.Database
                     throw new InvalidInitializedError(COLLECTION_NAME);
                 }
                 _initialized = true;
+                this.CachedItems = null;
 
             }
 
@@ -48,12 +59,8 @@ namespace SongsAbout.Classes.Database
                     }
                     else
                     {
-                        using (var db = new DataClassesContext())
-                        {
-                            this.CachedItems = db.Playlists.Include(p => p.Tracks).ToList();
-
-                            return this.CachedItems;
-                        }
+                        this.CachedItems = Playlist.LoadAllFromDatabase();
+                        return this.CachedItems;
                     }
                 }
                 protected set
@@ -79,16 +86,71 @@ namespace SongsAbout.Classes.Database
 
                 try
                 {
+                    if (playlist.Tracks == null)
+                    {
+                        playlist.Tracks = new List<Track>();
+                    }
                     using (var db = new DataClassesContext())
                     {
                         db.Playlists.Add(playlist);
                         db.SaveChanges();
                     }
                 }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+                {
+                    Exception eFinal = ex;
+                    Console.WriteLine(ex.Message);
+                    var e = ex.InnerException;
+                    while (e != null)
+                    {
+                        eFinal = e;
+                        var type = e.GetType();
+                        if (type.FullName == "System.Data.SqlClient.SqlException")
+                        {
+                            var sqlE = e as System.Data.SqlClient.SqlException;
+                            Console.WriteLine(e.Message);
+                            if (sqlE.Message.Contains($@"Violation of PRIMARY KEY constraint"))
+                            {
+                                Update(playlist);
+                                return;
+                            }
+
+                        }
+                        e = e.InnerException;
+
+                    }
+                    throw eFinal;
+                }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
                     throw new DbException(ex.Message);
+                }
+            }
+
+            private void Update(Playlist playlist)
+            {
+                try
+                {
+                    using (var db = new DataClassesContext())
+                    {
+                        var p = db.Playlists.Find(playlist.Name);
+                        if (p == playlist)
+                        {
+
+                        }
+                        p = playlist;
+                        db.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
                 }
             }
         }

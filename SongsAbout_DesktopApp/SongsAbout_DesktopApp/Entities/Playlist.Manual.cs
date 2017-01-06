@@ -6,6 +6,7 @@ using SongsAbout.Enums;
 using SongsAbout.Classes;
 using SongsAbout.Properties;
 using System.Linq;
+using System.Data.Entity;
 
 namespace SongsAbout.Entities
 {
@@ -46,10 +47,33 @@ namespace SongsAbout.Entities
             }
         }
 
+        public static List<Playlist> LoadAllFromDatabase()
+        {
+            try
+            {
+                List<Playlist> result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Playlists
+                                    .Include(a => a.privateTracks)
+                                    .ToList();
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new LoadError(DbEntityType.Playlist, ex.Message);
+
+            }
+        }
+
         public List<Track> Tracks
         {
             get
             {
+                if (this.privateTracks == null)
+                    return new List<Track>();
+
                 return (from t in this.privateTracks
                         select t).ToList();
 
@@ -67,7 +91,7 @@ namespace SongsAbout.Entities
 
         static public implicit operator Playlist(SpotifyPlaylist p)
         {
-            return new Playlist(p.Name) { URI = p.Uri, Href = p.Href, SpotifyID = p.Id };
+            return new Playlist(p);
         }
 
         static public implicit operator SpotifyFullPlaylist(Playlist p)
@@ -77,9 +101,17 @@ namespace SongsAbout.Entities
             else
                 throw new DbInitFromSpotifyError(DbEntityType.Playlist, p.SpotifyType);
         }
-        public Playlist(string name)
+        public Playlist(SpotifyPlaylist p) : this(p.Name, p.Uri, p.Href, p.Id)
+        {
+        }
+        public Playlist(string name, string uri = null, string href = null, string spotifyID = null, List<Track> tracks = null)
         {
             this.Name = name;
+            this.URI = uri;
+            this.Href = href;
+            this.SpotifyID = spotifyID;
+            this.Tracks = tracks != null ? tracks : new List<Track>();
+
         }
 
         public override void Save()

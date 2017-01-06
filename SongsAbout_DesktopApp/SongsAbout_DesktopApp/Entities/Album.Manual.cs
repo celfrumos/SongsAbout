@@ -4,6 +4,7 @@ using SpotifyAPI.Web.Models;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
+using System.Drawing;
 using System.Linq;
 using System.Collections.Generic;
 using SongsAbout.Classes;
@@ -12,7 +13,7 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 using SongsAbout.Properties;
 using SongsAbout.Controls;
-using Image = System.Drawing.Image;
+using System.Data.Entity;
 
 namespace SongsAbout.Entities
 {
@@ -38,6 +39,7 @@ namespace SongsAbout.Entities
             get { return this.name; }
             set { this.name = value; }
         }
+
 
         public DateTime? ReleaseDate
         {
@@ -95,33 +97,32 @@ namespace SongsAbout.Entities
                 return new List<Track>();
             }
         }
-
-        public List<Track> Tracks
+        public static List<Album> LoadAllFromDatabase()
         {
-            get
+            try
             {
-                try
-                {
-                    if (this.privateTracks != null)
-                        return (List<Track>)this.privateTracks;
-                    else
-                        return new List<Track>();
-                }
-                catch (ObjectDisposedException ex)
-                {
-                    Console.WriteLine($" Error returning album artist for {this.Name}: {ex.Message}");
-                    return this._loadTracks();
 
-                }
-                catch (Exception ex)
+                List<Album> result;
+                using (var db = new DataClassesContext())
                 {
-                    Console.WriteLine($" Error returning album artist for {this.Name}: {ex.Message}");
-
-                    return _loadTracks();
-
+                    result = db.Albums
+                                    .Where(a => a.ID != 0)
+                                    .Include(a => a.Tracks)
+                                    .Include(a => a.Genres)
+                                    .ToList();
                 }
+                return result;
             }
-            set { this.privateTracks = value; }
+            catch (Exception ex)
+            {
+                throw new LoadError(DbEntityType.Album, ex.Message);
+            }
+        }
+
+        public List<Track> TrackList
+        {
+            get { return this.Tracks.ToList(); }
+            set { this.Tracks = value; }
         }
 
         private List<Genre> _loadGenres()
@@ -133,7 +134,7 @@ namespace SongsAbout.Entities
                 {
                     res = (List<Genre>)(from a in db.Albums
                                         where a.ID == this.ID
-                                        select a.privateGenres);
+                                        select a.Genres);
                 }
 
                 if (res.Count > 0)
@@ -148,15 +149,15 @@ namespace SongsAbout.Entities
                 throw new LoadError(msg);
             }
         }
-        public List<Genre> Genres
+        public List<Genre> GenreList
         {
             set
             {
                 foreach (var genre in value)
                 {
-                    if (!this.privateGenres.Contains(genre))
+                    if (!this.Genres.Contains(genre))
                     {
-                        this.privateGenres.Add(genre);
+                        this.Genres.Add(genre);
                     }
 
                 }
@@ -165,8 +166,8 @@ namespace SongsAbout.Entities
             {
                 try
                 {
-                    if (this.privateGenres != null)
-                        return (List<Genre>)this.privateGenres;
+                    if (this.Genres != null)
+                        return (List<Genre>)this.Genres;
                     else
                         return new List<Genre>();
                 }
@@ -236,7 +237,7 @@ namespace SongsAbout.Entities
         }
         public List<string> GetGenres()
         {
-            return (from a in this.Genres
+            return (from a in this.GenreList
                     select a.Name).ToList();
 
         }
@@ -248,7 +249,7 @@ namespace SongsAbout.Entities
                 {
                     Program.Database.Genres.Add(genre);
                 }
-                this.Genres.Add(genre);
+                this.GenreList.Add(genre);
 
 
             }
@@ -507,13 +508,13 @@ namespace SongsAbout.Entities
                 var existingGenres = Program.Database.Genres.Items;
                 foreach (var g in genres)
                 {
-                    if (!this.Genres.Contains(g))
+                    if (!this.GenreList.Contains(g))
                     {
                         if (!existingGenres.Contains(g))
                         {
                             Program.Database.Genres.Add(g);
                         }
-                        this.Genres.Add(g);
+                        this.GenreList.Add(g);
                     }
                 }
 
@@ -533,13 +534,13 @@ namespace SongsAbout.Entities
                     var existingGenres = Program.Database.Genres.AllNames;
                     foreach (var genre in genres)
                     {
-                        if (!this.Genres.Contains(genre))
+                        if (!this.GenreList.Contains(genre))
                         {
                             if (!existingGenres.Contains(genre))
                             {
                                 Program.Database.Genres.Add(genre);
                             }
-                            this.Genres.Add(genre);
+                            this.GenreList.Add(genre);
                         }
                     }
                 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Data;
 using SongsAbout.Enums;
 using SongsAbout.Entities;
+using System.Data.Entity;
 
 namespace SongsAbout.Classes.Database
 {
@@ -28,6 +29,16 @@ namespace SongsAbout.Classes.Database
 
             }
 
+            protected override Track FindByName(string name)
+            {
+                Track result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Tracks.Find(name);
+                }
+                return result;
+
+            }
             /// <summary>
             /// Get the Track of the given id if it exists, otherwise throws an exception
             /// </summary>
@@ -90,14 +101,25 @@ namespace SongsAbout.Classes.Database
                 {
                     try
                     {
-                        this.Items = new List<Track>();
-                        using (var db = new DataClassesContext())
+                        if (this.CachedItems != null && Program.Database.LargeQuery)
                         {
-                            base.CachedItems.AddRange(from a in db.Tracks
-                                                      where a.ID != 0
-                                                      select a);
+                            return this.CachedItems;
                         }
-                        return base.CachedItems;
+                        else
+                        {
+                            using (var db = new DataClassesContext())
+                            {
+                                this.CachedItems = db.Tracks
+                                                        .Where(t => t.ID != 0)
+                                                        .Include(t => t.Artists)
+                                                        .Include(t => t.Playlists)
+                                                        .Include(t => t.Tags)
+                                                        .Include(t => t.Topics)
+                                                        .Include(t => t.Genres)
+                                                        .ToList();
+                            }
+                            return this.CachedItems;
+                        }
                     }
                     catch (Exception ex)
                     {

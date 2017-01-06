@@ -399,8 +399,8 @@
           <Property Name="al_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="al_cover_art" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateArtist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTracks" Relationship="DataClasses.FK_Album_Tracks" FromRole="Album" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateGenres" Relationship="DataClasses.AlbumGenres" FromRole="Album" ToRole="Genre" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="Tracks" Relationship="DataClasses.FK_Album_Tracks" FromRole="Album" ToRole="Track" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
+          <NavigationProperty Name="Genres" Relationship="DataClasses.AlbumGenres" FromRole="Album" ToRole="Genre" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
           <Property Name="al_release_date" Type="DateTime" Precision="0" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <EntityType Name="Artist">

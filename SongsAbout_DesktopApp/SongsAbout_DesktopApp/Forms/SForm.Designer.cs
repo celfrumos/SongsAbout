@@ -41,7 +41,9 @@ namespace SongsAbout.Forms
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savedTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.followedArtistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.followedPlaylistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiImportPlaylists = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiImportPlaylists_WithTracks = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiImportPlaylists_NoTracks = new System.Windows.Forms.ToolStripMenuItem();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,7 +148,7 @@ namespace SongsAbout.Forms
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.savedTracksToolStripMenuItem,
             this.followedArtistsToolStripMenuItem,
-            this.followedPlaylistsToolStripMenuItem,
+            this.tsmiImportPlaylists,
             this.allToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
@@ -157,28 +159,44 @@ namespace SongsAbout.Forms
             this.savedTracksToolStripMenuItem.Name = "savedTracksToolStripMenuItem";
             this.savedTracksToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.savedTracksToolStripMenuItem.Text = "Saved Tracks";
-            this.savedTracksToolStripMenuItem.Click += new System.EventHandler(msiImportSavedTracks_Click);
+            this.savedTracksToolStripMenuItem.Click += new System.EventHandler(this.msiImportSavedTracks_Click);
             // 
             // followedArtistsToolStripMenuItem
             // 
             this.followedArtistsToolStripMenuItem.Name = "followedArtistsToolStripMenuItem";
             this.followedArtistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.followedArtistsToolStripMenuItem.Text = "Followed Artists";
-            this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(msiImportSavedTracks_Click);
+            this.followedArtistsToolStripMenuItem.Click += new System.EventHandler(this.msiImportSavedTracks_Click);
             // 
-            // followedPlaylistsToolStripMenuItem
+            // tsmiImportPlaylists
             // 
-            this.followedPlaylistsToolStripMenuItem.Name = "followedPlaylistsToolStripMenuItem";
-            this.followedPlaylistsToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
-            this.followedPlaylistsToolStripMenuItem.Text = "Followed Playlists";
-            this.followedPlaylistsToolStripMenuItem.Click += new System.EventHandler(tsmiFollowedPlaylists_Click);
+            this.tsmiImportPlaylists.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiImportPlaylists_WithTracks,
+            this.tsmiImportPlaylists_NoTracks});
+            this.tsmiImportPlaylists.Name = "tsmiImportPlaylists";
+            this.tsmiImportPlaylists.Size = new System.Drawing.Size(201, 26);
+            this.tsmiImportPlaylists.Text = "Followed Playlists";
+            // 
+            // tsmiImportPlaylists_WithTracks
+            // 
+            this.tsmiImportPlaylists_WithTracks.Name = "tsmiImportPlaylists_WithTracks";
+            this.tsmiImportPlaylists_WithTracks.Size = new System.Drawing.Size(278, 26);
+            this.tsmiImportPlaylists_WithTracks.Text = "Also Import All Playlist Tracks";
+            this.tsmiImportPlaylists_WithTracks.Click += new System.EventHandler(this.tsmiFollowedPlaylists_Click);
+            // 
+            // tsmiImportPlaylists_NoTracks
+            // 
+            this.tsmiImportPlaylists_NoTracks.Name = "tsmiImportPlaylists_NoTracks";
+            this.tsmiImportPlaylists_NoTracks.Size = new System.Drawing.Size(278, 26);
+            this.tsmiImportPlaylists_NoTracks.Text = "Just Import Playlist Info";
+            this.tsmiImportPlaylists_NoTracks.Click += new System.EventHandler(this.tsmiFollowedPlaylists_Click);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
             this.allToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.allToolStripMenuItem.Text = "All";
-            this.allToolStripMenuItem.Click += new System.EventHandler(msiImportAll_Click);
+            this.allToolStripMenuItem.Click += new System.EventHandler(this.msiImportAll_Click);
             // 
             // searchToolStripMenuItem
             // 
@@ -292,7 +310,7 @@ namespace SongsAbout.Forms
         protected System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem savedTracksToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem followedArtistsToolStripMenuItem;
-        protected System.Windows.Forms.ToolStripMenuItem followedPlaylistsToolStripMenuItem;
+        protected System.Windows.Forms.ToolStripMenuItem tsmiImportPlaylists;
         protected System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
@@ -303,6 +321,8 @@ namespace SongsAbout.Forms
         protected System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
         protected Controls.SongModule SongModule;
+        protected System.Windows.Forms.ToolStripMenuItem tsmiImportPlaylists_WithTracks;
+        protected System.Windows.Forms.ToolStripMenuItem tsmiImportPlaylists_NoTracks;
     }
 }
 

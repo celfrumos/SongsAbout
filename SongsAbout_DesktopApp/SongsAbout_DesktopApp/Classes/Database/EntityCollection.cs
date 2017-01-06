@@ -49,26 +49,10 @@ namespace SongsAbout.Classes.Database
                         InvalidInitializedError(childname,
                         $"An attempt was made to initialize entity container {childname} when the program database had not been initialized");
                 }
-                this.CachedItems = new List<T>();
-                this.Items = new List<T>();
             }
 
-            protected List<T> GetItems(DbSet<T> table)
-            {
-                try
-                {
-                    this.CachedItems = new List<T>();
+            protected abstract T FindByName(string name);
 
-                    this.CachedItems.AddRange(from row in table
-                                              select row);
-                    return this.CachedItems;
-
-                }
-                catch (Exception ex)
-                {
-                    throw new DbException($"Error loading All {typeof(T)}s from database: {ex.Message}");
-                }
-            }
             public virtual List<T> CachedItems { get; protected set; }
 
             public abstract List<T> Items { get; protected set; }
@@ -76,8 +60,13 @@ namespace SongsAbout.Classes.Database
             {
                 get
                 {
+                    if (this.CachedItems == null)
+                        return (from a in this.Items
+                                select a.Name).ToList();
+
                     return (from a in this.CachedItems
                             select a.Name).ToList();
+
                 }
             }
             public override List<string> AllNames
@@ -88,8 +77,9 @@ namespace SongsAbout.Classes.Database
                             select a.Name).ToList();
                 }
             }
+
             /// <summary>
-            /// Get the Artist of the given name if it exists, otherwise throws an exception
+            /// Get the Entity of the given name if it exists, otherwise throws an exception
             /// </summary>
             /// <param name="name"></param>
             /// <exception cref="NullValueError"></exception>
@@ -104,14 +94,7 @@ namespace SongsAbout.Classes.Database
 
                     try
                     {
-                        var results =
-                            this.Items
-                            .Where(a => a.Name == name);
-
-                        if (results.Count() == 0)
-                            return null;
-
-                        return results.First();
+                        return this.FindByName(name);
 
                     }
                     catch (Exception ex)
@@ -140,7 +123,7 @@ namespace SongsAbout.Classes.Database
                         return this.CachedNames.Contains(name);
 
                     else
-                        return this.AllNames.Contains(name);
+                        return this.FindByName(name) != null;
 
                 }
                 catch (Exception ex)

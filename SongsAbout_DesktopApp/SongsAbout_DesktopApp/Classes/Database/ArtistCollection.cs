@@ -105,8 +105,9 @@ namespace SongsAbout.Classes.Database
                         using (var db = new DataClassesContext())
                         {
                             base.CachedItems = db.Artists
-                                                    .Where(a => a.ID != 0)
-                                                    .Include(a => a.)
+                                                    .Where(a => a.ID != 0)                                              
+                                                    .Include(a => a.Albums)
+                                                    .Include(a=> a.Tracks)                                                          
                                                     .ToList();
                         }
                         return base.CachedItems;
