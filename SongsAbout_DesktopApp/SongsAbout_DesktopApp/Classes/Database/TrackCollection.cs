@@ -34,7 +34,15 @@ namespace SongsAbout.Classes.Database
                 Track result;
                 using (var db = new DataClassesContext())
                 {
-                    result = db.Tracks.Find(name);
+                    result = db.Tracks
+                                    .Where(t => t.ID != 0)
+                                    .Where(t => t.Name == name)
+                                    .Include(t => t.Artists)
+                                    .Include(t => t.Playlists)
+                                    .Include(t => t.Tags)
+                                    .Include(t => t.Topics)
+                                    .Include(t => t.Genres)
+                                    .FirstOrDefault();
                 }
                 return result;
 
@@ -67,6 +75,16 @@ namespace SongsAbout.Classes.Database
                         throw new LoadError(DbEntityType, id, ex.Message);
                     }
                 }
+            }
+            private Track FindById(int id)
+            {
+                Track result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Tracks.Find(id);
+                }
+                return result;
+
             }
 
             /// <summary>

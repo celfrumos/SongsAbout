@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using SongsAbout;
 using SongsAbout.Entities;
@@ -20,7 +21,7 @@ namespace SongsAbout.Classes.Database
             private static bool _initialized { get; set; }
 
             private const string COLLECTION_NAME = "GenreList";
-           
+
             /// <summary>
             /// Initializes the connector to the GenreList
             /// </summary>
@@ -34,7 +35,17 @@ namespace SongsAbout.Classes.Database
                 _initialized = true;
 
             }
-            
+            protected override Genre FindByName(string name)
+            {
+                Genre result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Genres.Find(name);
+                }
+                return result;
+
+            }
+
             /// <summary>
             /// Returns A list of all Existing Genres in the database
             /// </summary>            
@@ -50,7 +61,7 @@ namespace SongsAbout.Classes.Database
                         using (var db = new DataClassesContext())
                         {
                             base.CachedItems.AddRange(from a in db.Genres
-                                               select a);
+                                                      select a);
                         }
                         return base.CachedItems;
                     }
@@ -64,7 +75,7 @@ namespace SongsAbout.Classes.Database
                     this.CachedItems = value;
                 }
             }
- 
+
             /// <summary>
             /// Submit Changes to the Database
             /// </summary>

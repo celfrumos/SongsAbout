@@ -93,7 +93,29 @@ namespace SongsAbout.Classes.Database
                         DbException(DbEntityType, $"Error verifying if Database contains Album with id {id}:\n{ex.Message}");
                 }
             }
+            protected override Album FindByName(string name)
+            {
+                Album result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Albums
+                                    .Where(a => a.Name == name)
+                                    .FirstOrDefault();
+                }
+                return result;
 
+            }
+
+            private Album FindById(int id)
+            {
+                Album result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Albums.Find(id);
+                }
+                return result;
+
+            }
             /// <summary>
             /// Returns A list of all Existing Albums in the database
             /// </summary>            

@@ -30,7 +30,29 @@ namespace SongsAbout.Classes.Database
                 _initialized = true;
 
             }
+            protected override Artist FindByName(string name)
+            {
+                Artist result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Artists
+                                    .Where(a => a.Name == name)
+                                    .FirstOrDefault();
+                }
+                return result;
 
+            }
+
+            private Artist FindById(int id)
+            {
+                Artist result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Artists.Find(id);
+                }
+                return result;
+
+            }
             /// <summary>
             /// Get the Artist of the given id if it exists, otherwise throws an exception
             /// </summary>
@@ -105,9 +127,9 @@ namespace SongsAbout.Classes.Database
                         using (var db = new DataClassesContext())
                         {
                             base.CachedItems = db.Artists
-                                                    .Where(a => a.ID != 0)                                              
+                                                    .Where(a => a.ID != 0)
                                                     .Include(a => a.Albums)
-                                                    .Include(a=> a.Tracks)                                                          
+                                                    .Include(a => a.Tracks)
                                                     .ToList();
                         }
                         return base.CachedItems;

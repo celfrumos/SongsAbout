@@ -29,7 +29,16 @@ namespace SongsAbout.Classes.Database
                 _initialized = true;
 
             }
+            protected override Tag FindByName(string name)
+            {
+                Tag result;
+                using (var db = new DataClassesContext())
+                {
+                    result = db.Tags.Find(name);
+                }
+                return result;
 
+            }
             /// <summary>
             /// Returns A list of all Existing Genres in the database
             /// </summary>            
