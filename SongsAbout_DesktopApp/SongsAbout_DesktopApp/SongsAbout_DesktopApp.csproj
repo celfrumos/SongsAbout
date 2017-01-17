@@ -132,144 +132,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Database\AlbumCollection.cs" />
-    <Compile Include="Classes\Database\ArtistCollection.cs" />
-    <Compile Include="Classes\Database\EntityCollection.cs" />
-    <Compile Include="Classes\Database\GenreCollection.cs" />
-    <Compile Include="Classes\Database\IEntityCollection.cs" />
-    <Compile Include="Classes\Database\PlaylistCollection.cs" />
-    <Compile Include="Classes\Database\SongDatabase.cs" />
-    <Compile Include="Classes\Database\TagCollection.cs" />
-    <Compile Include="Classes\Database\TrackCollection.cs" />
-    <Compile Include="Classes\TableAdapters.cs" />
-    <Compile Include="Controls\ButtonImages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ButtonImages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\IEntityControl.cs" />
-    <Compile Include="Controls\ISpotifyEntityControl.cs" />
-    <Compile Include="Controls\SControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\SControl.Designer.cs">
-      <DependentUpon>SControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SLabel.Designer.cs">
-      <DependentUpon>SLabel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SongButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SongButton.Designer.cs">
-      <DependentUpon>SongButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SongModule.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\SongModule.Designer.cs">
-      <DependentUpon>SongModule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\SPanel.Designer.cs">
-      <DependentUpon>SPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SPicturePox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SPicturePox.Designer.cs">
-      <DependentUpon>SPicturePox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\Converter.cs" />
-    <Compile Include="Controls\SpotifyImageStackedPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\SpotifyImageStackedPanel.Designer.cs">
-      <DependentUpon>SpotifyImageStackedPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\AttributeViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\AttributeViewer.Designer.cs">
-      <DependentUpon>AttributeViewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SpotifyLogo.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackListBox.cs">
-      <SubType>TableLayoutPanel</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackListBox.Designer.cs">
-      <DependentUpon>TrackListBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TrackRow.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackRow.Designer.cs">
-      <DependentUpon>TrackRow.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Album.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\AlbumTracks.Manual.cs" />
-    <Compile Include="Entities\Artist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\DataClasses.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\DataClasses.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\DataClasses.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Genre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Genre.Manual.cs" />
-    <Compile Include="Entities\DbEntity.cs" />
-    <Compile Include="Classes\DbExceptions.cs" />
-    <Compile Include="Entities\IDbEntity.cs" />
-    <Compile Include="Entities\Playlist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Playlist.Manual.cs" />
-    <Compile Include="Entities\Tag.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Tag.Manual.cs" />
-    <Compile Include="Entities\Topic.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Track.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TrackArtists.Manual.cs" />
-    <Compile Include="Classes\Importer.cs" />
-    <Compile Include="Classes\UserSpotify.cs" />
-    <Compile Include="Enums\Enums.cs" />
-    <Compile Include="Controls\AlbumDisplay.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\AlbumDisplay.Designer.cs">
-      <DependentUpon>AlbumDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AlbumDisplayForm.cs">
       <SubType>Form</SubType>
@@ -337,8 +203,6 @@
     <Compile Include="Forms\AddTrackForm.Designer.cs">
       <DependentUpon>AddTrackForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Album.Manual.cs" />
-    <Compile Include="Entities\Artist.Manual.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\ResultsForm.cs">
@@ -347,7 +211,6 @@
     <Compile Include="Forms\ResultsForm.Designer.cs">
       <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Track.Manual.cs" />
     <Compile Include="Properties\User.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -359,47 +222,6 @@
     <Compile Include="WebAuthForm.Designer.cs">
       <DependentUpon>WebAuthForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controls\ButtonImages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ButtonImages.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>SongsAbout</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AttributeViewer.resx">
-      <DependentUpon>AttributeViewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SControl.resx">
-      <DependentUpon>SControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SLabel.resx">
-      <DependentUpon>SLabel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SongButton.resx">
-      <DependentUpon>SongButton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SongModule.resx">
-      <DependentUpon>SongModule.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SPanel.resx">
-      <DependentUpon>SPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SPicturePox.resx">
-      <DependentUpon>SPicturePox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SpotifyImageStackedPanel.resx">
-      <DependentUpon>SpotifyImageStackedPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AlbumDisplay.resx">
-      <DependentUpon>AlbumDisplay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SpotifyLogo.resx">
-      <DependentUpon>SpotifyLogo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TrackListBox.resx">
-      <DependentUpon>TrackListBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TrackRow.resx">
-      <DependentUpon>TrackRow.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AlbumDisplayForm.resx">
       <DependentUpon>AlbumDisplayForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -449,10 +271,6 @@
     <EmbeddedResource Include="WebAuthForm.resx">
       <DependentUpon>WebAuthForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="Entities\DataClasses.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataClasses.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </None>
@@ -463,10 +281,6 @@
     </None>
     <None Include="DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
-    </None>
-    <Compile Include="Entities\AlbumGenre.Manual.cs" />
-    <None Include="Entities\DataClasses.edmx.diagram">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -525,16 +339,6 @@
     <None Include="Resources\PauseButton.png" />
     <None Include="Resources\Forward.png" />
     <None Include="Resources\Backwards.png" />
-    <Content Include="Entities\DataClasses.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <LastGenOutput>DataClasses.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\DataClasses.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <LastGenOutput>DataClasses.cs</LastGenOutput>
-    </Content>
     <None Include="Resources\PlayButton1.png" />
     <None Include="Resources\CheckMarkBlue.png" />
     <None Include="Resources\CheckMark.png" />
@@ -546,6 +350,10 @@
     <ProjectReference Include="..\..\SpotifyAPI\SpotifyAPI.csproj">
       <Project>{ebbe35e2-7b91-4d7d-b8fc-3a0472f5119d}</Project>
       <Name>SpotifyAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SongsAbout\SongsAbout.csproj">
+      <Project>{52424432-8619-4e5f-ab0c-a61cc67932d3}</Project>
+      <Name>SongsAbout</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

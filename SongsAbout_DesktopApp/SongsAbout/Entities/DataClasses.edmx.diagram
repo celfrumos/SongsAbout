@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="035864ecb28349749c0a44465bd279f8" Name="Diagram1" ShowGrid="true" ZoomLevel="73">
+        <EntityTypeShape EntityType="DataClasses.Album" Width="1.5" PointX="4.375" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.Artist" Width="1.5" PointX="0.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.Genre" Width="1.5" PointX="8" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.Playlist" Width="1.5" PointX="0.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.Tag" Width="1.5" PointX="7.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.Topic" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataClasses.Track" Width="1.5" PointX="4.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="DataClasses.FK_Albums_Artists" ManuallyRouted="false" />
+        <AssociationConnector Association="DataClasses.FK_Album_Tracks" />
+        <AssociationConnector Association="DataClasses.TrackTags" />
+        <AssociationConnector Association="DataClasses.ListTracks" />
+        <AssociationConnector Association="DataClasses.TrackArtists" />
+        <AssociationConnector Association="DataClasses.TrackGenres" />
+        <AssociationConnector Association="DataClasses.TrackTopics" />
+        <AssociationConnector Association="DataClasses.AlbumGenres" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
