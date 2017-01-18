@@ -54,7 +54,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                Library.Database.Artists.Add(new Artist(artist));
+                Program.Database.Artists.Add(new Artist(artist));
             }
             catch (Exception ex)
             {
@@ -65,18 +65,18 @@ namespace SongsAbout.Classes
         public static void ImportSavedPlaylists(bool includeAllTracks = false)
         {
 
-            Library.Database.LargeQuery = true;
-            var existingEntries = Library.Database.Playlists.Items;
+            Program.Database.LargeQuery = true;
+            var existingEntries = Program.Database.Playlists.Items;
             foreach (SpotifyPlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId).Items)
             {
                 try
                 {
-                    Playlist newList = Library.Database.Playlists[playlist.Name];
+                    Playlist newList = Program.Database.Playlists[playlist.Name];
 
                     if (newList == null)
                     {
-                        Library.Database.Playlists.Add(playlist);
-                        newList = Library.Database.Playlists[playlist.Name];
+                        Program.Database.Playlists.Add(playlist);
+                        newList = Program.Database.Playlists[playlist.Name];
                     }
 
 
@@ -87,12 +87,12 @@ namespace SongsAbout.Classes
                         foreach (PlaylistTrack pt in playlistTracks.Items)
                         {
 
-                            Track track = Library.Database.Tracks[pt.Track.Name];
+                            Track track = Program.Database.Tracks[pt.Track.Name];
                             if (track == null)
                             {
                                 track = pt.Track;
                                 track.Save();
-                                track = Library.Database.Tracks[pt.Track.Name];
+                                track = Program.Database.Tracks[pt.Track.Name];
                             }
                             if (!newList.Tracks.Contains(track))
                             {
@@ -107,7 +107,7 @@ namespace SongsAbout.Classes
                     Console.WriteLine($"Error importing Playlist: {playlist.Name}, {ex.Message}");
                 }
             }
-            Library.Database.LargeQuery = false;
+            Program.Database.LargeQuery = false;
             Console.WriteLine("Finished importing Saved Playlists.");
         }
 
@@ -115,9 +115,9 @@ namespace SongsAbout.Classes
         {
             try
             {
-                if (!Library.Database.Playlists.AllNames.Contains(playlist.Name))
+                if (!Program.Database.Playlists.AllNames.Contains(playlist.Name))
                 {
-                    Library.Database.Playlists.Add(playlist);
+                    Program.Database.Playlists.Add(playlist);
                 }
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@ namespace SongsAbout.Classes
         {
             try
             {
-                Library.Database.Tracks.Add(track);
+                Program.Database.Tracks.Add(track);
             }
             catch (SaveError)
             {
@@ -164,10 +164,10 @@ namespace SongsAbout.Classes
 
                         return true;
                     case SpotifyEntityType.Album:
-                        Library.Database.Albums.Add(new Album((SpotifyAlbum)spotifyEntity));
+                        Program.Database.Albums.Add(new Album((SpotifyAlbum)spotifyEntity));
                         return true;
                     case SpotifyEntityType.Track:
-                        Library.Database.Tracks.Add(new Track((SpotifyTrack)spotifyEntity));
+                        Program.Database.Tracks.Add(new Track((SpotifyTrack)spotifyEntity));
                         return true;
                 }
                 return false;
@@ -193,7 +193,7 @@ namespace SongsAbout.Classes
             try
             {
                 Paging<SavedTrack> tracks = UserSpotify.WebAPI.GetSavedTracks();
-                var existingTracks = Library.Database.Tracks.AllNames;
+                var existingTracks = Program.Database.Tracks.AllNames;
 
                 foreach (SavedTrack track in tracks.Items)
                 {
@@ -251,20 +251,20 @@ namespace SongsAbout.Classes
         {
             try
             {
-                Album a = Library.Database.Albums[album.Name];
+                Album a = Program.Database.Albums[album.Name];
 
                 if (a == null)
                 {
                     a = new Album(album);
-                    Library.Database.Albums.Add(a);
-                    a = Library.Database.Albums[album.Name];
+                    Program.Database.Albums.Add(a);
+                    a = Program.Database.Albums[album.Name];
                 }
 
                 if (importTracks)
                 {
                     foreach (var track in album.Tracks.Items)
                     {
-                        Library.Database.Tracks.Add(new Track(track));
+                        Program.Database.Tracks.Add(new Track(track));
                     }
                 }
 
@@ -301,7 +301,7 @@ namespace SongsAbout.Classes
             try
             {
                 SpotifyFullArtist artist = ar.GetFullVersion(UserSpotify.WebAPI);
-                Library.Database.Artists.Add(new Artist(artist));
+                Program.Database.Artists.Add(new Artist(artist));
 
             }
             catch (NullValueError)

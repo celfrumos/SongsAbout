@@ -22,7 +22,7 @@ namespace SongsAbout.Classes.Database
             protected override Playlist FindByName(string name)
             {
                 Playlist result;
-                if (Library.Database.LargeQuery && this.CachedItems != null && this.CachedItems.Any(p => p.Name == name))
+                if (Program.Database.LargeQuery && this.CachedItems != null && this.CachedItems.Any(p => p.Name == name))
                 {
                     result = this.CachedItems.Where(p => p.Name == name).FirstOrDefault();
                 }
@@ -60,7 +60,7 @@ namespace SongsAbout.Classes.Database
             {
                 get
                 {
-                    if (Library.Database.LargeQuery && this.CachedItems != null)
+                    if (Program.Database.LargeQuery && this.CachedItems != null)
                     {
                         return this.CachedItems;
                     }
@@ -87,7 +87,7 @@ namespace SongsAbout.Classes.Database
                 if (playlist.Name == null || playlist.Name == "")
                     throw new NullValueError("Genre name cannot be null.");
 
-                if (!Library.Database.LargeQuery && this.Contains(playlist.Name))
+                if (!Program.Database.LargeQuery && this.Contains(playlist.Name))
                     throw new ValueAlreadyPresentException(DbEntityType, playlist.Name);
 
                 try

@@ -119,7 +119,7 @@ namespace SongsAbout.Classes.Database
 
                 try
                 {
-                    if ((Library.Database.LargeQuery || checkCache) && this.CachedNames != null && CachedNames.Count == 0)
+                    if ((Program.Database.LargeQuery || checkCache) && this.CachedNames != null && CachedNames.Count == 0)
                         return this.CachedNames.Contains(name);
 
                     else

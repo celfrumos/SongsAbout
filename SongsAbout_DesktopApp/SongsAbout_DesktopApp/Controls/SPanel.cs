@@ -402,22 +402,22 @@ namespace SongsAbout.Controls
             switch (this.DbEntityType)
             {
                 case DbEntityType.Artist:
-                    this.ExistsInDatabase = Library.Database.Artists.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = Program.Database.Artists.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Album:
-                    this.ExistsInDatabase = Library.Database.Albums.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = Program.Database.Albums.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Track:
-                    this.ExistsInDatabase = Library.Database.Tracks.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = Program.Database.Tracks.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Genre:
-                    this.ExistsInDatabase = Library.Database.Genres.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = Program.Database.Genres.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Playlist:
-                    this.ExistsInDatabase = Library.Database.Playlists.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = Program.Database.Playlists.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Tag:
-                    this.ExistsInDatabase = Library.Database.Tags.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = Program.Database.Tags.Contains(this.EntityName, LargeQuery);
                     break;
                 default:
                     this.ExistsInDatabase = false;
@@ -639,8 +639,8 @@ namespace SongsAbout.Controls
         #region Public Properties
         public static bool LargeQuery
         {
-            get { return Library.Database.LargeQuery; }
-            set { Library.Database.LargeQuery = value; }
+            get { return Program.Database.LargeQuery; }
+            set { Program.Database.LargeQuery = value; }
         }
 
         public bool ExistsInDatabase

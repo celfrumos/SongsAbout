@@ -165,7 +165,7 @@ namespace SongsAbout.Controls
 
                         if (this._spotifyTrack != null)
                         {
-                            this.Track = Library.Database.Tracks[this._spotifyTrack.Name];
+                            this.Track = Program.Database.Tracks[this._spotifyTrack.Name];
                             if (this.Track == null)
                                 this.Track = new Track(this._spotifyTrack);
                         }
@@ -196,8 +196,8 @@ namespace SongsAbout.Controls
         }
         public TrackRow(string trackName) : this()
         {
-            if (Library.Database.Tracks.Contains(trackName))
-                this.Track = Library.Database.Tracks[trackName];
+            if (Program.Database.Tracks.Contains(trackName))
+                this.Track = Program.Database.Tracks[trackName];
             else
                 throw new EntityNotFoundError(DbEntityType.Track, trackName,
                     $"Unable to initialize TrackRow from artist name '{trackName}'");
@@ -239,7 +239,7 @@ namespace SongsAbout.Controls
             {
                 try
                 {
-                    if (!Library.Database.Tracks.Contains(this.SpotifyEntity.Name))
+                    if (!Program.Database.Tracks.Contains(this.SpotifyEntity.Name))
                     {
                         if (this.Track == null)
                             this.Track = new Track((SpotifyTrack)this.SpotifyEntity);

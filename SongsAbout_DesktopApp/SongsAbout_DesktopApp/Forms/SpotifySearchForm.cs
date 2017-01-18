@@ -168,7 +168,7 @@ namespace SongsAbout.Forms
                 if (txtBoxSearch.Text != "")
                 {
                     flpSpotifyControls.Controls.Clear();
-                    Library.Database.LargeQuery = true;
+                    Program.Database.LargeQuery = true;
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
                 }
             }
@@ -214,7 +214,7 @@ namespace SongsAbout.Forms
                 }
             }
 
-            Library.Database.LargeQuery = false;
+            Program.Database.LargeQuery = false;
 
         }
 

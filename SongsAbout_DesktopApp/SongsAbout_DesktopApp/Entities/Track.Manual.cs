@@ -168,7 +168,7 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Album res = Library.Database.Albums[this.AlbumId];
+                Album res = Program.Database.Albums[this.AlbumId];
                 this.privateAlbum = res;
                 return res;
 
@@ -238,7 +238,7 @@ namespace SongsAbout.Entities
                 this._artist = value;
                 if (this.ArtistId != null && this.ArtistId != 0 && value != null)
                 {
-                    Library.Database.Artists[this.ArtistId] = value;
+                    Program.Database.Artists[this.ArtistId] = value;
 
                 }
             }
@@ -517,7 +517,7 @@ namespace SongsAbout.Entities
 
         public static bool Exists(string name)
         {
-            return Library.Database.Tracks.Contains(name);
+            return Program.Database.Tracks.Contains(name);
         }
 
 
@@ -550,13 +550,13 @@ namespace SongsAbout.Entities
             try
             {
                 Artist a;
-                a = Library.Database.Artists[artist.Name];
+                a = Program.Database.Artists[artist.Name];
 
                 if (a == null)
                 {
                     a = artist;
                     a.Save();
-                    a = Library.Database.Artists[artist.Name];
+                    a = Program.Database.Artists[artist.Name];
                     this.AlbumId = a.ID;
                 }
                 this.Artist = a;
@@ -579,13 +579,13 @@ namespace SongsAbout.Entities
             try
             {
                 Album al;
-                al = Library.Database.Albums[album.Name];
+                al = Program.Database.Albums[album.Name];
 
                 if (al == null)
                 {
                     al = album;
                     al.Save();
-                    al = Library.Database.Albums[album.Name];
+                    al = Program.Database.Albums[album.Name];
                     this.AlbumId = al.ID;
                 }
                 this.Album = al;

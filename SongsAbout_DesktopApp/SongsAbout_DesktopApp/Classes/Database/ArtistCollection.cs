@@ -120,7 +120,7 @@ namespace SongsAbout.Classes.Database
                     try
                     {
 
-                        if (Library.Database.LargeQuery)
+                        if (Program.Database.LargeQuery)
                         {
                             return this.CachedItems;
                         }

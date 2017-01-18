@@ -34,19 +34,19 @@ namespace SongsAbout.Forms
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Library.Database.LargeQuery = true;
+            Program.Database.LargeQuery = true;
             try
             {
                 switch (this.DbEntityType)
                 {
                     case DbEntityType.Genre:
-                        ImportAsGenres(Library.Database.Genres.AllNames);
+                        ImportAsGenres(Program.Database.Genres.AllNames);
                         break;
                     case DbEntityType.Tag:
-                        ImportAsTags(Library.Database.Tags.AllNames);
+                        ImportAsTags(Program.Database.Tags.AllNames);
                         break;
                     case DbEntityType.Playlist:
-                        ImportAsPlaylists(Library.Database.Playlists.AllNames);
+                        ImportAsPlaylists(Program.Database.Playlists.AllNames);
                         break;
                     default:
                         MessageBox.Show($"The given DbEntityType is Not currently available for Bulk Imports: '{this.DbEntityType}'");
@@ -61,7 +61,7 @@ namespace SongsAbout.Forms
                 this.DialogResult = DialogResult.Abort;
                 MessageBox.Show($"Something went wrong with buld import of {this.DbEntityType} values: {ex.Message}");
             }
-            Library.Database.LargeQuery = false;
+            Program.Database.LargeQuery = false;
         }
 
         private void ImportAsPlaylists(List<string> existingNames)
@@ -75,7 +75,7 @@ namespace SongsAbout.Forms
                 {
                     try
                     {
-                        Library.Database.Playlists.Add(list);
+                        Program.Database.Playlists.Add(list);
                     }
                     catch (Exception ex)
                     {
@@ -92,7 +92,7 @@ namespace SongsAbout.Forms
 
             foreach (String tag in lines)
             {
-                Library.Database.Playlists.Add(tag);
+                Program.Database.Playlists.Add(tag);
             }
         }
 
@@ -103,7 +103,7 @@ namespace SongsAbout.Forms
 
             foreach (String genre in lines)
             {
-                Library.Database.Playlists.Add(genre);
+                Program.Database.Playlists.Add(genre);
             }
         }
     }

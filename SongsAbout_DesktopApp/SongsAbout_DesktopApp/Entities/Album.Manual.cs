@@ -198,7 +198,7 @@ namespace SongsAbout.Entities
             {
                 try
                 {
-                    return Library.Database.Artists[this.ArtistId];
+                    return Program.Database.Artists[this.ArtistId];
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -245,9 +245,9 @@ namespace SongsAbout.Entities
         {
             if (!this.GetGenres().Contains(genre))
             {
-                if (!Library.Database.Genres.Contains(genre))
+                if (!Program.Database.Genres.Contains(genre))
                 {
-                    Library.Database.Genres.Add(genre);
+                    Program.Database.Genres.Add(genre);
                 }
                 this.GenreList.Add(genre);
 
@@ -299,7 +299,7 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Library.Database.Albums.Add(this);
+                Program.Database.Albums.Add(this);
             }
             catch (NullValueError)
             {
@@ -325,7 +325,7 @@ namespace SongsAbout.Entities
         {
             if (name == "" || name == null)
                 throw new NullValueError(DbEntityType.Album, "name");
-            return Library.Database.Albums[name] != null;
+            return Program.Database.Albums[name] != null;
         }
 
         /// <summary>
@@ -339,7 +339,7 @@ namespace SongsAbout.Entities
             if (id == 0)
                 throw new NullValueError(DbEntityType.Album, "id");
 
-            return Library.Database.Albums[id] != null;
+            return Program.Database.Albums[id] != null;
         }
 
         public static Album Load(Album album)
@@ -366,7 +366,7 @@ namespace SongsAbout.Entities
 
             try
             {
-                var result = Library.Database.Albums[title];
+                var result = Program.Database.Albums[title];
 
                 if (result == null)
                     throw new EntityNotFoundError(DbEntityType.Album, title);
@@ -394,7 +394,7 @@ namespace SongsAbout.Entities
 
             try
             {
-                var result = Library.Database.Albums[id];
+                var result = Program.Database.Albums[id];
 
                 if (result == null)
                     throw new EntityNotFoundError(DbEntityType.Album, id);
@@ -479,13 +479,13 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Artist newArtist = Library.Database.Artists[artist.Name];
+                Artist newArtist = Program.Database.Artists[artist.Name];
                 if (newArtist == null)
                 {
-                    Library.Database.Artists[artist.Name] = new Artist(artist);
+                    Program.Database.Artists[artist.Name] = new Artist(artist);
                 }
 
-                newArtist = Library.Database.Artists[artist.Name];
+                newArtist = Program.Database.Artists[artist.Name];
                 this.Artist = newArtist;
                 //  this.ArtistId = newArtist.ID;
             }
@@ -505,14 +505,14 @@ namespace SongsAbout.Entities
         {
             try
             {
-                var existingGenres = Library.Database.Genres.Items;
+                var existingGenres = Program.Database.Genres.Items;
                 foreach (var g in genres)
                 {
                     if (!this.GenreList.Contains(g))
                     {
                         if (!existingGenres.Contains(g))
                         {
-                            Library.Database.Genres.Add(g);
+                            Program.Database.Genres.Add(g);
                         }
                         this.GenreList.Add(g);
                     }
@@ -531,14 +531,14 @@ namespace SongsAbout.Entities
             {
                 try
                 {
-                    var existingGenres = Library.Database.Genres.AllNames;
+                    var existingGenres = Program.Database.Genres.AllNames;
                     foreach (var genre in genres)
                     {
                         if (!this.GenreList.Contains(genre))
                         {
                             if (!existingGenres.Contains(genre))
                             {
-                                Library.Database.Genres.Add(genre);
+                                Program.Database.Genres.Add(genre);
                             }
                             this.GenreList.Add(genre);
                         }

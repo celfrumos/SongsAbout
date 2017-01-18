@@ -95,9 +95,9 @@ namespace SongsAbout.Entities
         }
         public override void Save()
         {
-            if (!this._saved && !Library.Database.Genres.Contains(this.Name))
+            if (!this._saved && !Program.Database.Genres.Contains(this.Name))
             {
-                Library.Database.Genres[this.Name] = this;
+                Program.Database.Genres[this.Name] = this;
                 _saved = true;
             }
         }

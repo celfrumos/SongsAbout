@@ -116,7 +116,7 @@ namespace SongsAbout.Entities
 
         public override void Save()
         {
-            if (!Library.Database.Playlists.Contains(this.Name))
+            if (!Program.Database.Playlists.Contains(this.Name))
             {
                 using (var db = new DataClassesContext())
                 {

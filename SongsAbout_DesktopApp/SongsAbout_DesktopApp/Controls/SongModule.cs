@@ -22,7 +22,7 @@ namespace SongsAbout.Controls
     public partial class SongModule : UserControl, ISpotifyEntityControl
     {
         private bool _isPlaying = false;
-        private SpotifyLocalAPI LocalAPI { get { return Library.LocalAPI; } }
+        private SpotifyLocalAPI LocalAPI { get { return Program.LocalAPI; } }
         public bool IsPlaying
         {
             get { return _isPlaying; }
