@@ -107,6 +107,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\SongsAboutLibrary\SongsAboutLibrary\SongsAboutLibrary\bin\Debug\SongsAbout.dll</HintPath>
     </Reference>
+    <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SpotifyAPI\bin\Debug\SpotifyAPI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.registration" />
@@ -471,9 +475,9 @@
     <None Include="Resources\Spotify_Icon_Black.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SpotifyAPI\SpotifyAPI.csproj">
-      <Project>{ebbe35e2-7b91-4d7d-b8fc-3a0472f5119d}</Project>
-      <Name>SpotifyAPI</Name>
+    <ProjectReference Include="..\..\..\SongsAboutLibrary\SongsAboutLibrary\SongsAboutLibrary\Library.csproj">
+      <Project>{d6575c7e-bf1a-4da8-b17d-9067f5f4e86e}</Project>
+      <Name>Library</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
