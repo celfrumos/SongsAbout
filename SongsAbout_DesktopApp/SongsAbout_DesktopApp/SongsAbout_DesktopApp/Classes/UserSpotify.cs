@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 
 using SpotifyAPI.Local;
 using SpotifyAPI.Local.Enums;

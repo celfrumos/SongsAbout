@@ -6,7 +6,7 @@ using System.IO;
 using SpotifyAPI.Local;
 //using SpotifyAPI.Local.Models;
 using SpotifyAPI.Local.Enums;
-using SongsAbout.Classes.Database;
+using SongsAbout.Database;
 using SongsAbout.Properties;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;

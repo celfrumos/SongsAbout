@@ -154,6 +154,7 @@
     <Compile Include="Database\TrackCollection.cs" />
     <Compile Include="DbExceptions.cs" />
     <Compile Include="Importer.cs" />
+    <Compile Include="Secret\Secrets.cs" />
     <Compile Include="TableAdapters.cs" />
     <Compile Include="UserSpotify.cs" />
     <Compile Include="DataSet.Designer.cs">
@@ -165,8 +166,6 @@
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Album.Manual.cs" />
-    <Compile Include="Entities\AlbumGenre.Manual.cs" />
-    <Compile Include="Entities\AlbumTracks.Manual.cs" />
     <Compile Include="Entities\Artist.cs">
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
@@ -207,7 +206,6 @@
       <DependentUpon>DataClasses.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Track.Manual.cs" />
-    <Compile Include="Entities\TrackArtists.Manual.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\User.Designer.cs">

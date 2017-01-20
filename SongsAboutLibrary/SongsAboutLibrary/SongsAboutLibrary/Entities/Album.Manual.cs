@@ -7,12 +7,12 @@ using System.Linq.Expressions;
 using System.Drawing;
 using System.Linq;
 using System.Collections.Generic;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.Enums;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 using SongsAbout.Properties;
-using SongsAbout.Classes.Database;
+using SongsAbout.Database;
 using System.Data.Entity;
 
 namespace SongsAbout.Entities

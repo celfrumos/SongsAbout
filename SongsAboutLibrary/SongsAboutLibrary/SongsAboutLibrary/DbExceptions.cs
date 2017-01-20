@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SongsAbout.Entities;
-using SongsAbout.Classes.Database;
+using SongsAbout.Database;
 using SongsAbout.Enums;
 using System.Threading.Tasks;
 using SpotifyAPI.Web.Enums;

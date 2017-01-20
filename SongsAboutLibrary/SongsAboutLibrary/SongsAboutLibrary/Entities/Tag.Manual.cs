@@ -6,9 +6,8 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.Enums;
-using SongsAbout.Controls;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 
