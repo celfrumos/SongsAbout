@@ -11,48 +11,81 @@ namespace SongsAbout.Classes.Database
     /// <summary>
     /// Wrapper class to interact with database easier
     /// </summary>
-    /// <exc cref="InvalidInitializedError">Only </remarks>
-    public partial class SongDatabase
+    /// <exception cref="InvalidInitializedError">This class can only be initialized once</exception>
+    /// <see cref="Initialize()"/>
+    /// <see cref="SongDatabase.IsInitialized"/>
+    public static partial class SongDatabase
     {
-        static bool isInitialized = false;
-        private AlbumCollection _albums;
-        private ArtistCollection _artists;
-        private TrackCollection _tracks;
-        private GenreCollection _genres;
-        private PlaylistCollection _playlists;
-        private TagCollection _tags;
-        public bool LargeQuery { get; set; }
+        private static bool _isInitialized = false;
+
         /// <summary>
-        /// Single use Constructor at Program Start
+        /// Represents if the SongDatabase has been initialized
+        /// </summary>
+        public static bool IsInitialized
+        {
+            get { return _isInitialized; }
+            private set { _isInitialized = value; }
+        }
+
+        /// <summary>
+        /// Set this to true if you want to not run a new query against the database;
+        /// </summary>
+        public static bool LargeQuery { get; set; }
+
+        /// <summary>
+        /// Single use Constructor do be used at Program Start
         /// </summary>
         /// <exception cref="InvalidInitializedError"></exception>
-        public SongDatabase()
+        public static void Initialize()
         {
-            if (isInitialized)
+            if (IsInitialized)
             {
                 throw new
                     InvalidInitializedError("ArtistList", "Only one instance of the SongDatabase Class may be declared");
             }
             else
             {
-                isInitialized = true;
+                IsInitialized = true;
                 LargeQuery = false;
 
-                _albums = new AlbumCollection();
-                _artists = new ArtistCollection();
-                _tracks = new TrackCollection();
-                _genres = new GenreCollection();
-                _playlists = new PlaylistCollection();
-                _tags = new TagCollection();
+                SongDatabase.Albums = new AlbumCollection();
+                SongDatabase.Artists = new ArtistCollection();
+                SongDatabase.Tracks = new TrackCollection();
+                SongDatabase.Genres = new GenreCollection();
+                SongDatabase.Playlists = new PlaylistCollection();
+                SongDatabase.Tags = new TagCollection();
             }
         }
 
-        public GenreCollection Genres { get { return _genres; } }
-        public TrackCollection Tracks { get { return _tracks; } }
-        public AlbumCollection Albums { get { return _albums; } }
-        public ArtistCollection Artists { get { return _artists; } }
-        public PlaylistCollection Playlists { get { return _playlists; } }
-        public TagCollection Tags { get { return _tags; } }
+        /// <summary>
+        /// Class to interact with the Genres table in the database
+        /// </summary>
+        public static GenreCollection Genres { get; private set; }
+
+        /// <summary>
+        /// Class to interact with the Tracks table in the database
+        /// </summary>
+        public static TrackCollection Tracks { get; private set; }
+
+        /// <summary>
+        /// Class to interact with the Albums table in the database
+        /// </summary>
+        public static AlbumCollection Albums { get; private set; }
+
+        /// <summary>
+        /// Class to interact with the Artists table in the database
+        /// </summary>
+        public static ArtistCollection Artists { get; private set; }
+
+        /// <summary>
+        /// Class to interact with the Playlists table in the database
+        /// </summary>
+        public static PlaylistCollection Playlists { get; private set; }
+
+        /// <summary>
+        /// Class to interact with the Tags table in the database
+        /// </summary>
+        public static TagCollection Tags { get; private set; }
 
     }
 }

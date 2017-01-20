@@ -12,7 +12,7 @@ using SongsAbout.Enums;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 using SongsAbout.Properties;
-using SongsAbout.Controls;
+using SongsAbout.Classes.Database;
 using System.Data.Entity;
 
 namespace SongsAbout.Entities
@@ -62,11 +62,6 @@ namespace SongsAbout.Entities
                 {
                     this.al_release_date = date;
                 }
-                //else
-                //{
-
-                //}
-                //this.al_year = value;
             }
         }
         /// <summary>
@@ -233,7 +228,7 @@ namespace SongsAbout.Entities
             {
                 try
                 {
-                    return Library.Database.Artists[this.ArtistId];
+                    return SongDatabase.Artists[this.ArtistId];
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -294,9 +289,9 @@ namespace SongsAbout.Entities
         {
             if (!this.GetGenres().Contains(genre))
             {
-                if (!Library.Database.Genres.Contains(genre))
+                if (!SongDatabase.Genres.Contains(genre))
                 {
-                    Library.Database.Genres.Add(genre);
+                    SongDatabase.Genres.Add(genre);
                 }
                 this.GenreList.Add(genre);
 
@@ -349,7 +344,7 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Library.Database.Albums.Add(this);
+                SongDatabase.Albums.Add(this);
             }
             catch (NullValueError)
             {
@@ -375,7 +370,7 @@ namespace SongsAbout.Entities
         {
             if (name == "" || name == null)
                 throw new NullValueError(DbEntityType.Album, "name");
-            return Library.Database.Albums[name] != null;
+            return SongDatabase.Albums[name] != null;
         }
 
         /// <summary>
@@ -389,17 +384,12 @@ namespace SongsAbout.Entities
             if (id == 0)
                 throw new NullValueError(DbEntityType.Album, "id");
 
-            return Library.Database.Albums[id] != null;
+            return SongDatabase.Albums[id] != null;
         }
 
         public static Album Load(Album album)
         {
-            //    album.Tracks.ToList().ForEach(t => t = Track.Load(t));
-            //    album.Tracks = album.Tracks;
-
-            //    album.Genres = album.Genres;
-
-            return album;
+            return Album.Load(album.name);
         }
         /// <summary>
         /// Load an Artist From the database. Throws an error if it returns  null from the database
@@ -416,7 +406,7 @@ namespace SongsAbout.Entities
 
             try
             {
-                var result = Library.Database.Albums[title];
+                var result = SongDatabase.Albums[title];
 
                 if (result == null)
                     throw new EntityNotFoundError(DbEntityType.Album, title);
@@ -444,8 +434,8 @@ namespace SongsAbout.Entities
 
             try
             {
-                
-                var results = this
+
+                var results = SongDatabase.Albums
                     .Items
                     .Where(a => a.ID == id);
 
@@ -454,7 +444,7 @@ namespace SongsAbout.Entities
 
                 return results.FirstOrDefault();
 
-                var result = Library.Database.Albums[id];
+                var result = SongDatabase.Albums[id];
 
                 if (result == null)
                     throw new EntityNotFoundError(DbEntityType.Album, id);
@@ -539,13 +529,13 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Artist newArtist = Library.Database.Artists[artist.Name];
+                Artist newArtist = SongDatabase.Artists[artist.Name];
                 if (newArtist == null)
                 {
-                    Library.Database.Artists[artist.Name] = new Artist(artist);
+                    SongDatabase.Artists[artist.Name] = new Artist(artist);
                 }
 
-                newArtist = Library.Database.Artists[artist.Name];
+                newArtist = SongDatabase.Artists[artist.Name];
                 this.Artist = newArtist;
                 //  this.ArtistId = newArtist.ID;
             }
@@ -565,14 +555,14 @@ namespace SongsAbout.Entities
         {
             try
             {
-                var existingGenres = Library.Database.Genres.Items;
+                var existingGenres = SongDatabase.Genres.Items;
                 foreach (var g in genres)
                 {
                     if (!this.GenreList.Contains(g))
                     {
                         if (!existingGenres.Contains(g))
                         {
-                            Library.Database.Genres.Add(g);
+                            SongDatabase.Genres.Add(g);
                         }
                         this.GenreList.Add(g);
                     }
@@ -591,14 +581,14 @@ namespace SongsAbout.Entities
             {
                 try
                 {
-                    var existingGenres = Library.Database.Genres.AllNames;
+                    var existingGenres = SongDatabase.Genres.AllNames;
                     foreach (var genre in genres)
                     {
                         if (!this.GenreList.Contains(genre))
                         {
                             if (!existingGenres.Contains(genre))
                             {
-                                Library.Database.Genres.Add(genre);
+                                SongDatabase.Genres.Add(genre);
                             }
                             this.GenreList.Add(genre);
                         }

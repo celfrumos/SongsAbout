@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongsAbout_DesktopApp", "SongsAbout_DesktopApp\SongsAbout_DesktopApp\SongsAbout_DesktopApp\SongsAbout_DesktopApp.csproj", "{FF13D718-9F13-42C5-B976-11722836710C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "SongsAbout_DesktopApp\SongsAbout_DesktopApp\SongsAbout_DesktopApp\Desktop.csproj", "{FF13D718-9F13-42C5-B976-11722836710C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongsAbout_WebApp", "SongsAbout_WebApp\SongsAbout_WebApp\SongsAbout_WebApp.csproj", "{CD9DBF31-276E-484A-95BC-5132D4C2AFF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "SongsAbout_WebApp\SongsAbout_WebApp\Web.csproj", "{CD9DBF31-276E-484A-95BC-5132D4C2AFF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyAPI", "SpotifyAPI\SpotifyAPI.csproj", "{EBBE35E2-7B91-4D7D-B8FC-3A0472F5119D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SongsAboutLibrary", "SongsAboutLibrary\SongsAboutLibrary\SongsAboutLibrary\SongsAboutLibrary.csproj", "{D6575C7E-BF1A-4DA8-B17D-9067F5F4E86E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "SongsAboutLibrary\SongsAboutLibrary\SongsAboutLibrary\Library.csproj", "{D6575C7E-BF1A-4DA8-B17D-9067F5F4E86E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

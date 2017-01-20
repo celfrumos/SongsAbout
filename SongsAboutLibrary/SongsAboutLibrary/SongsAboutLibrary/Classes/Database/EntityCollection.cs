@@ -54,7 +54,7 @@ namespace SongsAbout.Classes.Database
             /// <param name="childname"></param>
             protected EntityCollection(string childname)
             {
-                if (!SongDatabase.isInitialized)
+                if (!SongDatabase.IsInitialized)
                 {
                     throw new
                         InvalidInitializedError(childname,
