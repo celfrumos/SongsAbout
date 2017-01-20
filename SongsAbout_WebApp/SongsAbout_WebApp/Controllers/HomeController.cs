@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using React;
 using React.Web;
 
-namespace SongsAbout_WebApp.Controllers
+namespace SongsAbout.Web.Controllers
 {
     public class HomeController : Controller
     {

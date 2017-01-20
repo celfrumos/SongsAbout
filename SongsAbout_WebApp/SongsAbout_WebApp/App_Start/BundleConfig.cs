@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace SongsAbout_WebApp
+namespace SongsAbout.Web
 {
     public class BundleConfig
     {

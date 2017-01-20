@@ -24,10 +24,13 @@ namespace SongsAbout
     /// <summary>
     /// Class to hold Methods used for dealing with SpotifyAPI, specific to the user
     /// </summary>
-    public class UserSpotify
+    public static class UserSpotify
     {
+        private const string REDIRECT_URI = "http://localhost";
+        private const int PORT = 8000;
+
         /// <summary>
-        /// 
+        /// Use this to Call the WebAPI for spotify
         /// </summary>
         public static SpotifyWebAPI WebAPI
         {
@@ -44,18 +47,26 @@ namespace SongsAbout
             set { User.Default.PrivateId = value; }
         }
 
-        private const int PORT = 8000;
-        private const string REDIRECT_URI = "http://localhost";
-        
         /// <summary>
         /// User's Spotify Profile Picture
         /// </summary>
-        public Image ProfilePic { get; set; }
+        public static Image ProfilePic { get; set; }
+
+        /// <summary>
+        /// Get the User's Private Profile
+        /// </summary>
+        public static PrivateProfile PrivateProfile { get; private set; }
+
+        /// <summary>
+        /// Get the User's Followed Artists
+        /// </summary>
+        public static FollowedArtists FollowedArtists { get; private set; }
+
 
         /// <summary>
         /// Initial Setup of USer Spotify Settings
         /// </summary>
-        public async static void Authenticate()
+        public async static void AuthenticateAsync()
         {
             try
             {
@@ -70,14 +81,12 @@ namespace SongsAbout
 
                 if (User.Default.SpotifyWebAPI == null)
                 {
-                    User.Default.SpotifyWebAPI = await webApiFactory.GetWebApi();
-                    User.Default.Save();
+                    UserSpotify.WebAPI = await webApiFactory.GetWebApi();
                 }
 
                 FetchProfile();
                 FetchFollowedArtists();
                 FetchProfilePic();
-                User.Default.Save();
             }
             catch (SpotifyException)
             {
@@ -184,7 +193,7 @@ namespace SongsAbout
             {
                 if (UserSpotify.WebAPI == null)
                 {
-                    Authenticate();
+                    AuthenticateAsync();
                     while (UserSpotify.WebAPI == null)
                     {
                         Thread.Sleep(1);
@@ -253,7 +262,7 @@ namespace SongsAbout
                 throw exception;
             }
         }
-            
+
         /// <summary>
         /// Assign User Setting ProfilePic
         /// </summary>
@@ -264,11 +273,11 @@ namespace SongsAbout
         {
             try
             {
-                if (User.Default.PrivateProfile != null)
+                if (UserSpotify.PrivateProfile != null)
                 {
                     if (User.Default.PrivateProfile.Images.Count > 0)
                     {
-                        User.Default.ProfilePic = User.Default.PrivateProfile.Images[0];
+                        UserSpotify.ProfilePic = User.Default.PrivateProfile.Images[0];
                     }
                     else
                     {
@@ -299,7 +308,7 @@ namespace SongsAbout
             {
                 if (WebAPI != null)
                 {
-                    User.Default.FollowedArtists = await WebAPI.GetFollowedArtistsAsync(FollowType.Artist);
+                    UserSpotify.FollowedArtists = await UserSpotify.WebAPI.GetFollowedArtistsAsync(FollowType.Artist);
                 }
                 else
                 {
@@ -324,7 +333,7 @@ namespace SongsAbout
         {
             try
             {
-                if (User.Default.PrivateProfile != null)
+                if (UserSpotify.PrivateProfile != null)
                 {
                     try
                     {
@@ -337,7 +346,7 @@ namespace SongsAbout
                     }
                     catch (Exception ex)
                     {
-                        throw new SpotifyImportError(SpotifyEntityType.Track,$"Error getting user's top tracks: {ex.Message}");
+                        throw new SpotifyImportError(SpotifyEntityType.Track, $"Error getting user's top tracks: {ex.Message}");
                     }
                 }
                 else
@@ -363,7 +372,7 @@ namespace SongsAbout
         {
             try
             {
-                if (User.Default.PrivateProfile != null)
+                if (UserSpotify.PrivateProfile != null)
                 {
 
                     Paging<SpotifyPlaylist> playlists = UserSpotify.WebAPI.GetUserPlaylists(UserSpotify.PrivateId);

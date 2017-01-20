@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SongsAbout_WebApp.Models
+namespace SongsAbout.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

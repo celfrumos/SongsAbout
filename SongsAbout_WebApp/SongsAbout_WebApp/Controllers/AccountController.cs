@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SongsAbout_WebApp.Models;
+using SongsAbout.Web.Models;
 
-namespace SongsAbout_WebApp.Controllers
+namespace SongsAbout.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller

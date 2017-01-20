@@ -11,8 +11,8 @@ using Owin;
 
 
 
-[assembly: OwinStartupAttribute(typeof(SongsAbout_WebApp.Startup))]
-namespace SongsAbout_WebApp
+[assembly: OwinStartupAttribute(typeof(SongsAbout.Web.Startup))]
+namespace SongsAbout.Web
 {
     public partial class Startup
     {

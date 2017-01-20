@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using SongsAbout_WebApp.Models;
+using SongsAbout.Web.Models;
 
-namespace SongsAbout_WebApp
+namespace SongsAbout.Web
 {
     public partial class Startup
     {

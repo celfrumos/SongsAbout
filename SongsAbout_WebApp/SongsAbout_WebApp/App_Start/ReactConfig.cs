@@ -1,8 +1,8 @@
 using React;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SongsAbout_WebApp.ReactConfig), "Configure")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SongsAbout.Web.ReactConfig), "Configure")]
 
-namespace SongsAbout_WebApp
+namespace SongsAbout.Web
 {
 	public static class ReactConfig
 	{
