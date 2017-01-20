@@ -103,6 +103,10 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="SongsAbout, Version=0.0.3.20, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SongsAboutLibrary\SongsAboutLibrary\SongsAboutLibrary\bin\Debug\SongsAbout.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.registration" />
@@ -132,20 +136,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Converter.cs" />
-    <Compile Include="Classes\Database\AlbumCollection.cs" />
-    <Compile Include="Classes\Database\ArtistCollection.cs" />
-    <Compile Include="Classes\Database\EntityCollection.cs" />
-    <Compile Include="Classes\Database\GenreCollection.cs" />
-    <Compile Include="Classes\Database\IEntityCollection.cs" />
-    <Compile Include="Classes\Database\PlaylistCollection.cs" />
-    <Compile Include="Classes\Database\SongDatabase.cs" />
-    <Compile Include="Classes\Database\TagCollection.cs" />
-    <Compile Include="Classes\Database\TrackCollection.cs" />
-    <Compile Include="Classes\DbExceptions.cs" />
-    <Compile Include="Classes\Importer.cs" />
-    <Compile Include="Classes\TableAdapters.cs" />
-    <Compile Include="Classes\UserSpotify.cs" />
     <Compile Include="Controls\AlbumDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -227,53 +217,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Album.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Album.Manual.cs" />
-    <Compile Include="Entities\AlbumGenre.Manual.cs" />
-    <Compile Include="Entities\AlbumTracks.Manual.cs" />
-    <Compile Include="Entities\Artist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Artist.Manual.cs" />
-    <Compile Include="Entities\DataClasses.Context.cs">
-      <DependentUpon>DataClasses.Context.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Entities\DataClasses.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Entities\DataClasses.Designer.cs">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Entities\DbEntity.cs" />
-    <Compile Include="Entities\Genre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Genre.Manual.cs" />
-    <Compile Include="Entities\IDbEntity.cs" />
-    <Compile Include="Entities\Playlist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Playlist.Manual.cs" />
-    <Compile Include="Entities\Tag.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Tag.Manual.cs" />
-    <Compile Include="Entities\Topic.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Track.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Track.Manual.cs" />
-    <Compile Include="Entities\TrackArtists.Manual.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Forms\AlbumDisplayForm.cs">
       <SubType>Form</SubType>
@@ -462,13 +405,11 @@
     <None Include="DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </None>
-    <None Include="Entities\DataClasses.edmx.diagram">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -534,24 +475,6 @@
       <Project>{ebbe35e2-7b91-4d7d-b8fc-3a0472f5119d}</Project>
       <Name>SpotifyAPI</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Entities\DataClasses.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataClasses.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Entities\DataClasses.Context.tt">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataClasses.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\DataClasses.tt">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataClasses.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
