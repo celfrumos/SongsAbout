@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;

@@ -9,13 +9,14 @@ using System.Linq;
 using System.Collections.Generic;
 using SongsAbout.Classes;
 using SongsAbout.Enums;
+using SongsAbout.Desktop;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 using SongsAbout.Controls;
 using System.Data.Entity;
 
-namespace SongsAbout.Entities
+namespace SongsAbout.Desktop.Entities
 {
     public partial class Album : DbEntity
     {
@@ -56,11 +57,6 @@ namespace SongsAbout.Entities
                 {
                     this.al_release_date = date;
                 }
-                //else
-                //{
-
-                //}
-                //this.al_year = value;
             }
         }
         public string Uri

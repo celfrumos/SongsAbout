@@ -81,7 +81,7 @@ namespace SongsAbout.Controls
             this.SPictureBox.DbEntity = null;
             this.SPictureBox.DbEntityType = SongsAbout.Enums.DbEntityType.None;
             this.SPictureBox.Dock = System.Windows.Forms.DockStyle.None;
-            this.SPictureBox.Image = global::SongsAbout.Properties.Resources.MusicNote;
+            this.SPictureBox.Image = global::SongsAbout.Desktop.Properties.Resources.MusicNote;
             this.SPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("SPictureBox.InitialImage")));
             this.SPictureBox.Location = new System.Drawing.Point(0, 0);
             this.SPictureBox.Name = "SPictureBox";
@@ -96,7 +96,7 @@ namespace SongsAbout.Controls
             // 
             this.pBoxDbOrSpotify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pBoxDbOrSpotify.BackColor = System.Drawing.Color.Transparent;
-            this.pBoxDbOrSpotify.Image = global::SongsAbout.Properties.Resources.Spotify_Icon_Green;
+            this.pBoxDbOrSpotify.Image = global::SongsAbout.Desktop.Properties.Resources.Spotify_Icon_Green;
             this.pBoxDbOrSpotify.Location = new System.Drawing.Point(178, 50);
             this.pBoxDbOrSpotify.Name = "pBoxDbOrSpotify";
             this.pBoxDbOrSpotify.Size = new System.Drawing.Size(20, 20);

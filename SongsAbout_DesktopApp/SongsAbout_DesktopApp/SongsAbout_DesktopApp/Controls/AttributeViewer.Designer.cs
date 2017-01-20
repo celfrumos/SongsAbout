@@ -1,4 +1,4 @@
-﻿using SongsAbout.Properties;
+﻿using SongsAbout.Desktop.Properties;
 namespace SongsAbout.Controls
 {
     partial class AttributeViewer

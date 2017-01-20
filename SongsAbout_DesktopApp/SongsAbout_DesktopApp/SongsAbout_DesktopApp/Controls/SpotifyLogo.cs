@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 public enum LogoColor { Green, White, Black }
 namespace SongsAbout.Controls
 {
@@ -48,8 +48,8 @@ namespace SongsAbout.Controls
             // 
             // SpotifyLogo
             // 
-            this.Image = global::SongsAbout.Properties.Resources.Spotify_Icon_Green;
-            this.InitialImage = global::SongsAbout.Properties.Resources.Spotify_Icon_Green;
+            this.Image = global::SongsAbout.Desktop.Properties.Resources.Spotify_Icon_Green;
+            this.InitialImage = global::SongsAbout.Desktop.Properties.Resources.Spotify_Icon_Green;
             this.Size = new System.Drawing.Size(21, 21);
             this.MinimumSize = new System.Drawing.Size(21, 21);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();

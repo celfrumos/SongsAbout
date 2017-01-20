@@ -6,7 +6,7 @@ using SongsAbout.Forms;
 using SongsAbout.Classes;
 using SongsAbout.Enums;
 
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;
 using Image = System.Drawing.Image;

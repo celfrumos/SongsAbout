@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
 using SongsAbout.Entities;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 using SongsAbout.Classes;
 using SongsAbout.DataSetTableAdapters;
 

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using SongsAbout.Classes;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Entities;
 //using System.Windows;

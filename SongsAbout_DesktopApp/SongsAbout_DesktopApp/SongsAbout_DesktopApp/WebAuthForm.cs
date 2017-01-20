@@ -17,7 +17,7 @@ using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 
 
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 
 namespace SongsAbout
 {

@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SongsAbout.Properties" GeneratedClassName="User">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SongsAbout.Desktop.Properties" GeneratedClassName="User">
   <Profiles />
   <Settings>
     <Setting Name="ProfilePic" Type="SpotifyAPI.Web.Models.Image" Scope="User">

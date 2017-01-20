@@ -11,7 +11,7 @@ using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 using SongsAbout.Classes;
 using System.Windows.Forms;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 using SongsAbout.Enums;
 using System.IO;
 using Image = System.Drawing.Image;

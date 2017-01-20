@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Linq;
 using SpotifyAPI.Web.Models;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 using SongsAbout.Classes;
 using SongsAbout.Entities;
 using SongsAbout.Controls;

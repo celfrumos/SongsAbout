@@ -8,7 +8,7 @@ using System.Linq;
 using System.Collections.Generic;
 using SongsAbout.Classes;
 using SongsAbout.Enums;
-using SongsAbout.Properties;
+using SongsAbout.Desktop.Properties;
 using SongsAbout.Controls;
 using Image = System.Drawing.Image;
 
