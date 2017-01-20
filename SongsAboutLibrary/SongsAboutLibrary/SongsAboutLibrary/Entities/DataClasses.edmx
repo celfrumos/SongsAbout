@@ -43,8 +43,9 @@
         </EntityType>
         <EntityType Name="Lists">
           <Key>
-            <PropertyRef Name="list_name" />
+            <PropertyRef Name="list_id" />
           </Key>
+          <Property Name="list_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="list_name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="list_spotify_uri" Type="varchar" MaxLength="100" />
           <Property Name="list_spotify_id" Type="varchar" MaxLength="100" />
@@ -52,10 +53,10 @@
         </EntityType>
         <EntityType Name="ListTracks">
           <Key>
-            <PropertyRef Name="list_name" />
+            <PropertyRef Name="list_id" />
             <PropertyRef Name="track_id" />
           </Key>
-          <Property Name="list_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="list_id" Type="int" Nullable="false" />
           <Property Name="track_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tags">
@@ -114,6 +115,22 @@
           </Key>
           <Property Name="topic_id" Type="int" Nullable="false" />
           <Property Name="track_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'SongsAboutSQLDB.dbo.UserLists' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="UserLists">
+          <Property Name="u_id" Type="int" />
+          <Property Name="list_id" Type="int" />
+        </EntityType>-->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="u_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_email" Type="varchar" MaxLength="100" />
+          <Property Name="u_profile_pic" Type="image" />
+          <Property Name="u_bio" Type="varchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK__TrackArtists_Artists">
           <End Role="Artists" Type="Self.Artists" Multiplicity="1">
@@ -194,6 +211,18 @@
             </Principal>
             <Dependent Role="Albums">
               <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListTracks_Lists">
+          <End Role="Lists" Type="Self.Lists" Multiplicity="1" />
+          <End Role="ListTracks" Type="Self.ListTracks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lists">
+              <PropertyRef Name="list_id" />
+            </Principal>
+            <Dependent Role="ListTracks">
+              <PropertyRef Name="list_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -293,6 +322,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_UserLists_List" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_UserLists_User" />-->
         <Function Name="UpdateInsert_Album" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="artist_id" Type="int" Mode="In" />
@@ -332,6 +367,7 @@
           <EntitySet Name="Tracks" EntityType="Self.Tracks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrackTags" EntityType="Self.TrackTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrackTopics" EntityType="Self.TrackTopics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__TrackArtists_Artists" Association="Self.FK__TrackArtists_Artists">
             <End Role="Artists" EntitySet="Artists" />
             <End Role="TrackArtists" EntitySet="TrackArtists" />
@@ -355,6 +391,10 @@
           <AssociationSet Name="FK_Albums_Artists" Association="Self.FK_Albums_Artists">
             <End Role="Artists" EntitySet="Artists" />
             <End Role="Albums" EntitySet="Albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListTracks_Lists" Association="Self.FK_ListTracks_Lists">
+            <End Role="Lists" EntitySet="Lists" />
+            <End Role="ListTracks" EntitySet="ListTracks" />
           </AssociationSet>
           <AssociationSet Name="FK_ListTracks_Tracks" Association="Self.FK_ListTracks_Tracks">
             <End Role="Tracks" EntitySet="Tracks" />
@@ -431,12 +471,15 @@
         <EntityType Name="Playlist">
           <Key>
             <PropertyRef Name="list_name" />
+            <PropertyRef Name="list_id" />
           </Key>
           <Property Name="list_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateTracks" Relationship="DataClasses.ListTracks" FromRole="List" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="list_spotify_uri" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="list_spotify_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="list_spotify_href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="list_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Tracks" Relationship="DataClasses.ListTracks1" FromRole="Playlist" ToRole="Track" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -470,6 +513,7 @@
           <NavigationProperty Name="privateArtists" Relationship="DataClasses.TrackArtists" FromRole="Track" ToRole="Artist" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateGenres" Relationship="DataClasses.TrackGenres" FromRole="Track" ToRole="Genre" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateTopics" Relationship="DataClasses.TrackTopics" FromRole="Track" ToRole="Topic" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="Lists" Relationship="DataClasses.ListTracks1" FromRole="Track" ToRole="Playlist" />
         </EntityType>
         <Association Name="FK_Albums_Artists">
           <End Role="Artists" Type="Self.Artist" Multiplicity="1">
@@ -550,6 +594,11 @@
             <End Role="Album" EntitySet="Albums" />
             <End Role="Genre" EntitySet="Genres" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="DataClasses.User" />
+          <AssociationSet Name="ListTracks1" Association="DataClasses.ListTracks1">
+            <End Role="Playlist" EntitySet="Playlists" />
+            <End Role="Track" EntitySet="Tracks" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Album_Tracks">
           <End Type="DataClasses.Album" Role="Album" Multiplicity="1" />
@@ -586,6 +635,21 @@
         <Association Name="AlbumGenres">
           <End Type="DataClasses.Album" Role="Album" Multiplicity="*" />
           <End Type="DataClasses.Genre" Role="Genre" Multiplicity="*" />
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="u_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="u_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="u_bio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NavigationProperty1" />
+        </EntityType>
+        <Association Name="ListTracks1">
+          <End Type="DataClasses.Playlist" Role="Playlist" Multiplicity="*" />
+          <End Type="DataClasses.Track" Role="Track" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -627,6 +691,7 @@
           <EntitySetMapping Name="Playlists">
             <EntityTypeMapping TypeName="DataClasses.Playlist">
               <MappingFragment StoreEntitySet="Lists">
+                <ScalarProperty Name="list_id" ColumnName="list_id" />
                 <ScalarProperty Name="list_spotify_href" ColumnName="list_spotify_href" />
                 <ScalarProperty Name="list_spotify_id" ColumnName="list_spotify_id" />
                 <ScalarProperty Name="list_spotify_uri" ColumnName="list_spotify_uri" />
@@ -674,9 +739,6 @@
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="ListTracks" TypeName="DataClasses.ListTracks" StoreEntitySet="ListTracks">
-            <EndProperty Name="List">
-              <ScalarProperty Name="list_name" ColumnName="list_name" />
-            </EndProperty>
             <EndProperty Name="Track">
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
@@ -711,6 +773,25 @@
             </EndProperty>
             <EndProperty Name="Album">
               <ScalarProperty Name="ID" ColumnName="album_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DataClasses.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="u_bio" ColumnName="u_bio" />
+                <ScalarProperty Name="u_profile_pic" ColumnName="u_profile_pic" />
+                <ScalarProperty Name="u_email" ColumnName="u_email" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ListTracks1" TypeName="DataClasses.ListTracks1" StoreEntitySet="ListTracks">
+            <EndProperty Name="Track">
+              <ScalarProperty Name="ID" ColumnName="track_id" />
+            </EndProperty>
+            <EndProperty Name="Playlist">
+              <ScalarProperty Name="list_id" ColumnName="list_id" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

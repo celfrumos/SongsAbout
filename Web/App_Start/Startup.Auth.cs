@@ -34,7 +34,7 @@ namespace SongsAbout.Web
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -55,8 +55,8 @@ namespace SongsAbout.Web
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-               appId: "",
-               appSecret: "");
+               appId: Secrets.Facebook.AppID,
+               appSecret: Secrets.Facebook.SecretID);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
@@ -64,5 +64,7 @@ namespace SongsAbout.Web
             //    ClientSecret = ""
             //});
         }
+
     }
+
 }

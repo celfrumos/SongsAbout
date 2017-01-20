@@ -64,7 +64,8 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SongsAboutLibrary">
+    <Reference Include="SongsAboutLibrary, Version=0.0.3.20, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SongsAboutLibrary\SongsAboutLibrary\SongsAboutLibrary\bin\Release\SongsAboutLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
