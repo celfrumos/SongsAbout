@@ -166,6 +166,16 @@ namespace SongsAbout
 
 
         }
+
+        /// <summary>
+        /// Search an from Spotify
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="searchType"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <param name="retryCount"></param>
+        /// <returns></returns>
         public static SearchItem Search(string query, SearchType searchType, int limit = 20, int offset = 0, int retryCount = 5)
         {
             limit = limit < 1 ? 1 : limit;
@@ -243,79 +253,7 @@ namespace SongsAbout
                 throw exception;
             }
         }
-
-        public async static Task<Image> ImportImageFromSpotify(SpotifyAPI.Web.Models.SpotifyImage SpotifyPic)
-        {
-            try
-            {
-                using (WebClient wc = new WebClient())
-                {
-                    Image returnImage;
-                    byte[] imageBytes = await wc.DownloadDataTaskAsync(new Uri(SpotifyPic.Url));
-                    using (MemoryStream stream = new MemoryStream(imageBytes))
-                    {
-                        returnImage = Image.FromStream(stream);
-                        return returnImage;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new SpotifyImageImportError(ex.Message);
-            }
-
-        }
-
-        /// <summary>
-        /// Async method to get Profile image as a System.Drawing.Image
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="SpotifyException"></exception>
-        /// <exception cref="SpotifyUndefinedAPIError"></exception>
-        /// <exception cref="SpotifyImageImportError"></exception>
-        public async static Task<Image> ImportLocalProfilePic()
-        {
-            try
-            {
-                if (User.Default.PrivateProfile != null)
-                {
-                    try
-                    {
-                        Task profileFetcher = new Task(FetchProfilePic);
-                        if (User.Default.ProfilePic == null)
-                        {
-                            profileFetcher.Start();
-                        }
-                        while (!profileFetcher.IsCompleted)
-                        {
-                            Thread.Sleep(1);
-                        }
-                        Image _profilePic = User.Default.ProfilePic;
-
-                        return _profilePic;
-
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new SpotifyImageImportError($"Error importing profile pic from spotify image: {ex.Message}");
-                    }
-                }
-                else
-                {
-                    throw new SpotifyUndefinedAPIError("Error importing profile pic from spotify image");
-                }
-            }
-            catch (SpotifyException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new SpotifyException(ex.Message);
-            }
-        }
-
+            
         /// <summary>
         /// Assign User Setting ProfilePic
         /// </summary>
@@ -378,6 +316,10 @@ namespace SongsAbout
             }
         }
 
+        /// <summary>
+        /// Get the User's top tracks
+        /// </summary>
+        /// <returns></returns>
         public static List<SpotifyTrack> GetTopTracks()
         {
             try
@@ -389,13 +331,13 @@ namespace SongsAbout
                         List<SpotifyTrack> trackList = new List<SpotifyTrack>();
                         var paging = WebAPI.GetUsersTopTracks();
 
-                        paging.Items.ForEach(track => trackList.Add((SpotifyTrack)track));
+                        paging.Items.ForEach(track => trackList.Add(track));
                         return trackList;
 
                     }
                     catch (Exception ex)
                     {
-                        throw new SpotifyImportError<Paging<SpotifyFullTrack>>($"Error getting user's top tracks: {ex.Message}");
+                        throw new SpotifyImportError(SpotifyEntityType.Track,$"Error getting user's top tracks: {ex.Message}");
                     }
                 }
                 else
@@ -413,57 +355,10 @@ namespace SongsAbout
             }
         }
 
-        private async static void PutPlaylists()
-        {
-            try
-            {
-                if (User.Default.PrivateProfile != null)
-                {
-                    var myPlaylists = await UserSpotify.WebAPI.GetUserPlaylistsAsync(User.Default.PrivateId, 5, 0);
-
-                    foreach (SpotifyPlaylist playlist in myPlaylists.Items)
-                    {
-                        string playlistTrack = "";
-                        string uri = playlist.Uri;
-                        string playlistId = playlist.Id;
-
-                        var tracks = User.Default.SpotifyWebAPI.GetPlaylistTracks(User.Default.PrivateId, playlistId);
-                        if (tracks.Error.Message == null)
-                        {
-                            foreach (PlaylistTrack t in tracks.Items)
-                            {
-                                string name = t.Track.Name;
-                                string alName = t.Track.Album.Name;
-                                var artists = t.Track.Artists;
-                                SpotifyArtist firstArtist = artists[0];
-                                string aName = firstArtist.Name;
-                                playlistTrack += name + " " + alName + " " + aName;
-                                //  MessageBox.Show(playlistTrack);
-                            }
-                        }
-                        else
-                        {
-                            throw new SpotifyImportError<Paging<SpotifyPlaylist>>(tracks.Error.Message);
-                        }
-                    }
-
-                }
-                else
-                {
-                    throw new SpotifyUndefinedProfileError();
-                }
-            }
-            catch (SpotifyException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new SpotifyException(ex.Message);
-            }
-
-        }
-
+        /// <summary>
+        /// Returns the User's Playlists
+        /// </summary>
+        /// <returns></returns>
         public static List<SpotifyPlaylist> GetPlaylists()
         {
             try
@@ -471,7 +366,7 @@ namespace SongsAbout
                 if (User.Default.PrivateProfile != null)
                 {
 
-                    Paging<SpotifyPlaylist> playlists = UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId);
+                    Paging<SpotifyPlaylist> playlists = UserSpotify.WebAPI.GetUserPlaylists(UserSpotify.PrivateId);
 
                     return playlists.Items;
 

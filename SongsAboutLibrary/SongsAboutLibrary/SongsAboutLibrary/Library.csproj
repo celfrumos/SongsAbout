@@ -142,20 +142,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Converter.cs" />
-    <Compile Include="Classes\Database\AlbumCollection.cs" />
-    <Compile Include="Classes\Database\ArtistCollection.cs" />
-    <Compile Include="Classes\Database\EntityCollection.cs" />
-    <Compile Include="Classes\Database\GenreCollection.cs" />
-    <Compile Include="Classes\Database\IEntityCollection.cs" />
-    <Compile Include="Classes\Database\PlaylistCollection.cs" />
-    <Compile Include="Classes\Database\SongDatabase.cs" />
-    <Compile Include="Classes\Database\TagCollection.cs" />
-    <Compile Include="Classes\Database\TrackCollection.cs" />
-    <Compile Include="Classes\DbExceptions.cs" />
-    <Compile Include="Classes\Importer.cs" />
-    <Compile Include="Classes\TableAdapters.cs" />
-    <Compile Include="Classes\UserSpotify.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="Database\AlbumCollection.cs" />
+    <Compile Include="Database\ArtistCollection.cs" />
+    <Compile Include="Database\EntityCollection.cs" />
+    <Compile Include="Database\GenreCollection.cs" />
+    <Compile Include="Database\IEntityCollection.cs" />
+    <Compile Include="Database\PlaylistCollection.cs" />
+    <Compile Include="Database\SongDatabase.cs" />
+    <Compile Include="Database\TagCollection.cs" />
+    <Compile Include="Database\TrackCollection.cs" />
+    <Compile Include="DbExceptions.cs" />
+    <Compile Include="Importer.cs" />
+    <Compile Include="TableAdapters.cs" />
+    <Compile Include="UserSpotify.cs" />
     <Compile Include="DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
