@@ -1,0 +1,1537 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SongsAboutLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:SongsAbout.Classes.Converter">
+            <summary>
+            Static Class to hold methods to convert to and from common Data types 
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Classes.Converter.GetFullAlbum(SpotifyAPI.Web.Models.SpotifyAlbum)">
+            <summary>
+            Converts a Spotify Album to a SpotifyFullAlbum
+            </summary>
+            <param name="album">The album to convert</param>
+            <returns>The Full version of the passed in album</returns>
+        </member>
+        <member name="M:SongsAbout.Classes.Converter.ImageFromBytes(System.Byte[])">
+            <summary>
+            Convert an image to a byte Array
+            </summary>
+            <param name="image"></param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.ConversionError"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Converter.ImageToBytes(System.Drawing.Image)">
+            <summary>
+            Convert an image to a byte Array
+            </summary>
+            <param name="image"></param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.ConversionError"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Converter.GetFullArtist(SpotifyAPI.Web.Models.SpotifyArtist)">
+            <summary>
+            
+            </summary>
+            <param name="artist"></param>
+            <returns></returns>
+            <exception cref="T:SpotifyAPI.Web.SpotifyConversionError"></exception>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:SongsAbout.Classes.Database.SongDatabase" -->
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.AlbumCollection.#ctor">
+            <summary>
+            Initializes the connector to the AlbumList
+            </summary>
+            <exception cref="T:SongsAbout.Classes.InvalidInitializedError"></exception>"
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.AlbumCollection.Item(System.Int32)">
+            <summary>
+            Get the Album of the given id if it exists, otherwise throws an exception
+            </summary>
+            <returns></returns>
+            <param name="id"></param>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>
+            <exception cref="T:System.Data.Entity.Infrastructure.DbUpdateException"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.AlbumCollection.Contains(System.Int32,System.Boolean)">
+            <summary>
+            Verifies if an Album of the given id exists
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.AlbumCollection.Items">
+            <summary>
+            Returns A list of all Existing Albums in the database
+            </summary>            
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.AlbumCollection.Add(SongsAbout.Entities.Album)">
+            <summary>
+            Submit Changes to the Database
+            </summary>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:System.Data.Entity.Infrastructure.DbUpdateException"></exception>
+            <exception cref="T:SongsAbout.Classes.SaveError"></exception>"
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.ArtistCollection.#ctor">
+            <summary>
+            Initializes the connector to the ArtistList
+            </summary>
+            <exception cref="T:SongsAbout.Classes.InvalidInitializedError"></exception>"
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.ArtistCollection.Item(System.Int32)">
+            <summary>
+            Get the Artist of the given id if it exists, otherwise throws an exception
+            </summary>
+            <param name="id"></param>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.EntityNotFoundError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>"
+            <exception cref="!:DbUpdateException"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.ArtistCollection.Contains(System.Int32,System.Boolean)">
+            <summary>
+            Verifies if an artist of the given id exists
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+            /// <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.ArtistCollection.Items">
+            <summary>
+            Returns A list of all Existing Artists in the database
+            </summary>            
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.ArtistCollection.Add(SongsAbout.Entities.Artist)">
+            <summary>
+            Submit Changes to the Database
+            </summary>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.SaveError"></exception>"
+        </member>
+        <member name="T:SongsAbout.Classes.Database.SongDatabase.EntityCollection">
+            <summary>
+            Base clas
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection.AllNames">
+            <summary>
+            A List of the names of the items in the database
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection.CachedNames">
+            <summary>
+            A List of the c names of the items in the database
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection.Count">
+            <summary>
+            The number of rows in the table
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection.DbEntityType">
+            <summary>
+            The type of entity mapped to this collection
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection.HasIntId">
+            <summary>
+            True if the table has an int ID column
+            </summary>
+        </member>
+        <member name="T:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1">
+            <summary>
+            Generic Class to access the items in the collection
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.#ctor(System.String)">
+            <summary>
+            Construct the base class, can only be called once.
+            </summary>
+            <param name="childname"></param>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.FindByName(System.String)">
+            <summary>
+            Find the intended item by name lookup
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.CachedItems">
+            <summary>
+            Returns the last returned list of items
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.Items">
+            <summary>
+            Queries the database and returns a list of all the items
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.CachedNames">
+            <summary>
+            Returns the last returned list of names
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.AllNames">
+            <summary>
+            Queries the database and returns a list of all the items
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.Item(System.String)">
+            <summary>
+            Get the Entity of the given name if it exists, otherwise throws an exception
+            </summary>
+            <param name="name"></param>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>"
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.Contains(System.String,System.Boolean)">
+            <summary>
+            Verifies if an entity of the given name exists
+            </summary>
+            <param name="name">he name of the intended entity</param>
+            <param name="checkCache">Set to true if you don't want to run a new query against the database.</param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.Count">
+            <summary>
+            Returns the number of items in the collection
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.Add(`0)">
+            <summary>
+            Ads a new item to the Collection, and to the corresponding database table
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.Current">
+            <summary>
+            Gets the element at the current position of the enumerator.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.MoveNext">
+            <summary>
+            Advances the enumerator to the next element of the collection.
+            </summary>
+            <returns>true if the enumerator was successfully advanced to the next element; 
+            false if the enumerator has passed the end of the collection.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">   The collection was modified after the enumerator was created.
+            </exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the first element in the collection.
+            </summary>  
+            /// <exception cref="T:System.InvalidOperationException">   The collection was modified after the enumerator was created.
+            </exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the Collection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.EntityCollection`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the Collection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.GenreCollection.#ctor">
+            <summary>
+            Initializes the connector to the GenreList
+            </summary>
+            <exception cref="T:SongsAbout.Classes.InvalidInitializedError"></exception>"
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.GenreCollection.Items">
+            <summary>
+            Returns A list of all Existing Genres in the database
+            </summary>            
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.GenreCollection.Add(SongsAbout.Entities.Genre)">
+            <summary>
+            Submit Changes to the Database
+            </summary>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.ValueAlreadyPresentException"></exception>"
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>"
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.PlaylistCollection.#ctor">
+            <summary>
+            Initializes the connector to the GenreList
+            </summary>
+            <exception cref="T:SongsAbout.Classes.InvalidInitializedError"></exception>"
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.PlaylistCollection.Items">
+            <summary>
+            Returns A list of all Existing Genres in the database
+            </summary>            
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.PlaylistCollection.Add(SongsAbout.Entities.Playlist)">
+            <summary>
+            Submit Changes to the Database
+            </summary>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.ValueAlreadyPresentException"></exception>"
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>"
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.#ctor">
+            <summary>
+            Single use Constructor at Program Start
+            </summary>
+            <exception cref="T:SongsAbout.Classes.InvalidInitializedError"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.TagCollection.#ctor">
+            <summary>
+            Initializes the connector to the GenreList
+            </summary>
+            <exception cref="T:SongsAbout.Classes.InvalidInitializedError"></exception>"
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.TagCollection.Items">
+            <summary>
+            Returns A list of all Existing Genres in the database
+            </summary>            
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.TagCollection.Add(SongsAbout.Entities.Tag)">
+            <summary>
+            Submit Changes to the Database
+            </summary>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.ValueAlreadyPresentException"></exception>"
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>"
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.TrackCollection.#ctor">
+            <summary>
+            Initializes the connector to the TrackList
+            </summary>
+            <exception cref="T:SongsAbout.Classes.InvalidInitializedError"></exception>"
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.TrackCollection.Item(System.Int32)">
+            <summary>
+            Get the Track of the given id if it exists, otherwise throws an exception
+            </summary>
+            <param name="id"></param>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>"
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.TrackCollection.Contains(System.Int32,System.Boolean)">
+            <summary>
+            Verifies if an Track of the given id exists
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.TrackCollection.Items">
+            <summary>
+            Returns A list of all Existing Tracks in the database
+            </summary>            
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.SongDatabase.TrackCollection.AllNames">
+            <summary>
+            Loads the Names of the existing Tracks to a List
+            </summary>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Database.SongDatabase.TrackCollection.Add(SongsAbout.Entities.Track)">
+            <summary>
+            Submit Changes to the Database
+            </summary>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.SaveError"></exception>"
+        </member>
+        <member name="T:SongsAbout.Classes.Database.IEntityCollection">
+            <summary>
+            Provides simple functionality for interacting with Database tables
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.Database.IEntityCollection.Count">
+            <summary>
+            The number of rows in the respective table
+            </summary>
+        </member>
+        <member name="T:SongsAbout.Classes.Database.IEntityIdAccessor`1">
+            <summary>
+            Provides Functionality to interact with Database Tables using bracket notation for the Entity Id
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:SongsAbout.Classes.Database.IEntityNameAccessor`1">
+            <summary>
+            Provides Functionality to interact with Database Tables using bracket notation for the Entity Name
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:SongsAbout.Classes.Importer.ImportTrack(SpotifyAPI.Web.Models.SpotifyTrack)">
+            <summary>
+            Import the Given Spotify Track into the Database
+            </summary>
+            <param name="track"></param>
+            <exception cref="T:SongsAbout.Classes.SaveError"></exception>
+            <exception cref="T:SpotifyAPI.Web.SpotifyImportError"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.Importer.ImportSavedTracks">
+            <summary>
+            Import All Saved Tracks into the datbase
+            </summary>
+            <exception cref="T:SpotifyAPI.Web.SpotifyUndefinedAPIError"></exception>
+            <exception cref="T:SpotifyAPI.Web.SpotifyException"></exception>
+        </member>
+        <member name="T:SongsAbout.Classes.UserSpotify">
+            <summary>
+            Class to hold Methods used for dealing with SpotifyAPI, specific to the user
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.UserSpotify.WebAPI">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.UserSpotify.PrivateId">
+            <summary>
+            User's private Spotify Id
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Classes.UserSpotify.ProfilePic">
+            <summary>
+            User's Spotify Profile Picture
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Classes.UserSpotify.Authenticate">
+            <summary>
+            Initial Setup of USer Spotify Settings
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Classes.UserSpotify.ImplicitConnectSpotify">
+            <summary>
+            Implicitly connect spotify. Not yet effective
+            </summary>        
+        </member>
+        <member name="M:SongsAbout.Classes.UserSpotify.FetchProfile">
+            <summary>
+            Gets profile info via WebAPI. Assigns user settings PrivateProfile, PrivateId, and PublicProfile
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Classes.UserSpotify.GetSavedTracks">
+            <summary>
+            Returns a list of User's saved tracks
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SongsAbout.Classes.UserSpotify.ImportLocalProfilePic">
+            <summary>
+            Async method to get Profile image as a System.Drawing.Image
+            </summary>
+            <returns></returns>
+            <exception cref="T:SpotifyAPI.Web.SpotifyException"></exception>
+            <exception cref="T:SpotifyAPI.Web.SpotifyUndefinedAPIError"></exception>
+            <exception cref="T:SpotifyAPI.Web.SpotifyImageImportError"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.UserSpotify.FetchProfilePic">
+            <summary>
+            Assign User Setting ProfilePic
+            </summary>
+            <exception cref="T:SpotifyAPI.Web.SpotifyException"></exception>
+            <exception cref="T:SpotifyAPI.Web.SpotifyUndefinedAPIError"></exception>
+            <exception cref="T:SpotifyAPI.Web.SpotifyImageImportError"></exception>
+        </member>
+        <member name="M:SongsAbout.Classes.UserSpotify.FetchFollowedArtists">
+            <summary>
+            Assign User Setting for FollowedArtists
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TracksTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.ArtistsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TrackArtistsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TrackGenresTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.GenresTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.AlbumsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TagsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TrackTagsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.ListsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.AlbumTracksTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.AlbumGenresTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TopicsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TrackTopicsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.QueriesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TableAdapterManager">
+             <summary>
+            TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+            </summary>
+        </member>
+        <member name="M:SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateUpdatedRows(SongsAbout.DataSet,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+             <summary>
+            Update rows in top-down order.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateInsertedRows(SongsAbout.DataSet,System.Collections.Generic.List{System.Data.DataRow})">
+             <summary>
+            Insert rows in top-down order.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateDeletedRows(SongsAbout.DataSet,System.Collections.Generic.List{System.Data.DataRow})">
+             <summary>
+            Delete rows in bottom-up order.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.DataSetTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+             <summary>
+            Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+            </summary>
+        </member>
+        <member name="M:SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateAll(SongsAbout.DataSet)">
+             <summary>
+            Update all changes to the dataset.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption">
+             <summary>
+            Update Order Option
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSetTableAdapters.TableAdapterManager.SelfReferenceComparer">
+             <summary>
+            Used to sort self-referenced table's rows
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.AlbumDisplay.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.AlbumDisplay.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.AlbumDisplay.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.AttributeViewer.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.AttributeViewer.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.AttributeViewer.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SControl.ImportEntity">
+            <summary>
+            Imports the Control's Entity to the database. If this isn't overridden, it'll throw an exception
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="F:SongsAbout.Controls.SControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.SControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.SLabel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SLabel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.SLabel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SongButton.DialogResult">
+            <summary>
+            Gets or sets the value returned to the parent form when the button is clicked.
+            Returns:
+                One of the System.Windows.Forms.DialogResult values.
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.SongButton.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SongButton.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.SongButton.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.SongModule.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SongModule.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.SongModule.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.IMAGE_PANEL_IMAGE_RATIO">
+            
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.IMAGE_PANEL_LABEL_RATIO">
+            
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.IMAGE_PANEL_RATIO">
+            
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.STACKED_MAX_WIDTH">
+            
+             Stacked Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.STACKED_MAX_HEIGHT">
+            
+             Stacked Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.STACKED_MED_WIDTH">
+            
+             Stacked Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.STACKED_MED_HEIGHT">
+            
+             Stacked Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.STACKED_MIN_WIDTH">
+            
+             Stacked Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.STACKED_MIN_HEIGHT">
+            
+             Stacked Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.TEXT_PANEL_MAX_WIDTH">
+            
+             Text Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.TEXT_PANEL_MAX_HEIGHT">
+            
+             Text Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.TEXT_PANEL_MED_WIDTH">
+            
+             Text Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.TEXT_PANEL_MED_HEIGHT">
+            
+             Text Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.TEXT_PANEL_MIN_WIDTH">
+            
+             Text Panel constants
+             
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.TEXT_PANEL_MIN_HEIGHT">
+            
+             Text Panel constants
+             
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.MaxImageSize">
+            <summary>
+            Get/Set the Max Size for the image, based on SPanelType
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.MinImageSize">
+            <summary>
+            Get/Set the Min Size for the image, based on SPanelType
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.OldSize">
+            <summary>
+            Get/Set the size of the SPanel 
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel._resize">
+            <summary>
+            Resize the entire SPanel, then resize the Image and Label
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.WidthToHeightRatio">
+            <summary>
+            Height / Width
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.ImageToPanelRatio">
+            <summary>
+            Image size / Panel Size
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.LabelToImageRatio">
+            <summary>
+            1 - ImageToPanelRatio
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.ImageSize">
+            <summary>
+            Size of the image in the SPanel
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.PictureCollapsed">
+            <summary>
+            Get/Set whether to collapse the image.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.SplitterDistance">
+            <summary>
+            Where the image ends and the label begins
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.Image">
+            <summary>
+            The image displayed in the SPanel, for the entity that it will display
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.Text">
+            <summary>
+            Get/Set the text in the Label
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.SPanelType">
+            <summary>
+            Represents the type of panel, and changes the Min/Max for the appropriate values upon change.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.SpotifyEntityType">
+            <summary>
+            Tag to identify what the SpotifyEntityType was that this was initialized with
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.DbEntityType">
+            <summary>
+            Tag to identify what DbEntityType the SPanel maps to
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Controls.SPanel.DbEntity">
+            <summary>
+            Holds a copy of the DbEntity this SPanel represents, if any
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.#ctor">
+            <summary>
+            Default Constructor, defaults to Image Panel
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.#ctor(System.String,SongsAbout.Controls.SPanelType,SongsAbout.Controls.SPanelSize,SongsAbout.Enums.DbEntityType)">
+            <summary>
+            Construct an empty SPanel by type
+            </summary>
+            <param name="panelType"></param>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.#ctor(System.String,SongsAbout.Controls.SPanelType,SongsAbout.Controls.SPanelSize,System.EventHandler,SongsAbout.Enums.DbEntityType,SpotifyAPI.Web.Enums.SpotifyEntityType)">
+            <summary>
+            Main Constructor for SPanel
+            </summary>
+            <param name="entityName"></param>
+            <param name="type"></param>
+            <param name="size"></param>
+            <param name="clickEvent"></param>
+            <param name="dbtype"></param>
+            <param name="spotifyType"></param>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.#ctor(SongsAbout.Entities.DbEntity,SongsAbout.Controls.SPanelType,SongsAbout.Controls.SPanelSize,System.EventHandler)">
+            <summary>
+            Construct a simple SPanel from any DbEntity
+            </summary>
+            <param name="entity"></param>
+            <param name="type"></param>
+            <param name="clickEvent"></param>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.#ctor(SpotifyAPI.Web.Models.SpotifyIntegralEntity,SongsAbout.Controls.SPanelType,SongsAbout.Controls.SPanelSize,System.EventHandler)">
+            <summary>
+            Construct an SPanel from a Spotify Entity
+            </summary>
+            <param name="spotifyEntity"></param>
+            <param name="type"></param>
+            <param name="clickEvent"></param>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.SetImage(SpotifyAPI.Web.Models.SpotifyImage)">
+            <summary>
+            Set the SPanel Image from a spotify Image
+            </summary>
+            <param name="spotifyImageBytes"></param>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.ImportEntity">
+            <summary>
+            Import the Spotify Entity Represented by this SPanl
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SongsAbout.Controls.SPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.SPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.SPicturePox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SPicturePox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.SPicturePox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.SpotifyImageStackedPanel.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.SpotifyImageStackedPanel.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.SpotifyImageStackedPanel.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.TrackListBox.TrackRowCollection.Add(SongsAbout.Controls.TrackRow)">
+            <summary>
+            Adds a new item to the TrackRowCollection
+            </summary>
+            <param name="row"></param>
+        </member>
+        <member name="F:SongsAbout.Controls.TrackListBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.TrackListBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.TrackListBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Controls.TrackRow.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Controls.TrackRow.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SongsAbout.Controls.TrackRow.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.ButtonImages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.ButtonImages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.ButtonImages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.ButtonImages.Play">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.ButtonImages.SkipBack">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.ButtonImages.SkipForward">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.ButtonImages.Stop">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet">
+             <summary>
+            Represents a strongly typed in-memory cache of data.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumGenresDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumTracksDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.ArtistsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.GenresDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.ListsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TagsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TopicsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackArtistsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackGenresDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TracksDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackTagsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackTopicsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumGenresRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumTracksRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.ArtistsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.GenresRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.ListsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TagsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TopicsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackArtistsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackGenresRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TracksRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackTagsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackTopicsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumGenresRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.AlbumTracksRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.ArtistsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.GenresRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.ListsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TagsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TopicsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackArtistsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackGenresRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TracksRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackTagsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.DataSet.TrackTopicsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:SongsAbout.Entities.Album">
+            <summary>
+            Al album from the database
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Entities.Album.Year">
+            <summary>
+            The Year the album was released
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Entities.Album.Uri">
+            <summary>
+            The Spotify URI for this album
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Entities.Album.CoverArtBytes">
+            <summary>
+            Returns the cover art of this album as a byte array
+            </summary>
+            <seealso cref="P:SongsAbout.Entities.Album.CoverArt"/>
+        </member>
+        <member name="M:SongsAbout.Entities.Album._loadTracks">
+            <summary>
+            Load all of the tracks of this album directly from the database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.LoadAllFromDatabase">
+            <summary>
+            Load a list of All of the albums currently stored in the database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SongsAbout.Entities.Album.TrackList">
+            <summary>
+            Returns the tracks for this album as a list
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Entities.Album.GenreList">
+            <summary>
+            Returns the genres for this Album as a list
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Entities.Album.Artist">
+            <summary>
+            Returns the Main Artist of this Album
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Entities.Album.ArtistId">
+            <summary>
+            Get the id of the main Artist for this Album
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Entities.Album.CoverArt">
+            <summary>
+            Returns a Bitmap of this Albums Cover Art
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.GetGenres">
+            <summary>
+            Returns a list of this Album's Genres as strings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.AddGenre(System.String)">
+            <summary>
+            Add's a Genre to the Album, and to the Database if it doesn't already exist
+            </summary>
+            <param name="genre"></param>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.Save">
+            <summary>
+            Save the Album to the Database
+            </summary>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.SaveError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.Exists(System.String)">
+            <summary>
+            Checks if an album with the given name exists or not
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.Exists(System.Int32)">
+            <summary>
+            Checks if an album with the given id exists or not
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            /// <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.Load(System.String)">
+            <summary>
+            Load an Artist From the database. Throws an error if it returns  null from the database
+            </summary>
+            <param name="title"></param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.EntityNotFoundError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.Load(System.Int32)">
+            <summary>
+            Load an Artist From the database. Throws an error if it returns  null from the database
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.EntityNotFoundError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.UpdateArtist(SpotifyAPI.Web.Models.SpotifyArtist)">
+            <summary>
+            
+            </summary>
+            <param name="artist"></param>
+            <exception cref="T:SongsAbout.Classes.UpdateFromSpotifyError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Album.SetGenres(System.Collections.Generic.List{SongsAbout.Entities.Genre})">
+            <summary>
+            Sets the genres for this album from the passed in list
+            </summary>
+            <param name="genres"></param>
+        </member>
+        <member name="T:SongsAbout.Entities.Artist">
+            <summary>
+            Partial Class to hold Artist Functions
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Entities.Artist.Save">
+            <summary>
+            Submit Changes to the Database
+            </summary>
+            <exception cref="T:SongsAbout.Classes.NullValueError"></exception>
+            <exception cref="T:SongsAbout.Classes.UpdateFromSpotifyError"></exception>"
+            <exception cref="T:System.Data.Entity.Infrastructure.DbUpdateException"></exception>
+            <exception cref="T:SongsAbout.Classes.DbException"></exception>"
+        </member>
+        <member name="M:SongsAbout.Entities.Artist.Update(SpotifyAPI.Web.Models.SpotifyArtist)">
+            <summary>
+            Initialize the member data from spotify Aritst
+            </summary>
+            <param name="artist"></param>
+            <exception cref="T:SongsAbout.Classes.UpdateFromSpotifyError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Artist.Load(System.String)">
+            <summary>
+            Get the Artist of the given name if it exists, otherwise throws an exception
+            </summary>
+            <param name="name"></param>
+            <exception cref="T:SongsAbout.Classes.EntityNotFoundError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>"
+        </member>
+        <member name="M:SongsAbout.Entities.Artist.Load(System.Int32)">
+            <summary>
+            Load the artist of the given id from the database
+            </summary>
+            <param name="id"></param>
+            <exception cref="T:SongsAbout.Classes.EntityNotFoundError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>"
+            <returns></returns>
+        </member>
+        <member name="P:SongsAbout.Entities.DbEntity.TitleColumnName">
+            <summary>
+            THe name of the title column of thiis DbEntity
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Entities.Track.Album">
+            <summary>
+            Get the main Album of the Track
+            </summary>
+            <exception cref="T:SongsAbout.Classes.EntityNotFoundError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>
+        </member>
+        <member name="P:SongsAbout.Entities.Track.Artist">
+            <summary>
+            The Main artist of the track
+            </summary>
+            <exception cref="T:SongsAbout.Classes.EntityNotFoundError"></exception>
+            <exception cref="T:SongsAbout.Classes.LoadError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Track.#ctor(SpotifyAPI.Web.Models.SpotifyTrack)">
+            <summary>
+            
+            </summary>
+            <param name="t"></param>
+            <exception cref="T:SongsAbout.Classes.UpdateFromSpotifyError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Track.UpdateArtist(SpotifyAPI.Web.Models.SpotifyArtist)">
+            <summary>
+            Update the Track Artist from an FArtist
+            </summary>
+            <param name="artist"></param>
+            <exception cref="T:SongsAbout.Classes.UpdateFromSpotifyError"></exception>
+        </member>
+        <member name="M:SongsAbout.Entities.Track.UpdateAlbum(SpotifyAPI.Web.Models.SpotifyAlbum)">
+            <summary>
+            Update the Track Album from an FAlbum
+            </summary>
+            <param name="album"></param>
+            <exception cref="T:SongsAbout.Classes.UpdateFromSpotifyError"></exception>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.Artist">
+            <summary>
+            Matches to Artists table
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.Album">
+            <summary>
+            Matches to Albums table
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.Track">
+            <summary>
+            Matches to Tracks table
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.Genre">
+            <summary>
+            Matches to Genres table
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.Tag">
+            <summary>
+            Matches to Tags table
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.Playlist">
+            <summary>
+            Matches to Lists table
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.Integral">
+            <summary>
+            Matches to either the Artists, Albums, or Tracks table
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.Grouping">
+            <summary>
+            Matches to either the Genres, Tags, or Lists table
+            </summary>
+        </member>
+        <member name="F:SongsAbout.Enums.DbEntityType.None">
+            <summary>
+            Doesn't match to any table in the database
+            </summary>
+        </member>
+        <member name="M:SongsAbout.Library.Main">
+            <summary>
+            The main entry point for the library.
+            </summary>
+        </member>
+        <member name="T:SongsAbout.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.CheckMark">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.CheckMarkBlue">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.CheckMarkBlue1">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.MusicNote">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.ProfilePic">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.Spotify_Icon_Black">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.Spotify_Icon_Green">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.Spotify_Icon_White">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:SongsAbout.Properties.Resources.SpotifyClientID">
+            <summary>
+              Looks up a localized string similar to 4d8b5c54f513430f8b0f486974c89402.
+            </summary>
+        </member>
+    </members>
+</doc>

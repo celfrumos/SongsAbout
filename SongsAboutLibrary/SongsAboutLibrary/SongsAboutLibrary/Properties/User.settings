@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SongsAbout.Properties" GeneratedClassName="User">
+  <Profiles />
+  <Settings>
+    <Setting Name="ProfilePic" Type="SpotifyAPI.Web.Models.Image" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FollowedArtists" Type="SpotifyAPI.Web.Models.FollowedArtists" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FeaturedPlaylists" Type="SpotifyAPI.Web.Models.FeaturedPlaylists" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SpotifyWebAPI" Type="SpotifyAPI.Web.SpotifyWebAPI" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PublicProfile" Type="SpotifyAPI.Web.Models.PublicProfile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">HotTrack</Value>
+    </Setting>
+    <Setting Name="Highlight" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Highlight</Value>
+    </Setting>
+    <Setting Name="TextColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="ParagraphFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Arial Unicode MS, 7.8pt</Value>
+    </Setting>
+    <Setting Name="HeaderFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Arial Unicode MS, 10.2pt</Value>
+    </Setting>
+    <Setting Name="LocalProfilePic" Type="System.Object" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PrivateProfile" Type="SpotifyAPI.Web.Models.PrivateProfile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PrivateId" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
