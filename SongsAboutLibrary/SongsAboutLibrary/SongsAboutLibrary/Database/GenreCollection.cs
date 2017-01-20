@@ -10,7 +10,7 @@ using SongsAbout.Entities;
 using SongsAbout.Enums;
 using System.Collections;
 
-namespace SongsAbout.Classes.Database
+namespace SongsAbout.Database
 {
     public partial class SongDatabase
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
 
-namespace SongsAbout.Classes.Database
+namespace SongsAbout.Database
 {
     /// <summary>
     /// Provides simple functionality for interacting with Database tables

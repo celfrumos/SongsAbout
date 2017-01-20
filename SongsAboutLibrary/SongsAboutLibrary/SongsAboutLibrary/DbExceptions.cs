@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SongsAbout.Entities;
-using SongsAbout.Controls;
+using SongsAbout.Classes.Database;
 using SongsAbout.Enums;
 using System.Threading.Tasks;
 using SpotifyAPI.Web.Enums;
 
-namespace SongsAbout.Classes
+namespace SongsAbout
 {
     public class DbException : Exception
     {

@@ -6,7 +6,7 @@ using SongsAbout.Enums;
 using SongsAbout.Entities;
 using System.Data.Entity;
 
-namespace SongsAbout.Classes.Database
+namespace SongsAbout.Database
 {
     public partial class SongDatabase
     {
@@ -120,7 +120,7 @@ namespace SongsAbout.Classes.Database
                     try
                     {
 
-                        if (Library.Database.LargeQuery)
+                        if (SongDatabase.LargeQuery)
                         {
                             return this.CachedItems;
                         }

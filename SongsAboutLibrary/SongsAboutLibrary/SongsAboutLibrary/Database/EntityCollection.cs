@@ -6,7 +6,7 @@ using SongsAbout.Enums;
 using SongsAbout.Entities;
 using System.Collections;
 
-namespace SongsAbout.Classes.Database
+namespace SongsAbout.Database
 {
     public partial class SongDatabase
     {
@@ -148,7 +148,7 @@ namespace SongsAbout.Classes.Database
 
                 try
                 {
-                    if ((Library.Database.LargeQuery || checkCache) && this.CachedNames != null && CachedNames.Count == 0)
+                    if ((SongDatabase.LargeQuery || checkCache) && this.CachedNames != null && CachedNames.Count == 0)
                         return this.CachedNames.Contains(name);
 
                     else

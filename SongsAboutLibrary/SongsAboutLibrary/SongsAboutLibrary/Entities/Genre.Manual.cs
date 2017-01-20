@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SongsAbout.Classes;
+using SongsAbout.Classes.Database;
 using SongsAbout.Enums;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;
@@ -95,9 +96,9 @@ namespace SongsAbout.Entities
         }
         public override void Save()
         {
-            if (!this._saved && !Library.Database.Genres.Contains(this.Name))
+            if (!this._saved && !SongDatabase.Genres.Contains(this.Name))
             {
-                Library.Database.Genres[this.Name] = this;
+                SongDatabase.Genres[this.Name] = this;
                 _saved = true;
             }
         }

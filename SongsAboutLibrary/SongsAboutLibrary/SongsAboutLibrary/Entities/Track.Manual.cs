@@ -168,7 +168,7 @@ namespace SongsAbout.Entities
         {
             try
             {
-                Album res = Library.Database.Albums[this.AlbumId];
+                Album res = SongDatabase.Albums[this.AlbumId];
                 this.privateAlbum = res;
                 return res;
 
@@ -238,7 +238,7 @@ namespace SongsAbout.Entities
                 this._artist = value;
                 if (this.ArtistId != null && this.ArtistId != 0 && value != null)
                 {
-                    Library.Database.Artists[this.ArtistId] = value;
+                    SongDatabase.Artists[this.ArtistId] = value;
 
                 }
             }
@@ -517,7 +517,7 @@ namespace SongsAbout.Entities
 
         public static bool Exists(string name)
         {
-            return Library.Database.Tracks.Contains(name);
+            return SongDatabase.Tracks.Contains(name);
         }
 
 
@@ -550,13 +550,13 @@ namespace SongsAbout.Entities
             try
             {
                 Artist a;
-                a = Library.Database.Artists[artist.Name];
+                a = SongDatabase.Artists[artist.Name];
 
                 if (a == null)
                 {
                     a = artist;
                     a.Save();
-                    a = Library.Database.Artists[artist.Name];
+                    a = SongDatabase.Artists[artist.Name];
                     this.AlbumId = a.ID;
                 }
                 this.Artist = a;
@@ -579,13 +579,13 @@ namespace SongsAbout.Entities
             try
             {
                 Album al;
-                al = Library.Database.Albums[album.Name];
+                al = SongDatabase.Albums[album.Name];
 
                 if (al == null)
                 {
                     al = album;
                     al.Save();
-                    al = Library.Database.Albums[album.Name];
+                    al = SongDatabase.Albums[album.Name];
                     this.AlbumId = al.ID;
                 }
                 this.Album = al;

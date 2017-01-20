@@ -4,6 +4,7 @@ using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Enums;
 using SongsAbout.Classes;
+using SongsAbout.Classes.Database;
 using SongsAbout.Properties;
 using System.Linq;
 using System.Data.Entity;
@@ -116,7 +117,7 @@ namespace SongsAbout.Entities
 
         public override void Save()
         {
-            if (!Library.Database.Playlists.Contains(this.Name))
+            if (!SongDatabase.Playlists.Contains(this.Name))
             {
                 using (var db = new DataClassesContext())
                 {

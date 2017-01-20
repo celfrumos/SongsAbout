@@ -6,7 +6,7 @@ using System.Data;
 using SongsAbout.Enums;
 using SongsAbout.Entities;
 
-namespace SongsAbout.Classes.Database
+namespace SongsAbout.Database
 {
     /// <summary>
     /// Wrapper class to interact with database easier

@@ -4,7 +4,7 @@ using System.Linq;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
 
-namespace SongsAbout.Classes.Database
+namespace SongsAbout.Database
 {
     public partial class SongDatabase
     {

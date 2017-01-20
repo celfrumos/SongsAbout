@@ -19,7 +19,7 @@ using SpotifyAPI.Web.Models;
 using SongsAbout.Entities;
 using Image = System.Drawing.Image;
 
-namespace SongsAbout.Classes
+namespace SongsAbout
 {
     /// <summary>
     /// Class to hold Methods used for dealing with SpotifyAPI, specific to the user

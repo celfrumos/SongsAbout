@@ -118,18 +118,18 @@ namespace SongsAbout.Entities
         /// <exception cref="DbException"></exception>"
         public override void Save()
         {
-            Library.Database.Artists.Add(this);
+            SongDatabase.Artists.Add(this);
 
         }
 
         public static bool Exists(string name)
         {
-            return Library.Database.Artists.Contains(name);
+            return SongDatabase.Artists.Contains(name);
         }
 
         public static bool Exists(int id)
         {
-            return Library.Database.Artists.Contains(id);
+            return SongDatabase.Artists.Contains(id);
         }
 
         /// <summary>
@@ -183,9 +183,9 @@ namespace SongsAbout.Entities
         /// <exception cref="LoadError"></exception>"
         public static Artist Load(string name)
         {
-            if (Library.Database.Artists.Contains(name))
+            if (SongDatabase.Artists.Contains(name))
             {
-                return Library.Database.Artists[name];
+                return SongDatabase.Artists[name];
             }
             else
             {
@@ -202,7 +202,7 @@ namespace SongsAbout.Entities
         /// <returns></returns>
         public static Artist Load(int id)
         {
-            return Library.Database.Artists[id];
+            return SongDatabase.Artists[id];
         }
 
     }

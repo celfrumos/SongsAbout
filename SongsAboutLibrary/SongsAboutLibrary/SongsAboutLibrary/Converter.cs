@@ -13,7 +13,7 @@ using SongsAbout.Enums;
 using Image = System.Drawing.Image;
 using System.Drawing;
 
-namespace SongsAbout.Classes
+namespace SongsAbout
 {
     /// <summary>
     /// Static Class to hold methods to convert to and from common Data types 
