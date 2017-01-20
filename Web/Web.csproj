@@ -34,6 +34,13 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="SongDatabase" Order="2">
+          <Destination Path="Data Source=JDEGRAW\SQLEXPRESS%3bInitial Catalog=SongsAboutSQLDB%3bIntegrated Security=True" />
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -178,7 +185,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Secrets.cs" />
+    <Compile Include="Secret\Secrets.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
