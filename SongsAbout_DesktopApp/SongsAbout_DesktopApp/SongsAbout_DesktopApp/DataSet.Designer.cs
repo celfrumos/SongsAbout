@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace SongsAbout {
+namespace SongsAbout.Desktop {
     
     
     /// <summary>
@@ -6292,7 +6292,7 @@ namespace SongsAbout {
         }
     }
 }
-namespace SongsAbout.DataSetTableAdapters {
+namespace SongsAbout.Desktop.DataSetTableAdapters {
     
     
     /// <summary>
@@ -6457,7 +6457,7 @@ SELECT ID, album_id, genre FROM AlbumGenres WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6827,7 +6827,7 @@ SELECT ID, artist_id, name, al_year, al_spotify_uri, al_cover_art FROM Albums WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7225,7 +7225,7 @@ SELECT ID, artist_id, name, al_year, al_spotify_uri, al_cover_art FROM Albums WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7543,7 +7543,7 @@ SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7919,7 +7919,7 @@ SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8237,7 +8237,7 @@ SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8553,7 +8553,7 @@ SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8868,7 +8868,7 @@ SELECT ID, name, a_bio, a_website, a_spotify_uri, a_profile_pic FROM Artists WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9191,7 +9191,7 @@ SELECT ID, artist_id, track_id FROM TrackArtists WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9498,7 +9498,7 @@ SELECT ID, artist_id, track_id FROM TrackArtists WHERE (ID = @ID)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9849,7 +9849,7 @@ SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_p
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10267,7 +10267,7 @@ SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_p
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10596,7 +10596,7 @@ SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_p
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
+            this._connection.ConnectionString = global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10774,7 +10774,7 @@ SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_p
         private void InitCommandCollection() {
             this._commandCollection = new global::System.Data.IDbCommand[3];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new global::System.Data.SqlClient.SqlConnection(global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new global::System.Data.SqlClient.SqlConnection(global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString);
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandText = "dbo.UpdateInsert_Album";
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandType = global::System.Data.CommandType.StoredProcedure;
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -10785,7 +10785,7 @@ SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_p
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@al_spotify_uri", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@al_cover_art", global::System.Data.SqlDbType.Image, 2147483647, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new global::System.Data.SqlClient.SqlConnection(global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new global::System.Data.SqlClient.SqlConnection(global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString);
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandText = "dbo.UpdateInsert_Artist";
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandType = global::System.Data.CommandType.StoredProcedure;
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -10796,7 +10796,7 @@ SELECT ID, name, track_spotify_uri, track_length_minutes, track_artist_id, can_p
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_spotify_uri", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@a_profile_pic", global::System.Data.SqlDbType.Image, 2147483647, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Connection = new global::System.Data.SqlClient.SqlConnection(global::SongsAbout.Properties.Settings.Default.SongsAboutSQLDBConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Connection = new global::System.Data.SqlClient.SqlConnection(global::SongsAbout.Desktop.Properties.Settings.Default.SongsAboutSQLDBConnectionString);
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).CommandText = "dbo.UpdateInsert_Track";
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).CommandType = global::System.Data.CommandType.StoredProcedure;
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));

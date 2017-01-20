@@ -39,7 +39,7 @@ namespace SongsAbout {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SongsAbout.Controls.ButtonImages", typeof(ButtonImages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SongsAbout.Desktop.Controls.ButtonImages", typeof(ButtonImages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -25,9 +25,9 @@ namespace SongsAbout.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::SpotifyAPI.Web.Models.SpotifyImage ProfilePic {
+        public global::SpotifyAPI.Web.Models.Image ProfilePic {
             get {
-                return ((global::SpotifyAPI.Web.Models.SpotifyImage)(this["ProfilePic"]));
+                return ((global::SpotifyAPI.Web.Models.Image)(this["ProfilePic"]));
             }
             set {
                 this["ProfilePic"] = value;

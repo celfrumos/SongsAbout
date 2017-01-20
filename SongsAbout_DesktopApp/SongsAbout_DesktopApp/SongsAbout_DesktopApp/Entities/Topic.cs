@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongsAbout.Entities
+namespace SongsAbout.Desktop.Entities
 {
     using System;
     using System.Collections.Generic;

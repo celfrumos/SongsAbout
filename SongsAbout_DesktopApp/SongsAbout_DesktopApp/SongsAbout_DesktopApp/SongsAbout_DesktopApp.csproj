@@ -7,8 +7,8 @@
     <ProjectGuid>{FF13D718-9F13-42C5-B976-11722836710C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SongsAbout</RootNamespace>
-    <AssemblyName>SongsAbout</AssemblyName>
+    <RootNamespace>SongsAbout.Desktop</RootNamespace>
+    <AssemblyName>SongsAboutDesktop</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -530,7 +530,7 @@
     <None Include="Resources\Spotify_Icon_Black.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SpotifyAPI\SpotifyAPI.csproj">
+    <ProjectReference Include="..\..\..\SpotifyAPI\SpotifyAPI.csproj">
       <Project>{ebbe35e2-7b91-4d7d-b8fc-3a0472f5119d}</Project>
       <Name>SpotifyAPI</Name>
     </ProjectReference>
