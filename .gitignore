@@ -21,6 +21,9 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+[Ss]ecret/
+[Ww]eb/secrets.cs
+
 # Previous repositories / Solutions
 [Oo]ld[Ss]olutions/
 [Ss]ongs[Aa]bout_[Dd]esktop[Aa]pp/.git/
