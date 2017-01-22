@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DataClassesContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SongsAbout.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AlbumGenres">
           <Key>
             <PropertyRef Name="album_id" />
@@ -373,7 +373,7 @@
           <Parameter Name="can_play" Type="bit" Mode="In" />
           <Parameter Name="track_album_id" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="DataClassesContextStoreContainer">
+        <EntityContainer Name="SongsAboutEntitiesStoreContainer">
           <EntitySet Name="AlbumGenres" EntityType="Self.AlbumGenres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Albums" EntityType="Self.Albums" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Artists" EntityType="Self.Artists" Schema="dbo" store:Type="Tables" />
@@ -454,7 +454,8 @@
             <End Role="TrackTopics" EntitySet="TrackTopics" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SongsAbout.Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -462,61 +463,55 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
-          <Property Name="artist_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="al_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="al_cover_art" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateArtist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.FK_Album_Tracks" FromRole="Album" ToRole="Track" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
-          <NavigationProperty Name="Genres" Relationship="SongsAbout.Entities.AlbumGenres" FromRole="Album" ToRole="Genre" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
-          <Property Name="al_release_date" Type="DateTime" Precision="0" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="artist_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="al_release_date" Type="DateTime" Precision="0" />
+          <Property Name="al_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="al_cover_art" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Tracks" Relationship="Self.FK_Album_Tracks" FromRole="Albums" ToRole="Tracks" />
+          <NavigationProperty Name="Artist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" />
+          <NavigationProperty Name="Genres" Relationship="Self.AlbumGenres" FromRole="Albums" ToRole="Genres" />
         </EntityType>
         <EntityType Name="Artist">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" >
-            <Documentation>
-              <LongDescription>Name of the Artist</LongDescription>
-            </Documentation>
-          </Property>
-          <Property Name="a_bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="a_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="a_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="a_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="a_bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="a_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="a_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="a_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Albums" Relationship="Self.FK_Albums_Artists" FromRole="Artists" ToRole="Albums" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.TrackArtists" FromRole="Artist" ToRole="Track" />
+          <NavigationProperty Name="Tracks" Relationship="Self.TrackArtists" FromRole="Artists" ToRole="Tracks" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
-            <PropertyRef Name="name" />
+            <PropertyRef Name="genre1" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTracks" Relationship="SongsAbout.Entities.TrackGenres" FromRole="Genre" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateAlbums" Relationship="SongsAbout.Entities.AlbumGenres" FromRole="Genre" ToRole="Album" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="genre1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Albums" Relationship="Self.AlbumGenres" FromRole="Genres" ToRole="Albums" />
+          <NavigationProperty Name="Tracks" Relationship="Self.TrackGenres" FromRole="Genres" ToRole="Tracks" />
         </EntityType>
-        <EntityType Name="Playlist">
+        <EntityType Name="List">
           <Key>
-            <PropertyRef Name="list_name" />
             <PropertyRef Name="list_id" />
           </Key>
-          <Property Name="list_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTracks" Relationship="SongsAbout.Entities.ListTracks" FromRole="List" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="list_spotify_uri" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="list_spotify_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="list_spotify_href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="list_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.ListTracks1" FromRole="Playlist" ToRole="Track" />
-          <NavigationProperty Name="Users" Relationship="SongsAbout.Entities.UserLists" FromRole="Playlist" ToRole="DbUser" />
+          <Property Name="list_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="list_spotify_uri" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="list_spotify_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="list_spotify_href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tracks" Relationship="Self.ListTracks" FromRole="Lists" ToRole="Tracks" />
+          <NavigationProperty Name="Users" Relationship="Self.UserLists" FromRole="Lists" ToRole="Users" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="tag_text" />
           </Key>
           <Property Name="tag_text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.TrackTags" FromRole="Tag" ToRole="Track" />
+          <NavigationProperty Name="Tracks" Relationship="Self.TrackTags" FromRole="Tags" ToRole="Tracks" />
         </EntityType>
         <EntityType Name="Topic">
           <Key>
@@ -524,27 +519,49 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="topic_text" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.TrackTopics" FromRole="Topic" ToRole="Track" />
+          <NavigationProperty Name="Tracks" Relationship="Self.TrackTopics" FromRole="Topics" ToRole="Tracks" />
         </EntityType>
         <EntityType Name="Track">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="track_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
-          <Property Name="track_length_minutes" Type="Double" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
-          <Property Name="track_artist_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="can_play" Type="Boolean" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="false" />
-          <Property Name="track_album_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateAlbum" Relationship="SongsAbout.Entities.FK_Album_Tracks" FromRole="Track" ToRole="Album" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTags" Relationship="SongsAbout.Entities.TrackTags" FromRole="Track" ToRole="Tag" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privatePlaylists" Relationship="SongsAbout.Entities.ListTracks" FromRole="Track" ToRole="List" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateArtists" Relationship="SongsAbout.Entities.TrackArtists" FromRole="Track" ToRole="Artist" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateGenres" Relationship="SongsAbout.Entities.TrackGenres" FromRole="Track" ToRole="Genre" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTopics" Relationship="SongsAbout.Entities.TrackTopics" FromRole="Track" ToRole="Topic" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="Lists" Relationship="SongsAbout.Entities.ListTracks1" FromRole="Track" ToRole="Playlist" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="track_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="track_length_minutes" Type="Double" />
+          <Property Name="track_artist_id" Type="Int32" Nullable="false" />
+          <Property Name="can_play" Type="Boolean" Nullable="false" />
+          <Property Name="track_album_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Album" Relationship="Self.FK_Album_Tracks" FromRole="Tracks" ToRole="Albums" />
+          <NavigationProperty Name="Lists" Relationship="Self.ListTracks" FromRole="Tracks" ToRole="Lists" />
+          <NavigationProperty Name="Artists" Relationship="Self.TrackArtists" FromRole="Tracks" ToRole="Artists" />
+          <NavigationProperty Name="Genres" Relationship="Self.TrackGenres" FromRole="Tracks" ToRole="Genres" />
+          <NavigationProperty Name="Tags" Relationship="Self.TrackTags" FromRole="Tracks" ToRole="Tags" />
+          <NavigationProperty Name="Topics" Relationship="Self.TrackTopics" FromRole="Tracks" ToRole="Topics" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="u_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="u_bio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Lists" Relationship="Self.UserLists" FromRole="Users" ToRole="Lists" />
+        </EntityType>
+        <Association Name="FK_Album_Tracks">
+          <End Role="Albums" Type="Self.Album" Multiplicity="1" />
+          <End Role="Tracks" Type="Self.Track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Albums">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tracks">
+              <PropertyRef Name="track_album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Albums_Artists">
           <End Role="Artists" Type="Self.Artist" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -559,26 +576,79 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DataClassesContext" annotation:LazyLoadingEnabled="false">
+        <Association Name="AlbumGenres">
+          <End Role="Albums" Type="Self.Album" Multiplicity="*" />
+          <End Role="Genres" Type="Self.Genre" Multiplicity="*" />
+        </Association>
+        <Association Name="ListTracks">
+          <End Role="Lists" Type="Self.List" Multiplicity="*" />
+          <End Role="Tracks" Type="Self.Track" Multiplicity="*" />
+        </Association>
+        <Association Name="TrackArtists">
+          <End Role="Artists" Type="Self.Artist" Multiplicity="*" />
+          <End Role="Tracks" Type="Self.Track" Multiplicity="*" />
+        </Association>
+        <Association Name="TrackGenres">
+          <End Role="Genres" Type="Self.Genre" Multiplicity="*" />
+          <End Role="Tracks" Type="Self.Track" Multiplicity="*" />
+        </Association>
+        <Association Name="TrackTags">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+          <End Role="Tracks" Type="Self.Track" Multiplicity="*" />
+        </Association>
+        <Association Name="TrackTopics">
+          <End Role="Topics" Type="Self.Topic" Multiplicity="*" />
+          <End Role="Tracks" Type="Self.Track" Multiplicity="*" />
+        </Association>
+        <Association Name="UserLists">
+          <End Role="Lists" Type="Self.List" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DbEntityContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Albums" EntityType="Self.Album" />
           <EntitySet Name="Artists" EntityType="Self.Artist" />
           <EntitySet Name="Genres" EntityType="Self.Genre" />
-          <EntitySet Name="Playlists" EntityType="SongsAbout.Entities.Playlist" />
+          <EntitySet Name="Lists" EntityType="Self.List" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
           <EntitySet Name="Topics" EntityType="Self.Topic" />
           <EntitySet Name="Tracks" EntityType="Self.Track" />
-          <AssociationSet Name="ArtistAlbums" Association="Self.FK_Albums_Artists">
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Album_Tracks" Association="Self.FK_Album_Tracks">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="Tracks" EntitySet="Tracks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Albums_Artists" Association="Self.FK_Albums_Artists">
             <End Role="Artists" EntitySet="Artists" />
             <End Role="Albums" EntitySet="Albums" />
           </AssociationSet>
-          <FunctionImport Name="UpdateInsert_Artist">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="name" Mode="In" Type="String" />
-            <Parameter Name="a_bio" Mode="In" Type="String" />
-            <Parameter Name="a_website" Mode="In" Type="String" />
-            <Parameter Name="a_spotify_uri" Mode="In" Type="String" />
-            <Parameter Name="a_profile_pic" Mode="In" Type="Binary" />
-          </FunctionImport>
+          <AssociationSet Name="AlbumGenres" Association="Self.AlbumGenres">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="Genres" EntitySet="Genres" />
+          </AssociationSet>
+          <AssociationSet Name="ListTracks" Association="Self.ListTracks">
+            <End Role="Lists" EntitySet="Lists" />
+            <End Role="Tracks" EntitySet="Tracks" />
+          </AssociationSet>
+          <AssociationSet Name="TrackArtists" Association="Self.TrackArtists">
+            <End Role="Artists" EntitySet="Artists" />
+            <End Role="Tracks" EntitySet="Tracks" />
+          </AssociationSet>
+          <AssociationSet Name="TrackGenres" Association="Self.TrackGenres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Tracks" EntitySet="Tracks" />
+          </AssociationSet>
+          <AssociationSet Name="TrackTags" Association="Self.TrackTags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Tracks" EntitySet="Tracks" />
+          </AssociationSet>
+          <AssociationSet Name="TrackTopics" Association="Self.TrackTopics">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="Tracks" EntitySet="Tracks" />
+          </AssociationSet>
+          <AssociationSet Name="UserLists" Association="Self.UserLists">
+            <End Role="Lists" EntitySet="Lists" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
           <FunctionImport Name="UpdateInsert_Album">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="artist_id" Mode="In" Type="Int32" />
@@ -586,6 +656,14 @@
             <Parameter Name="al_year" Mode="In" Type="DateTime" />
             <Parameter Name="al_spotify_uri" Mode="In" Type="String" />
             <Parameter Name="al_cover_art" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateInsert_Artist">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="a_bio" Mode="In" Type="String" />
+            <Parameter Name="a_website" Mode="In" Type="String" />
+            <Parameter Name="a_spotify_uri" Mode="In" Type="String" />
+            <Parameter Name="a_profile_pic" Mode="In" Type="Binary" />
           </FunctionImport>
           <FunctionImport Name="UpdateInsert_Track">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -596,113 +674,20 @@
             <Parameter Name="can_play" Mode="In" Type="Boolean" />
             <Parameter Name="track_album_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <AssociationSet Name="AlbumTracks" Association="SongsAbout.Entities.FK_Album_Tracks">
-            <End Role="Album" EntitySet="Albums" />
-            <End Role="Track" EntitySet="Tracks" />
-          </AssociationSet>
-          <AssociationSet Name="TrackTags" Association="SongsAbout.Entities.TrackTags">
-            <End Role="Tag" EntitySet="Tags" />
-            <End Role="Track" EntitySet="Tracks" />
-          </AssociationSet>
-          <AssociationSet Name="ListTracks" Association="SongsAbout.Entities.ListTracks">
-            <End Role="List" EntitySet="Playlists" />
-            <End Role="Track" EntitySet="Tracks" />
-          </AssociationSet>
-          <AssociationSet Name="TrackArtists" Association="SongsAbout.Entities.TrackArtists">
-            <End Role="Track" EntitySet="Tracks" />
-            <End Role="Artist" EntitySet="Artists" />
-          </AssociationSet>
-          <AssociationSet Name="TrackGenres" Association="SongsAbout.Entities.TrackGenres">
-            <End Role="Genre" EntitySet="Genres" />
-            <End Role="Track" EntitySet="Tracks" />
-          </AssociationSet>
-          <AssociationSet Name="TrackTopics" Association="SongsAbout.Entities.TrackTopics">
-            <End Role="Topic" EntitySet="Topics" />
-            <End Role="Track" EntitySet="Tracks" />
-          </AssociationSet>
-          <AssociationSet Name="AlbumGenres" Association="SongsAbout.Entities.AlbumGenres">
-            <End Role="Album" EntitySet="Albums" />
-            <End Role="Genre" EntitySet="Genres" />
-          </AssociationSet>
-          <EntitySet Name="DbUsers" EntityType="SongsAbout.Entities.DbUser" />
-          <AssociationSet Name="ListTracks1" Association="SongsAbout.Entities.ListTracks1">
-            <End Role="Playlist" EntitySet="Playlists" />
-            <End Role="Track" EntitySet="Tracks" />
-          </AssociationSet>
-          <AssociationSet Name="UserLists" Association="SongsAbout.Entities.UserLists">
-            <End Role="Playlist" EntitySet="Playlists" />
-            <End Role="DbUser" EntitySet="DbUsers" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Album_Tracks">
-          <End Type="SongsAbout.Entities.Album" Role="Album" Multiplicity="1" />
-          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Album">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Track">
-              <PropertyRef Name="track_album_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="TrackTags">
-          <End Type="SongsAbout.Entities.Tag" Role="Tag" Multiplicity="*" />
-          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
-        </Association>
-        <Association Name="ListTracks">
-          <End Type="SongsAbout.Entities.Playlist" Role="List" Multiplicity="*" />
-          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
-        </Association>
-        <Association Name="TrackArtists">
-          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
-          <End Type="SongsAbout.Entities.Artist" Role="Artist" Multiplicity="*" />
-        </Association>
-        <Association Name="TrackGenres">
-          <End Type="SongsAbout.Entities.Genre" Role="Genre" Multiplicity="*" />
-          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
-        </Association>
-        <Association Name="TrackTopics">
-          <End Type="SongsAbout.Entities.Topic" Role="Topic" Multiplicity="*" />
-          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
-        </Association>
-        <Association Name="AlbumGenres">
-          <End Type="SongsAbout.Entities.Album" Role="Album" Multiplicity="*" />
-          <End Type="SongsAbout.Entities.Genre" Role="Genre" Multiplicity="*" />
-        </Association>
-        <EntityType Name="DbUser">
-          <Key>
-            <PropertyRef Name="u_id" />
-          </Key>
-          <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="u_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="u_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="u_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="u_bio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="NavigationProperty1" />
-          <NavigationProperty Name="Lists" Relationship="SongsAbout.Entities.UserLists" FromRole="DbUser" ToRole="Playlist" />
-        </EntityType>
-        <Association Name="ListTracks1">
-          <End Type="SongsAbout.Entities.Playlist" Role="Playlist" Multiplicity="*" />
-          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
-        </Association>
-        <Association Name="UserLists">
-          <End Type="SongsAbout.Entities.Playlist" Role="Playlist" Multiplicity="*" />
-          <End Type="SongsAbout.Entities.DbUser" Role="DbUser" Multiplicity="*" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DataClassesContextStoreContainer" CdmEntityContainer="DataClassesContext">
+        <EntityContainerMapping StorageEntityContainer="SongsAboutEntitiesStoreContainer" CdmEntityContainer="DbEntityContext">
           <EntitySetMapping Name="Albums">
             <EntityTypeMapping TypeName="SongsAbout.Entities.Album">
               <MappingFragment StoreEntitySet="Albums">
-                <ScalarProperty Name="al_release_date" ColumnName="al_release_date" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="artist_id" ColumnName="artist_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="al_release_date" ColumnName="al_release_date" />
                 <ScalarProperty Name="al_spotify_uri" ColumnName="al_spotify_uri" />
                 <ScalarProperty Name="al_cover_art" ColumnName="al_cover_art" />
               </MappingFragment>
@@ -723,18 +708,18 @@
           <EntitySetMapping Name="Genres">
             <EntityTypeMapping TypeName="SongsAbout.Entities.Genre">
               <MappingFragment StoreEntitySet="Genres">
-                <ScalarProperty Name="name" ColumnName="genre" />
+                <ScalarProperty Name="genre1" ColumnName="genre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Playlists">
-            <EntityTypeMapping TypeName="SongsAbout.Entities.Playlist">
+          <EntitySetMapping Name="Lists">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.List">
               <MappingFragment StoreEntitySet="Lists">
                 <ScalarProperty Name="list_id" ColumnName="list_id" />
-                <ScalarProperty Name="list_spotify_href" ColumnName="list_spotify_href" />
-                <ScalarProperty Name="list_spotify_id" ColumnName="list_spotify_id" />
-                <ScalarProperty Name="list_spotify_uri" ColumnName="list_spotify_uri" />
                 <ScalarProperty Name="list_name" ColumnName="list_name" />
+                <ScalarProperty Name="list_spotify_uri" ColumnName="list_spotify_uri" />
+                <ScalarProperty Name="list_spotify_id" ColumnName="list_spotify_id" />
+                <ScalarProperty Name="list_spotify_href" ColumnName="list_spotify_href" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -766,81 +751,76 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="UpdateInsert_Artist" FunctionName="DataClassesContext.Store.UpdateInsert_Artist" />
-          <FunctionImportMapping FunctionImportName="UpdateInsert_Album" FunctionName="DataClassesContext.Store.UpdateInsert_Album" />
-          <FunctionImportMapping FunctionImportName="UpdateInsert_Track" FunctionName="DataClassesContext.Store.UpdateInsert_Track" />
-          <AssociationSetMapping Name="TrackTags" TypeName="SongsAbout.Entities.TrackTags" StoreEntitySet="TrackTags">
-            <EndProperty Name="Track">
-              <ScalarProperty Name="ID" ColumnName="track_id" />
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_email" ColumnName="u_email" />
+                <ScalarProperty Name="u_profile_pic" ColumnName="u_profile_pic" />
+                <ScalarProperty Name="u_bio" ColumnName="u_bio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AlbumGenres" TypeName="SongsAbout.Entities.AlbumGenres" StoreEntitySet="AlbumGenres">
+            <EndProperty Name="Albums">
+              <ScalarProperty Name="ID" ColumnName="album_id" />
             </EndProperty>
-            <EndProperty Name="Tag">
-              <ScalarProperty Name="tag_text" ColumnName="tag_text" />
+            <EndProperty Name="Genres">
+              <ScalarProperty Name="genre1" ColumnName="genre" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="ListTracks" TypeName="SongsAbout.Entities.ListTracks" StoreEntitySet="ListTracks">
-            <EndProperty Name="Track">
+            <EndProperty Name="Lists">
+              <ScalarProperty Name="list_id" ColumnName="list_id" />
+            </EndProperty>
+            <EndProperty Name="Tracks">
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="TrackArtists" TypeName="SongsAbout.Entities.TrackArtists" StoreEntitySet="TrackArtists">
-            <EndProperty Name="Artist">
+            <EndProperty Name="Artists">
               <ScalarProperty Name="ID" ColumnName="artist_id" />
             </EndProperty>
-            <EndProperty Name="Track">
+            <EndProperty Name="Tracks">
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="TrackGenres" TypeName="SongsAbout.Entities.TrackGenres" StoreEntitySet="TrackGenres">
-            <EndProperty Name="Track">
+            <EndProperty Name="Genres">
+              <ScalarProperty Name="genre1" ColumnName="genre" />
+            </EndProperty>
+            <EndProperty Name="Tracks">
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
-            <EndProperty Name="Genre">
-              <ScalarProperty Name="name" ColumnName="genre" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TrackTags" TypeName="SongsAbout.Entities.TrackTags" StoreEntitySet="TrackTags">
+            <EndProperty Name="Tags">
+              <ScalarProperty Name="tag_text" ColumnName="tag_text" />
+            </EndProperty>
+            <EndProperty Name="Tracks">
+              <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="TrackTopics" TypeName="SongsAbout.Entities.TrackTopics" StoreEntitySet="TrackTopics">
-            <EndProperty Name="Track">
-              <ScalarProperty Name="ID" ColumnName="track_id" />
-            </EndProperty>
-            <EndProperty Name="Topic">
+            <EndProperty Name="Topics">
               <ScalarProperty Name="ID" ColumnName="topic_id" />
             </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="AlbumGenres" TypeName="SongsAbout.Entities.AlbumGenres" StoreEntitySet="AlbumGenres">
-            <EndProperty Name="Genre">
-              <ScalarProperty Name="name" ColumnName="genre" />
-            </EndProperty>
-            <EndProperty Name="Album">
-              <ScalarProperty Name="ID" ColumnName="album_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="DbUsers">
-            <EntityTypeMapping TypeName="SongsAbout.Entities.DbUser">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="u_bio" ColumnName="u_bio" />
-                <ScalarProperty Name="u_profile_pic" ColumnName="u_profile_pic" />
-                <ScalarProperty Name="u_email" ColumnName="u_email" />
-                <ScalarProperty Name="u_name" ColumnName="u_name" />
-                <ScalarProperty Name="u_id" ColumnName="u_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="ListTracks1" TypeName="SongsAbout.Entities.ListTracks1" StoreEntitySet="ListTracks">
-            <EndProperty Name="Track">
+            <EndProperty Name="Tracks">
               <ScalarProperty Name="ID" ColumnName="track_id" />
-            </EndProperty>
-            <EndProperty Name="Playlist">
-              <ScalarProperty Name="list_id" ColumnName="list_id" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="UserLists" TypeName="SongsAbout.Entities.UserLists" StoreEntitySet="UserLists">
-            <EndProperty Name="DbUser">
-              <ScalarProperty Name="u_id" ColumnName="u_id" />
-            </EndProperty>
-            <EndProperty Name="Playlist">
+            <EndProperty Name="Lists">
               <ScalarProperty Name="list_id" ColumnName="list_id" />
             </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="u_id" ColumnName="u_id" />
+            </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="UpdateInsert_Album" FunctionName="SongsAbout.Entities.Store.UpdateInsert_Album" />
+          <FunctionImportMapping FunctionImportName="UpdateInsert_Artist" FunctionName="SongsAbout.Entities.Store.UpdateInsert_Artist" />
+          <FunctionImportMapping FunctionImportName="UpdateInsert_Track" FunctionName="SongsAbout.Entities.Store.UpdateInsert_Track" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
