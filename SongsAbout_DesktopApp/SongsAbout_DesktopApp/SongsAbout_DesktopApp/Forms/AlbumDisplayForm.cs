@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SongsAbout.Controls;
 using SongsAbout.Entities;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.Enums;
 using SpotifyAPI.Web.Models;
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SongsAbout.Enums;
+using SongsAbout.Database;
 using SongsAbout.Desktop.Properties;
 
 namespace SongsAbout.Forms
@@ -34,19 +35,19 @@ namespace SongsAbout.Forms
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Program.Database.LargeQuery = true;
+            SongDatabase.LargeQuery = true;
             try
             {
                 switch (this.DbEntityType)
                 {
                     case DbEntityType.Genre:
-                        ImportAsGenres(Program.Database.Genres.AllNames);
+                        ImportAsGenres(SongDatabase.Genres.AllNames);
                         break;
                     case DbEntityType.Tag:
-                        ImportAsTags(Program.Database.Tags.AllNames);
+                        ImportAsTags(SongDatabase.Tags.AllNames);
                         break;
                     case DbEntityType.Playlist:
-                        ImportAsPlaylists(Program.Database.Playlists.AllNames);
+                        ImportAsPlaylists(SongDatabase.Playlists.AllNames);
                         break;
                     default:
                         MessageBox.Show($"The given DbEntityType is Not currently available for Bulk Imports: '{this.DbEntityType}'");
@@ -61,7 +62,7 @@ namespace SongsAbout.Forms
                 this.DialogResult = DialogResult.Abort;
                 MessageBox.Show($"Something went wrong with buld import of {this.DbEntityType} values: {ex.Message}");
             }
-            Program.Database.LargeQuery = false;
+            SongDatabase.LargeQuery = false;
         }
 
         private void ImportAsPlaylists(List<string> existingNames)
@@ -75,7 +76,7 @@ namespace SongsAbout.Forms
                 {
                     try
                     {
-                        Program.Database.Playlists.Add(list);
+                        SongDatabase.Playlists.Add(list);
                     }
                     catch (Exception ex)
                     {
@@ -92,7 +93,7 @@ namespace SongsAbout.Forms
 
             foreach (String tag in lines)
             {
-                Program.Database.Playlists.Add(tag);
+                SongDatabase.Playlists.Add(tag);
             }
         }
 
@@ -103,7 +104,7 @@ namespace SongsAbout.Forms
 
             foreach (String genre in lines)
             {
-                Program.Database.Playlists.Add(genre);
+                SongDatabase.Playlists.Add(genre);
             }
         }
     }

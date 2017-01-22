@@ -11,7 +11,7 @@ using System.Net;
 using System.Net.Sockets;
 using SongsAbout.Entities;
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.DataSetTableAdapters;
 
 namespace SongsAbout.Forms

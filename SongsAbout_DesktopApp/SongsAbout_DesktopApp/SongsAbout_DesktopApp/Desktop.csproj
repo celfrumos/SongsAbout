@@ -103,10 +103,6 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SongsAbout, Version=0.0.3.20, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SongsAboutLibrary\SongsAboutLibrary\SongsAboutLibrary\bin\Debug\SongsAbout.dll</HintPath>
-    </Reference>
     <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\SpotifyAPI\bin\Debug\SpotifyAPI.dll</HintPath>
@@ -221,7 +217,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Enums\Enums.cs" />
     <Compile Include="Forms\AlbumDisplayForm.cs">
       <SubType>Form</SubType>
     </Compile>

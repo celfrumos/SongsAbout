@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Classes;
-using SongsAbout.Classes.Database;
+using SongsAbout.Database;
 using SongsAbout.Enums;
 using SongsAbout.Forms;
 using System.Threading.Tasks;
@@ -19,7 +18,6 @@ namespace SongsAbout
 {
     static class Program
     {
-        public static SongDatabase Database { get; private set; }
         public static SpotifyLocalAPI LocalAPI { get; private set; }
         /// <summary>
         /// The main entry point for the application.
@@ -32,7 +30,6 @@ namespace SongsAbout
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 ConnectSpotify();
-                Database = new SongDatabase();
                 SPanel.LargeQuery = false;
                 Program.LocalAPI = new SpotifyLocalAPI();
                 Program.LocalAPI.Connect();
@@ -61,7 +58,7 @@ namespace SongsAbout
                 {
                     try
                     {
-                        await Task.Run(() => UserSpotify.Authenticate());
+                        await Task.Run(() => UserSpotify.AuthenticateAsync());
                     }
                     catch (System.Resources.MissingManifestResourceException ex)
                     {

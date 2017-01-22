@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.Entities;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web;

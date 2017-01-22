@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SongsAbout.Forms;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.Enums;
 
 using SongsAbout.Desktop.Properties;

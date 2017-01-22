@@ -5,23 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="035864ecb28349749c0a44465bd279f8" Name="Diagram1" ShowGrid="true" ZoomLevel="73">
-        <EntityTypeShape EntityType="DataClasses.Album" Width="1.5" PointX="4.375" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.Artist" Width="1.5" PointX="0.625" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.Genre" Width="1.5" PointX="8" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.Playlist" Width="1.5" PointX="0.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.Tag" Width="1.5" PointX="7.5" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.Topic" Width="1.5" PointX="2.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataClasses.Track" Width="1.5" PointX="4.25" PointY="4.125" IsExpanded="true" />
-        <AssociationConnector Association="DataClasses.FK_Albums_Artists" ManuallyRouted="false" />
-        <AssociationConnector Association="DataClasses.FK_Album_Tracks" />
-        <AssociationConnector Association="DataClasses.TrackTags" />
-        <AssociationConnector Association="DataClasses.ListTracks" />
-        <AssociationConnector Association="DataClasses.TrackArtists" />
-        <AssociationConnector Association="DataClasses.TrackGenres" />
-        <AssociationConnector Association="DataClasses.TrackTopics" />
-        <AssociationConnector Association="DataClasses.AlbumGenres" />
-        <EntityTypeShape EntityType="DataClasses.User" Width="1.5" PointX="5.375" PointY="9.25" />
-        <AssociationConnector Association="DataClasses.ListTracks1" />
+        <EntityTypeShape EntityType="SongsAbout.Album" Width="1.5" PointX="4.375" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SongsAbout.Artist" Width="1.5" PointX="0.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SongsAbout.Genre" Width="1.5" PointX="8" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SongsAbout.Playlist" Width="1.5" PointX="0.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SongsAbout.Tag" Width="1.5" PointX="7.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SongsAbout.Topic" Width="1.5" PointX="2.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SongsAbout.Track" Width="1.5" PointX="4.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="SongsAbout.FK_Albums_Artists" ManuallyRouted="false" />
+        <AssociationConnector Association="SongsAbout.FK_Album_Tracks" />
+        <AssociationConnector Association="SongsAbout.TrackTags" />
+        <AssociationConnector Association="SongsAbout.ListTracks" />
+        <AssociationConnector Association="SongsAbout.TrackArtists" />
+        <AssociationConnector Association="SongsAbout.TrackGenres" />
+        <AssociationConnector Association="SongsAbout.TrackTopics" />
+        <AssociationConnector Association="SongsAbout.AlbumGenres" />
+        <EntityTypeShape EntityType="SongsAbout.User" Width="1.5" PointX="5.375" PointY="9.25" />
+        <AssociationConnector Association="SongsAbout.ListTracks1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

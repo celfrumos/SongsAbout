@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Web;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.Forms;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;

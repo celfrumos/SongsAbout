@@ -162,13 +162,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Album.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Album.Manual.cs" />
-    <Compile Include="Entities\Artist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Artist.Manual.cs" />
     <Compile Include="Entities\DataClasses.Context.cs">
       <DependentUpon>DataClasses.Context.tt</DependentUpon>
@@ -186,25 +180,10 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Entities\DbEntity.cs" />
-    <Compile Include="Entities\Genre.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Genre.Manual.cs" />
     <Compile Include="Entities\IDbEntity.cs" />
-    <Compile Include="Entities\Playlist.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Playlist.Manual.cs" />
-    <Compile Include="Entities\Tag.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Tag.Manual.cs" />
-    <Compile Include="Entities\Topic.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Track.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Track.Manual.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

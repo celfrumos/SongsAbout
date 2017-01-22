@@ -9,10 +9,29 @@ namespace SongsAbout.Web.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public override string Id
+        {
+            get { return base.Id; }
+            set { base.Id = value; }
+        }
+        public override string Email
+        {
+            get { return base.Email; }
+            set { base.Email = value; }
+        }
+
+        public override string PasswordHash
+        {
+            get { return base.PasswordHash; }
+            set { base.PasswordHash = value; }
+        }
+        
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            var generateTask = manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            generateTask.Wait();
+            var userIdentity = generateTask.Result;
             // Add custom user claims here
             return userIdentity;
         }
@@ -21,7 +40,7 @@ namespace SongsAbout.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base(SongsAbout.Properties., throwIfV1Schema: false)
         {
         }
 

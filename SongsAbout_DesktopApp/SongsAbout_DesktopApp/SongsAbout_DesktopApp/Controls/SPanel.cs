@@ -2,11 +2,11 @@
 using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.Desktop.Properties;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Entities;
-//using System.Windows;
+using SongsAbout.Database;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 using Size = System.Drawing.Size;
@@ -402,22 +402,22 @@ namespace SongsAbout.Controls
             switch (this.DbEntityType)
             {
                 case DbEntityType.Artist:
-                    this.ExistsInDatabase = Program.Database.Artists.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = SongDatabase.Artists.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Album:
-                    this.ExistsInDatabase = Program.Database.Albums.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = SongDatabase.Albums.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Track:
-                    this.ExistsInDatabase = Program.Database.Tracks.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = SongDatabase.Tracks.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Genre:
-                    this.ExistsInDatabase = Program.Database.Genres.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = SongDatabase.Genres.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Playlist:
-                    this.ExistsInDatabase = Program.Database.Playlists.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = SongDatabase.Playlists.Contains(this.EntityName, LargeQuery);
                     break;
                 case DbEntityType.Tag:
-                    this.ExistsInDatabase = Program.Database.Tags.Contains(this.EntityName, LargeQuery);
+                    this.ExistsInDatabase = SongDatabase.Tags.Contains(this.EntityName, LargeQuery);
                     break;
                 default:
                     this.ExistsInDatabase = false;
@@ -639,8 +639,8 @@ namespace SongsAbout.Controls
         #region Public Properties
         public static bool LargeQuery
         {
-            get { return Program.Database.LargeQuery; }
-            set { Program.Database.LargeQuery = value; }
+            get { return SongDatabase.LargeQuery; }
+            set { SongDatabase.LargeQuery = value; }
         }
 
         public bool ExistsInDatabase

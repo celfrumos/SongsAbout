@@ -22,5 +22,15 @@ namespace SongAbout.Web.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=JDEGRAW\\SQLEXPRESS;Initial Catalog=SongsAboutSQLDB;Integrated Securit" +
+            "y=True")]
+        public string DbConnectionString {
+            get {
+                return ((string)(this["DbConnectionString"]));
+            }
+        }
     }
 }

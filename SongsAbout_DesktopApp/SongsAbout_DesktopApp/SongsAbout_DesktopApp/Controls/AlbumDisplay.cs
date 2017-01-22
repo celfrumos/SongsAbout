@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using SongsAbout;
 using SongsAbout.Controls;
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Classes;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
 using SpotifyAPI.Web.Models;

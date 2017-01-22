@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Classes;
+using SongsAbout;
 using SongsAbout.Entities;
 using SongsAbout.Controls;
 using SpotifyAPI.Web.Enums;
@@ -168,7 +168,7 @@ namespace SongsAbout.Forms
                 if (txtBoxSearch.Text != "")
                 {
                     flpSpotifyControls.Controls.Clear();
-                    Program.Database.LargeQuery = true;
+                    SongDatabase.LargeQuery = true;
                     ExecuteSearch(txtBoxSearch.Text, _searchType);
                 }
             }
@@ -214,7 +214,7 @@ namespace SongsAbout.Forms
                 }
             }
 
-            Program.Database.LargeQuery = false;
+            SongDatabase.LargeQuery = false;
 
         }
 

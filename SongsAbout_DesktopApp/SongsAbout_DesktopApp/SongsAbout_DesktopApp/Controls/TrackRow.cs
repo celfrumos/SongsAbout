@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
-using SongsAbout.Classes;
+using SongsAbout;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
@@ -165,7 +165,7 @@ namespace SongsAbout.Controls
 
                         if (this._spotifyTrack != null)
                         {
-                            this.Track = Program.Database.Tracks[this._spotifyTrack.Name];
+                            this.Track = SongDatabase.Tracks[this._spotifyTrack.Name];
                             if (this.Track == null)
                                 this.Track = new Track(this._spotifyTrack);
                         }
@@ -196,8 +196,8 @@ namespace SongsAbout.Controls
         }
         public TrackRow(string trackName) : this()
         {
-            if (Program.Database.Tracks.Contains(trackName))
-                this.Track = Program.Database.Tracks[trackName];
+            if (SongDatabase.Tracks.Contains(trackName))
+                this.Track = SongDatabase.Tracks[trackName];
             else
                 throw new EntityNotFoundError(DbEntityType.Track, trackName,
                     $"Unable to initialize TrackRow from artist name '{trackName}'");
@@ -239,7 +239,7 @@ namespace SongsAbout.Controls
             {
                 try
                 {
-                    if (!Program.Database.Tracks.Contains(this.SpotifyEntity.Name))
+                    if (!SongDatabase.Tracks.Contains(this.SpotifyEntity.Name))
                     {
                         if (this.Track == null)
                             this.Track = new Track((SpotifyTrack)this.SpotifyEntity);
