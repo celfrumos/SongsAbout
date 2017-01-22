@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SongAbout.Web
+namespace SongsAbout.Web
 {
     using System;
     using System.Collections.Generic;

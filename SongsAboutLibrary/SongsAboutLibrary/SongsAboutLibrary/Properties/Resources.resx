@@ -145,4 +145,8 @@
   <data name="CheckMarkBlue1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CheckMarkBlue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ConnectionStringLaptop" xml:space="preserve">
+    <value>Data Source=JDEGRAW\SQLEXPRESS;Initial Catalog=SongsAboutSQLDB;Integrated Security=True</value>
+    <comment>For DB on Laptop</comment>
+  </data>
 </root>

@@ -91,6 +91,15 @@ namespace SongsAbout.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data Source=JDEGRAW\SQLEXPRESS;Initial Catalog=SongsAboutSQLDB;Integrated Security=True.
+        /// </summary>
+        public static string ConnectionStringLaptop {
+            get {
+                return ResourceManager.GetString("ConnectionStringLaptop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap MusicNote {

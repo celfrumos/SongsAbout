@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SongsAbout.Web;
 
 namespace SongsAbout.Web.Models
 {
@@ -40,7 +41,7 @@ namespace SongsAbout.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("", throwIfV1Schema: false)
+            : base(SongsAbout.Properties.Resources.Conn, throwIfV1Schema: false)
         {
         }
 
