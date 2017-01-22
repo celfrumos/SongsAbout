@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using SpotifyAPI.Web.Models;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;

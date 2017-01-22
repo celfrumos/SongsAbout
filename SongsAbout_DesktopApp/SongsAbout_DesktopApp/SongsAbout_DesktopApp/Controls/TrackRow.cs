@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using SongsAbout.Entities;
 using SongsAbout.Enums;
 using SongsAbout;
+using SongsAbout.Database;
+using SongsAbout.DataSetTableAdapters;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;

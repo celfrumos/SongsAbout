@@ -48,6 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\SongsAboutLibrary.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -164,16 +165,6 @@
     </Compile>
     <Compile Include="Entities\Album.Manual.cs" />
     <Compile Include="Entities\Artist.Manual.cs" />
-    <Compile Include="Entities\DataClasses.Context.cs">
-      <DependentUpon>DataClasses.Context.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Entities\DataClasses.cs">
-      <DependentUpon>DataClasses.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="Entities\DataClasses.Designer.cs">
       <DependentUpon>DataClasses.edmx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -217,14 +208,15 @@
       <DependentUpon>DataClasses.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
+    <EmbeddedResource Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    </EmbeddedResource>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <None Include="Properties\User.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -285,18 +277,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataClasses.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Entities\DataClasses.Context.tt">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataClasses.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\DataClasses.tt">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataClasses.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

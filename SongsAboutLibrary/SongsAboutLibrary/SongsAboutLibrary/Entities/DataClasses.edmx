@@ -116,12 +116,14 @@
           <Property Name="topic_id" Type="int" Nullable="false" />
           <Property Name="track_id" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'SongsAboutSQLDB.dbo.UserLists' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="UserLists">
-          <Property Name="u_id" Type="int" />
-          <Property Name="list_id" Type="int" />
-        </EntityType>-->
+          <Key>
+            <PropertyRef Name="u_id" />
+            <PropertyRef Name="list_id" />
+          </Key>
+          <Property Name="u_id" Type="int" Nullable="false" />
+          <Property Name="list_id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="u_id" />
@@ -157,6 +159,30 @@ warning 6013: The table/view 'SongsAboutSQLDB.dbo.UserLists' does not have a pri
             </Principal>
             <Dependent Role="TrackArtists">
               <PropertyRef Name="track_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserLists__list___7DCDAAA2">
+          <End Role="Lists" Type="Self.Lists" Multiplicity="1" />
+          <End Role="UserLists" Type="Self.UserLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lists">
+              <PropertyRef Name="list_id" />
+            </Principal>
+            <Dependent Role="UserLists">
+              <PropertyRef Name="list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserLists__u_id__7CD98669">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserLists" Type="Self.UserLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="UserLists">
+              <PropertyRef Name="u_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -322,12 +348,6 @@ warning 6013: The table/view 'SongsAboutSQLDB.dbo.UserLists' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_UserLists_List" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_UserLists_User" />-->
         <Function Name="UpdateInsert_Album" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="artist_id" Type="int" Mode="In" />
@@ -367,6 +387,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           <EntitySet Name="Tracks" EntityType="Self.Tracks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrackTags" EntityType="Self.TrackTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrackTopics" EntityType="Self.TrackTopics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLists" EntityType="Self.UserLists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__TrackArtists_Artists" Association="Self.FK__TrackArtists_Artists">
             <End Role="Artists" EntitySet="Artists" />
@@ -375,6 +396,14 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           <AssociationSet Name="FK__TrackArtists_Tracks" Association="Self.FK__TrackArtists_Tracks">
             <End Role="Tracks" EntitySet="Tracks" />
             <End Role="TrackArtists" EntitySet="TrackArtists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserLists__list___7DCDAAA2" Association="Self.FK__UserLists__list___7DCDAAA2">
+            <End Role="Lists" EntitySet="Lists" />
+            <End Role="UserLists" EntitySet="UserLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserLists__u_id__7CD98669" Association="Self.FK__UserLists__u_id__7CD98669">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserLists" EntitySet="UserLists" />
           </AssociationSet>
           <AssociationSet Name="FK_Album_Tracks" Association="Self.FK_Album_Tracks">
             <End Role="Albums" EntitySet="Albums" />
@@ -428,7 +457,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SongsAbout" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SongsAbout.Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Album">
           <Key>
             <PropertyRef Name="ID" />
@@ -439,8 +468,8 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           <Property Name="al_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="al_cover_art" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="privateArtist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.FK_Album_Tracks" FromRole="Album" ToRole="Track" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
-          <NavigationProperty Name="Genres" Relationship="SongsAbout.AlbumGenres" FromRole="Album" ToRole="Genre" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
+          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.FK_Album_Tracks" FromRole="Album" ToRole="Track" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
+          <NavigationProperty Name="Genres" Relationship="SongsAbout.Entities.AlbumGenres" FromRole="Album" ToRole="Genre" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
           <Property Name="al_release_date" Type="DateTime" Precision="0" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <EntityType Name="Artist">
@@ -458,15 +487,15 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           <Property Name="a_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="a_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="Albums" Relationship="Self.FK_Albums_Artists" FromRole="Artists" ToRole="Albums" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.TrackArtists" FromRole="Artist" ToRole="Track" />
+          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.TrackArtists" FromRole="Artist" ToRole="Track" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
             <PropertyRef Name="name" />
           </Key>
           <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTracks" Relationship="SongsAbout.TrackGenres" FromRole="Genre" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateAlbums" Relationship="SongsAbout.AlbumGenres" FromRole="Genre" ToRole="Album" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privateTracks" Relationship="SongsAbout.Entities.TrackGenres" FromRole="Genre" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privateAlbums" Relationship="SongsAbout.Entities.AlbumGenres" FromRole="Genre" ToRole="Album" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
         </EntityType>
         <EntityType Name="Playlist">
           <Key>
@@ -474,19 +503,20 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
             <PropertyRef Name="list_id" />
           </Key>
           <Property Name="list_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTracks" Relationship="SongsAbout.ListTracks" FromRole="List" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privateTracks" Relationship="SongsAbout.Entities.ListTracks" FromRole="List" ToRole="Track" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="list_spotify_uri" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="list_spotify_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="list_spotify_href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="list_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.ListTracks1" FromRole="Playlist" ToRole="Track" />
+          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.ListTracks1" FromRole="Playlist" ToRole="Track" />
+          <NavigationProperty Name="Users" Relationship="SongsAbout.Entities.UserLists" FromRole="Playlist" ToRole="DbUser" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="tag_text" />
           </Key>
           <Property Name="tag_text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.TrackTags" FromRole="Tag" ToRole="Track" />
+          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.TrackTags" FromRole="Tag" ToRole="Track" />
         </EntityType>
         <EntityType Name="Topic">
           <Key>
@@ -494,7 +524,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="topic_text" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tracks" Relationship="SongsAbout.TrackTopics" FromRole="Topic" ToRole="Track" />
+          <NavigationProperty Name="Tracks" Relationship="SongsAbout.Entities.TrackTopics" FromRole="Topic" ToRole="Track" />
         </EntityType>
         <EntityType Name="Track">
           <Key>
@@ -507,13 +537,13 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           <Property Name="track_artist_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="can_play" Type="Boolean" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="false" />
           <Property Name="track_album_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateAlbum" Relationship="SongsAbout.FK_Album_Tracks" FromRole="Track" ToRole="Album" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTags" Relationship="SongsAbout.TrackTags" FromRole="Track" ToRole="Tag" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privatePlaylists" Relationship="SongsAbout.ListTracks" FromRole="Track" ToRole="List" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateArtists" Relationship="SongsAbout.TrackArtists" FromRole="Track" ToRole="Artist" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateGenres" Relationship="SongsAbout.TrackGenres" FromRole="Track" ToRole="Genre" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="privateTopics" Relationship="SongsAbout.TrackTopics" FromRole="Track" ToRole="Topic" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="Lists" Relationship="SongsAbout.ListTracks1" FromRole="Track" ToRole="Playlist" />
+          <NavigationProperty Name="privateAlbum" Relationship="SongsAbout.Entities.FK_Album_Tracks" FromRole="Track" ToRole="Album" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privateTags" Relationship="SongsAbout.Entities.TrackTags" FromRole="Track" ToRole="Tag" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privatePlaylists" Relationship="SongsAbout.Entities.ListTracks" FromRole="Track" ToRole="List" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privateArtists" Relationship="SongsAbout.Entities.TrackArtists" FromRole="Track" ToRole="Artist" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privateGenres" Relationship="SongsAbout.Entities.TrackGenres" FromRole="Track" ToRole="Genre" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="privateTopics" Relationship="SongsAbout.Entities.TrackTopics" FromRole="Track" ToRole="Topic" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="Lists" Relationship="SongsAbout.Entities.ListTracks1" FromRole="Track" ToRole="Playlist" />
         </EntityType>
         <Association Name="FK_Albums_Artists">
           <End Role="Artists" Type="Self.Artist" Multiplicity="1">
@@ -533,7 +563,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           <EntitySet Name="Albums" EntityType="Self.Album" />
           <EntitySet Name="Artists" EntityType="Self.Artist" />
           <EntitySet Name="Genres" EntityType="Self.Genre" />
-          <EntitySet Name="Playlists" EntityType="SongsAbout.Playlist" />
+          <EntitySet Name="Playlists" EntityType="SongsAbout.Entities.Playlist" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
           <EntitySet Name="Topics" EntityType="Self.Topic" />
           <EntitySet Name="Tracks" EntityType="Self.Track" />
@@ -566,43 +596,47 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
             <Parameter Name="can_play" Mode="In" Type="Boolean" />
             <Parameter Name="track_album_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <AssociationSet Name="AlbumTracks" Association="SongsAbout.FK_Album_Tracks">
+          <AssociationSet Name="AlbumTracks" Association="SongsAbout.Entities.FK_Album_Tracks">
             <End Role="Album" EntitySet="Albums" />
             <End Role="Track" EntitySet="Tracks" />
           </AssociationSet>
-          <AssociationSet Name="TrackTags" Association="SongsAbout.TrackTags">
+          <AssociationSet Name="TrackTags" Association="SongsAbout.Entities.TrackTags">
             <End Role="Tag" EntitySet="Tags" />
             <End Role="Track" EntitySet="Tracks" />
           </AssociationSet>
-          <AssociationSet Name="ListTracks" Association="SongsAbout.ListTracks">
+          <AssociationSet Name="ListTracks" Association="SongsAbout.Entities.ListTracks">
             <End Role="List" EntitySet="Playlists" />
             <End Role="Track" EntitySet="Tracks" />
           </AssociationSet>
-          <AssociationSet Name="TrackArtists" Association="SongsAbout.TrackArtists">
+          <AssociationSet Name="TrackArtists" Association="SongsAbout.Entities.TrackArtists">
             <End Role="Track" EntitySet="Tracks" />
             <End Role="Artist" EntitySet="Artists" />
           </AssociationSet>
-          <AssociationSet Name="TrackGenres" Association="SongsAbout.TrackGenres">
+          <AssociationSet Name="TrackGenres" Association="SongsAbout.Entities.TrackGenres">
             <End Role="Genre" EntitySet="Genres" />
             <End Role="Track" EntitySet="Tracks" />
           </AssociationSet>
-          <AssociationSet Name="TrackTopics" Association="SongsAbout.TrackTopics">
+          <AssociationSet Name="TrackTopics" Association="SongsAbout.Entities.TrackTopics">
             <End Role="Topic" EntitySet="Topics" />
             <End Role="Track" EntitySet="Tracks" />
           </AssociationSet>
-          <AssociationSet Name="AlbumGenres" Association="SongsAbout.AlbumGenres">
+          <AssociationSet Name="AlbumGenres" Association="SongsAbout.Entities.AlbumGenres">
             <End Role="Album" EntitySet="Albums" />
             <End Role="Genre" EntitySet="Genres" />
           </AssociationSet>
-          <EntitySet Name="Users" EntityType="SongsAbout.User" />
-          <AssociationSet Name="ListTracks1" Association="SongsAbout.ListTracks1">
+          <EntitySet Name="DbUsers" EntityType="SongsAbout.Entities.DbUser" />
+          <AssociationSet Name="ListTracks1" Association="SongsAbout.Entities.ListTracks1">
             <End Role="Playlist" EntitySet="Playlists" />
             <End Role="Track" EntitySet="Tracks" />
           </AssociationSet>
+          <AssociationSet Name="UserLists" Association="SongsAbout.Entities.UserLists">
+            <End Role="Playlist" EntitySet="Playlists" />
+            <End Role="DbUser" EntitySet="DbUsers" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Album_Tracks">
-          <End Type="SongsAbout.Album" Role="Album" Multiplicity="1" />
-          <End Type="SongsAbout.Track" Role="Track" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Album" Role="Album" Multiplicity="1" />
+          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Album">
               <PropertyRef Name="ID" />
@@ -613,30 +647,30 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           </ReferentialConstraint>
         </Association>
         <Association Name="TrackTags">
-          <End Type="SongsAbout.Tag" Role="Tag" Multiplicity="*" />
-          <End Type="SongsAbout.Track" Role="Track" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Tag" Role="Tag" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
         </Association>
         <Association Name="ListTracks">
-          <End Type="SongsAbout.Playlist" Role="List" Multiplicity="*" />
-          <End Type="SongsAbout.Track" Role="Track" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Playlist" Role="List" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
         </Association>
         <Association Name="TrackArtists">
-          <End Type="SongsAbout.Track" Role="Track" Multiplicity="*" />
-          <End Type="SongsAbout.Artist" Role="Artist" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Artist" Role="Artist" Multiplicity="*" />
         </Association>
         <Association Name="TrackGenres">
-          <End Type="SongsAbout.Genre" Role="Genre" Multiplicity="*" />
-          <End Type="SongsAbout.Track" Role="Track" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Genre" Role="Genre" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
         </Association>
         <Association Name="TrackTopics">
-          <End Type="SongsAbout.Topic" Role="Topic" Multiplicity="*" />
-          <End Type="SongsAbout.Track" Role="Track" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Topic" Role="Topic" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
         </Association>
         <Association Name="AlbumGenres">
-          <End Type="SongsAbout.Album" Role="Album" Multiplicity="*" />
-          <End Type="SongsAbout.Genre" Role="Genre" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Album" Role="Album" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Genre" Role="Genre" Multiplicity="*" />
         </Association>
-        <EntityType Name="User">
+        <EntityType Name="DbUser">
           <Key>
             <PropertyRef Name="u_id" />
           </Key>
@@ -646,10 +680,15 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           <Property Name="u_profile_pic" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="u_bio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="NavigationProperty1" />
+          <NavigationProperty Name="Lists" Relationship="SongsAbout.Entities.UserLists" FromRole="DbUser" ToRole="Playlist" />
         </EntityType>
         <Association Name="ListTracks1">
-          <End Type="SongsAbout.Playlist" Role="Playlist" Multiplicity="*" />
-          <End Type="SongsAbout.Track" Role="Track" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Playlist" Role="Playlist" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.Track" Role="Track" Multiplicity="*" />
+        </Association>
+        <Association Name="UserLists">
+          <End Type="SongsAbout.Entities.Playlist" Role="Playlist" Multiplicity="*" />
+          <End Type="SongsAbout.Entities.DbUser" Role="DbUser" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -658,7 +697,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DataClassesContextStoreContainer" CdmEntityContainer="DataClassesContext">
           <EntitySetMapping Name="Albums">
-            <EntityTypeMapping TypeName="SongsAbout.Album">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.Album">
               <MappingFragment StoreEntitySet="Albums">
                 <ScalarProperty Name="al_release_date" ColumnName="al_release_date" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -670,7 +709,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Artists">
-            <EntityTypeMapping TypeName="SongsAbout.Artist">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.Artist">
               <MappingFragment StoreEntitySet="Artists">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -682,14 +721,14 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Genres">
-            <EntityTypeMapping TypeName="SongsAbout.Genre">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.Genre">
               <MappingFragment StoreEntitySet="Genres">
                 <ScalarProperty Name="name" ColumnName="genre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Playlists">
-            <EntityTypeMapping TypeName="SongsAbout.Playlist">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.Playlist">
               <MappingFragment StoreEntitySet="Lists">
                 <ScalarProperty Name="list_id" ColumnName="list_id" />
                 <ScalarProperty Name="list_spotify_href" ColumnName="list_spotify_href" />
@@ -700,14 +739,14 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tags">
-            <EntityTypeMapping TypeName="SongsAbout.Tag">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.Tag">
               <MappingFragment StoreEntitySet="Tags">
                 <ScalarProperty Name="tag_text" ColumnName="tag_text" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Topics">
-            <EntityTypeMapping TypeName="SongsAbout.Topic">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.Topic">
               <MappingFragment StoreEntitySet="Topics">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="topic_text" ColumnName="topic_text" />
@@ -715,7 +754,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tracks">
-            <EntityTypeMapping TypeName="SongsAbout.Track">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.Track">
               <MappingFragment StoreEntitySet="Tracks">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -730,7 +769,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
           <FunctionImportMapping FunctionImportName="UpdateInsert_Artist" FunctionName="DataClassesContext.Store.UpdateInsert_Artist" />
           <FunctionImportMapping FunctionImportName="UpdateInsert_Album" FunctionName="DataClassesContext.Store.UpdateInsert_Album" />
           <FunctionImportMapping FunctionImportName="UpdateInsert_Track" FunctionName="DataClassesContext.Store.UpdateInsert_Track" />
-          <AssociationSetMapping Name="TrackTags" TypeName="SongsAbout.TrackTags" StoreEntitySet="TrackTags">
+          <AssociationSetMapping Name="TrackTags" TypeName="SongsAbout.Entities.TrackTags" StoreEntitySet="TrackTags">
             <EndProperty Name="Track">
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
@@ -738,12 +777,12 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
               <ScalarProperty Name="tag_text" ColumnName="tag_text" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="ListTracks" TypeName="SongsAbout.ListTracks" StoreEntitySet="ListTracks">
+          <AssociationSetMapping Name="ListTracks" TypeName="SongsAbout.Entities.ListTracks" StoreEntitySet="ListTracks">
             <EndProperty Name="Track">
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="TrackArtists" TypeName="SongsAbout.TrackArtists" StoreEntitySet="TrackArtists">
+          <AssociationSetMapping Name="TrackArtists" TypeName="SongsAbout.Entities.TrackArtists" StoreEntitySet="TrackArtists">
             <EndProperty Name="Artist">
               <ScalarProperty Name="ID" ColumnName="artist_id" />
             </EndProperty>
@@ -751,7 +790,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="TrackGenres" TypeName="SongsAbout.TrackGenres" StoreEntitySet="TrackGenres">
+          <AssociationSetMapping Name="TrackGenres" TypeName="SongsAbout.Entities.TrackGenres" StoreEntitySet="TrackGenres">
             <EndProperty Name="Track">
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
@@ -759,7 +798,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
               <ScalarProperty Name="name" ColumnName="genre" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="TrackTopics" TypeName="SongsAbout.TrackTopics" StoreEntitySet="TrackTopics">
+          <AssociationSetMapping Name="TrackTopics" TypeName="SongsAbout.Entities.TrackTopics" StoreEntitySet="TrackTopics">
             <EndProperty Name="Track">
               <ScalarProperty Name="ID" ColumnName="track_id" />
             </EndProperty>
@@ -767,7 +806,7 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
               <ScalarProperty Name="ID" ColumnName="topic_id" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="AlbumGenres" TypeName="SongsAbout.AlbumGenres" StoreEntitySet="AlbumGenres">
+          <AssociationSetMapping Name="AlbumGenres" TypeName="SongsAbout.Entities.AlbumGenres" StoreEntitySet="AlbumGenres">
             <EndProperty Name="Genre">
               <ScalarProperty Name="name" ColumnName="genre" />
             </EndProperty>
@@ -775,8 +814,8 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
               <ScalarProperty Name="ID" ColumnName="album_id" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="SongsAbout.User">
+          <EntitySetMapping Name="DbUsers">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.DbUser">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="u_bio" ColumnName="u_bio" />
                 <ScalarProperty Name="u_profile_pic" ColumnName="u_profile_pic" />
@@ -786,9 +825,17 @@ error 6004: The table 'SongsAboutSQLDB.dbo.UserLists' is referenced by a relatio
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ListTracks1" TypeName="SongsAbout.ListTracks1" StoreEntitySet="ListTracks">
+          <AssociationSetMapping Name="ListTracks1" TypeName="SongsAbout.Entities.ListTracks1" StoreEntitySet="ListTracks">
             <EndProperty Name="Track">
               <ScalarProperty Name="ID" ColumnName="track_id" />
+            </EndProperty>
+            <EndProperty Name="Playlist">
+              <ScalarProperty Name="list_id" ColumnName="list_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserLists" TypeName="SongsAbout.Entities.UserLists" StoreEntitySet="UserLists">
+            <EndProperty Name="DbUser">
+              <ScalarProperty Name="u_id" ColumnName="u_id" />
             </EndProperty>
             <EndProperty Name="Playlist">
               <ScalarProperty Name="list_id" ColumnName="list_id" />

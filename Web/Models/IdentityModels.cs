@@ -40,7 +40,7 @@ namespace SongsAbout.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base(SongsAbout.Properties., throwIfV1Schema: false)
+            : base("", throwIfV1Schema: false)
         {
         }
 

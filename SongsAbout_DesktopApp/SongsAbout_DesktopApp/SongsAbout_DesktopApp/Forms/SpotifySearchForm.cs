@@ -7,6 +7,7 @@ using System.Linq;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Desktop.Properties;
 using SongsAbout;
+using SongsAbout.Database;
 using SongsAbout.Entities;
 using SongsAbout.Controls;
 using SpotifyAPI.Web.Enums;
