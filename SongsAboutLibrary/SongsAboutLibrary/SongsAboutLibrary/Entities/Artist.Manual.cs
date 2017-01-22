@@ -28,7 +28,7 @@ namespace SongsAbout.Entities
     /// </summary>
     public partial class Artist : DbEntity
     {
-        // DataClassesContext artistContext = new DataClassesContext();
+        // DbEntityContext artistContext = new DbEntityContext();
         public const string TABLE_NAME = "Artists";
         public const string TypeString = "Artist";
         public const string TitleColumn = "name";

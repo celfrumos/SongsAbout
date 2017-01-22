@@ -53,7 +53,7 @@ namespace SongsAbout.Entities
             try
             {
                 List<Playlist> result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Playlists
                                     .Include(a => a.privateTracks)
@@ -119,7 +119,7 @@ namespace SongsAbout.Entities
         {
             if (!SongDatabase.Playlists.Contains(this.Name))
             {
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     db.Playlists.Add(this);
                     db.SaveChanges();

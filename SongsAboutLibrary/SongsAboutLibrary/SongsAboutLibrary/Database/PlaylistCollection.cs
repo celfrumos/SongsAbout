@@ -28,7 +28,7 @@ namespace SongsAbout.Database
                 }
                 else
                 {
-                    using (var db = new DataClassesContext())
+                    using (var db = new DbEntityContext())
                     {
                         result = db.Playlists.Find(name);
                     }
@@ -96,7 +96,7 @@ namespace SongsAbout.Database
                     {
                         playlist.Tracks = new List<Track>();
                     }
-                    using (var db = new DataClassesContext())
+                    using (var db = new DbEntityContext())
                     {
                         db.Playlists.Add(playlist);
                         db.SaveChanges();
@@ -143,7 +143,7 @@ namespace SongsAbout.Database
             {
                 try
                 {
-                    using (var db = new DataClassesContext())
+                    using (var db = new DbEntityContext())
                     {
                         var p = db.Playlists.Find(playlist.Name);
                         if (p == playlist)

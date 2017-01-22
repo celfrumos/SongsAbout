@@ -30,11 +30,11 @@ namespace SongsAbout.Entities
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
-        public virtual DbSet<List> Lists { get; set; }
+        public virtual DbSet<Playlist> Playlists { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<Track> Tracks { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<DbUser> DbUsers { get; set; }
     
         public virtual int UpdateInsert_Album(Nullable<int> id, Nullable<int> artist_id, string name, Nullable<System.DateTime> al_year, string al_spotify_uri, byte[] al_cover_art)
         {

@@ -33,7 +33,7 @@ namespace SongsAbout.Database
             protected override Artist FindByName(string name)
             {
                 Artist result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Artists
                                     .Where(a => a.Name == name)
@@ -46,7 +46,7 @@ namespace SongsAbout.Database
             private Artist FindById(int id)
             {
                 Artist result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Artists.Find(id);
                 }
@@ -124,7 +124,7 @@ namespace SongsAbout.Database
                         {
                             return this.CachedItems;
                         }
-                        using (var db = new DataClassesContext())
+                        using (var db = new DbEntityContext())
                         {
                             base.CachedItems = db.Artists
                                                     .Where(a => a.ID != 0)
@@ -157,7 +157,7 @@ namespace SongsAbout.Database
 
                 try
                 {
-                    using (var context = new DataClassesContext())
+                    using (var context = new DbEntityContext())
                     {
                         context.UpdateInsert_Artist(a.ID, a.Name, a.Bio, a.Website, a.Uri, a.ProfilePicBytes);
                         context.SaveChanges();

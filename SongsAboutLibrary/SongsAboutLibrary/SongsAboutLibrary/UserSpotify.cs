@@ -28,20 +28,16 @@ namespace SongsAbout
     {
         private const string REDIRECT_URI = "http://localhost";
         private const int PORT = 8000;
-
+        private static SpotifyWebAPI _webApi { get; set; }
         /// <summary>
         /// Use this to Call the WebAPI for spotify
         /// </summary>
-        public static SpotifyWebAPI WebAPI
-        {
-            get { return User.Default.SpotifyWebAPI; }
-            set { User.Default.SpotifyWebAPI = value; }
-        }
+        public static SpotifyWebAPI WebAPI { get; set; }
 
         /// <summary>
         /// User's private Spotify Id
         /// </summary>
-        internal static string PrivateId
+        public static string PrivateId
         {
             get { return User.Default.PrivateId; }
             set { User.Default.PrivateId = value; }
@@ -88,9 +84,9 @@ namespace SongsAbout
                 FetchFollowedArtists();
                 FetchProfilePic();
             }
-            catch (SpotifyException)
+            catch (SpotifyException ex)
             {
-                throw;
+                throw new SpotifyAuthError();
             }
             catch (System.Resources.MissingManifestResourceException ex)
             {
@@ -159,7 +155,7 @@ namespace SongsAbout
         {
             try
             {
-                if (User.Default["PrivateProfile"] == null)
+                if (User.Default.PrivateProfile == null)
                 {
                     User.Default.PrivateProfile = WebAPI.GetPrivateProfile();
                     //User.Default.PrivateProfile = _profile;
@@ -193,11 +189,8 @@ namespace SongsAbout
             {
                 if (UserSpotify.WebAPI == null)
                 {
-                    AuthenticateAsync();
-                    while (UserSpotify.WebAPI == null)
-                    {
-                        Thread.Sleep(1);
-                    }
+                    var authTask = Task.Run(() => UserSpotify.AuthenticateAsync());
+                    authTask.Wait();
                 }
                 Thread.Sleep(5);
                 bool succeeded = false;

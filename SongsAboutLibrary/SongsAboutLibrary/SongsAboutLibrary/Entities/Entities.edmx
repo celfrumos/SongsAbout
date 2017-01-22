@@ -470,7 +470,7 @@
           <Property Name="al_spotify_uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="al_cover_art" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Tracks" Relationship="Self.FK_Album_Tracks" FromRole="Albums" ToRole="Tracks" />
-          <NavigationProperty Name="Artist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" />
+          <NavigationProperty Name="privateArtist" Relationship="Self.FK_Albums_Artists" FromRole="Albums" ToRole="Artists" />
           <NavigationProperty Name="Genres" Relationship="Self.AlbumGenres" FromRole="Albums" ToRole="Genres" />
         </EntityType>
         <EntityType Name="Artist">
@@ -488,13 +488,13 @@
         </EntityType>
         <EntityType Name="Genre">
           <Key>
-            <PropertyRef Name="genre1" />
+            <PropertyRef Name="name" />
           </Key>
-          <Property Name="genre1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Albums" Relationship="Self.AlbumGenres" FromRole="Genres" ToRole="Albums" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="privateAlbums" Relationship="Self.AlbumGenres" FromRole="Genres" ToRole="Albums" />
           <NavigationProperty Name="Tracks" Relationship="Self.TrackGenres" FromRole="Genres" ToRole="Tracks" />
         </EntityType>
-        <EntityType Name="List">
+        <EntityType Name="Playlist">
           <Key>
             <PropertyRef Name="list_id" />
           </Key>
@@ -503,7 +503,7 @@
           <Property Name="list_spotify_uri" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="list_spotify_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="list_spotify_href" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tracks" Relationship="Self.ListTracks" FromRole="Lists" ToRole="Tracks" />
+          <NavigationProperty Name="privateTracks" Relationship="Self.ListTracks" FromRole="Lists" ToRole="Tracks" />
           <NavigationProperty Name="Users" Relationship="Self.UserLists" FromRole="Lists" ToRole="Users" />
         </EntityType>
         <EntityType Name="Tag">
@@ -532,14 +532,14 @@
           <Property Name="track_artist_id" Type="Int32" Nullable="false" />
           <Property Name="can_play" Type="Boolean" Nullable="false" />
           <Property Name="track_album_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Album" Relationship="Self.FK_Album_Tracks" FromRole="Tracks" ToRole="Albums" />
-          <NavigationProperty Name="Lists" Relationship="Self.ListTracks" FromRole="Tracks" ToRole="Lists" />
-          <NavigationProperty Name="Artists" Relationship="Self.TrackArtists" FromRole="Tracks" ToRole="Artists" />
-          <NavigationProperty Name="Genres" Relationship="Self.TrackGenres" FromRole="Tracks" ToRole="Genres" />
-          <NavigationProperty Name="Tags" Relationship="Self.TrackTags" FromRole="Tracks" ToRole="Tags" />
-          <NavigationProperty Name="Topics" Relationship="Self.TrackTopics" FromRole="Tracks" ToRole="Topics" />
+          <NavigationProperty Name="privateAlbum" Relationship="Self.FK_Album_Tracks" FromRole="Tracks" ToRole="Albums" />
+          <NavigationProperty Name="privatePlaylists" Relationship="Self.ListTracks" FromRole="Tracks" ToRole="Lists" />
+          <NavigationProperty Name="privateArtists" Relationship="Self.TrackArtists" FromRole="Tracks" ToRole="Artists" />
+          <NavigationProperty Name="privateGenres" Relationship="Self.TrackGenres" FromRole="Tracks" ToRole="Genres" />
+          <NavigationProperty Name="privateTags" Relationship="Self.TrackTags" FromRole="Tracks" ToRole="Tags" />
+          <NavigationProperty Name="privateTopics" Relationship="Self.TrackTopics" FromRole="Tracks" ToRole="Topics" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="DbUser">
           <Key>
             <PropertyRef Name="u_id" />
           </Key>
@@ -581,7 +581,7 @@
           <End Role="Genres" Type="Self.Genre" Multiplicity="*" />
         </Association>
         <Association Name="ListTracks">
-          <End Role="Lists" Type="Self.List" Multiplicity="*" />
+          <End Role="Lists" Type="SongsAbout.Entities.Playlist" Multiplicity="*" />
           <End Role="Tracks" Type="Self.Track" Multiplicity="*" />
         </Association>
         <Association Name="TrackArtists">
@@ -601,18 +601,18 @@
           <End Role="Tracks" Type="Self.Track" Multiplicity="*" />
         </Association>
         <Association Name="UserLists">
-          <End Role="Lists" Type="Self.List" Multiplicity="*" />
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <End Role="Lists" Type="SongsAbout.Entities.Playlist" Multiplicity="*" />
+          <End Role="Users" Type="SongsAbout.Entities.DbUser" Multiplicity="*" />
         </Association>
         <EntityContainer Name="DbEntityContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Albums" EntityType="Self.Album" />
           <EntitySet Name="Artists" EntityType="Self.Artist" />
           <EntitySet Name="Genres" EntityType="Self.Genre" />
-          <EntitySet Name="Lists" EntityType="Self.List" />
+          <EntitySet Name="Playlists" EntityType="SongsAbout.Entities.Playlist" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
           <EntitySet Name="Topics" EntityType="Self.Topic" />
           <EntitySet Name="Tracks" EntityType="Self.Track" />
-          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="DbUsers" EntityType="SongsAbout.Entities.DbUser" />
           <AssociationSet Name="FK_Album_Tracks" Association="Self.FK_Album_Tracks">
             <End Role="Albums" EntitySet="Albums" />
             <End Role="Tracks" EntitySet="Tracks" />
@@ -626,7 +626,7 @@
             <End Role="Genres" EntitySet="Genres" />
           </AssociationSet>
           <AssociationSet Name="ListTracks" Association="Self.ListTracks">
-            <End Role="Lists" EntitySet="Lists" />
+            <End Role="Lists" EntitySet="Playlists" />
             <End Role="Tracks" EntitySet="Tracks" />
           </AssociationSet>
           <AssociationSet Name="TrackArtists" Association="Self.TrackArtists">
@@ -646,8 +646,8 @@
             <End Role="Tracks" EntitySet="Tracks" />
           </AssociationSet>
           <AssociationSet Name="UserLists" Association="Self.UserLists">
-            <End Role="Lists" EntitySet="Lists" />
-            <End Role="Users" EntitySet="Users" />
+            <End Role="Lists" EntitySet="Playlists" />
+            <End Role="Users" EntitySet="DbUsers" />
           </AssociationSet>
           <FunctionImport Name="UpdateInsert_Album">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -708,12 +708,12 @@
           <EntitySetMapping Name="Genres">
             <EntityTypeMapping TypeName="SongsAbout.Entities.Genre">
               <MappingFragment StoreEntitySet="Genres">
-                <ScalarProperty Name="genre1" ColumnName="genre" />
+                <ScalarProperty Name="name" ColumnName="genre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lists">
-            <EntityTypeMapping TypeName="SongsAbout.Entities.List">
+          <EntitySetMapping Name="Playlists">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.Playlist">
               <MappingFragment StoreEntitySet="Lists">
                 <ScalarProperty Name="list_id" ColumnName="list_id" />
                 <ScalarProperty Name="list_name" ColumnName="list_name" />
@@ -751,8 +751,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="SongsAbout.Entities.User">
+          <EntitySetMapping Name="DbUsers">
+            <EntityTypeMapping TypeName="SongsAbout.Entities.DbUser">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="u_id" ColumnName="u_id" />
                 <ScalarProperty Name="u_name" ColumnName="u_name" />
@@ -767,7 +767,7 @@
               <ScalarProperty Name="ID" ColumnName="album_id" />
             </EndProperty>
             <EndProperty Name="Genres">
-              <ScalarProperty Name="genre1" ColumnName="genre" />
+              <ScalarProperty Name="name" ColumnName="genre" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="ListTracks" TypeName="SongsAbout.Entities.ListTracks" StoreEntitySet="ListTracks">
@@ -788,7 +788,7 @@
           </AssociationSetMapping>
           <AssociationSetMapping Name="TrackGenres" TypeName="SongsAbout.Entities.TrackGenres" StoreEntitySet="TrackGenres">
             <EndProperty Name="Genres">
-              <ScalarProperty Name="genre1" ColumnName="genre" />
+              <ScalarProperty Name="name" ColumnName="genre" />
             </EndProperty>
             <EndProperty Name="Tracks">
               <ScalarProperty Name="ID" ColumnName="track_id" />

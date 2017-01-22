@@ -12,21 +12,24 @@ namespace SongsAbout.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Playlist
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Playlist()
         {
-            this.Lists = new HashSet<List>();
+            this.privateTracks = new HashSet<Track>();
+            this.Users = new HashSet<DbUser>();
         }
     
-        public int u_id { get; set; }
-        public string u_name { get; set; }
-        public string u_email { get; set; }
-        public byte[] u_profile_pic { get; set; }
-        public string u_bio { get; set; }
+        public int list_id { get; set; }
+        public string list_name { get; set; }
+        public string list_spotify_uri { get; set; }
+        public string list_spotify_id { get; set; }
+        public string list_spotify_href { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<List> Lists { get; set; }
+        public virtual ICollection<Track> privateTracks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DbUser> Users { get; set; }
     }
 }

@@ -154,6 +154,45 @@
     <Compile Include="Database\TagCollection.cs" />
     <Compile Include="Database\TrackCollection.cs" />
     <Compile Include="DbExceptions.cs" />
+    <Compile Include="Entities\Album.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Artist.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DbUser.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Entities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Entities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Entities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Genre.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Playlist.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Tag.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Topic.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Track.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Importer.cs" />
     <Compile Include="Secret\Secrets.cs" />
     <Compile Include="TableAdapters.cs" />
@@ -165,11 +204,6 @@
     </Compile>
     <Compile Include="Entities\Album.Manual.cs" />
     <Compile Include="Entities\Artist.Manual.cs" />
-    <Compile Include="Entities\DataClasses.Designer.cs">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="Entities\DbEntity.cs" />
     <Compile Include="Entities\Genre.Manual.cs" />
     <Compile Include="Entities\IDbEntity.cs" />
@@ -204,8 +238,12 @@
     <None Include="DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </None>
-    <None Include="Entities\DataClasses.edmx.diagram">
-      <DependentUpon>DataClasses.edmx</DependentUpon>
+    <EntityDeploy Include="Entities\Entities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entities\Entities.edmx.diagram">
+      <DependentUpon>Entities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Properties\Settings.settings">
@@ -273,10 +311,16 @@
     <None Include="Resources\Spotify_Icon_Black.png" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Entities\DataClasses.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataClasses.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Content Include="Entities\Entities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

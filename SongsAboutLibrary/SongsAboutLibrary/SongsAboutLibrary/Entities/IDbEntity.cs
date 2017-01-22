@@ -14,6 +14,6 @@ namespace SongsAbout.Entities
         string TypeName { get; }
 
         void Save();
-        void Save(DataClassesContext db);
+        void Save(DbEntityContext db);
     }
 }

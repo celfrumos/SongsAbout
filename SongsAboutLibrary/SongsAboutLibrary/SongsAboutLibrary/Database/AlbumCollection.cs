@@ -98,7 +98,7 @@ namespace SongsAbout.Database
             protected override Album FindByName(string name)
             {
                 Album result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Albums
                                     .Where(a => a.Name == name)
@@ -111,7 +111,7 @@ namespace SongsAbout.Database
             private Album FindById(int id)
             {
                 Album result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Albums.Find(id);
                 }
@@ -135,7 +135,7 @@ namespace SongsAbout.Database
                         }
                         else
                         {
-                            using (var db = new DataClassesContext())
+                            using (var db = new DbEntityContext())
                             {
                                 this.CachedItems = db.Albums
                                     .Where(a => a.ID != 0)
@@ -174,7 +174,7 @@ namespace SongsAbout.Database
 
                 try
                 {
-                    using (var context = new DataClassesContext())
+                    using (var context = new DbEntityContext())
                     {
                         context.UpdateInsert_Album(a.ID, a.ArtistId, a.Name, a.ReleaseDate, a.Uri, a.CoverArtBytes);
                         context.SaveChanges();

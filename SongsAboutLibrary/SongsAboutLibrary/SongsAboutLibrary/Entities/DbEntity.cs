@@ -71,7 +71,7 @@ namespace SongsAbout.Entities
 
             var track_album_idParameter = new ObjectParameter("track_album_id", track_album_id);
 
-            using (var db = new DataClassesContext())
+            using (var db = new DbEntityContext())
             {
                 return ((IObjectContextAdapter)db).ObjectContext.ExecuteFunction("UpdateInsert_Track",
                     idParameter, nameParameter, track_spotify_uriParameter, track_length_minutesParameter, track_artist_idParameter, can_playParameter, track_album_idParameter);

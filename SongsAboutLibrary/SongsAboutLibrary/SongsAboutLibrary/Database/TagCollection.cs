@@ -32,7 +32,7 @@ namespace SongsAbout.Database
             protected override Tag FindByName(string name)
             {
                 Tag result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Tags.Find(name);
                 }
@@ -51,7 +51,7 @@ namespace SongsAbout.Database
                     try
                     {
                         base.CachedItems = new List<Tag>();
-                        using (var db = new DataClassesContext())
+                        using (var db = new DbEntityContext())
                         {
                             base.CachedItems.AddRange(from a in db.Tags
                                                       select a);
@@ -85,7 +85,7 @@ namespace SongsAbout.Database
 
                 try
                 {
-                    using (var db = new DataClassesContext())
+                    using (var db = new DbEntityContext())
                     {
                         db.Tags.Add(Tag);
                         db.SaveChanges();

@@ -69,7 +69,7 @@ namespace SongsAbout.Entities
             try
             {
                 List<Genre> res;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     res = (List<Genre>)(from t in db.Tracks
                                         where t.ID == this.ID
@@ -94,7 +94,7 @@ namespace SongsAbout.Entities
             try
             {
                 List<Topic> res;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     res = (List<Topic>)(from t in db.Tracks
                                         where t.ID == this.ID
@@ -119,7 +119,7 @@ namespace SongsAbout.Entities
             try
             {
                 List<Tag> res;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     res = (List<Tag>)(from t in db.Tracks
                                       where t.ID == this.ID
@@ -144,7 +144,7 @@ namespace SongsAbout.Entities
             try
             {
                 List<Playlist> res;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     res = (List<Playlist>)(from t in db.Tracks
                                            where t.ID == this.ID
@@ -387,7 +387,7 @@ namespace SongsAbout.Entities
             try
             {
                 Track result = track;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = (from Track a in db.Tracks
                               where a == track
@@ -411,7 +411,7 @@ namespace SongsAbout.Entities
             try
             {
                 Track result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = (from Track t in db.Tracks
                               where t.ID == id
@@ -434,7 +434,7 @@ namespace SongsAbout.Entities
             try
             {
                 Track result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = (from Track t in db.Tracks
                               where t.Name == name
@@ -497,7 +497,7 @@ namespace SongsAbout.Entities
             {
                 if (this.name != null)
                 {
-                    using (var db = new DataClassesContext())
+                    using (var db = new DbEntityContext())
                     {
                         db.UpdateInsert_Track(this.ID, this.name, this.track_spotify_uri, this.track_length_minutes, this.track_artist_id, this.can_play, this.track_album_id);
                         db.SaveChanges();

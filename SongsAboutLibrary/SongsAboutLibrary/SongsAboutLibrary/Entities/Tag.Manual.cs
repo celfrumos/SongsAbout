@@ -37,7 +37,7 @@ namespace SongsAbout.Entities
         {
             if (!Exists(this.Name))
             {
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     db.Tags.Add(this);
                     db.SaveChanges();
@@ -51,21 +51,21 @@ namespace SongsAbout.Entities
         public static bool Exists(string name)
         {
 
-            using (var db = new DataClassesContext())
+            using (var db = new DbEntityContext())
             {
                 return (from tag in db.Tags
                         where tag.tag_text == name
                         select tag).Count() > 0;
             }
         }
-        public void Save(DataClassesContext db)
+        public void Save(DbEntityContext db)
         {
             if ((from tag in db.Tags
                  where tag.tag_text == this.tag_text
                  select tag).Count() == 0)
             {
                 db.Tags.Add(this);
-                Console.WriteLine("Tag added, but not saved in Tag.Manual. To save with passed in DataClassesContext, SaveChanges in the calling context.");
+                Console.WriteLine("Tag added, but not saved in Tag.Manual. To save with passed in DbEntityContext, SaveChanges in the calling context.");
             }
         }
         public override DbEntityType DbEntityType { get { return DbEntityType.Tag; } }

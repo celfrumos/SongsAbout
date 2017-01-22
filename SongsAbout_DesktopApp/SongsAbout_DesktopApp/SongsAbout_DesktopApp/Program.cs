@@ -58,7 +58,8 @@ namespace SongsAbout
                 {
                     try
                     {
-                        await Task.Run(() => UserSpotify.AuthenticateAsync());
+                        var task = Task.Run(() => UserSpotify.AuthenticateAsync());
+                        task.Wait();
                     }
                     catch (System.Resources.MissingManifestResourceException ex)
                     {

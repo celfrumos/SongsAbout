@@ -32,7 +32,7 @@ namespace SongsAbout.Database
             protected override Track FindByName(string name)
             {
                 Track result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Tracks
                                     .Where(t => t.ID != 0)
@@ -79,7 +79,7 @@ namespace SongsAbout.Database
             private Track FindById(int id)
             {
                 Track result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Tracks.Find(id);
                 }
@@ -125,7 +125,7 @@ namespace SongsAbout.Database
                         }
                         else
                         {
-                            using (var db = new DataClassesContext())
+                            using (var db = new DbEntityContext())
                             {
                                 this.CachedItems = db.Tracks
                                                         .Where(t => t.ID != 0)
@@ -183,7 +183,7 @@ namespace SongsAbout.Database
 
                 try
                 {
-                    using (var context = new DataClassesContext())
+                    using (var context = new DbEntityContext())
                     {
                         context.UpdateInsert_Track(track.ID, track.Name, track.Uri, track.Length, track.ArtistId, track.CanPlay, track.AlbumId);
                         context.SaveChanges();

@@ -36,7 +36,7 @@ namespace SongsAbout.Entities
             try
             {
                 List<Album> res;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     res = (List<Album>)(from g in db.Genres
                                         where g.Name == this.Name

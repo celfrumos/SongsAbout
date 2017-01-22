@@ -91,7 +91,7 @@ namespace SongsAbout.Entities
             try
             {
                 List<Track> res;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     res = (from t in db.Tracks
                            where t.AlbumId == this.ID
@@ -121,7 +121,7 @@ namespace SongsAbout.Entities
             {
 
                 List<Album> result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Albums
                                     .Where(a => a.ID != 0)
@@ -151,7 +151,7 @@ namespace SongsAbout.Entities
             try
             {
                 List<Genre> res;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     res = (List<Genre>)(from a in db.Albums
                                         where a.ID == this.ID

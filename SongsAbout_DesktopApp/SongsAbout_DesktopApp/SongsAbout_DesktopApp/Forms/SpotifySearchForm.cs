@@ -90,7 +90,7 @@ namespace SongsAbout.Forms
         private async void LoadDbArtists()
         {
             List<Artist> artists = new List<Artist>();
-            using (var db = new DataClassesContext())
+            using (var db = new DbEntityContext())
             {
                 artists = (from a in db.Artists
                            select a).ToList();

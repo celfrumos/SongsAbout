@@ -51,7 +51,7 @@ namespace SongsAbout.Controls
             set
             {
                 this._dbEntityType = value;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     switch (value)
                     {
@@ -114,7 +114,7 @@ namespace SongsAbout.Controls
             this.ForeColor = User.Default.TextColor;
         }
 
-        public AttributeViewer(DataClassesContext db)
+        public AttributeViewer(DbEntityContext db)
         {
 
         }

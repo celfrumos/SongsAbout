@@ -38,7 +38,7 @@ namespace SongsAbout.Database
             protected override Genre FindByName(string name)
             {
                 Genre result;
-                using (var db = new DataClassesContext())
+                using (var db = new DbEntityContext())
                 {
                     result = db.Genres.Find(name);
                 }
@@ -58,7 +58,7 @@ namespace SongsAbout.Database
                     try
                     {
                         base.CachedItems = new List<Genre>();
-                        using (var db = new DataClassesContext())
+                        using (var db = new DbEntityContext())
                         {
                             base.CachedItems.AddRange(from a in db.Genres
                                                       select a);
@@ -92,7 +92,7 @@ namespace SongsAbout.Database
 
                 try
                 {
-                    using (var db = new DataClassesContext())
+                    using (var db = new DbEntityContext())
                     {
                         db.Genres.Add(genre);
                         db.SaveChanges();

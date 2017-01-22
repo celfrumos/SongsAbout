@@ -32,13 +32,12 @@ namespace SongsAbout
             Console.WriteLine(msg);
         }
 
-
-        public DbException(string msg = DEF_MSG) : base(msg)
+        public DbException(string msg = DEF_MSG, Exception inner = null) : base(msg, inner)
         {
             Console.WriteLine(msg);
         }
 
-        public DbException(DbEntityType dbEntityType, string msg = DEF_MSG) : base(dbExDefMsg(dbEntityType, msg))
+        public DbException(DbEntityType dbEntityType, string msg = DEF_MSG, Exception inner = null) : base(dbExDefMsg(dbEntityType, msg), inner)
         {
             Console.WriteLine(msg);
         }
@@ -52,12 +51,12 @@ namespace SongsAbout
     public class SaveError : DbException
     {
         const string DEF_MSG = "Error Saving to the database.";
-        public SaveError(string msg = DEF_MSG) : base($"Save Error: {msg}")
+        public SaveError(string msg = DEF_MSG, Exception inner = null) : base($"Save Error: {msg}", inner)
         {
 
         }
-        public SaveError(DbEntityType entityType, string name, string msg = DEF_MSG)
-            : base(entityType, saveErrDefMsg(entityType, name, msg))
+        public SaveError(DbEntityType entityType, string name, string msg = DEF_MSG, Exception inner = null)
+            : base(entityType, saveErrDefMsg(entityType, name, msg), inner)
         {
         }
 
@@ -77,14 +76,16 @@ namespace SongsAbout
         public LoadError(string msg = DEF_MSG)
               : base($"Load Error: {msg}")
         { }
-        public LoadError(DbEntityType type, string msg = DEF_MSG)
-           : base($"Error Loading {type} from the database: {msg}")
+        public LoadError(DbEntityType type, string msg = DEF_MSG, Exception inner = null)
+           : base($"Error Loading {type} from the database: {msg}", inner)
         { }
-        public LoadError(DbEntityType entityType, int id, string msg) : base(loadDefMsg(entityType, id, msg))
+        public LoadError(DbEntityType entityType, int id, string msg, Exception inner = null)
+            : base(loadDefMsg(entityType, id, msg), inner)
         {
         }
 
-        public LoadError(DbEntityType entityType, string name, string msg) : base(loadDefMsg(entityType, name, msg))
+        public LoadError(DbEntityType entityType, string name, string msg, Exception inner = null)
+            : base(loadDefMsg(entityType, name, msg), inner)
         {
         }
 
@@ -104,8 +105,8 @@ namespace SongsAbout
     {
         const string DEF_MSG = "Attempt was made to initialize an entity when not all preconditions were met.";
 
-        public InvalidInitializedError(string objectName, string msg = DEF_MSG)
-            : base($"For Object {objectName}: {msg}")
+        public InvalidInitializedError(string objectName, string msg = DEF_MSG, Exception inner = null)
+            : base($"For Object {objectName}: {msg}", inner)
         {
 
         }
@@ -116,11 +117,12 @@ namespace SongsAbout
     public class UpdateFromSpotifyError : DbException
     {
         const string DEF_MSG = "Error Updating Entity in Database";
-        public UpdateFromSpotifyError(string msg = DEF_MSG) : base(msg)
+        public UpdateFromSpotifyError(string msg = DEF_MSG, Exception inner = null) : base(msg, inner)
         {
 
         }
-        public UpdateFromSpotifyError(DbEntityType entityType, SpotifyEntityType spotifyType, string name, string msg = DEF_MSG) : base(updateMsg(entityType, spotifyType, name, msg))
+        public UpdateFromSpotifyError(DbEntityType entityType, SpotifyEntityType spotifyType, string name, string msg = DEF_MSG, Exception inner = null) 
+            : base(updateMsg(entityType, spotifyType, name, msg), inner)
         {
         }
         private static string updateMsg(DbEntityType entityType, SpotifyEntityType spotifyType, string name, string msg)
@@ -132,12 +134,12 @@ namespace SongsAbout
     {
         const string defaultMsg = "The expected entity was not found";
 
-        public EntityNotFoundError(DbEntityType entityType, string name, string msg = defaultMsg)
-         : base(notFoundMsg(entityType, name, msg))
+        public EntityNotFoundError(DbEntityType entityType, string name, string msg = defaultMsg, Exception inner = null)
+         : base(notFoundMsg(entityType, name, msg), inner)
         {
         }
-        public EntityNotFoundError(DbEntityType entityType, int id, string msg = defaultMsg)
-        : base(notFoundMsg(entityType, id, msg))
+        public EntityNotFoundError(DbEntityType entityType, int id, string msg = defaultMsg, Exception inner = null)
+        : base(notFoundMsg(entityType, id, msg), inner)
         {
         }
 
@@ -159,8 +161,8 @@ namespace SongsAbout
         const string defaultMsg = "Error importing data from spotify";
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
-        public SpotifyToDBImportException(SpotifyEntityType spotifyType, DbEntityType e, string msg = defaultMsg)
-            : base(e, ImportDefMsg(spotifyType, e, msg))
+        public SpotifyToDBImportException(SpotifyEntityType spotifyType, DbEntityType e, string msg = defaultMsg, Exception inner = null)
+            : base(e, ImportDefMsg(spotifyType, e, msg), inner)
         {
             this.SpotifyEntityType = spotifyType;
             this.DbEntityType = e;
@@ -179,12 +181,12 @@ namespace SongsAbout
     {
         const string NULL_ERR_DEF_MSG = "Attempted to add a null value where it is not allowed.";
 
-        public NullValueError(string msg = NULL_ERR_DEF_MSG) : base(msg)
+        public NullValueError(string msg = NULL_ERR_DEF_MSG, Exception inner = null) : base(msg, inner)
         {
 
         }
-        public NullValueError(DbEntityType entityType, string column, string msg = "")
-            : base(entityType, $"{entityType} {column} cannot be null:\n{msg}")
+        public NullValueError(DbEntityType entityType, string column, string msg = "", Exception inner = null)
+            : base(entityType, $"{entityType} {column} cannot be null:\n{msg}", inner)
         {
         }
 
@@ -194,13 +196,13 @@ namespace SongsAbout
         const string DEF_MSG = "Attempted to insert an entity that already exists into the database.";
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
-        public ValueAlreadyPresentException(string msg = DEF_MSG)
-            : base(msg == DEF_MSG ? msg : $"{DEF_MSG}\n{msg}")
+        public ValueAlreadyPresentException(string msg = DEF_MSG, Exception inner = null)
+            : base(msg == DEF_MSG ? msg : $"{DEF_MSG}\n{msg}", inner)
         {
 
         }
-        public ValueAlreadyPresentException(DbEntityType dbType, int id, string msg = DEF_MSG)
-            : base(initErrDefMsg(dbType, id, msg))
+        public ValueAlreadyPresentException(DbEntityType dbType, int id, string msg = DEF_MSG, Exception inner = null)
+            : base(initErrDefMsg(dbType, id, msg), inner)
         {
             this.DbEntityType = dbType;
         }
@@ -210,8 +212,8 @@ namespace SongsAbout
             return (msg == DEF_MSG ? msg
                 : $"Attempted to insert a new {dbType} with id {id} that already exists into the database. Try updating instead. \n{msg}");
         }
-        public ValueAlreadyPresentException(DbEntityType dbType, string name, string msg = DEF_MSG)
-        : base(initErrDefMsg(dbType, name, msg))
+        public ValueAlreadyPresentException(DbEntityType dbType, string name, string msg = DEF_MSG, Exception inner = null)
+        : base(initErrDefMsg(dbType, name, msg), inner)
         {
             this.DbEntityType = dbType;
         }
@@ -227,8 +229,8 @@ namespace SongsAbout
         const string DEF_MSG = "Failed to initialize DbEntity from Spotify Entity.";
 
         public SpotifyEntityType SpotifyEntityType { get; private set; }
-        public DbInitFromSpotifyError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG)
-            : base(initErrDefMsg(dbType, spotifyType, msg))
+        public DbInitFromSpotifyError(DbEntityType dbType, SpotifyEntityType spotifyType, string msg = DEF_MSG, Exception inner = null)
+            : base(initErrDefMsg(dbType, spotifyType, msg), inner)
         {
             this.DbEntityType = dbType;
             this.SpotifyEntityType = spotifyType;
@@ -247,8 +249,8 @@ namespace SongsAbout
 
         public string FromType { get; set; }
         public string ToType { get; set; }
-        public ConversionError(string fromType = "UnknownType", string toType = "UnknownType", string msg = DEF_MSG)
-            : base(_convErrDefMsg(fromType, toType, msg))
+        public ConversionError(string fromType = "UnknownType", string toType = "UnknownType", string msg = DEF_MSG, Exception inner = null)
+            : base(_convErrDefMsg(fromType, toType, msg), inner)
         {
             this.FromType = fromType;
             this.ToType = toType;
