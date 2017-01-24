@@ -29,7 +29,7 @@ bld/
 [Ss]ongs[Aa]bout_[Dd]esktop[Aa]pp/.git/
 [Ss]ongs[Aa]bout_[Ww]eb[Aa]pp/.git/
 [Ss]ongs[Aa]bout[Ll]ibrary/.git/
-[Ss]potify[Aa][Pp][Ii]/.git/
+#[Ss]potify[Aa][Pp][Ii]/.git/
 
 # Spotify Resource file 
 spotify-icons-logos/
