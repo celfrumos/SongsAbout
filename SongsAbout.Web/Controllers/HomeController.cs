@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SongsAbout.Web.Models;
 
 namespace SongsAbout.Web.Controllers
 {
@@ -11,7 +10,6 @@ namespace SongsAbout.Web.Controllers
     {
         public ActionResult Index()
         {
-            //WebUser s = new WebUser();
             return View();
         }
 

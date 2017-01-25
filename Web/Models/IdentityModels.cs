@@ -7,7 +7,8 @@ using SongsAbout.Web;
 
 namespace SongsAbout.Web.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    // You can add profile data for the user by adding more properties to your ApplicationUser class, 
+    // please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
         public override string Id
@@ -30,9 +31,9 @@ namespace SongsAbout.Web.Models
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var generateTask = manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            generateTask.Wait();
-            var userIdentity = generateTask.Result;
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            
+            
             // Add custom user claims here
             return userIdentity;
         }
@@ -41,7 +42,7 @@ namespace SongsAbout.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base(SongsAbout.Properties.Resources.Conn, throwIfV1Schema: false)
+            : base(Properties.Settings.Default.DbConnectionString, throwIfV1Schema: false)
         {
         }
 
