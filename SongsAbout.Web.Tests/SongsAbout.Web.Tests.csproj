@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AF438ABE-91D9-43BD-95F2-83C4901477BC}</ProjectGuid>
+    <ProjectGuid>{2867C0C0-B2AE-4903-8510-300AC140BAAC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SongsAbout.Web.Tests</RootNamespace>
@@ -93,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SongsAbout.Web\SongsAbout.Web.csproj">
-      <Project>{E0D5E2C4-CE55-4052-AC29-DB430692E1D8}</Project>
+      <Project>{CE199124-07E8-46C4-8EE6-37A27A330EB1}</Project>
       <Name>SongsAbout.Web</Name>
     </ProjectReference>
   </ItemGroup>
