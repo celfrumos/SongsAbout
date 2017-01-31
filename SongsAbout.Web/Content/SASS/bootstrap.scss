@@ -1,25 +1,31 @@
-﻿/* NUGET: BEGIN LICENSE TEXT
- *
- * Microsoft grants you the right to use these script files for the sole
- * purpose of either: (i) interacting through your browser with the Microsoft
- * website or online service, subject to the applicable licensing or use
- * terms; or (ii) using the files as included with a Microsoft product subject
- * to that product's license terms. Microsoft reserves all other rights to the
- * files not expressly granted by Microsoft, whether by implication, estoppel
- * or otherwise. The notices and licenses below are for informational purposes only.
- *
- * NUGET: END LICENSE TEXT */
-/*!
- * Bootstrap v3.0.0
- *
- * Copyright 2013 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world by @mdo and @fat.
- */
+﻿// Main Colors
+$teal: #255C69;
+$navy: #313B74;
+$green: #2C8437;
+$white: #C4CCFC;
 
-/*! normalize.css v2.1.0 | MIT License | git.io/normalize */
+// Highlights
+$baby_blue: #BDF0FC;
+$lavender: #C4CCFC;
+$light_green: #BCFDC4;
+
+// Shadows
+$dark_teal: #002C36;
+$dark_blue: #020B3C;
+$dark_green: #004408;
+
+// Greys
+$teal_grey: #8C999C;
+$grey_blue: #9D9FAD;
+$grey_green: #AFC4B1;
+$gray-base: #000 !default;
+$gray-darker: lighten($gray-base, 13.5%) !default; // #222
+$gray-dark: lighten($gray-base, 20%) !default; // #333
+$gray: lighten($gray-base, 33.5%) !default; // #555
+
+$black: #000102;
+$white: #fff;
+
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
     display: block;
@@ -38,23 +44,79 @@ audio:not([controls]) {
     display: none;
 }
 
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    &:before, &:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+}
+
 html {
+    font-size: 62.5%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
 
 body {
-    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: white;
+    background-color: $gray-darker;
+}
+
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+button, input, select[multiple], textarea {
+    background-image: none;
 }
 
 a {
-    &:focus {
-        outline: thin dotted;
-    }
+    color: #428bca;
+    text-decoration: none;
 
     &:active, &:hover {
-        outline: 0;
+        color: #2a6496;
+        text-decoration: underline;
+    }
+
+    &:focus {
+        color: #2a6496;
+        text-decoration: underline;
+        outline: thin dotted #333;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+    }
+}
+
+.jumbotron {
+    padding: 30px;
+    margin-bottom: 30px;
+    font-size: 21px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: inherit;
+    background-color: $teal;
+
+    h1 {
+        line-height: 1;
+        color: inherit;
+    }
+
+    p {
+        line-height: 1.4;
     }
 }
 
@@ -302,58 +364,6 @@ table {
     }
 }
 
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    &:before, &:after {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-}
-
-html {
-    font-size: 62.5%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.428571429;
-    color: #333333;
-    background-color: #ffffff;
-}
-
-input, button, select, textarea {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-}
-
-button, input, select[multiple], textarea {
-    background-image: none;
-}
-
-a {
-    color: #428bca;
-    text-decoration: none;
-
-    &:hover {
-        color: #2a6496;
-        text-decoration: underline;
-    }
-
-    &:focus {
-        color: #2a6496;
-        text-decoration: underline;
-        outline: thin dotted #333;
-        outline: 5px auto -webkit-focus-ring-color;
-        outline-offset: -2px;
-    }
-}
 
 img {
     vertical-align: middle;
@@ -2695,8 +2705,8 @@ input {
 
 @font-face {
     font-family: 'Glyphicons Halflings';
-    src: url('../fonts/glyphicons-halflings-regular.eot');
-    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format("embedded-opentype"), url('../fonts/glyphicons-halflings-regular.woff') format("woff"), url('../fonts/glyphicons-halflings-regular.ttf') format("truetype"), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format("svg");
+    src: url('../Fonts/glyphicons-halflings-regular.eot');
+    src: url('../Fonts/glyphicons-halflings-regular.eot?#iefix') format("embedded-opentype"), url('../Fonts/glyphicons-halflings-regular.woff') format("woff"), url('../Fonts/glyphicons-halflings-regular.ttf') format("truetype"), url('../Fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format("svg");
 }
 
 
@@ -5415,24 +5425,6 @@ a.list-group-item.active > .badge {
     }
 }
 
-.jumbotron {
-    padding: 30px;
-    margin-bottom: 30px;
-    font-size: 21px;
-    font-weight: 200;
-    line-height: 2.1428571435;
-    color: inherit;
-    background-color: #eeeeee;
-
-    h1 {
-        line-height: 1;
-        color: inherit;
-    }
-
-    p {
-        line-height: 1.4;
-    }
-}
 
 .container .jumbotron {
     border-radius: 6px;
