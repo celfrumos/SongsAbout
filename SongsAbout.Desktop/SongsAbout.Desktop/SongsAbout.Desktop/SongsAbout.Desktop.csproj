@@ -103,9 +103,8 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SpotifyAPI\bin\Debug\SpotifyAPI.dll</HintPath>
+    <Reference Include="SpotifyAPI">
+      <HintPath>..\..\..\lib\SpotifyAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -468,12 +467,6 @@
     <None Include="Resources\Spotify_Icon_White.png" />
     <None Include="Resources\Spotify_Icon_Green.png" />
     <None Include="Resources\Spotify_Icon_Black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\SongsAbout\SongsAbout\SongsAbout\SongsAbout.csproj">
-      <Project>{d6575c7e-bf1a-4da8-b17d-9067f5f4e86e}</Project>
-      <Name>SongsAbout</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
