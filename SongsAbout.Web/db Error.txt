@@ -1,0 +1,125 @@
+Server Error in '/' Application.
+
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 50 - Local Database Runtime error occurred. Cannot create an automatic instance. See the Windows Application event log for error details.
+)
+
+Description: An unhandled exception occurred during the execution of the current web request. Please review the stack trace for more information about the error and where it originated in the code. 
+
+Exception Details: System.Data.SqlClient.SqlException: A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 50 - Local Database Runtime error occurred. Cannot create an automatic instance. See the Windows Application event log for error details.
+)
+
+Source Error: 
+
+
+Line 153:            {
+Line 154:                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+Line 155:                var result = await UserManager.CreateAsync(user, model.Password);
+Line 156:                if (result.Succeeded)
+Line 157:                {
+
+Source File: C:\Users\jdegr_000\Documents\SongsAbout\SongsAbout.Web\Controllers\AccountController.cs    Line: 155 
+
+Stack Trace: 
+
+
+[SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 50 - Local Database Runtime error occurred. Cannot create an automatic instance. See the Windows Application event log for error details.
+)]
+   System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling) +821
+   System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions) +332
+   System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions) +38
+   System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection) +699
+   System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection) +89
+   System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection) +426
+   System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection) +78
+   System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection) +191
+   System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions) +154
+   System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions) +21
+   System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry) +90
+   System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry) +217
+   System.Data.SqlClient.SqlConnection.Open() +96
+   System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.<Open>b__36(DbConnection t, DbConnectionInterceptionContext c) +10
+   System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch(TTarget target, Action`2 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed) +72
+   System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.Open(DbConnection connection, DbInterceptionContext interceptionContext) +360
+   System.Data.Entity.SqlServer.<>c__DisplayClass33.<UsingConnection>b__32() +426
+   System.Data.Entity.SqlServer.<>c__DisplayClass1.<Execute>b__0() +10
+   System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute(Func`1 operation) +189
+   System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute(Action operation) +78
+   System.Data.Entity.SqlServer.SqlProviderServices.UsingConnection(DbConnection sqlConnection, Action`1 act) +175
+   System.Data.Entity.SqlServer.SqlProviderServices.UsingMasterConnection(DbConnection sqlConnection, Action`1 act) +556
+   System.Data.Entity.SqlServer.SqlProviderServices.CreateDatabaseFromScript(Nullable`1 commandTimeout, DbConnection sqlConnection, String createDatabaseScript) +86
+   System.Data.Entity.SqlServer.SqlProviderServices.DbCreateDatabase(DbConnection connection, Nullable`1 commandTimeout, StoreItemCollection storeItemCollection) +164
+   System.Data.Entity.Core.Common.DbProviderServices.CreateDatabase(DbConnection connection, Nullable`1 commandTimeout, StoreItemCollection storeItemCollection) +76
+   System.Data.Entity.Core.Objects.ObjectContext.CreateDatabase() +134
+   System.Data.Entity.Migrations.Utilities.DatabaseCreator.Create(DbConnection connection) +119
+   System.Data.Entity.Migrations.DbMigrator.EnsureDatabaseExists(Action mustSucceedToKeepDatabase) +142
+   System.Data.Entity.Migrations.DbMigrator.Update(String targetMigration) +78
+   System.Data.Entity.Internal.DatabaseCreator.CreateDatabase(InternalContext internalContext, Func`3 createMigrator, ObjectContext objectContext) +89
+   System.Data.Entity.Internal.InternalContext.CreateDatabase(ObjectContext objectContext, DatabaseExistenceState existenceState) +116
+   System.Data.Entity.Database.Create(DatabaseExistenceState existenceState) +218
+   System.Data.Entity.CreateDatabaseIfNotExists`1.InitializeDatabase(TContext context) +151
+   System.Data.Entity.Internal.<>c__DisplayClassf`1.<CreateInitializationAction>b__e() +76
+   System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action) +60
+   System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization() +357
+   System.Data.Entity.Internal.LazyInternalContext.<InitializeDatabase>b__4(InternalContext c) +7
+   System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input) +110
+   System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action) +198
+   System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase() +73
+   System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType) +28
+   System.Data.Entity.Internal.Linq.InternalSet`1.Initialize() +53
+   System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext() +15
+   System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider() +38
+   System.Data.Entity.QueryableExtensions.FirstOrDefaultAsync(IQueryable`1 source, Expression`1 predicate, CancellationToken cancellationToken) +138
+   System.Data.Entity.QueryableExtensions.FirstOrDefaultAsync(IQueryable`1 source, Expression`1 predicate) +145
+   Microsoft.AspNet.Identity.EntityFramework.<GetUserAggregateAsync>d__6c.MoveNext() +483
+   System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) +92
+   System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) +58
+   Microsoft.AspNet.Identity.CultureAwaiter`1.GetResult() +59
+   Microsoft.AspNet.Identity.<ValidateUserName>d__4.MoveNext() +589
+   System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) +92
+   System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) +58
+   Microsoft.AspNet.Identity.<ValidateAsync>d__0.MoveNext() +293
+   System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) +92
+   System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) +58
+   Microsoft.AspNet.Identity.<CreateAsync>d__0.MoveNext() +558
+   System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) +92
+   System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) +58
+   Microsoft.AspNet.Identity.<CreateAsync>d__d.MoveNext() +550
+   System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) +92
+   System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) +58
+   SongsAbout.Web.Controllers.<Register>d__15.MoveNext() in C:\Users\jdegr_000\Documents\SongsAbout\SongsAbout.Web\Controllers\AccountController.cs:155
+   System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) +92
+   System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) +58
+   System.Web.Mvc.Async.TaskAsyncActionDescriptor.EndExecute(IAsyncResult asyncResult) +97
+   System.Web.Mvc.Async.<>c__DisplayClass37.<BeginInvokeAsynchronousActionMethod>b__36(IAsyncResult asyncResult) +17
+   System.Web.Mvc.Async.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult) +10
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult) +32
+   System.Web.Mvc.Async.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d() +50
+   System.Web.Mvc.Async.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f() +225
+   System.Web.Mvc.Async.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult) +10
+   System.Web.Mvc.Async.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult) +10
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult) +34
+   System.Web.Mvc.Async.<>c__DisplayClass2b.<BeginInvokeAction>b__1c() +26
+   System.Web.Mvc.Async.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult) +100
+   System.Web.Mvc.Async.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult) +10
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult) +27
+   System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState) +13
+   System.Web.Mvc.Async.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult) +29
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult) +36
+   System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller) +12
+   System.Web.Mvc.Async.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult) +22
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult) +26
+   System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult) +10
+   System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState) +21
+   System.Web.Mvc.Async.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult) +29
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult) +28
+   System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result) +9
+   System.Web.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute() +9765121
+   System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously) +155
+
+Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version:4.6.1586.0
