@@ -10,6 +10,7 @@ using SongsAbout.Web.Models;
 
 namespace SongsAbout.Web.Controllers
 {
+    []
     public class ArtistsController : Controller
     {
         private EntityDbContext db = new EntityDbContext();

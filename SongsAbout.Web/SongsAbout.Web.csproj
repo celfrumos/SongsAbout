@@ -49,9 +49,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="SongsAboutLibrary">
-      <HintPath>..\lib\SongsAboutLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="SpotifyAPI">
       <HintPath>..\lib\SpotifyAPI.dll</HintPath>
     </Reference>
@@ -205,13 +202,11 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Content\SASS\bootstrap.scss" />
     <Content Include="Content\SASS\SlateTheme.scss" />
     <Content Include="Content\SASS\_bootstrap-compass.scss" />
     <Content Include="Content\SASS\_bootstrap-compass.scss.map" />
     <Content Include="Content\SASS\_bootstrap-mincer.scss" />
     <Content Include="Content\SASS\_bootstrap-sprockets.scss" />
-    <Content Include="Content\SASS\_bootstrap.scss" />
     <Content Include="Content\SASS\bootstrap\mixins\_alerts.scss" />
     <Content Include="Content\SASS\bootstrap\mixins\_background-variant.scss" />
     <Content Include="Content\SASS\bootstrap\mixins\_border-radius.scss" />
@@ -282,6 +277,12 @@
     <Content Include="Content\SASS\bootstrap\_utilities.scss" />
     <Content Include="Content\SASS\bootstrap\_variables.scss" />
     <Content Include="Content\SASS\bootstrap\_wells.scss" />
+    <Content Include="Content\SASS\bootstrap\_colors.scss" />
+    <Content Include="Content\SASS\Converter.bat" />
+    <Content Include="Content\SASS\SassCompile.rb" />
+    <Content Include="Content\SASS\Site.scss.map" />
+    <Content Include="Content\SASS\SlateTheme.scss.map" />
+    <Content Include="Content\SASS\bootstrap.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
