@@ -1,0 +1,58 @@
+﻿@model SongsAbout.Web.Models.Track
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Track</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Album.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Album.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LengthMinutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LengthMinutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DurationMs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DurationMs)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TrackId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

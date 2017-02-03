@@ -174,14 +174,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlbumsController.cs" />
+    <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TracksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\EntityDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -200,6 +207,81 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Content\SASS\bootstrap.scss" />
     <Content Include="Content\SASS\SlateTheme.scss" />
+    <Content Include="Content\SASS\_bootstrap-compass.scss" />
+    <Content Include="Content\SASS\_bootstrap-compass.scss.map" />
+    <Content Include="Content\SASS\_bootstrap-mincer.scss" />
+    <Content Include="Content\SASS\_bootstrap-sprockets.scss" />
+    <Content Include="Content\SASS\_bootstrap.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_alerts.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_center-block.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_forms.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_grid.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_hide-text.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_image.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_labels.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_nav-vertical-align.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_opacity.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_panels.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_progress-bar.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_reset-filter.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_resize.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_responsive-visibility.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_size.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_tab-focus.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_text-overflow.scss" />
+    <Content Include="Content\SASS\bootstrap\mixins\_vendor-prefixes.scss" />
+    <Content Include="Content\SASS\bootstrap\_alerts.scss" />
+    <Content Include="Content\SASS\bootstrap\_badges.scss" />
+    <Content Include="Content\SASS\bootstrap\_breadcrumbs.scss" />
+    <Content Include="Content\SASS\bootstrap\_button-groups.scss" />
+    <Content Include="Content\SASS\bootstrap\_buttons.scss" />
+    <Content Include="Content\SASS\bootstrap\_carousel.scss" />
+    <Content Include="Content\SASS\bootstrap\_close.scss" />
+    <Content Include="Content\SASS\bootstrap\_code.scss" />
+    <Content Include="Content\SASS\bootstrap\_component-animations.scss" />
+    <Content Include="Content\SASS\bootstrap\_dropdowns.scss" />
+    <Content Include="Content\SASS\bootstrap\_forms.scss" />
+    <Content Include="Content\SASS\bootstrap\_glyphicons.scss" />
+    <Content Include="Content\SASS\bootstrap\_grid.scss" />
+    <Content Include="Content\SASS\bootstrap\_input-groups.scss" />
+    <Content Include="Content\SASS\bootstrap\_jumbotron.scss" />
+    <Content Include="Content\SASS\bootstrap\_labels.scss" />
+    <Content Include="Content\SASS\bootstrap\_list-group.scss" />
+    <Content Include="Content\SASS\bootstrap\_media.scss" />
+    <Content Include="Content\SASS\bootstrap\_mixins.scss" />
+    <Content Include="Content\SASS\bootstrap\_modals.scss" />
+    <Content Include="Content\SASS\bootstrap\_navbar.scss" />
+    <Content Include="Content\SASS\bootstrap\_navs.scss" />
+    <Content Include="Content\SASS\bootstrap\_normalize.scss" />
+    <Content Include="Content\SASS\bootstrap\_pager.scss" />
+    <Content Include="Content\SASS\bootstrap\_pagination.scss" />
+    <Content Include="Content\SASS\bootstrap\_panels.scss" />
+    <Content Include="Content\SASS\bootstrap\_popovers.scss" />
+    <Content Include="Content\SASS\bootstrap\_print.scss" />
+    <Content Include="Content\SASS\bootstrap\_progress-bars.scss" />
+    <Content Include="Content\SASS\bootstrap\_responsive-embed.scss" />
+    <Content Include="Content\SASS\bootstrap\_responsive-utilities.scss" />
+    <Content Include="Content\SASS\bootstrap\_scaffolding.scss" />
+    <Content Include="Content\SASS\bootstrap\_tables.scss" />
+    <Content Include="Content\SASS\bootstrap\_theme.scss" />
+    <Content Include="Content\SASS\bootstrap\_thumbnails.scss" />
+    <Content Include="Content\SASS\bootstrap\_tooltip.scss" />
+    <Content Include="Content\SASS\bootstrap\_type.scss" />
+    <Content Include="Content\SASS\bootstrap\_utilities.scss" />
+    <Content Include="Content\SASS\bootstrap\_variables.scss" />
+    <Content Include="Content\SASS\bootstrap\_wells.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -248,6 +330,21 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Artists\Create.cshtml" />
+    <Content Include="Views\Artists\Delete.cshtml" />
+    <Content Include="Views\Artists\Details.cshtml" />
+    <Content Include="Views\Artists\Edit.cshtml" />
+    <Content Include="Views\Artists\Index.cshtml" />
+    <Content Include="Views\Albums\Create.cshtml" />
+    <Content Include="Views\Albums\Delete.cshtml" />
+    <Content Include="Views\Albums\Details.cshtml" />
+    <Content Include="Views\Albums\Edit.cshtml" />
+    <Content Include="Views\Albums\Index.cshtml" />
+    <Content Include="Views\Tracks\Create.cshtml" />
+    <Content Include="Views\Tracks\Delete.cshtml" />
+    <Content Include="Views\Tracks\Details.cshtml" />
+    <Content Include="Views\Tracks\Edit.cshtml" />
+    <Content Include="Views\Tracks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -294,8 +391,9 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>REM cd ../Content
-REM sass SASS/*.scss ../*.css</PreBuildEvent>
+    <PreBuildEvent>cd ../Content
+sass SASS/*.scss ../*.css
+echo "Sass build command executed"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
