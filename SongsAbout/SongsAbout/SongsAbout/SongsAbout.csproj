@@ -109,9 +109,8 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SpotifyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SpotifyAPI\bin\Debug\SpotifyAPI.dll</HintPath>
+    <Reference Include="SpotifyAPI">
+      <HintPath>..\..\..\lib\SpotifyAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -153,6 +152,9 @@
     <Compile Include="Database\SongDatabase.cs" />
     <Compile Include="Database\TagCollection.cs" />
     <Compile Include="Database\TrackCollection.cs" />
+    <Compile Include="DataSet.cs">
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DbExceptions.cs" />
     <Compile Include="Entities\Album.cs">
       <DependentUpon>Entities.tt</DependentUpon>

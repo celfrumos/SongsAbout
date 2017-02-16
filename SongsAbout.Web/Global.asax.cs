@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using SongsAbout.Web;
+using SongsAbout.Web.Models;
+using System.Data.Entity;
+using Database = System.Data.Entity.Database;
 
 namespace SongsAbout.Web
 {
@@ -12,6 +16,9 @@ namespace SongsAbout.Web
     {
         protected void Application_Start()
         {
+            System.Data.Entity.Database.SetInitializer(
+                new EntityInitializer());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
