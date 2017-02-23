@@ -17,7 +17,7 @@ namespace SongsAbout.Web
         protected void Application_Start()
         {
             System.Data.Entity.Database.SetInitializer(
-                new EntityInitializer());
+                new EntityDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

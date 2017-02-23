@@ -34,6 +34,7 @@ namespace SongsAbout.Web.Models
 
         [DisplayName("Main Artist")]
         public Artist MainArtist { get; set; }
+
         public List<Track> Tracks { get; set; }
         public List<Artist> FeaturedArtists { get; set; }
 

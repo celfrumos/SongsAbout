@@ -18,16 +18,20 @@ namespace SongsAbout.Web.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class EntityDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public DbSet<Artist> Artists { get; set; }
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Track> Tracks { get; set; }
+
+        public EntityDbContext() : base("DatabaseFile")
         {
+
         }
 
-        public static ApplicationDbContext Create()
+        public static EntityDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new EntityDbContext();
         }
     }
 }

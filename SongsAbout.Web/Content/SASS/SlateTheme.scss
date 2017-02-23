@@ -4,6 +4,7 @@
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+/*@import "_colors.scss";*/
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
@@ -5178,6 +5179,7 @@ button.close {
 @media (min-width: 992px) {
   .modal-lg {
     width: 900px; } }
+/*@import "_colors.scss";*/
 .tooltip {
   position: absolute;
   z-index: 1070;
@@ -5806,7 +5808,5 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
-body {
-  margin: 0; }
 
 /*# sourceMappingURL=SlateTheme.scss.map */
