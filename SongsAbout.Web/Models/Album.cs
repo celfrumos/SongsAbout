@@ -28,9 +28,9 @@ namespace SongsAbout.Web.Models
         [DisplayName("Release Date")]
         public DateTime? ReleaseDate { get; set; }
 
-
-        [DisplayName("Cover Art")]
-        public Image CoverArt { get; set; }
+        
+        //[DisplayName("Cover Art")]
+        //public Image CoverArt { get; set; }
 
         [DisplayName("Main Artist")]
         public Artist MainArtist { get; set; }

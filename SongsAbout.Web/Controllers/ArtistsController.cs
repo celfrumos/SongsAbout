@@ -10,7 +10,6 @@ using SongsAbout.Web.Models;
 
 namespace SongsAbout.Web.Controllers
 {
-    []
     public class ArtistsController : Controller
     {
         private EntityDbContext db = new EntityDbContext();
@@ -37,6 +36,7 @@ namespace SongsAbout.Web.Controllers
         }
 
         // GET: Artists/Create
+        [Authorize(Roles = "canEdit")]
         public ActionResult Create()
         {
             return View();
@@ -47,7 +47,8 @@ namespace SongsAbout.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ArtistId,Name,SpotifyUri,SpotifyHref")] Artist artist)
+        [Authorize(Roles = "canEdit")]
+        public ActionResult Create([Bind(Include = "ArtistId,Name,Bio,Href,Uri")] Artist artist)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +61,7 @@ namespace SongsAbout.Web.Controllers
         }
 
         // GET: Artists/Edit/5
+      //  [Authorize(Roles = "canEdit")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,11 +81,12 @@ namespace SongsAbout.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ArtistId,Name,SpotifyUri,SpotifyHref")] Artist artist)
+        //[Authorize(Roles = "canEdit")]
+        public ActionResult Edit([Bind(Include = "ArtistId,Name,Bio,Href,Uri")] Artist artist)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(artist).State = EntityState.Modified;
+                db.Entry(artist).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -91,6 +94,7 @@ namespace SongsAbout.Web.Controllers
         }
 
         // GET: Artists/Delete/5
+       // [Authorize(Roles = "canEdit")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +110,7 @@ namespace SongsAbout.Web.Controllers
         }
 
         // POST: Artists/Delete/5
+      //  [Authorize(Roles = "canEdit")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

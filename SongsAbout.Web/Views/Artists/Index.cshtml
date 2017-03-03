@@ -1,45 +1,38 @@
 ﻿@model IEnumerable<SongsAbout.Web.Models.Artist>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Artists";
 }
 
-<h2>Index</h2>
+<h2>Artists</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SpotifyUri)
+            @Html.DisplayNameFor(model => model.Bio)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SpotifyHref)
-        </th>
-        <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SpotifyUri)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SpotifyHref)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ArtistId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ArtistId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ArtistId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img class="artist-table-image" width="@70" height="70" src="@item.ProfilePic.SourceFile" alt="img-@item.Name" />
+            </td>
+            <td>
+                @Html.ActionLink(item.Name, "Details", new { id = item.ArtistId })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ArtistId }) <text>|</text>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ArtistId })
+            </td>
+        </tr>
+    }
 
 </table>

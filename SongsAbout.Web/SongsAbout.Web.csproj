@@ -49,9 +49,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="SongsAboutLibrary">
-      <HintPath>..\lib\SongsAboutLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="SpotifyAPI">
       <HintPath>..\lib\SpotifyAPI.dll</HintPath>
     </Reference>
@@ -176,6 +173,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,6 +185,7 @@
     <Compile Include="Models\EntityDbInitializer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -196,94 +195,18 @@
     <Content Include="App_Data\SongsAboutDb_log.ldf">
       <DependentUpon>SongsAboutDb.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\ie.css" />
-    <Content Include="Content\index.html" />
-    <Content Include="Content\print.css" />
-    <Content Include="Content\screen.css" />
-    <Content Include="Content\SlateTheme.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\index.html" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\SlateTheme.css" />
+    <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Artists\solarsuit.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_alerts.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_background-variant.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_border-radius.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_buttons.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_center-block.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_clearfix.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_forms.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_gradients.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_grid-framework.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_grid.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_hide-text.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_image.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_labels.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_list-group.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_nav-divider.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_nav-vertical-align.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_opacity.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_pagination.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_panels.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_progress-bar.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_reset-filter.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_reset-text.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_resize.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_responsive-visibility.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_size.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_tab-focus.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_table-row.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_text-emphasis.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_text-overflow.scssc" />
-    <Content Include="Content\.sass-cache\4b0975cc55a062d27085c1a6cada3e7e737acea5\_vendor-prefixes.scssc" />
-    <Content Include="Content\.sass-cache\c2fbdb7912ba2a3f1ae9a8774c761f96495fddaf\bootstrap.scssc" />
-    <Content Include="Content\.sass-cache\c2fbdb7912ba2a3f1ae9a8774c761f96495fddaf\SlateTheme.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_alerts.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_badges.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_breadcrumbs.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_button-groups.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_buttons.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_carousel.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_close.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_code.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_colors.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_component-animations.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_dropdowns.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_forms.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_glyphicons.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_grid.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_input-groups.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_jumbotron.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_labels.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_list-group.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_media.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_mixins.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_modals.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_navbar.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_navs.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_normalize.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_pager.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_pagination.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_panels.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_popovers.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_print.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_progress-bars.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_responsive-embed.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_responsive-utilities.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_scaffolding.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_tables.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_thumbnails.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_tooltip.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_type.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_utilities.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_variables.scssc" />
-    <Content Include="Content\.sass-cache\c7dfffd3c620362212976c3afb7b3efd3152a0ea\_wells.scssc" />
-    <Content Include="Content\SASS\ie.scss" />
-    <Content Include="Content\SASS\print.scss" />
-    <Content Include="Content\SASS\screen.scss" />
-    <Content Include="Content\SASS\styles.scss" />
-    <Content Include="Content\SASS\_bootstrap-variables.scss" />
     <Content Include="Content\SlateTheme.css.map" />
     <Content Include="Content\SlateTheme.scss" />
     <Content Include="Content\SlateTheme.scss.map" />
@@ -336,9 +259,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Artists\Create.cshtml" />
+    <Content Include="Views\Artists\Delete.cshtml" />
+    <Content Include="Views\Artists\Details.cshtml" />
+    <Content Include="Views\Artists\Edit.cshtml" />
+    <Content Include="Views\Artists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\SASS\bootstrap\mixins\" />
+    <Folder Include="Content\SASS\" />
+    <Folder Include="Images\Albums\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
@@ -384,7 +313,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>compass compile ../</PreBuildEvent>
+    <PreBuildEvent>REM compass compile ../</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
