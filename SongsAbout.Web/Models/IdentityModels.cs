@@ -13,7 +13,7 @@ namespace SongsAbout.Web.Models
         public string FirstName { get; set; }
         public DateTime BirthDate { get; set; }
         public string LastName { get; set; }
-        
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -26,8 +26,12 @@ namespace SongsAbout.Web.Models
     public class EntityDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Artist> Artists { get; set; }
-        public DbSet<Album> Albums { get; set; }
-        public DbSet<Track> Tracks { get; set; }
+        //  public DbSet<Album> Albums { get; set; }
+        // public DbSet<Track> Tracks { get; set; }
+
+        public DbSet<ProfilePic> ProfilePics { get; set; }
+        //   public DbSet<AlbumCover> AlbumCovers { get; set; }
+
 
         public EntityDbContext() : base("DatabaseFile")
         {

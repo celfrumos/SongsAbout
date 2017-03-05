@@ -1,0 +1,38 @@
+﻿@model IEnumerable<SongsAbout.Web.Models.Artist>
+
+@{
+    ViewBag.Title = "Artists";
+}
+
+<h2>Artists</h2>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bio)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img class="artist-table-image" width="70" height="70" src="@item.ProfilePic" alt="img-@item.Name" />
+            </td>
+            <td>
+                @Html.ActionLink(item.Name, "Details", new { id = item.ArtistId })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ArtistId }) <text>|</text>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ArtistId })
+            </td>
+        </tr>
+    }
+
+</table>

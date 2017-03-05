@@ -16,38 +16,15 @@ namespace SongsAbout.Web.Models
         {
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            context.ProfilePics.Add(new ProfilePic { PictureId = 1, Url = @"/Images/Artists/solarsuit.jpg", Width = 700, Height = 700, AltText = "img-solarsuit" });
+            context.ProfilePics.Add(new ProfilePic { PictureId = 2, Url = @"/Images/Artists/william-fitzsimmons.jpg", Width = 619, Height = 511, AltText = "img-william-fitzsimmons" });
+            context.ProfilePics.Add(new ProfilePic { PictureId = 3, Url = @"https://yt3.ggpht.com/-1S7RkXQox98/AAAAAAAAAAI/AAAAAAAAAAA/hainLSG7AaM/s900-c-k-no-mo-rj-c0xffffff/photo.jpg", Width = 642, Height = 642, AltText = "img-christina-grimmie" });
+            context.ProfilePics.Add(new ProfilePic { PictureId = 4, Url = @"https://i.scdn.co/image/96a2e527431f7bf39cea4bf8702fc8159f08e2aa", Width = 640, Height = 640, AltText = "img-john-mayer" });
 
-            Artist SolarSuit = new Artist
-            {
-                ArtistId = 0,
-                Name = "Solarsuit",
-                Bio = "I went to school with and took music lessons with half of these guys. They just got over 100,000 listens on their latest single, \"For the thrill\"",
-                SpotifyWebPage = @"https://open.spotify.com/artist/0baEjE334rm6o1DfzbTcHT",
-                ApiHref = @"https://api.spotify.com/v1/artists/0baEjE334rm6o1DfzbTcHT",
-                SpotifyUri = "spotify:artist:0baEjE334rm6o1DfzbTcHT",
-                ProfilePic = new Picture { SourceFile = "/Images/Artists/solarsuit.jpg", Width = 700, Height = 700 }
-            };
-            Artist WilliamFitzsimmons = new Artist
-            {
-                Name = "William Fitzsimmons",
-                Bio = "Slow is is forte. And he's killin it",
-                ApiHref = @"https://api.spotify.com/v1/artists/41FEVJCBGidsJwbjq0KfgM",
-                SpotifyUri = "spotify:artist:41FEVJCBGidsJwbjq0KfgM"
-            };
-            Artist ChristinaGrimmie = new Artist
-            {
-                Name = "Christina Grimmie",
-                Bio = "Started on Youtube, made it big on The Voice, but was tragically murdered last year.",
-                ApiHref = @"https://api.spotify.com/v1/artists/0Cav8jyZKAHMFbAusOmjku",
-                SpotifyUri = "spotify:artist:0Cav8jyZKAHMFbAusOmjku"
-            };
-            Artist JohnMayer = new Artist
-            {
-                Name = "John Mayer",
-                Bio = "The magical d-bag everyone wants to be.",
-                ApiHref = @"https://api.spotify.com/v1/artists/0hEurMDQu99nJRq8pTxO14",
-                SpotifyUri = "spotify:artist:0hEurMDQu99nJRq8pTxO14"
-            };
+            Artist SolarSuit = new Artist { ArtistId = 0, Name = "Solarsuit", Bio = "I went to school with and took music lessons with half of these guys. They just got over 100,000 listens on their latest single, \"For the thrill\"", SpotifyId = "0baEjE334rm6o1DfzbTcHT", PictureId = 1 };
+            Artist WilliamFitzsimmons = new Artist { Name = "William Fitzsimmons", Bio = "Slow is is forte. And he's killin it", SpotifyId = "41FEVJCBGidsJwbjq0KfgM", PictureId = 2 };
+            Artist ChristinaGrimmie = new Artist { Name = "Christina Grimmie", Bio = "Started on Youtube, made it big on The Voice, but was tragically murdered last year.", SpotifyId = "0Cav8jyZKAHMFbAusOmjku", PictureId = 3 };
+            Artist JohnMayer = new Artist { Name = "John Mayer", Bio = "The magical d-bag everyone wants to be.", SpotifyId = "0hEurMDQu99nJRq8pTxO14", PictureId = 4 };
 
             context.Artists.Add(SolarSuit);
             context.Artists.Add(WilliamFitzsimmons);
@@ -56,30 +33,10 @@ namespace SongsAbout.Web.Models
 
             base.Seed(context);
 
-            var admin = new ApplicationUser
-            {
-                UserName = "jdegraw",
-                Email = "jdegraw42@gmail.com",
-                BirthDate = new DateTime(1994, month: 4, day: 18),
-                FirstName = "Josh",
-                LastName = "DeGraw"
-            };
-            var editor = new ApplicationUser
-            {
-                UserName = "editor",
-                Email = "editor@gmail.com",
-                BirthDate = new DateTime(1994, month: 4, day: 18),
-                FirstName = "Editor",
-                LastName = "DeGraw"
-            };
-            var viewer = new ApplicationUser
-            {
-                UserName = "Viewer",
-                Email = "viewer@gmail.com",
-                BirthDate = new DateTime(1994, month: 4, day: 18),
-                FirstName = "Viewer",
-                LastName = "DeGraw"
-            };
+            var admin = new ApplicationUser { UserName = "jdegraw", Email = "jdegraw42@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Josh", LastName = "DeGraw" };
+            var editor = new ApplicationUser { UserName = "editor", Email = "editor@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Editor", LastName = "DeGraw" };
+            var viewer = new ApplicationUser { UserName = "Viewer", Email = "viewer@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Viewer", LastName = "DeGraw" };
+
             userManager.Create(admin, "password");
             userManager.Create(editor, "password");
             userManager.Create(viewer, "password");

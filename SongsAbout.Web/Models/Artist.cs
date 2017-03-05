@@ -15,11 +15,10 @@ namespace SongsAbout.Web.Models
     /// <summary>
     /// Partial Class to hold Artist Functions
     /// </summary>
-    public partial class Artist
+    public partial class Artist : SaEntity
     {
         // DbEntityContext artistContext = new DbEntityContext();
-        //public const string TABLE_NAME = "Artists";
-        //public const string TYPE_STRING = "Artist";
+        protected override string TypeName { get { return "Artist"; } }
         //public const string TITLE_COLUMN = "name";
 
         //  public readonly DbEntityType DbEntityType = DbEntityType.Artist;
@@ -28,25 +27,24 @@ namespace SongsAbout.Web.Models
         public int ArtistId { get; set; }
 
         [Display(Name = "Artist Name")]
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         [Display(Name = "Artist Biography")]
         public string Bio { get; set; }
 
-        public string SpotifyWebPage { get; set; }
-
-        [Display(Name = "Spotify API Link")]
-        public string ApiHref { get; set; }
-
-        [Display(Name = "Spotify URI")]
-        public string SpotifyUri { get; set; }
-
-        public List<Album> Albums { get; set; }
-
-        public List<Track> Tracks { get; set; }
+        [Display(Name = "Spotify Id")]
+        public override string SpotifyId { get; set; }
 
         [Display(Name = "Profile Picture")]
-        public Picture ProfilePic { get; set; }
+        public ProfilePic ProfilePic { get; set; }
+
+        public int PictureId { get; set; }
+
+     //   public List<Album> Albums { get; set; }
+
+       // public List<Track> Tracks { get; set; }
+
+
 
 
     }
