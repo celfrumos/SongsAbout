@@ -13,6 +13,7 @@ namespace SongsAbout.Web.Models
         public string FirstName { get; set; }
         public DateTime BirthDate { get; set; }
         public string LastName { get; set; }
+        public string SpotifyId { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

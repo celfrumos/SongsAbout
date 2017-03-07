@@ -192,7 +192,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Secret\Secrets.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Views\ArtistsController.cs" />
     <Compile Include="Views\SearchController.cs" />
   </ItemGroup>
   <ItemGroup>

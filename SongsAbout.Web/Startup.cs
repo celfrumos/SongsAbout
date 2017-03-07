@@ -74,8 +74,8 @@ namespace SongsAbout
             {
                 string clientId = Secrets.Spotify.ClientId;
 
-                SpotifyWebAPI _spotify = new SpotifyWebAPI();
-                WebAPIFactory webApiFactory = new WebAPIFactory(
+                var _spotify = new SpotifyWebAPI();
+                var webApiFactory = new WebAPIFactory(
                     REDIRECT_URI,
                     PORT,
                    clientId,

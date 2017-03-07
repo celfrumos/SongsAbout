@@ -7,7 +7,7 @@ using System.Data.Entity.Core;
 using System.Data.Linq;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-
+using System.Web.Mvc;
 
 namespace SongsAbout.Web.Models
 {
@@ -15,6 +15,7 @@ namespace SongsAbout.Web.Models
     /// <summary>
     /// Partial Class to hold Artist Functions
     /// </summary>
+    [Serializable]
     public partial class Artist : SaEntity
     {
         // DbEntityContext artistContext = new DbEntityContext();
@@ -40,7 +41,7 @@ namespace SongsAbout.Web.Models
 
         public int ProfilePicId { get; set; }
 
-        [Display(Name = "Albums")]
+        [Display(Name = "Albums", ResourceType = typeof(Album))]
         public List<Album> Albums { get; set; }
 
         // public List<Track> Tracks { get; set; }

@@ -29,9 +29,12 @@ namespace SongsAbout.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Artist artist = (from a in db.Artists
-                             where a.ArtistId == id
-                             select a).Include(a => a.ProfilePic).FirstOrDefault();
+            Artist artist = await (from a in db.Artists
+                                   where a.ArtistId == id
+                                   select a)
+                                   .Include(a => a.ProfilePic)
+                                   .Include(a => a.Albums)
+                                   .FirstOrDefaultAsync();
 
             if (artist == null)
             {

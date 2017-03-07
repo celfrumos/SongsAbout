@@ -1,48 +1,33 @@
 ﻿@model SongsAbout.Web.Models.Artist
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"{Model.Name} Details";
 }
 
-<h2>Details</h2>
+<h2>@Model.Name</h2>
 
 <div>
     <h4>Artist</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfilePic.AltText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfilePic.AltText)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Bio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Bio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SpotifyId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SpotifyId)
-        </dd>
-
-    </dl>
+    @if (Model.ProfilePic != null)
+    {
+        <img src="@Model.ProfilePic.Url" width="@Model.ProfilePic.Width" height="@Model.ProfilePic.Height" class="artist-details-image" alt="@Model.ProfilePic.AltText" />
+    }
+    else
+    {
+        <img src="" width="640" height="640" class="artist-details-image" alt="img-@Model.Name" />
+    }
+    <p>@Model.Bio</p>
+    <table id="artist-albums">
+        <caption>Albums</caption>
+        @foreach (var album in Model.Albums)
+        {
+            <tr>
+                <td class="artist-album-image"><img src="@album.AlbumCover.Url" alt="@album.AlbumCover.AltText" width="64" height="64" /></td>
+                <td>@album.Name</td>
+            </tr>
+        }
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistId }) |
