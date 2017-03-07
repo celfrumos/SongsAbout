@@ -216,7 +216,7 @@
         </member>
         <member name="M:SpotifyAPI.Web.Auth.ClientCredentialsAuth.DoAuth">
             <summary>
-                Starts the auth process and
+            Starts the auth process and
             </summary>
             <returns>A new Token</returns>
         </member>

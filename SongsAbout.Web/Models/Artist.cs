@@ -38,14 +38,11 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Profile Picture")]
         public ProfilePic ProfilePic { get; set; }
 
-        public int PictureId { get; set; }
+        public int ProfilePicId { get; set; }
 
-     //   public List<Album> Albums { get; set; }
+        [Display(Name = "Albums")]
+        public List<Album> Albums { get; set; }
 
-       // public List<Track> Tracks { get; set; }
-
-
-
-
+        // public List<Track> Tracks { get; set; }
     }
 }

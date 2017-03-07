@@ -6,32 +6,40 @@ using System.Drawing;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SongsAbout.Web.Models
 {
-    public partial class Album
+    public partial class Album : SaEntity
     {
+        protected override string TypeName { get { return "Album"; } }
+
+        [Key]
         public int AlbumId { get; set; }
 
         [DisplayName("Album Name")]
-        public string Name { get; set; }
-        public int MainArtistId { get; set; }
-
-        [DisplayName("Spotify Id")]
-        public string SpotifyUri { get; set; }
-
+        public override string Name { get; set; }
 
         [DisplayName("Spotify Link")]
         public string SpotifyHref { get; set; }
 
-
         [DisplayName("Release Date")]
         public DateTime? ReleaseDate { get; set; }
 
-        [DisplayName("Main Artist")]
-        public Artist MainArtist { get; set; }
+        [DisplayName("Album")]
+        public AlbumCover AlbumCover { get; set; }
 
+        public int AlbumCoverId { get; set; }
+
+        public int ArtistId { get; set; }
+
+        [DisplayName("Main Artist")]
+        public Artist Artist { get; set; }
+
+        [Display(Name = "Tracks")]
         public List<Track> Tracks { get; set; }
+
+        [Display(Name = "Featured Artists")]
         public List<Artist> FeaturedArtists { get; set; }
 
         /*

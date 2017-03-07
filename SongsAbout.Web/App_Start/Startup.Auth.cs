@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using SongsAbout.Web.Models;
+using SpotifyAPI.Web.Enums;
 
 namespace SongsAbout.Web
 {
@@ -34,7 +35,7 @@ namespace SongsAbout.Web
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -63,6 +64,14 @@ namespace SongsAbout.Web
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            //app.Use<SpotifyAPI.Web.Auth.ClientCredentialsAuth>(
+            //    new
+            //    {
+            //        Scope = Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
+            //        Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic,
+            //        ClientId = "4d8b5c54f513430f8b0f486974c89402"
+            //    });
         }
     }
 }

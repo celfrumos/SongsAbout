@@ -1,24 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Core;
-using System.Data.Linq;
 using System.Linq;
-using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
-using SongsAbout;
 using SongsAbout.Database;
-using System.Windows.Forms;
-using SongsAbout.Properties;
 using SongsAbout.Enums;
-using System.IO;
-using Image = System.Drawing.Image;
-using System.Data.Sql;
-using System.Data.SqlClient;
-using System.Collections;
+using System.Drawing;
 
 namespace SongsAbout.Entities
 {
@@ -32,7 +18,6 @@ namespace SongsAbout.Entities
         public const string TABLE_NAME = "Artists";
         public const string TypeString = "Artist";
         public const string TitleColumn = "name";
-        Type a = typeof(Artist);
 
         public override string TableName
         {

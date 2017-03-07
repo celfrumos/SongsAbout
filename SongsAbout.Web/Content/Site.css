@@ -27,3 +27,8 @@ textarea {
     width: 70px;
     height: 70px;
 }
+
+.artist-details-image {
+    max-width: 700px;
+    max-height: 700px;
+}
