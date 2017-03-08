@@ -54,7 +54,7 @@ namespace SongsAbout.Web.Models
                 Name = "÷",
                 ReleaseDate = new DateTime(2016, 10, 12),
                 SpotifyId = "7oJa8bPFKVbq4c7NswXHw8",
-                Artist = EdSheeran,
+                ArtistId = EdSheeran.ArtistId,
                 AlbumCover = new AlbumCover { Height = 640, Url = @"https://i.scdn.co/image/621d2909bcc2c26cd0b274aab0414c9d422a1576", Width = 640 }
             };
 
@@ -63,7 +63,7 @@ namespace SongsAbout.Web.Models
                 Name = "Just For the Thrill",
                 ReleaseDate = new DateTime(2016, 10, 12),
                 SpotifyId = "38z89yJ9RJgsbW8D1bYNHZ",
-                Artist = SolarSuit,
+                ArtistId = SolarSuit.ArtistId,
                 AlbumCover = new AlbumCover { Width = 640, Height = 640, Url = @"https://i.scdn.co/image/3e9e8cf09f1966c34113e7937d05db1589d6744d" }
             };
 
@@ -71,13 +71,18 @@ namespace SongsAbout.Web.Models
             {
                 Name = "The Definition",
                 ReleaseDate = new DateTime(2016, 10, 12),
-                Artist = JonBellion
+                ArtistId = JonBellion.ArtistId
             };
 
+            Album Plus = new Album
+            {
+                ArtistId = EdSheeran.ArtistId,
+                Name = "+",
+                ReleaseDate = new DateTime(2016, 10, 12)
+            };
 
-
-            Album Plus = new Album { Artist = EdSheeran, Name = "+", ReleaseDate = new DateTime(2016, 10, 12) };
             context.Albums.Add(Divide);
+            context.Albums.Add(Plus);
             context.Albums.Add(JustForTheThrill);
             base.Seed(context);
 

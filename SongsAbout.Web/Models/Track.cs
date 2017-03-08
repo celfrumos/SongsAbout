@@ -22,8 +22,8 @@ namespace SongsAbout.Web.Models
         public Artist MainArtist { get; set; }
 
         public Album Album { get; set; }
-
-        //  public double LengthMinutes { get; set; }
+        public bool CanPlay { get; set; }
+        public double LengthMinutes { get; set; }
         public int DurationMs { get; set; }
 
         public List<Artist> Artists { get; set; }

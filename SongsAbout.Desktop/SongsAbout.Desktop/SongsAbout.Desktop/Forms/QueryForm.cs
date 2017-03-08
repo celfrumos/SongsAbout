@@ -9,7 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 using SongsAbout.Desktop.Properties;
 using SongsAbout;
 using SongsAbout.DataSetTableAdapters;

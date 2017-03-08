@@ -76,7 +76,7 @@ namespace SongsAbout.Forms
 
         public async void msiConnectSpotify_Click(object sender, EventArgs e)
         {
-
+            await Task.Run(() => UserSpotify.AuthenticateAsync());
         }
 
 

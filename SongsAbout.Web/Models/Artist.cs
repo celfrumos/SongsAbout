@@ -41,7 +41,7 @@ namespace SongsAbout.Web.Models
 
         public int ProfilePicId { get; set; }
 
-        [Display(Name = "Albums", ResourceType = typeof(Album))]
+        [Display(Name = "Albums")]
         public List<Album> Albums { get; set; }
 
         // public List<Track> Tracks { get; set; }

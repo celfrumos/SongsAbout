@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Database;
+using SongsAbout.Desktop.Database;
 using SongsAbout.Enums;
 using SongsAbout.Forms;
 using System.Threading.Tasks;
@@ -31,8 +31,8 @@ namespace SongsAbout
                 Application.SetCompatibleTextRenderingDefault(false);
                 ConnectSpotify();
                 SPanel.LargeQuery = false;
-                Program.LocalAPI = new SpotifyLocalAPI();
-                Program.LocalAPI.Connect();
+                //  Program.LocalAPI = new SpotifyLocalAPI();
+                // Program.LocalAPI.Connect();
 
                 Application.Run(new AlbumDisplayForm());
             }
@@ -50,16 +50,17 @@ namespace SongsAbout
             }
         }
 
-        private async static void ConnectSpotify()
+        private async static void ConnectSpotifyAsync()
         {
             try
             {
-                if (User.Default.SpotifyWebAPI == null)
+                if (UserSpotify.WebAPI == null)
                 {
                     try
                     {
-                        var task = Task.Run(() => UserSpotify.AuthenticateAsync());
-                        task.Wait();
+                        // var task = 
+                        await Task.Run(() => UserSpotify.AuthenticateAsync());
+                        //  task.Wait();
                     }
                     catch (System.Resources.MissingManifestResourceException ex)
                     {
@@ -79,10 +80,10 @@ namespace SongsAbout
                 {
                     MessageBox.Show("Profile Already Defined.");
 
-                    UserSpotify.FetchProfile();
-                    UserSpotify.FetchFollowedArtists();
-                    UserSpotify.FetchProfilePic();
-                    User.Default.Save();
+                    // UserSpotify.FetchProfile();
+                    //UserSpotify.FetchFollowedArtists();
+                    //UserSpotify.FetchProfilePic();
+                    //User.Default.Save();
                 }
             }
             catch (SpotifyAuthError ex)
@@ -94,7 +95,51 @@ namespace SongsAbout
                 MessageBox.Show(ex.Message);
             }
         }
+        private static void ConnectSpotify()
+        {
+            try
+            {
+                if (UserSpotify.WebAPI == null)
+                {
+                    try
+                    {
+                        // var task = 
+                        UserSpotify.Authenticate();
+                        //  task.Wait();
+                    }
+                    catch (System.Resources.MissingManifestResourceException ex)
+                    {
+                        Console.WriteLine($"Error connecting to Spotify: {ex.Message}");
+                        throw;
+                    }
+                    catch (SpotifyAuthError ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error assigning user profile");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Profile Already Defined.");
 
+                    // UserSpotify.FetchProfile();
+                    //UserSpotify.FetchFollowedArtists();
+                    //UserSpotify.FetchProfilePic();
+                    //User.Default.Save();
+                }
+            }
+            catch (SpotifyAuthError ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
     }
 

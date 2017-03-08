@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Linq;
 using System.IO;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 
 
 namespace SongsAbout.Forms

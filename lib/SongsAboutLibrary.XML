@@ -764,93 +764,6 @@
             Used to sort self-referenced table's rows
             </summary>
         </member>
-        <member name="T:SongsAbout.UserSpotify">
-            <summary>
-            Class to hold Methods used for dealing with SpotifyAPI, specific to the user
-            </summary>
-        </member>
-        <member name="P:SongsAbout.UserSpotify.WebAPI">
-            <summary>
-            Use this to Call the WebAPI for spotify
-            </summary>
-        </member>
-        <member name="P:SongsAbout.UserSpotify.PrivateId">
-            <summary>
-            User's private Spotify Id
-            </summary>
-        </member>
-        <member name="P:SongsAbout.UserSpotify.ProfilePic">
-            <summary>
-            User's Spotify Profile Picture
-            </summary>
-        </member>
-        <member name="P:SongsAbout.UserSpotify.PrivateProfile">
-            <summary>
-            Get the User's Private Profile
-            </summary>
-        </member>
-        <member name="P:SongsAbout.UserSpotify.FollowedArtists">
-            <summary>
-            Get the User's Followed Artists
-            </summary>
-        </member>
-        <member name="M:SongsAbout.UserSpotify.AuthenticateAsync">
-            <summary>
-            Initial Setup of USer Spotify Settings
-            </summary>
-        </member>
-        <member name="M:SongsAbout.UserSpotify.ImplicitConnectSpotify">
-            <summary>
-            Implicitly connect spotify. Not yet effective
-            </summary>        
-        </member>
-        <member name="M:SongsAbout.UserSpotify.FetchProfile">
-            <summary>
-            Gets profile info via WebAPI. Assigns user settings PrivateProfile, PrivateId, and PublicProfile
-            </summary>
-        </member>
-        <member name="M:SongsAbout.UserSpotify.Search(System.String,SpotifyAPI.Web.Enums.SearchType,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Search an from Spotify
-            </summary>
-            <param name="query"></param>
-            <param name="searchType"></param>
-            <param name="limit"></param>
-            <param name="offset"></param>
-            <param name="retryCount"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SongsAbout.UserSpotify.GetSavedTracks">
-            <summary>
-            Returns a list of User's saved tracks
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SongsAbout.UserSpotify.FetchProfilePic">
-            <summary>
-            Assign User Setting ProfilePic
-            </summary>
-            <exception cref="T:SpotifyAPI.Web.SpotifyException"></exception>
-            <exception cref="T:SpotifyAPI.Web.SpotifyUndefinedAPIError"></exception>
-            <exception cref="T:SpotifyAPI.Web.SpotifyImageImportError"></exception>
-        </member>
-        <member name="M:SongsAbout.UserSpotify.FetchFollowedArtists">
-            <summary>
-            Assign User Setting for FollowedArtists
-            </summary>
-        </member>
-        <member name="M:SongsAbout.UserSpotify.GetTopTracks">
-            <summary>
-            Get the User's top tracks
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:SongsAbout.UserSpotify.GetPlaylists">
-            <summary>
-            Returns the User's Playlists
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:SongsAbout.DataSet">
              <summary>
             Represents a strongly typed in-memory cache of data.
@@ -1161,6 +1074,98 @@
             <summary>
               Looks up a localized string similar to 4d8b5c54f513430f8b0f486974c89402.
             </summary>
+        </member>
+        <member name="T:SongsAbout.UserSpotify">
+            <summary>
+            Class to hold Methods used for dealing with SpotifyAPI, specific to the user
+            </summary>
+        </member>
+        <member name="P:SongsAbout.UserSpotify.WebAPI">
+            <summary>
+            Use this to Call the WebAPI for spotify
+            </summary>
+        </member>
+        <member name="P:SongsAbout.UserSpotify.PrivateId">
+            <summary>
+            User's private Spotify Id
+            </summary>
+        </member>
+        <member name="P:SongsAbout.UserSpotify.ProfilePic">
+            <summary>
+            User's Spotify Profile Picture
+            </summary>
+        </member>
+        <member name="P:SongsAbout.UserSpotify.PrivateProfile">
+            <summary>
+            Get the User's Private Profile
+            </summary>
+        </member>
+        <member name="P:SongsAbout.UserSpotify.FollowedArtists">
+            <summary>
+            Get the User's Followed Artists
+            </summary>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.AuthenticateAsync(System.String)">
+            <summary>
+            Initial Setup of USer Spotify Settings
+            </summary>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.Authenticate(System.String)">
+            <summary>
+            Initial Setup of USer Spotify Settings
+            </summary>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.ImplicitConnectSpotify">
+            <summary>
+            Implicitly connect spotify. Not yet effective
+            </summary>        
+        </member>
+        <member name="M:SongsAbout.UserSpotify.FetchProfile">
+            <summary>
+            Gets profile info via WebAPI. Assigns user settings PrivateProfile, PrivateId, and PublicProfile
+            </summary>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.Search(System.String,SpotifyAPI.Web.Enums.SearchType,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Search an from Spotify
+            </summary>
+            <param name="query"></param>
+            <param name="searchType"></param>
+            <param name="limit"></param>
+            <param name="offset"></param>
+            <param name="retryCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.GetSavedTracks">
+            <summary>
+            Returns a list of User's saved tracks
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.FetchProfilePic">
+            <summary>
+            Assign User Setting ProfilePic
+            </summary>
+            <exception cref="T:SpotifyAPI.Web.SpotifyException"></exception>
+            <exception cref="T:SpotifyAPI.Web.SpotifyUndefinedAPIError"></exception>
+            <exception cref="T:SpotifyAPI.Web.SpotifyImageImportError"></exception>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.FetchFollowedArtists">
+            <summary>
+            Assign User Setting for FollowedArtists
+            </summary>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.GetTopTracks">
+            <summary>
+            Get the User's top tracks
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SongsAbout.UserSpotify.GetPlaylists">
+            <summary>
+            Returns the User's Playlists
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

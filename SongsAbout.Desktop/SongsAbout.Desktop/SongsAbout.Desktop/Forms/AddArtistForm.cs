@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 using SongsAbout;
 
 namespace SongsAbout.Forms

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
 using SongsAbout;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 using SongsAbout.Desktop.Properties;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;

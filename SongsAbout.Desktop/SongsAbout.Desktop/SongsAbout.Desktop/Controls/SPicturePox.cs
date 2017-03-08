@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using SongsAbout;
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;

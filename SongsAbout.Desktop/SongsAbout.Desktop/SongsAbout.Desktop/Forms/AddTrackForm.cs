@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 using SongsAbout;
 
 namespace SongsAbout.Forms

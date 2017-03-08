@@ -11,7 +11,7 @@ using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 using SongsAbout.Enums;
 
 namespace SongsAbout.Controls

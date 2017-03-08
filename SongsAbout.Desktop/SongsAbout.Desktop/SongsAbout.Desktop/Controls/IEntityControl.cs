@@ -1,5 +1,5 @@
 ﻿using SongsAbout.Enums;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 

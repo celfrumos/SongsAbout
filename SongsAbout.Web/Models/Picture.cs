@@ -21,7 +21,6 @@ namespace SongsAbout.Web.Models
     public class ProfilePic : Picture
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProfilePicId { get; set; }
 
         public override string AltText { get; set; }
@@ -37,7 +36,6 @@ namespace SongsAbout.Web.Models
     public class AlbumCover : Picture
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumCoverId { get; set; }
 
         public override string AltText { get; set; }

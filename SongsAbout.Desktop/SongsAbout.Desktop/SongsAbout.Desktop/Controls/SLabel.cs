@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using SpotifyAPI.Web.Models;
 using SongsAbout.Desktop.Properties;
-using SongsAbout.Entities;
+using SongsAbout.Desktop.Entities;
 using SongsAbout.Enums;
 using SongsAbout;
 using System.Windows.Forms;
