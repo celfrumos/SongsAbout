@@ -19,8 +19,8 @@ namespace SongsAbout.Web.Controllers
         {
             try
             {
-                //   Runthing().Wait();
-                SpotifyAuth();
+                //  Runthing().Wait();
+                //await Task.Run(() => SpotifyAuth());
             }
             catch (Exception ex)
             {
@@ -61,9 +61,9 @@ namespace SongsAbout.Web.Controllers
             var profilePicBuilder = new StringBuilder();
             var albumCoverBuilder = new StringBuilder();
 
-            var existingArtists = new List<string>();
-            var existingAlbums = new List<string>();
-            var existingTracks = new List<string>();
+            var existingArtists = new Dictionary<string, int>();
+            var existingAlbums = new Dictionary<string, int>();
+            var existingTracks = new Dictionary<string, int>();
             try
             {
                 PlaylistTrack pt;
@@ -80,7 +80,7 @@ namespace SongsAbout.Web.Controllers
                         artist = track.Artists[0].GetFullVersion(Spotify.Api);
                         album = track.Album.GetFullVersion(Spotify.Api);
 
-                        if (!existingArtists.Contains(artist.Name))
+                        if (!existingArtists.ContainsKey(artist.Name))
                         {
                             profilePicBuilder.Append("context.ProfilePics.Add(new ProfilePic{ ")
                                 .Append("ProfilePicId = ").Append(i).Append(", ")
@@ -97,9 +97,9 @@ namespace SongsAbout.Web.Controllers
                                 .Append("ProfilePicId = ").Append(i)
                                 .AppendLine("});");
 
-                            existingArtists.Add(artist.Name);
+                            existingArtists[artist.Name] = i;
                         }
-                        if (!existingAlbums.Contains(track.Album.Name) && track.Artists != null && existingArtists.Contains(artist.Name))
+                        if (!existingAlbums.ContainsKey(track.Album.Name) && track.Artists != null && existingArtists.ContainsKey(artist.Name))
                         {
                             albumCoverBuilder.Append("context.AlbumCovers.Add(new AlbumCover{ ")
                                 .Append("AlbumCoverId = ").Append(i).Append(", ")
@@ -110,26 +110,27 @@ namespace SongsAbout.Web.Controllers
                                 .AppendLine("});");
 
                             albumBuilder.Append("context.Albums.Add(new Album{ ")
-                                .Append("ArtistId = ").Append(existingArtists.IndexOf(artist.Name)).Append(", ")
+                                .Append("AlbumId = ").Append(i).Append(", ")
+                                .Append("ArtistId = ").Append(existingArtists[artist.Name]).Append(", ")
                                 .Append("Name = \"").Append(album.Name).Append("\", ")
                                 .Append("SpotifyId =\" ").Append(album.Id).Append("\", ")
                                 .Append("ReleaseDate = Convert.ToDateTime( \"").Append(album.ReleaseDate).Append("\"),")
                                 .Append("AlbumCoverId = ").Append(i)
                                 .AppendLine("});");
 
-                            existingAlbums.Add(album.Name);
+                            existingAlbums[album.Name] = i;
                         }
 
-                        if (!existingTracks.Contains(track.Name) && track.Artists != null && existingArtists.Contains(artist.Name) && track.Album != null && existingArtists.Contains(artist.Name))
+                        if (!existingTracks.ContainsKey(track.Name) && track.Artists != null && existingArtists.ContainsKey(artist.Name) && track.Album != null && existingArtists.ContainsKey(artist.Name))
                         {
                             trackBuilder.Append("context.Tracks.Add(new Track{ ")
                                 .Append("TrackId = ").Append(i).Append(", ")
-                                .Append("ArtistId = ").Append(existingArtists.IndexOf(artist.Name)).Append(", ")
-                                .Append("AlbumId = ").Append(existingAlbums.IndexOf(track.Album.Name)).Append(", ")
-                                .Append("Name = \"").Append(artist.Name).Append("\", ")
+                                .Append("ArtistId = ").Append(existingArtists[artist.Name]).Append(", ")
+                                .Append("AlbumId = ").Append(existingAlbums[album.Name]).Append(", ")
+                                .Append("Name = \"").Append(track.Name).Append("\", ")
                                 .Append("SpotifyId = \"").Append(artist.Id).Append("\" ")
                                 .AppendLine("});");
-                            existingTracks.Add(track.Name);
+                            existingTracks[track.Name] = i;
                         }
                     }
                     catch (Exception ex)
@@ -140,11 +141,21 @@ namespace SongsAbout.Web.Controllers
 
                 using (var outFile = new StreamWriter(@"C:\Users\jdegr_000\Desktop\Seeds.txt"))
                 {
-                    outFile.Write(albumCoverBuilder.ToString());
+                    outFile.WriteLine("\n// Profile Pics\n");
                     outFile.Write(profilePicBuilder.ToString());
+
+                    outFile.WriteLine("\n// Arists\n");
                     outFile.Write(artistBuilder.ToString());
+
+                    outFile.WriteLine("\n// Album Covers\n");
+                    outFile.Write(albumCoverBuilder.ToString());
+
+                    outFile.WriteLine("\n// Albums\n");
                     outFile.Write(albumBuilder.ToString());
+
+                    outFile.WriteLine("\n// Tracks\n");
                     outFile.Write(trackBuilder.ToString());
+
                 } // end using block
             }
             catch (Exception ex)
