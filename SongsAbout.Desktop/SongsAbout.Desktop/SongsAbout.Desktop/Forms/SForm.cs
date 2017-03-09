@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SongsAbout.Forms;
+using SongsAbout.Desktop.Forms;
 using SongsAbout;
 using SongsAbout.Enums;
 
@@ -11,7 +11,7 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Models;
 using Image = System.Drawing.Image;
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
 
     public partial class SForm : Form

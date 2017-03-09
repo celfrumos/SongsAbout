@@ -26,10 +26,10 @@ namespace SongsAbout.Web.Models
         [DisplayName("Release Date")]
         public DateTime? ReleaseDate { get; set; }
 
+        public int AlbumCoverId { get; set; }
+
         [DisplayName("Album")]
         public AlbumCover AlbumCover { get; set; }
-
-        public int AlbumCoverId { get; set; }
 
         public int ArtistId { get; set; }
 

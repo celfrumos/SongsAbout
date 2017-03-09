@@ -12,9 +12,9 @@ using System.Net.Sockets;
 using SongsAbout.Desktop.Entities;
 using SongsAbout.Desktop.Properties;
 using SongsAbout;
-using SongsAbout.DataSetTableAdapters;
+using SongsAbout.Desktop.DataSetTableAdapters;
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
     public partial class QueryForm : SForm
     {

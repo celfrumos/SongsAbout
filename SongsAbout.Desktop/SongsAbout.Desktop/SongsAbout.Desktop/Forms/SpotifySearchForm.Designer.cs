@@ -1,5 +1,5 @@
 ﻿using SongsAbout.Desktop.Properties;
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
     partial class SpotifySearchForm
     {

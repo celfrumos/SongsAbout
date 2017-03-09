@@ -11,7 +11,7 @@ using System.IO;
 using SongsAbout.Desktop.Entities;
 using SongsAbout;
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
     public partial class AddArtistForm : Form
     {

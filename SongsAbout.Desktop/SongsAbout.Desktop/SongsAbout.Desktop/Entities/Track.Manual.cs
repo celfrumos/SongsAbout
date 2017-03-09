@@ -468,16 +468,15 @@ namespace SongsAbout.Desktop.Entities
         {
             try
             {
-                SpotifyFullTrack track;
+                SpotifyFullTrack track = new SpotifyFullTrack { };
                 if (t.SpotifyEntityType == SpotifyEntityType.FullTrack)
                     track = (SpotifyFullTrack)t;
 
                 else
                     track = t.FullVersion(UserSpotify.WebAPI);
 
-
-                UpdateAlbum(track.Album);
                 UpdateArtist(track.Artists[0]);
+                UpdateAlbum(track.Album);
 
             }
             catch (Exception ex)
@@ -555,8 +554,7 @@ namespace SongsAbout.Desktop.Entities
         {
             try
             {
-                Artist a;
-                a = SongDatabase.Artists[artist.Name];
+                Artist a = SongDatabase.Artists[artist.Name];
 
                 if (a == null)
                 {
@@ -584,8 +582,7 @@ namespace SongsAbout.Desktop.Entities
         {
             try
             {
-                Album al;
-                al = SongDatabase.Albums[album.Name];
+                Album al = SongDatabase.Albums[album.Name];
 
                 if (al == null)
                 {

@@ -7,8 +7,10 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
-    public class Track
+    public class Track : SaEntity
     {
+        protected override string TypeName { get { return "Track"; } }
+
         [Key]
         public int TrackId { get; set; }
 
@@ -16,10 +18,10 @@ namespace SongsAbout.Web.Models
         public int AlbumId { get; set; }
 
         [DisplayName("Track Name")]
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         [DisplayName("Main Artist")]
-        public Artist MainArtist { get; set; }
+        public Artist Artist { get; set; }
 
         public Album Album { get; set; }
         public bool CanPlay { get; set; }

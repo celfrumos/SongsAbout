@@ -12,7 +12,7 @@ using System.IO;
 using SongsAbout.Desktop.Entities;
 
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
     public partial class MyArtistsForm : Form
     {

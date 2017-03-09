@@ -149,7 +149,7 @@ namespace SongsAbout
         {
             try
             {
-                return UserSpotify.WebAPI.GetPlaylist(User.Default.PrivateId, playlist.Id);
+                return UserSpotify.WebAPI.GetPlaylist(UserSpotify.PrivateId, playlist.Id);
             }
             catch (Exception ex)
             {

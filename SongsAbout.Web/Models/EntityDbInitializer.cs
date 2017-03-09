@@ -81,26 +81,26 @@ namespace SongsAbout.Web.Models
                 ReleaseDate = new DateTime(2016, 10, 12)
             };
 
-            context.Albums.Add(Divide);
-            context.Albums.Add(Plus);
-            context.Albums.Add(JustForTheThrill);
+            //context.Albums.Add(Divide);
+            //context.Albums.Add(Plus);
+            //context.Albums.Add(JustForTheThrill);
             base.Seed(context);
 
-            var admin = new ApplicationUser { UserName = "jdegraw", Email = "jdegraw42@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Josh", LastName = "DeGraw" };
-            var editor = new ApplicationUser { UserName = "editor", Email = "editor@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Editor", LastName = "DeGraw" };
-            var viewer = new ApplicationUser { UserName = "Viewer", Email = "viewer@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Viewer", LastName = "DeGraw" };
+            //var admin = new ApplicationUser { UserName = "jdegraw", Email = "jdegraw42@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Josh", LastName = "DeGraw" };
+            //var editor = new ApplicationUser { UserName = "editor", Email = "editor@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Editor", LastName = "DeGraw" };
+            //var viewer = new ApplicationUser { UserName = "Viewer", Email = "viewer@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Viewer", LastName = "DeGraw" };
 
-            userManager.Create(admin, "password");
-            userManager.Create(editor, "password");
-            userManager.Create(viewer, "password");
+            //userManager.Create(admin, "password");
+            //userManager.Create(editor, "password");
+            //userManager.Create(viewer, "password");
 
-            roleManager.Create(new IdentityRole("canEdit"));
-            roleManager.Create(new IdentityRole("admin"));
-            roleManager.Create(new IdentityRole("canEdit"));
+            //roleManager.Create(new IdentityRole("canEdit"));
+            //roleManager.Create(new IdentityRole("admin"));
+            //roleManager.Create(new IdentityRole("canEdit"));
 
-            userManager.AddToRole(admin.Id, "canEdit");
-            userManager.AddToRole(admin.Id, "admin");
-            userManager.AddToRole(editor.Id, "canEdit");
+            //userManager.AddToRole(admin.Id, "canEdit");
+            //userManager.AddToRole(admin.Id, "admin");
+            //userManager.AddToRole(editor.Id, "canEdit");
         }
     }
 }

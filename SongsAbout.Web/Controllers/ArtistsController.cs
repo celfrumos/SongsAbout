@@ -8,6 +8,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SongsAbout.Web.Models;
+using SpotifyAPI.Web.Enums;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Auth;
+using SpotifyAPI.Web.Models;
+using System.IO;
+using System.Text;
 
 namespace SongsAbout.Web.Controllers
 {
@@ -19,6 +25,7 @@ namespace SongsAbout.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var artists = db.Artists.Include(a => a.ProfilePic);
+
             return View(await artists.ToListAsync());
         }
 

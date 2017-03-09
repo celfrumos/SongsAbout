@@ -16,9 +16,9 @@ using SpotifyAPI.Local;
 using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
-    public partial class AlbumDisplayForm : SongsAbout.Forms.SForm
+    public partial class AlbumDisplayForm : SongsAbout.Desktop.Forms.SForm
     {
         private SpotifyLocalAPI _localApi;
         public AlbumDisplayForm()

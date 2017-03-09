@@ -1,4 +1,4 @@
-﻿namespace SongsAbout.Forms
+﻿namespace SongsAbout.Desktop.Forms
 {
     partial class Form1
     {

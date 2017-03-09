@@ -98,7 +98,7 @@ namespace SongsAbout.Desktop.Entities
         static public implicit operator SpotifyFullPlaylist(Playlist p)
         {
             if (p.SpotifyID != null)
-                return UserSpotify.WebAPI.GetPlaylist(User.Default.PrivateId, p.SpotifyID);
+                return UserSpotify.WebAPI.GetPlaylist(UserSpotify.PrivateId, p.SpotifyID);
             else
                 throw new DbInitFromSpotifyError(DbEntityType.Playlist, p.SpotifyType);
         }

@@ -1,4 +1,4 @@
-﻿namespace SongsAbout.Forms
+﻿namespace SongsAbout.Desktop.Forms
 {
     partial class MyArtistsForm
     {
@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.dataSet = new SongsAbout.DataSet();
+            this.dataSet = new SongsAbout.Desktop.DataSet();
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tableAdapterMgr = new SongsAbout.DataSetTableAdapters.TableAdapterManager();
-            this.albumsTableAdapter = new SongsAbout.DataSetTableAdapters.AlbumsTableAdapter();
-            this.artistsTableAdapter = new SongsAbout.DataSetTableAdapters.ArtistsTableAdapter();
+            this.tableAdapterMgr = new SongsAbout.Desktop.DataSetTableAdapters.TableAdapterManager();
+            this.albumsTableAdapter = new SongsAbout.Desktop.DataSetTableAdapters.AlbumsTableAdapter();
+            this.artistsTableAdapter = new SongsAbout.Desktop.DataSetTableAdapters.ArtistsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
@@ -80,7 +80,7 @@
             this.tableAdapterMgr.TrackGenresTableAdapter = null;
             this.tableAdapterMgr.TracksTableAdapter = null;
             this.tableAdapterMgr.TrackTagsTableAdapter = null;
-            this.tableAdapterMgr.UpdateOrder = SongsAbout.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterMgr.UpdateOrder = SongsAbout.Desktop.DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // albumsTableAdapter
             // 

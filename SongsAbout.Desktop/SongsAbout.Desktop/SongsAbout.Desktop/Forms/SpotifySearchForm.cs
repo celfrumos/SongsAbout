@@ -13,7 +13,7 @@ using SongsAbout.Controls;
 using SpotifyAPI.Web.Enums;
 using SongsAbout.Enums;
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
 
     public partial class SpotifySearchForm : SForm

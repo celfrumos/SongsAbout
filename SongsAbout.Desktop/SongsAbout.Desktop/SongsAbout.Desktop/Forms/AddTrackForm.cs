@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using SongsAbout.Desktop.Entities;
 using SongsAbout;
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
     public partial class AddTrackForm : Form
     {

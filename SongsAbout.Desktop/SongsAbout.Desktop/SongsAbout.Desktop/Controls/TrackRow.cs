@@ -9,7 +9,7 @@ using SongsAbout.Desktop.Entities;
 using SongsAbout.Enums;
 using SongsAbout;
 using SongsAbout.Desktop.Database;
-using SongsAbout.DataSetTableAdapters;
+using SongsAbout.Desktop.DataSetTableAdapters;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;

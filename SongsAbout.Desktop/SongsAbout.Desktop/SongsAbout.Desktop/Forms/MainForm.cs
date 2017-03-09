@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
-    public partial class MainForm : SongsAbout.Forms.SForm
+    public partial class MainForm : SongsAbout.Desktop.Forms.SForm
     {
         public MainForm()
         {

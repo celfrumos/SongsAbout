@@ -4,7 +4,7 @@ using System.Linq;
 using SongsAbout.Desktop.Properties;
 using SongsAbout.Desktop.Database;
 using SongsAbout.Enums;
-using SongsAbout.Forms;
+using SongsAbout.Desktop.Forms;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SongsAbout.Controls;
@@ -31,6 +31,7 @@ namespace SongsAbout
                 Application.SetCompatibleTextRenderingDefault(false);
                 ConnectSpotify();
                 SPanel.LargeQuery = false;
+                SongDatabase.Initialize();
                 //  Program.LocalAPI = new SpotifyLocalAPI();
                 // Program.LocalAPI.Connect();
 

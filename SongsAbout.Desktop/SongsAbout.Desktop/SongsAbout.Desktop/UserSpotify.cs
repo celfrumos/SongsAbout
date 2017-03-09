@@ -42,7 +42,11 @@ namespace SongsAbout
         /// <summary>
         /// User's Spotify Profile Picture
         /// </summary>
-        public static Image ProfilePic { get; set; }
+        public static Image ProfilePic
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Get the User's Private Profile
@@ -148,7 +152,7 @@ namespace SongsAbout
             {
 
                 implicitAuth.StartHttpServer(PORT);
-                implicitAuth.ClientId = Resources.SpotifyClientID;
+                implicitAuth.ClientId = Secrets.Spotify.ClientId;
                 //UserSpotify.Authenticate
                 implicitAuth.Scope = Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
                 Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic;

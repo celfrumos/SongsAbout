@@ -68,7 +68,7 @@ namespace SongsAbout
 
             SongDatabase.LargeQuery = true;
             var existingEntries = SongDatabase.Playlists.Items;
-            foreach (SpotifyPlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(User.Default.PrivateId).Items)
+            foreach (SpotifyPlaylist playlist in UserSpotify.WebAPI.GetUserPlaylists(UserSpotify.PrivateId).Items)
             {
                 try
                 {
@@ -83,7 +83,7 @@ namespace SongsAbout
 
                     if (includeAllTracks)
                     {
-                        var playlistTracks = UserSpotify.WebAPI.GetPlaylistTracks(User.Default.PrivateId, playlist.Id);
+                        var playlistTracks = UserSpotify.WebAPI.GetPlaylistTracks(UserSpotify.PrivateId, playlist.Id);
 
                         foreach (PlaylistTrack pt in playlistTracks.Items)
                         {

@@ -358,12 +358,6 @@
     <Compile Include="Secret\Secrets.cs" />
     <Compile Include="TableAdapters.cs" />
     <Compile Include="UserSpotify.cs" />
-    <Compile Include="WebAuthForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WebAuthForm.Designer.cs">
-      <DependentUpon>WebAuthForm.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Controls\AlbumDisplay.resx">
       <DependentUpon>AlbumDisplay.cs</DependentUpon>
     </EmbeddedResource>
@@ -451,9 +445,6 @@
     </Compile>
     <EmbeddedResource Include="Forms\ResultsForm.resx">
       <DependentUpon>ResultsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WebAuthForm.resx">
-      <DependentUpon>WebAuthForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>

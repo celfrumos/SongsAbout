@@ -11,7 +11,7 @@ using SongsAbout.Enums;
 using SongsAbout.Desktop.Database;
 using SongsAbout.Desktop.Properties;
 
-namespace SongsAbout.Forms
+namespace SongsAbout.Desktop.Forms
 {
     public partial class BulkImportForm : Form
     {
