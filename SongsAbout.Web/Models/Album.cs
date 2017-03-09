@@ -24,7 +24,7 @@ namespace SongsAbout.Web.Models
         public string SpotifyHref { get; set; }
 
         [DisplayName("Release Date")]
-        public DateTime? ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
         public int AlbumCoverId { get; set; }
 

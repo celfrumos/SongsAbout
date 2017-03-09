@@ -1,11 +1,13 @@
 ﻿using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
+using SpotifyAPI.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,10 +15,23 @@ namespace SongsAbout.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            SpotifyAuth();
+            try
+            {
+                //   Runthing().Wait();
+                SpotifyAuth();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return View();
+        }
+
+        private async Task Runthing()
+        {
+            await SpotifyAuthAsync();
         }
 
         public ActionResult About()
@@ -35,78 +50,189 @@ namespace SongsAbout.Web.Controllers
 
         public void SpotifyAuth()
         {
+
             Spotify.Authenticate();
             var playlist = Spotify.Api.GetPlaylist("rawdeg", "3rzuLmTVqB68cJR67jaaKh");
             var tracks = Spotify.Api.GetPlaylistTracks("rawdeg", playlist.Id);
+            var artistBuilder = new StringBuilder();
+            var albumBuilder = new StringBuilder();
+            var trackBuilder = new StringBuilder();
+
+            var profilePicBuilder = new StringBuilder();
+            var albumCoverBuilder = new StringBuilder();
+
+            var existingArtists = new List<string>();
+            var existingAlbums = new List<string>();
+            var existingTracks = new List<string>();
+            try
+            {
+                PlaylistTrack pt;
+                SpotifyTrack track;
+                SpotifyFullArtist artist;
+                SpotifyFullAlbum album;
+                for (int i = 0; i < tracks.Items.Count; i++)
+                {
+                    try
+                    {
+                        pt = tracks.Items[i];
+
+                        track = pt.Track;
+                        artist = track.Artists[0].GetFullVersion(Spotify.Api);
+                        album = track.Album.GetFullVersion(Spotify.Api);
+
+                        if (!existingArtists.Contains(artist.Name))
+                        {
+                            profilePicBuilder.Append("context.ProfilePics.Add(new ProfilePic{ ")
+                                .Append("ProfilePicId = ").Append(i).Append(", ")
+                                .Append("Url = \"").Append(artist.Images[0].Url).Append("\", ")
+                                .Append("AltText = \"img-").Append(artist.Name).Append("\", ")
+                                .Append("Width = ").Append(artist.Images[0].Width).Append(", ")
+                                .Append("Height = ").Append(artist.Images[0].Height)
+                                .AppendLine("});");
+
+                            artistBuilder.Append("context.Artists.Add(new Artist{ ")
+                                .Append("ArtistId = ").Append(i).Append(", ")
+                                .Append("Name = \"").Append(artist.Name).Append("\", ")
+                                .Append("SpotifyId = \"").Append(artist.Id).Append("\", ")
+                                .Append("ProfilePicId = ").Append(i)
+                                .AppendLine("});");
+
+                            existingArtists.Add(artist.Name);
+                        }
+                        if (!existingAlbums.Contains(track.Album.Name) && track.Artists != null && existingArtists.Contains(artist.Name))
+                        {
+                            albumCoverBuilder.Append("context.AlbumCovers.Add(new AlbumCover{ ")
+                                .Append("AlbumCoverId = ").Append(i).Append(", ")
+                                .Append("Url = \"").Append(album.Images[0].Url).Append("\", ")
+                                .Append("AltText = \"img-").Append(album.Name).Append("\", ")
+                                .Append("Width = ").Append(album.Images[0].Width).Append(", ")
+                                .Append("Height = ").Append(album.Images[0].Height)
+                                .AppendLine("});");
+
+                            albumBuilder.Append("context.Albums.Add(new Album{ ")
+                                .Append("ArtistId = ").Append(existingArtists.IndexOf(artist.Name)).Append(", ")
+                                .Append("Name = \"").Append(album.Name).Append("\", ")
+                                .Append("SpotifyId =\" ").Append(album.Id).Append("\", ")
+                                .Append("ReleaseDate = Convert.ToDateTime( \"").Append(album.ReleaseDate).Append("\"),")
+                                .Append("AlbumCoverId = ").Append(i)
+                                .AppendLine("});");
+
+                            existingAlbums.Add(album.Name);
+                        }
+
+                        if (!existingTracks.Contains(track.Name) && track.Artists != null && existingArtists.Contains(artist.Name) && track.Album != null && existingArtists.Contains(artist.Name))
+                        {
+                            trackBuilder.Append("context.Tracks.Add(new Track{ ")
+                                .Append("TrackId = ").Append(i).Append(", ")
+                                .Append("ArtistId = ").Append(existingArtists.IndexOf(artist.Name)).Append(", ")
+                                .Append("AlbumId = ").Append(existingAlbums.IndexOf(track.Album.Name)).Append(", ")
+                                .Append("Name = \"").Append(artist.Name).Append("\", ")
+                                .Append("SpotifyId = \"").Append(artist.Id).Append("\" ")
+                                .AppendLine("});");
+                            existingTracks.Add(track.Name);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                } // end loop
+
+                using (var outFile = new StreamWriter(@"C:\Users\jdegr_000\Desktop\Seeds.txt"))
+                {
+                    outFile.Write(albumCoverBuilder.ToString());
+                    outFile.Write(profilePicBuilder.ToString());
+                    outFile.Write(artistBuilder.ToString());
+                    outFile.Write(albumBuilder.ToString());
+                    outFile.Write(trackBuilder.ToString());
+                } // end using block
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public async Task SpotifyAuthAsync()
+        {
+            Spotify.Authenticate();
+            var playlist = Spotify.Api.GetPlaylist("rawdeg", "3rzuLmTVqB68cJR67jaaKh");
+            var tracks = await Spotify.Api.GetPlaylistTracksAsync("rawdeg", playlist.Id);
             var builder = new StringBuilder();
             var existingArtists = new List<string>();
             var existingAlbums = new List<string>();
             var existingTracks = new List<string>();
 
-
-            int i = 0;
-            foreach (var pt in tracks.Items)
+            using (var outFile = new StreamWriter(@"C:\Users\jdegr_000\DesktopSeeds.txt"))
             {
-                var track = pt.Track;
-                var artist = track.Artists[0].GetFullVersion(Spotify.Api);
 
-                if (!existingArtists.Contains(artist.Name))
+                int i = 0;
+                foreach (var pt in tracks.Items)
                 {
-                    builder.Append("context.ProfilePics.Add(new ProfilePic{ ")
-                        .Append("ProfilePicId = ").Append(i).Append(", ")
-                        .Append("Url = ").Append(artist.Images[0].Url).Append(", ")
-                        .Append("Width = ").Append(artist.Images[0].Width).Append(", ")
-                        .Append("Heigth = ").Append(artist.Images[0].Height)
-                        .AppendLine("};");
+                    try
+                    {
+                        var track = pt.Track;
+                        var artist = await track.Artists[0].GetFullVersionAsync(Spotify.Api);
 
-                    builder.Append("context.Artists.Add(new Artist{ ")
-                        .Append("ArtistId = ").Append(i).Append(", ")
-                        .Append("Name = ").Append(artist.Name).Append(", ")
-                        .Append("SpotifyId = ").Append(artist.Id).Append(", ")
-                        .Append("ProfilePicId = ").Append(i)
-                        .AppendLine("};");
+                        if (!existingArtists.Contains(artist.Name))
+                        {
+                            builder.Append("context.ProfilePics.Add(new ProfilePic{ ")
+                                .Append("ProfilePicId = ").Append(i).Append(", ")
+                                .Append("Url = ").Append(artist.Images[0].Url).Append(", ")
+                                .Append("Width = ").Append(artist.Images[0].Width).Append(", ")
+                                .Append("Heigth = ").Append(artist.Images[0].Height)
+                                .AppendLine("};");
 
-                    existingArtists.Add(artist.Name);
+                            builder.Append("context.Artists.Add(new Artist{ ")
+                                .Append("ArtistId = ").Append(i).Append(", ")
+                                .Append("Name = ").Append(artist.Name).Append(", ")
+                                .Append("SpotifyId = ").Append(artist.Id).Append(", ")
+                                .Append("ProfilePicId = ").Append(i)
+                                .AppendLine("};");
+
+                            existingArtists.Add(artist.Name);
+                        }
+                        if (!existingAlbums.Contains(track.Album.Name))
+                        {
+                            var album = await track.Album.GetFullVersionAsync(Spotify.Api);
+                            builder.Append("context.AlbumCovers.Add(new AlbumCover{ ")
+                                .Append("AlbumCoverId = ").Append(i).Append(", ")
+                                .Append("Url = ").Append(album.Images[0].Url).Append(", ")
+                                .Append("Width = ").Append(album.Images[0].Width).Append(", ")
+                                .Append("Heigth = ").Append(album.Images[0].Height)
+                                .AppendLine("};");
+
+                            builder.Append("context.Albums.Add(new Album{ ")
+                                .Append("ArtistId = ").Append(existingArtists.IndexOf(artist.Name)).Append(", ")
+                                .Append("Name = ").Append(album.Name).Append(", ")
+                                .Append("SpotifyId = ").Append(album.Id).Append(", ")
+                                .Append("ReleaseDate = ").Append(album.ReleaseDate)
+                                .Append("AlbumCoverId = ").Append(i)
+                                .AppendLine("};");
+
+                            existingAlbums.Add(album.Name);
+                        }
+
+                        if (!existingTracks.Contains(track.Name))
+                        {
+                            builder.Append("context.Tracks.Add(new Track{ ")
+                                .Append("TrackId = ").Append(i).Append(", ")
+                                .Append("ArtistId = ").Append(existingArtists.IndexOf(artist.Name)).Append(", ")
+                                .Append("AlbumId = ").Append(existingAlbums.IndexOf(track.Id)).Append(", ")
+                                .Append("Name = ").Append(artist.Name).Append(", ")
+                                .Append("SpotifyId = ").Append(artist.Id).Append(", ")
+                                .AppendLine("};");
+                            existingTracks.Add(track.Name);
+                        }
+                        outFile.Write(builder.ToString());
+                        builder.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    i++;
                 }
-                var album = track.Album.GetFullVersion(Spotify.Api);
-                if (!existingAlbums.Contains(album.Name))
-                {
-                    builder.Append("context.AlbumCovers.Add(new AlbumCover{ ")
-                        .Append("AlbumCoverId = ").Append(i).Append(", ")
-                        .Append("Url = ").Append(album.Images[0].Url).Append(", ")
-                        .Append("Width = ").Append(album.Images[0].Width).Append(", ")
-                        .Append("Heigth = ").Append(album.Images[0].Height)
-                        .AppendLine("};");
-
-                    builder.Append("context.Albums.Add(new Album{ ")
-                        .Append("ArtistId = ").Append(existingArtists.IndexOf(artist.Name)).Append(", ")
-                        .Append("Name = ").Append(album.Name).Append(", ")
-                        .Append("SpotifyId = ").Append(album.Id).Append(", ")
-                        .Append("ReleaseDate = ").Append(album.ReleaseDate)
-                        .Append("AlbumCoverId = ").Append(i)
-                        .AppendLine("};");
-
-                    existingAlbums.Add(album.Name);
-                }
-
-                if (!existingTracks.Contains(track.Name))
-                {
-                    builder.Append("context.Tracks.Add(new Track{ ")
-                        .Append("TrackId = ").Append(i).Append(", ")
-                        .Append("ArtistId = ").Append(existingArtists.IndexOf(artist.Id)).Append(", ")
-                        .Append("AlbumId = ").Append(existingAlbums.IndexOf(album.Id)).Append(", ")
-                        .Append("Name = ").Append(artist.Name).Append(", ")
-                        .Append("SpotifyId = ").Append(artist.Id).Append(", ")
-                        .Append("ReleaseDate = ").Append(album.ReleaseDate)
-                        .Append("AlbumCoverId = ").Append(i)
-                        .AppendLine("};");
-
-                }
-                using (var outFile = new StreamWriter("Seeds.txt"))
-                {
-                    outFile.Write(builder.ToString());
-                }
-
+                await outFile.WriteAsync(builder.ToString());
             }
         }
 
