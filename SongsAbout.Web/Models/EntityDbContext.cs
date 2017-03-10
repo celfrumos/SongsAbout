@@ -17,9 +17,9 @@ namespace SongsAbout.Web.Models
         public DbSet<AlbumCover> AlbumCovers { get; set; }
 
 
-        public EntityDbContext() : base("DatabaseFile")
+        public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {
-
+            
         }
 
         public static EntityDbContext Create()

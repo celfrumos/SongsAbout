@@ -1,56 +1,39 @@
 ﻿@model SongsAbout.Web.Models.Album
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Name + "Details";
 }
 
-<h2>Details</h2>
-
+<h2>@Model.Name</h2>
 <div>
-    <h4>Album</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MainArtistId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MainArtistId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SpotifyUri)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SpotifyUri)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SpotifyHref)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SpotifyHref)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-
-    </dl>
+    @if (Model.AlbumCover != null)
+    {
+        <img src="@Model.AlbumCover.Url" width="@Model.AlbumCover.Width" height="@Model.AlbumCover.Height" class="artist-details-image" alt="@Model.AlbumCover.AltText" />
+    }
+    else
+    {
+        <img src="" width="640" height="640" class="artist-details-image" alt="img-@Model.Name" />
+    }
+    <p>Released @Model.ReleaseDate.ToShortDateString()</p>
+    <table id="artist-albums">
+        <caption>Tracks</caption>
+        <tr>
+            <th>Track Name</th>
+            <th>Track Length</th>
+            <th>@Html.DisplayNameFor(a => a.Artist.Name)</th>
+            <th>Can Play </th>
+        </tr>
+        @foreach (var track in Model.Tracks)
+            {
+            <tr>
+                <td>@track.Name</td>
+                <td>@track.LengthMinutes</td>
+                <td>@track.Artist.Name</td>
+                <td>@Html.CheckBoxFor(a => track.CanPlay) </td>
+            </tr>
+        }
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.AlbumId }) |

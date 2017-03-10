@@ -18,9 +18,34 @@ namespace SongsAbout.Web.Controllers
         // GET: Albums
         public async Task<ActionResult> Index()
         {
-            return View(await db.Albums.ToListAsync());
+            return View(await LoadModelsAsync());
+        }
+        private async Task<IEnumerable<Album>> LoadModelsAsync()
+        {
+
+            await db.Tracks.LoadAsync();
+            return await db.Albums
+                       .Include(a => a.Tracks)
+                       .Include(a => a.Artist)
+                       .Include(a => a.AlbumCover)
+                       .ToListAsync();
         }
 
+        private async Task<Album> LoadModelAsync(int? id)
+        {
+            await db.Tracks.LoadAsync();
+            Album album = await (from a in db.Albums
+                                 where a.AlbumId == id
+                                 select a)
+                        .Include(a => a.Tracks)
+                        .Include(a => a.Artist)
+                        .Include(a => a.AlbumCover)
+                        .FirstOrDefaultAsync();
+
+
+            return album;
+
+        }
         // GET: Albums/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -28,7 +53,9 @@ namespace SongsAbout.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Album album = await db.Albums.FindAsync(id);
+
+            Album album = await LoadModelAsync(id);
+
             if (album == null)
             {
                 return HttpNotFound();
@@ -66,7 +93,13 @@ namespace SongsAbout.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Album album = await db.Albums.FindAsync(id);
+            Album album = await
+                             (from a in db.Albums
+                              where a.AlbumId == id
+                              select a)
+                         .Include(a => a.Tracks)
+                         .Include(a => a.AlbumCover)
+                         .FirstOrDefaultAsync();
             if (album == null)
             {
                 return HttpNotFound();

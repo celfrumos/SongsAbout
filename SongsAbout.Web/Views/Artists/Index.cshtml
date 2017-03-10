@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<SongsAbout.Web.Models.Artist>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Artists";
 }
 
-<h2>Index</h2>
+<h2>Artists</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,7 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ProfilePic.AltText)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -26,26 +25,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProfilePic.AltText)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SpotifyId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ArtistId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ArtistId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ArtistId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.AlbumCover != null)
+                {
+                    <img src="@item.AlbumCover.Url" width="64" , height="64" alt="@item.AlbumCover.AltText" />
+                }
+                else
+                {
+                    <img src="" width="64" , height="64" alt="img-@item.Name" />
+                }
+
+            </td>
+
+            <td>
+                @Html.ActionLink(item.Name, "Details", new { id = item.ArtistId })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpotifyId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ArtistId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ArtistId })
+            </td>
+        </tr>
+    }
 
 </table>
