@@ -41,6 +41,8 @@ namespace SongsAbout.Web.Controllers
                                    select a)
                                    .Include(a => a.ProfilePic)
                                    .Include(a => a.Albums)
+                                   .Include(a => a.Albums.Select(al => al.Artist))
+                                   //   .Include(a => a.Albums.Select(al => al.Tracks))
                                    .FirstOrDefaultAsync();
 
             if (artist == null)
@@ -74,6 +76,8 @@ namespace SongsAbout.Web.Controllers
             ViewBag.ProfilePicId = new SelectList(db.ProfilePics, "ProfilePicId", "AltText", artist.ProfilePicId);
             return View(artist);
         }
+
+
 
         // GET: Artists/Edit/5
         public async Task<ActionResult> Edit(int? id)

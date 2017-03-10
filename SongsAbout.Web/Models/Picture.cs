@@ -14,19 +14,17 @@ namespace SongsAbout.Web.Models
         public virtual string AltText { get; set; }
         [Display(Name = "src")]
         public virtual string Url { get; set; }
+        [Display(Name = "width")]
         public virtual int Width { get; set; }
+        [Display(Name = "height")]
         public virtual int Height { get; set; }
 
     }
     public class ProfilePic : Picture
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProfilePicId { get; set; }
-
-        public override string AltText { get; set; }
-        public override string Url { get; set; }
-        public override int Width { get; set; }
-        public override int Height { get; set; }
 
         public static implicit operator ProfilePic(SpotifyImage image)
         {
@@ -36,12 +34,8 @@ namespace SongsAbout.Web.Models
     public class AlbumCover : Picture
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumCoverId { get; set; }
-
-        public override string AltText { get; set; }
-        public override string Url { get; set; }
-        public override int Width { get; set; }
-        public override int Height { get; set; }
 
         public static implicit operator AlbumCover(SpotifyImage image)
         {

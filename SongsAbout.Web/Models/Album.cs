@@ -7,6 +7,7 @@ using SpotifyAPI.Web.Models;
 using SpotifyAPI.Web.Enums;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
@@ -15,22 +16,22 @@ namespace SongsAbout.Web.Models
         protected override string TypeName { get { return "Album"; } }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }
 
         [DisplayName("Album Name")]
+        [Required(ErrorMessage = "Album must have a name.", AllowEmptyStrings = false)]        
+        [StringLength(250, MinimumLength = 1, ErrorMessage = "Album Name is too long")]
         public override string Name { get; set; }
-
-        [DisplayName("Spotify Link")]
-        public string SpotifyHref { get; set; }
 
         [DisplayName("Release Date")]
         public DateTime ReleaseDate { get; set; }
 
+        [Display(Name = "Album Cover")]
         public int AlbumCoverId { get; set; }
 
-        [DisplayName("Album")]
-        public AlbumCover AlbumCover { get; set; }
-
+        [DisplayName("Album Artist")]
+        [Required(ErrorMessage = "Album must have an Artist.")]
         public int ArtistId { get; set; }
 
         [DisplayName("Main Artist")]
@@ -41,6 +42,9 @@ namespace SongsAbout.Web.Models
 
         [Display(Name = "Featured Artists")]
         public List<Artist> FeaturedArtists { get; set; }
+
+        [Display(Name = "Album Cover")]
+        public AlbumCover AlbumCover { get; set; }
 
         /*
         //public Album(SpotifyFullAlbum album)// : this(new SpotifyAlbum(album))

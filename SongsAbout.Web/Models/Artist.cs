@@ -8,6 +8,7 @@ using System.Data.Linq;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
@@ -25,16 +26,17 @@ namespace SongsAbout.Web.Models
         //  public readonly DbEntityType DbEntityType = DbEntityType.Artist;
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ArtistId { get; set; }
 
         [Display(Name = "Artist Name")]
+        [Required(ErrorMessage = "Artist must have a name")]
+        [StringLength(250, MinimumLength = 1, ErrorMessage = "Artist Name is too long")]
         public override string Name { get; set; }
 
         [Display(Name = "Artist Biography")]
+        [StringLength(500)]
         public string Bio { get; set; }
-
-        [Display(Name = "Spotify Id")]
-        public override string SpotifyId { get; set; }
 
         [Display(Name = "Profile Picture")]
         public ProfilePic ProfilePic { get; set; }
@@ -44,6 +46,8 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Albums")]
         public List<Album> Albums { get; set; }
 
-        // public List<Track> Tracks { get; set; }
+        [Display(Name = "Tracks")]
+        public List<Track> Tracks { get; set; }
+
     }
 }

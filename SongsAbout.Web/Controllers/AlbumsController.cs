@@ -24,10 +24,13 @@ namespace SongsAbout.Web.Controllers
         {
 
             await db.Tracks.LoadAsync();
+
             return await db.Albums
-                       .Include(a => a.Tracks)
-                       .Include(a => a.Artist)
-                       .Include(a => a.AlbumCover)
+                        .Include(a => a.Tracks)
+                        .Include(a => a.Tracks.Select(t => t.Artist))
+                        .Include(a => a.Tracks.Select(t => t.Album))
+                        .Include(a => a.Artist)
+                        .Include(a => a.AlbumCover)
                        .ToListAsync();
         }
 
@@ -38,6 +41,8 @@ namespace SongsAbout.Web.Controllers
                                  where a.AlbumId == id
                                  select a)
                         .Include(a => a.Tracks)
+                        .Include(a => a.Tracks.Select(t => t.Artist))
+                        .Include(a => a.Tracks.Select(t => t.Album))
                         .Include(a => a.Artist)
                         .Include(a => a.AlbumCover)
                         .FirstOrDefaultAsync();
