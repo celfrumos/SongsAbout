@@ -17,15 +17,7 @@ namespace SongsAbout.Web.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            try
-            {
-                //  Runthing().Wait();
-                //await Task.Run(() => SpotifyAuth());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
             return View();
         }
 
@@ -46,6 +38,17 @@ namespace SongsAbout.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        private StringBuilder WriteProfilePic(string name, SpotifyImage image, int i)
+        {
+            return new StringBuilder()
+                                .Append("context.ProfilePics.Add(new ProfilePic{ ")
+                                .Append("ProfilePicId = ").Append(i).Append(", ")
+                                .Append("Url = \"").Append(image.Url).Append("\", ")
+                                .Append("AltText = \"img-").Append(name).Append("\", ")
+                                .Append("Width = ").Append(image.Width).Append(", ")
+                                .Append("Height = ").Append(image.Height)
+                                .AppendLine("});");
         }
 
         public void SpotifyAuth()
@@ -82,13 +85,7 @@ namespace SongsAbout.Web.Controllers
 
                         if (!existingArtists.ContainsKey(artist.Name))
                         {
-                            profilePicBuilder.Append("context.ProfilePics.Add(new ProfilePic{ ")
-                                .Append("ProfilePicId = ").Append(i).Append(", ")
-                                .Append("Url = \"").Append(artist.Images[0].Url).Append("\", ")
-                                .Append("AltText = \"img-").Append(artist.Name).Append("\", ")
-                                .Append("Width = ").Append(artist.Images[0].Width).Append(", ")
-                                .Append("Height = ").Append(artist.Images[0].Height)
-                                .AppendLine("});");
+                            profilePicBuilder.Append(WriteProfilePic(artist.Name, artist.Images[0], i));
 
                             artistBuilder.Append("context.Artists.Add(new Artist{ ")
                                 .Append("ArtistId = ").Append(i).Append(", ")

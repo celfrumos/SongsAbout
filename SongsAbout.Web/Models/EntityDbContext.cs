@@ -19,7 +19,7 @@ namespace SongsAbout.Web.Models
 
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {
-            
+
         }
 
         public static EntityDbContext Create()

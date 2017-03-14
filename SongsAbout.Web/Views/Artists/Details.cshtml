@@ -1,16 +1,20 @@
 ﻿@model SongsAbout.Web.Models.Artist
 
 @{
-    ViewBag.Title = $"{Model.Name} Details";
+    ViewBag.Title = $"{Model.Name}";
 }
 
 <h2>@Model.Name</h2>
 
 <div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
     <hr />
     @if (Model.ProfilePic != null)
     {
-        <img src="@Model.ProfilePic.Url" width="@Model.ProfilePic.Width" height="@Model.ProfilePic.Height" class="artist-details-image" alt="@Model.ProfilePic.AltText" />
+        <img src="@Model.ProfilePic.Url" width="@Model.ProfilePic.Width" height="@Model.ProfilePic.Height" alt="@Model.ProfilePic.AltText" />
     }
     else
     {
@@ -28,7 +32,3 @@
         }
     </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

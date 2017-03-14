@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SongsAbout.Web.Models.Artist>
+﻿@using SongsAbout.Web.Models;
+@model IQueryable<Artist>
 
 @{
     ViewBag.Title = "Artists";
@@ -9,51 +10,28 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SpotifyId)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @if (item.ProfilePic != null)
-                {
-                    <img src="@item.ProfilePic.Url" width="64" , height="64" alt="@item.ProfilePic.AltText" />
-                }
-                else
-                {
-                    <img src="" width="64" , height="64" alt="img-@item.Name" />
-                }
+@{var Artists = Model.ToList();}
+@for (int i = 0; i < ViewBag.Count && i < Model.Count(); i++)
+{
+    Artist item = Artists[i];
+    <div class="col-md-6">
+        @if (item.ProfilePic != null)
+        {
+            <a href="/Artists/Details/@item.ArtistId"><img src="@item.ProfilePic.Url" width="200" , height="200" alt="@item.ProfilePic.AltText" /></a>
+        }
+        else
+        {
+            <a href="/Artists/Details/@item.ArtistId"><img src="" width="200" , height="200" alt="img-@item.Name" /></a>
+        }
+        <br />
+        <span class="artist-name" id="tile-@item.Name">@item.Name</span>
+    </div>
+}
+<div>
+    Viewing @ViewBag.Count out of @ViewBag.TotalCount
 
-            </td>
+</div>
 
-            <td>
-                @Html.ActionLink(item.Name, "Details", new { id = item.ArtistId })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SpotifyId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ArtistId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ArtistId })
-            </td>
-        </tr>
-    }
+@* TODO: limit page sizes *@
 
-</table>

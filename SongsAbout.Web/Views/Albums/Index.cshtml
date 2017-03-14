@@ -11,6 +11,7 @@
 </p>
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -41,7 +42,7 @@
                 @Html.ActionLink(item.Name, "Details", new { id = item.AlbumId })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tracks.Count);
+                @Html.DisplayFor(modelItem => item.Tracks.Count)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)

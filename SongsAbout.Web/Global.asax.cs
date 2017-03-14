@@ -12,12 +12,11 @@ using Database = System.Data.Entity.Database;
 
 namespace SongsAbout.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer(
-                new EntityDbInitializer());
+            //Database.SetInitializer(new EntityDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

@@ -22,11 +22,19 @@ namespace SongsAbout.Web.Controllers
         private EntityDbContext db = new EntityDbContext();
 
         // GET: Artists
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int startIndex = 0, int count = 20)
         {
-            var artists = db.Artists.Include(a => a.ProfilePic);
 
-            return View(await artists.ToListAsync());
+            var artists = db.Artists
+                .Take(count)
+                .Include(a => a.ProfilePic);
+
+            ViewBag.TotalCount = await db.Artists.CountAsync();
+            ViewBag.Count = count;
+            ViewBag.StartIndex = startIndex;
+            ViewBag.EndIndex = count - startIndex - 1;
+
+            return View(artists);
         }
 
         // GET: Artists/Details/5
@@ -42,7 +50,6 @@ namespace SongsAbout.Web.Controllers
                                    .Include(a => a.ProfilePic)
                                    .Include(a => a.Albums)
                                    .Include(a => a.Albums.Select(al => al.Artist))
-                                   //   .Include(a => a.Albums.Select(al => al.Tracks))
                                    .FirstOrDefaultAsync();
 
             if (artist == null)

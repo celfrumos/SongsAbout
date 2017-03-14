@@ -29,7 +29,20 @@
             <tr>
                 <td>@track.Name</td>
                 <td>@track.LengthMinutes</td>
-                <td>@track.Artist.Name</td>
+                @if (track.Artist != null)
+                {
+                    <td>@track.Artist.Name</td>
+                }
+                else if(Model.Artist != null)
+                {
+                    <td>@Model.Artist.Name</td>
+                }else
+                {
+                    using (var db = new SongsAbout.Web.Models.EntityDbContext())
+                    {
+                        <td>@db.Artists.Find(track.ArtistId)</td>
+                    }
+                }
                 <td>@Html.CheckBoxFor(a => track.CanPlay) </td>
             </tr>
         }
