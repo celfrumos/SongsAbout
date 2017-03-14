@@ -26,7 +26,7 @@ namespace SongsAbout
     public static class UserSpotify
     {
         private const string REDIRECT_URI = "http://localhost";
-        private const int PORT = 8000;
+        private const int PORT = 9171;
 
         /// <summary>
         /// Use this to Call the WebAPI for spotify

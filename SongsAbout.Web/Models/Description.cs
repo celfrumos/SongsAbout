@@ -9,7 +9,6 @@ namespace SongsAbout.Web.Models
 {
     public class Description
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DescriptionId { get; set; }
 

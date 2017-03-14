@@ -23,8 +23,6 @@ namespace SongsAbout.Web.Controllers
         private async Task<IEnumerable<Album>> LoadModelsAsync()
         {
 
-            await db.Tracks.LoadAsync();
-
             return await db.Albums
                         .Include(a => a.Tracks)
                         .Include(a => a.Tracks.Select(t => t.Artist))

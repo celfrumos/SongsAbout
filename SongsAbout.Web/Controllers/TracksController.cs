@@ -18,7 +18,10 @@ namespace SongsAbout.Web.Controllers
         // GET: Tracks
         public async Task<ActionResult> Index()
         {
-            var tracks = db.Tracks.Include(t => t.Album).Include(t => t.Description);
+            var tracks = db.Tracks
+                .Include(t => t.Artist)
+                .Include(t => t.Album)
+                .Include(t => t.Description);
             return View(await tracks.ToListAsync());
         }
 

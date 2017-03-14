@@ -22,7 +22,7 @@ namespace SongsAbout.Web.Models
         public int ArtistId { get; set; }
 
         [Display(Name = "Album")]
-        [Required(ErrorMessage = "Track must be part of  an Album.")]
+        [Required(ErrorMessage = "Track must be part of an Album.")]
         public int AlbumId { get; set; }
 
         [DisplayName("Track Name")]
@@ -35,7 +35,7 @@ namespace SongsAbout.Web.Models
         public bool CanPlay { get; set; }
 
         [Display(Name = "Length")]
-        [DisplayFormat(DataFormatString = "{0:#.####}")]
+        [DisplayFormat(DataFormatString = "{0:##}")]
         public double LengthMinutes
         {
             get { return this.DurationMs / MS_TO_MINUTES; }
@@ -43,19 +43,21 @@ namespace SongsAbout.Web.Models
         }
 
         [DefaultValue(0)]
-        [Editable(false)]
+        [Display(Name = "Duration")]
+        [DisplayFormat(DataFormatString ="{0:##}")]
         public uint DurationMs { get; set; }
 
         public Artist Artist { get; set; }
         public Album Album { get; set; }
 
         [Display(Name = "Description")]
+        [DefaultValue(null)]
         public int DescriptionId { get; set; }
         public Description Description { get; set; }
 
 
         [Display(Name = "Featured Artists")]
-        public List<Artist> Artists { get; set; }
+        public List<Artist> FeaturedArtists { get; set; }
 
     }
 }
