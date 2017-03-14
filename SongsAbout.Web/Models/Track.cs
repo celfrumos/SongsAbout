@@ -27,7 +27,7 @@ namespace SongsAbout.Web.Models
 
         [DisplayName("Track Name")]
         [Required(ErrorMessage = "Track must have a name.", AllowEmptyStrings = false)]
-        [StringLength(150, ErrorMessage ="Track Name is too long")]
+        [StringLength(150, ErrorMessage = "Track Name is too long")]
         public override string Name { get; set; }
 
         [DefaultValue(false)]
@@ -38,14 +38,8 @@ namespace SongsAbout.Web.Models
         [DisplayFormat(DataFormatString = "{0:#.####}")]
         public double LengthMinutes
         {
-            get
-            {
-                return this.DurationMs / MS_TO_MINUTES;
-            }
-            set
-            {
-                this.DurationMs = (uint)(value * MS_TO_MINUTES);
-            }
+            get { return this.DurationMs / MS_TO_MINUTES; }
+            set { this.DurationMs = (uint)(value * MS_TO_MINUTES); }
         }
 
         [DefaultValue(0)]
@@ -55,7 +49,13 @@ namespace SongsAbout.Web.Models
         public Artist Artist { get; set; }
         public Album Album { get; set; }
 
-        [Display(Name = "Featured Artist")]
+        [Display(Name = "Description")]
+        public int DescriptionId { get; set; }
+        public Description Description { get; set; }
+
+
+        [Display(Name = "Featured Artists")]
         public List<Artist> Artists { get; set; }
+
     }
 }

@@ -15,6 +15,10 @@ namespace SongsAbout.Web.Models
 
         public abstract string Name { get; set; }
 
+        public virtual List<Genre> Genres { get; set; }
+        public virtual List<Topic> Topics { get; set; }
+        public virtual List<Keyword> Keywords { get; set; }
+
         [Display(Name = "Spotify Id")]
         [StringLength(50)]
         public virtual string SpotifyId { get; set; }

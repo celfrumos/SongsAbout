@@ -49,5 +49,8 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Tracks")]
         public List<Track> Tracks { get; set; }
 
+        [Display(Name = "Album Keywords")]
+        public List<Keyword> Keywords { get; set; }
+
     }
 }

@@ -46,6 +46,9 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Album Cover")]
         public AlbumCover AlbumCover { get; set; }
 
+        [Display(Name = "Album Keywords")]
+        public List<Keyword> Keywords { get; set; }
+
         /*
         //public Album(SpotifyFullAlbum album)// : this(new SpotifyAlbum(album))
         //{

@@ -16,6 +16,10 @@ namespace SongsAbout.Web.Models
         public DbSet<ProfilePic> ProfilePics { get; set; }
         public DbSet<AlbumCover> AlbumCovers { get; set; }
 
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Keyword> Keywords { get; set; }
+        public DbSet<Description> Descriptions { get; set; }
 
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {
