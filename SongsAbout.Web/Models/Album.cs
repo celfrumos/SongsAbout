@@ -13,19 +13,19 @@ namespace SongsAbout.Web.Models
 {
     public partial class Album : SaEntity
     {
-        protected override string TypeName { get { return "Album"; } }
+        protected override string TypeName => "Album";
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }
 
         [DisplayName("Album Name")]
-        [Required(ErrorMessage = "Album must have a name.", AllowEmptyStrings = false)]        
+        [Required(ErrorMessage = "Album must have a name.", AllowEmptyStrings = false)]
         [StringLength(250, MinimumLength = 1, ErrorMessage = "Album Name is too long")]
         public override string Name { get; set; }
 
         [DisplayName("Release Date")]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
         [Display(Name = "Album Cover")]
         public int AlbumCoverId { get; set; }
@@ -35,19 +35,19 @@ namespace SongsAbout.Web.Models
         public int ArtistId { get; set; }
 
         [DisplayName("Main Artist")]
-        public Artist Artist { get; set; }
+        public Artist Artist { get; set; } = new Artist();
 
         [Display(Name = "Tracks")]
-        public List<Track> Tracks { get; set; }
+        public List<Track> Tracks { get; set; } = new List<Track>();
 
         [Display(Name = "Featured Artists")]
-        public List<Artist> FeaturedArtists { get; set; }
+        public List<Artist> FeaturedArtists { get; set; } = new List<Artist>();
 
         [Display(Name = "Album Cover")]
-        public AlbumCover AlbumCover { get; set; }
+        public AlbumCover AlbumCover { get; set; } = new AlbumCover();
 
         [Display(Name = "Album Keywords")]
-        public List<Keyword> Keywords { get; set; }
+        public override List<Keyword> Keywords { get; set; } = new List<Keyword>();
 
         /*
         //public Album(SpotifyFullAlbum album)// : this(new SpotifyAlbum(album))

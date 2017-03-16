@@ -10,7 +10,8 @@ namespace SongsAbout.Web.Models
 {
     public class Track : SaEntity
     {
-        protected override string TypeName { get { return "Track"; } }
+        protected override string TypeName => "Track";
+
         private const double MS_TO_MINUTES = 60000d;
 
         [Key]
@@ -44,20 +45,23 @@ namespace SongsAbout.Web.Models
 
         [DefaultValue(0)]
         [Display(Name = "Duration")]
-        [DisplayFormat(DataFormatString ="{0:##}")]
+        [DisplayFormat(DataFormatString = "{0:##}")]
         public uint DurationMs { get; set; }
 
-        public Artist Artist { get; set; }
-        public Album Album { get; set; }
+        public Artist Artist { get; set; } = new Artist();
+
+        public Album Album { get; set; } = new Album();
 
         [Display(Name = "Description")]
         [DefaultValue(null)]
-        public int DescriptionId { get; set; }
-        public Description Description { get; set; }
+        public int? DescriptionId { get; set; }
+
+
+        public Description Description { get; set; } = new Description();
 
 
         [Display(Name = "Featured Artists")]
-        public List<Artist> FeaturedArtists { get; set; }
+        public List<Artist> FeaturedArtists { get; set; } = new List<Artist>();
 
     }
 }

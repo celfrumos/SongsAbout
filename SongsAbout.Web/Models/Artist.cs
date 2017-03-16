@@ -20,7 +20,7 @@ namespace SongsAbout.Web.Models
     public partial class Artist : SaEntity
     {
         // DbEntityContext artistContext = new DbEntityContext();
-        protected override string TypeName { get { return "Artist"; } }
+        protected override string TypeName => "Artist"; 
         //public const string TITLE_COLUMN = "name";
 
         //  public readonly DbEntityType DbEntityType = DbEntityType.Artist;
@@ -39,18 +39,18 @@ namespace SongsAbout.Web.Models
         public string Bio { get; set; }
 
         [Display(Name = "Profile Picture")]
-        public ProfilePic ProfilePic { get; set; }
+        public ProfilePic ProfilePic { get; set; } = new ProfilePic();
 
         public int ProfilePicId { get; set; }
 
         [Display(Name = "Albums")]
-        public List<Album> Albums { get; set; }
+        public List<Album> Albums { get; set; } = new List<Album>();
 
         [Display(Name = "Tracks")]
-        public List<Track> Tracks { get; set; }
+        public List<Track> Tracks { get; set; } = new List<Track>();
 
         [Display(Name = "Album Keywords")]
-        public List<Keyword> Keywords { get; set; }
+        public override List<Keyword> Keywords { get; set; } = new List<Keyword>();
 
     }
 }

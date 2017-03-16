@@ -16,14 +16,7 @@
 {
     Artist item = Artists[i];
     <div class="col-md-6">
-        @if (item.ProfilePic != null)
-        {
-            <a href="/Artists/Details/@item.ArtistId"><img src="@item.ProfilePic.Url" width="200" , height="200" alt="@item.ProfilePic.AltText" /></a>
-        }
-        else
-        {
-            <a href="/Artists/Details/@item.ArtistId"><img src="" width="200" , height="200" alt="img-@item.Name" /></a>
-        }
+        <a href="/Artists/Details/@item.ArtistId"><img src="@(item.ProfilePic?.Url)" width="200" , height="200" alt="@(item.ProfilePic?.AltText?? "img-"+item.Name)" /></a>
         <br />
         <span class="artist-name" id="tile-@item.Name">@item.Name</span>
     </div>

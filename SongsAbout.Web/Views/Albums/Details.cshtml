@@ -7,15 +7,9 @@
 <h2>@Model.Name</h2>
 <div>
     <hr />
-    @if (Model.AlbumCover != null)
-    {
-        <img src="@Model.AlbumCover.Url" width="@Model.AlbumCover.Width" height="@Model.AlbumCover.Height" class="artist-details-image" alt="@Model.AlbumCover.AltText" />
-    }
-    else
-    {
-        <img src="" width="640" height="640" class="artist-details-image" alt="img-@Model.Name" />
-    }
-    <p>Released @Model.ReleaseDate.ToShortDateString()</p>
+        <img src="@(Model.AlbumCover?.Url)" width="@(Model.AlbumCover?.Width)" height="@(Model.AlbumCover.Height)" class="artist-details-image" alt="@(Model.AlbumCover.AltText)" />
+ 
+    <p>Released @Model.ReleaseDate.Value.ToShortDateString()</p>
     <table id="artist-albums">
         <caption>Tracks</caption>
         <tr>

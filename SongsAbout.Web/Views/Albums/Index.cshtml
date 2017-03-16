@@ -16,7 +16,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            Tracks Saved
+            Saved Tracks
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ReleaseDate)
@@ -28,15 +28,7 @@
     {
         <tr>
             <td>
-                @if (item.AlbumCover != null)
-                {
-                    <img src="@item.AlbumCover.Url" width="64" , height="64" alt="@item.AlbumCover.AltText" />
-                }
-                else
-                {
-                    <img src="" width="64" , height="64" alt="img-@item.Name" />
-                }
-
+                <img src="@(item.AlbumCover?.Url)" width="64" , height="64" alt="@(item.AlbumCover?.AltText?? "img-"+item.Name)" />
             </td>
             <td>
                 @Html.ActionLink(item.Name, "Details", new { id = item.AlbumId })
