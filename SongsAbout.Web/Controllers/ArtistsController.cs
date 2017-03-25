@@ -24,17 +24,24 @@ namespace SongsAbout.Web.Controllers
         // GET: Artists
         public async Task<ActionResult> Index(int startIndex = 0, int count = 20)
         {
+            try
+            {
+                var artists = db.Artists
+                      .Take(count)
+                      .Include(a => a.ProfilePic);
 
-            var artists = db.Artists
-                .Take(count)
-                .Include(a => a.ProfilePic);
+                ViewBag.TotalCount = await db.Artists.CountAsync();
+                ViewBag.Count = count;
+                ViewBag.StartIndex = startIndex;
+                ViewBag.EndIndex = count - startIndex - 1;
 
-            ViewBag.TotalCount = await db.Artists.CountAsync();
-            ViewBag.Count = count;
-            ViewBag.StartIndex = startIndex;
-            ViewBag.EndIndex = count - startIndex - 1;
+                return View(artists);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message+"\n"+ex?.InnerException?.Message + "\n" + ex?.InnerException?.InnerException?.Message);
+            }
 
-            return View(artists);
         }
 
         // GET: Artists/Details/5
@@ -51,6 +58,7 @@ namespace SongsAbout.Web.Controllers
                                    .Include(a => a.Albums)
                                    .Include(a => a.Albums.Select(al => al.Artist))
                                    .FirstOrDefaultAsync();
+
 
             if (artist == null)
             {
