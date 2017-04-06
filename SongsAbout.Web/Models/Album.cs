@@ -27,27 +27,28 @@ namespace SongsAbout.Web.Models
         [DisplayName("Release Date")]
         public DateTime? ReleaseDate { get; set; }
 
-        [Display(Name = "Album Cover")]
-        public int AlbumCoverId { get; set; }
-
         [DisplayName("Album Artist")]
         [Required(ErrorMessage = "Album must have an Artist.")]
         public int ArtistId { get; set; }
 
         [DisplayName("Main Artist")]
-        public Artist Artist { get; set; } = new Artist();
+        public Artist Artist { get; set; }
 
         [Display(Name = "Tracks")]
-        public List<Track> Tracks { get; set; } = new List<Track>();
+        public List<Track> Tracks { get; set; }
 
         [Display(Name = "Featured Artists")]
-        public List<Artist> FeaturedArtists { get; set; } = new List<Artist>();
+        public List<Artist> FeaturedArtists { get; set; }
+
 
         [Display(Name = "Album Cover")]
-        public AlbumCover AlbumCover { get; set; } = new AlbumCover();
+        public int AlbumCoverId { get; set; }
+
+        [Display(Name = "Album Cover")]
+        public AlbumCover AlbumCover { get; set; }
 
         [Display(Name = "Album Keywords")]
-        public override List<Keyword> Keywords { get; set; } = new List<Keyword>();
+        public override List<Keyword> Keywords { get; set; }
 
         /*
         //public Album(SpotifyFullAlbum album)// : this(new SpotifyAlbum(album))

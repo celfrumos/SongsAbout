@@ -22,6 +22,7 @@ namespace SongsAbout.Web.Controllers
                 .Include(t => t.Artist)
                 .Include(t => t.Album)
                 .Include(t => t.Description);
+
             return View(await tracks.ToListAsync());
         }
 

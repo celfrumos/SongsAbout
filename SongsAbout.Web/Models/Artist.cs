@@ -39,18 +39,18 @@ namespace SongsAbout.Web.Models
         public string Bio { get; set; }
 
         [Display(Name = "Profile Picture")]
-        public ProfilePic ProfilePic { get; set; } = new ProfilePic();
+        public ProfilePic ProfilePic { get; set; } 
 
         public int ProfilePicId { get; set; }
 
         [Display(Name = "Albums")]
-        public List<Album> Albums { get; set; } = new List<Album>();
+        public List<Album> Albums { get; set; } 
 
         [Display(Name = "Tracks")]
-        public List<Track> Tracks { get; set; } = new List<Track>();
+        public List<Track> Tracks { get; set; } 
 
         [Display(Name = "Album Keywords")]
-        public override List<Keyword> Keywords { get; set; } = new List<Keyword>();
+        public override List<Keyword> Keywords { get; set; }
 
     }
 }

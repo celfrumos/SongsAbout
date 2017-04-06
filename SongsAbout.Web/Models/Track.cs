@@ -8,6 +8,7 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
+    [Serializable]
     public class Track : SaEntity
     {
         protected override string TypeName => "Track";
@@ -48,20 +49,21 @@ namespace SongsAbout.Web.Models
         [DisplayFormat(DataFormatString = "{0:##}")]
         public uint DurationMs { get; set; }
 
-        public Artist Artist { get; set; } = new Artist();
+        public Artist Artist { get; set; }
 
-        public Album Album { get; set; } = new Album();
+
+        public Album Album { get; set; }
 
         [Display(Name = "Description")]
         [DefaultValue(null)]
         public int? DescriptionId { get; set; }
 
-
-        public Description Description { get; set; } = new Description();
+        [DefaultValue(null)]
+        public Description Description { get; set; }
 
 
         [Display(Name = "Featured Artists")]
-        public List<Artist> FeaturedArtists { get; set; } = new List<Artist>();
+        public List<Artist> FeaturedArtists { get; set; }
 
     }
 }

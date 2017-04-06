@@ -34,7 +34,7 @@ namespace SongsAbout.Web.Controllers
             ViewBag.StartIndex = startIndex;
             ViewBag.EndIndex = count - startIndex - 1;
 
-            return View(artists);
+            return View(await artists.ToListAsync());
         }
 
         // GET: Artists/Details/5
