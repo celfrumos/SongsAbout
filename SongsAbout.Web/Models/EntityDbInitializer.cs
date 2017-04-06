@@ -18,9 +18,7 @@ namespace SongsAbout.Web.Models
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
 
-
-            // Profile Pics
-
+            #region ProfilePics
             context.ProfilePics.Add(new ProfilePic { ProfilePicId = 0, Url = "https://i.scdn.co/image/b0b295beeb9c89c5060f9f08f9c0de55d00aad0a", AltText = "img-Gavin James", Width = 640, Height = 640 });
             context.ProfilePics.Add(new ProfilePic { ProfilePicId = 1, Url = "https://i.scdn.co/image/1d29072e2633c7d9f74fa3fc4f0d9187cd927f2e", AltText = "img-Zac Brown Band", Width = 1000, Height = 1000 });
             context.ProfilePics.Add(new ProfilePic { ProfilePicId = 2, Url = "https://i.scdn.co/image/557a642bbc541262c649096b3d1ef938f67ec69a", AltText = "img-Josh Ritter", Width = 640, Height = 640 });
@@ -86,9 +84,9 @@ namespace SongsAbout.Web.Models
             context.ProfilePics.Add(new ProfilePic { ProfilePicId = 96, Url = "https://i.scdn.co/image/ed3fe376df10f6c1cd475f0b6d6d4f0546b29eec", AltText = "img-Front Porch Step", Width = 640, Height = 640 });
             context.ProfilePics.Add(new ProfilePic { ProfilePicId = 97, Url = "https://i.scdn.co/image/748cfab5b58581d19da9a5a470782bd903234610", AltText = "img-Roo Panes", Width = 640, Height = 640 });
             context.ProfilePics.Add(new ProfilePic { ProfilePicId = 98, Url = "https://i.scdn.co/image/aec5ed757f1ac4b81620bced3a9f6116de4114e6", AltText = "img-Bombadil", Width = 640, Height = 640 });
+            #endregion
 
-            // Arists
-
+            #region Artists
             context.Artists.Add(new Artist { ArtistId = 0, Name = "Gavin James", SpotifyId = "25tMQOrIU4LlUo6Sv8v5SE", ProfilePicId = 0 });
             context.Artists.Add(new Artist { ArtistId = 1, Name = "Zac Brown Band", SpotifyId = "6yJCxee7QumYr820xdIsjo", ProfilePicId = 1 });
             context.Artists.Add(new Artist { ArtistId = 2, Name = "Josh Ritter", SpotifyId = "6igfLpd8s6DBBAuwebRUuo", ProfilePicId = 2 });
@@ -154,9 +152,9 @@ namespace SongsAbout.Web.Models
             context.Artists.Add(new Artist { ArtistId = 96, Name = "Front Porch Step", SpotifyId = "4UXiNDHAiv8DOSLkp0GbSm", ProfilePicId = 96 });
             context.Artists.Add(new Artist { ArtistId = 97, Name = "Roo Panes", SpotifyId = "0XHM5ZNJDU8e4CfbWMeSzC", ProfilePicId = 97 });
             context.Artists.Add(new Artist { ArtistId = 98, Name = "Bombadil", SpotifyId = "6AlXfeCNG9lrauBDG7GyjM", ProfilePicId = 98 });
+            #endregion
 
-            // Album Covers
-
+            #region AlbumCovers
             context.AlbumCovers.Add(new AlbumCover { AlbumCoverId = 0, Url = "https://i.scdn.co/image/7cb1dac416742f2099d1f0edc45dcaac97a8e913", AltText = "img-The Book Of Love", Width = 640, Height = 640 });
             context.AlbumCovers.Add(new AlbumCover { AlbumCoverId = 1, Url = "https://i.scdn.co/image/a3a4ddecb4b78c6b73301169dd7f43d09fcf8dd1", AltText = "img-JEKYLL + HYDE", Width = 640, Height = 640 });
             context.AlbumCovers.Add(new AlbumCover { AlbumCoverId = 2, Url = "https://i.scdn.co/image/5445c78743f002a5cde9d7cefd1282defd74bfd3", AltText = "img-The Historical Conquests of Josh Ritter", Width = 640, Height = 640 });
@@ -233,9 +231,9 @@ namespace SongsAbout.Web.Models
             context.AlbumCovers.Add(new AlbumCover { AlbumCoverId = 96, Url = "https://i.scdn.co/image/ed3fe376df10f6c1cd475f0b6d6d4f0546b29eec", AltText = "img-Aware", Width = 640, Height = 640 });
             context.AlbumCovers.Add(new AlbumCover { AlbumCoverId = 97, Url = "https://i.scdn.co/image/55e6c90a6971bce1d2838c2df728004371c44b61", AltText = "img-Little Giant", Width = 640, Height = 640 });
             context.AlbumCovers.Add(new AlbumCover { AlbumCoverId = 98, Url = "https://i.scdn.co/image/bef9bc342984f439cfeb66366434dbfb61cb703a", AltText = "img-Metrics of Affection", Width = 640, Height = 640 });
+            #endregion
 
-            // Albums
-
+            #region Albums
             context.Albums.Add(new Album { AlbumId = 0, ArtistId = 0, Name = "The Book Of Love", SpotifyId = " 0N1btvaeNMojeaTbp5LQby", ReleaseDate = Convert.ToDateTime("3/6/2015 12:00:00 AM"), AlbumCoverId = 0 });
             context.Albums.Add(new Album { AlbumId = 1, ArtistId = 1, Name = "JEKYLL + HYDE", SpotifyId = " 1xy141zMRluP7YaE94IawT", ReleaseDate = Convert.ToDateTime("4/28/2015 12:00:00 AM"), AlbumCoverId = 1 });
             context.Albums.Add(new Album { AlbumId = 2, ArtistId = 2, Name = "The Historical Conquests of Josh Ritter", SpotifyId = " 40xscsIpyzlVZTBC5cDOFH", ReleaseDate = Convert.ToDateTime("8/21/2007 12:00:00 AM"), AlbumCoverId = 2 });
@@ -312,9 +310,9 @@ namespace SongsAbout.Web.Models
             context.Albums.Add(new Album { AlbumId = 96, ArtistId = 96, Name = "Aware", SpotifyId = " 7f9GLwM6FgxoyehG3XT3lq", ReleaseDate = Convert.ToDateTime("11/12/2013 12:00:00 AM"), AlbumCoverId = 96 });
             context.Albums.Add(new Album { AlbumId = 97, ArtistId = 97, Name = "Little Giant", SpotifyId = " 7fqZrcQ53NpZugjmXHtLK3", ReleaseDate = Convert.ToDateTime("10/6/2014 12:00:00 AM"), AlbumCoverId = 97 });
             context.Albums.Add(new Album { AlbumId = 98, ArtistId = 98, Name = "Metrics of Affection", SpotifyId = " 334Uk4L4aNU8d1yjVu9Vmz", ReleaseDate = Convert.ToDateTime("7/23/2013 12:00:00 AM"), AlbumCoverId = 98 });
-
-            // Tracks
-
+            #endregion
+           
+            #region Tracks
             context.Tracks.Add(new Track { TrackId = 0, ArtistId = 0, AlbumId = 0,/**/ Name = "The Book Of Love", SpotifyId = "25tMQOrIU4LlUo6Sv8v5SE"                                            /**/ , CanPlay = false, DurationMs = 20000 });
             context.Tracks.Add(new Track { TrackId = 1, ArtistId = 1, AlbumId = 1,/**/ Name = "Tomorrow Never Comes - (Acoustic Version)", SpotifyId = "6yJCxee7QumYr820xdIsjo"                   /**/ , CanPlay = false, DurationMs = 20000 });
             context.Tracks.Add(new Track { TrackId = 2, ArtistId = 2, AlbumId = 2,/**/ Name = "The Temptation of Adam", SpotifyId = "6igfLpd8s6DBBAuwebRUuo"                                      /**/ , CanPlay = false, DurationMs = 20000 });
@@ -404,7 +402,10 @@ namespace SongsAbout.Web.Models
             context.Tracks.Add(new Track { TrackId = 97, ArtistId = 97, AlbumId = 97,/**/ Name = "Home From Home", SpotifyId = "0XHM5ZNJDU8e4CfbWMeSzC"                                              /**/ , CanPlay = false, DurationMs = 20000 });
             context.Tracks.Add(new Track { TrackId = 98, ArtistId = 98, AlbumId = 98,/**/ Name = "Thank You", SpotifyId = "6AlXfeCNG9lrauBDG7GyjM"                                                   /**/ , CanPlay = false, DurationMs = 20000 });          /**/
             context.Tracks.Add(new Track { TrackId = 99, ArtistId = 96, AlbumId = 96,/**/ Name = "Island of the Misfit Boy", SpotifyId = "4UXiNDHAiv8DOSLkp0GbSm"                                    /**/ , CanPlay = false, DurationMs = 20000 });
+            #endregion
+
             context.Descriptions.Add(new Description { DescriptionId = 0, DescriptionText = "Test description" });
+
             base.Seed(context);
 
             var admin = new ApplicationUser { UserName = "jdegraw", Email = "jdegraw42@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Josh", LastName = "DeGraw" };

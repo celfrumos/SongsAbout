@@ -26,6 +26,8 @@ namespace SongsAbout.Web.Controllers
             return View(await tracks.ToListAsync());
         }
 
+      
+
         // GET: Tracks/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -45,6 +47,7 @@ namespace SongsAbout.Web.Controllers
         public ActionResult Create()
         {
             ViewBag.AlbumId = new SelectList(db.Albums, "AlbumId", "Name");
+            ViewBag.ArtistId = new SelectList(db.Artists, "ArtistId", "Name");
             ViewBag.DescriptionId = new SelectList(db.Descriptions, "DescriptionId", "DescriptionText");
             return View();
         }
@@ -81,6 +84,7 @@ namespace SongsAbout.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.AlbumId = new SelectList(db.Albums, "AlbumId", "Name", track.AlbumId);
+            ViewBag.ArtistId = new SelectList(db.Artists, "ArtistId", "Name", track.ArtistId);
             ViewBag.DescriptionId = new SelectList(db.Descriptions, "DescriptionId", "DescriptionText", track.DescriptionId);
             return View(track);
         }
@@ -99,6 +103,7 @@ namespace SongsAbout.Web.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.AlbumId = new SelectList(db.Albums, "AlbumId", "Name", track.AlbumId);
+            ViewBag.ArtistId = new SelectList(db.Artists, "ArtistId", "Name", track.ArtistId);
             ViewBag.DescriptionId = new SelectList(db.Descriptions, "DescriptionId", "DescriptionText", track.DescriptionId);
             return View(track);
         }

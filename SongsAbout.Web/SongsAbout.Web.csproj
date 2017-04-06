@@ -178,6 +178,7 @@
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SpotifyController.cs" />
     <Compile Include="Controllers\TracksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,6 +195,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\SaEntity.cs" />
+    <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,6 +221,7 @@
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\Artists\solarsuit.jpg" />
+    <Content Include="Scripts\App\Custom.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\SlateTheme.css.map" />
@@ -295,13 +298,14 @@
     <Content Include="Views\Artists\Details.cshtml" />
     <Content Include="Views\Artists\Edit.cshtml" />
     <Content Include="Views\Artists\Index.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <Content Include="SinginPlaylist.JSON" />
     <Content Include="Views\Tracks\Create.cshtml" />
     <Content Include="Views\Tracks\Delete.cshtml" />
     <Content Include="Views\Tracks\Details.cshtml" />
     <Content Include="Views\Tracks\Edit.cshtml" />
     <Content Include="Views\Tracks\Index.cshtml" />
+    <Content Include="Views\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\SASS\" />

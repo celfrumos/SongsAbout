@@ -22,8 +22,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Artists", "Index", "Artists")</li>
+                    <li>@Html.ActionLink("Albums", "Index", "Albums")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -33,6 +33,10 @@
         @RenderBody()
         <hr />
         <footer>
+            <ul class="modal-footer">
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
             <p>&copy; @DateTime.Now.Year - SongsAbout</p>
         </footer>
     </div>
