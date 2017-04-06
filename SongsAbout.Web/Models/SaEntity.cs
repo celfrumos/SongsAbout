@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,6 +9,9 @@ namespace SongsAbout.Web.Models
 {
     public abstract class SaEntity
     {
+        [Index]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int Index { get; }
         protected const string SPOTIFY_API_BASE = @"https://api.spotify.com/v1";
         protected const string SPOTIFY_WEB_PAGE_BASE = @"https://open.spotify.com";
 

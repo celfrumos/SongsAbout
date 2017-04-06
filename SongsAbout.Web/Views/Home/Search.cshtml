@@ -1,0 +1,18 @@
+﻿@using SongsAbout.Web.Models;
+
+@model SearchResults<SaEntity>
+@{
+
+    ViewBag.Title = "Search Spotify";
+}
+
+<h2>Search Spotify</h2>
+
+
+@Html.BeginForm("Search", "Search");
+
+
+<table class="table table-striped" id="search-results">
+    <tr></tr>
+    <tr></tr>
+</table>
