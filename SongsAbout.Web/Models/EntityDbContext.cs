@@ -19,7 +19,7 @@ namespace SongsAbout.Web.Models
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Keyword> Keywords { get; set; }
-        public DbSet<Description> Descriptions { get; set; }
+        public DbSet<SaDescription> Descriptions { get; set; }
 
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {

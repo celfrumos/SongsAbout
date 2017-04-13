@@ -7,16 +7,18 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
-    public class Genre
+    public class Genre : SaDescription
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int GenreId { get; set; }
 
+        public override SaEntityType EntityType => SaEntityType.Genre;
+
         [Display(Name = "Genre")]
         [Required(ErrorMessage = "Genre Text must not be blank", AllowEmptyStrings = false)]
         [StringLength(150, MinimumLength = 2, ErrorMessage = "Genres must have less than 150 characters.")]
-        public string GenreText { get; set; }
+        public override string Text { get; set; }
 
         public List<Track> Tracks { get; set; }
         public List<Album> Albums { get; set; }

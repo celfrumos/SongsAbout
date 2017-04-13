@@ -311,7 +311,7 @@ namespace SongsAbout.Web.Models
             context.Albums.Add(new Album { AlbumId = 97, ArtistId = 97, Name = "Little Giant", SpotifyId = " 7fqZrcQ53NpZugjmXHtLK3", ReleaseDate = Convert.ToDateTime("10/6/2014 12:00:00 AM"), AlbumCoverId = 97 });
             context.Albums.Add(new Album { AlbumId = 98, ArtistId = 98, Name = "Metrics of Affection", SpotifyId = " 334Uk4L4aNU8d1yjVu9Vmz", ReleaseDate = Convert.ToDateTime("7/23/2013 12:00:00 AM"), AlbumCoverId = 98 });
             #endregion
-           
+
             #region Tracks
             context.Tracks.Add(new Track { TrackId = 0, ArtistId = 0, AlbumId = 0,/**/ Name = "The Book Of Love", SpotifyId = "25tMQOrIU4LlUo6Sv8v5SE"                                            /**/ , CanPlay = false, DurationMs = 20000 });
             context.Tracks.Add(new Track { TrackId = 1, ArtistId = 1, AlbumId = 1,/**/ Name = "Tomorrow Never Comes - (Acoustic Version)", SpotifyId = "6yJCxee7QumYr820xdIsjo"                   /**/ , CanPlay = false, DurationMs = 20000 });
@@ -404,8 +404,17 @@ namespace SongsAbout.Web.Models
             context.Tracks.Add(new Track { TrackId = 99, ArtistId = 96, AlbumId = 96,/**/ Name = "Island of the Misfit Boy", SpotifyId = "4UXiNDHAiv8DOSLkp0GbSm"                                    /**/ , CanPlay = false, DurationMs = 20000 });
             #endregion
 
-            context.Descriptions.Add(new Description { DescriptionId = 0, DescriptionText = "Test description" });
+            context.Descriptions.Add(new SaDescription { DescriptionId = 0, Text = "Test Description" });
 
+            context.Keywords.Add(new Keyword { KeywordId = 0, KeywordText = "Happy" });
+            context.Keywords.Add(new Keyword { KeywordId = 1, KeywordText = "Sad" });
+            context.Keywords.Add(new Keyword { KeywordId = 2, KeywordText = "Angry" });
+            context.Keywords.Add(new Keyword { KeywordId = 3, KeywordText = "Mad" });
+            context.Keywords.Add(new Keyword { KeywordId = 4, KeywordText = "Mad" });
+
+            context.Topics.Add(new Topic { TopicId = 0, Text = "Losing someone special" });
+            context.Topics.Add(new Topic { TopicId = 0, Text = "Getting Married" });
+            context.Topics.Add(new Topic { TopicId = 0, Text = "Losing someone special" });
             base.Seed(context);
 
             var admin = new ApplicationUser { UserName = "jdegraw", Email = "jdegraw42@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Josh", LastName = "DeGraw" };

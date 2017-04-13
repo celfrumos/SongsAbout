@@ -7,19 +7,28 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
-    public class Topic
+    public class Topic : SaDescription
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TopicId { get; set; }
 
+        public override SaEntityType EntityType => SaEntityType.Topic;
         [Display(Name = "Topic")]
         [Required(ErrorMessage = "Topic Text must not be blank", AllowEmptyStrings = false)]
-        [StringLength(200, MinimumLength = 2, ErrorMessage =  "Topics must have less than 200 characters.")]
-        public string TopicText { get; set; }
+        [StringLength(200, MinimumLength = 2, ErrorMessage = "Topics must have less than 200 characters.")]
+        public override string Text { get; set; }
 
         public List<Track> Tracks { get; set; }
         public List<Album> Albums { get; set; }
         public List<Artist> Artists { get; set; }
+        
+
+        public override string Name
+        {
+            get { return Text; }
+
+            set { Text = value; ; }
+        }
     }
 }

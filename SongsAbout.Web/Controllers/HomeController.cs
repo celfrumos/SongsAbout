@@ -71,10 +71,10 @@ namespace SongsAbout.Web.Controllers
             }
             if ((type & SearchMethod.Topic) == SearchMethod.Topic || type == SearchMethod.Any)
             {
-                //results.Items.AddRange((from a in db.Topics
-                //                        where a.TopicText.ToLower()
-                //                              .Contains(q.ToLower())
-                //                        select a).Take(limit));
+                results.Items.AddRange((from a in db.Topics
+                                        where a.Text.ToLower()
+                                              .Contains(q.ToLower())
+                                        select a).Take(limit));
 
             }
             if ((type & SearchMethod.Genre) == SearchMethod.Genre || type == SearchMethod.Any)

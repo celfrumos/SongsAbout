@@ -186,7 +186,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Artist.cs" />
-    <Compile Include="Models\Description.cs" />
+    <Compile Include="Models\SaDescription.cs" />
     <Compile Include="Models\EntityDbContext.cs" />
     <Compile Include="Models\EntityDbInitializer.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -195,6 +195,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\SaEntity.cs" />
+    <Compile Include="Models\SaEntityType.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\Track.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="UserSpotify.cs" />
     <Compile Include="Views\SearchController.cs" />
+    <Compile Include="Views\TopicsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\SongsAboutDb.mdf" />
@@ -306,6 +308,11 @@
     <Content Include="Views\Tracks\Edit.cshtml" />
     <Content Include="Views\Tracks\Index.cshtml" />
     <Content Include="Views\Search.cshtml" />
+    <Content Include="Views\Topics\Create.cshtml" />
+    <Content Include="Views\Topics\Delete.cshtml" />
+    <Content Include="Views\Topics\Details.cshtml" />
+    <Content Include="Views\Topics\Edit.cshtml" />
+    <Content Include="Views\Topics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\SASS\" />

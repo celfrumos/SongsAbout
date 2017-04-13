@@ -11,7 +11,8 @@ namespace SongsAbout.Web.Models
     [Serializable]
     public class Track : SaEntity
     {
-        protected override string TypeName => "Track";
+        public override SaEntityType EntityType() => SaEntityType.Track;
+        //protected override string TypeName => "Track";
 
         private const double MS_TO_MINUTES = 60000d;
 
@@ -59,7 +60,7 @@ namespace SongsAbout.Web.Models
         public int? DescriptionId { get; set; }
 
         [DefaultValue(null)]
-        public Description Description { get; set; }
+        public SaDescription Description { get; set; }
 
 
         [Display(Name = "Featured Artists")]

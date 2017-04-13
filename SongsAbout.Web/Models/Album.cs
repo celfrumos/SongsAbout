@@ -13,8 +13,7 @@ namespace SongsAbout.Web.Models
 {
     public partial class Album : SaEntity
     {
-        protected override string TypeName => "Album";
-
+        public override SaEntityType EntityType() => SaEntityType.Album;
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }

@@ -15,7 +15,10 @@ namespace SongsAbout.Web.Models
         protected const string SPOTIFY_API_BASE = @"https://api.spotify.com/v1";
         protected const string SPOTIFY_WEB_PAGE_BASE = @"https://open.spotify.com";
 
-        protected abstract string TypeName { get; }
+        public abstract SaEntityType EntityType { get; }
+
+        protected virtual string TypeName { get; }
+        protected virtual string dbenty { get; }
 
         public abstract string Name { get; set; }
 
