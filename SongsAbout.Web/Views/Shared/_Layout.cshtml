@@ -24,8 +24,9 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Artists", "Index", "Artists")</li>
                     <li>@Html.ActionLink("Albums", "Index", "Albums")</li>
+                    <li><input type="text" data-autocomplete-source="@*@Url.Action(actionName: "FoodSearch", controllerName: "Home")*@"/></li>
                 </ul>
-                <input type="text" data-autocomplete-source="@Url.Action(actionName: "FoodSearch", controllerName: "Home") />
+                
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

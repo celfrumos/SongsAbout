@@ -23,8 +23,11 @@ namespace SongsAbout.Web.Models
         public DbSet<SaDescription> Descriptions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {            
-            modelBuilder.Entity<AutoCompleteResult>().HasKey(r => new { r.Text, r.SaEntityId, r.SaEntityType });
+        {
+            modelBuilder.Entity<Genre>()
+                .Property(g => g.Text)
+                .HasColumnName("Text");
+            // modelBuilder.Entity<AutoCompleteResult>().HasKey(r => new { r.Text, r.SaEntityId, r.SaEntityType });
             base.OnModelCreating(modelBuilder);
         }
         //public DbSet<AutoCompleteResult> AutoCompleteResults { get; set; }
