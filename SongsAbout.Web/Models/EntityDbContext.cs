@@ -7,6 +7,7 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
+
     public class EntityDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Artist> Artists { get; set; }
@@ -20,6 +21,13 @@ namespace SongsAbout.Web.Models
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Keyword> Keywords { get; set; }
         public DbSet<SaDescription> Descriptions { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {            
+            modelBuilder.Entity<AutoCompleteResult>().HasKey(r => new { r.Text, r.SaEntityId, r.SaEntityType });
+            base.OnModelCreating(modelBuilder);
+        }
+        //public DbSet<AutoCompleteResult> AutoCompleteResults { get; set; }
 
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {

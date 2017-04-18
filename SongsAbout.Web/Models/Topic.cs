@@ -13,6 +13,8 @@ namespace SongsAbout.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TopicId { get; set; }
 
+        public override int Id { get { return TopicId; } set { TopicId = value; } }
+
         public override SaEntityType EntityType => SaEntityType.Topic;
         [Display(Name = "Topic")]
         [Required(ErrorMessage = "Topic Text must not be blank", AllowEmptyStrings = false)]

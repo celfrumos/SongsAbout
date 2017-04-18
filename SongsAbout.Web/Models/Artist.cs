@@ -28,6 +28,8 @@ namespace SongsAbout.Web.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ArtistId { get; set; }
+        
+        public override int Id { get { return ArtistId; } set { ArtistId = value; } }
 
         [Display(Name = "Artist Name")]
         [Required(ErrorMessage = "Artist must have a name")]

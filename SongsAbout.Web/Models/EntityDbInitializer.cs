@@ -404,7 +404,7 @@ namespace SongsAbout.Web.Models
             context.Tracks.Add(new Track { TrackId = 99, ArtistId = 96, AlbumId = 96,/**/ Name = "Island of the Misfit Boy", SpotifyId = "4UXiNDHAiv8DOSLkp0GbSm"                                    /**/ , CanPlay = false, DurationMs = 20000 });
             #endregion
 
-            context.Descriptions.Add(new SaDescription { DescriptionId = 0, Text = "Test Description" });
+
 
             context.Keywords.Add(new Keyword { KeywordId = 0, KeywordText = "Happy" });
             context.Keywords.Add(new Keyword { KeywordId = 1, KeywordText = "Sad" });
@@ -415,6 +415,24 @@ namespace SongsAbout.Web.Models
             context.Topics.Add(new Topic { TopicId = 0, Text = "Losing someone special" });
             context.Topics.Add(new Topic { TopicId = 0, Text = "Getting Married" });
             context.Topics.Add(new Topic { TopicId = 0, Text = "Losing someone special" });
+
+            foreach (var ar in context.Artists)
+            {
+                SaEntity.AutoCompleteResults.Add(new AutoCompleteResult { SaEntityId = ar.Id, SaEntityType = ar.EntityType, Text = ar.Name });
+            }
+            foreach (var al in context.Albums)
+            {
+                SaEntity.AutoCompleteResults.Add(new AutoCompleteResult { SaEntityId = al.Id, SaEntityType = al.EntityType, Text = al.Name });
+            }
+            foreach (var t in context.Tracks)
+            {
+                SaEntity.AutoCompleteResults.Add(new AutoCompleteResult { SaEntityId = t.Id, SaEntityType = t.EntityType, Text = t.Name });
+            }
+            foreach (var k in context.Keywords)
+            {
+                SaEntity.AutoCompleteResults.Add(new AutoCompleteResult { SaEntityId = k.Id, SaEntityType = k.EntityType, Text = k.Name });
+            }
+
             base.Seed(context);
 
             var admin = new ApplicationUser { UserName = "jdegraw", Email = "jdegraw42@gmail.com", BirthDate = new DateTime(1994, month: 4, day: 18), FirstName = "Josh", LastName = "DeGraw" };

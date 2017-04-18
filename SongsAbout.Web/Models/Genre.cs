@@ -13,6 +13,9 @@ namespace SongsAbout.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int GenreId { get; set; }
 
+        public override int Id { get { return GenreId; } set { GenreId = value; } }
+
+
         public override SaEntityType EntityType => SaEntityType.Genre;
 
         [Display(Name = "Genre")]

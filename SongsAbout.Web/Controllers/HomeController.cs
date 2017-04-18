@@ -21,7 +21,20 @@ namespace SongsAbout.Web.Controllers
         {
             return View();
         }
+        public ActionResult FoodSearch(string term)
+        {
+            throw new NotImplementedException();
+            //var foods = GetAutoCompleteResults(term).Select(a => new { value = a.FoodBrand + " " + a.FoodName });
+            //return Json(foods, JsonRequestBehavior.AllowGet);
+        }
 
+        private List<SearchItem> GetAutoCompleteResults(string searchString)
+        {
+
+            throw new NotImplementedException();
+            //return db.Where(a => a.FoodName.Contains(searchString) ||
+            // a.FoodBrand.Contains(searchString)).ToList();
+        }
         [HttpGet]
         public ActionResult Search(string q, int limit = 5, int? type = (int)(SearchMethod.Any), int? startIndex = 0)
         {
@@ -39,9 +52,9 @@ namespace SongsAbout.Web.Controllers
         }
 
 
-        private SearchResults _searchRecords(string q, int limit = 5, SearchMethod type = SearchMethod.Any, int? startIndex = 0)
+        private SearchResult _searchRecords(string q, int limit = 5, SearchMethod type = SearchMethod.Any, int? startIndex = 0)
         {
-            var results = new SearchResults();
+            var results = new SearchResult();
 
 
             if ((type & SearchMethod.Artist) == SearchMethod.Artist || type == SearchMethod.Any)

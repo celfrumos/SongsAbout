@@ -14,17 +14,20 @@ namespace SongsAbout.Web.Models
         public int Index { get; }
         protected const string SPOTIFY_API_BASE = @"https://api.spotify.com/v1";
         protected const string SPOTIFY_WEB_PAGE_BASE = @"https://open.spotify.com";
+        public abstract int Id { get; set; }
 
+        [EnumDataType(typeof(SaEntityType), ErrorMessage = "Error related to EntityType")]
         public abstract SaEntityType EntityType { get; }
 
         protected virtual string TypeName { get; }
-        protected virtual string dbenty { get; }
 
         public abstract string Name { get; set; }
 
         public virtual List<Genre> Genres { get; set; }
         public virtual List<Topic> Topics { get; set; }
         public virtual List<Keyword> Keywords { get; set; }
+
+        public static List<AutoCompleteResult> AutoCompleteResults { get; set; }
 
         [Display(Name = "Spotify Id")]
         [StringLength(50)]

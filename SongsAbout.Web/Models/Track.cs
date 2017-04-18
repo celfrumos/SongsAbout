@@ -11,7 +11,7 @@ namespace SongsAbout.Web.Models
     [Serializable]
     public class Track : SaEntity
     {
-        public override SaEntityType EntityType() => SaEntityType.Track;
+        public override SaEntityType EntityType => SaEntityType.Track;
         //protected override string TypeName => "Track";
 
         private const double MS_TO_MINUTES = 60000d;
@@ -19,6 +19,9 @@ namespace SongsAbout.Web.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TrackId { get; set; }
+
+        public override int Id { get { return TrackId; } set { TrackId = value; } }
+
 
         [Display(Name = "Artist")]
         [Required(ErrorMessage = "Track must have an Artist.")]

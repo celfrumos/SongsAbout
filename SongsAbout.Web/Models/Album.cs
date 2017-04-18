@@ -13,10 +13,11 @@ namespace SongsAbout.Web.Models
 {
     public partial class Album : SaEntity
     {
-        public override SaEntityType EntityType() => SaEntityType.Album;
+        public override SaEntityType EntityType => SaEntityType.Album;
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }
+        public override int Id { get { return AlbumId; } set { AlbumId = value; } }
 
         [DisplayName("Album Name")]
         [Required(ErrorMessage = "Album must have a name.", AllowEmptyStrings = false)]

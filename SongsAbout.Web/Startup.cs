@@ -19,6 +19,7 @@ using SpotifyAPI.Web.Models;
 using Image = System.Drawing.Image;
 using Microsoft.Owin;
 using Owin;
+using System.Data.Entity;
 
 [assembly: OwinStartupAttribute(typeof(SongsAbout.Web.Startup))]
 namespace SongsAbout.Web

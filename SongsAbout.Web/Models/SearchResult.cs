@@ -16,7 +16,7 @@ namespace SongsAbout.Web.Models
         Any = Artist | Album | Track | Topic | Genre
     }
 
-    public class SearchResults
+    public class SearchResult
     {
         public SearchMethod SearchMethod { get; set; } = SearchMethod.Any;
         public List<SaEntity> Items { get; set; } = new List<SaEntity>();

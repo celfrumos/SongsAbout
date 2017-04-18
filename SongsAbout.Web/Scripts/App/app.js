@@ -1,4 +1,3 @@
-﻿
 $(document).ready(function () {
     $("input[data-autocomplete-source]").each(function () {
         var target = $(this);
