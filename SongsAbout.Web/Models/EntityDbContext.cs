@@ -20,13 +20,13 @@ namespace SongsAbout.Web.Models
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Keyword> Keywords { get; set; }
-        public DbSet<SaDescription> Descriptions { get; set; }
+      //  public DbSet<SaDescription> Descriptions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Genre>()
-                .Property(g => g.Text)
-                .HasColumnName("Text");
+            //modelBuilder.Entity<Genre>()
+            //    .Property(g => g.Text)
+            //    .HasColumnName("Text");
             // modelBuilder.Entity<AutoCompleteResult>().HasKey(r => new { r.Text, r.SaEntityId, r.SaEntityType });
             base.OnModelCreating(modelBuilder);
         }

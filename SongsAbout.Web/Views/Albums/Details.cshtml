@@ -1,46 +1,64 @@
 ﻿@model SongsAbout.Web.Models.Album
 
 @{
-    ViewBag.Title = Model.Name + "Details";
+    ViewBag.Title = "Details";
 }
 
-<h2>@Model.Name</h2>
+<h2>Details</h2>
+
 <div>
+    <h4>Album</h4>
     <hr />
-        <img src="@(Model.AlbumCover?.Url)" width="@(Model.AlbumCover?.Width)" height="@(Model.AlbumCover.Height)" class="artist-details-image" alt="@(Model.AlbumCover.AltText)" />
- 
-    <p>Released @Model.ReleaseDate.Value.ToShortDateString()</p>
-    <table id="artist-albums">
-        <caption>Tracks</caption>
-        <tr>
-            <th>Track Name</th>
-            <th>Track Length</th>
-            <th>@Html.DisplayNameFor(a => a.Artist.Name)</th>
-            <th>Can Play </th>
-        </tr>
-        @foreach (var track in Model.Tracks)
-            {
-            <tr>
-                <td>@track.Name</td>
-                <td>@track.LengthMinutes</td>
-                @if (track.Artist != null)
-                {
-                    <td>@track.Artist.Name</td>
-                }
-                else if(Model.Artist != null)
-                {
-                    <td>@Model.Artist.Name</td>
-                }else
-                {
-                    using (var db = new SongsAbout.Web.Models.EntityDbContext())
-                    {
-                        <td>@db.Artists.Find(track.ArtistId)</td>
-                    }
-                }
-                <td>@Html.CheckBoxFor(a => track.CanPlay) </td>
-            </tr>
-        }
-    </table>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AlbumCover.AltText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlbumCover.AltText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpotifyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpotifyId)
+        </dd>
+
+    </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.AlbumId }) |

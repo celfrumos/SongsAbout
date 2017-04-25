@@ -8,19 +8,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
-    public abstract class Picture
+    public interface IPicture
     {
-        [Display(Name = "alt")]
-        public virtual string AltText { get; set; }
-        [Display(Name = "src")]
-        public virtual string Url { get; set; }
-        [Display(Name = "width")]
-        public virtual int Width { get; set; }
-        [Display(Name = "height")]
-        public virtual int Height { get; set; }
+        string AltText { get; set; }
+        string Url { get; set; }
+        int Width { get; set; }
+        int Height { get; set; }
 
     }
-    public class ProfilePic : Picture
+    public class ProfilePic : IPicture
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -30,8 +26,16 @@ namespace SongsAbout.Web.Models
         {
             return new ProfilePic { Url = image.Url, Width = image.Width, Height = image.Height };
         }
+        [Display(Name = "alt")]
+        public virtual string AltText { get; set; }
+        [Display(Name = "src")]
+        public virtual string Url { get; set; }
+        [Display(Name = "width")]
+        public virtual int Width { get; set; }
+        [Display(Name = "height")]
+        public virtual int Height { get; set; }
     }
-    public class AlbumCover : Picture
+    public class AlbumCover : IPicture
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -41,5 +45,13 @@ namespace SongsAbout.Web.Models
         {
             return new AlbumCover { Url = image.Url, Width = image.Width, Height = image.Height };
         }
+        [Display(Name = "alt")]
+        public virtual string AltText { get; set; }
+        [Display(Name = "src")]
+        public virtual string Url { get; set; }
+        [Display(Name = "width")]
+        public virtual int Width { get; set; }
+        [Display(Name = "height")]
+        public virtual int Height { get; set; }
     }
 }

@@ -28,10 +28,30 @@ namespace SongsAbout.Web.Controllers
             //return Json(foods, JsonRequestBehavior.AllowGet);
         }
 
-        private List<SearchItem> GetAutoCompleteResults(string searchString)
+        private List<string> GetAutoCompleteResults(string searchString)
         {
+            //  throw new NotImplementedException();
+            string str = searchString.ToLower();
 
-            throw new NotImplementedException();
+            List<string> val = new List<string>();
+
+            val.AddRange((from a in db.Artists
+                          where a.Name.ToLower().Contains(str)
+                          select a.Name).Take(5));
+
+            val.AddRange((from a in db.Albums
+                          where a.Name.ToLower().Contains(str)
+                          select a.Name).Take(5));
+
+            val.AddRange((from t in db.Tracks
+                          where t.Name.ToLower().Contains(str)
+                          select t.Name).Take(5));
+
+            val.AddRange((from t in db.Topics
+                          where t.Name.ToLower().Contains(str)
+                          select t.Name).Take(5));
+
+            return val;
             //return db.Where(a => a.FoodName.Contains(searchString) ||
             // a.FoodBrand.Contains(searchString)).ToList();
         }
@@ -57,47 +77,47 @@ namespace SongsAbout.Web.Controllers
             var results = new SearchResult();
 
 
-            if ((type & SearchMethod.Artist) == SearchMethod.Artist || type == SearchMethod.Any)
-            {
-                results.Items.AddRange((from a in db.Artists
-                                        where a.Name.ToLower()
-                                              .Contains(q.ToLower())
-                                        select a).Take(limit));
+            //if ((type & SearchMethod.Artist) == SearchMethod.Artist || type == SearchMethod.Any)
+            //{
+            //    results.Items.AddRange((from a in db.Artists
+            //                            where a.Name.ToLower()
+            //                                  .Contains(q.ToLower())
+            //                            select a).Take(limit));
 
-            }
-            if ((type & SearchMethod.Album) == SearchMethod.Album || type == SearchMethod.Any)
-            {
-                results.Items.AddRange((from a in db.Albums
-                                        where a.Name.ToLower()
-                                              .Contains(q.ToLower())
-                                        select a)
-                                        .Take(limit));
+            //}
+            //if ((type & SearchMethod.Album) == SearchMethod.Album || type == SearchMethod.Any)
+            //{
+            //    results.Items.AddRange((from a in db.Albums
+            //                            where a.Name.ToLower()
+            //                                  .Contains(q.ToLower())
+            //                            select a)
+            //                            .Take(limit));
 
-            }
-            if ((type & SearchMethod.Track) == SearchMethod.Track || type == SearchMethod.Any)
-            {
+            //}
+            //if ((type & SearchMethod.Track) == SearchMethod.Track || type == SearchMethod.Any)
+            //{
 
-                results.Items.AddRange((from a in db.Tracks
-                                        where a.Name.ToLower()
-                                              .Contains(q.ToLower())
-                                        select a).Take(limit));
-            }
-            if ((type & SearchMethod.Topic) == SearchMethod.Topic || type == SearchMethod.Any)
-            {
-                results.Items.AddRange((from a in db.Topics
-                                        where a.Text.ToLower()
-                                              .Contains(q.ToLower())
-                                        select a).Take(limit));
+            //    results.Items.AddRange((from a in db.Tracks
+            //                            where a.Name.ToLower()
+            //                                  .Contains(q.ToLower())
+            //                            select a).Take(limit));
+            //}
+            //if ((type & SearchMethod.Topic) == SearchMethod.Topic || type == SearchMethod.Any)
+            //{
+            //    results.Items.AddRange((from a in db.Topics
+            //                            where a.Text.ToLower()
+            //                                  .Contains(q.ToLower())
+            //                            select a).Take(limit));
 
-            }
-            if ((type & SearchMethod.Genre) == SearchMethod.Genre || type == SearchMethod.Any)
-            {
+            //}
+            //if ((type & SearchMethod.Genre) == SearchMethod.Genre || type == SearchMethod.Any)
+            //{
 
-                //results.Items.AddRange((from a in db.Artists
-                //                        where a.Name.ToLower()
-                //                              .Contains(q.ToLower())
-                //                        select a).Take(limit));
-            }
+            //    //results.Items.AddRange((from a in db.Artists
+            //    //                        where a.Name.ToLower()
+            //    //                              .Contains(q.ToLower())
+            //    //                        select a).Take(limit));
+            //}
 
             return results;
 

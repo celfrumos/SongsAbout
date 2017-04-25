@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SongsAbout.Web.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 
 namespace SongsAbout.Web.Controllers
 {
@@ -16,39 +18,15 @@ namespace SongsAbout.Web.Controllers
         private EntityDbContext db = new EntityDbContext();
 
         // GET: Albums
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await LoadModelsAsync());
-        }
-        private async Task<IEnumerable<Album>> LoadModelsAsync()
-        {
+            var albums = db.Albums.Include(a => a.AlbumCover).Take(20);
 
-            return await db.Albums
-                        .Include(a => a.Tracks)
-                        .Include(a => a.Tracks.Select(t => t.Artist))
-                        .Include(a => a.Tracks.Select(t => t.Album))
-                        .Include(a => a.Artist)
-                        .Include(a => a.AlbumCover)
-                       .ToListAsync();
+            return View(albums.ToList());
         }
 
-        private async Task<Album> LoadModelAsync(int? id)
-        {
-            await db.Tracks.LoadAsync();
-            Album album = await (from a in db.Albums
-                                 where a.AlbumId == id
-                                 select a)
-                        .Include(a => a.Tracks)
-                        .Include(a => a.Tracks.Select(t => t.Artist))
-                        .Include(a => a.Tracks.Select(t => t.Album))
-                        .Include(a => a.Artist)
-                        .Include(a => a.AlbumCover)
-                        .FirstOrDefaultAsync();
 
 
-            return album;
-
-        }
         // GET: Albums/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -56,9 +34,7 @@ namespace SongsAbout.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Album album = await LoadModelAsync(id);
-
+            Album album = await db.Albums.FindAsync(id);
             if (album == null)
             {
                 return HttpNotFound();
@@ -69,6 +45,7 @@ namespace SongsAbout.Web.Controllers
         // GET: Albums/Create
         public ActionResult Create()
         {
+            ViewBag.AlbumCoverId = new SelectList(db.AlbumCovers, "AlbumCoverId", "AltText");
             return View();
         }
 
@@ -77,7 +54,7 @@ namespace SongsAbout.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "AlbumId,Name,MainArtistId,SpotifyUri,SpotifyHref,ReleaseDate")] Album album)
+        public async Task<ActionResult> Create([Bind(Include = "AlbumId,Id,Name,ReleaseDate,ArtistId,AlbumCoverId,SpotifyId")] Album album)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +63,7 @@ namespace SongsAbout.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.AlbumCoverId = new SelectList(db.AlbumCovers, "AlbumCoverId", "AltText", album.AlbumCoverId);
             return View(album);
         }
 
@@ -96,17 +74,12 @@ namespace SongsAbout.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Album album = await
-                             (from a in db.Albums
-                              where a.AlbumId == id
-                              select a)
-                         .Include(a => a.Tracks)
-                         .Include(a => a.AlbumCover)
-                         .FirstOrDefaultAsync();
+            Album album = await db.Albums.FindAsync(id);
             if (album == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.AlbumCoverId = new SelectList(db.AlbumCovers, "AlbumCoverId", "AltText", album.AlbumCoverId);
             return View(album);
         }
 
@@ -115,7 +88,7 @@ namespace SongsAbout.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AlbumId,Name,MainArtistId,SpotifyUri,SpotifyHref,ReleaseDate")] Album album)
+        public async Task<ActionResult> Edit([Bind(Include = "AlbumId,Id,Name,ReleaseDate,ArtistId,AlbumCoverId,SpotifyId")] Album album)
         {
             if (ModelState.IsValid)
             {
@@ -123,6 +96,7 @@ namespace SongsAbout.Web.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.AlbumCoverId = new SelectList(db.AlbumCovers, "AlbumCoverId", "AltText", album.AlbumCoverId);
             return View(album);
         }
 
@@ -159,6 +133,67 @@ namespace SongsAbout.Web.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+    }
+
+    [TestClass]
+    public class EntityControllerTests
+    {
+        // GET: Albums
+        [TestMethod]
+        public void AlbumsTest()
+        {
+            try
+            {
+                Database.SetInitializer(new EntityDbInitializer());
+                using (var db = EntityDbContext.Create())
+                {
+
+                    var albums = db.Albums.Take(20);
+
+                    Assert.IsNotNull(albums);
+                    Assert.IsInstanceOfType(albums, typeof(IQueryable<Album>));
+                    var list = albums.ToList();
+                    Assert.IsInstanceOfType(list, typeof(List<Album>));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+
+        // GET: Albums
+        [TestMethod]
+        public void ArtistsTest()
+        {
+            try
+            {
+                Database.SetInitializer(new EntityDbInitializer());
+
+                using (var db = EntityDbContext.Create())
+                {
+                    var artists = db.Artists.Take(20);
+
+                    Assert.IsNotNull(artists);
+                    Assert.IsInstanceOfType(artists, typeof(IQueryable<Artist>));
+                    var list = artists.ToList();
+                    Assert.IsInstanceOfType(list, typeof(List<Artist>));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void ArtistsMockTest()
+        {
+
         }
     }
 }

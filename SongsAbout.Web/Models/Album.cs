@@ -11,18 +11,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
-    public partial class Album : SaEntity
+    public partial class Album : ISaEntity
     {
-        public override SaEntityType EntityType => SaEntityType.Album;
+        [NotMapped]
+        public  SaEntityType EntityType => SaEntityType.Album;
+        public string TypeName => "Album";
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }
-        public override int Id { get { return AlbumId; } set { AlbumId = value; } }
+
+        public  int Id { get { return AlbumId; } set { AlbumId = value; } }
 
         [DisplayName("Album Name")]
         [Required(ErrorMessage = "Album must have a name.", AllowEmptyStrings = false)]
         [StringLength(250, MinimumLength = 1, ErrorMessage = "Album Name is too long")]
-        public override string Name { get; set; }
+        public  string Name { get; set; }
 
         [DisplayName("Release Date")]
         public DateTime? ReleaseDate { get; set; }
@@ -47,77 +50,55 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Album Cover")]
         public AlbumCover AlbumCover { get; set; }
 
+        
         [Display(Name = "Album Keywords")]
-        public override List<Keyword> Keywords { get; set; }
+        public List<Keyword> Keywords { get; set; }
 
-        /*
-        //public Album(SpotifyFullAlbum album)// : this(new SpotifyAlbum(album))
-        //{
-        //    this.Name = album.Name;
-        //    this.SpotifyUri = album.Uri;
-        //    if (album.Artists.Count > 0)
-        //    {
-        //        this.MainArtist = (album.Artists[0]);
-        //    }
-        //    // var s = DateTime.Parse( album.ReleaseDate).Date;
-        //    // this.Year = null;
-        //    this.ReleaseDate = album.ReleaseDate;
-        //    //  this.SetGenres(album.Genres);
-        //    // this.UpdateCoverArt(album);
-        //}
+        [Display(Name = "Spotify Id")]
+        [StringLength(50)]
+        public virtual string SpotifyId { get; set; }
 
-        //public Album(SpotifyAlbum album) : this(
-        //    album.SpotifyEntityType == SpotifyEntityType.FullAlbum
-        //    ? (SpotifyFullAlbum)album
-        //    : album.GetFullVersion(UserSpotify.WebAPI))// : base("al_title", "Albums", "Album")
-        //{
-        //}
+        [NotMapped]
+        [Display(Name = "Spotify Details Web Page")]
+        public string SpotifyWebPage
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
 
-        //public Album()
-        //{
-        //    this.AlbumId = 0;
-        //    this.ArtistId = 0;
-        //    this.Name = null;
-        //    this.ReleaseDate = null;
-        //    this.SpotifyUri = null;
-        //    this.CoverArt = null;
+                return $"{Constants.SPOTIFY_WEB_PAGE_BASE}/{this.TypeName.ToLower()}/{this.SpotifyId}";
 
-        //}
+            }
+        }
 
-        //public Album(int id, int artist_id, string name, DateTime releaseDate, string uri,string href, Image coverArt)
-        //{
-        //    this.AlbumId = id;
-        //    this.ArtistId = artist_id;
-        //    this.Name = name;
-        //    this.ReleaseDate = releaseDate;
-        //    this.SpotifyUri = uri;
-        //    this.SpotifyHref = href;
-        //    this.CoverArt = coverArt;
-        //}
+        [NotMapped]
+        [Display(Name = "Spotify API Link")]
+        public virtual string ApiHref
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
 
-        //public static implicit operator Album(SpotifyFullAlbum alb)
-        //{
-        //    Album res;
-        //    using (var db = new EntityDbContext())
-        //    {
-        //        var albs = db.Albums.Where(a => a.Name == alb.Name);
-        //        if (albs.Count() > 0)
+                return $"{Constants.SPOTIFY_API_BASE}/{this.TypeName.ToLower()}s/{this.SpotifyId}";
+            }
+        }
 
-        //            res = albs.First();
+        [NotMapped]
+        [Display(Name = "Spotify URI")]
+        public virtual string SpotifyUri
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
 
-        //        else
-        //            res = new Album() {
-        //                Name= alb.Name,
-        //                SpotifyUri= alb.Uri,
-        //                SpotifyHref= alb.Href,
-        //                ReleaseDate= alb.ReleaseDate,
-        //                CoverArt= alb.Images[0]
-        //            };
+                return $"spotify:artist:{this.SpotifyId}";
+            }
+        }
 
-        //    }
-        //    return res;
-
-        //}
-        */
+        public virtual List<Genre> Genres { get; set; }
+        public virtual List<Topic> Topics { get; set; }
     }
 }

@@ -9,18 +9,20 @@ using System.Web;
 namespace SongsAbout.Web.Models
 {
     [Serializable]
-    public class Track : SaEntity
+    public class Track : ISaEntity
     {
-        public override SaEntityType EntityType => SaEntityType.Track;
-        //protected override string TypeName => "Track";
+        [NotMapped]
+        public SaEntityType EntityType => SaEntityType.Track;
+        public string TypeName => "Track";
 
+        [NotMapped]
         private const double MS_TO_MINUTES = 60000d;
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TrackId { get; set; }
 
-        public override int Id { get { return TrackId; } set { TrackId = value; } }
+        public int Id { get { return TrackId; } set { TrackId = value; } }
 
 
         [Display(Name = "Artist")]
@@ -34,7 +36,7 @@ namespace SongsAbout.Web.Models
         [DisplayName("Track Name")]
         [Required(ErrorMessage = "Track must have a name.", AllowEmptyStrings = false)]
         [StringLength(150, ErrorMessage = "Track Name is too long")]
-        public override string Name { get; set; }
+        public string Name { get; set; }
 
         [DefaultValue(false)]
         [Display(Name = "Can Play")]
@@ -68,6 +70,55 @@ namespace SongsAbout.Web.Models
 
         [Display(Name = "Featured Artists")]
         public List<Artist> FeaturedArtists { get; set; }
+
+        [Display(Name = "Album Keywords")]
+        public List<Keyword> Keywords { get; set; }
+
+        [Display(Name = "Spotify Id")]
+        [StringLength(50)]
+        public virtual string SpotifyId { get; set; }
+        [NotMapped]
+        [Display(Name = "Spotify Details Web Page")]
+        public string SpotifyWebPage
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+
+                return $"{Constants.SPOTIFY_WEB_PAGE_BASE}/{this.TypeName.ToLower()}/{this.SpotifyId}";
+
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Spotify API Link")]
+        public virtual string ApiHref
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+
+                return $"{Constants.SPOTIFY_API_BASE}/{this.TypeName.ToLower()}s/{this.SpotifyId}";
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Spotify URI")]
+        public virtual string SpotifyUri
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+
+                return $"spotify:artist:{this.SpotifyId}";
+            }
+        }
+
+        public virtual List<Genre> Genres { get; set; }
+        public virtual List<Topic> Topics { get; set; }
 
     }
 }

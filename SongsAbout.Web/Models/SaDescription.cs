@@ -7,15 +7,15 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
-    public abstract class SaDescription : SaEntity
+   [NotMapped]
+    public abstract class SaDescription : ISaDescription
     {
-        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        // public int DescriptionId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int DescriptionId { get; set; }
 
-        [Display(Name = "Descriptor")]
-        [StringLength(500, ErrorMessage = "Descriptor must have less than 500 characters.")]
-        public abstract string Text { get; set; }
-        public override string Name
+           [NotMapped]
+        public virtual string Text { get; set; }
+        public string Name
         {
             get { return this.Text; }
             set { this.Text = value; }

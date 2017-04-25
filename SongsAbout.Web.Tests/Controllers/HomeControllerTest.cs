@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SongsAbout.Web;
 using SongsAbout.Web.Controllers;
+using System.Threading.Tasks;
 
 namespace SongsAbout.Web.Tests.Controllers
 {
@@ -13,13 +14,13 @@ namespace SongsAbout.Web.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public async Task Index()
         {
             // Arrange
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = await controller.Index() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -49,6 +50,36 @@ namespace SongsAbout.Web.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod()]
+        public void FoodSearchTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void SearchTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void SearchTest1()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void AboutTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void ContactTest()
+        {
+            Assert.Fail();
         }
     }
 }
