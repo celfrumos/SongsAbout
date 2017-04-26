@@ -13,6 +13,7 @@ namespace SongsAbout.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int GenreId { get; set; }
 
+        [NotMapped]
         public int Id
         {
             get { return GenreId; }

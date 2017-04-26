@@ -16,10 +16,12 @@ namespace SongsAbout.Web.Models
         [NotMapped]
         public  SaEntityType EntityType => SaEntityType.Album;
         public string TypeName => "Album";
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }
 
+        [NotMapped]
         public  int Id { get { return AlbumId; } set { AlbumId = value; } }
 
         [DisplayName("Album Name")]
@@ -54,8 +56,8 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Album Keywords")]
         public List<Keyword> Keywords { get; set; }
 
-        [Display(Name = "Spotify Id")]
         [StringLength(50)]
+        [Display(Name = "Spotify Id")]
         public virtual string SpotifyId { get; set; }
 
         [NotMapped]

@@ -13,9 +13,13 @@ namespace SongsAbout.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int KeywordId { get; set; }
 
+        [NotMapped]
         public string TypeName => "Keyword";
 
+        [NotMapped]
         public SaEntityType EntityType => SaEntityType.Keyword;
+
+        [NotMapped]
         public int Id { get { return KeywordId; } set { KeywordId = value; } }
 
         [Display(Name = "Keyword")]
@@ -23,6 +27,7 @@ namespace SongsAbout.Web.Models
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Keywords must have less than 50 characters.")]
         public string KeywordText { get; set; }
 
+        [NotMapped]
         public string Name
         {
             get { return KeywordText; }

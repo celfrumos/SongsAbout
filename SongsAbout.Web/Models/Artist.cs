@@ -30,13 +30,14 @@ namespace SongsAbout.Web.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ArtistId { get; set; }
-        
-        public  int Id { get { return ArtistId; } set { ArtistId = value; } }
+
+        [NotMapped]
+        public int Id { get { return ArtistId; } set { ArtistId = value; } }
 
         [Display(Name = "Artist Name")]
         [Required(ErrorMessage = "Artist must have a name")]
         [StringLength(250, MinimumLength = 1, ErrorMessage = "Artist Name is too long")]
-        public  string Name { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Artist Biography")]
         [StringLength(500)]
@@ -54,7 +55,7 @@ namespace SongsAbout.Web.Models
         public List<Track> Tracks { get; set; }
 
         [Display(Name = "Album Keywords")]
-        public  List<Keyword> Keywords { get; set; }
+        public List<Keyword> Keywords { get; set; }
 
         [Display(Name = "Spotify Id")]
         [StringLength(50)]

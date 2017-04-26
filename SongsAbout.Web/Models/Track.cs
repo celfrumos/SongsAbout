@@ -22,6 +22,7 @@ namespace SongsAbout.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TrackId { get; set; }
 
+        [NotMapped]
         public int Id { get { return TrackId; } set { TrackId = value; } }
 
 
