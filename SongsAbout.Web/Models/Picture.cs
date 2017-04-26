@@ -28,6 +28,8 @@ namespace SongsAbout.Web.Models
         }
         [Display(Name = "alt")]
         public virtual string AltText { get; set; }
+
+        [Url]
         [Display(Name = "src")]
         public virtual string Url { get; set; }
         [Display(Name = "width")]
@@ -35,6 +37,8 @@ namespace SongsAbout.Web.Models
         [Display(Name = "height")]
         public virtual int Height { get; set; }
     }
+
+
     public class AlbumCover : IPicture
     {
         [Key]
@@ -47,6 +51,8 @@ namespace SongsAbout.Web.Models
         }
         [Display(Name = "alt")]
         public virtual string AltText { get; set; }
+
+        [Url]
         [Display(Name = "src")]
         public virtual string Url { get; set; }
         [Display(Name = "width")]

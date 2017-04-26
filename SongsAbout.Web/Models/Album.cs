@@ -18,7 +18,7 @@ namespace SongsAbout.Web.Models
         public string TypeName => "Album";
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]        
         public int AlbumId { get; set; }
 
         [NotMapped]
@@ -49,7 +49,7 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Album Cover")]
         public int AlbumCoverId { get; set; }
 
-        [Display(Name = "Album Cover")]
+        [Display(Name = "Album Cover")]        
         public AlbumCover AlbumCover { get; set; }
 
         

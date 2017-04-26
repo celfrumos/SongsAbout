@@ -46,6 +46,7 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Profile Picture")]
         public ProfilePic ProfilePic { get; set; }
 
+        [Display(Name = "Profile Picture")]
         public int ProfilePicId { get; set; }
 
         [Display(Name = "Albums")]
@@ -54,12 +55,13 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Tracks")]
         public List<Track> Tracks { get; set; }
 
-        [Display(Name = "Album Keywords")]
+        [Display(Name = "Album Keywords", GroupName = "Descriptors")]
         public List<Keyword> Keywords { get; set; }
 
         [Display(Name = "Spotify Id")]
         [StringLength(50)]
         public virtual string SpotifyId { get; set; }
+
         [NotMapped]
         [Display(Name = "Spotify Details Web Page")]
         public string SpotifyWebPage
@@ -100,7 +102,9 @@ namespace SongsAbout.Web.Models
             }
         }
 
+        [Display(GroupName = "Descriptors")]
         public virtual List<Genre> Genres { get; set; }
+        [Display(GroupName = "Descriptors")]
         public virtual List<Topic> Topics { get; set; }
 
     }
