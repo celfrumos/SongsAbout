@@ -28,33 +28,36 @@ namespace SongsAbout.Web.Controllers
             //return Json(foods, JsonRequestBehavior.AllowGet);
         }
 
-        private List<string> GetAutoCompleteResults(string searchString)
+        public ActionResult AutoComplete(string term)
         {
-            //  throw new NotImplementedException();
-            string str = searchString.ToLower();
+            var res = new List<string>();
+            var artists = (from a in db.Artists
+                           where a.Name.ToLower().Contains(term.ToLower())
+                           orderby a.Name descending
+                           select a.Name)
+                           .Take(5);
 
-            List<string> val = new List<string>();
+            var albums = (from a in db.Albums
+                          where a.Name.ToLower().Contains(term.ToLower())
+                          orderby a.Name descending
+                          select a.Name)
+                          .Take(5);
 
-            val.AddRange((from a in db.Artists
-                          where a.Name.ToLower().Contains(str)
-                          select a.Name).Take(5));
+            var tracks = (from t in db.Tracks
+                          where t.Name.ToLower().Contains(term.ToLower())
+                          orderby t.Name descending
+                          select t.Name)
+                          .Take(5);
 
-            val.AddRange((from a in db.Albums
-                          where a.Name.ToLower().Contains(str)
-                          select a.Name).Take(5));
+            res.AddRange(artists);
+            res.AddRange(albums);
+            res.AddRange(tracks);
+            res.Sort();
+            return Json(res.Select(a => new { value = a }), JsonRequestBehavior.AllowGet);
 
-            val.AddRange((from t in db.Tracks
-                          where t.Name.ToLower().Contains(str)
-                          select t.Name).Take(5));
-
-            val.AddRange((from t in db.Topics
-                          where t.Name.ToLower().Contains(str)
-                          select t.Name).Take(5));
-
-            return val;
-            //return db.Where(a => a.FoodName.Contains(searchString) ||
-            // a.FoodBrand.Contains(searchString)).ToList();
         }
+
+
         [HttpGet]
         public ActionResult Search(string q, int limit = 5, int? type = (int)(SearchMethod.Any), int? startIndex = 0)
         {

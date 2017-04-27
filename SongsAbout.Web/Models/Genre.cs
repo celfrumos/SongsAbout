@@ -24,6 +24,7 @@ namespace SongsAbout.Web.Models
         public SaEntityType EntityType => SaEntityType.Genre;
         [NotMapped]
         public string TypeName => "Genre";
+
         [Display(Name = "Genre")]
         [Required(ErrorMessage = "Genre Text must not be blank", AllowEmptyStrings = false)]
         [StringLength(150, MinimumLength = 2, ErrorMessage = "Genres must have less than 150 characters.")]
@@ -38,6 +39,7 @@ namespace SongsAbout.Web.Models
             get { return Text; }
             set { Text = value; }
         }
+
         [Display(Name = "Spotify Id")]
         [StringLength(50)]
         public virtual string SpotifyId { get; set; }
