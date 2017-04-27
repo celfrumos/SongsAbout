@@ -9,7 +9,7 @@ using System.Web;
 namespace SongsAbout.Web.Models
 {
     [Serializable]
-    public class Track : ISaEntity
+    public class Track : ISaEntity, ISaIntegralEntity
     {
         [NotMapped]
         public SaEntityType EntityType => SaEntityType.Track;
@@ -60,13 +60,6 @@ namespace SongsAbout.Web.Models
 
 
         public Album Album { get; set; }
-
-        [Display(Name = "Description")]
-        [DefaultValue(null)]
-        public int? DescriptionId { get; set; }
-
-        [DefaultValue(null)]
-        public SaDescription Description { get; set; }
 
 
         [Display(Name = "Featured Artists")]
@@ -121,5 +114,12 @@ namespace SongsAbout.Web.Models
         public virtual List<Genre> Genres { get; set; }
         public virtual List<Topic> Topics { get; set; }
 
+        public bool DescribedBy(string term)
+        {
+            return
+                  this.Genres.Any(g => g.Text.ToLower().Contains(term.ToLower()))
+                  || this.Topics.Any(g => g.Text.ToLower().Contains(term.ToLower()))
+                  || this.Keywords.Any(g => g.Text.ToLower().Contains(term.ToLower()));
+        }
     }
 }

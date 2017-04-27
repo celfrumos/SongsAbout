@@ -182,6 +182,7 @@
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SpotifyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -209,7 +210,6 @@
     <Compile Include="Secret\Secrets.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UserSpotify.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -341,9 +341,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Search.cshtml">
-      <BrowseToURL>~/Search</BrowseToURL>
-    </Content>
     <Content Include="SinginPlaylist.JSON" />
     <Content Include="Views\Search.cshtml" />
     <Content Include="Views\Topics\Create.cshtml" />
@@ -361,6 +358,7 @@
     <Content Include="Views\Artists\Details.cshtml" />
     <Content Include="Views\Artists\Edit.cshtml" />
     <Content Include="Views\Artists\Index.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\SASS\" />

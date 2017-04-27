@@ -17,7 +17,7 @@ namespace SongsAbout.Web.Models
     /// Partial Class to hold Artist Functions
     /// </summary>
     [Serializable]
-    public partial class Artist : ISaEntity
+    public partial class Artist : ISaEntity, ISaIntegralEntity
     {
         // DbEntityContext artistContext = new DbEntityContext();
         //protected override string TypeName => "Artist";
@@ -107,5 +107,12 @@ namespace SongsAbout.Web.Models
         [Display(GroupName = "Descriptors")]
         public virtual List<Topic> Topics { get; set; }
 
+        public bool DescribedBy(string term)
+        {
+            return
+                  this.Genres.Any(g => g.Text.ToLower().Contains(term.ToLower()))
+                  || this.Topics.Any(g => g.Text.ToLower().Contains(term.ToLower()))
+                  || this.Keywords.Any(g => g.Text.ToLower().Contains(term.ToLower()));
+        }
     }
 }

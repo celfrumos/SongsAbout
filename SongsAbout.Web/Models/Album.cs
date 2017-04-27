@@ -11,23 +11,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
-    public partial class Album : ISaEntity
+    public partial class Album : ISaEntity, ISaIntegralEntity
     {
         [NotMapped]
-        public  SaEntityType EntityType => SaEntityType.Album;
+        public SaEntityType EntityType => SaEntityType.Album;
         public string TypeName => "Album";
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]        
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }
 
         [NotMapped]
-        public  int Id { get { return AlbumId; } set { AlbumId = value; } }
+        public int Id { get { return AlbumId; } set { AlbumId = value; } }
 
         [DisplayName("Album Name")]
         [Required(ErrorMessage = "Album must have a name.", AllowEmptyStrings = false)]
         [StringLength(250, MinimumLength = 1, ErrorMessage = "Album Name is too long")]
-        public  string Name { get; set; }
+        public string Name { get; set; }
 
         [DisplayName("Release Date")]
         public DateTime? ReleaseDate { get; set; }
@@ -49,10 +49,10 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Album Cover")]
         public int AlbumCoverId { get; set; }
 
-        [Display(Name = "Album Cover")]        
+        [Display(Name = "Album Cover")]
         public AlbumCover AlbumCover { get; set; }
 
-        
+
         [Display(Name = "Album Keywords")]
         public List<Keyword> Keywords { get; set; }
 
@@ -102,5 +102,13 @@ namespace SongsAbout.Web.Models
 
         public virtual List<Genre> Genres { get; set; }
         public virtual List<Topic> Topics { get; set; }
+
+        public bool DescribedBy(string term)
+        {
+            return
+                  this.Genres.Any(g => g.Text.ToLower().Contains(term.ToLower()))
+                  || this.Topics.Any(g => g.Text.ToLower().Contains(term.ToLower()))
+                  || this.Keywords.Any(g => g.Text.ToLower().Contains(term.ToLower()));
+        }
     }
 }

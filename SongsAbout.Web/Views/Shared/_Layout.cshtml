@@ -22,7 +22,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Artists", "Index", "Artists")</li>
                     <li>@Html.ActionLink("Albums", "Index", "Albums")</li>
                 </ul>
@@ -33,13 +32,13 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer class="panel-footer">
-            <ul class="list-inline pull-right">
+        <br />
+        <footer class="modal-footer">
+            <ul class="list-inline pull-left">
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
             </ul>
-            <p>&copy;@DateTime.Now.Year- SongsAbout</p>
+            <p class="pull-right">&copy;@DateTime.Now.Year- SongsAbout</p>
         </footer>
     </div>
 

@@ -20,9 +20,19 @@ namespace SongsAbout.Web.Models
     {
         public SearchMethod SearchMethod { get; set; } = SearchMethod.Any;
         public List<ISaEntity> Items { get; set; } = new List<ISaEntity>();
+
+        public List<Artist> Artists { get; set; }
+        public List<Album> Albums { get; set; }
+        public List<Track> Tracks { get; set; }
+        public List<Topic> Topics { get; set; }
+        public List<Keyword> Keywords { get; set; }
+        public List<Genre> Genres { get; set; }
+
         public int StartIndex { get; set; } = -1;
         public int EndIndex { get; set; } = -1;
         public int Count { get { return this.Items?.Count ?? 0; } }
+
+
 
     }
 }
