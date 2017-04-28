@@ -13,10 +13,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
-
-    /// <summary>
-    /// Partial Class to hold Artist Functions
-    /// </summary>
+    
     [Serializable]
     public partial class Artist : ISaEntity, ISaIntegralEntity
     {

@@ -28,11 +28,5 @@ namespace SongsAbout.Web.Models
         public List<Keyword> Keywords { get; set; }
         public List<Genre> Genres { get; set; }
 
-        public int StartIndex { get; set; } = -1;
-        public int EndIndex { get; set; } = -1;
-        public int Count { get { return this.Items?.Count ?? 0; } }
-
-
-
     }
 }

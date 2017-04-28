@@ -1,11 +1,34 @@
-﻿@using SongsAbout.Web.Models
-    @{
-        ViewBag.Title = "Search";
-    }
+﻿
 
-    <h2>Search</h2>
+@using SongsAbout.Web.Models
+@{
+    ViewBag.Title = "Search";
+}
 
-    @foreach (var item in ((SearchResult)ViewBag.Results).Artists)
+<h2>Search Results</h2>
+
+@if (ViewBag.Results.Items != null)
+{
+
+    @if (ViewBag.Results.Artists != null)
     {
-        @Html.DisplayFor(a => item)
+        <ul class="list-group">
+            @foreach (Artist item in ViewBag.Results.Artists)
+            {
+                <li class="artist list-group-item" id="artist-@item.Id">
+                    <ul class="list-unstyled">
+                        <li search="search-image">
+                            <img class="artist-image table-image" src="@(item.ProfilePic?.Url)" alt="@(item.ProfilePic?.AltText)" />
+                        </li>
+                        <li class="search-name">@item.Name</li>
+                    </ul>
+                </li>
+            }
+
+        </ul>
     }
+}
+else
+{
+
+}

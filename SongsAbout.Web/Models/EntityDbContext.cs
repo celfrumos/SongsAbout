@@ -182,93 +182,96 @@ namespace SongsAbout.Web.Models
         public SearchResult Search(string q, SaEntityType type, int limit = 5)
         {
             SearchResult results = new SearchResult();
-            if ((type & SaEntityType.Artist) == SaEntityType.Artist || type == SaEntityType.Any)
+            if (!string.IsNullOrWhiteSpace(q))
             {
-                var artists =
-                    this.Artists
-                            .Include(a => a.ProfilePic)
-                            .Include(a => a.Tracks)
-                            .Include(a => a.Albums)
-                            .Include(a => a.Topics)
-                            .Include(a => a.Keywords).ToList();
+                if ((type & SaEntityType.Artist) == SaEntityType.Artist || type == SaEntityType.Any)
+                {
+                    var artists =
+                        this.Artists
+                                .Include(a => a.ProfilePic)
+                                .Include(a => a.Tracks)
+                                .Include(a => a.Albums)
+                                .Include(a => a.Topics)
+                                .Include(a => a.Keywords).ToList();
 
-                var found = artists?
-                    .Where(a => a.Name.ToLower()
-                    .Contains(q.ToLower()) || IsDescribedBy(a, q))
-                    ?.Take(limit);
+                    var found = artists?
+                        .Where(a => a.Name.ToLower()
+                        .Contains(q.ToLower()) || IsDescribedBy(a, q))
+                        ?.Take(limit);
 
-                results.Items.AddRange(found);
-                results.Artists = found?.ToList();
-            }
-            if ((type & SaEntityType.Album) == SaEntityType.Album || type == SaEntityType.Any)
-            {
-                var albums =
-                            this.Albums
-                            .Include(a => a.AlbumCover)?
-                            .Include(a => a.Tracks)?
-                            .Include(a => a.Artist)?
-                            .Include(a => a.FeaturedArtists)?
-                            .Include(a => a.Topics)?
-                            .Include(a => a.Keywords)?.ToList();
+                    results.Items.AddRange(found);
+                    results.Artists = found?.ToList();
+                }
+                if ((type & SaEntityType.Album) == SaEntityType.Album || type == SaEntityType.Any)
+                {
+                    var albums =
+                                this.Albums
+                                .Include(a => a.AlbumCover)?
+                                .Include(a => a.Tracks)?
+                                .Include(a => a.Artist)?
+                                .Include(a => a.FeaturedArtists)?
+                                .Include(a => a.Topics)?
+                                .Include(a => a.Keywords)?.ToList();
 
-                var found = albums?
-                    .Where(a => a.Name.ToLower()
-                    .Contains(q.ToLower()) || IsDescribedBy(a, q))
-                    ?.Take(limit);
+                    var found = albums?
+                        .Where(a => a.Name.ToLower()
+                        .Contains(q.ToLower()) || IsDescribedBy(a, q))
+                        ?.Take(limit);
 
-                results.Items.AddRange(found);
-                results.Albums = found?.ToList();
+                    results.Items.AddRange(found);
+                    results.Albums = found?.ToList();
 
-            }
-            if ((type & SaEntityType.Track) == SaEntityType.Track || type == SaEntityType.Any)
-            {
-                var tracks =
-                             this.Tracks
-                            .Include(a => a.Album)
-                            .Include(a => a.Artist)
-                            .Include(a => a.FeaturedArtists)
-                            .Include(a => a.Topics)
-                            .Include(a => a.Keywords)?.ToList();
+                }
+                if ((type & SaEntityType.Track) == SaEntityType.Track || type == SaEntityType.Any)
+                {
+                    var tracks =
+                                 this.Tracks
+                                .Include(a => a.Album)
+                                .Include(a => a.Artist)
+                                .Include(a => a.FeaturedArtists)
+                                .Include(a => a.Topics)
+                                .Include(a => a.Keywords)?.ToList();
 
-                var found = tracks?
-                    .Where(t =>
-                    t.Name.ToLower().Contains(q.ToLower()) || IsDescribedBy(t, q))
-                    ?.Take(limit);
+                    var found = tracks?
+                        .Where(t =>
+                        t.Name.ToLower().Contains(q.ToLower()) || IsDescribedBy(t, q))
+                        ?.Take(limit);
 
-                results.Items.AddRange(found);
-                results.Tracks = found?.ToList();
-            }
-            if ((type & SaEntityType.Topic) == SaEntityType.Topic || type == SaEntityType.Any)
-            {
-                var topics = (from a in this.Topics
-                              where a.Text.ToLower()
-                                    .Contains(q.ToLower())
-                              select a)?.Take(limit);
+                    results.Items.AddRange(found);
+                    results.Tracks = found?.ToList();
+                }
+                if ((type & SaEntityType.Topic) == SaEntityType.Topic || type == SaEntityType.Any)
+                {
+                    var topics = (from a in this.Topics
+                                  where a.Text.ToLower()
+                                        .Contains(q.ToLower())
+                                  select a)?.Take(limit);
 
-                results.Items.AddRange(topics);
-                results.Topics = topics?.ToList();
+                    results.Items.AddRange(topics);
+                    results.Topics = topics?.ToList();
 
 
-            }
-            if ((type & SaEntityType.Genre) == SaEntityType.Genre || type == SaEntityType.Any)
-            {
-                var genres = (from a in this.Genres
-                              where a.Text.ToLower()
-                                    .Contains(q.ToLower())
-                              select a)?.Take(limit);
+                }
+                if ((type & SaEntityType.Genre) == SaEntityType.Genre || type == SaEntityType.Any)
+                {
+                    var genres = (from a in this.Genres
+                                  where a.Text.ToLower()
+                                        .Contains(q.ToLower())
+                                  select a)?.Take(limit);
 
-                results.Items.AddRange(genres);
-                results.Genres = genres?.ToList();
+                    results.Items.AddRange(genres);
+                    results.Genres = genres?.ToList();
 
-            }
-            if ((type & SaEntityType.Keyword) == SaEntityType.Keyword || type == SaEntityType.Any)
-            {
-                var keywords = (from a in this.Keywords
-                                where a.Text.ToLower()
-                                      .Contains(q.ToLower())
-                                select a).Take(limit);
-                results.Items.AddRange(keywords);
-                results.Keywords = keywords.ToList();
+                }
+                if ((type & SaEntityType.Keyword) == SaEntityType.Keyword || type == SaEntityType.Any)
+                {
+                    var keywords = (from a in this.Keywords
+                                    where a.Text.ToLower()
+                                          .Contains(q.ToLower())
+                                    select a).Take(limit);
+                    results.Items.AddRange(keywords);
+                    results.Keywords = keywords.ToList();
+                }
             }
             return results;
 

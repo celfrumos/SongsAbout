@@ -42,8 +42,8 @@ namespace SongsAbout.Web.Controllers
         }
 
 
+        [Route("search?q={q}")]
         [HttpGet]
-        [Route("~/?q={q}")]
         public ActionResult Search(string q, SaEntityType type = SaEntityType.Artist, int limit = 5)
         {
 
