@@ -1,10 +1,11 @@
-﻿
-@{
-    ViewBag.Title = "Search";
-}
+﻿@using SongsAbout.Web.Models
+    @{
+        ViewBag.Title = "Search";
+    }
 
-<h2>Search</h2>
+    <h2>Search</h2>
 
-@foreach (var item in ((SongsAbout.Web.Models.SearchResult)ViewBag.Results).Items)
-{
-}
+    @foreach (var item in ((SearchResult)ViewBag.Results).Artists)
+    {
+        @Html.DisplayFor(a => item)
+    }

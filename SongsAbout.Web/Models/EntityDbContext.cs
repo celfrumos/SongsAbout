@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Data.Linq;
 using System.Web;
 
 namespace SongsAbout.Web.Models
@@ -171,50 +172,81 @@ namespace SongsAbout.Web.Models
             return (T)obj;
         }
 
+        public bool IsDescribedBy(ISaIntegralEntity entity, string q)
+        {
+            return entity.Genres.Any(g => g.Text.ToLower().Contains(q.ToLower()))
+                   || entity.Topics.Any(g => g.Text.ToLower().Contains(q.ToLower()))
+                   || entity.Keywords.Any(g => g.Text.ToLower().Contains(q.ToLower()));
+        }
+
         public SearchResult Search(string q, SaEntityType type, int limit = 5)
         {
             SearchResult results = new SearchResult();
             if ((type & SaEntityType.Artist) == SaEntityType.Artist || type == SaEntityType.Any)
             {
-                var artists = (from a in this.Artists
-                               where a.Name.ToLower()
-                                     .Contains(q.ToLower())
-                                     || a.DescribedBy(q)
-                               select a).Take(limit);
-                results.Items.AddRange(artists);
-                results.Artists = artists.ToList();
+                var artists =
+                    this.Artists
+                            .Include(a => a.ProfilePic)
+                            .Include(a => a.Tracks)
+                            .Include(a => a.Albums)
+                            .Include(a => a.Topics)
+                            .Include(a => a.Keywords).ToList();
+
+                var found = artists?
+                    .Where(a => a.Name.ToLower()
+                    .Contains(q.ToLower()) || IsDescribedBy(a, q))
+                    ?.Take(limit);
+
+                results.Items.AddRange(found);
+                results.Artists = found?.ToList();
             }
             if ((type & SaEntityType.Album) == SaEntityType.Album || type == SaEntityType.Any)
             {
-                var albums = (from a in this.Albums
-                              where a.Name.ToLower()
-                                    .Contains(q.ToLower())
-                                     || a.DescribedBy(q)
-                              select a).Take(limit);
+                var albums =
+                            this.Albums
+                            .Include(a => a.AlbumCover)?
+                            .Include(a => a.Tracks)?
+                            .Include(a => a.Artist)?
+                            .Include(a => a.FeaturedArtists)?
+                            .Include(a => a.Topics)?
+                            .Include(a => a.Keywords)?.ToList();
 
-                results.Items.AddRange(albums);
-                results.Albums = albums.ToList();
+                var found = albums?
+                    .Where(a => a.Name.ToLower()
+                    .Contains(q.ToLower()) || IsDescribedBy(a, q))
+                    ?.Take(limit);
+
+                results.Items.AddRange(found);
+                results.Albums = found?.ToList();
 
             }
             if ((type & SaEntityType.Track) == SaEntityType.Track || type == SaEntityType.Any)
             {
-                var tracks = (from t in this.Tracks
-                              where t.Name.ToLower()
-                                    .Contains(q.ToLower())
-                                     || t.DescribedBy(q)
-                              select t).Take(limit);
+                var tracks =
+                             this.Tracks
+                            .Include(a => a.Album)
+                            .Include(a => a.Artist)
+                            .Include(a => a.FeaturedArtists)
+                            .Include(a => a.Topics)
+                            .Include(a => a.Keywords)?.ToList();
 
-                results.Items.AddRange(tracks);
-                results.Tracks = tracks.ToList();
+                var found = tracks?
+                    .Where(t =>
+                    t.Name.ToLower().Contains(q.ToLower()) || IsDescribedBy(t, q))
+                    ?.Take(limit);
+
+                results.Items.AddRange(found);
+                results.Tracks = found?.ToList();
             }
             if ((type & SaEntityType.Topic) == SaEntityType.Topic || type == SaEntityType.Any)
             {
                 var topics = (from a in this.Topics
                               where a.Text.ToLower()
                                     .Contains(q.ToLower())
-                              select a).Take(limit);
+                              select a)?.Take(limit);
+
                 results.Items.AddRange(topics);
-                results.Topics = topics.ToList();
+                results.Topics = topics?.ToList();
 
 
             }
@@ -223,9 +255,10 @@ namespace SongsAbout.Web.Models
                 var genres = (from a in this.Genres
                               where a.Text.ToLower()
                                     .Contains(q.ToLower())
-                              select a).Take(limit);
+                              select a)?.Take(limit);
+
                 results.Items.AddRange(genres);
-                results.Genres = genres.ToList();
+                results.Genres = genres?.ToList();
 
             }
             if ((type & SaEntityType.Keyword) == SaEntityType.Keyword || type == SaEntityType.Any)

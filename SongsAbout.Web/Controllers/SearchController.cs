@@ -43,13 +43,13 @@ namespace SongsAbout.Web.Controllers
 
 
         [HttpGet]
-        [Route("~/Search?q={q}")]
-        public ActionResult Search(string q, SaEntityType type = SaEntityType.Any, int limit = 5)
+        [Route("~/?q={q}")]
+        public ActionResult Search(string q, SaEntityType type = SaEntityType.Artist, int limit = 5)
         {
 
             ViewBag.ItemLimit = 5;
             ViewBag.SearchType = type;
-            var results = db.Search(q, type, limit);
+            var results = db.Search(q, SaEntityType.Any, limit);
             ViewBag.Results = results;
             return View();
         }

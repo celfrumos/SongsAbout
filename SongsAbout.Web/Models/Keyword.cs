@@ -25,17 +25,15 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Keyword")]
         [Required(ErrorMessage = "Keyword Text must not be blank", AllowEmptyStrings = false)]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Keywords must have less than 50 characters.")]
-        public string KeywordText { get; set; }
+        public string Text { get; set; }
 
         [NotMapped]
         public string Name
         {
-            get { return KeywordText; }
-            set { KeywordText = value; }
+            get { return Text; }
+            set { Text = value; }
         }
-
-        [NotMapped]
-        public string Text { get { return KeywordText; } set { this.KeywordText = value; } }
+        
         public List<Track> Tracks { get; set; }
         public List<Album> Albums { get; set; }
         public List<Artist> Artists { get; set; }
