@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SongsAbout.Web.Models
 {
@@ -13,75 +14,83 @@ namespace SongsAbout.Web.Models
         public const string SPOTIFY_WEB_PAGE_BASE = @"https://open.spotify.com";
 
     }
-    //[NotMapped]
-    //public abstract class SaEntity
-    //{
-    //    //[Index]
-    //    //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    //    //public int? Index { get; set; }
 
-    //    public abstract int Id { get; set; }
+}
+namespace System.Web.Mvc
+{
+    using SongsAbout.Web.Models;
+    public static class HtmlButtonExtension
+    {
 
-    //    //  [EnumDataType(typeof(SaEntityType), ErrorMessage = "Error related to EntityType")]
-    //    [NotMapped]
-    //    public abstract SaEntityType EntityType { get; }
+        public static MvcHtmlString Button(this HtmlHelper helper,
+                                           string innerHtml,
+                                           object htmlAttributes)
+        {
+            return Button(helper, innerHtml,
+                          HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes)
+            );
+        }
 
-    //    [NotMapped]
-    //    protected virtual string TypeName { get; }
+        public static MvcHtmlString Button(this HtmlHelper helper,
+                                           string innerHtml,
+                                           IDictionary<string, object> htmlAttributes)
+        {
+            var builder = new TagBuilder("button");
+            builder.InnerHtml = innerHtml;
+            builder.MergeAttributes(htmlAttributes);
+            return MvcHtmlString.Create(builder.ToString());
+        }
 
-    //    public abstract string Name { get; set; }
+        public static MvcHtmlString DisplaySearchResult<T>(this HtmlHelper helper, T entity, bool includeChildren = false, object htmlAttributes = null) where T : ISaEntity
+        {
+            var img = new TagBuilder("img");
+            var li_Name = new TagBuilder("li");
+            var li_img = new TagBuilder("li");
+            var ul = new TagBuilder("ul");
 
-    //    public virtual List<Genre> Genres { get; set; }
-    //    public virtual List<Topic> Topics { get; set; }
-    //    public virtual List<Keyword> Keywords { get; set; }
+            switch (entity.EntityType)
+            {
+                case SaEntityType.Artist:
+                    var artist = entity as Artist;
+                    img.AddCssClass("artist");
+                    img.AddCssClass("artist-image");
+                    img.MergeAttribute("src", artist.ProfilePic?.Url);
+                    img.MergeAttribute("alt", artist.ProfilePic?.AltText);
 
-    //    [NotMapped]
-    //    public static List<AutoCompleteResult> AutoCompleteResults { get; set; }
+                    ul.AddCssClass("artist");
+                    ul.GenerateId($"artist-{artist.ArtistId}");
 
-    //    [Display(Name = "Spotify Id")]
-    //    [StringLength(50)]
-    //    public virtual string SpotifyId { get; set; }
+                    break;
+                case SaEntityType.Album:
+                    break;
+                case SaEntityType.Track:
+                    break;
+                case SaEntityType.Topic:
+                    break;
+                case SaEntityType.Genre:
+                    break;
+                case SaEntityType.Keyword:
+                    break;
+                case SaEntityType.Any:
+                    break;
+                default:
+                    break;
+            }
+            img.AddCssClass("image-mid");
 
-    //    [NotMapped]
-    //    [Display(Name = "Spotify Details Web Page")]
-    //    public string SpotifyWebPage
-    //    {
-    //        get
-    //        {
-    //            if (this.SpotifyId == null)
-    //                throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+            li_Name.AddCssClass("search-name");
+            li_Name.SetInnerText(entity.Name);
 
-    //            return $"{Constants.SPOTIFY_WEB_PAGE_BASE}/{this.TypeName}/{this.SpotifyId}";
+            li_img.AddCssClass("search-image-container");
+            li_img.InnerHtml = img.ToString(TagRenderMode.SelfClosing);
 
-    //        }
-    //    }
+            ul.AddCssClass("list-group-item");
 
-    //    [NotMapped]
-    //    [Display(Name = "Spotify API Link")]
-    //    public virtual string ApiHref
-    //    {
-    //        get
-    //        {
-    //            if (this.SpotifyId == null)
-    //                throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+            var list_items = li_Name.ToString() + li_img.ToString();
+            ul.InnerHtml = list_items;
 
-    //            return $"{Constants.SPOTIFY_API_BASE}/{this.TypeName}s/{this.SpotifyId}";
-    //        }
-    //    }
+            return MvcHtmlString.Create(list_items);
+        }
 
-    //    [NotMapped]
-    //    [Display(Name = "Spotify URI")]
-    //    public virtual string SpotifyUri
-    //    {
-    //        get
-    //        {
-    //            if (this.SpotifyId == null)
-    //                throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
-
-    //            return $"spotify:artist:{this.SpotifyId}";
-    //        }
-    //    }
-
-
-    //}
+    }
 }

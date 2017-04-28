@@ -7,26 +7,38 @@
 
 <h2>Search Results</h2>
 
+
+
 @if (ViewBag.Results.Items != null)
 {
-
-    @if (ViewBag.Results.Artists != null)
+    if (ViewBag.Results.Artists != null)
     {
-        <ul class="list-group">
+        <ul>
             @foreach (Artist item in ViewBag.Results.Artists)
             {
-                <li class="artist list-group-item" id="artist-@item.Id">
-                    <ul class="list-unstyled">
-                        <li search="search-image">
-                            <img class="artist-image table-image" src="@(item.ProfilePic?.Url)" alt="@(item.ProfilePic?.AltText)" />
-                        </li>
-                        <li class="search-name">@item.Name</li>
-                    </ul>
-                </li>
+                <li>@Html.DisplaySearchResult(item)</li>
             }
-
         </ul>
+
     }
+    @*if (ViewBag.Results.Albums != null)
+        {
+            <ul class="list-group">
+                @foreach (Album item in ViewBag.Results.Albums)
+                {
+                    //@Html.DisplayArtistAsRow(item);
+                    <li class="artist list-group-item" id="artist-@item.Id">
+                        <ul class="list-unstyled">
+                            <li search="search-image">
+                                <img class="artist-image image-mid" src="@(item.AlbumCover?.Url)" alt="@(item.AlbumCover?.AltText)" />
+                            </li>
+                            <li class="search-name">@item.Name</li>
+                        </ul>
+                    </li>
+                }
+
+            </ul>
+        }*@
 }
 else
 {
