@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -193,7 +193,6 @@
     <Compile Include="Models\AutoCompleteResult.cs" />
     <Compile Include="Models\ISaDescription.cs" />
     <Compile Include="Models\ISaEntity.cs" />
-    <Compile Include="Models\SaDescription.cs" />
     <Compile Include="Models\EntityDbContext.cs" />
     <Compile Include="Models\EntityDbInitializer.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -271,12 +270,12 @@
     <Content Include="Global.asax" />
     <Content Include="Images\Artists\solarsuit.jpg" />
     <Content Include="Scripts\App\app.js" />
+    <Content Include="Scripts\App\react.jsx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\SlateTheme.css.map" />
     <Content Include="Content\SlateTheme.scss" />
     <Content Include="Content\SlateTheme.scss.map" />
-    <Content Include="config.rb" />
     <Content Include="Fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
@@ -285,27 +284,16 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="package.json" />
     <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\less.js" />
-    <Content Include="Scripts\less.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -342,7 +330,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="SinginPlaylist.JSON" />
-    <Content Include="Views\Search.cshtml" />
     <Content Include="Views\Topics\Create.cshtml" />
     <Content Include="Views\Topics\Delete.cshtml" />
     <Content Include="Views\Topics\Details.cshtml" />
@@ -367,12 +354,13 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\App\custom.tsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

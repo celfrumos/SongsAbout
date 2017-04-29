@@ -1,8 +1,6 @@
 ﻿using SongsAbout.Web.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SongsAbout.Web.Controllers
@@ -44,17 +42,14 @@ namespace SongsAbout.Web.Controllers
 
         [Route("search?q={q}")]
         [HttpGet]
-        public ActionResult Search(string q, SaEntityType type = SaEntityType.Artist, int limit = 5)
+        public ActionResult Search(string q, SaEntityType type = SaEntityType.Artist)
         {
 
             ViewBag.ItemLimit = 5;
             ViewBag.SearchType = type;
-            var results = db.Search(q, SaEntityType.Any, limit);
+            var results = db.Search(q, SaEntityType.Any, 5);
             ViewBag.Results = results;
-            return View();
+            return View(results);
         }
-
-
-
     }
 }

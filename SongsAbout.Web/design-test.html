@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search -SongsAbout</title>
+    <link href="Content/bootstrap.css" rel="stylesheet"/>
+<link href="Content/Site.css" rel="stylesheet"/>
+<style>
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.artist-table-image {
+    width: 70px;
+    height: 70px;
+}
+
+.img-mid {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.artist-details-image {
+    max-width: 700px;
+    max-height: 700px;
+}
+
+
+</style>
+<link href="Content/themes/base/all.css" rel="stylesheet"/>
+
+    <script src="Scripts/modernizr-2.8.3.js"></script>
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">SongsAbout</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Artists">Artists</a></li>
+                    <li><a href="/Albums">Albums</a></li>
+                </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/Account/Register" id="registerLink">Register</a></li>
+        <li><a href="/Account/Login" id="loginLink">Log in</a></li>
+    </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        
+
+
+
+
+    <h2>Search Results</h2>
+        <h3 data-toggle="collapse" data-target="#artists">Artist</h3>
+        <div class="row collapse in" id="artists">
+<div id="artist-3" class="search-item col-lg col-md-2 artist"><div class="search-image-container"><img alt="img-Josh Ritter" class="img-mid artist" src="https://i.scdn.co/image/557a642bbc541262c649096b3d1ef938f67ec69a" /></div><div class="search-name">Josh Ritter</div></div><div id="artist-30" class="search-item col-lg col-md-2 artist"><div class="search-image-container"><img alt="img-Joel Brown" class="img-mid artist" src="https://i.scdn.co/image/dd4f43fac8a20266ac10cc3ef426230f46f2ceaa" /></div><div class="search-name">Joel Brown</div></div><div id="artist-41" class="search-item col-lg col-md-2 artist"><div class="search-image-container"><img alt="img-Nick Jonas" class="img-mid artist" src="https://i.scdn.co/image/16a7ef78e78a86080e989bbac40a6bf5304e58a4" /></div><div class="search-name">Nick Jonas</div></div><div id="artist-46" class="search-item col-lg col-md-2 artist"><div class="search-image-container"><img alt="img-Joshua Hyslop" class="img-mid artist" src="https://i.scdn.co/image/46bcda8ace85c001d96bd9d471de4c16c586f695" /></div><div class="search-name">Joshua Hyslop</div></div><div id="artist-59" class="search-item col-lg col-md-2 artist"><div class="search-image-container"><img alt="img-Joshua James" class="img-mid artist" src="https://i.scdn.co/image/02235b3c2043d52429b14dc8566a5f865eb9e33b" /></div><div class="search-name">Joshua James</div></div>        </div>
+        <h3 data-toggle="collapse" data-target="#albums">Albums</h3>
+        <div class="row collapse in" id="albums">
+<div id="album-3" class="search-item col-lg col-md-2 album"><div class="search-image-container"><img alt="img-The Historical Conquests of Josh Ritter" class="img-mid album" src="https://i.scdn.co/image/5445c78743f002a5cde9d7cefd1282defd74bfd3" /></div><div class="search-name">The Historical Conquests of Josh Ritter</div></div><div id="album-49" class="search-item col-lg col-md-2 album"><div class="search-image-container"><img alt="img-Nick Jonas X2" class="img-mid album" src="https://i.scdn.co/image/5f1fe7052e0449f686f45dbcb481227af7602122" /></div><div class="search-name">Nick Jonas X2</div></div><div id="album-72" class="search-item col-lg col-md-2 album"><div class="search-image-container"><img alt="img-Muchacho de Lujo [Deluxe Edition]" class="img-mid album" src="https://i.scdn.co/image/6875f6d9c370543a3be74e4cf9dc19a4b499a115" /></div><div class="search-name">Muchacho de Lujo [Deluxe Edition]</div></div>        </div>
+        <h3 data-toggle="collapse" data-target="#tracks">Tracks</h3>
+        <div class="row collapse in" id="tracks">
+<div id="track-7" class="search-item col-lg col-md-2 track"><div class="search-image-container"></div><div class="search-name">Jolene</div></div>        </div>
+
+        <br />
+        <footer class="modal-footer">
+            <ul class="list-inline pull-left">
+                <li><a href="/Home/About">About</a></li>
+                <li><a href="/Home/Contact">Contact</a></li>
+            </ul>
+            <p class="pull-right">&copy;2017- SongsAbout</p>
+        </footer>
+    </div>
+
+    <script src="Scripts/jquery-3.1.1.js"></script>
+
+    <script src="Scripts/bootstrap.js"></script>
+<script src="Scripts/respond.js"></script>
+
+    
+
+<!-- Visual Studio Browser Link -->
+<script type="application/json" id="__browserLink_initializationData">
+    {"appName":"Chrome","requestId":"a4e9a37f01ec43379e186ac9ef29de03"}
+</script>
+<script type="text/javascript" src="http://localhost:11370/0885d0543d4b4c86a4f09f870bfde66e/browserLink" async="async"></script>
+<!-- End Browser Link -->
+
+</body>
+</html>

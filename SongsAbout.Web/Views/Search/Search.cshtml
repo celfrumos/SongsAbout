@@ -1,46 +1,49 @@
-﻿
+﻿@using SongsAbout.Web.Models;
+@model SearchResult
+
 
 @using SongsAbout.Web.Models
 @{
     ViewBag.Title = "Search";
 }
 
-<h2>Search Results</h2>
 
-
-
-@if (ViewBag.Results.Items != null)
+@if (Model?.Items?.Count > 0)
 {
-    if (ViewBag.Results.Artists != null)
+    <h2>Search Results</h2>
+    if (Model.Artists != null)
     {
-        <ul>
-            @foreach (Artist item in ViewBag.Results.Artists)
+        <h3 data-toggle="collapse" data-target="#artists">Artist</h3>
+        <div class="row collapse in" id="artists">
+            @foreach (Artist item in Model.Artists)
             {
-                <li>@Html.DisplaySearchResult(item)</li>
+                @Html.DisplaySearchResult(item)
             }
-        </ul>
-
+        </div>
     }
-    @*if (ViewBag.Results.Albums != null)
-        {
-            <ul class="list-group">
-                @foreach (Album item in ViewBag.Results.Albums)
-                {
-                    //@Html.DisplayArtistAsRow(item);
-                    <li class="artist list-group-item" id="artist-@item.Id">
-                        <ul class="list-unstyled">
-                            <li search="search-image">
-                                <img class="artist-image image-mid" src="@(item.AlbumCover?.Url)" alt="@(item.AlbumCover?.AltText)" />
-                            </li>
-                            <li class="search-name">@item.Name</li>
-                        </ul>
-                    </li>
-                }
-
-            </ul>
-        }*@
+    if (Model.Albums != null)
+    {
+        <h3 data-toggle="collapse" data-target="#albums">Albums</h3>
+        <div class="row collapse in" id="albums">
+            @foreach (Album item in Model.Albums)
+            {
+                @Html.DisplaySearchResult(item)
+            }
+        </div>
+    }
+    if (Model.Tracks != null)
+    {
+        <h3 data-toggle="collapse" data-target="#tracks">Tracks</h3>
+        <div class="row collapse in" id="tracks">
+            @foreach (Track item in Model.Tracks)
+            {
+                @Html.DisplaySearchResult(item)
+            }
+        </div>
+    }
 }
 else
 {
-
+    <h2>Uh oh!</h2>
+    <p>No results found</p>
 }

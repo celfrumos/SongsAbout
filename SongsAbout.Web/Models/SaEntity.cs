@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Text;
 using System.Web.Mvc;
 
 namespace SongsAbout.Web.Models
@@ -15,25 +11,22 @@ namespace SongsAbout.Web.Models
 
     }
 
-}
-namespace System.Web.Mvc
-{
-    using SongsAbout.Web.Models;
+    public enum EntityDisplayType
+    {
+        Spotlight,
+        SearchResult,
+        List,
+        Related
+    }
+
     public static class HtmlButtonExtension
     {
-
-        public static MvcHtmlString Button(this HtmlHelper helper,
-                                           string innerHtml,
-                                           object htmlAttributes)
+        public static MvcHtmlString Button(this HtmlHelper helper, string innerHtml, object htmlAttributes)
         {
-            return Button(helper, innerHtml,
-                          HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes)
-            );
+            return Button(helper, innerHtml, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcHtmlString Button(this HtmlHelper helper,
-                                           string innerHtml,
-                                           IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString Button(this HtmlHelper helper, string innerHtml, IDictionary<string, object> htmlAttributes)
         {
             var builder = new TagBuilder("button");
             builder.InnerHtml = innerHtml;
@@ -41,29 +34,94 @@ namespace System.Web.Mvc
             return MvcHtmlString.Create(builder.ToString());
         }
 
-        public static MvcHtmlString DisplaySearchResult<T>(this HtmlHelper helper, T entity, bool includeChildren = false, object htmlAttributes = null) where T : ISaEntity
+        public static MvcHtmlString DisplayImage(this HtmlHelper helper, ISaImage img, bool explicitSize, object htmlAttributes = null, params string[] classes)
         {
-            var img = new TagBuilder("img");
-            var li_Name = new TagBuilder("li");
-            var li_img = new TagBuilder("li");
-            var ul = new TagBuilder("ul");
+            var builder = new TagBuilder("img");
+            var necessaryAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(new { src = img.Src, alt = img.AltText });
+            builder.MergeAttributes(necessaryAttributes);
+            foreach (var c in classes)
+                builder.AddCssClass(c);
+
+            if (htmlAttributes != null)
+                builder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+
+            if (explicitSize)
+                builder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(new { width = img.Width, height = img.Height }));
+
+
+            return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
+        }
+
+        public static MvcHtmlString RenderRawLink(this HtmlHelper helper, string url, string text, object htmlAttributes = null)
+        {
+            var a = new TagBuilder("a");
+
+            a.MergeAttribute("href", url);
+            a.SetInnerText(text);
+            if (htmlAttributes != null)
+            {
+                a.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            }
+
+            return MvcHtmlString.Create(a.ToString());
+        }
+
+
+        public static MvcHtmlString DisplayTrackRow(this HtmlHelper helper, Track track)
+        {
+            MvcHtmlString trackRow = null;
+
+            StringBuilder builder = new StringBuilder();
+
+
+            builder.Append("<tr class=\"trackrow\">")
+                .Append("<td>")
+                    .Append(track.Name)
+                .Append("</td>")
+                .Append("<td>")
+                    .Append(track.Artist.Name)
+                .Append("</td>")
+                .Append("<td>")
+                    .Append("")
+                .Append("</td>")
+                .Append("<td>")
+                    .Append(track.LengthMinutes)
+                .Append("</td>")
+                .Append("<td>")
+                    .Append(helper.RenderRawLink(track.SpotifyWebPage, "View in Spotify", new { @class = "spotify-href" }))
+                .Append("</td>")
+            .Append("</tr");
+
+            return trackRow;
+        }
+        public static MvcHtmlString DisplaySearchResult<T>(this HtmlHelper helper, T entity, object htmlAttributes = null) where T : ISaEntity
+        {
+            var name = new TagBuilder("div");
+            var img = new TagBuilder("div");
+
+            MvcHtmlString imgHtml = null;
+
+            string
+                itemClass = "",
+                itemId = "";
 
             switch (entity.EntityType)
             {
                 case SaEntityType.Artist:
                     var artist = entity as Artist;
-                    img.AddCssClass("artist");
-                    img.AddCssClass("artist-image");
-                    img.MergeAttribute("src", artist.ProfilePic?.Url);
-                    img.MergeAttribute("alt", artist.ProfilePic?.AltText);
-
-                    ul.AddCssClass("artist");
-                    ul.GenerateId($"artist-{artist.ArtistId}");
-
+                    itemClass = "artist";
+                    imgHtml = helper.DisplayImage(artist.ProfilePic, false, null, itemClass, "img-mid");
                     break;
                 case SaEntityType.Album:
+
+                    var album = entity as Album;
+                    itemClass = "album";
+                    imgHtml = helper.DisplayImage(album.AlbumCover, false, null, itemClass, "img-mid");
+
                     break;
                 case SaEntityType.Track:
+                    var track = entity as Track;
+                    itemClass = "track";
                     break;
                 case SaEntityType.Topic:
                     break;
@@ -71,26 +129,23 @@ namespace System.Web.Mvc
                     break;
                 case SaEntityType.Keyword:
                     break;
-                case SaEntityType.Any:
-                    break;
-                default:
-                    break;
             }
-            img.AddCssClass("image-mid");
 
-            li_Name.AddCssClass("search-name");
-            li_Name.SetInnerText(entity.Name);
+            name.AddCssClass("search-name");
+            name.SetInnerText(entity.Name);
 
-            li_img.AddCssClass("search-image-container");
-            li_img.InnerHtml = img.ToString(TagRenderMode.SelfClosing);
+            img.AddCssClass("search-image-container");
+            img.InnerHtml = imgHtml?.ToHtmlString();
 
-            ul.AddCssClass("list-group-item");
+            itemId = $"{itemClass}-{entity.Id}";
 
-            var list_items = li_Name.ToString() + li_img.ToString();
-            ul.InnerHtml = list_items;
+            var colClass = "col-md-4";
 
-            return MvcHtmlString.Create(list_items);
+            var list_items = img?.ToString() + name.ToString();
+
+            return MvcHtmlString.Create($"<div id=\"{itemId}\" class=\"search-item {colClass} {itemClass}\">{list_items}</div>");
         }
+
 
     }
 }
