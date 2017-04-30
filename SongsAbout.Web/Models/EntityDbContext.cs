@@ -187,7 +187,7 @@ namespace SongsAbout.Web.Models
                 if ((type & SaEntityType.Artist) == SaEntityType.Artist || type == SaEntityType.Any)
                 {
                     var artists =
-                        this.Artists
+                        this.Artists?
                                 .Include(a => a.ProfilePic)
                                 .Include(a => a.Tracks)
                                 .Include(a => a.Albums)
@@ -200,18 +200,18 @@ namespace SongsAbout.Web.Models
                         ?.Take(limit);
 
                     results.Items.AddRange(found);
-                    results.Artists = found?.ToList();
                 }
                 if ((type & SaEntityType.Album) == SaEntityType.Album || type == SaEntityType.Any)
                 {
                     var albums =
-                                this.Albums
-                                .Include(a => a.AlbumCover)?
-                                .Include(a => a.Tracks)?
-                                .Include(a => a.Artist)?
-                                .Include(a => a.FeaturedArtists)?
-                                .Include(a => a.Topics)?
-                                .Include(a => a.Keywords)?.ToList();
+                                this.Albums?
+                                .Include(a => a.AlbumCover)
+                                .Include(a => a.Tracks)
+                                .Include(a => a.Artist)
+                                .Include(a => a.FeaturedArtists)
+                                .Include(a => a.Topics)
+                                .Include(a => a.Keywords)
+                                ?.ToList();
 
                     var found = albums?
                         .Where(a => a.Name.ToLower()
@@ -219,18 +219,18 @@ namespace SongsAbout.Web.Models
                         ?.Take(limit);
 
                     results.Items.AddRange(found);
-                    results.Albums = found?.ToList();
 
                 }
                 if ((type & SaEntityType.Track) == SaEntityType.Track || type == SaEntityType.Any)
                 {
                     var tracks =
-                                 this.Tracks
+                                 this.Tracks?
                                 .Include(a => a.Album)
                                 .Include(a => a.Artist)
                                 .Include(a => a.FeaturedArtists)
                                 .Include(a => a.Topics)
-                                .Include(a => a.Keywords)?.ToList();
+                                .Include(a => a.Keywords)
+                                ?.ToList();
 
                     var found = tracks?
                         .Where(t =>
@@ -238,7 +238,6 @@ namespace SongsAbout.Web.Models
                         ?.Take(limit);
 
                     results.Items.AddRange(found);
-                    results.Tracks = found?.ToList();
                 }
                 if ((type & SaEntityType.Topic) == SaEntityType.Topic || type == SaEntityType.Any)
                 {
@@ -248,7 +247,6 @@ namespace SongsAbout.Web.Models
                                   select a)?.Take(limit);
 
                     results.Items.AddRange(topics);
-                    results.Topics = topics?.ToList();
 
 
                 }
@@ -260,7 +258,6 @@ namespace SongsAbout.Web.Models
                                   select a)?.Take(limit);
 
                     results.Items.AddRange(genres);
-                    results.Genres = genres?.ToList();
 
                 }
                 if ((type & SaEntityType.Keyword) == SaEntityType.Keyword || type == SaEntityType.Any)
@@ -270,15 +267,17 @@ namespace SongsAbout.Web.Models
                                           .Contains(q.ToLower())
                                     select a).Take(limit);
                     results.Items.AddRange(keywords);
-                    results.Keywords = keywords.ToList();
                 }
             }
             return results;
         }
-
+        public SearchResult Search(SearchQuery q)
+        {
+            return Search(q.query, q.type, q.limit);
+        }
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {
-            
+
         }
 
         public static EntityDbContext Create()

@@ -1,32 +1,138 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace SongsAbout.Web.Models
 {
-    [Flags]
-    public enum SearchMethod
+
+    public enum SortMode
     {
-        Artist = 0,
-        Album = 1,
-        Track = 2,
-        Topic = 4,
-        Genre = 8,
-        Any = Artist | Album | Track | Topic | Genre
+        Ascending, Descending
     }
 
     public class SearchResult
     {
-        public SearchMethod SearchMethod { get; set; } = SearchMethod.Any;
+        public SaEntityType SearchMethod { get; set; } = SaEntityType.Any;
+
+        public SortMode sort { get; set; } = SortMode.Descending;
         public List<ISaEntity> Items { get; set; } = new List<ISaEntity>();
 
-        public List<Artist> Artists { get; set; }
-        public List<Album> Albums { get; set; }
-        public List<Track> Tracks { get; set; }
-        public List<Topic> Topics { get; set; }
-        public List<Keyword> Keywords { get; set; }
-        public List<Genre> Genres { get; set; }
+        public IEnumerable<Album> Albums
+        {
+            get
+            {
+                try
+                {
+                    return from a in Items
+                           where a.EntityType == SaEntityType.Album
+                           select (Album)a;
+                }
+                catch (Exception ex)
+                {
+                    return new List<Album>();
+                }
+            }
+        }
 
+        public IEnumerable<Artist> Artists
+        {
+            get
+            {
+                try
+                {
+                    return from a in Items
+                           where a.EntityType == SaEntityType.Artist
+                           select (Artist)a;
+                }
+                catch (Exception ex)
+                {
+                    return new List<Artist>();
+                }
+            }
+        }
+
+        public IEnumerable<Track> Tracks
+        {
+            get
+            {
+                try
+                {
+                    return from a in Items
+                           where a.EntityType == SaEntityType.Track
+                           select (Track)a;
+                }
+                catch (Exception ex)
+                {
+                    return new List<Track>();
+                }
+            }
+        }
+
+        public IEnumerable<Topic> Topics
+        {
+            get
+            {
+                try
+                {
+                    return from a in Items
+                           where a.EntityType == SaEntityType.Topic
+                           select (Topic)a;
+                }
+                catch (Exception ex)
+                {
+                    return new List<Topic>();
+                }
+            }
+        }
+
+        public IEnumerable<Keyword> Keywords
+        {
+            get
+            {
+                try
+                {
+                    return from a in Items
+                           where a.EntityType == SaEntityType.Keyword
+                           select (Keyword)a;
+                }
+                catch (Exception ex)
+                {
+                    return new List<Keyword>();
+                }
+            }
+        }
+
+        public IEnumerable<Genre> Genres
+        {
+            get
+            {
+                try
+                {
+                    return from a in Items
+                           where a.EntityType == SaEntityType.Genre
+                           select (Genre)a;
+                }
+                catch (Exception ex)
+                {
+                    return new List<Genre>();
+                }
+            }
+        }
+
+    }
+
+
+    public class SearchQuery
+    {
+        [Display(Name = "Query", ShortName = "q")]
+        public string query { get; set; } = "";
+
+        [Display(Name = "Limit", ShortName = "limit")]
+        public int limit { get; set; } = 5;
+
+        [Display(Name = "Search Type", ShortName = "type")]
+        public SaEntityType type { get; set; } = SaEntityType.Any;
     }
 }

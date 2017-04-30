@@ -16,8 +16,6 @@ namespace SongsAbout.Web.Models
         {
             try
             {
-
-
                 var happy = new Keyword { KeywordId = 0, Text = "Happy" };
                 var sad = new Keyword { KeywordId = 1, Text = "Sad" };
                 var angry = new Keyword { KeywordId = 2, Text = "Angry" };

@@ -39,16 +39,16 @@ namespace SongsAbout.Web.Controllers
 
         }
 
-        
+
         [HttpGet]
-        public ActionResult Index(string q, SaEntityType type = SaEntityType.Artist)
+        public ActionResult Index(string q, SaEntityType type = SaEntityType.Any, int limit = 5)
         {
 
-            ViewBag.ItemLimit = 5;
-            ViewBag.SearchType = type;
-            var results = db.Search(q, SaEntityType.Any, 5);
-            ViewBag.Results = results;
+            ViewBag.Query = new SearchQuery { @query = q, @type = type, @limit = limit };
+            var results = db.Search(q, type, limit);
+
             return View(results);
+
         }
     }
 }

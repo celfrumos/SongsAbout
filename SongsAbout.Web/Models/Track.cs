@@ -19,7 +19,7 @@ namespace SongsAbout.Web.Models
         private const double MS_TO_MINUTES = 60000d;
 
         [Key]
-      //  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TrackId { get; set; }
 
         [NotMapped]
@@ -56,6 +56,7 @@ namespace SongsAbout.Web.Models
         [DisplayFormat(DataFormatString = "{0:##}")]
         public uint DurationMs { get; set; }
 
+        
         public Artist Artist { get; set; }
 
 
@@ -121,5 +122,6 @@ namespace SongsAbout.Web.Models
                   || this.Topics.Any(g => g.Text.ToLower().Contains(term.ToLower()))
                   || this.Keywords.Any(g => g.Text.ToLower().Contains(term.ToLower()));
         }
+
     }
 }

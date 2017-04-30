@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Core;
-using System.Data.Linq;
 using System.Linq;
-using System.Data.Linq;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models

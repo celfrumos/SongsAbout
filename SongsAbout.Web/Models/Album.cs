@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Drawing;
-using SpotifyAPI.Web.Models;
-using SpotifyAPI.Web.Enums;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
+    [Serializable]
     public partial class Album : ISaEntity, ISaIntegralEntity
     {
         [NotMapped]

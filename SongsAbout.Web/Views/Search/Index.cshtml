@@ -37,7 +37,7 @@
         <div class="row collapse in" id="tracks">
             @foreach (Track item in Model.Tracks)
             {
-                @Html.DisplaySearchResult(item)
+                @Html.DisplayTrackRow(item)
             }
         </div>
     }

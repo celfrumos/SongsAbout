@@ -69,10 +69,12 @@ namespace SongsAbout.Web.Models
 
         public static MvcHtmlString DisplayTrackRow(this HtmlHelper helper, Track track)
         {
-            MvcHtmlString trackRow = null;
+            if (track == null)
+                return null;
 
             StringBuilder builder = new StringBuilder();
 
+            LoadAllRelated(ref track, new EntityDbContext());
 
             builder.Append("<tr class=\"trackrow\">")
                 .Append("<td>")
@@ -92,7 +94,7 @@ namespace SongsAbout.Web.Models
                 .Append("</td>")
             .Append("</tr");
 
-            return trackRow;
+            return MvcHtmlString.Create(builder.ToString());
         }
         public static MvcHtmlString DisplaySearchResult<T>(this HtmlHelper helper, T entity, object htmlAttributes = null) where T : ISaEntity
         {
@@ -147,5 +149,44 @@ namespace SongsAbout.Web.Models
         }
 
 
+        public static void LoadAllRelated<T>(ref T entity, EntityDbContext db) where T : class, ISaIntegralEntity
+        {
+            var dbEntry = db.Entry<T>(entity);
+
+            if (entity.Keywords?.Count > 0)
+                dbEntry.Collection(a => a.Keywords).Load();
+
+            if (entity.Genres?.Count > 0)
+                dbEntry.Collection(a => a.Genres).Load();
+
+            if (entity.Topics?.Count > 0)
+                dbEntry.Collection(a => a.Topics).Load();
+
+            var type = entity.EntityType;
+            if (type == SaEntityType.Artist)
+            {
+                var artist = db.Entry(entity as Artist);
+                artist.Reference(a => a.ProfilePic);
+             
+                artist.Collection(a => a.Albums).Load();
+                artist.Collection(a => a.Tracks).Load();
+            }
+            else if (type == SaEntityType.Album)
+            {
+                var album = db.Entry(entity as Album);
+                album.Reference(a => a.AlbumCover).Load();
+                album.Reference(a => a.Artist).Load();
+                album.Collection(a => a.Tracks).Load();
+                album.Collection(a => a.FeaturedArtists).Load();
+            }
+            else if (type == SaEntityType.Track)
+            {
+                var track = db.Entry(entity as Track);
+                // track.Collection(t => t.FeaturedArtists).Load();
+                track.Reference(t => t.Artist).Load();
+                track.Reference(t => t.Album).Load();
+
+            }
+        }
     }
 }

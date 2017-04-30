@@ -7,14 +7,21 @@
 <div class="jumbotron">
     <h1>SongsAbout</h1>
     <p class="lead">About dang time we can look up songs like this, people.</p>
-    @using (Html.BeginForm("Index", "Search", FormMethod.Get))
-    {
-        Html.TextBoxFor(q => q);
-        //@Html.ActionLink("Index", "Search", new { q = Html } )
-        @Html.Button("Search", new { @class = "btn btn-primary btn-lg", type = "submit" })
+    @{
+        var query = new SearchQuery { query = "", type = SaEntityType.Any, limit = 5 };
+        var searchTxtBoxAttributes = new RouteValueDictionary();
+        searchTxtBoxAttributes.Add("data-autocomplete-source", Url.Action("AutoComplete", controllerName: "Search"));
     }
-    @*<p><input id="search" type="text" onsubmit="@Url.Action("Index","Search",new RouteValueDictionary { new })" data-autocomplete-source="@Url.Action("AutoComplete", controllerName: "Search")" /></p>*@
-    <p><button class="btn btn-primary btn-lg">Search &raquo;</button></p>
+
+    @using (Html.BeginForm("Index", "Search", routeValues: new { @q = query.query, @limit = query.limit, @type = query.type }, method: FormMethod.Get))
+    {
+        <h2>Search</h2>
+        <input type="text" name="q" id="q" data-autocomplete-source="@Url.Action(" AutoComplete", controllerName: "Search" )" /><br />
+        <input type="text" name="limit" id="limit" /><br />
+        @Html.EnumDropDownListFor(a => query.type);
+        <input type="submit" value="Search &raquo;" class="btn btn-primary btn-lg" />
+    }
+
 </div>
 
 <div class="row">
