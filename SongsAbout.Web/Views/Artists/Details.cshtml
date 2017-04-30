@@ -5,46 +5,37 @@
 }
 
 <h2>Details</h2>
-
 <div>
-    <h4>Artist</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfilePic.AltText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfilePic.AltText)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Bio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Bio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SpotifyId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SpotifyId)
-        </dd>
-
-    </dl>
+    <div class="jumbotron artist spotlight">
+        <h2>@Model.Name</h2>
+        <img class="artist-details-image" src="@(Model.ProfilePic?.Src)" width="@(Model.ProfilePic?.Width)" height="@(Model.ProfilePic?.Height)" />
+    </div>
 </div>
+<table class="table table-striped track-table">
+    <thead>
+        <tr>
+            <th>Track</th>
+            <th>@Html.DisplayNameFor(a => Model.Name)</th>
+            <th>Album</th>
+            <th>Length</th>
+            <th>Can Play</th>
+        </tr>
+    </thead>
+    @foreach (var track in Model?.Tracks)
+    {
+        <tr>
+            <td>@Html.ActionLink(Html.DisplayFor(a => track.Name).ToString(), "Details", new { id = track.Id })</td>
+            <td>@Html.DisplayFor(a => Model.Name)</td>
+            <td>@Html.ActionLink(Html.DisplayFor(a => track.Album.Name).ToString(), "Details", new { id = track.Album?.Id })</td>
+            <td>@Html.DisplayFor(a => track.LengthMinutes)</td>
+            <td>@Html.CheckBoxFor(a => track.CanPlay)</td>
+            <
+        </tr>
+    }
+</table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistId })
+    <text>|</text>
     @Html.ActionLink("Back to List", "Index")
 </p>

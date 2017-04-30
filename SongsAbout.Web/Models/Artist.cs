@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
-    
+
     [Serializable]
     public partial class Artist : ISaEntity, ISaIntegralEntity
     {
@@ -23,10 +23,11 @@ namespace SongsAbout.Web.Models
 
         [NotMapped]
         public SaEntityType EntityType => SaEntityType.Artist;
+
         [NotMapped]
         public string TypeName => "Artist";
+
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ArtistId { get; set; }
 
         [NotMapped]

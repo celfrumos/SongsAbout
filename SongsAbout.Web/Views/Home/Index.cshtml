@@ -1,4 +1,5 @@
-﻿@{
+﻿@using SongsAbout.Web.Models;
+@{
     ViewBag.Title = "Home Page";
     var options = new AjaxOptions { HttpMethod = "GET" };
 }
@@ -6,13 +7,13 @@
 <div class="jumbotron">
     <h1>SongsAbout</h1>
     <p class="lead">About dang time we can look up songs like this, people.</p>
-
-    @using (Ajax.BeginForm("Index", "Search", options))
+    @using (Html.BeginForm("Index", "Search", FormMethod.Get))
     {
-        Html.TextBox("q");
-        @Html.ActionLink("Index", "Search", new { }, new { @class = "btn btn-primary btn-lg", type = "submit" })
+        Html.TextBoxFor(q => q);
+        //@Html.ActionLink("Index", "Search", new { q = Html } )
+        @Html.Button("Search", new { @class = "btn btn-primary btn-lg", type = "submit" })
     }
-    <p><input id="search" type="text" onsubmit="@Url.Action("Index","Search", new { })" data-autocomplete-source="@Url.Action("AutoComplete", controllerName: "Search")" /></p>
+    @*<p><input id="search" type="text" onsubmit="@Url.Action("Index","Search",new RouteValueDictionary { new })" data-autocomplete-source="@Url.Action("AutoComplete", controllerName: "Search")" /></p>*@
     <p><button class="btn btn-primary btn-lg">Search &raquo;</button></p>
 </div>
 

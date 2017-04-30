@@ -20,7 +20,10 @@ namespace SongsAbout.Web.Controllers
         // GET: Albums
         public ActionResult Index()
         {
-            var albums = db.Albums.Include(a => a.AlbumCover).Take(20);
+            var albums = db.Albums
+                .Include(a => a.AlbumCover)
+                .Include(a => a.Tracks)
+                .Take(20);
 
             return View(albums.ToList());
         }
@@ -34,7 +37,25 @@ namespace SongsAbout.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Album album = await db.Albums.FindAsync(id);
+
+            Album album = await (from a in db.Albums
+                                 where a.AlbumId == id
+
+                                 select a)
+                                // .Include("Tracks.Artist.FeaturedArtists.Keywords.Topics.Genres")
+                                 //.Include(a => a.Tracks)
+                                 //.Include(a => a.Artist)
+                                 //.Include(a => a.AlbumCover)
+                                 //.Include(a => a.FeaturedArtists)
+                                 //.Include(a => a.Keywords)
+                                 //.Include(a => a.Topics)
+                                 //.Include(a => a.Genres)
+                                 .FirstOrDefaultAsync();
+            db.Entry(album).Collection(a => a.Tracks).Load();
+            db.Entry(album).Collection(a => a.Keywords).Load();
+            db.Entry(album).Collection(a => a.FeaturedArtists).Load();
+            db.Entry(album).Reference(a => a.Artist).Load();
+
             if (album == null)
             {
                 return HttpNotFound();
@@ -136,5 +157,5 @@ namespace SongsAbout.Web.Controllers
         }
     }
 
-  
+
 }

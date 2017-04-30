@@ -13,7 +13,7 @@ namespace SongsAbout.Web
 {
     public class MvcApplication : HttpApplication
     {
-        public void Application_Start()
+        public async void Application_Start()
         {
             Database.SetInitializer(new EntityDbInitializer());
 
@@ -21,6 +21,7 @@ namespace SongsAbout.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            
         }
     }
 }

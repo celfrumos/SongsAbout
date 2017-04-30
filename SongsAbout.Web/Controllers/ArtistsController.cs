@@ -32,6 +32,7 @@ namespace SongsAbout.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Artist artist = await db.Artists.FindAsync(id);
+            db.Entry(artist).Collection(a => a.Tracks).Load();
             if (artist == null)
             {
                 return HttpNotFound();

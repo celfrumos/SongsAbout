@@ -33,12 +33,11 @@ namespace SongsAbout.Web.Models
             get { return Text; }
             set { Text = value; }
         }
-        
+
         public List<Track> Tracks { get; set; }
         public List<Album> Albums { get; set; }
         public List<Artist> Artists { get; set; }
-        [Display(Name = "Album Keywords")]
-        public List<Keyword> Keywords { get; set; }
+
 
         [Display(Name = "Spotify Id")]
         [StringLength(50)]

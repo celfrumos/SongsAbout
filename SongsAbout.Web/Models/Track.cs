@@ -19,7 +19,7 @@ namespace SongsAbout.Web.Models
         private const double MS_TO_MINUTES = 60000d;
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+      //  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TrackId { get; set; }
 
         [NotMapped]
@@ -44,7 +44,7 @@ namespace SongsAbout.Web.Models
         public bool CanPlay { get; set; }
 
         [Display(Name = "Length")]
-        [DisplayFormat(DataFormatString = "{0:##}")]
+        [DisplayFormat(DataFormatString = "{0.##}")]
         public double LengthMinutes
         {
             get { return this.DurationMs / MS_TO_MINUTES; }

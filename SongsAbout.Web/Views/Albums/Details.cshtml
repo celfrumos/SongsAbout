@@ -1,21 +1,35 @@
-﻿@model SongsAbout.Web.Models.Album
+﻿@using SongsAbout.Web.Models;
+@model SongsAbout.Web.Models.Album
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Name;
 }
 
-<h2>@Model.Name</h2>
 
 <div>
-    <hr />  
-    <div class="album spotlight">
-        <img class="album-cover" src="@(Model.AlbumCover?.Src)" width="@(Model.AlbumCover?.Width)" height="@(Model.AlbumCover?.Height)"/>
+    <hr />
+    <div class="jumbotron album spotlight">
+        <h2>@Model.Name</h2>
+        <img class="album-cover" src="@(Model.AlbumCover?.Src)" width="@(Model.AlbumCover?.Width)" height="@(Model.AlbumCover?.Height)" />
     </div>
 </div>
-@foreach (var track in Model.Tracks)
-{
-
-}
+<table class="table table-striped track-table">
+    <thead>
+        <tr>
+            <th>Track</th>
+            <th>Artist</th>
+            <th>Length</th>
+        </tr>
+    </thead>
+    @foreach (var track in Model.Tracks)
+    {
+        <tr>
+            <td>@track.Name</td>
+            <td>@(track.Artist?.Name ?? Model.Artist?.Name)</td>
+            <td>@Html.DisplayFor(a => track.LengthMinutes)</td>
+        </tr>
+    }
+</table>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.AlbumId }) |
     @Html.ActionLink("Back to List", "Index")

@@ -39,10 +39,9 @@ namespace SongsAbout.Web.Controllers
 
         }
 
-
-        [Route("search?q={q}")]
+        
         [HttpGet]
-        public ActionResult Search(string q, SaEntityType type = SaEntityType.Artist)
+        public ActionResult Index(string q, SaEntityType type = SaEntityType.Artist)
         {
 
             ViewBag.ItemLimit = 5;

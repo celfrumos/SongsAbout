@@ -18,7 +18,6 @@ namespace SongsAbout.Web.Models
         public string TypeName => "Album";
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AlbumId { get; set; }
 
         [NotMapped]
@@ -37,6 +36,7 @@ namespace SongsAbout.Web.Models
         public int ArtistId { get; set; }
 
         [DisplayName("Main Artist")]
+        [Association("Fk_AlbArtist", "ArtistId", "Artist.ArtistId", IsForeignKey = true)]
         public Artist Artist { get; set; }
 
         [Display(Name = "Tracks")]
@@ -110,5 +110,8 @@ namespace SongsAbout.Web.Models
                   || this.Topics.Any(g => g.Text.ToLower().Contains(term.ToLower()))
                   || this.Keywords.Any(g => g.Text.ToLower().Contains(term.ToLower()));
         }
+
+
+
     }
 }

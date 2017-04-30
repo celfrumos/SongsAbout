@@ -274,13 +274,11 @@ namespace SongsAbout.Web.Models
                 }
             }
             return results;
-
-
         }
 
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {
-
+            
         }
 
         public static EntityDbContext Create()
