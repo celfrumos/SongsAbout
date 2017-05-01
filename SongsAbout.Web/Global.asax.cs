@@ -8,6 +8,7 @@ using System.Web.Routing;
 using SongsAbout.Web;
 using SongsAbout.Web.Models;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace SongsAbout.Web
 {
@@ -21,7 +22,10 @@ namespace SongsAbout.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
+
+            var db = EntityDbContext.Create();
+            var a = await Task.Run(() => db.Artists);
+            db.Dispose();
         }
     }
 }

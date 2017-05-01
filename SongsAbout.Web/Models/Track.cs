@@ -9,7 +9,7 @@ using System.Web;
 namespace SongsAbout.Web.Models
 {
     [Serializable]
-    public class Track : ISaEntity, ISaIntegralEntity
+    public class Track : ISaEntity, ISaIntegralEntity, ISaDbEntityAccessor
     {
         [NotMapped]
         public SaEntityType EntityType => SaEntityType.Track;

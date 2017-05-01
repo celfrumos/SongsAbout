@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SongsAbout.Web.Models
 {
-    public interface ISaImage
+    public interface ISaImage : ISaDbEntityAccessor
     {
         string AltText { get; set; }
         string Src { get; set; }
@@ -29,6 +29,10 @@ namespace SongsAbout.Web.Models
         [Display(Name = "alt")]
         public virtual string AltText { get; set; }
 
+        [NotMapped]
+        public string Name { get { return AltText; } set { AltText = value; } }
+        [NotMapped]
+        public int Id { get { return ProfilePicId; } set { ProfilePicId = value; } }
         [Url]
         [Display(Name = "src")]
         public virtual string Src { get; set; }
@@ -51,6 +55,11 @@ namespace SongsAbout.Web.Models
         }
         [Display(Name = "alt")]
         public virtual string AltText { get; set; }
+
+        [NotMapped]
+        public string Name { get { return AltText; } set { AltText = value; } }
+        [NotMapped]
+        public int Id { get { return AlbumCoverId; } set { AlbumCoverId = value; } }
 
         [Url]
         [Display(Name = "src")]

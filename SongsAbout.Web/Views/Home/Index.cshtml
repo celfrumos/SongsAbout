@@ -16,9 +16,10 @@
     @using (Html.BeginForm("Index", "Search", routeValues: new { @q = query.query, @limit = query.limit, @type = query.type }, method: FormMethod.Get))
     {
         <h2>Search</h2>
-        <input type="text" name="q" id="q" data-autocomplete-source="@Url.Action(" AutoComplete", controllerName: "Search" )" /><br />
-        <input type="text" name="limit" id="limit" /><br />
-        @Html.EnumDropDownListFor(a => query.type);
+        <input type="text" name="q" id="q" data-autocomplete-source="@Url.Action(" AutoComplete", controllerName: "Search" )" />
+        <input type="text" name="limit" id="limit" />
+        @Html.EnumDropDownListFor(a => query.type)
+        <br />
         <input type="submit" value="Search &raquo;" class="btn btn-primary btn-lg" />
     }
 

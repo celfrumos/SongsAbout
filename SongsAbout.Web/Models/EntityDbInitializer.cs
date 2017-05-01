@@ -16,79 +16,74 @@ namespace SongsAbout.Web.Models
         {
             try
             {
-                var happy = new Keyword { KeywordId = 0, Text = "Happy" };
-                var sad = new Keyword { KeywordId = 1, Text = "Sad" };
-                var angry = new Keyword { KeywordId = 2, Text = "Angry" };
-                var mad = new Keyword { KeywordId = 3, Text = "Mad" };
-                var upBeat = new Keyword { KeywordId = 4, Text = "Upbeat" };
+                var happy = context.Keywords.Add(new Keyword { Text = "Happy" });
+                var sad = context.Keywords.Add(new Keyword { Text = "Sad" });
+                var angry = context.Keywords.Add(new Keyword { Text = "Angry" });
+                var mad = context.Keywords.Add(new Keyword { Text = "Mad" });
+                var upBeat = context.Keywords.Add(new Keyword { Text = "Upbeat" });
 
                 #region Passenger
-                var passengerProfilePic = new ProfilePic
+                var passengerProfilePic = context.ProfilePics.Add(new ProfilePic
                 {
-                    ProfilePicId = 5,
-                    Src = "https://i.scdn.co/image/3b822e8c5d26c2352ad5528adc0035b636e8c293",
+                    Src = @"https://i.scdn.co/image/3b822e8c5d26c2352ad5528adc0035b636e8c293",
                     AltText = "img-Passenger",
                     Width = 640,
                     Height = 640
-                };
-                var Passenger = new Artist
+                });
+
+                var Passenger = context.Artists.Add(new Artist
                 {
-                    ArtistId = 1,
                     Name = "Passenger",
                     SpotifyId = "0gadJ2b9A4SKsB1RFkBb66",
                     ProfilePicId = passengerProfilePic.ProfilePicId
-                };
-                context.Artists.Add(Passenger);
+                });
+
+                // context.Artists.Add(Passenger);
 
                 #region whispers
-                var whispersCover = new AlbumCover
+                var whispersCover = context.AlbumCovers.Add(new AlbumCover
                 {
-                    AlbumCoverId = 11,
                     Src = "https://i.scdn.co/image/63a7be15eae7b897d1481b6e4447b2bf694e1da3",
                     AltText = "img-Whispers (Deluxe)",
                     Width = 640,
                     Height = 640
-                };
-                var Whispers = new Album
+                });
+                var Whispers = context.Albums.Add(new Album
                 {
-                    AlbumId = 11,
                     ArtistId = Passenger.Id,
                     Name = "Whispers (Deluxe)",
                     SpotifyId = " 3WvSr7uc2MOaNgWDxNxLqJ",
                     ReleaseDate = Convert.ToDateTime("6/6/2014 12:00:00 AM"),
                     AlbumCoverId = whispersCover.AlbumCoverId
-                };
+                });
 
-                var theWayThatINeedYou = new Track
+                var theWayThatINeedYou = context.Tracks.Add(new Track
                 {
-                    TrackId = 5,
                     ArtistId = Passenger.Id,
                     AlbumId = Whispers.Id,/**/
                     Name = "The Way That I Need You",
                     SpotifyId = "0gadJ2b9A4SKsB1RFkBb66"                                     /**/ ,
                     CanPlay = false,
-                    DurationMs = 20000
-                };
-                var travellingAlone = new Track
+                    DurationMs = 200000
+                });
+                var travellingAlone = context.Tracks.Add(new Track
                 {
-                    TrackId = 40,
                     ArtistId = Passenger.Id,
                     AlbumId = Whispers.Id, /**/
                     Name = "Travelling Alone",
                     SpotifyId = "0gadJ2b9A4SKsB1RFkBb66"                                            /**/ ,
                     CanPlay = true,
-                    DurationMs = 20000
-                };
-                var scareAwayTheDark = new Track
+                    LengthMinutes = 4.2
+                });
+                var scareAwayTheDark = context.Tracks.Add(new Track
                 {
-                    TrackId = 100,
                     ArtistId = Passenger.Id,
                     AlbumId = Whispers.Id,
                     LengthMinutes = 2.4,
                     Name = "Scare Away the Dark",
                     CanPlay = false,
-                };
-                var goldenLeaves = new Track
+                });
+                var goldenLeaves = context.Tracks.Add(new Track
                 {
                     TrackId = 102,
                     ArtistId = Passenger.Id,
@@ -96,62 +91,56 @@ namespace SongsAbout.Web.Models
                     Name = "Golden Leaves",
                     CanPlay = false,
                     LengthMinutes = 3.4
-                };
+                });
                 #endregion
 
                 #region WhispersII
-                var whispersIICover = new AlbumCover
+                var whispersIICover = context.AlbumCovers.Add(new AlbumCover
                 {
-                    AlbumCoverId = 5,
                     Src = "https://i.scdn.co/image/e0efd50908c5363780144edfa50e74f0149330a5",
                     AltText = "img-Whispers II",
                     Width = 640,
                     Height = 640
-                };
-                var WhispersII = new Album
+                });
+                var WhispersII = context.Albums.Add(new Album
                 {
-                    AlbumId = 5,
                     ArtistId = Passenger.ArtistId,
                     Artist = Passenger,
                     Name = "Whispers II",
                     SpotifyId = " 1tuA98Wr7drhpoaMqPIO5V",
                     ReleaseDate = Convert.ToDateTime("4/20/2015 12:00:00 AM"),
                     AlbumCoverId = whispersIICover.AlbumCoverId
-                };
+                });
 
-                var david = new Track
+                var david = context.Tracks.Add(new Track
                 {
-                    TrackId = 41,
                     ArtistId = Passenger.Id,
                     AlbumId = WhispersII.Id, /**/
                     Name = "David",
                     SpotifyId = "0gadJ2b9A4SKsB1RFkBb66"                                                       /**/ ,
                     CanPlay = false,
                     DurationMs = 20000
-                };
-                var heartsOnFire = new Track
+                });
+                var heartsOnFire = context.Tracks.Add(new Track
                 {
-                    TrackId = 42,
                     ArtistId = Passenger.Id,
                     AlbumId = WhispersII.Id,/**/
                     Name = "Heart's On Fire - Acoustic",
                     SpotifyId = "0gadJ2b9A4SKsB1RFkBb66"                                  /**/ ,
                     CanPlay = false,
                     DurationMs = 20000
-                };
-                var coinsInAFountain = new Track
+                });
+                var coinsInAFountain = context.Tracks.Add(new Track
                 {
-                    TrackId = 11,
                     ArtistId = Passenger.Id,
                     AlbumId = WhispersII.Id,/**/
                     Name = "Coins in a Fountain",
                     SpotifyId = "0gadJ2b9A4SKsB1RFkBb66"                                         /**/ ,
                     CanPlay = false,
                     DurationMs = 20000
-                };
-                var words = new Track
+                });
+                var words = context.Tracks.Add(new Track
                 {
-                    TrackId = 192,
                     ArtistId = Passenger.Id,
                     Artist = Passenger,
                     AlbumId = WhispersII.Id,
@@ -160,27 +149,27 @@ namespace SongsAbout.Web.Models
                     Name = "Words",
                     CanPlay = false,
                     LengthMinutes = 4.2
-                };
+                });
                 #endregion
                 david.Keywords = new List<Keyword> { sad };
                 sad.Tracks = new List<Track> { david, travellingAlone };
                 travellingAlone.Keywords = new List<Keyword> { sad };
 
 
-                context.Artists.Add(Passenger);
-                context.ProfilePics.Add(passengerProfilePic);
+                //context.Artists.Add(Passenger);
+                //context.ProfilePics.Add(passengerProfilePic);
 
-                context.AlbumCovers.Add(whispersIICover);
-                context.AlbumCovers.Add(whispersCover);
+                //context.AlbumCovers.Add(whispersIICover);
+                //context.AlbumCovers.Add(whispersCover);
 
-                context.Albums.Add(WhispersII);
-                context.Albums.Add(Whispers);
+                //context.Albums.Add(WhispersII);
+                //context.Albums.Add(Whispers);
 
-                context.Tracks.Add(coinsInAFountain);
-                context.Tracks.Add(theWayThatINeedYou);
-                context.Tracks.Add(travellingAlone);
-                context.Tracks.Add(david);
-                context.Tracks.Add(heartsOnFire);
+                //context.Tracks.Add(coinsInAFountain);
+                //context.Tracks.Add(theWayThatINeedYou);
+                //context.Tracks.Add(travellingAlone);
+                //context.Tracks.Add(david);
+                //context.Tracks.Add(heartsOnFire);
 
                 #endregion
 

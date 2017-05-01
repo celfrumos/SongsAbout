@@ -5,22 +5,25 @@ using System.Data.Entity;
 using System.Linq;
 using System.Data.Linq;
 using System.Web;
+using System.Collections;
 
 namespace SongsAbout.Web.Models
 {
 
     public class EntityDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Artist> Artists { get; set; }
-        public DbSet<Album> Albums { get; set; }
-        public DbSet<Track> Tracks { get; set; }
+        public EntityDbSet<Artist> Artists { get; set; }
+        public EntityDbSet<Album> Albums { get; set; }
+        public EntityDbSet<Track> Tracks { get; set; }
 
-        public DbSet<ProfilePic> ProfilePics { get; set; }
-        public DbSet<AlbumCover> AlbumCovers { get; set; }
+        public EntityDbSet<ProfilePic> ProfilePics { get; set; }
+        public EntityDbSet<AlbumCover> AlbumCovers { get; set; }
 
-        public DbSet<Topic> Topics { get; set; }
-        public DbSet<Genre> Genres { get; set; }
-        public DbSet<Keyword> Keywords { get; set; }
+        public EntityDbSet<Topic> Topics { get; set; }
+        public EntityDbSet<Genre> Genres { get; set; }
+        public EntityDbSet<Keyword> Keywords { get; set; }
+
+
 
         public T GetEntity<T>(string name) where T : ISaEntity
         {
@@ -277,12 +280,48 @@ namespace SongsAbout.Web.Models
         }
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {
-
+            Artists = new EntityDbSet<Artist>(this);
+            Albums = new EntityDbSet<Album>(this);
+            Tracks = new EntityDbSet<Track>(this);
+            ProfilePics = new EntityDbSet<ProfilePic>(this);
+            AlbumCovers = new EntityDbSet<AlbumCover>(this);
+            Topics = new EntityDbSet<Topic>(this);
+            Genres = new EntityDbSet<Genre>(this);
+            Keywords = new EntityDbSet<Keyword>(this);
         }
 
         public static EntityDbContext Create()
         {
             return new EntityDbContext();
         }
+    }
+
+    public class EntityDbSet<T> : DbSet<T>, IEnumerable<T>, IEnumerable 
+        where T : class, ISaDbEntityAccessor
+    {
+        public EntityDbContext db { get; }
+        public EntityDbSet(EntityDbContext context) : base()
+        {
+            db = context;
+        }
+
+        public T Get(T entity)
+        {
+            var res = from a in db.Set<T>()
+                      where a.Name == entity.Name
+                      select a;
+
+            return res.FirstOrDefault();
+        }
+        public override T Add(T entity)
+        {
+            base.Add(entity);
+            db.SaveChanges();
+
+            var res = Get(entity);
+
+            return res;
+        }
+
     }
 }

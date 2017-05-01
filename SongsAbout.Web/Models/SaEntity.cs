@@ -182,6 +182,7 @@ namespace SongsAbout.Web.Models
             else if (type == SaEntityType.Track)
             {
                 var track = db.Entry(entity as Track);
+                
                 // track.Collection(t => t.FeaturedArtists).Load();
                 track.Reference(t => t.Artist).Load();
                 track.Reference(t => t.Album).Load();
