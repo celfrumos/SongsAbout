@@ -78,19 +78,19 @@ namespace SongsAbout.Web.Models
 
             builder.Append("<tr class=\"trackrow\">")
                 .Append("<td>")
-                    .Append(track.Name)
+                    .Append(track?.Name)
                 .Append("</td>")
                 .Append("<td>")
-                    .Append(track.Artist.Name)
+                    .Append(track.Artist?.Name)
                 .Append("</td>")
                 .Append("<td>")
                     .Append("")
                 .Append("</td>")
                 .Append("<td>")
-                    .Append(track.LengthMinutes)
+                    .Append(track?.LengthMinutes)
                 .Append("</td>")
                 .Append("<td>")
-                    .Append(helper.RenderRawLink(track.SpotifyWebPage, "View in Spotify", new { @class = "spotify-href" }))
+                    .Append(helper.RenderRawLink(track?.SpotifyWebPage, "View in Spotify", new { @class = "spotify-href" }))
                 .Append("</td>")
             .Append("</tr");
 
@@ -100,6 +100,9 @@ namespace SongsAbout.Web.Models
         {
             var name = new TagBuilder("div");
             var img = new TagBuilder("div");
+            var link = new TagBuilder("a");
+
+
 
             MvcHtmlString imgHtml = null;
 
@@ -113,6 +116,7 @@ namespace SongsAbout.Web.Models
                     var artist = entity as Artist;
                     itemClass = "artist";
                     imgHtml = helper.DisplayImage(artist.ProfilePic, false, null, itemClass, "img-mid");
+
                     break;
                 case SaEntityType.Album:
 
@@ -124,6 +128,7 @@ namespace SongsAbout.Web.Models
                 case SaEntityType.Track:
                     var track = entity as Track;
                     itemClass = "track";
+
                     break;
                 case SaEntityType.Topic:
                     break;
@@ -145,12 +150,14 @@ namespace SongsAbout.Web.Models
 
             var list_items = img?.ToString() + name.ToString();
 
-            return MvcHtmlString.Create($"<div id=\"{itemId}\" class=\"search-item {colClass} {itemClass}\">{list_items}</div>");
+
+            return MvcHtmlString.Create($"<div id=\"{itemId}\" class=\"search-item {colClass} {itemClass}\"><a href=\"{itemClass}s/Details/{entity.Id}\">{list_items}</a></div>");
         }
 
 
         public static void LoadAllRelated<T>(ref T entity, EntityDbContext db) where T : class, ISaIntegralEntity
         {
+            return;
             var dbEntry = db.Entry<T>(entity);
 
             var keywords = dbEntry.Collection(a => a.Keywords);

@@ -43,9 +43,9 @@ namespace SongsAbout.Web.Controllers
 
                                  select a)
                                 // .Include("Tracks.Artist.FeaturedArtists.Keywords.Topics.Genres")
-                                 //.Include(a => a.Tracks)
-                                 //.Include(a => a.Artist)
-                                 //.Include(a => a.AlbumCover)
+                                 .Include(a => a.Tracks)
+                                 .Include(a => a.Artist)
+                                 .Include(a => a.AlbumCover)
                                  //.Include(a => a.FeaturedArtists)
                                  //.Include(a => a.Keywords)
                                  //.Include(a => a.Topics)
@@ -55,6 +55,8 @@ namespace SongsAbout.Web.Controllers
             db.Entry(album).Collection(a => a.Keywords).Load();
             db.Entry(album).Collection(a => a.FeaturedArtists).Load();
             db.Entry(album).Reference(a => a.Artist).Load();
+
+            album.Artist = db.Artists.Find(album.ArtistId);
 
             if (album == null)
             {

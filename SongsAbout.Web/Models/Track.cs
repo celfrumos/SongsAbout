@@ -44,7 +44,7 @@ namespace SongsAbout.Web.Models
         public bool CanPlay { get; set; }
 
         [Display(Name = "Length")]
-        [DisplayFormat(DataFormatString = "{0.##}")]
+       
         public double LengthMinutes
         {
             get { return this.DurationMs / MS_TO_MINUTES; }
