@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
-    public class Keyword : ISaEntity, ISaDescription
+    public class Keyword : ISaEntity, ISaDescriptor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

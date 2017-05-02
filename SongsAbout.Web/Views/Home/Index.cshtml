@@ -17,7 +17,14 @@
     {
         <h2>Search</h2>
         <input type="text" name="q" id="q" data-autocomplete-source="@Url.Action(" AutoComplete", controllerName: "Search" )" />
-        <input type="text" name="limit" id="limit" />
+        @(Html.DropDownListFor(a => query.limit,
+        new List<SelectListItem> {
+                                new SelectListItem { Value = "5", Text = "5",Selected = true },
+                                new SelectListItem { Value = "10", Text = "10" },
+                                new SelectListItem { Value = "15", Text = "15" }
+                        }
+                    )
+        )
         @Html.EnumDropDownListFor(a => query.type)
         <br />
         <input type="submit" value="Search &raquo;" class="btn btn-primary btn-lg" />

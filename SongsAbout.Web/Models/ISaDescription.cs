@@ -1,6 +1,6 @@
 ﻿namespace SongsAbout.Web.Models
 {
-    public interface ISaDescription : ISaEntity
+    public interface ISaDescriptor : ISaEntity
     {
         string Text { get; set; }
     }

@@ -26,16 +26,20 @@ namespace SongsAbout.Web.Models
         {
             return new ProfilePic { Src = image.Url, Width = image.Width, Height = image.Height };
         }
+
+
         [Display(Name = "alt")]
         public virtual string AltText { get; set; }
 
         [NotMapped]
-        public string Name { get { return AltText; } set { AltText = value; } }
+        public string Name { get { return this.AltText; } set { this.AltText = value; } }
         [NotMapped]
-        public int Id { get { return ProfilePicId; } set { ProfilePicId = value; } }
+        public int Id { get { return this.ProfilePicId; } set { this.ProfilePicId = value; } }
+
         [Url]
         [Display(Name = "src")]
         public virtual string Src { get; set; }
+
         [Display(Name = "width")]
         public virtual int Width { get; set; }
         [Display(Name = "height")]

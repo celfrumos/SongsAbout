@@ -153,36 +153,63 @@ namespace SongsAbout.Web.Models
         {
             var dbEntry = db.Entry<T>(entity);
 
-            if (entity.Keywords?.Count > 0)
-                dbEntry.Collection(a => a.Keywords).Load();
-
-            if (entity.Genres?.Count > 0)
-                dbEntry.Collection(a => a.Genres).Load();
-
-            if (entity.Topics?.Count > 0)
-                dbEntry.Collection(a => a.Topics).Load();
+            var keywords = dbEntry.Collection(a => a.Keywords);
+            var genres = dbEntry.Collection(a => a.Genres);
+            var topics = dbEntry.Collection(a => a.Topics);
+            var set = db.Set<T>();
+            if (keywords.CurrentValue?.Count > 0)
+            {
+                entity.Keywords.ForEach(k => db.Keywords.Attach(k));
+                keywords.Load();
+            }
+            if (genres.CurrentValue?.Count > 0)
+            {
+                entity.Genres.ForEach(g => db.Genres.Attach(g));
+                genres.Load();
+            }
+            if (topics.CurrentValue?.Count > 0)
+            {
+                entity.Topics.ForEach(t => db.Topics.Attach(t));
+                topics.Load();
+            }
 
             var type = entity.EntityType;
             if (type == SaEntityType.Artist)
             {
-                var artist = db.Entry(entity as Artist);
+                var ar = entity as Artist;
+
+                var artist = db.Entry(ar);
+
                 artist.Reference(a => a.ProfilePic);
-             
-                artist.Collection(a => a.Albums).Load();
-                artist.Collection(a => a.Tracks).Load();
+
+                ar.Albums.ForEach(al => db.Albums.Attach(al));
+                if (ar.Albums.Count > 0)
+                    artist.Collection(a => a.Albums).Load();
+
+                ar.Tracks.ForEach(t => db.Tracks?.Attach(t));
+                if (ar.Tracks.Count > 0)
+
+                    artist.Collection(a => a.Tracks).Load();
+
             }
             else if (type == SaEntityType.Album)
             {
-                var album = db.Entry(entity as Album);
+                var al = entity as Album;
+                var album = db.Entry(al);
+
                 album.Reference(a => a.AlbumCover).Load();
                 album.Reference(a => a.Artist).Load();
-                album.Collection(a => a.Tracks).Load();
+
+                al.Tracks.ForEach(t => db.Tracks?.Attach(t));
+                if (al.Tracks.Count > 0)
+                    album.Collection(a => a.Tracks).Load();
                 album.Collection(a => a.FeaturedArtists).Load();
             }
             else if (type == SaEntityType.Track)
             {
-                var track = db.Entry(entity as Track);
-                
+                var tr = entity as Track;
+                var track = db.Entry(tr);
+
                 // track.Collection(t => t.FeaturedArtists).Load();
                 track.Reference(t => t.Artist).Load();
                 track.Reference(t => t.Album).Load();
