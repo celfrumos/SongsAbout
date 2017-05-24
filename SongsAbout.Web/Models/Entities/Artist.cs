@@ -15,7 +15,7 @@ namespace SongsAbout.Web.Models
 
         [Key]
         [Column("ArtistId")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [IdentityColumn]
         public override int Id { get; set; }
 
         [Display(Name = "Artist Name")]
@@ -28,10 +28,47 @@ namespace SongsAbout.Web.Models
         public string Bio { get; set; }
 
         [Display(Name = "Profile Picture")]
-        [ForeignKey(nameof(ProfilePicId))]
         public Picture ProfilePic { get; set; }
 
+        [ForeignKey(nameof(ProfilePic))]
         public int ProfilePicId { get; set; }
+
+        //public Picture ProfilePic
+        //{
+        //    get
+        //    {
+        //        if (this.Images != null && this.Images.Count > 0)
+        //            return this.Images[0];
+        //        else
+        //            return null;
+
+        //    }
+        //    set
+        //    {
+        //        if (value == null)
+        //            return;
+
+        //        value.SaEntityType = SaEntityType.Artist;
+
+        //        if (this.Images != null && this.Images.Count > 0)
+        //            this.Images[0] = value;
+        //        else
+        //            this.Images = new List<Picture>() { value };
+
+        //    }
+        //}
+
+        //public int ProfilePicId
+        //{
+        //    get { return this.ProfilePic?.Id ?? 0; }
+        //    set
+        //    {
+        //        if (this.ProfilePic != null)
+        //            this.ProfilePic.Id = value;
+        //        else
+        //            this.ProfilePic = new Picture() { Id = value };
+        //    }
+        //}
 
         [Display(Name = "Spotify Id")]
         [StringLength(50)]
@@ -58,30 +95,8 @@ namespace SongsAbout.Web.Models
 
         #region UnMappedProperties
 
-        [NotMapped]
         [Display(Name = "Tracks")]
-        public List<Track> Tracks
-        {
-            get
-            {
-                List<Track> res = new List<Track>();
-                try
-                {
-                    using (var db = new EntityDbContext())
-                    {
-                        res.AddRange(from t in db.Tracks
-                                     where t.ArtistId == this.Id
-                                     select t);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                return res;
-            }
-        }
-
+        public List<Track> Tracks { get; set; }
 
         #region Constants
         [NotMapped]

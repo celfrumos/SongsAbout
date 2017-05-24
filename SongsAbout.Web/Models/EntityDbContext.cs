@@ -9,6 +9,8 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.Entity.ModelConfiguration;
 using System.Threading.Tasks;
 
 namespace SongsAbout.Web.Models
@@ -34,9 +36,22 @@ namespace SongsAbout.Web.Models
             return this.Set<T>().Find(id);
         }
 
-        public T Get<T>(string nameOrText) where T : SaDbEntityAccessor
+        public T Get<T>(string name) where T : SaDbEntityAccessor
         {
-            var set = this.Set<T>();
+            //var set = this.Set<T>();
+
+            // var type = typeof(Artist);
+            try
+            {
+                var lookup = this.Set<T>().ToLookup(a => a.Name);
+                var set = lookup.Contains(name) ? lookup[name].First() : null;
+                return set;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
             {
                 /*   var type = typeof(T);
 
@@ -111,11 +126,6 @@ namespace SongsAbout.Web.Models
                        }
                    }*/
             }
-
-            return (from t in set
-                    let e = t as SaDbEntityAccessor
-                    where e.Name == nameOrText
-                    select t)?.FirstOrDefault();
         }
 
         public bool IsDescribedBy(ISaIntegralEntity entity, string q)
@@ -201,30 +211,44 @@ namespace SongsAbout.Web.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Artist>()
+            //    .HasMany(a => a.Albums);
 
-            var tracks = modelBuilder.Entity<Track>();
+            //modelBuilder.Entity<Artist>()
+            //    .HasMany(a => a.Tracks);
 
-            //tracks.HasKey(t => t.Id);
-            tracks.HasRequired(t => t.Artist)
-                .WithRequiredPrincipal()
-                .WillCascadeOnDelete(false);
-            //var artists = modelBuilder.Entity<Artist>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            //var albums = modelBuilder.Entity<Album>();
+            modelBuilder.Entity<Artist>()
+                .HasMany(a => a.Albums)
+                .WithRequired(a => a.Artist)
+                .HasForeignKey(al => al.ArtistId);
 
-            ////modelBuilder.Entity<Album>()
-            ////    .HasRequired(a => a.Artist)
-            ////    .WithRequiredDependent()
-            ////    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Artist>()
+                .HasMany(a => a.Tracks)
+                .WithRequired(t => t.Artist)
+                .HasForeignKey(a => a.ArtistId);
 
-            ////tracks.HasRequired(t => t.Album)
-            ////    .WithRequiredDependent()
-            ////    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Album>()
+                .HasMany(al => al.Tracks)
+                .WithRequired(al => al.Album)
+                .HasForeignKey(t => t.AlbumId);
 
-            //tracks
+            modelBuilder.Entity<Album>()
+                .HasRequired(al => al.Artist);
+
+            //modelBuilder.Entity<Track>()
             //    .HasRequired(t => t.Artist)
-            //    .WithRequiredDependent()
-            //    .WillCascadeOnDelete(false);
+            //    .WithMany(a => a.Tracks)
+            //    .HasForeignKey(t => t.ArtistId);
+
+            //modelBuilder.Entity<Track>()
+            //    .HasRequired(t => t.Album)
+            //    .WithMany(a => a.Tracks);
+
+            //modelBuilder.Entity<Artist>()
+            //    .HasMany(a => a.Images)
+            //    .WithMany();
 
             base.OnModelCreating(modelBuilder);
         }
@@ -244,38 +268,33 @@ namespace SongsAbout.Web.Models
             try
             {
                 var set = this.Set<T>();
-                var type = typeof(T);
-                var props = type.GetProperties();
-                var id = props.Where(p => p.Name == "Id").FirstOrDefault();
-                var dbGenerated = id?
-                    .GetCustomAttributes(typeof(DatabaseGeneratedAttribute), true)
-                    .FirstOrDefault() as DatabaseGeneratedAttribute;
-
-                if (dbGenerated != null && dbGenerated.DatabaseGeneratedOption == DatabaseGeneratedOption.Identity)
+                if (typeof(T).GetProperty("Id").GetCustomAttributes(typeof(IdentityColumnAttribute), true).Count() > 0)
                 {
-                    if (this.GetType() != typeof(EntityDbContext))
-                    {
-                        entity.Id = set.Count() + 1;
-                    }
+                    entity.Id = set.Count() + 1;
                 }
                 set.Add(entity);
                 this.SaveChanges();
 
-                entity.Id = (from t in this.Set<T>()
-                             let e = t as SaDbEntityAccessor
-                             where e.Name == accessor.Name
-                             select t)
+                entity.Id = this.Set<T>().ToLookup(a => a.Name)[accessor.Name]
                              .FirstOrDefault()?.Id ?? entity.Id;
 
                 return entity;
             }
             catch (Exception ex)
             {
-
-                throw;
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                }
+                throw ex;
             }
         }
-    }
 
+    }
+    [System.AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
+    sealed class IdentityColumnAttribute : Attribute
+    {
+
+    }
 
 }

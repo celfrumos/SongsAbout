@@ -15,7 +15,6 @@ namespace SongsAbout.Web.Models
         public override SaEntityType EntityType => SaEntityType.Album;
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
         [DisplayName("Album Name")]
@@ -40,12 +39,14 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Featured Artists")]
         public List<Artist> FeaturedArtists { get; set; }
 
-        [Display(Name = "Album Cover")]
-        public int AlbumCoverId { get; set; }
+        public Picture AlbumCover { get; set; }
 
         [Display(Name = "Album Cover")]
-        [ForeignKey(nameof(AlbumCoverId))]
-        public Picture AlbumCover { get; set; }
+        [ForeignKey(nameof(AlbumCover))]
+        public int AlbumCoverId { get; set; }
+
+        [Display(Name = "Pictures")]
+        public List<Picture> Pictures { get; set; }
 
 
         [Display(Name = "Album Keywords")]

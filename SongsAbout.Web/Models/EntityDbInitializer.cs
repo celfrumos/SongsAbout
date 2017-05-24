@@ -35,6 +35,10 @@ namespace SongsAbout.Web.Models
                 // Artists
                 foreach (var a in seed.Artists)
                 {
+                    if (a.Name == "Kevin Parker")
+                    {
+
+                    }
                     if (!artists.ContainsKey(a.Name))
                     {
                         SpotifyImage pic;
@@ -43,9 +47,9 @@ namespace SongsAbout.Web.Models
                         else
                             pic = null;
 
-                        var profilePic = context.Create(new Picture(pic, a.Name));
+                        var profilePic = pic == null ? null : context.Create(new Picture(pic, a.Name));
 
-                        int picId = profilePic?.Id ?? -1;
+                        int picId = profilePic?.Id ?? 0;
 
                         Artist artist = context.Create<Artist>(new Artist(a) { ProfilePicId = picId });
 
@@ -65,11 +69,11 @@ namespace SongsAbout.Web.Models
                         else
                             pic = null;
 
-                        var cover = context.Create(new Picture(pic, al.Name));
+                        var cover = pic == null ? null : context.Create(new Picture(pic, al.Name));
 
                         int coverid = cover?.Id ?? -1;
                         string artistName = al.Artists.Count > 0 ? al.Artists[0].Name : null;
-                        int artistId = -1;
+                        int artistId = 0;
 
                         if (artistName != null && artists.ContainsKey(artistName))
                         {

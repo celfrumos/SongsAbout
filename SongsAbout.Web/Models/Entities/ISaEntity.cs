@@ -18,9 +18,9 @@ namespace SongsAbout.Web.Models
 
     public interface ISaEntity : ISaDbEntityAccessor
     {
+        string SpotifyId { get; set; }
         string ApiHref { get; }
         SaEntityType EntityType { get; }
-        string SpotifyId { get; set; }
         string SpotifyUri { get; }
         string SpotifyWebPage { get; }
 

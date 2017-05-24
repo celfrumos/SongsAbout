@@ -224,9 +224,9 @@
     <Compile Include="Controllers\TopicsController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\SongsAboutDb.mdf" />
-    <Content Include="App_Data\SongsAboutDb_log.ldf">
-      <DependentUpon>SongsAboutDb.mdf</DependentUpon>
+    <Content Include="App_Data\DatabaseFile.mdf" />
+    <Content Include="App_Data\DatabaseFile_log.ldf">
+      <DependentUpon>DatabaseFile.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

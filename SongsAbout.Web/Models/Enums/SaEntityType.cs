@@ -5,7 +5,6 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
-
     public enum SaEntityType
     {
         Artist = 0,
@@ -13,8 +12,8 @@ namespace SongsAbout.Web.Models
         Track = 2,
         Topic = 4,
         Genre = 8,
-        Keyword,
-        Any = Artist | Album | Track | Topic | Genre
+        Keyword = 16,
+        Any = Artist | Album | Track | Topic | Genre | Keyword
     }
     public static class SaEntityTypeEnumExtensions
     {

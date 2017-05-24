@@ -14,23 +14,20 @@ namespace SongsAbout.Web.Models
         string Src { get; set; }
         int Width { get; set; }
         int Height { get; set; }
-
+        SaEntityType SaEntityType { get; set; }
     }
     public class Picture : SaDbEntityAccessor, ISaImage
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
-        [NotMapped]
         [Display(Name = "alt")]
         [DefaultValue("")]
         public override string Name { get; set; }
 
-        [Url]
         [Display(Name = "src")]
         [DefaultValue("")]
-        [Required(ErrorMessage = "Picture must have a source")]
+        [Required(ErrorMessage = "Picture must have a source", AllowEmptyStrings = true)]
         public virtual string Src { get; set; }
 
         [Display(Name = "width")]
@@ -41,6 +38,9 @@ namespace SongsAbout.Web.Models
         [DefaultValue(0)]
         public virtual int Height { get; set; }
 
+        [EnumDataType(typeof(SaEntityType), ErrorMessage = "An error occurred with setting the SaEntityType of the picture")]
+        public SaEntityType SaEntityType { get; set; }
+
         public Picture()
         {
             this.Name = "";
@@ -50,10 +50,10 @@ namespace SongsAbout.Web.Models
         }
         public Picture(SpotifyImage image, string name)
         {
-            this.Name = name;
-            this.Src = image.Url;
-            this.Width = image.Width;
-            this.Height = image.Height;
+            this.Name = name ?? "";
+            this.Src = image?.Url ?? "";
+            this.Width = image?.Width ?? 0;
+            this.Height = image?.Height ?? 0;
         }
         public static implicit operator Picture(SpotifyImage image)
         {

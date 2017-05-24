@@ -21,7 +21,6 @@ namespace SongsAbout.Web.Models
 
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
         /// <summary>
@@ -60,7 +59,6 @@ namespace SongsAbout.Web.Models
         public bool Explicit { get; set; }
 
         [Required(ErrorMessage = "Track must have an Artist.")]
-        [ForeignKey(nameof(Artist))]
         public int ArtistId { get; set; }
 
         /// <summary>
@@ -70,9 +68,13 @@ namespace SongsAbout.Web.Models
         [Required(ErrorMessage = "Track must be part of an Album.")]
         public int AlbumId { get; set; }
 
+
+        [ForeignKey("Id")]
+        [Required(ErrorMessage = "Track must have an Artist.")]
         public Artist Artist { get; set; }
 
-        [ForeignKey(nameof(AlbumId))]
+        [ForeignKey("Id")]
+        [Required(ErrorMessage = "Track must be part of an Album.")]
         public Album Album { get; set; }
 
         #region ReferenceGroups
