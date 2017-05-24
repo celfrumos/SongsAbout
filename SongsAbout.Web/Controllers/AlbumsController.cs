@@ -39,7 +39,7 @@ namespace SongsAbout.Web.Controllers
             }
 
             Album album = await (from a in db.Albums
-                                 where a.AlbumId == id
+                                 where a.Id == id
 
                                  select a)
                                 // .Include("Tracks.Artist.FeaturedArtists.Keywords.Topics.Genres")
@@ -68,7 +68,7 @@ namespace SongsAbout.Web.Controllers
         // GET: Albums/Create
         public ActionResult Create()
         {
-            ViewBag.AlbumCoverId = new SelectList(db.AlbumCovers, "AlbumCoverId", "AltText");
+            ViewBag.AlbumCoverId = new SelectList(db.Pictures, "AlbumCoverId", "AltText");
             return View();
         }
 
@@ -86,7 +86,7 @@ namespace SongsAbout.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AlbumCoverId = new SelectList(db.AlbumCovers, "AlbumCoverId", "AltText", album.AlbumCoverId);
+            ViewBag.AlbumCoverId = new SelectList(db.Pictures, "AlbumCoverId", "AltText", album.AlbumCoverId);
             return View(album);
         }
 
@@ -102,7 +102,7 @@ namespace SongsAbout.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AlbumCoverId = new SelectList(db.AlbumCovers, "AlbumCoverId", "AltText", album.AlbumCoverId);
+            ViewBag.AlbumCoverId = new SelectList(db.Pictures, "AlbumCoverId", "AltText", album.AlbumCoverId);
             return View(album);
         }
 
@@ -119,7 +119,7 @@ namespace SongsAbout.Web.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.AlbumCoverId = new SelectList(db.AlbumCovers, "AlbumCoverId", "AltText", album.AlbumCoverId);
+            ViewBag.AlbumCoverId = new SelectList(db.Pictures, "AlbumCoverId", "AltText", album.AlbumCoverId);
             return View(album);
         }
 

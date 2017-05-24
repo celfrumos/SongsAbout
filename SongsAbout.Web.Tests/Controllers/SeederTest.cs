@@ -1,36 +1,35 @@
 ﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data;
-using System.Drawing;
-using System.Data.Entity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity;
 using SpotifyAPI.Web.Models;
-using System.IO;
-using System.Threading.Tasks;
+using System.Linq;
+using System.Data.Entity;
+using Telerik.JustMock;
+using Telerik.JustMock.EntityFramework;
+using System.Web.Mvc;
+using SongsAbout.Web.Models;
 
-namespace SongsAbout.Web.Models
+namespace SongsAbout.Web.Tests.Controllers
 {
-    public class EntityDbInitializer : DropCreateDatabaseAlways<EntityDbContext>
+    [TestClass]
+    public class SeederTest
     {
-
-
-        protected override void Seed(EntityDbContext context)
+        [TestMethod]
+        public void Seed()
         {
-
             try
             {
-                if (!Spotify.Authenticated)
-                    Spotify.Authenticate();
+                var context = Mock.Create<EntityDbContext>(Constructor.Mocked);
+                Spotify.Authenticate();
 
                 //    Spotify.CallAndStoreSeedData();
                 var artists = new Dictionary<string, int>();
                 var albums = new Dictionary<string, int>();
                 var tracks = new Dictionary<string, int>();
 
-                var seed = Spotify.CallDataForSeeding();
+                var seederTask = Spotify.CallDataForSeedingAsync();
+                seederTask.Wait();
+                var seed = seederTask.Result;
 
                 // Artists
                 foreach (var a in seed.Artists)
@@ -43,7 +42,7 @@ namespace SongsAbout.Web.Models
                         else
                             pic = null;
 
-                        var profilePic = context.Create(new Picture(pic, a.Name));
+                        var profilePic = pic != null ? context.Create(new Picture(pic, a.Name)) : null;
 
                         int picId = profilePic?.Id ?? -1;
 
@@ -90,8 +89,7 @@ namespace SongsAbout.Web.Models
                     {
                         var feat = seed.Features.Where(a => a.Id == t.Id).FirstOrDefault();
 
-                        int artistId = -1,
-                            albumId = -1;
+                        int artistId = -1, albumId = -1;
                         string artistName = t.Artists.Count > 0 ? t.Artists[0].Name : null;
 
                         if (artistName != null && artists.ContainsKey(artistName))
@@ -109,13 +107,14 @@ namespace SongsAbout.Web.Models
                     }
                 }
 
+                context.Dispose();
             }
             catch (Exception ex)
             {
-                throw;
+                Assert.Fail(ex.Message);
             }
 
-
         }
+
     }
 }

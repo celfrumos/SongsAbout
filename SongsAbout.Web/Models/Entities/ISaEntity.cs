@@ -15,11 +15,11 @@ namespace SongsAbout.Web.Models
         int Id { get; set; }
         string Name { get; set; }
     }
+
     public interface ISaEntity : ISaDbEntityAccessor
     {
         string ApiHref { get; }
         SaEntityType EntityType { get; }
-        string TypeName { get; }
         string SpotifyId { get; set; }
         string SpotifyUri { get; }
         string SpotifyWebPage { get; }

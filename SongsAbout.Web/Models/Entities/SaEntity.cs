@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Web.Mvc;
 
@@ -19,6 +22,63 @@ namespace SongsAbout.Web.Models
         Related
     }
 
+    [Serializable]
+    public abstract class SaDbEntityAccessor : ISaDbEntityAccessor
+    {
+        public abstract int Id { get; set; }
+        public abstract string Name { get; set; }
+    }
+
+    [Serializable]
+    public abstract class SaEntity : SaDbEntityAccessor, ISaEntity
+    {
+        public virtual string SpotifyId { get; set; }
+
+        [NotMapped]
+        public abstract SaEntityType EntityType { get; }
+
+        [NotMapped]
+        [Display(Name = "Spotify Details Web Page")]
+        public virtual string SpotifyWebPage
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.GetType().Name} '{this.Name}'");
+
+                return $"{Constants.SPOTIFY_WEB_PAGE_BASE}/{this.GetType().Name.ToLower()}/{this.SpotifyId}";
+
+            }
+        }
+
+
+        [NotMapped]
+        [Display(Name = "Spotify URI")]
+        public virtual string SpotifyUri
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.GetType().Name} '{this.Name}'");
+
+                return $"spotify:{this.GetType().Name.ToLower()}:{this.SpotifyId}";
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Spotify API Link")]
+        public virtual string ApiHref
+        {
+            get
+            {
+                if (this.SpotifyId == null)
+                    throw new Exception($"Spotify Id not found for {this.GetType().Name} '{this.Name}'");
+
+                return $"{Constants.SPOTIFY_API_BASE}/{this.GetType().Name.ToLower()}s/{this.SpotifyId}";
+            }
+        }
+
+    }
     public static class HtmlButtonExtension
     {
         public static MvcHtmlString Button(this HtmlHelper helper, string innerHtml, object htmlAttributes)
@@ -37,7 +97,7 @@ namespace SongsAbout.Web.Models
         public static MvcHtmlString DisplayImage(this HtmlHelper helper, ISaImage img, bool explicitSize, object htmlAttributes = null, params string[] classes)
         {
             var builder = new TagBuilder("img");
-            var necessaryAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(new { src = img.Src, alt = img.AltText });
+            var necessaryAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(new { src = img.Src, alt = img.Name });
             builder.MergeAttributes(necessaryAttributes);
             foreach (var c in classes)
                 builder.AddCssClass(c);

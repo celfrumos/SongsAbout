@@ -16,7 +16,7 @@
     @using (Html.BeginForm("Index", "Search", routeValues: new { @q = query.query, @limit = query.limit, @type = query.type }, method: FormMethod.Get))
     {
         <h2>Search</h2>
-        <input type="text" name="q" id="q" data-autocomplete-source="@Url.Action(" AutoComplete", controllerName: "Search" )" />
+        <input type="text" name="q" id="q" data-autocomplete-source="@Url.Action(" AutoComplete", controllerName: "Search")" />
         @(Html.DropDownListFor(a => query.limit,
         new List<SelectListItem> {
                                 new SelectListItem { Value = "5", Text = "5",Selected = true },

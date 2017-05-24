@@ -17,11 +17,11 @@ namespace SongsAbout.Web.Controllers
     public partial class HomeController : Controller
     {
         EntityDbContext db = new EntityDbContext();
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             return View();
         }
-     
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

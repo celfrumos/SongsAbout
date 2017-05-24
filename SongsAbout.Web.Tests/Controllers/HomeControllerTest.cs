@@ -20,7 +20,7 @@ namespace SongsAbout.Web.Tests.Controllers
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = await controller.Index() as ViewResult;
+            ViewResult result = controller.Index() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);

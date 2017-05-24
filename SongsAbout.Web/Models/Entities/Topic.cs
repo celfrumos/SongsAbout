@@ -24,14 +24,14 @@ namespace SongsAbout.Web.Models
         [Display(Name = "Topic")]
         [Required(ErrorMessage = "Topic Text must not be blank", AllowEmptyStrings = false)]
         [StringLength(200, MinimumLength = 2, ErrorMessage = "Topics must have less than 200 characters.")]
-        public string Text { get; set; }
+        public string Name { get; set; }
 
         public List<Track> Tracks { get; set; }
         public List<Album> Albums { get; set; }
         public List<Artist> Artists { get; set; }
 
 
-        public string Name
+        public string Text
         {
             get { return Text; }
 
@@ -52,7 +52,7 @@ namespace SongsAbout.Web.Models
             get
             {
                 if (this.SpotifyId == null)
-                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Text}'");
 
                 return $"{Constants.SPOTIFY_WEB_PAGE_BASE}/{this.TypeName.ToLower()}/{this.SpotifyId}";
 
@@ -66,7 +66,7 @@ namespace SongsAbout.Web.Models
             get
             {
                 if (this.SpotifyId == null)
-                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Text}'");
 
                 return $"{Constants.SPOTIFY_API_BASE}/{this.TypeName.ToLower()}s/{this.SpotifyId}";
             }
@@ -79,7 +79,7 @@ namespace SongsAbout.Web.Models
             get
             {
                 if (this.SpotifyId == null)
-                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Text}'");
 
                 return $"spotify:artist:{this.SpotifyId}";
             }

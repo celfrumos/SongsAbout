@@ -7,38 +7,37 @@ using System.Web;
 
 namespace SongsAbout.Web.Models
 {
-    public class Genre : ISaEntity, ISaDescriptor
+    public class Keyword : ISaEntity, ISaDescriptor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int GenreId { get; set; }
+        public int KeywordId { get; set; }
 
         [NotMapped]
-        public int Id
+        public string TypeName => "Keyword";
+
+        [NotMapped]
+        public SaEntityType EntityType => SaEntityType.Keyword;
+
+        [NotMapped]
+        public int Id { get { return KeywordId; } set { KeywordId = value; } }
+
+        [Display(Name = "Keyword")]
+        [Required(ErrorMessage = "Keyword Text must not be blank", AllowEmptyStrings = false)]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Keywords must have less than 50 characters.")]
+        public string Name { get; set; }
+
+        [NotMapped]
+        public string Text
         {
-            get { return GenreId; }
-            set { GenreId = value; }
+            get { return Text; }
+            set { Text = value; }
         }
-
-        [NotMapped]
-        public SaEntityType EntityType => SaEntityType.Genre;
-        [NotMapped]
-        public string TypeName => "Genre";
-
-        [Display(Name = "Genre")]
-        [Required(ErrorMessage = "Genre Text must not be blank", AllowEmptyStrings = false)]
-        [StringLength(150, MinimumLength = 2, ErrorMessage = "Genres must have less than 150 characters.")]
-        public string Text { get; set; }
 
         public List<Track> Tracks { get; set; }
         public List<Album> Albums { get; set; }
         public List<Artist> Artists { get; set; }
 
-        public string Name
-        {
-            get { return Text; }
-            set { Text = value; }
-        }
 
         [Display(Name = "Spotify Id")]
         [StringLength(50)]
@@ -51,7 +50,7 @@ namespace SongsAbout.Web.Models
             get
             {
                 if (this.SpotifyId == null)
-                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Text}'");
 
                 return $"{Constants.SPOTIFY_WEB_PAGE_BASE}/{this.TypeName.ToLower()}/{this.SpotifyId}";
 
@@ -65,7 +64,7 @@ namespace SongsAbout.Web.Models
             get
             {
                 if (this.SpotifyId == null)
-                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Text}'");
 
                 return $"{Constants.SPOTIFY_API_BASE}/{this.TypeName.ToLower()}s/{this.SpotifyId}";
             }
@@ -78,7 +77,7 @@ namespace SongsAbout.Web.Models
             get
             {
                 if (this.SpotifyId == null)
-                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Name}'");
+                    throw new Exception($"Spotify Id not found for {this.TypeName} '{this.Text}'");
 
                 return $"spotify:artist:{this.SpotifyId}";
             }
@@ -86,8 +85,5 @@ namespace SongsAbout.Web.Models
 
         public virtual List<Genre> Genres { get; set; }
         public virtual List<Topic> Topics { get; set; }
-
-        [Display(Name = "Genres Keywords")]
-        public List<Keyword> Keywords { get; set; }
     }
 }

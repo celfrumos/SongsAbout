@@ -8,6 +8,8 @@ using System.Web;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Threading.Tasks;
 
 namespace SongsAbout.Web.Models
 {
@@ -18,270 +20,177 @@ namespace SongsAbout.Web.Models
         public DbSet<Album> Albums { get; set; }
         public DbSet<Track> Tracks { get; set; }
 
-        public DbSet<ProfilePic> ProfilePics { get; set; }
-        public DbSet<AlbumCover> AlbumCovers { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
 
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Keyword> Keywords { get; set; }
 
+        [NotMapped]
+        public BTree<string, ISaEntity> SearchTree { get; set; }
 
-
-        public T GetEntity<T>(string name) where T : ISaEntity
+        public T Get<T>(int id) where T : SaDbEntityAccessor
         {
-            var t = typeof(T);
-            var interfaceMap = t.GetInterfaceMap(typeof(ISaEntity));
-
-            var obj = (ISaEntity)t.GetConstructor(new Type[] { }).Invoke(new object[] { });
-
-            switch (obj.EntityType)
-            {
-                case SaEntityType.Artist:
-                    obj = (from a in this.Artists
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Album:
-                    obj = (from a in this.Albums
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Track:
-                    obj = (from a in this.Tracks
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Topic:
-                    obj = (from a in this.Topics
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Genre:
-                    obj = (from a in this.Genres
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Keyword:
-                    obj = (from a in this.Keywords
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                default:
-                    obj = null;
-                    break;
-            }
-
-            return (T)obj;
+            return this.Set<T>().Find(id);
         }
-        public T GetDescriptor<T>(string text) where T : ISaDescriptor
+
+        public T Get<T>(string nameOrText) where T : SaDbEntityAccessor
         {
-            var t = typeof(T);
-            var interfaceMap = t.GetInterfaceMap(typeof(ISaEntity));
-
-            var obj = (ISaDescriptor)t.GetConstructor(new Type[] { }).Invoke(new object[] { });
-
-            switch (obj.EntityType)
+            var set = this.Set<T>();
             {
-                case SaEntityType.Topic:
-                    obj = (from a in this.Topics
-                           where a.Text == text
-                           select (ISaDescriptor)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Genre:
-                    obj = (from a in this.Genres
-                           where a.Text == text
-                           select (ISaDescriptor)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Keyword:
-                    obj = (from a in this.Keywords
-                           where a.Text == text
-                           select (ISaDescriptor)a)?.FirstOrDefault();
-                    break;
-                default:
-                    obj = null;
-                    break;
+                /*   var type = typeof(T);
+
+                   if (type == typeof(Picture))
+                   {
+                       var pics = this.Set<Picture>();
+
+                       res = from p in pics
+                             where p.Name == nameOrText
+                             select p as T;
+
+                   }
+                   else
+                   {
+
+                       if (type == typeof(Keyword))
+                       {
+
+                           var keywords = this.Set<Keyword>();
+                           res = from t in keywords
+                                 where t.Text == nameOrText
+                                 select t as T;
+                       }
+                       else if (type == typeof(Genre))
+                       {
+                           var genres = this.Set<Genre>();
+
+                           res = from t in genres
+                                 where t.Text == nameOrText
+                                 select t as T;
+
+                       }
+                       else if (type == typeof(Topic))
+                       {
+                           var topics = this.Set<Topic>();
+
+                           res = from t in topics
+                                 where t.Text == nameOrText
+                                 select t as T;
+
+                       }
+                       else if (type == typeof(Artist))
+                       {
+                           var artists = this.Set<Artist>();
+                           var matches = from t in artists
+                                         where t.Name == nameOrText
+                                         select t;
+                           res = from t in matches
+                                 select t as T;
+
+                       }
+                       else if (type == typeof(Album))
+                       {
+                           var albums = this.Set<Album>();
+
+                           res = from t in albums
+                                 where t.Name == nameOrText
+                                 select t as T;
+
+                       }
+                       else if (type == typeof(Track))
+                       {
+                           var tracks = this.Set<Track>();
+
+                           res = from t in tracks
+                                 where t.Name == nameOrText
+                                 select t as T;
+                       }
+                       else
+                       {
+                           res = null;
+                       }
+                   }*/
             }
 
-            return (T)obj;
-        }
-        public T GetEntity<T>(T prototype, string name) where T : ISaEntity
-        {
-            var obj = prototype as ISaEntity;
-
-            switch (obj.EntityType)
-            {
-                case SaEntityType.Artist:
-                    obj = (from a in this.Artists
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Album:
-                    obj = (from a in this.Albums
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Track:
-                    obj = (from a in this.Tracks
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Topic:
-                    obj = (from a in this.Topics
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Genre:
-                    obj = (from a in this.Genres
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Keyword:
-                    obj = (from a in this.Keywords
-                           where a.Name == name
-                           select (ISaEntity)a)?.FirstOrDefault();
-                    break;
-                default:
-                    obj = null;
-                    break;
-            }
-
-            return (T)obj;
-        }
-        public T GetDescriptor<T>(T prototype, string text) where T : ISaDescriptor
-        {
-
-            var obj = prototype as ISaDescriptor;
-
-            switch (obj.EntityType)
-            {
-                case SaEntityType.Topic:
-                    obj = (from a in this.Topics
-                           where a.Text == text
-                           select (ISaDescriptor)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Genre:
-                    obj = (from a in this.Genres
-                           where a.Text == text
-                           select (ISaDescriptor)a)?.FirstOrDefault();
-                    break;
-                case SaEntityType.Keyword:
-                    obj = (from a in this.Keywords
-                           where a.Text == text
-                           select (ISaDescriptor)a)?.FirstOrDefault();
-                    break;
-                default:
-                    obj = null;
-                    break;
-            }
-
-            return (T)obj;
+            return (from t in set
+                    let e = t as SaDbEntityAccessor
+                    where e.Name == nameOrText
+                    select t)?.FirstOrDefault();
         }
 
         public bool IsDescribedBy(ISaIntegralEntity entity, string q)
         {
-            return entity.Genres.Any(g => g.Text.ToLower().Contains(q.ToLower()))
+            return entity.Genres.Any(g => g.Name.ToLower().Contains(q.ToLower()))
                    || entity.Topics.Any(g => g.Text.ToLower().Contains(q.ToLower()))
                    || entity.Keywords.Any(g => g.Text.ToLower().Contains(q.ToLower()));
         }
 
-        public SearchResult Search(string q, SaEntityType type, int limit = 5)
+        public async Task<Dictionary<Type, Dictionary<string, int>>> GetSearchDictionary(params Type[] types)
         {
-            SearchResult results = new SearchResult();
+            var tree = new Dictionary<Type, Dictionary<string, int>>();
+
+            if (types.Any(t => t == typeof(Artist)))
+            {
+                tree[typeof(Artist)] = new Dictionary<string, int>();
+                await this.Artists.ForEachAsync(a => tree[typeof(Artist)].Add(a.Name, a.Id));
+            }
+
+            if (types.Any(t => t == typeof(Album)))
+            {
+                tree[typeof(Album)] = new Dictionary<string, int>();
+                await this.Albums.ForEachAsync(a => tree[typeof(Album)].Add(a.Name, a.Id));
+            }
+            if (types.Any(t => t == typeof(Track)))
+            {
+                tree[typeof(Track)] = new Dictionary<string, int>();
+                await this.Tracks.ForEachAsync(a => tree[typeof(Track)].Add(a.Name, a.Id));
+            }
+            if (types.Any(t => t == typeof(Topic)))
+            {
+                tree[typeof(Topic)] = new Dictionary<string, int>();
+                await this.Topics.ForEachAsync(a => tree[typeof(Topic)].Add(a.Text, a.TopicId));
+            }
+            if (types.Any(t => t == typeof(Genre)))
+            {
+                tree[typeof(Genre)] = new Dictionary<string, int>();
+                await this.Genres.ForEachAsync(a => tree[typeof(Genre)].Add(a.Name, a.Id));
+            }
+            if (types.Any(t => t == typeof(Keyword)))
+            {
+                tree[typeof(Keyword)] = new Dictionary<string, int>();
+                await this.Keywords.ForEachAsync(a => tree[typeof(Keyword)].Add(a.Text, a.KeywordId));
+            }
+            return tree;
+
+        }
+
+        public async Task<SearchResult> Search(string q, SaEntityType type, int limit = 5)
+        {
+            var results = new SearchResult();
+            var dictionary = await GetSearchDictionary(type.GetTypes());
+
             if (!string.IsNullOrWhiteSpace(q))
             {
-                if ((type & SaEntityType.Artist) == SaEntityType.Artist || type == SaEntityType.Any)
+                foreach (var key in dictionary.Keys)
                 {
-                    var artists =
-                        this.Artists?
-                                .Include(a => a.ProfilePic)
-                                .Include(a => a.Tracks)
-                                .Include(a => a.Albums)
-                                .Include(a => a.Topics)
-                                .Include(a => a.Keywords).ToList();
-
-                    var found = artists?
-                        .Where(a => a.Name.ToLower()
-                        .Contains(q.ToLower()) || IsDescribedBy(a, q))
-                        ?.Take(limit);
-
-                    results.Items.AddRange(found);
-                }
-                if ((type & SaEntityType.Album) == SaEntityType.Album || type == SaEntityType.Any)
-                {
-                    var albums =
-                                this.Albums?
-                                .Include(a => a.AlbumCover)
-                                .Include(a => a.Tracks)
-                                .Include(a => a.Artist)
-                                .Include(a => a.FeaturedArtists)
-                                .Include(a => a.Topics)
-                                .Include(a => a.Keywords)
-                                ?.ToList();
-
-                    var found = albums?
-                        .Where(a => a.Name.ToLower()
-                        .Contains(q.ToLower()) || IsDescribedBy(a, q))
-                        ?.Take(limit);
-
-                    results.Items.AddRange(found);
-
-                }
-                if ((type & SaEntityType.Track) == SaEntityType.Track || type == SaEntityType.Any)
-                {
-                    var tracks =
-                                 this.Tracks?
-                                .Include(a => a.Album)
-                                .Include(a => a.Artist)
-                                .Include(a => a.FeaturedArtists)
-                                .Include(a => a.Topics)
-                                .Include(a => a.Keywords)
-                                ?.ToList();
-
-                    var found = tracks?
-                        .Where(t =>
-                        t.Name.ToLower().Contains(q.ToLower()) || IsDescribedBy(t, q))
-                        ?.Take(limit);
-
-                    results.Items.AddRange(found);
-                }
-                if ((type & SaEntityType.Topic) == SaEntityType.Topic || type == SaEntityType.Any)
-                {
-                    var topics = (from a in this.Topics
-                                  where a.Text.ToLower()
-                                        .Contains(q.ToLower())
-                                  select a)?.Take(limit);
-
-                    results.Items.AddRange(topics);
-
-
-                }
-                if ((type & SaEntityType.Genre) == SaEntityType.Genre || type == SaEntityType.Any)
-                {
-                    var genres = (from a in this.Genres
-                                  where a.Text.ToLower()
-                                        .Contains(q.ToLower())
-                                  select a)?.Take(limit);
-
-                    results.Items.AddRange(genres);
-
-                }
-                if ((type & SaEntityType.Keyword) == SaEntityType.Keyword || type == SaEntityType.Any)
-                {
-                    var keywords = (from a in this.Keywords
-                                    where a.Text.ToLower()
-                                          .Contains(q.ToLower())
-                                    select a).Take(limit);
-                    results.Items.AddRange(keywords);
+                    var set = this.Set(key);
+                    results.Items[key] = (from a in dictionary[key]
+                                          where a.Key.ToLower().Contains(q.ToLower())
+                                          select set.Find(a.Value) as ISaEntity)
+                                          .ToList();
                 }
             }
             return results;
         }
-        public SearchResult Search(SearchQuery q)
+
+        public async Task<SearchResult> Search(SearchQuery q)
         {
-            return Search(q.query, q.type, q.limit);
+            return await Search(q.query, q.type, q.limit);
         }
+
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {
+            this.Configuration.ProxyCreationEnabled = false;
 
         }
 
@@ -290,111 +199,76 @@ namespace SongsAbout.Web.Models
             return new EntityDbContext();
         }
 
-        public T CreateEntity<T>(T entity) where T : class, ISaDbEntityAccessor
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-            if (entity == null)
-                throw new NullReferenceException($"EntityDbContext.Create<{typeof(T).Name}>(): Paameter 'entity' cannot be null");
+            var tracks = modelBuilder.Entity<Track>();
+
+            //tracks.HasKey(t => t.Id);
+            tracks.HasRequired(t => t.Artist)
+                .WithRequiredPrincipal()
+                .WillCascadeOnDelete(false);
+            //var artists = modelBuilder.Entity<Artist>();
+
+            //var albums = modelBuilder.Entity<Album>();
+
+            ////modelBuilder.Entity<Album>()
+            ////    .HasRequired(a => a.Artist)
+            ////    .WithRequiredDependent()
+            ////    .WillCascadeOnDelete(false);
+
+            ////tracks.HasRequired(t => t.Album)
+            ////    .WithRequiredDependent()
+            ////    .WillCascadeOnDelete(false);
+
+            //tracks
+            //    .HasRequired(t => t.Artist)
+            //    .WithRequiredDependent()
+            //    .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public T Create<T>(T entity) where T : SaDbEntityAccessor
+        {
+            var accessor = entity as SaDbEntityAccessor;
+            if (accessor == null)
+                return null;
+
+            var existing = Get<T>(accessor.Name);
+
+
+            if (existing != null)
+                return existing;
+
             try
             {
-
                 var set = this.Set<T>();
+                var type = typeof(T);
+                var props = type.GetProperties();
+                var id = props.Where(p => p.Name == "Id").FirstOrDefault();
+                var dbGenerated = id?
+                    .GetCustomAttributes(typeof(DatabaseGeneratedAttribute), true)
+                    .FirstOrDefault() as DatabaseGeneratedAttribute;
+
+                if (dbGenerated != null && dbGenerated.DatabaseGeneratedOption == DatabaseGeneratedOption.Identity)
+                {
+                    if (this.GetType() != typeof(EntityDbContext))
+                    {
+                        entity.Id = set.Count() + 1;
+                    }
+                }
                 set.Add(entity);
                 this.SaveChanges();
-                IQueryable<T> res = set;
 
-                var typeName = typeof(T).Name;
-                if (typeName == "ProfilePic")
-                {
-                    var pics = this.Set<ProfilePic>();
+                entity.Id = (from t in this.Set<T>()
+                             let e = t as SaDbEntityAccessor
+                             where e.Name == accessor.Name
+                             select t)
+                             .FirstOrDefault()?.Id ?? entity.Id;
 
-                    res = from p in pics
-                          where p.AltText == entity.Name
-                          select p as T;
-
-                }
-                else if (typeName == "AlbumCover")
-                {
-                    var pics = this.Set<AlbumCover>();
-
-                    res = from p in pics
-                          where p.AltText == entity.Name
-                          select p as T;
-
-                }
-                else
-                {
-                    var sentity = entity as ISaEntity;
-
-                    var type = sentity.EntityType;
-
-
-                    if (type == SaEntityType.Keyword)
-                    {
-
-                        var keywords = this.Set<Keyword>();
-                        var kwd = entity as Keyword;
-                        res = from t in keywords
-                              where t.Text == kwd.Text
-                              select t as T;
-                    }
-                    else if (type == SaEntityType.Genre)
-                    {
-                        var genres = this.Set<Genre>();
-                        var genre = entity as Genre;
-                        res = from t in genres
-                              where t.Text == genre.Text
-                              select t as T;
-
-                    }
-                    else if (type == SaEntityType.Topic)
-                    {
-                        var topics = this.Set<Topic>();
-                        var top = entity as Topic;
-                        res = from t in topics
-                              where t.Text == top.Text
-                              select t as T;
-
-                    }
-                    else if (type == SaEntityType.Artist)
-                    {
-                        var ar = entity as Artist;
-                        var artists = this.Set<Artist>();
-
-                        res = from t in artists
-                              where t.Name == ar.Name
-                              select t as T;
-
-                    }
-                    else if (type == SaEntityType.Album)
-                    {
-                        var al = entity as Album;
-                        var albums = this.Set<Album>();
-
-                        res = from t in albums
-                              where t.Name == al.Name
-                              select t as T;
-
-                    }
-                    else if (type == SaEntityType.Track)
-                    {
-                        var track = entity as Track;
-                        var tracks = this.Set<Track>();
-
-                        res = from t in tracks
-                              where t.Name == track.Name
-                              select t as T;
-                    }
-                    else
-                    {
-                        res = null;
-                    }
-                }
-                return res?.FirstOrDefault();
+                return entity;
             }
-
-
-
             catch (Exception ex)
             {
 
@@ -402,5 +276,6 @@ namespace SongsAbout.Web.Models
             }
         }
     }
+
 
 }

@@ -1,6 +1,7 @@
 ﻿using SongsAbout.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace SongsAbout.Web.Controllers
@@ -41,12 +42,12 @@ namespace SongsAbout.Web.Controllers
 
 
         [HttpGet]
-        public ActionResult Index(string q, SaEntityType type = SaEntityType.Any, int limit = 5)
+        public async Task<ActionResult> Index(string q, SaEntityType type = SaEntityType.Any, int limit = 5)
         {
 
             ViewBag.Query = new SearchQuery { @query = q, @type = type, @limit = limit };
-            var results = db.Search(q, type, limit);
-
+            var results = await db.Search(q, type, limit);
+            ViewBag.Db = new EntityDbContext();
             return View(results);
 
         }
