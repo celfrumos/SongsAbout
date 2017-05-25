@@ -9,7 +9,7 @@ namespace SongsAbout.Web.Models
 {
 
     [Serializable]
-    public partial class Artist : SaEntity, ISaIntegralEntity
+    public partial class Artist : SaIntegralEntity
     {
         #region MappedProperties
 
@@ -28,81 +28,55 @@ namespace SongsAbout.Web.Models
         public string Bio { get; set; }
 
         [Display(Name = "Profile Picture")]
-        public Picture ProfilePic { get; set; }
+        [NotMapped]
+        public Picture ProfilePic
+        {
+            get
+            {
+                if (this.Pictures?.Count > 0)
+                    return this.Pictures[0];
 
-        [ForeignKey(nameof(ProfilePic))]
-        public int ProfilePicId { get; set; }
+                else
+                    return null;
+            }
+            set
+            {
+                if (this.Pictures?.Count > 0)
+                    this.Pictures[0] = value;
 
-        //public Picture ProfilePic
-        //{
-        //    get
-        //    {
-        //        if (this.Images != null && this.Images.Count > 0)
-        //            return this.Images[0];
-        //        else
-        //            return null;
+                else
+                    this.Pictures = new List<Picture>() { value };
+            }
+        }
 
-        //    }
-        //    set
-        //    {
-        //        if (value == null)
-        //            return;
-
-        //        value.SaEntityType = SaEntityType.Artist;
-
-        //        if (this.Images != null && this.Images.Count > 0)
-        //            this.Images[0] = value;
-        //        else
-        //            this.Images = new List<Picture>() { value };
-
-        //    }
-        //}
-
-        //public int ProfilePicId
-        //{
-        //    get { return this.ProfilePic?.Id ?? 0; }
-        //    set
-        //    {
-        //        if (this.ProfilePic != null)
-        //            this.ProfilePic.Id = value;
-        //        else
-        //            this.ProfilePic = new Picture() { Id = value };
-        //    }
-        //}
-
-        [Display(Name = "Spotify Id")]
-        [StringLength(50)]
-        public override string SpotifyId { get; set; }
+        public int? ProfilePicId
+        {
+            get { return this.ProfilePic?.Id ?? 0; }
+        }
 
         #region ReferenceGroups
 
-        [Display(GroupName = "Descriptors")]
-        public List<Genre> Genres { get; set; }
 
-        [Display(GroupName = "Descriptors")]
-        public List<Topic> Topics { get; set; }
-
-        [Display(Name = "Album Keywords", GroupName = "Descriptors")]
-        public List<Keyword> Keywords { get; set; }
-
-        [Display(Name = "Albums")]
+        [Display(Name = "Albums", GroupName = "Descendants")]
         public List<Album> Albums { get; set; }
 
-        public List<Picture> Images { get; set; }
+        //[Display(Name = "Tracks", GroupName = "Descendants")]
+        //public List<Track> Tracks { get; set; }
+        public List<Track> GetArtistTracks(EntityDbContext db)
+        {
+            throw new NotImplementedException();
+        }
+        [Display(Name = "Pictures")]
+        public List<Picture> Pictures { get; set; }
 
         #endregion
         #endregion
 
         #region UnMappedProperties
 
-        [Display(Name = "Tracks")]
-        public List<Track> Tracks { get; set; }
-
-        #region Constants
         [NotMapped]
         public override SaEntityType EntityType => SaEntityType.Artist;
 
-        #endregion
 
         #region SpotifyUrls
 
@@ -116,8 +90,8 @@ namespace SongsAbout.Web.Models
         {
             return
                   this.Genres.Any(g => g.Name.ToLower().Contains(term.ToLower()))
-                  || this.Topics.Any(g => g.Text.ToLower().Contains(term.ToLower()))
-                  || this.Keywords.Any(g => g.Text.ToLower().Contains(term.ToLower()));
+                  || this.Topics.Any(g => g.Name.ToLower().Contains(term.ToLower()))
+                  || this.Keywords.Any(g => g.Name.ToLower().Contains(term.ToLower()));
         }
 
         private void SetDefaults()
@@ -130,7 +104,7 @@ namespace SongsAbout.Web.Models
             this.Keywords = new List<Keyword>();
             this.Name = "";
             this.ProfilePic = null;
-            this.ProfilePicId = default(int);
+            // this.ProfilePicId = default(int);
             this.SpotifyId = null;
             this.Topics = new List<Topic>();
         }

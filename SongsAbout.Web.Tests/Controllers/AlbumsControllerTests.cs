@@ -27,9 +27,9 @@ namespace SongsAbout.Web.Controllers.Tests
                     context.Pictures.Add(new Picture { Id = 0, Src = "https://i.scdn.co/image/b0b295beeb9c89c5060f9f08f9c0de55d00aad0a", Name = "img-Gavin James", Width = 640, Height = 640 });
                     context.Pictures.Add(new Picture { Id = 1, Src = "https://i.scdn.co/image/1d29072e2633c7d9f74fa3fc4f0d9187cd927f2e", Name = "img-Zac Brown Band", Width = 1000, Height = 1000 });
                     context.Pictures.Add(new Picture { Id = 2, Src = "https://i.scdn.co/image/557a642bbc541262c649096b3d1ef938f67ec69a", Name = "img-Josh Ritter", Width = 640, Height = 640 });
-                    context.Artists.Add(new Artist { Id = 0, Name = "Gavin James", SpotifyId = "25tMQOrIU4LlUo6Sv8v5SE", ProfilePicId = 0 });
-                    context.Artists.Add(new Artist { Id = 1, Name = "Zac Brown Band", SpotifyId = "6yJCxee7QumYr820xdIsjo", ProfilePicId = 1 });
-                    context.Artists.Add(new Artist { Id = 2, Name = "Josh Ritter", SpotifyId = "6igfLpd8s6DBBAuwebRUuo", ProfilePicId = 2 });
+                    context.Artists.Add(new Artist { Id = 0, Name = "Gavin James", SpotifyId = "25tMQOrIU4LlUo6Sv8v5SE" });
+                    context.Artists.Add(new Artist { Id = 1, Name = "Zac Brown Band", SpotifyId = "6yJCxee7QumYr820xdIsjo" });
+                    context.Artists.Add(new Artist { Id = 2, Name = "Josh Ritter", SpotifyId = "6igfLpd8s6DBBAuwebRUuo" });
                     context.SaveChanges();
                 }
 

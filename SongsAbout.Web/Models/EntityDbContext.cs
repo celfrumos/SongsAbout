@@ -18,9 +18,9 @@ namespace SongsAbout.Web.Models
 
     public class EntityDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Artist> Artists { get; set; }
-        public DbSet<Album> Albums { get; set; }
         public DbSet<Track> Tracks { get; set; }
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Artist> Artists { get; set; }
 
         public DbSet<Picture> Pictures { get; set; }
 
@@ -131,8 +131,8 @@ namespace SongsAbout.Web.Models
         public bool IsDescribedBy(ISaIntegralEntity entity, string q)
         {
             return entity.Genres.Any(g => g.Name.ToLower().Contains(q.ToLower()))
-                   || entity.Topics.Any(g => g.Text.ToLower().Contains(q.ToLower()))
-                   || entity.Keywords.Any(g => g.Text.ToLower().Contains(q.ToLower()));
+                   || entity.Topics.Any(g => g.Name.ToLower().Contains(q.ToLower()))
+                   || entity.Keywords.Any(g => g.Name.ToLower().Contains(q.ToLower()));
         }
 
         public async Task<Dictionary<Type, Dictionary<string, int>>> GetSearchDictionary(params Type[] types)
@@ -158,7 +158,7 @@ namespace SongsAbout.Web.Models
             if (types.Any(t => t == typeof(Topic)))
             {
                 tree[typeof(Topic)] = new Dictionary<string, int>();
-                await this.Topics.ForEachAsync(a => tree[typeof(Topic)].Add(a.Text, a.TopicId));
+                await this.Topics.ForEachAsync(a => tree[typeof(Topic)].Add(a.Name, a.Id));
             }
             if (types.Any(t => t == typeof(Genre)))
             {
@@ -168,7 +168,7 @@ namespace SongsAbout.Web.Models
             if (types.Any(t => t == typeof(Keyword)))
             {
                 tree[typeof(Keyword)] = new Dictionary<string, int>();
-                await this.Keywords.ForEachAsync(a => tree[typeof(Keyword)].Add(a.Text, a.KeywordId));
+                await this.Keywords.ForEachAsync(a => tree[typeof(Keyword)].Add(a.Name, a.Id));
             }
             return tree;
 
@@ -200,7 +200,7 @@ namespace SongsAbout.Web.Models
 
         public EntityDbContext() : base("DatabaseFile", throwIfV1Schema: false)
         {
-            this.Configuration.ProxyCreationEnabled = false;
+            //this.Configuration.ProxyCreationEnabled = false;            
 
         }
 
@@ -211,50 +211,50 @@ namespace SongsAbout.Web.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Artist>()
-            //    .HasMany(a => a.Albums);
+            //var genres =
+            //modelBuilder.Entity<Genre>();
+            //genres
+            //    .HasMany(g => g.Artists)
+            //    .WithMany(a => a.Genres);
+            //genres
+            //    .HasMany(g => g.Albums)
+            //    .WithMany(a => a.Genres);
+
+            //genres
+            //    .HasMany(g => g.Tracks)
+            //    .WithMany(t => t.Genres);
+
+            //var keywords = modelBuilder.Entity<Keyword>()
+            //     .HasMany(k => k.ar);
+            //this.Set()
 
             //modelBuilder.Entity<Artist>()
-            //    .HasMany(a => a.Tracks);
+            //    .HasMany(a => a.Albums)
+            //    .WithRequired(a => a.Artist)
+            //    .HasForeignKey(al => al.ArtistId);
 
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Entity<Album>()
+            //    .HasMany(al => al.Tracks)
+            //    .WithRequired(al => al.Album)
+            //    .HasForeignKey(t => t.AlbumId);
 
-            modelBuilder.Entity<Artist>()
-                .HasMany(a => a.Albums)
-                .WithRequired(a => a.Artist)
-                .HasForeignKey(al => al.ArtistId);
-
-            modelBuilder.Entity<Artist>()
-                .HasMany(a => a.Tracks)
-                .WithRequired(t => t.Artist)
-                .HasForeignKey(a => a.ArtistId);
-
-            modelBuilder.Entity<Album>()
-                .HasMany(al => al.Tracks)
-                .WithRequired(al => al.Album)
-                .HasForeignKey(t => t.AlbumId);
-
-            modelBuilder.Entity<Album>()
-                .HasRequired(al => al.Artist);
-
-            //modelBuilder.Entity<Track>()
-            //    .HasRequired(t => t.Artist)
-            //    .WithMany(a => a.Tracks)
-            //    .HasForeignKey(t => t.ArtistId);
+            //modelBuilder.Entity<Album>()
+            //    .HasRequired(al => al.Artist);
 
             //modelBuilder.Entity<Track>()
             //    .HasRequired(t => t.Album)
-            //    .WithMany(a => a.Tracks);
-
-            //modelBuilder.Entity<Artist>()
-            //    .HasMany(a => a.Images)
-            //    .WithMany();
+            //    .WithMany(a => a.Tracks)
+            //    .HasForeignKey(a => a.AlbumId);
 
             base.OnModelCreating(modelBuilder);
         }
 
         public T Create<T>(T entity) where T : SaDbEntityAccessor
         {
+            if (entity is Track)
+            {
+
+            }
             var accessor = entity as SaDbEntityAccessor;
             if (accessor == null)
                 return null;
@@ -268,16 +268,19 @@ namespace SongsAbout.Web.Models
             try
             {
                 var set = this.Set<T>();
-                if (typeof(T).GetProperty("Id").GetCustomAttributes(typeof(IdentityColumnAttribute), true).Count() > 0)
+                bool isIdentity = typeof(T).GetProperty("Id").GetCustomAttributes(typeof(IdentityColumnAttribute), true).Count() > 0;
+                if (isIdentity)
                 {
                     entity.Id = set.Count() + 1;
                 }
                 set.Add(entity);
                 this.SaveChanges();
 
-                entity.Id = this.Set<T>().ToLookup(a => a.Name)[accessor.Name]
-                             .FirstOrDefault()?.Id ?? entity.Id;
-
+                if (!isIdentity)
+                {
+                    entity.Id = this.Set<T>().ToLookup(a => a.Name)[accessor.Name]
+                                 .FirstOrDefault()?.Id ?? entity.Id;
+                }
                 return entity;
             }
             catch (Exception ex)

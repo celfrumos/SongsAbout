@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Bio)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpotifyId)
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Bio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpotifyId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

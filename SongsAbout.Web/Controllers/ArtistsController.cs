@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SongsAbout.Web.Models;
-using PagedList;
 
 namespace SongsAbout.Web.Controllers
 {
@@ -17,42 +16,10 @@ namespace SongsAbout.Web.Controllers
         private EntityDbContext db = new EntityDbContext();
 
         // GET: Artists
-        public async Task<ActionResult> Index(int items = 10, int? page = null, string orderBy = nameof(Artist.Name), SortMode sortOrder = SortMode.Ascending, string filter = null, string q = null)
+        public async Task<ActionResult> Index()
         {
-            try
-            {
-                ViewBag.CurrentSort = sortOrder;
-                if (q != null)
-                    page = 1;
-
-                else
-                    q = filter;
-
-
-                ViewBag.CurrentFilter = q;
-
-                IEnumerable<Artist> artists = new List<Artist>(db.Artists
-                                                .Include(a => a.ProfilePic));
-                if (!String.IsNullOrEmpty(q))
-                    artists = artists.Where(s => s.Name.ToLower().Contains(q.ToLower()));
-
-                if (sortOrder == SortMode.Ascending)
-                    artists = artists.OrderBy(a => typeof(Artist).GetProperty(orderBy).GetValue(a));
-
-                else
-                    artists = artists.OrderByDescending(a => typeof(Artist).GetProperty(orderBy).GetValue(a));
-
-                int pageNum = page ?? 1;
-
-                return View(artists.ToPagedList(pageNum, items));
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            return View(await db.Artists.ToListAsync());
         }
-
 
         // GET: Artists/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -72,7 +39,6 @@ namespace SongsAbout.Web.Controllers
         // GET: Artists/Create
         public ActionResult Create()
         {
-            ViewBag.ProfilePicId = new SelectList(db.Pictures, "Id", "Src");
             return View();
         }
 
@@ -81,7 +47,7 @@ namespace SongsAbout.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Bio,ProfilePicId,SpotifyId")] Artist artist)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Bio,SpotifyId")] Artist artist)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +56,6 @@ namespace SongsAbout.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProfilePicId = new SelectList(db.Pictures, "Id", "Src", artist.ProfilePicId);
             return View(artist);
         }
 
@@ -106,7 +71,6 @@ namespace SongsAbout.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProfilePicId = new SelectList(db.Pictures, "Id", "Src", artist.ProfilePicId);
             return View(artist);
         }
 
@@ -115,7 +79,7 @@ namespace SongsAbout.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Bio,ProfilePicId,SpotifyId")] Artist artist)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Bio,SpotifyId")] Artist artist)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +87,6 @@ namespace SongsAbout.Web.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProfilePicId = new SelectList(db.Pictures, "Id", "Src", artist.ProfilePicId);
             return View(artist);
         }
 

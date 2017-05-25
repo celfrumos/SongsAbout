@@ -14,13 +14,15 @@ using System.Web;
 namespace SongsAbout.Web.Models
 {
     [Serializable]
-    public class Track : SaEntity, ISaIntegralEntity, ISaDbEntityAccessor
+    public class Track : SaIntegralEntity
     {
 
         #region MappedProperties
 
 
         [Key]
+        [Column("TrackId")]
+        [IdentityColumn]
         public override int Id { get; set; }
 
         /// <summary>
@@ -46,13 +48,6 @@ namespace SongsAbout.Web.Models
         public uint DurationMs { get; set; }
 
         /// <summary>
-        /// The id used by spotify to represent this <see cref="Track"/>. Use it whenever interacting with the <see cref="SpotifyAPI.Web.SpotifyWebAPI"/>
-        /// </summary>
-        [Display(Name = "Spotify Id")]
-        [StringLength(50)]
-        public override string SpotifyId { get; set; }
-
-        /// <summary>
         /// Represents whether or not this track features Explicit content
         /// </summary>
         [Display(Name = "Explicit", AutoGenerateField = true, AutoGenerateFilter = true)]
@@ -68,24 +63,17 @@ namespace SongsAbout.Web.Models
         [Required(ErrorMessage = "Track must be part of an Album.")]
         public int AlbumId { get; set; }
 
-
-        [ForeignKey("Id")]
-        [Required(ErrorMessage = "Track must have an Artist.")]
+        [Association("FK_Track_Artist", nameof(Track.Id), nameof(ArtistId), IsForeignKey = true)]
         public Artist Artist { get; set; }
 
-        [ForeignKey("Id")]
-        [Required(ErrorMessage = "Track must be part of an Album.")]
+        [Association("FK_Track_Album", nameof(Track.Id), nameof(AlbumId), IsForeignKey = true)]
         public Album Album { get; set; }
 
         #region ReferenceGroups
-        public List<Genre> Genres { get; set; }
-        public List<Topic> Topics { get; set; }
 
-        [Display(Name = "Featured Artists")]
-        public List<Artist> FeaturedArtists { get; set; }
+        [Display(Name = "Artists")]
+        public List<Artist> Artists { get; set; }
 
-        [Display(Name = "Album Keywords")]
-        public List<Keyword> Keywords { get; set; }
         #endregion
 
 
@@ -229,18 +217,7 @@ namespace SongsAbout.Web.Models
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Signifies whether or not any of the descriptors of this <see cref="Track"/> contain the designated <paramref name="term"/>
-        /// </summary>
-        /// <param name="term">The term to search for</param>
-        /// <returns></returns>
-        public bool DescribedBy(string term)
-        {
-            return
-                  this.Genres.Any(g => g.Name.ToLower().Contains(term.ToLower()))
-                  || this.Topics.Any(g => g.Text.ToLower().Contains(term.ToLower()))
-                  || this.Keywords.Any(g => g.Text.ToLower().Contains(term.ToLower()));
-        }
+
 
         /// <summary>
         /// Download the audio features of this <see cref="Track"/>, and assigns them to the corresponding properties
@@ -286,7 +263,7 @@ namespace SongsAbout.Web.Models
             this.TimeSignature =   /**/    features?.TimeSignature    /**/ ?? -1;
             this.Valence =         /**/    features?.Valence          /**/ ?? -1;
 
-            this.Mode = features == null ? ((MusicalMode)features.Mode) : MusicalMode.None;
+            this.Mode = features == null ? MusicalMode.None : ((MusicalMode)features.Mode);
         }
 
         public string GetKey()
@@ -362,7 +339,7 @@ namespace SongsAbout.Web.Models
             this.CanPlay = canPlay;
             this.DurationMs = 0;
             this.Explicit = false;
-            this.FeaturedArtists = new List<Artist>();
+            this.Artists = new List<Artist>();
             this.Genres = new List<Genre>();
             this.SpotifyId = "";
             this.Topics = new List<Topic>();
@@ -383,7 +360,12 @@ namespace SongsAbout.Web.Models
         {
 
         }
-
+        public Track(SpotifyTrack track, AudioFeatures features, int artistId, int albumId, bool canPlay = false, EntityDbContext db = null, bool createArtistifNotExist = false, bool createAlbumIfNotExists = false)
+            : this(track, features, canPlay, db, createArtistifNotExist, createAlbumIfNotExists)
+        {
+            this.ArtistId = artistId;
+            this.AlbumId = albumId;
+        }
         /// <summary>
         /// Construct a new <see cref="Track"/> from an existing <see cref="SpotifyTrack"/>, and assign it the specified <see cref="AudioFeatures"/>
         /// </summary>

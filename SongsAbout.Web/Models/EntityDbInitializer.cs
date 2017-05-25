@@ -35,23 +35,26 @@ namespace SongsAbout.Web.Models
                 // Artists
                 foreach (var a in seed.Artists)
                 {
-                    if (a.Name == "Kevin Parker")
-                    {
-
-                    }
                     if (!artists.ContainsKey(a.Name))
                     {
-                        SpotifyImage pic;
-                        if (a.Images.Count > 0)
-                            pic = a.Images[0];
+                        List<Picture> images = new List<Picture>();
+                        Picture pic = null;
+                        if (a.Images?.Count > 0)
+                        {
+                            for (int i = 0; i < a.Images.Count; i++)
+                            {
+                                images.Add(context.Create(new Picture(a.Images[i], $"{a.Name}-{i}", SaEntityType.Artist)));
+                            }
+                            pic = images[0];
+                        }
                         else
                             pic = null;
 
-                        var profilePic = pic == null ? null : context.Create(new Picture(pic, a.Name));
 
-                        int picId = profilePic?.Id ?? 0;
+                        var ar = new Artist(a);
+                        ar.Pictures = images;
 
-                        Artist artist = context.Create<Artist>(new Artist(a) { ProfilePicId = picId });
+                        Artist artist = context.Create<Artist>(ar);
 
 
                         artists.Add(artist.Name, artist.Id);
@@ -63,24 +66,31 @@ namespace SongsAbout.Web.Models
                 {
                     if (!albums.ContainsKey(al.Id))
                     {
-                        SpotifyImage pic;
-                        if (al.Images.Count > 0)
-                            pic = al.Images[0];
+                        List<Picture> images = new List<Picture>();
+                        Picture pic = null;
+                        if (al.Images?.Count > 0)
+                        {
+                            for (int i = 0; i < al.Images.Count; i++)
+                            {
+                                images.Add(context.Create(new Picture(al.Images[i], $"{al.Name}-{i}", SaEntityType.Album)));
+                            }
+                            pic = images[0];
+                        }
                         else
                             pic = null;
 
-                        var cover = pic == null ? null : context.Create(new Picture(pic, al.Name));
-
-                        int coverid = cover?.Id ?? -1;
+                        int coverid = pic?.Id ?? 0;
                         string artistName = al.Artists.Count > 0 ? al.Artists[0].Name : null;
+
                         int artistId = 0;
 
                         if (artistName != null && artists.ContainsKey(artistName))
                         {
                             artistId = artists[artistName];
                         }
-
-                        var album = context.Create<Album>(new Album(al) { AlbumCoverId = coverid, ArtistId = artistId });
+                        var alb = new Album(al) { ArtistId = artistId };
+                        alb.Pictures = images;
+                        var album = context.Create<Album>(alb);
 
                         albums.Add(album.Name, album.Id);
                     }
@@ -94,8 +104,8 @@ namespace SongsAbout.Web.Models
                     {
                         var feat = seed.Features.Where(a => a.Id == t.Id).FirstOrDefault();
 
-                        int artistId = -1,
-                            albumId = -1;
+                        int artistId = 0,
+                            albumId = 0;
                         string artistName = t.Artists.Count > 0 ? t.Artists[0].Name : null;
 
                         if (artistName != null && artists.ContainsKey(artistName))
@@ -106,10 +116,20 @@ namespace SongsAbout.Web.Models
                         {
                             albumId = albums[t.Album.Name];
                         }
+                        // var artist = context.Get<Artist>(artists[artistName]);
+                        // var album = context.Get<Album>(albums[t.Album.Name]);
+                        try
+                        {
+                            var tr = new Track(t, feat, artistId, albumId);
+                            tr.Artist = context.Get<Artist>(artistId);
+                            tr.Album = context.Get<Album>(albumId);
+                            Track track = context.Create<Track>(tr);
 
-                        Track track = context.Create<Track>(new Track(t, feat) { ArtistId = artistId, AlbumId = albumId });
-
-                        tracks.Add(track.Name, track.Id);
+                            tracks.Add(track.Name, track.Id);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
                     }
                 }
 

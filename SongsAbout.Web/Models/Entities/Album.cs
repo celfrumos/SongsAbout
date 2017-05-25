@@ -9,12 +9,14 @@ using SpotifyAPI.Web.Models;
 namespace SongsAbout.Web.Models
 {
     [Serializable]
-    public partial class Album : SaEntity, ISaIntegralEntity
+    public partial class Album : SaIntegralEntity
     {
         [NotMapped]
         public override SaEntityType EntityType => SaEntityType.Album;
 
         [Key]
+        [Column("AlbumId")]
+        [IdentityColumn]
         public override int Id { get; set; }
 
         [DisplayName("Album Name")]
@@ -27,41 +29,35 @@ namespace SongsAbout.Web.Models
 
         [DisplayName("Album Artist")]
         [Required(ErrorMessage = "Album must have an Artist.")]
+        [ForeignKey(nameof(Artist))]
         public int ArtistId { get; set; }
 
         [DisplayName("Main Artist")]
-        [ForeignKey(nameof(ArtistId))]
         public Artist Artist { get; set; }
 
         [Display(Name = "Tracks")]
         public List<Track> Tracks { get; set; }
 
         [Display(Name = "Featured Artists")]
-        public List<Artist> FeaturedArtists { get; set; }
+        public List<Artist> Artists { get; set; }
 
         public Picture AlbumCover { get; set; }
 
         [Display(Name = "Album Cover")]
-        [ForeignKey(nameof(AlbumCover))]
-        public int AlbumCoverId { get; set; }
+        [NotMapped]
+        public int? AlbumCoverId
+        {
+            get
+            {
+                if (this.Pictures?.Count > 0)
+                    return this.Pictures[0]?.Id;
 
+                else
+                    return null;
+            }
+        }
         [Display(Name = "Pictures")]
         public List<Picture> Pictures { get; set; }
-
-
-        [Display(Name = "Album Keywords")]
-        public List<Keyword> Keywords { get; set; }
-
-        public virtual List<Genre> Genres { get; set; }
-        public virtual List<Topic> Topics { get; set; }
-
-        public bool DescribedBy(string term)
-        {
-            return
-                  this.Genres.Any(g => g.Name.ToLower().Contains(term.ToLower()))
-                  || this.Topics.Any(g => g.Text.ToLower().Contains(term.ToLower()))
-                  || this.Keywords.Any(g => g.Text.ToLower().Contains(term.ToLower()));
-        }
 
         public static Album Convert(SpotifyAlbum album)
         {
@@ -75,11 +71,11 @@ namespace SongsAbout.Web.Models
         private void SetDefaults()
         {
             this.AlbumCover = new Picture();
-            this.AlbumCoverId = default(int);
+            //      this.AlbumCoverId = default(int);
             this.Id = default(int);
             this.Artist = new Artist();
             this.ArtistId = default(int);
-            this.FeaturedArtists = new List<Artist>();
+            this.Artists = new List<Artist>();
             this.Genres = new List<Genre>();
             this.Keywords = new List<Keyword>();
             this.Name = "";

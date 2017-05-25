@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using SongsAbout.Web.Controllers;
 using SongsAbout.Web.Models;
 using System.Data.Entity;
-using SongsAbout.Web.Views;
+//using SongsAbout.Web.Views;
 
 namespace SongsAbout.Web.Tests
 {

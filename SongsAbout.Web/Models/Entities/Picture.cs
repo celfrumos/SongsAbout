@@ -47,13 +47,15 @@ namespace SongsAbout.Web.Models
             this.Src = "";
             this.Width = 0;
             this.Height = 0;
+            this.SaEntityType = SaEntityType.Any;
         }
-        public Picture(SpotifyImage image, string name)
+        public Picture(SpotifyImage image, string name, SaEntityType entityType = SaEntityType.Any)
         {
             this.Name = name ?? "";
             this.Src = image?.Url ?? "";
             this.Width = image?.Width ?? 0;
             this.Height = image?.Height ?? 0;
+            this.SaEntityType = entityType;
         }
         public static implicit operator Picture(SpotifyImage image)
         {

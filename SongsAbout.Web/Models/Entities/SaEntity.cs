@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 
@@ -25,21 +26,23 @@ namespace SongsAbout.Web.Models
     [Serializable]
     public abstract class SaDbEntityAccessor : ISaDbEntityAccessor
     {
-        public abstract int Id { get; set; }
-        public abstract string Name { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Name { get; set; }
     }
 
     [Serializable]
     public abstract class SaEntity : SaDbEntityAccessor, ISaEntity
     {
-        public virtual string SpotifyId { get; set; }
-
         [NotMapped]
         public abstract SaEntityType EntityType { get; }
+    }
 
+    public abstract class SaSpotifyAccessEntity : SaEntity, ISpotifyAccessor
+    {
+        public string SpotifyId { get; set; }
         [NotMapped]
         [Display(Name = "Spotify Details Web Page")]
-        public virtual string SpotifyWebPage
+        public string SpotifyWebPage
         {
             get
             {
@@ -54,7 +57,7 @@ namespace SongsAbout.Web.Models
 
         [NotMapped]
         [Display(Name = "Spotify URI")]
-        public virtual string SpotifyUri
+        public string SpotifyUri
         {
             get
             {
@@ -67,7 +70,7 @@ namespace SongsAbout.Web.Models
 
         [NotMapped]
         [Display(Name = "Spotify API Link")]
-        public virtual string ApiHref
+        public string ApiHref
         {
             get
             {
@@ -78,6 +81,41 @@ namespace SongsAbout.Web.Models
             }
         }
 
+    }
+    public abstract class SaDescriptor : SaEntity, ISaDescriptor
+    {
+        public virtual bool Describes(ISaIntegralEntity entity)
+        {
+            return entity.DescribedBy(this.Name);
+        }
+        public List<Artist> Artists { get; set; }
+        public List<Album> Albums { get; set; }
+        public List<Track> Tracks { get; set; }
+    }
+
+    public abstract class SaIntegralEntity : SaSpotifyAccessEntity, ISaIntegralEntity
+    {
+        [Display(GroupName = "Descriptors")]
+        public List<Genre> Genres { get; set; }
+
+        [Display(GroupName = "Descriptors")]
+        public List<Topic> Topics { get; set; }
+
+        [Display(Name = "Album Keywords", GroupName = "Descriptors")]
+        public List<Keyword> Keywords { get; set; }
+
+        /// <summary>
+        /// Signifies whether or not any of the descriptors of this <see cref="SaIntegralEntity"/> contain the designated <paramref name="term"/>
+        /// </summary>
+        /// <param name="term">The term to search for</param>
+        /// <returns></returns>
+        public virtual bool DescribedBy(string term)
+        {
+            return
+                  this.Genres.Any(g => g.Name.ToLower().Contains(term.ToLower()))
+                  || this.Topics.Any(g => g.Name.ToLower().Contains(term.ToLower()))
+                  || this.Keywords.Any(g => g.Name.ToLower().Contains(term.ToLower()));
+        }
     }
     public static class HtmlButtonExtension
     {
@@ -253,10 +291,10 @@ namespace SongsAbout.Web.Models
                 if (ar.Albums.Count > 0)
                     artist.Collection(a => a.Albums).Load();
 
-                ar.Tracks.ForEach(t => db.Tracks?.Attach(t));
-                if (ar.Tracks.Count > 0)
+                //ar.Tracks.ForEach(t => db.Tracks?.Attach(t));
+                //if (ar.Tracks.Count > 0)
 
-                    artist.Collection(a => a.Tracks).Load();
+                //    artist.Collection(a => a.Tracks).Load();
 
             }
             else if (type == SaEntityType.Album)
@@ -270,7 +308,7 @@ namespace SongsAbout.Web.Models
                 al.Tracks.ForEach(t => db.Tracks?.Attach(t));
                 if (al.Tracks.Count > 0)
                     album.Collection(a => a.Tracks).Load();
-                album.Collection(a => a.FeaturedArtists).Load();
+                album.Collection(a => a.Artists).Load();
             }
             else if (type == SaEntityType.Track)
             {

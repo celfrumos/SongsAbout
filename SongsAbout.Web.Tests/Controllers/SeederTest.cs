@@ -46,7 +46,7 @@ namespace SongsAbout.Web.Tests.Controllers
 
                         int picId = profilePic?.Id ?? -1;
 
-                        Artist artist = context.Create<Artist>(new Artist(a) { ProfilePicId = picId });
+                        Artist artist = context.Create<Artist>(new Artist(a));
 
 
                         artists.Add(artist.Name, artist.Id);
@@ -75,7 +75,7 @@ namespace SongsAbout.Web.Tests.Controllers
                             artistId = artists[artistName];
                         }
 
-                        var album = context.Create<Album>(new Album(al) { AlbumCoverId = coverid, ArtistId = artistId });
+                        var album = context.Create<Album>(new Album(al));
 
                         albums.Add(album.Name, album.Id);
                     }
