@@ -205,6 +205,8 @@
     <Compile Include="Models\EntityDbInitializer.cs" />
     <Compile Include="Models\Entities\Genre.cs" />
     <Compile Include="Models\Enums\MusicalMode.cs" />
+    <Compile Include="Models\Enums\RowType.cs" />
+    <Compile Include="Models\Exceptions\EntityInitializationException.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Entities\Keyword.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -346,6 +348,7 @@
     <Content Include="Views\Artists\Details.cshtml" />
     <Content Include="Views\Artists\Edit.cshtml" />
     <Content Include="Views\Artists\Index.cshtml" />
+    <Content Include="Views\Artists\ArtistRowPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\SASS\" />

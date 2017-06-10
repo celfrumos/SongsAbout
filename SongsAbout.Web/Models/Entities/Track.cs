@@ -61,12 +61,42 @@ namespace SongsAbout.Web.Models
         /// </summary>
         [Display(Name = "Album")]
         [Required(ErrorMessage = "Track must be part of an Album.")]
+        [ForeignKey(nameof(Album))]
         public int AlbumId { get; set; }
 
-        [Association("FK_Track_Artist", nameof(Track.Id), nameof(ArtistId), IsForeignKey = true)]
-        public Artist Artist { get; set; }
+        [NotMapped]
+        public Artist Artist
+        {
+            get
+            {
+                return this.Artists?.FirstOrDefault(a => a.Id == this.ArtistId);
+            }
+            set
+            {
 
-        [Association("FK_Track_Album", nameof(Track.Id), nameof(AlbumId), IsForeignKey = true)]
+                if (value is null)
+                    return;
+
+                this.ArtistId = value.Id;
+                if (this.Artists == null)
+                {
+                    this.Artists = new List<Artist> { value };
+                    return;
+                }
+
+                if (this.Artists.Contains(value))
+                    return;
+
+                var existing = this.Artists.Where(a => a.Name == value.Name);
+                if (existing.Count() > 0)
+                {
+                    int i = this.Artists.IndexOf(existing.First());
+                    this.Artists[i] = value;
+
+                }
+            }
+        }
+
         public Album Album { get; set; }
 
         #region ReferenceGroups
@@ -321,7 +351,7 @@ namespace SongsAbout.Web.Models
         /// </summary>
         public Track()
         {
-            SetDefaults();
+            Initialize();
         }
 
         /// <summary>
@@ -329,7 +359,7 @@ namespace SongsAbout.Web.Models
         /// </summary>
         /// <param name="features">The corresponding <see cref="AudioFeatures"/> to apply to the new <see cref="Track"/></param>
         /// <param name="canPlay">Whether or not the user can play the track</param>
-        private void SetDefaults(AudioFeatures features = null, bool canPlay = false)
+        private void Initialize(AudioFeatures features = null, bool canPlay = false)
         {
             this.Album = new Album();
             this.AlbumId = default(int);
@@ -347,6 +377,10 @@ namespace SongsAbout.Web.Models
             this.Name = "";
 
             SetAudioFeatures(features);
+        }
+        private void Initialize(SpotifyFullTrack track)
+        {
+
         }
 
         /// <summary>
@@ -376,7 +410,7 @@ namespace SongsAbout.Web.Models
         {
             if (track == null)
             {
-                SetDefaults(features, canPlay);
+                Initialize(features, canPlay);
             }
             else
             {

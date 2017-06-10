@@ -29,11 +29,43 @@ namespace SongsAbout.Web.Models
 
         [DisplayName("Album Artist")]
         [Required(ErrorMessage = "Album must have an Artist.")]
-        [ForeignKey(nameof(Artist))]
+        //[ForeignKey(nameof(Artist))]
         public int ArtistId { get; set; }
 
         [DisplayName("Main Artist")]
-        public Artist Artist { get; set; }
+        [NotMapped]
+        public Artist Artist
+        {
+            get
+            {
+                return this.Artists?.FirstOrDefault(a => a.Id == this.ArtistId);
+            }
+            set
+            {
+                if (value is null)
+                    return;
+
+                this.ArtistId = value.Id;
+                if (this.Artists == null)
+                {
+                    this.Artists = new List<Artist> { value };
+                    return;
+                }
+
+
+                if (this.Artists.Contains(value))
+                    return;
+
+                var existing = this.Artists.Where(a => a.Name == value.Name);
+                if (existing.Count() > 0)
+                {
+                    int i = this.Artists.IndexOf(existing.First());
+                    this.Artists[i] = value;
+
+                }
+
+            }
+        }
 
         [Display(Name = "Tracks")]
         public List<Track> Tracks { get; set; }
@@ -56,6 +88,7 @@ namespace SongsAbout.Web.Models
                     return null;
             }
         }
+
         [Display(Name = "Pictures")]
         public List<Picture> Pictures { get; set; }
 
@@ -68,54 +101,57 @@ namespace SongsAbout.Web.Models
         {
             return new Album(album);
         }
-        private void SetDefaults()
+        private void Initialize(SpotifyFullAlbum album = null, EntityDbContext db = null, bool createArtistIfDoesntExist = false)
         {
-            this.AlbumCover = new Picture();
-            //      this.AlbumCoverId = default(int);
-            this.Id = default(int);
-            this.Artist = new Artist();
-            this.ArtistId = default(int);
-            this.Artists = new List<Artist>();
-            this.Genres = new List<Genre>();
-            this.Keywords = new List<Keyword>();
-            this.Name = "";
-            this.ReleaseDate = null;
-            this.SpotifyId = "";
-            this.Topics = new List<Topic>();
-            this.Tracks = new List<Track>();
+            try
+            {
+                this.Id = default(int);
+                this.Genres = new List<Genre>();
+                this.Keywords = new List<Keyword>();
+                this.Name = album?.Name ?? "";
+                this.ReleaseDate = album?.ReleaseDate;
+                this.SpotifyId = album?.Id ?? "";
+                this.Topics = new List<Topic>();
+                this.Tracks = new List<Track>();
+                this.AlbumCover = album.Images.Count > 0 ? album.Images[0] : null;
+
+                if (db != null && album.Artists.Count > 0)
+                {
+                    this.Artist = db.Get<Artist>(album.Artists[0].Name);
+
+                    if (createArtistIfDoesntExist && this.Artist == null)
+                        this.Artist = db.Create<Artist>(new Artist(album.Artists[0]));
+
+
+                    if (this.Artist != null)
+                        this.ArtistId = this.Artist.Id;
+
+                }
+                else
+                {
+                    this.Artist = new Artist();
+                    this.ArtistId = default(int);
+                    this.Artists = new List<Artist>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityInitializationException<Album>(ex, this);
+            }
         }
+
         public Album()
         {
-            this.SetDefaults();
+            this.Initialize();
         }
         public Album(SpotifyAlbum album)
-            : this(album?.GetFullVersion(Spotify.WebApi))
+            : this()
         {
-
+            Initialize(album?.GetFullVersion(Spotify.WebApi));
         }
         public Album(SpotifyFullAlbum album, EntityDbContext db = null, bool createArtistIfDoesntExist = false)
         {
-            if (album == null)
-                this.SetDefaults();
-
-            this.Name = album.Name;
-            this.AlbumCover = album.Images.Count > 0 ? album.Images[0] : null;
-            this.ReleaseDate = album.ReleaseDate;
-            this.SpotifyId = album.Id;
-
-            if (db != null && album.Artists.Count > 0)
-            {
-                this.Artist = db.Get<Artist>(album.Artists[0].Name);
-
-                if (createArtistIfDoesntExist && this.Artist == null)
-                    this.Artist = db.Create<Artist>(new Artist(album.Artists[0]));
-
-
-                if (this.Artist != null)
-                    this.ArtistId = this.Artist.Id;
-
-            }
-
+            this.Initialize(album, db, createArtistIfDoesntExist);
         }
     }
 }

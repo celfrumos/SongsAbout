@@ -21,6 +21,12 @@ namespace SongsAbout.Web.Controllers
             return View(await db.Artists.ToListAsync());
         }
 
+        public PartialViewResult ArtistRowPartial(Artist a, bool allowEdit = false, RowStyle style = RowStyle.SquareImage)
+        {
+            ViewBag.RowDetails = new RowDetails { AllowEdit = allowEdit, RowStyle = style };
+            return PartialView(a);
+
+        }
         // GET: Artists/Details/5
         public async Task<ActionResult> Details(int? id)
         {

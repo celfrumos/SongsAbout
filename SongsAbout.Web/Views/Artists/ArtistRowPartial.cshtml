@@ -1,0 +1,33 @@
+﻿@using SongsAbout.Web.Models
+@model SongsAbout.Web.Models.Artist
+
+@{
+    RowDetails Details = ViewBag.RowDetails;
+
+    switch (Details.RowStyle)
+    {
+        case RowStyle.SquareImage:
+            <div class="artist-row square-image">
+                <div class="artist-image">@Html.DisplayImage(Model.ProfilePic)</div>
+                <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
+            </div>
+            break;
+        case RowStyle.InlineImage:
+            <div class="artist-row inline-image">
+                <div class="artist-image">@Html.DisplayImage(Model.ProfilePic)</div>
+                <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
+            </div>
+            break;
+        case RowStyle.TextOnly:
+            <div class="artist-row text-only">
+                <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
+            </div>
+            break;
+        default:
+            <div class="artist-row square-image">
+                <div class="artist-image">@Html.DisplayImage(Model.ProfilePic)</div>
+                <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
+            </div>
+            break;
+    }
+}

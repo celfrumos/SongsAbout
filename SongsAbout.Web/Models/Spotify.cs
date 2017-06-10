@@ -179,6 +179,144 @@ namespace SongsAbout.Web
 
         }
 
+        public static void SeedDb(EntityDbContext context)
+        {
+            try
+            {
+                if (!Spotify.Authenticated)
+                    Spotify.Authenticate();
+
+                //    Spotify.CallAndStoreSeedData();
+                var artists = new Dictionary<string, int>();
+                var albums = new Dictionary<string, int>();
+                var tracks = new Dictionary<string, int>();
+
+                var seed = Spotify.CallDataForSeeding();
+
+                // Artists
+                foreach (var a in seed.Artists)
+                {
+                    try
+                    {
+                        if (!artists.ContainsKey(a.Name))
+                        {
+                            List<Picture> images = new List<Picture>();
+                            Picture pic = null;
+                            if (a.Images?.Count > 0)
+                            {
+                                for (int i = 0; i < a.Images.Count; i++)
+                                {
+                                    images.Add(context.Create(new Picture(a.Images[i], $"{a.Name}-{i}", SaEntityType.Artist)));
+                                }
+                                pic = images[0];
+                            }
+                            else
+                                pic = null;
+
+
+                            var ar = new Artist(a);
+                            ar.Pictures = images;
+
+                            Artist artist = context.Create<Artist>(ar);
+
+
+                            artists.Add(artist.Name, artist.Id);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        continue;
+                    }
+                }
+                context.SaveChanges();
+                // Albums
+                foreach (var al in seed.Albums)
+                {
+                    try
+                    {
+                        if (!albums.ContainsKey(al.Id))
+                        {
+                            List<Picture> images = new List<Picture>();
+                            Picture pic = null;
+                            if (al.Images?.Count > 0)
+                            {
+                                for (int i = 0; i < al.Images.Count; i++)
+                                {
+                                    images.Add(context.Create(new Picture(al.Images[i], $"{al.Name}-{i}", SaEntityType.Album)));
+                                }
+                                pic = images[0];
+                            }
+                            else
+                                pic = null;
+
+                            int coverid = pic?.Id ?? 0;
+                            string artistName = al.Artists.Count > 0 ? al.Artists[0].Name : null;
+
+                            int artistId = 0;
+
+                            if (artistName != null && artists.ContainsKey(artistName))
+                            {
+                                artistId = artists[artistName];
+                            }
+                            var alb = new Album(al) { ArtistId = artistId };
+                            alb.Pictures = images;
+                            var album = context.Create<Album>(alb);
+
+                            albums.Add(album.Name, album.Id);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        continue;
+                    }
+                }
+
+                context.SaveChanges();
+                // Tracks
+                foreach (var t in seed.Tracks)
+                {
+                    try
+                    {
+                        if (!tracks.ContainsKey(t.Name))
+                        {
+                            var feat = seed.Features.Where(a => a.Id == t.Id).FirstOrDefault();
+
+                            int artistId = 0,
+                                albumId = 0;
+                            string artistName = t.Artists.Count > 0 ? t.Artists[0].Name : null;
+
+                            if (artistName != null && artists.ContainsKey(artistName))
+                            {
+                                artistId = artists[artistName];
+                            }
+                            if (t.Album?.Name != null && albums.ContainsKey(t.Album.Name))
+                            {
+                                albumId = albums[t.Album.Name];
+                            }
+
+                            var tr = new Track(t, feat, artistId, albumId);
+                            tr.Artist = context.Get<Artist>(artistId);
+                            tr.Album = context.Get<Album>(albumId);
+                            Track track = context.Create<Track>(tr);
+
+                            tracks.Add(track.Name, track.Id);
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        continue;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
         public static (List<SpotifyFullArtist> Artists, List<SpotifyFullAlbum> Albums, List<SpotifyFullTrack> Tracks, List<AudioFeatures> Features) CallDataForSeeding(int trackLimit = 20)
         {
             var artists = new Dictionary<string, SpotifyFullArtist>();
@@ -199,7 +337,16 @@ namespace SongsAbout.Web
                 album.Artists.ForEach(a =>
                 {
                     if (!artists.ContainsKey(a.Name))
-                        artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
+                    {
+                        try
+                        {
+                            artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
 
                 });
 
@@ -219,8 +366,14 @@ namespace SongsAbout.Web
 
                     track.Artists.ForEach(a =>
                     {
-                        if (!artists.ContainsKey(a.Name))
-                            artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
+                        if (!artists.ContainsKey(a.Name)) try
+                            {
+                                artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine()
+                            }
                     });
 
                     if (!tracksToWrite.ContainsKey(track.Name))

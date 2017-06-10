@@ -86,49 +86,50 @@ namespace SongsAbout.Web.Models
         #endregion
 
         #region Methods
-        public bool DescribedBy(string term)
-        {
-            return
-                  this.Genres.Any(g => g.Name.ToLower().Contains(term.ToLower()))
-                  || this.Topics.Any(g => g.Name.ToLower().Contains(term.ToLower()))
-                  || this.Keywords.Any(g => g.Name.ToLower().Contains(term.ToLower()));
-        }
 
-        private void SetDefaults()
+        private void Initialize(SpotifyFullArtist artist = null, IEnumerable<Album> albums = null)
         {
-            this.Albums = new List<Album>();
-            this.Id = default(int);
-            this.Bio = null;
-            this.Genres = new List<Genre>();
-            this.Id = default(int);
-            this.Keywords = new List<Keyword>();
-            this.Name = "";
-            this.ProfilePic = null;
-            // this.ProfilePicId = default(int);
-            this.SpotifyId = null;
-            this.Topics = new List<Topic>();
+            try
+            {
+                this.Albums = new List<Album>();
+                this.Id = default(int);
+                this.Bio = null;
+                this.Genres = new List<Genre>();
+                this.Id = default(int);
+                this.Keywords = new List<Keyword>();
+                this.Name = "";
+                this.ProfilePic = null;
+                // this.ProfilePicId = default(int);
+                this.SpotifyId = null;
+                this.Topics = new List<Topic>();
+                if (artist != null)
+                {
+                    this.Name = artist.Name;
+                    this.ProfilePic = artist.Images.Count > 0 ? artist.Images[0] : new SpotifyImage();
+                    this.SpotifyId = artist.Id;
+                    this.Albums = albums?.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new EntityInitializationException<Artist>(ex, this);
+            }
         }
         #endregion
 
         #region Constructors
         public Artist()
         {
-            SetDefaults();
+            Initialize();
         }
 
         public Artist(SpotifyArtist artist, IEnumerable<Album> albums = null)
-            : this(artist?.GetFullVersion(Spotify.WebApi), albums)
         {
+            Initialize(artist?.GetFullVersion(Spotify.WebApi), albums);
         }
         public Artist(SpotifyFullArtist artist, IEnumerable<Album> albums = null)
         {
-            if (artist == null)
-                this.SetDefaults();
-
-            this.Name = artist.Name;
-            this.ProfilePic = artist.Images.Count > 0 ? artist.Images[0] : new SpotifyImage();
-            this.SpotifyId = artist.Id;
-            this.Albums = albums?.ToList();
+            Initialize(artist, albums);
         }
         #endregion
     }

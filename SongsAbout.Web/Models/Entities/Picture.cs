@@ -6,6 +6,7 @@ using System.Web;
 using SpotifyAPI.Web.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace SongsAbout.Web.Models
 {
@@ -60,6 +61,27 @@ namespace SongsAbout.Web.Models
         public static implicit operator Picture(SpotifyImage image)
         {
             return new Picture(image, "");
+        }
+
+    }
+    public static class PictureHtmlDisplayExtension
+    {
+        public static MvcHtmlString DisplayImage(this HtmlHelper helper, Picture img, bool explicitSize = true, object htmlAttributes = null, params string[] classes)
+        {
+            var builder = new TagBuilder("img");
+            var necessaryAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(new { src = img.Src, alt = img.Name });
+            builder.MergeAttributes(necessaryAttributes);
+            foreach (var c in classes)
+                builder.AddCssClass(c);
+
+            if (htmlAttributes != null)
+                builder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+
+            if (explicitSize)
+                builder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(new { width = img.Width, height = img.Height }));
+
+
+            return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
         }
     }
 

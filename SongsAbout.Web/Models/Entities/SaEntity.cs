@@ -132,23 +132,7 @@ namespace SongsAbout.Web.Models
             return MvcHtmlString.Create(builder.ToString());
         }
 
-        public static MvcHtmlString DisplayImage(this HtmlHelper helper, ISaImage img, bool explicitSize, object htmlAttributes = null, params string[] classes)
-        {
-            var builder = new TagBuilder("img");
-            var necessaryAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(new { src = img.Src, alt = img.Name });
-            builder.MergeAttributes(necessaryAttributes);
-            foreach (var c in classes)
-                builder.AddCssClass(c);
-
-            if (htmlAttributes != null)
-                builder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
-
-            if (explicitSize)
-                builder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(new { width = img.Width, height = img.Height }));
-
-
-            return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
-        }
+   
 
         public static MvcHtmlString RenderRawLink(this HtmlHelper helper, string url, string text, object htmlAttributes = null)
         {

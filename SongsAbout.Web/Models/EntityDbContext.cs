@@ -251,10 +251,6 @@ namespace SongsAbout.Web.Models
 
         public T Create<T>(T entity) where T : SaDbEntityAccessor
         {
-            if (entity is Track)
-            {
-
-            }
             var accessor = entity as SaDbEntityAccessor;
             if (accessor == null)
                 return null;
