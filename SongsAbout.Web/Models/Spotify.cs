@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,13 +11,18 @@ using SongsAbout.Web.Models;
 using Newtonsoft.Json;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace SongsAbout.Web
 {
-    public static class Spotify
+    public static partial class Spotify
     {
+        #region Constants
         private const string REDIRECT_URI = "http://localhost";
         private const int PORT = 8000;
+
+        private const string DEFAULT_USER_ID = "rawdeg";
+        private const string SINGIN_PLAYLIST_ID = "3rzuLmTVqB68cJR67jaaKh";
 
         private const string DIRECTORY_NAME = @"C:\Users\jdegr_000\Desktop\";
         private const string ARTISTS_FILENAME = DIRECTORY_NAME + "Artists.json";
@@ -24,48 +30,120 @@ namespace SongsAbout.Web
         private const string TRACKS_FILENAME = DIRECTORY_NAME + "Tracks.json";
         private const string AUDIO_FEATURES_FILENAME = DIRECTORY_NAME + "AudioFeatures.json";
 
-        public static SpotifyWebAPI WebApi { get; private set; }
+        private const Scope DEFAULT_SCOPE =
+            Scope.UserReadPrivate |
+            Scope.UserReadEmail |
+            Scope.PlaylistReadPrivate |
+            Scope.UserLibraryRead |
+            Scope.UserReadPrivate |
+            Scope.UserFollowRead |
+            Scope.UserReadBirthdate |
+            Scope.UserTopRead |
+            Scope.PlaylistModifyPrivate |
+            Scope.PlaylistModifyPublic;
 
-        public static bool Authenticated { get; private set; }
+        #endregion
 
+        #region Static Variables
+        public static SpotifyWebAPI WebApi { get; private set; } = null;
+        public static PublicProfile PublicProfile { get; private set; } = null;
+        public static PrivateProfile PrivateProfile { get; private set; } = null;
+        public static bool Authenticated { get; private set; } = false;
+
+        public static string UserId => PrivateProfile?.Id;
+        #endregion
+
+        #region Authentication
         /// <summary>
         /// Initial Setup of USer Spotify Settings
         /// </summary>
-        public static void Authenticate(string clientId = null)
+        public static void Authenticate(string clientId = Secrets.Spotify.ClientId, Scope scope = DEFAULT_SCOPE, bool reAuthIfAlready = false)
         {
-            try
+            if (!Authenticated || reAuthIfAlready)
             {
-                clientId = clientId ?? Secrets.Spotify.ClientId;
-                WebAPIFactory webApiFactory = new WebAPIFactory(
-                    REDIRECT_URI,
-                    PORT,
-                    clientId,
-                    Scope.UserReadPrivate | Scope.UserReadEmail | Scope.PlaylistReadPrivate | Scope.UserLibraryRead |
-                    Scope.UserReadPrivate | Scope.UserFollowRead | Scope.UserReadBirthdate | Scope.UserTopRead | Scope.PlaylistModifyPrivate | Scope.PlaylistModifyPublic);
-
-                if (WebApi == null)
+                try
                 {
-                    var getter = webApiFactory.GetWebApi();
-                    getter.Wait();
-                    WebApi = getter.Result;
-                }
+                    if (WebApi == null)
+                    {
+                        var webApiFactory = new WebAPIFactory
+                        (
+                            REDIRECT_URI,
+                            PORT,
+                            clientId,
+                            scope
+                            );
 
-                Authenticated = true;
-            }
-            catch (SpotifyException ex)
-            {
-                throw new SpotifyAuthError(inner: ex);
-            }
-            catch (System.Resources.MissingManifestResourceException ex)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                var e = new SpotifyAuthError(ex.Message);
-                Console.WriteLine(e.Message + "\n" + e.StackTrace);
+                        if (WebApi == null)
+                        {
+                            var getter = webApiFactory.GetWebApi();
+                            getter.Wait();
+                            WebApi = getter.Result;
+                        }
+
+                        Authenticated = true;
+                        PrivateProfile = WebApi.GetPrivateProfile();
+                        PublicProfile = WebApi.GetPublicProfile(UserId);
+                    }
+                }
+                catch (SpotifyException ex)
+                {
+                    throw new SpotifyAuthError(inner: ex);
+                }
+                catch (System.Resources.MissingManifestResourceException ex)
+                {
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    var e = new SpotifyAuthError(ex.Message);
+                    Console.WriteLine(e.Message + "\n" + e.StackTrace);
+                }
             }
         }
+        /// <summary>
+        /// Initial Setup of USer Spotify Settings
+        /// </summary>
+        public static async void AuthenticateAsync(string clientId = Secrets.Spotify.ClientId, Scope scope = DEFAULT_SCOPE, bool reAuthIfAlready = false)
+        {
+            if (!Authenticated || reAuthIfAlready)
+            {
+                try
+                {
+                    if (WebApi == null)
+                    {
+                        var webApiFactory = new WebAPIFactory
+                        (
+                            REDIRECT_URI,
+                            PORT,
+                            clientId,
+                           scope
+                        );
+
+                        WebApi = await webApiFactory.GetWebApi();
+                    }
+
+                    Authenticated = true;
+                    PrivateProfile = await WebApi.GetPrivateProfileAsync();
+                    PublicProfile = await WebApi.GetPublicProfileAsync(UserId);
+                }
+                catch (SpotifyException ex)
+                {
+                    throw new SpotifyAuthError(inner: ex);
+                }
+                catch (System.Resources.MissingManifestResourceException ex)
+                {
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    var e = new SpotifyAuthError(ex.Message);
+                    Console.WriteLine(e.Message + "\n" + e.StackTrace);
+                }
+            }
+        }
+
+        #endregion
+
 
         /// <summary>
         /// Returns a list of User's saved tracks
@@ -100,6 +178,70 @@ namespace SongsAbout.Web
             }
         }
 
+        public static List<Album> GetArtistAlbums(string spotifyArtistId)
+        {
+            if (!Authenticated)
+                Authenticate();
+            var albums = WebApi.GetArtistsAlbums(spotifyArtistId);
+
+            var res = new List<Album>(from a in albums.Items
+                                      select Album.Convert(a.GetFullVersion(WebApi))
+                                      );
+
+            return res;
+        }
+
+        public static List<Track> GetAllAlbumTracks(string spotifyAlbumId)
+        {
+            if (!Authenticated)
+                Authenticate();
+
+            var res = new List<Track>();
+            var trackPage = Spotify.WebApi.GetAlbumTracks(spotifyAlbumId, 30);
+
+            res.AddRange(from t in trackPage.Items
+                         select new Track(t));
+
+            return res;
+        }
+
+        public static List<Track> GetAllArtistTracks(string spotifyArtistId)
+        {
+            var albums = GetArtistAlbums(spotifyArtistId);
+            var tracks = new List<Track>();
+
+            foreach (var album in albums)
+            {
+                tracks.AddRange(GetAllAlbumTracks(album.SpotifyId));
+            }
+            return tracks;
+        }
+
+        #region Serialization
+        public static JsonSerializer JsonSerializer { get; set; } = new JsonSerializer();
+
+        public static string GetJson(object entity)
+        {
+            string jsonStr = "";
+            using (var writer = new StringWriter())
+            {
+                JsonSerializer.Serialize(writer, entity);
+                jsonStr = writer.ToString();
+            }
+            return jsonStr;
+        }
+        public static async Task<string> GetJsonAsync(object entity)
+        {
+            string jsonStr = "";
+            using (var writer = new StringWriter())
+            {
+                await Task.Run(() => JsonSerializer.Serialize(writer, entity));
+                jsonStr = writer.ToString();
+            }
+            return jsonStr;
+        }
+
+        #region Seeding
         public async static void CallAndStoreSeedData()
         {
             List<SpotifyFullArtist> artists;
@@ -109,77 +251,27 @@ namespace SongsAbout.Web
 
             (artists, albums, tracks, audioFeatures) = await CallDataForSeedingAsync();
 
-            using (var writer = new StreamWriter(ARTISTS_FILENAME))
-            {
-                await writer.WriteAsync(Spotify.GetJson(artists.ToArray()));
-            }
-            using (var writer = new StreamWriter(ALBUMS_FILENAME))
-            {
-                await writer.WriteAsync(Spotify.GetJson(albums.ToArray()));
-            }
-            using (var writer = new StreamWriter(TRACKS_FILENAME))
-            {
-                await writer.WriteAsync(Spotify.GetJson(tracks.ToArray()));
-            }
-            using (var writer = new StreamWriter(AUDIO_FEATURES_FILENAME))
-            {
-                await writer.WriteAsync(Spotify.GetJson(audioFeatures.ToArray()));
-            }
+            StoreSeedData(ARTISTS_FILENAME, artists);
+            StoreSeedData(ALBUMS_FILENAME, albums);
+            StoreSeedData(TRACKS_FILENAME, tracks);
+            StoreSeedData(AUDIO_FEATURES_FILENAME, audioFeatures);
         }
-        public async static Task<(List<SpotifyFullArtist> Artists, List<SpotifyFullAlbum> Albums, List<SpotifyFullTrack> Tracks, List<AudioFeatures> Features)> CallDataForSeedingAsync(int trackLimit = 20)
+
+        public async static void StoreSeedData(string fileName, IEnumerable<ISpotifyObject> entities)
         {
-            var artists = new Dictionary<string, SpotifyFullArtist>();
-            var albums = new Dictionary<string, SpotifyFullAlbum>();
-            var tracksToWrite = new Dictionary<string, SpotifyFullTrack>();
-            var audioFeatures = new Dictionary<string, SpotifyAPI.Web.Models.AudioFeatures>();
-
-            var tracks = Spotify.GetSavedTracks();
-
-
-            for (int i = 0; i < 10; i++)
+            using (var writer = new StreamWriter(fileName))
             {
-                var album = await tracks[i].Album.GetFullVersionAsync(Spotify.WebApi);
-
-                if (!albums.ContainsKey(album.Name))
-                    albums.Add(album.Name, album.GetFullVersion(Spotify.WebApi));
-
-                album.Artists.ForEach(a =>
-                {
-                    if (!artists.ContainsKey(a.Name))
-                        artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
-
-                });
-
-                var albTracks = await Spotify.WebApi.GetAlbumTracksAsync(album.Id);
-
-
-                foreach (var track in albTracks.Items)
-                {
-                    if (tracksToWrite.Count >= trackLimit)
-                        break;
-
-                    var trackArtists = track.Artists;
-                    var trackFeatures = Spotify.WebApi.GetAudioFeatures(track.Id);
-
-                    if (!audioFeatures.ContainsKey(track.Id))
-                        audioFeatures.Add(track.Id, trackFeatures);
-
-                    track.Artists.ForEach(a =>
-                    {
-                        if (!artists.ContainsKey(a.Name))
-                            artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
-                    });
-
-                    if (!tracksToWrite.ContainsKey(track.Name))
-                        tracksToWrite.Add(track.Name, track.FullVersion(Spotify.WebApi));
-                }
-
+                await writer.WriteAsync(Spotify.GetJson(entities.ToArray()));
             }
-            return (artists.Select(a => a.Value).ToList(), albums.Select(a => a.Value).ToList(), tracksToWrite.Select(a => a.Value).ToList(), audioFeatures.Select(a => a.Value).ToList());
-
         }
 
-        public static void SeedDb(EntityDbContext context)
+        public async static Task<(List<SpotifyFullArtist> Artists, List<SpotifyFullAlbum> Albums, List<SpotifyFullTrack> Tracks, List<AudioFeatures> Features)>
+            CallDataForSeedingAsync(int trackLimit = 20)
+        {
+            return await Task.Run(() => CallDataForSeeding(trackLimit));
+        }
+
+        public static void SeedDatabase(EntityDbContext context)
         {
             try
             {
@@ -194,7 +286,7 @@ namespace SongsAbout.Web
                 var seed = Spotify.CallDataForSeeding();
 
                 // Artists
-                foreach (var a in seed.Artists)
+                foreach (SpotifyFullArtist a in seed.Artists)
                 {
                     try
                     {
@@ -230,7 +322,7 @@ namespace SongsAbout.Web
                 }
                 context.SaveChanges();
                 // Albums
-                foreach (var al in seed.Albums)
+                foreach (SpotifyFullAlbum al in seed.Albums)
                 {
                     try
                     {
@@ -273,7 +365,7 @@ namespace SongsAbout.Web
 
                 context.SaveChanges();
                 // Tracks
-                foreach (var t in seed.Tracks)
+                foreach (SpotifyFullTrack t in seed.Tracks)
                 {
                     try
                     {
@@ -322,66 +414,75 @@ namespace SongsAbout.Web
             var artists = new Dictionary<string, SpotifyFullArtist>();
             var albums = new Dictionary<string, SpotifyFullAlbum>();
             var tracksToWrite = new Dictionary<string, SpotifyFullTrack>();
-            var audioFeatures = new Dictionary<string, SpotifyAPI.Web.Models.AudioFeatures>();
+            var audioFeatures = new Dictionary<string, AudioFeatures>();
 
             var tracks = Spotify.GetSavedTracks();
 
 
             for (int i = 0; i < 10; i++)
             {
-                var album = tracks[i].Album.GetFullVersion(Spotify.WebApi);
-
-                if (!albums.ContainsKey(album.Name))
-                    albums.Add(album.Name, album.GetFullVersion(Spotify.WebApi));
-
-                album.Artists.ForEach(a =>
+                SpotifyFullAlbum album = null;
+                try
                 {
-                    if (!artists.ContainsKey(a.Name))
+                    album = tracks[i].Album.GetFullVersion(Spotify.WebApi);
+
+                    if (!albums.ContainsKey(album.Name))
+                        albums.Add(album.Name, album.GetFullVersion(Spotify.WebApi));
+
+                    album.Artists.ForEach(a =>
+                    {
+                        if (!artists.ContainsKey(a.Name))
+                            artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
+
+
+                    });
+                }
+                catch (Exception ex)
+                {
+                    ConsoleEx.WriteException(ex);
+                    album = null;
+                }
+                if (album != null)
+                {
+                    var albTracks = Spotify.WebApi.GetAlbumTracks(album.Id);
+
+                    foreach (SpotifyTrack track in albTracks.Items)
                     {
                         try
                         {
-                            artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
+                            if (tracksToWrite.Count >= trackLimit)
+                                break;
+
+                            var trackArtists = track.Artists;
+                            var trackFeatures = Spotify.WebApi.GetAudioFeatures(track.Id);
+
+                            if (!audioFeatures.ContainsKey(track.Id))
+                                audioFeatures.Add(track.Id, trackFeatures);
+
+                            track.Artists.ForEach(a =>
+                            {
+                                if (!artists.ContainsKey(a.Name))
+                                    artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
+
+                            });
+
+                            if (!tracksToWrite.ContainsKey(track.Name))
+                                tracksToWrite.Add(track.Name, track.FullVersion(Spotify.WebApi));
                         }
                         catch (Exception ex)
                         {
-
+                            ConsoleEx.WriteException(ex);
+                            throw;
                         }
                     }
-
-                });
-
-                var albTracks = Spotify.WebApi.GetAlbumTracks(album.Id);
-
-
-                foreach (var track in albTracks.Items)
-                {
-                    if (tracksToWrite.Count >= trackLimit)
-                        break;
-
-                    var trackArtists = track.Artists;
-                    var trackFeatures = Spotify.WebApi.GetAudioFeatures(track.Id);
-
-                    if (!audioFeatures.ContainsKey(track.Id))
-                        audioFeatures.Add(track.Id, trackFeatures);
-
-                    track.Artists.ForEach(a =>
-                    {
-                        if (!artists.ContainsKey(a.Name)) try
-                            {
-                                artists.Add(a.Name, a.GetFullVersion(Spotify.WebApi));
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine()
-                            }
-                    });
-
-                    if (!tracksToWrite.ContainsKey(track.Name))
-                        tracksToWrite.Add(track.Name, track.FullVersion(Spotify.WebApi));
                 }
-
             }
-            return (artists.Select(a => a.Value).ToList(), albums.Select(a => a.Value).ToList(), tracksToWrite.Select(a => a.Value).ToList(), audioFeatures.Select(a => a.Value).ToList());
+            var lists =
+                (artists.Select(a => a.Value).ToList(),
+                albums.Select(a => a.Value).ToList(),
+                tracksToWrite.Select(a => a.Value).ToList(),
+                audioFeatures.Select(a => a.Value).ToList());
+            return lists;
 
         }
 
@@ -455,70 +556,8 @@ namespace SongsAbout.Web
             return objects;
         }
 
-        public static List<Album> GetArtistAlbums(string spotifyArtistId)
-        {
-            if (!Authenticated)
-                Authenticate();
-            var albums = WebApi.GetArtistsAlbums(spotifyArtistId);
+        #endregion
 
-            var res = new List<Album>(from a in albums.Items
-                                      select Album.Convert(a.GetFullVersion(WebApi))
-                                      );
-
-            //while (albums.HasNextPage())
-            //{
-            //    albums = albums.dow
-            //    res.AddRange(from a in albums.Items
-            //                 select (Album)a.GetFullVersion(WebApi));
-
-            //}
-            return res;
-        }
-        public static List<Track> GetAllAlbumTracks(string spotifyAlbumId)
-        {
-            if (!Authenticated)
-                Authenticate();
-
-            var res = new List<Track>();
-            var trackPage = Spotify.WebApi.GetAlbumTracks(spotifyAlbumId, 30);
-
-            res.AddRange(from t in trackPage.Items
-                         select new Track(t));
-
-            return res;
-        }
-        public static List<Track> GetAllArtistTracks(string spotifyArtistId)
-        {
-            var albums = GetArtistAlbums(spotifyArtistId);
-            var tracks = new List<Track>();
-            foreach (var album in albums)
-            {
-                tracks.AddRange(GetAllAlbumTracks(album.SpotifyId));
-            }
-            return tracks;
-        }
-
-        public static JsonSerializer JsonSerializer { get; set; } = new JsonSerializer();
-
-        public static string GetJson(object entity)
-        {
-            string jsonStr = "";
-            using (var writer = new StringWriter())
-            {
-                JsonSerializer.Serialize(writer, entity);
-                jsonStr = writer.ToString();
-            }
-            return jsonStr;
-        }
-        public static async Task<string> GetJsonAsync(object entity)
-        {
-            string jsonStr = "";
-            using (var writer = new StringWriter())
-            {
-                await Task.Run(() => JsonSerializer.Serialize(writer, entity));
-                jsonStr = writer.ToString();
-            }
-            return jsonStr;
-        }
+        #endregion
     }
 }

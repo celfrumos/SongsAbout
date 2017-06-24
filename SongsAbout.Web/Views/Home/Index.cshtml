@@ -1,7 +1,8 @@
 ﻿@using SongsAbout.Web.Models;
+
 @{
     ViewBag.Title = "Home Page";
-    var options = new AjaxOptions { HttpMethod = "GET" };
+    var options = new AjaxOptions { HttpMethod = "GET", LoadingElementId = "load-gif" };
 }
 
 <div class="jumbotron">
@@ -41,6 +42,13 @@
     </div>
     <div class="col-md-4">
         <p><a class="btn btn-default" href="Tracks">Tracks &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <img class="hidden" id="load-gif" src="~/Content/Images/load.gif" />
+        @{
+            
+        }
+        @Ajax.ActionLink("Seed Database", "SeedDatabase", routeValues: null, ajaxOptions: new AjaxOptions { LoadingElementId = "load-gif" }, htmlAttributes: new { @class = "btn btn-large" })
     </div>
 </div>
 

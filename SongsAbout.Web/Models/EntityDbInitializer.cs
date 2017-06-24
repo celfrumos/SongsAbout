@@ -19,7 +19,7 @@ namespace SongsAbout.Web.Models
 
         protected override void Seed(EntityDbContext context)
         {
-            Spotify.SeedDb(context);
+            Spotify.SeedDatabase(context);
         }
     }
 }

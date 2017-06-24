@@ -22,6 +22,13 @@ namespace SongsAbout.Web.Controllers
             return View();
         }
 
+        public async Task<PartialViewResult> SeedDatabase()
+        {
+            await Task.Run(() => Spotify.SeedDatabase(db));
+            return PartialView();
+
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

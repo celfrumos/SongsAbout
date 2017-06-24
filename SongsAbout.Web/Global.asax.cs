@@ -9,6 +9,7 @@ using SongsAbout.Web;
 using SongsAbout.Web.Models;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace SongsAbout.Web
 {
@@ -26,6 +27,35 @@ namespace SongsAbout.Web
             var db = EntityDbContext.Create();
             var a = await Task.Run(() => db.Artists);
             db.Dispose();
+        }
+    }
+    public static partial class ConsoleEx
+    {
+        public static void WriteException(Exception ex, bool writeInner = true, StreamWriter outstream = null)
+        {
+            bool writeToConsole = (outstream != null);
+
+            if (writeInner)
+            {
+                while (ex != null)
+                {
+                    if (writeToConsole)
+                        Console.WriteLine(ex.Message);
+                    else
+                        outstream.WriteLine(ex.Message);
+                    ex = ex.InnerException;
+
+                }
+            }
+            else
+            {
+                if (writeToConsole)
+                    Console.WriteLine(ex.Message);
+                else
+                    outstream.WriteLine(ex.Message);
+            }
+
+
         }
     }
 }
