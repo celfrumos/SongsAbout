@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SongsAbout.Web.Models;
+using SpotifyAPI.Web.Models;
 
 namespace SongsAbout.Web.Controllers
 {
@@ -34,11 +35,39 @@ namespace SongsAbout.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.Saved = true;
             Artist artist = await db.Artists.FindAsync(id);
             if (artist == null)
             {
                 return HttpNotFound();
             }
+            return View(artist);
+        }
+
+        public async Task<ActionResult> Details(string name, SpotifyFullArtist spotifyArt)
+        {
+            if (name == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Artist artist = await db.Artists
+                .SingleOrDefaultAsync(a => a.Name == name);
+
+            var s = artist.Exists(db);
+
+            ViewBag.Saved = true;
+
+            if (artist == null)
+            {
+                ViewBag.Saved = false;
+
+                if (spotifyArt == null)
+                    return HttpNotFound();
+
+                artist = new Artist(spotifyArt);
+            }
+
             return View(artist);
         }
 

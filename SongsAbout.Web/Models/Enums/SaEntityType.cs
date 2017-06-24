@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpotifyAPI.Web.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,14 +14,17 @@ namespace SongsAbout.Web.Models
         Topic = 4,
         Genre = 8,
         Keyword = 16,
-        Any = Artist | Album | Track | Topic | Genre | Keyword
+        Playlist = 32,
+        Any = Artist | Album | Track | Topic | Genre | Keyword | Playlist
     }
+
     public static class SaEntityTypeEnumExtensions
     {
         public static bool HasFlag(this SaEntityType type, SaEntityType target)
         {
             return (type == SaEntityType.Any || (type & target) == target);
         }
+
         public static Type GetSystemType(this SaEntityType type)
         {
             switch (type)
@@ -65,6 +69,81 @@ namespace SongsAbout.Web.Models
                 types.Add(typeof(Genre));
 
             return types.ToArray();
+        }
+
+        public static SearchType GetSearchType(this SaEntityType type)
+        {
+            switch (type)
+            {
+                case SaEntityType.Artist:
+                    return SearchType.Artist;
+                case SaEntityType.Album:
+                    return SearchType.Album;
+                case SaEntityType.Track:
+                    return SearchType.Track;
+                case SaEntityType.Any:
+                    return SearchType.All;
+                default:
+                    return SearchType.All;
+            }
+        }
+        public static SaEntityType GetDbEntityType(this SpotifyEntityType type)
+        {
+            switch (type)
+            {
+                case SpotifyEntityType.Artist:
+                    return SaEntityType.Artist;
+
+                case SpotifyEntityType.BaseArtist:
+                    return SaEntityType.Artist;
+
+                case SpotifyEntityType.FullArtist:
+                    return SaEntityType.Artist;
+
+                case SpotifyEntityType.Album:
+                    return SaEntityType.Album;
+
+                case SpotifyEntityType.BaseAlbum:
+                    return SaEntityType.Album;
+
+                case SpotifyEntityType.FullAlbum:
+                    return SaEntityType.Album;
+
+                case SpotifyEntityType.SavedAlbum:
+                    return SaEntityType.Album;
+
+                case SpotifyEntityType.BaseTrack:
+                    return SaEntityType.Track;
+
+                case SpotifyEntityType.FullTrack:
+                    return SaEntityType.Track;
+
+                case SpotifyEntityType.SavedTrack:
+                    return SaEntityType.Track;
+
+                case SpotifyEntityType.BasePlaylist:
+                    return SaEntityType.Playlist;
+
+                case SpotifyEntityType.FullPlaylist:
+                    return SaEntityType.Playlist;
+
+                case SpotifyEntityType.Track:
+                    return SaEntityType.Track;
+
+                case SpotifyEntityType.Playlist:
+                    return SaEntityType.Playlist;
+
+                case SpotifyEntityType.PlaylistTrack:
+                    return SaEntityType.Track;
+
+                default:
+                    return SaEntityType.Any;
+            }
+        }
+
+        public static Type GetSystemType(this SpotifyEntityType type)
+        {
+            return GetSystemType(type.GetDbEntityType());
         }
     }
 

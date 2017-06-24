@@ -1,4 +1,5 @@
-﻿using SpotifyAPI.Web;
+﻿using SongsAbout.Web.Models;
+using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
@@ -25,8 +26,8 @@ namespace SongsAbout.Web.Controllers
         {
             if (!Spotify.Authenticated)
                 Spotify.Authenticate();
-            var tracks = Spotify.WebApi.GetPlaylistTracks("rawdeg", playlist.Id);
         }
+
         private StringBuilder WriteProfilePic(string name, SpotifyImage image, int i)
         {
             return new StringBuilder()
@@ -128,6 +129,19 @@ namespace SongsAbout.Web.Controllers
             var artists = Spotify.WebApi.GetUserPlaylistsAsync(Spotify.UserId);
             var items = await Spotify.CallDataForSeedingAsync();
             return View(items);
+        }
+
+        public async Task<ViewResult> Search(string q, SaEntityType type = SaEntityType.Any, int limit = 5, int offset = 0)
+        {
+            SearchItem results = await Spotify.SearchAsync(q, type, limit, offset);
+
+            return View(results);
+        }
+
+        public  PartialViewResult SpotifyArtistPartial(SpotifyFullArtist artist, EntityDisplayType type)
+        {
+            ViewBag.Type = type;            
+            return PartialView(artist);
         }
     }
 

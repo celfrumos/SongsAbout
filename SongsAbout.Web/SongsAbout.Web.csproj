@@ -201,6 +201,7 @@
     <Compile Include="Models\BTree.cs" />
     <Compile Include="Models\Entities\ISaDescription.cs" />
     <Compile Include="Models\Entities\ISaEntity.cs" />
+    <Compile Include="Models\Entities\SpotifyExtensions.cs" />
     <Compile Include="Models\EntityDbContext.cs" />
     <Compile Include="Models\EntityDbInitializer.cs" />
     <Compile Include="Models\Entities\Genre.cs" />
@@ -350,6 +351,8 @@
     <Content Include="Views\Artists\Edit.cshtml" />
     <Content Include="Views\Artists\Index.cshtml" />
     <Content Include="Views\Artists\ArtistRowPartial.cshtml" />
+    <Content Include="Views\Spotify\Search.cshtml" />
+    <Content Include="Views\Spotify\SpotifyArtistPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\SASS\" />

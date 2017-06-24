@@ -1,0 +1,24 @@
+﻿@using SongsAbout.Web.Models
+@model SpotifyAPI.Web.Models.SpotifyFullArtist
+
+@switch ((SongsAbout.Web.Models.EntityDisplayType)ViewBag.Type)
+{
+    case SongsAbout.Web.Models.EntityDisplayType.Spotlight:
+        <div class="artist-row square-image" id="@Model.Id">
+            <div class="artist-image">@Html.DisplayImage(Model.Images[0])</div>
+            <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
+        </div>
+        break;
+    case SongsAbout.Web.Models.EntityDisplayType.SearchResult:
+        <div class="artist-row square-image" id="@Model.Id">
+            <div class="artist-image">@Html.DisplayImage(Model.Images[0])</div>
+            <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
+        </div>
+        break;
+    case SongsAbout.Web.Models.EntityDisplayType.List:
+        break;
+    case SongsAbout.Web.Models.EntityDisplayType.Related:
+        break;
+    default:
+        break;
+}

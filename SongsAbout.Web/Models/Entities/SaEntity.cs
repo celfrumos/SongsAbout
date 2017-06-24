@@ -28,6 +28,7 @@ namespace SongsAbout.Web.Models
     {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
+
     }
 
     [Serializable]
@@ -35,6 +36,27 @@ namespace SongsAbout.Web.Models
     {
         [NotMapped]
         public abstract SaEntityType EntityType { get; }
+
+    }
+
+    public static class SaEntityGenericExtensions
+    {
+        public static bool Exists<T>(this T entity, EntityDbContext db = null, bool checkByIdInsteadOfName = false) where T : SaDbEntityAccessor
+        {
+            if (db == null)
+                db = new EntityDbContext();
+
+            return db.Set<T>()
+                .SingleOrDefault(a => a.Name == entity.Name) != null;
+        }
+
+        public static bool Exists<T>(this T entity, EntityDbContext db = null, Func<EntityDbContext, SaDbEntityAccessor, bool> expression) where T : SaDbEntityAccessor
+        {
+            if (db == null)
+                db = new EntityDbContext();
+
+            return expression(db, entity);
+        }
     }
 
     public abstract class SaSpotifyAccessEntity : SaEntity, ISpotifyAccessor
@@ -132,7 +154,7 @@ namespace SongsAbout.Web.Models
             return MvcHtmlString.Create(builder.ToString());
         }
 
-   
+
 
         public static MvcHtmlString RenderRawLink(this HtmlHelper helper, string url, string text, object htmlAttributes = null)
         {

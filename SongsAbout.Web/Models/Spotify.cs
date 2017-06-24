@@ -144,7 +144,7 @@ namespace SongsAbout.Web
 
         #endregion
 
-
+        #region Retrieval
         /// <summary>
         /// Returns a list of User's saved tracks
         /// </summary>
@@ -216,6 +216,17 @@ namespace SongsAbout.Web
             }
             return tracks;
         }
+
+        public static SearchItem Search(string q, SaEntityType type = SaEntityType.Any, int limit = 5, int offset = 0)
+        {
+            return Spotify.WebApi.SearchItems(q, type.GetSearchType(), limit, offset);
+        }
+
+        public async static Task<SearchItem> SearchAsync(string q, SaEntityType type = SaEntityType.Any, int limit = 5, int offset = 0)
+        {
+            return await Spotify.WebApi.SearchItemsAsync(q, type.GetSearchType(), limit, offset);
+        }
+        #endregion
 
         #region Serialization
         public static JsonSerializer JsonSerializer { get; set; } = new JsonSerializer();

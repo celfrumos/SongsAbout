@@ -115,6 +115,10 @@ namespace SongsAbout.Web.Models
                 throw new EntityInitializationException<Artist>(ex, this);
             }
         }
+
+     
+
+
         #endregion
 
         #region Constructors
@@ -133,4 +137,5 @@ namespace SongsAbout.Web.Models
         }
         #endregion
     }
+
 }
