@@ -19,6 +19,12 @@ namespace SongsAbout.Web.Controllers
         // GET: Spotify
         public ActionResult Index()
         {
+            Spotify.Authenticate();
+            var tracks = Spotify.WebApi.GetUsersTopTracks(TimeRangeType.LongTerm);
+            var artists = Spotify.WebApi.GetUsersTopArtists(TimeRangeType.LongTerm, 6);
+            var playlists = Spotify.WebApi.GetUserPlaylists(Spotify.UserId, 6);
+            (Paging<SpotifyFullTrack> Tracks, Paging<SpotifyFullArtist> Artists, Paging<SpotifyPlaylist> Playlists) results = (tracks, artists, playlists);
+            ViewBag.Items = results;
             return View();
         }
 
@@ -138,10 +144,14 @@ namespace SongsAbout.Web.Controllers
             return View(results);
         }
 
-        public  PartialViewResult SpotifyArtistPartial(SpotifyFullArtist artist, EntityDisplayType type)
+        public PartialViewResult SpotifyArtistPartial(SpotifyFullArtist artist)
         {
-            ViewBag.Type = type;            
+            //  ViewBag.EntityDisplayType = type;
             return PartialView(artist);
+        }
+        public PartialViewResult SpotifyTrackPartial(SpotifyFullTrack track)
+        {
+            return PartialView(track);
         }
     }
 

@@ -1,0 +1,31 @@
+﻿@using SpotifyAPI.Web.Models;
+@using System.Runtime.CompilerServices;
+@using System.Runtime;
+@using SongsAbout.Web.Models;
+@using SongsAbout.Web.Controllers;
+
+
+@{
+    (Paging<SpotifyFullTrack> Tracks, Paging<SpotifyFullArtist> Artists, Paging<SpotifyPlaylist> Playlists) lists = ViewBag.Items;
+    ViewBag.EntityDisplayType = SongsAbout.Web.Models.EntityDisplayType.SearchResult;
+}
+<h2>Spotify Search</h2>
+
+<div id="spotify-playlists" class="row row-fluid">
+
+</div>
+
+<div id="spotify-artists" class="row row-fluid">
+    @foreach (var art in lists.Artists.Items)
+    {
+        <div class="col-md-4">
+
+            @Html.Partial("SpotifyArtistPartial", art);
+
+        </div>
+    }
+</div>
+
+<div id="top-tracks" class="row row-fluid">
+
+</div>

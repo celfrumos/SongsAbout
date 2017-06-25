@@ -54,8 +54,6 @@ namespace SongsAbout.Web.Controllers
             Artist artist = await db.Artists
                 .SingleOrDefaultAsync(a => a.Name == name);
 
-            var s = artist.Exists(db);
-
             ViewBag.Saved = true;
 
             if (artist == null)
@@ -67,7 +65,7 @@ namespace SongsAbout.Web.Controllers
 
                 artist = new Artist(spotifyArt);
             }
-
+            
             return View(artist);
         }
 

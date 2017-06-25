@@ -37,8 +37,16 @@ textarea {
     max-width: 700px;
     max-height: 700px;
 }
+
 .search-item {
     text-align: center;
     margin: 10px;
 }
-.search-
+
+.row-fluid {
+    white-space: nowrap;
+}
+
+    .row-fluid .col-lg-3 {
+        display: inline-block;
+    }

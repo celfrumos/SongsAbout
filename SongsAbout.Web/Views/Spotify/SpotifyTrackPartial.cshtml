@@ -1,0 +1,30 @@
+﻿@using SpotifyAPI.Web.Models;
+@model SpotifyAPI.Web.Models.SpotifyFullTrack
+
+@switch ((SongsAbout.Web.Models.EntityDisplayType)ViewBag.EntityDisplayType)
+{
+    case SongsAbout.Web.Models.EntityDisplayType.Spotlight:
+        break;
+    case SongsAbout.Web.Models.EntityDisplayType.SearchResult:
+        <tr class="track row">
+            <td class="col-md-2">
+                @Model.Name
+            </td>
+            <td class="col-md-2">
+                @Model.Artists[0]?.Name
+            </td>
+            <td class="col-md-2">
+                @(Model.Album?.Name)
+            </td>
+            <td class="col-md-2">
+                @(Model.)
+            </td>
+        </tr>
+        break;
+    case SongsAbout.Web.Models.EntityDisplayType.List:
+        break;
+    case SongsAbout.Web.Models.EntityDisplayType.Related:
+        break;
+    default:
+        break;
+}

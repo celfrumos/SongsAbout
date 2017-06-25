@@ -1,17 +1,24 @@
-﻿@using SongsAbout.Web.Models
+﻿@using SongsAbout.Web.Models;
+@using SpotifyAPI.Web.Models;
 @model SpotifyAPI.Web.Models.SpotifyFullArtist
+@{
 
-@switch ((SongsAbout.Web.Models.EntityDisplayType)ViewBag.Type)
+    SpotifyImage image =
+        Model.Images.FirstOrDefault(a => a.Height == 160 || a.Height == 200)
+        ?? Model.Images.OrderBy(i => i.Height).FirstOrDefault();
+}
+
+@switch ((SongsAbout.Web.Models.EntityDisplayType)ViewBag.EntityDisplayType)
 {
     case SongsAbout.Web.Models.EntityDisplayType.Spotlight:
-        <div class="artist-row square-image" id="@Model.Id">
+        <div class="artist-box square-image" id="@Model.Id">
             <div class="artist-image">@Html.DisplayImage(Model.Images[0])</div>
             <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
         </div>
         break;
     case SongsAbout.Web.Models.EntityDisplayType.SearchResult:
-        <div class="artist-row square-image" id="@Model.Id">
-            <div class="artist-image">@Html.DisplayImage(Model.Images[0])</div>
+        <div class="col-md-3 artist-box square-image" id="@Model.Id">
+            <div class="artist-image">@Html.DisplayImage(image)</div>
             <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
         </div>
         break;
