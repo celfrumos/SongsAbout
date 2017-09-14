@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SpotifyAPI.Web.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Web.Mvc;
+using System.Diagnostics;
 
 namespace SongsAbout.Web.Models
 {
@@ -26,6 +22,7 @@ namespace SongsAbout.Web.Models
     }
 
     [Serializable]
+    [DebuggerDisplay("Name={Name}, Id={Id}")]
     public abstract class SaDbEntityAccessor : ISaDbEntityAccessor
     {
         public virtual int Id { get; set; }
@@ -39,64 +36,6 @@ namespace SongsAbout.Web.Models
         [NotMapped]
         public abstract SaEntityType EntityType { get; }
 
-    }
-
-    public static class SaEntityGenericExtensions
-    {
-        /// <summary>
-        /// Verify if an entity exists in the database, based on the given values
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="db">The Existing <see cref="EntityDbContext"/> to use. If null, a new one is created</param>
-        /// <param name="columnNames">The names of the columns from which to check</param>
-        /// <returns></returns>
-        public static bool Exists<T>(this T entity, EntityDbContext db = null, params string[] columnNames) where T : SaDbEntityAccessor
-        {
-            if (db == null)
-                db = new EntityDbContext();
-
-            if (columnNames == null)
-                return db.Set<T>().Count(a => a.Name == entity.Name)>0;
-
-
-            var matchingProps
-                = typeof(T)
-                .GetProperties(BindingFlags.GetProperty)
-                .Where(p => columnNames.Contains(p.Name));
-
-            Dictionary<string, object> values
-                = matchingProps
-                .ToDictionary(p => p.Name, p => p.GetValue(entity));
-
-            return db.Set<T>().Where(a => matchingProps.ToDictionary(p => p.Name, p => p.GetValue(a)).Equals(values)).Count() > 0;
-        }
-        /// <summary>
-        /// Verify if an entity exists in the database, based on the given values
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="db">The Existing <see cref="EntityDbContext"/> to use. If null, a new one is created</param>
-        /// <param name="columnNames">The names of the columns from which to check</param>
-        /// <returns></returns>
-        public async static System.Threading.Tasks.Task<bool> ExistsAsync<T>(this T entity, EntityDbContext db = null, params string[] columnNames ) where T : SaDbEntityAccessor
-        {
-            if (db == null)
-                db = new EntityDbContext();
-
-            if (columnNames == null)
-                return await db.Set<T>().CountAsync(a => a.Name == entity.Name) > 0;
-
-
-            var matchingProps
-                = typeof(T)
-                .GetProperties(BindingFlags.GetProperty)
-                .Where(p => columnNames.Contains(p.Name));
-
-            Dictionary<string, object> values
-                = matchingProps
-                .ToDictionary(p => p.Name, p => p.GetValue(entity));
-
-            return await db.Set<T>().CountAsync(a => matchingProps.ToDictionary(p => p.Name, p => p.GetValue(a)).Equals(values)) > 0;
-        }
     }
 
     public abstract class SaSpotifyAccessEntity : SaEntity, ISpotifyAccessor
@@ -115,7 +54,6 @@ namespace SongsAbout.Web.Models
 
             }
         }
-
 
         [NotMapped]
         [Display(Name = "Spotify URI")]
@@ -143,229 +81,5 @@ namespace SongsAbout.Web.Models
             }
         }
 
-    }
-    public abstract class SaDescriptor : SaEntity, ISaDescriptor
-    {
-        public virtual bool Describes(ISaIntegralEntity entity)
-        {
-            return entity.DescribedBy(this.Name);
-        }
-        public List<Artist> Artists { get; set; }
-        public List<Album> Albums { get; set; }
-        public List<Track> Tracks { get; set; }
-    }
-
-    public abstract class SaIntegralEntity : SaSpotifyAccessEntity, ISaIntegralEntity
-    {
-        [Display(GroupName = "Descriptors")]
-        public List<Genre> Genres { get; set; }
-
-        [Display(GroupName = "Descriptors")]
-        public List<Topic> Topics { get; set; }
-
-        [Display(Name = "Album Keywords", GroupName = "Descriptors")]
-        public List<Keyword> Keywords { get; set; }
-
-        /// <summary>
-        /// Signifies whether or not any of the descriptors of this <see cref="SaIntegralEntity"/> contain the designated <paramref name="term"/>
-        /// </summary>
-        /// <param name="term">The term to search for</param>
-        /// <returns></returns>
-        public virtual bool DescribedBy(string term)
-        {
-            return
-                  this.Genres.Any(g => g.Name.ToLower().Contains(term.ToLower()))
-                  || this.Topics.Any(g => g.Name.ToLower().Contains(term.ToLower()))
-                  || this.Keywords.Any(g => g.Name.ToLower().Contains(term.ToLower()));
-        }
-    }
-    public static class HtmlButtonExtension
-    {
-        public static MvcHtmlString Button(this HtmlHelper helper, string innerHtml, object htmlAttributes)
-        {
-            return Button(helper, innerHtml, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
-        }
-
-        public static MvcHtmlString Button(this HtmlHelper helper, string innerHtml, IDictionary<string, object> htmlAttributes)
-        {
-            var builder = new TagBuilder("button");
-            builder.InnerHtml = innerHtml;
-            builder.MergeAttributes(htmlAttributes);
-            return MvcHtmlString.Create(builder.ToString());
-        }
-
-
-
-        public static MvcHtmlString RenderRawLink(this HtmlHelper helper, string url, string text, object htmlAttributes = null)
-        {
-            var a = new TagBuilder("a");
-
-            a.MergeAttribute("href", url);
-            a.SetInnerText(text);
-            if (htmlAttributes != null)
-            {
-                a.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
-            }
-
-            return MvcHtmlString.Create(a.ToString());
-        }
-
-
-        public static MvcHtmlString DisplayTrackRow(this HtmlHelper helper, Track track)
-        {
-            if (track == null)
-                return null;
-
-            StringBuilder builder = new StringBuilder();
-
-            LoadAllRelated(ref track, new EntityDbContext());
-
-            builder.Append("<tr class=\"trackrow\">")
-                .Append("<td>")
-                    .Append(track?.Name)
-                .Append("</td>")
-                .Append("<td>")
-                    .Append(track.Artist?.Name)
-                .Append("</td>")
-                .Append("<td>")
-                    .Append("")
-                .Append("</td>")
-                .Append("<td>")
-                    .Append(track?.LengthMinutes)
-                .Append("</td>")
-                .Append("<td>")
-                    .Append(helper.RenderRawLink(track?.SpotifyWebPage, "View in Spotify", new { @class = "spotify-href" }))
-                .Append("</td>")
-            .Append("</tr");
-
-            return MvcHtmlString.Create(builder.ToString());
-        }
-        public static MvcHtmlString DisplaySearchResult<T>(this HtmlHelper helper, T entity, object htmlAttributes = null) where T : ISaEntity
-        {
-            var name = new TagBuilder("div");
-            var img = new TagBuilder("div");
-            var link = new TagBuilder("a");
-
-
-
-            MvcHtmlString imgHtml = null;
-
-            string
-                itemClass = "",
-                itemId = "";
-
-            switch (entity.EntityType)
-            {
-                case SaEntityType.Artist:
-                    var artist = entity as Artist;
-                    itemClass = "artist";
-                    imgHtml = helper.DisplayImage(artist.ProfilePic, false, null, itemClass, "img-mid");
-
-                    break;
-                case SaEntityType.Album:
-
-                    var album = entity as Album;
-                    itemClass = "album";
-                    imgHtml = helper.DisplayImage(album.AlbumCover, false, null, itemClass, "img-mid");
-
-                    break;
-                case SaEntityType.Track:
-                    var track = entity as Track;
-                    itemClass = "track";
-
-                    break;
-                case SaEntityType.Topic:
-                    break;
-                case SaEntityType.Genre:
-                    break;
-                case SaEntityType.Keyword:
-                    break;
-            }
-
-            name.AddCssClass("search-name");
-            name.SetInnerText(entity.Name);
-
-            img.AddCssClass("search-image-container");
-            img.InnerHtml = imgHtml?.ToHtmlString();
-
-            itemId = $"{itemClass}-{entity.Id}";
-
-            var colClass = "col-md-4";
-
-            var list_items = img?.ToString() + name.ToString();
-
-
-            return MvcHtmlString.Create($"<div id=\"{itemId}\" class=\"search-item {colClass} {itemClass}\"><a href=\"{itemClass}s/Details/{entity.Id}\">{list_items}</a></div>");
-        }
-
-
-        public static void LoadAllRelated<T>(ref T entity, EntityDbContext db) where T : class, ISaIntegralEntity
-        {
-            return;
-            var dbEntry = db.Entry<T>(entity);
-
-            var keywords = dbEntry.Collection(a => a.Keywords);
-            var genres = dbEntry.Collection(a => a.Genres);
-            var topics = dbEntry.Collection(a => a.Topics);
-            var set = db.Set<T>();
-            if (keywords.CurrentValue?.Count > 0)
-            {
-                entity.Keywords.ForEach(k => db.Keywords.Attach(k));
-                keywords.Load();
-            }
-            if (genres.CurrentValue?.Count > 0)
-            {
-                entity.Genres.ForEach(g => db.Genres.Attach(g));
-                genres.Load();
-            }
-            if (topics.CurrentValue?.Count > 0)
-            {
-                entity.Topics.ForEach(t => db.Topics.Attach(t));
-                topics.Load();
-            }
-
-            var type = entity.EntityType;
-            if (type == SaEntityType.Artist)
-            {
-                var ar = entity as Artist;
-
-                var artist = db.Entry(ar);
-
-                artist.Reference(a => a.ProfilePic);
-
-                ar.Albums.ForEach(al => db.Albums.Attach(al));
-                if (ar.Albums.Count > 0)
-                    artist.Collection(a => a.Albums).Load();
-
-                //ar.Tracks.ForEach(t => db.Tracks?.Attach(t));
-                //if (ar.Tracks.Count > 0)
-
-                //    artist.Collection(a => a.Tracks).Load();
-
-            }
-            else if (type == SaEntityType.Album)
-            {
-                var al = entity as Album;
-                var album = db.Entry(al);
-
-                album.Reference(a => a.AlbumCover).Load();
-                album.Reference(a => a.Artist).Load();
-
-                al.Tracks.ForEach(t => db.Tracks?.Attach(t));
-                if (al.Tracks.Count > 0)
-                    album.Collection(a => a.Tracks).Load();
-                album.Collection(a => a.Artists).Load();
-            }
-            else if (type == SaEntityType.Track)
-            {
-                var tr = entity as Track;
-                var track = db.Entry(tr);
-
-                // track.Collection(t => t.FeaturedArtists).Load();
-                track.Reference(t => t.Artist).Load();
-                track.Reference(t => t.Album).Load();
-
-            }
-        }
     }
 }

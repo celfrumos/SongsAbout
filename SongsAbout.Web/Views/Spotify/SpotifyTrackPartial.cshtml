@@ -1,4 +1,5 @@
 ﻿@using SpotifyAPI.Web.Models;
+@using SongsAbout.Web.Models;
 @model SpotifyAPI.Web.Models.SpotifyFullTrack
 
 @switch ((SongsAbout.Web.Models.EntityDisplayType)ViewBag.EntityDisplayType)
@@ -11,13 +12,16 @@
                 @Model.Name
             </td>
             <td class="col-md-2">
-                @Model.Artists[0]?.Name
+                @(Model.Artists[0]?.Name)
             </td>
             <td class="col-md-2">
                 @(Model.Album?.Name)
             </td>
             <td class="col-md-2">
-                @(Model.)
+                @if (!Model.IsSavedLocally<Track>())
+                {
+                    @Html.Button("Save", "Tracks", "Details", new { id = 1 }, new { @class = "button btn btn-lg" })
+                }
             </td>
         </tr>
         break;

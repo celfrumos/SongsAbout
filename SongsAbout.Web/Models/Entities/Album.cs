@@ -113,9 +113,9 @@ namespace SongsAbout.Web.Models
                 this.SpotifyId = album?.Id ?? "";
                 this.Topics = new List<Topic>();
                 this.Tracks = new List<Track>();
-                this.AlbumCover = album.Images.Count > 0 ? album.Images[0] : null;
+                this.AlbumCover = album?.Images.Count > 0 ? album.Images[0] : null;
 
-                if (db != null && album.Artists.Count > 0)
+                if (db != null && album?.Artists?.Count > 0)
                 {
                     this.Artist = db.Get<Artist>(album.Artists[0].Name);
 

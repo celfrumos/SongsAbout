@@ -198,8 +198,12 @@
     <Compile Include="Models\Entities\Artist.cs" />
     <Compile Include="Models\AutoCompleteResult.cs" />
     <Compile Include="Models\BTree.cs" />
+    <Compile Include="Models\Entities\HtmlButtonExtension.cs" />
     <Compile Include="Models\Entities\ISaDescription.cs" />
     <Compile Include="Models\Entities\ISaEntity.cs" />
+    <Compile Include="Models\Entities\SaDescriptor.cs" />
+    <Compile Include="Models\Entities\SaEntityGenericExtensions.cs" />
+    <Compile Include="Models\Entities\SaIntegralEntity.cs" />
     <Compile Include="Models\Entities\SpotifyExtensions.cs" />
     <Compile Include="Models\EntityDbContext.cs" />
     <Compile Include="Models\EntityDbInitializer.cs" />
@@ -213,6 +217,7 @@
     <Compile Include="Models\Entities\Picture.cs" />
     <Compile Include="Models\Entities\SaEntity.cs" />
     <Compile Include="Models\Enums\SaEntityType.cs" />
+    <Compile Include="Models\SA.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\Spotify.cs" />
     <Compile Include="Models\Entities\Topic.cs" />

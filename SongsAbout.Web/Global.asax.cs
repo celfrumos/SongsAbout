@@ -33,7 +33,7 @@ namespace SongsAbout.Web
     {
         public static void WriteException(Exception ex, bool writeInner = true, StreamWriter outstream = null)
         {
-            bool writeToConsole = (outstream != null);
+            bool writeToConsole = (outstream == null);
 
             if (writeInner)
             {

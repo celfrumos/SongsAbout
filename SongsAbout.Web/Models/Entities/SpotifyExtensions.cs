@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SongsAbout.Web.Models;
+using System.Threading.Tasks;
 
 namespace SongsAbout.Web.Models
 {
@@ -34,7 +35,7 @@ namespace SongsAbout.Web.Models
             return dbEntity != null;
         }
 
-        private static TLocalType GetLocalVersion<TLocalType>(this ISpotifyEntity entity, EntityDbContext db) where TLocalType : class, ISaDbEntityAccessor
+        public static TLocalType GetLocalVersion<TLocalType>(this ISpotifyEntity entity, EntityDbContext db) where TLocalType : class, ISaDbEntityAccessor
         {
             if (entity is null || db is null)
                 return null;
@@ -43,6 +44,22 @@ namespace SongsAbout.Web.Models
                 .SingleOrDefault(a => a.Name == entity.Name);
 
         }
+        public static bool IsSavedLocally<TLocal>(this ISpotifyEntity entity, EntityDbContext db = null)
+            where TLocal : SaDbEntityAccessor, new()
+        {
 
+            var localEntity = (TLocal)typeof(TLocal).GetConstructor(new Type[] { }).Invoke(null);
+
+            localEntity.Name = entity.Name;
+            return localEntity.Exists(db);
+        }
+
+        public async static Task<bool> IsSavedLocallyAsync<TLocal>(this ISpotifyEntity entity, EntityDbContext db = null)
+           where TLocal : SaDbEntityAccessor, new()
+        {
+            var localEntity = default(TLocal);
+            localEntity.Name = entity.Name;
+            return await localEntity.ExistsAsync(db);
+        }
     }
 }

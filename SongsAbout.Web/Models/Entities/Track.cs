@@ -376,7 +376,7 @@ namespace SongsAbout.Web.Models
             this.Id = default(int);
             this.Name = "";
 
-            SetAudioFeatures(features);
+           // SetAudioFeatures(features);
         }
         private void Initialize(SpotifyFullTrack track)
         {

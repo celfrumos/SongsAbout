@@ -12,7 +12,7 @@
 {
     case SongsAbout.Web.Models.EntityDisplayType.Spotlight:
         <div class="artist-box square-image" id="@Model.Id">
-            <div class="artist-image">@Html.DisplayImage(Model.Images[0])</div>
+            <div class="artist-image">@Html.DisplayImage(Model.Images[0], htmlAttributes: new { height = 160, width = 160 })</div>
             <div class="artist-name">@Html.DisplayFor(model => Model.Name)</div>
         </div>
         break;

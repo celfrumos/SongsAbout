@@ -27,5 +27,10 @@
 </div>
 
 <div id="top-tracks" class="row row-fluid">
-
+    <table>
+        @foreach (var item in lists.Tracks.Items)
+        {
+            @Html.Partial("SpotifyTrackPartial", item)
+        }
+    </table>
 </div>
